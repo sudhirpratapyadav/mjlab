@@ -40,8 +40,8 @@ def get_mocap_target_spec() -> mujoco.MjSpec:
         mocap_target.pos = [0, 0, 0]
         mocap_target.add_geom(
             name="mocap_target_geom",
-            type=mujoco.mjtGeom.mjGEOM_CYLINDER,
-            size=[0.03, 0.005],
+            type=mujoco.mjtGeom.mjGEOM_BOX,
+            size=[0.03, 0.03, 0.005],  # Matches button handle size
             rgba=[1, 0.5, 0, 1],
             contype=0,
             conaffinity=0,
@@ -54,9 +54,10 @@ def get_mocap_target_spec() -> mujoco.MjSpec:
 # Initial state.
 ##
 
-# Button starts at 0.25 (fully extended/unpressed)
+# Button starts at 0.0 (fully extended/unpressed)
+# Joint range is -0.05 to 0.0, where 0.0 is unpressed and -0.05 is fully pressed
 BUTTON_INIT_STATE = EntityCfg.InitialStateCfg(
-    joint_pos={"button_slide": 0.25},  # Fully extended
+    joint_pos={"button_slide": 0.0},  # Fully extended (unpressed)
     joint_vel={".*": 0.0},
 )
 

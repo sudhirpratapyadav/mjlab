@@ -563,15 +563,15 @@ class PushButtonCommand(CommandTerm):
     self.reached_box[env_ids] = 0.0
 
     # Set target distance based on difficulty
+    # Joint range is -0.05 to 0.0, where 0.0 is unpressed and -0.05 is fully pressed
     if self.cfg.difficulty == "fixed":
-      self.target_distance[env_ids] = 0.0  # 0.0m (fully pressed)
+      self.target_distance[env_ids] = -0.05  # -0.05m (fully pressed)
     else:
-      # Dynamic: random distance between 0.0 and 0.1
-      target = sample_uniform(0.0, 0.1, (n,), device=self.device)
+      # Dynamic: random distance between -0.05 (fully pressed) and -0.02 (partially pressed)
+      target = sample_uniform(-0.05, -0.02, (n,), device=self.device)
       self.target_distance[env_ids] = target
 
-    # Set button slide to initial position (can be randomized)
-    # For now using 0.0, adjust based on your needs
+    # Set button slide to initial position (unpressed)
     joint_pos = torch.full((n, 1), 0.0, device=self.device)
     joint_vel = torch.zeros(n, 1, device=self.device)
 
