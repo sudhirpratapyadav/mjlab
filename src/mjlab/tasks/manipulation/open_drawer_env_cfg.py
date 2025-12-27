@@ -27,14 +27,14 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
 
   policy_terms = {
     # Robot state (9 + 9 = 18 dims)
-    "joint_pos": ObservationTermCfg(
+    "robot_joint_pos": ObservationTermCfg(
       func=mdp.joint_pos_rel,
       params={
         "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "joint_vel": ObservationTermCfg(
+    "robot_joint_vel": ObservationTermCfg(
       func=mdp.joint_vel_rel,
       params={
         "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
@@ -42,14 +42,14 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
       noise=Unoise(n_min=-1.5, n_max=1.5),
     ),
     # Handle state (3 + 4 = 7 dims)
-    "handle_pos": ObservationTermCfg(
-      func=manipulation_mdp.handle_geom_position,
-      params={"asset_name": "drawer"},
+    "object_pos": ObservationTermCfg(
+      func=manipulation_mdp.object_position,
+      params={"object_asset_name": "drawer"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "handle_quat": ObservationTermCfg(
-      func=manipulation_mdp.handle_body_quaternion,
-      params={"asset_name": "drawer"},
+    "object_quat": ObservationTermCfg(
+      func=manipulation_mdp.object_quaternion,
+      params={"object_asset_name": "drawer"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Gripper state (3 + 6 = 9 dims)
@@ -57,45 +57,47 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
     "gripper_pos": ObservationTermCfg(
       func=manipulation_mdp.gripper_position,
       params={
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     "gripper_orientation": ObservationTermCfg(
       func=manipulation_mdp.gripper_orientation,
       params={
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Handle body orientation (6 dims)
-    "handle_body_orientation": ObservationTermCfg(
-      func=manipulation_mdp.handle_body_orientation,
-      params={"asset_name": "drawer"},
+    "object_orientation": ObservationTermCfg(
+      func=manipulation_mdp.object_orientation,
+      params={"object_asset_name": "drawer"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Relative vectors (3 + 3 = 6 dims)
     # Note: site_names set per-robot in Franka config
-    "gripper_to_handle": ObservationTermCfg(
-      func=manipulation_mdp.gripper_to_handle_vector,
+    "gripper_to_object": ObservationTermCfg(
+      func=manipulation_mdp.gripper_to_object_vector,
       params={
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),
-        "articulated_asset_name": "drawer",
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),
+        "object_asset_name": "drawer",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "target_to_handle": ObservationTermCfg(
-      func=manipulation_mdp.target_to_handle_vector,
+    "object_to_goal": ObservationTermCfg(
+      func=manipulation_mdp.object_to_goal_vector,
       params={
         "command_name": "open_drawer",
+        "object_asset_name": "drawer",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Target orientation difference (6 dims)
-    "target_orientation_diff": ObservationTermCfg(
-      func=manipulation_mdp.target_orientation_diff,
+    "goal_orientation_diff": ObservationTermCfg(
+      func=manipulation_mdp.goal_orientation_diff,
       params={
         "command_name": "open_drawer",
+        "object_asset_name": "drawer",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
@@ -103,7 +105,7 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
     "control_qpos_diff": ObservationTermCfg(
       func=manipulation_mdp.control_qpos_difference,
       params={
-        "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+        "robot_asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
@@ -118,7 +120,7 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   actions: dict[str, ActionTermCfg] = {
-    "joint_pos": JointDeltaPositionActionCfg(
+    "robot_joint_pos": JointDeltaPositionActionCfg(
       asset_name="robot",
       actuator_names=(".*",),
       scale=0.04,  # Matches mujoco_playground action_scale
@@ -252,26 +254,27 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
   )
 
   rewards = {
-    # Gripper goes to handle
-    "gripper_to_handle": RewardTermCfg(
-      func=manipulation_mdp.gripper_to_handle_reward,
+    # Phase 1: Reach object
+    "reach_object": RewardTermCfg(
+      func=manipulation_mdp.reach_object_reward,
       weight=4.0,
       params={
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot.
-        "articulated_asset_name": "drawer",
+        "object_asset_name": "drawer",
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
-    # Handle goes to target
-    "handle_to_target": RewardTermCfg(
-      func=manipulation_mdp.handle_to_target_reward,
+    # Phase 2: Move object to goal
+    "move_object_to_goal": RewardTermCfg(
+      func=manipulation_mdp.move_object_to_goal_reward,
       weight=8.0,
       params={
         "command_name": "open_drawer",
+        "object_asset_name": "drawer",
       },
     ),
     # No collision with drawer body
-    "no_drawer_collision": RewardTermCfg(
-      func=manipulation_mdp.no_door_body_collision_reward,
+    "no_object_collision": RewardTermCfg(
+      func=manipulation_mdp.no_object_body_collision_reward,
       weight=0.25,
       params={"sensor_name": "ee_drawer_collision"},
     ),

@@ -12,6 +12,7 @@ from mjlab.managers.manager_term_config import CommandTermCfg
 from mjlab.managers.scene_entity_config import SceneEntityCfg
 from mjlab.utils.lab_api.math import (
   quat_from_euler_xyz,
+  random_orientation,
   sample_uniform,
 )
 
@@ -27,13 +28,24 @@ class LiftingCommand(CommandTerm):
     super().__init__(cfg, env)
 
     self.object: Entity = env.scene[cfg.asset_name]
+    self.robot: Entity = env.scene[cfg.robot_asset_cfg.name]
+    self.robot_cfg = cfg.robot_asset_cfg
     self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
 
-    self.metrics["object_height"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["position_error"] = torch.zeros(self.num_envs, device=self.device)
+    # Mocap goal for visualization (used by goal_orientation_diff observation)
+    self.mocap_goal: Entity = env.scene["mocap_goal"]
+
+    # Common metrics (all tasks)
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["reached_object"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["gripper_object_distance"] = torch.zeros(self.num_envs, device=self.device)
+
+    # Task-specific metrics
+    self.metrics["cube_height"] = torch.zeros(self.num_envs, device=self.device)
 
   @property
   def command(self) -> torch.Tensor:
@@ -42,26 +54,38 @@ class LiftingCommand(CommandTerm):
   def _update_metrics(self) -> None:
     object_pos_w = self.object.data.root_link_pos_w
     object_height = object_pos_w[:, 2]
-    position_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
-    at_goal = (position_error < self.cfg.success_threshold).float()
+    goal_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
+    at_goal = (goal_error < self.cfg.success_threshold).float()
 
-    # Latch episode_success to 1 once goal is reached.
+    # Latch episode_success to 1 once goal is reached
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
-    self.metrics["object_height"] = object_height
-    self.metrics["position_error"] = position_error
+    # Update reached_object state (latch when gripper is close to object)
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
+    currently_reached = (gripper_object_distance < 0.10).float()  # 10 cm threshold
+    self.reached_object = torch.maximum(self.reached_object, currently_reached)
+
+    # Common metrics
+    self.metrics["goal_error"] = goal_error
     self.metrics["at_goal"] = at_goal
     self.metrics["episode_success"] = self.episode_success
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+
+    # Task-specific metrics
+    self.metrics["cube_height"] = object_height
 
   def compute_success(self) -> torch.Tensor:
-    position_error = self.metrics["position_error"]
-    return position_error < self.cfg.success_threshold
+    goal_error = self.metrics["goal_error"]
+    return goal_error < self.cfg.success_threshold
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
 
-    # Reset episode success for resampled envs.
+    # Reset episode success and reached_object for resampled envs
     self.episode_success[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
 
     # Set target position based on difficulty mode.
     if self.cfg.difficulty == "fixed":
@@ -99,6 +123,16 @@ class LiftingCommand(CommandTerm):
       self.object.write_root_link_pose_to_sim(pose, env_ids=env_ids)
       self.object.write_root_link_velocity_to_sim(velocity, env_ids=env_ids)
 
+    # Update mocap_goal visualization (for goal_orientation_diff observation)
+    # Randomize both position AND orientation for the goal
+    mocap_pos = self.target_pos[env_ids].clone()
+
+    # Randomize goal orientation (sample random quaternion)
+    target_quats = random_orientation(n, device=self.device)
+
+    mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
+    self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+
   def _update_command(self) -> None:
     pass
 
@@ -117,6 +151,7 @@ class LiftingCommand(CommandTerm):
 @dataclass(kw_only=True)
 class LiftingCommandCfg(CommandTermCfg):
   asset_name: str
+  robot_asset_cfg: SceneEntityCfg = field(default_factory=lambda: SceneEntityCfg("robot", site_names=()))
   class_type: type[CommandTerm] = LiftingCommand
   success_threshold: float = 0.05
   difficulty: Literal["fixed", "dynamic"] = "fixed"
@@ -174,17 +209,20 @@ class OpenDoorCommand(CommandTerm):
     self.target_angle = torch.zeros(self.num_envs, device=self.device)
     self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
-    self.reached_box = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
 
-    # Get mocap target entity for visualization and orientation tracking
-    self.mocap_target: Entity = env.scene["mocap_target"]
+    # Get mocap goal entity for visualization and orientation tracking
+    self.mocap_goal: Entity = env.scene["mocap_goal"]
 
-    self.metrics["door_angle"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["angle_error"] = torch.zeros(self.num_envs, device=self.device)
+    # Common metrics (all tasks)
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["reached_handle"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["gripper_to_handle_distance"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["reached_object"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["gripper_object_distance"] = torch.zeros(self.num_envs, device=self.device)
+
+    # Task-specific metrics
+    self.metrics["door_angle"] = torch.zeros(self.num_envs, device=self.device)
 
     # Find door hinge joint index
     joint_names = self.door.joint_names
@@ -205,34 +243,37 @@ class OpenDoorCommand(CommandTerm):
     # Latch success
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
-    # Update reached_box state (latch when gripper is close to handle)
-    # Get handle and gripper positions (same approach as reward function)
-    handle_site_idx = self.door.site_names.index("handle_site")
-    handle_pos_w = self.door.data.site_pos_w[:, handle_site_idx]
-    ee_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    # Update reached_object state (latch when gripper is close to object)
+    # Get object and gripper positions
+    object_site_idx = self.door.site_names.index("object_site") if "object_site" in self.door.site_names else self.door.site_names.index("handle_site")
+    object_pos_w = self.door.data.site_pos_w[:, object_site_idx]
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
 
     # Compute distance
-    gripper_handle_distance = torch.norm(handle_pos_w - ee_pos_w, dim=-1)
-    currently_reached = (gripper_handle_distance < 0.10).float()  # 10 cm threshold
-    self.reached_box = torch.maximum(self.reached_box, currently_reached)
+    gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
+    currently_reached = (gripper_object_distance < 0.10).float()  # 10 cm threshold
+    self.reached_object = torch.maximum(self.reached_object, currently_reached)
 
-    self.metrics["door_angle"] = door_angle
-    self.metrics["angle_error"] = angle_error
+    # Common metrics
+    self.metrics["goal_error"] = angle_error
     self.metrics["at_goal"] = at_goal
     self.metrics["episode_success"] = self.episode_success
-    self.metrics["reached_handle"] = self.reached_box
-    self.metrics["gripper_to_handle_distance"] = gripper_handle_distance
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+
+    # Task-specific metrics
+    self.metrics["door_angle"] = door_angle
 
   def compute_success(self) -> torch.Tensor:
-    angle_error = self.metrics["angle_error"]
-    return angle_error < self.cfg.success_threshold
+    goal_error = self.metrics["goal_error"]
+    return goal_error < self.cfg.success_threshold
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
 
     # Reset success tracking
     self.episode_success[env_ids] = 0.0
-    self.reached_box[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
 
     # Set target angle based on difficulty
     if self.cfg.difficulty == "fixed":
@@ -278,7 +319,7 @@ class OpenDoorCommand(CommandTerm):
         [rotated_x, rotated_y, 0.0], device=self.device
       )
 
-    if self.mocap_target is not None:
+    if self.mocap_goal is not None:
       target_quats = torch.zeros(n, 4, device=self.device)
       for i, env_id in enumerate(env_ids):
         angle = self.target_angle[env_id]
@@ -289,14 +330,14 @@ class OpenDoorCommand(CommandTerm):
         )
       mocap_pos = self.target_pos[env_ids].clone()
       mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_target.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
 
 
   def _update_command(self) -> None:
     pass
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
-    # No additional debug visualization needed - orange mocap_target box already shows target
+    # No additional debug visualization needed - orange mocap_goal box already shows target
     pass
 
 
@@ -348,17 +389,20 @@ class OpenDrawerCommand(CommandTerm):
     self.target_distance = torch.zeros(self.num_envs, device=self.device)
     self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
-    self.reached_box = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
 
     # Get mocap target entity for visualization
-    self.mocap_target: Entity = env.scene["mocap_target"]
+    self.mocap_goal: Entity = env.scene["mocap_goal"]
 
-    self.metrics["drawer_distance"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["distance_error"] = torch.zeros(self.num_envs, device=self.device)
+    # Common metrics (all tasks)
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["reached_handle"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["gripper_to_handle_distance"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["reached_object"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["gripper_object_distance"] = torch.zeros(self.num_envs, device=self.device)
+
+    # Task-specific metrics
+    self.metrics["drawer_distance"] = torch.zeros(self.num_envs, device=self.device)
 
     # Find drawer slide joint index
     joint_names = self.drawer.joint_names
@@ -379,33 +423,36 @@ class OpenDrawerCommand(CommandTerm):
     # Latch success
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
-    # Update reached_box state (latch when gripper is close to handle)
-    handle_site_idx = self.drawer.site_names.index("handle_site")
-    handle_pos_w = self.drawer.data.site_pos_w[:, handle_site_idx]
-    ee_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    # Update reached_object state (latch when gripper is close to object)
+    object_site_idx = self.drawer.site_names.index("object_site") if "object_site" in self.drawer.site_names else self.drawer.site_names.index("handle_site")
+    object_pos_w = self.drawer.data.site_pos_w[:, object_site_idx]
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
 
     # Compute distance
-    gripper_handle_distance = torch.norm(handle_pos_w - ee_pos_w, dim=-1)
-    currently_reached = (gripper_handle_distance < 0.10).float()  # 10 cm threshold
-    self.reached_box = torch.maximum(self.reached_box, currently_reached)
+    gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
+    currently_reached = (gripper_object_distance < 0.10).float()  # 10 cm threshold
+    self.reached_object = torch.maximum(self.reached_object, currently_reached)
 
-    self.metrics["drawer_distance"] = drawer_distance
-    self.metrics["distance_error"] = distance_error
+    # Common metrics
+    self.metrics["goal_error"] = distance_error
     self.metrics["at_goal"] = at_goal
     self.metrics["episode_success"] = self.episode_success
-    self.metrics["reached_handle"] = self.reached_box
-    self.metrics["gripper_to_handle_distance"] = gripper_handle_distance
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+
+    # Task-specific metrics
+    self.metrics["drawer_distance"] = drawer_distance
 
   def compute_success(self) -> torch.Tensor:
-    distance_error = self.metrics["distance_error"]
-    return distance_error < self.cfg.success_threshold
+    goal_error = self.metrics["goal_error"]
+    return goal_error < self.cfg.success_threshold
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
 
     # Reset success tracking
     self.episode_success[env_ids] = 0.0
-    self.reached_box[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
 
     # Set target distance based on difficulty
     if self.cfg.difficulty == "fixed":
@@ -437,21 +484,21 @@ class OpenDrawerCommand(CommandTerm):
         [distance, 0.0, 0.0], device=self.device
       )
 
-    if self.mocap_target is not None:
+    if self.mocap_goal is not None:
       # For drawer, no rotation - just translation
       target_quats = torch.zeros(n, 4, device=self.device)
       target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity quaternion)
 
       mocap_pos = self.target_pos[env_ids].clone()
       mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_target.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
 
 
   def _update_command(self) -> None:
     pass
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
-    # No additional debug visualization needed - orange mocap_target box already shows target
+    # No additional debug visualization needed - orange mocap_goal box already shows target
     pass
 
 
@@ -503,17 +550,20 @@ class PushButtonCommand(CommandTerm):
     self.target_distance = torch.zeros(self.num_envs, device=self.device)
     self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
-    self.reached_box = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
 
     # Get mocap target entity for visualization
-    self.mocap_target: Entity = env.scene["mocap_target"]
+    self.mocap_goal: Entity = env.scene["mocap_goal"]
 
-    self.metrics["button_distance"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["distance_error"] = torch.zeros(self.num_envs, device=self.device)
+    # Common metrics (all tasks)
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["reached_handle"] = torch.zeros(self.num_envs, device=self.device)
-    self.metrics["gripper_to_handle_distance"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["reached_object"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["gripper_object_distance"] = torch.zeros(self.num_envs, device=self.device)
+
+    # Task-specific metrics
+    self.metrics["button_distance"] = torch.zeros(self.num_envs, device=self.device)
 
     # Find button slide joint index
     joint_names = self.button.joint_names
@@ -534,33 +584,36 @@ class PushButtonCommand(CommandTerm):
     # Latch success
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
-    # Update reached_box state (latch when gripper is close to handle/button top)
-    handle_site_idx = self.button.site_names.index("handle_site")
-    handle_pos_w = self.button.data.site_pos_w[:, handle_site_idx]
-    ee_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    # Update reached_object state (latch when gripper is close to object)
+    object_site_idx = self.button.site_names.index("object_site") if "object_site" in self.button.site_names else self.button.site_names.index("handle_site")
+    object_pos_w = self.button.data.site_pos_w[:, object_site_idx]
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
 
     # Compute distance
-    gripper_handle_distance = torch.norm(handle_pos_w - ee_pos_w, dim=-1)
-    currently_reached = (gripper_handle_distance < 0.10).float()  # 10 cm threshold
-    self.reached_box = torch.maximum(self.reached_box, currently_reached)
+    gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
+    currently_reached = (gripper_object_distance < 0.10).float()  # 10 cm threshold
+    self.reached_object = torch.maximum(self.reached_object, currently_reached)
 
-    self.metrics["button_distance"] = button_distance
-    self.metrics["distance_error"] = distance_error
+    # Common metrics
+    self.metrics["goal_error"] = distance_error
     self.metrics["at_goal"] = at_goal
     self.metrics["episode_success"] = self.episode_success
-    self.metrics["reached_handle"] = self.reached_box
-    self.metrics["gripper_to_handle_distance"] = gripper_handle_distance
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+
+    # Task-specific metrics
+    self.metrics["button_distance"] = button_distance
 
   def compute_success(self) -> torch.Tensor:
-    distance_error = self.metrics["distance_error"]
-    return distance_error < self.cfg.success_threshold
+    goal_error = self.metrics["goal_error"]
+    return goal_error < self.cfg.success_threshold
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
 
     # Reset success tracking
     self.episode_success[env_ids] = 0.0
-    self.reached_box[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
 
     # Set target distance based on difficulty
     # Joint range is -0.05 to 0.0, where 0.0 is unpressed and -0.05 is fully pressed
@@ -592,21 +645,21 @@ class PushButtonCommand(CommandTerm):
         [0.0, 0.0, distance], device=self.device
       )
 
-    if self.mocap_target is not None:
+    if self.mocap_goal is not None:
       # For button, no rotation - just translation
       target_quats = torch.zeros(n, 4, device=self.device)
       target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity quaternion)
 
       mocap_pos = self.target_pos[env_ids].clone()
       mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_target.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
 
 
   def _update_command(self) -> None:
     pass
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
-    # No additional debug visualization needed - orange mocap_target box already shows target
+    # No additional debug visualization needed - orange mocap_goal box already shows target
     pass
 
 

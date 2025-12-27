@@ -1,69 +1,48 @@
 import mujoco
 
+from mjlab.asset_zoo.objects.free.cube import (
+  get_cube_cfg,
+  get_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.cylinder import (
+  get_cylinder_cfg,
+  get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
+)
 from mjlab.asset_zoo.robots import (
   YAM_ACTION_SCALE,
   get_yam_robot_cfg,
 )
 from mjlab.entity import EntityCfg
 from mjlab.envs import ManagerBasedRlEnvCfg
-from mjlab.envs.mdp.actions import JointPositionActionCfg
+from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
 from mjlab.sensor import ContactSensorCfg
-from mjlab.tasks.manipulation.lift_cube_env_cfg import make_lift_cube_env_cfg
+from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
 from mjlab.tasks.manipulation.mdp import LiftingCommandCfg
-
-
-def get_cube_spec(cube_size: float = 0.02, mass: float = 0.05) -> mujoco.MjSpec:
-  spec = mujoco.MjSpec()
-  body = spec.worldbody.add_body(name="cube")
-  body.add_freejoint(name="cube_joint")
-  body.add_geom(
-    name="cube_geom",
-    type=mujoco.mjtGeom.mjGEOM_BOX,
-    size=(cube_size,) * 3,
-    mass=mass,
-    rgba=(0.8, 0.2, 0.2, 1.0),
-  )
-  return spec
-
-
-def get_cylinder_spec(
-  radius: float = 0.02, height: float = 0.04, mass: float = 0.05
-) -> mujoco.MjSpec:
-  spec = mujoco.MjSpec()
-  body = spec.worldbody.add_body(name="cylinder")
-  body.add_freejoint(name="cylinder_joint")
-  body.add_geom(
-    name="cylinder_geom",
-    type=mujoco.mjtGeom.mjGEOM_CYLINDER,
-    size=(radius, height / 2, 0),
-    mass=mass,
-    rgba=(0.2, 0.8, 0.2, 1.0),
-  )
-  return spec
 
 
 def yam_lift_cube_env_cfg(
   play: bool = False,
 ) -> ManagerBasedRlEnvCfg:
-  cfg = make_lift_cube_env_cfg()
+  cfg = make_lift_object_env_cfg()
 
   cfg.scene.entities = {
     "robot": get_yam_robot_cfg(),
-    "cube": EntityCfg(spec_fn=get_cube_spec),
+    "cube": get_cube_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
   }
 
-  joint_pos_action = cfg.actions["joint_pos"]
-  assert isinstance(joint_pos_action, JointPositionActionCfg)
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
   joint_pos_action.scale = YAM_ACTION_SCALE
 
   assert cfg.commands is not None
-  lift_command = cfg.commands["lift_height"]
+  lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
 
-  cfg.observations["policy"].terms["ee_to_cube"].params["asset_cfg"].site_names = (
+  cfg.observations["policy"].terms["gripper_to_object"].params["robot_asset_cfg"].site_names = (
     "grasp_site",
   )
-  cfg.rewards["lift"].params["asset_cfg"].site_names = ("grasp_site",)
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("grasp_site",)
 
   fingertip_geoms = r"[lr]f_down(6|7|8|9|10|11)_collision"
   cfg.events["fingertip_friction_slide"].params[
@@ -93,32 +72,33 @@ def yam_lift_cube_env_cfg(
 def yam_lift_cylinder_env_cfg(
   play: bool = False,
 ) -> ManagerBasedRlEnvCfg:
-  cfg = make_lift_cube_env_cfg()
+  cfg = make_lift_object_env_cfg()
 
   cfg.scene.entities = {
     "robot": get_yam_robot_cfg(),
-    "cylinder": EntityCfg(spec_fn=get_cylinder_spec),
+    "cylinder": get_cylinder_cfg(),
+    "mocap_goal": get_cylinder_mocap_goal_cfg(),
   }
 
-  joint_pos_action = cfg.actions["joint_pos"]
-  assert isinstance(joint_pos_action, JointPositionActionCfg)
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
   joint_pos_action.scale = YAM_ACTION_SCALE
 
   assert cfg.commands is not None
-  lift_command = cfg.commands["lift_height"]
+  lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
   lift_command.asset_name = "cylinder"
 
-  cfg.observations["policy"].terms["ee_to_cube"].params["object_name"] = "cylinder"
-  cfg.observations["policy"].terms["ee_to_cube"].params["asset_cfg"].site_names = (
+  cfg.observations["policy"].terms["gripper_to_object"].params["object_asset_name"] = "cylinder"
+  cfg.observations["policy"].terms["gripper_to_object"].params["robot_asset_cfg"].site_names = (
     "grasp_site",
   )
 
-  cfg.observations["policy"].terms["cube_to_goal"].params["object_name"] = "cylinder"
+  cfg.observations["policy"].terms["object_to_goal"].params["object_asset_name"] = "cylinder"
 
-  cfg.rewards["lift"].params["object_name"] = "cylinder"
-  cfg.rewards["lift"].params["asset_cfg"].site_names = ("grasp_site",)
-  cfg.rewards["lift_precise"].params["object_name"] = "cylinder"
+  cfg.rewards["reach_object"].params["object_asset_name"] = "cylinder"
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("grasp_site",)
+  cfg.rewards["move_object_to_goal"].params["object_asset_name"] = "cylinder"
 
   cfg.terminations["object_out_of_bounds"].params["object_name"] = "cylinder"
 

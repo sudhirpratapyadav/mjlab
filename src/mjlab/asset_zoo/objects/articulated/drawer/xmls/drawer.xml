@@ -9,7 +9,8 @@
         <joint name="drawer_slide" type="slide" axis="1 0 0" range="-0.25 0" limited="true" damping="0.1"/>
         <geom type="box" name="drawer_panel" size="0.01 0.2 0.1 " pos="-0.01 0 0" condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.2" contype="2" conaffinity="1" solref="0.01 1"/>
         <geom type="box" name="handle" pos="-0.04 0.0 0.0" size="0.01 0.08 0.01" condim="3" friction="1 0.03 0.003" rgba="0 1 0 1" contype="2" conaffinity="1" solref="0.01 1"/>
-        <site name="handle_site" pos="-0.04 0.0 0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+        <!-- Object site for observations (manipulation point) -->
+        <site name="object_site" pos="-0.04 0.0 0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

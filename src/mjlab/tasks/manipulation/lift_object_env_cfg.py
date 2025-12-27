@@ -1,5 +1,5 @@
 from mjlab.envs import ManagerBasedRlEnvCfg
-from mjlab.envs.mdp.actions import JointPositionActionCfg
+from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg
 from mjlab.managers.manager_term_config import (
   ActionTermCfg,
   CommandTermCfg,
@@ -22,36 +22,93 @@ from mjlab.utils.noise import UniformNoiseCfg as Unoise
 from mjlab.viewer import ViewerConfig
 
 
-def make_lift_cube_env_cfg() -> ManagerBasedRlEnvCfg:
-  """Create base cube lifting task configuration."""
+def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
+  """Create base object lifting task configuration."""
 
   policy_terms = {
-    "joint_pos": ObservationTermCfg(
+    # Robot state (9 + 9 = 18 dims)
+    "robot_joint_pos": ObservationTermCfg(
       func=mdp.joint_pos_rel,
+      params={
+        "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+      },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "joint_vel": ObservationTermCfg(
+    "robot_joint_vel": ObservationTermCfg(
       func=mdp.joint_vel_rel,
+      params={
+        "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+      },
       noise=Unoise(n_min=-1.5, n_max=1.5),
     ),
-    "ee_to_cube": ObservationTermCfg(
-      func=manipulation_mdp.ee_to_object_distance,
+    # Object state (3 + 4 = 7 dims)
+    "object_pos": ObservationTermCfg(
+      func=manipulation_mdp.object_position,
+      params={"object_asset_name": "cube"},
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    "object_quat": ObservationTermCfg(
+      func=manipulation_mdp.object_quaternion,
+      params={"object_asset_name": "cube"},
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    # Gripper state (3 + 6 = 9 dims)
+    "gripper_pos": ObservationTermCfg(
+      func=manipulation_mdp.gripper_position,
       params={
-        "object_name": "cube",
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot.
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "cube_to_goal": ObservationTermCfg(
-      func=manipulation_mdp.object_position_error,
+    "gripper_orientation": ObservationTermCfg(
+      func=manipulation_mdp.gripper_orientation,
       params={
-        "object_name": "cube",
-        "command_name": "lift_height",
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
-    "actions": ObservationTermCfg(func=mdp.last_action),
+    # Object body orientation (6 dims)
+    "object_orientation": ObservationTermCfg(
+      func=manipulation_mdp.object_orientation,
+      params={"object_asset_name": "cube"},
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    # Relative vectors (3 + 3 = 6 dims)
+    "gripper_to_object": ObservationTermCfg(
+      func=manipulation_mdp.gripper_to_object_vector,
+      params={
+        "object_asset_name": "cube",
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
+      },
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    "object_to_goal": ObservationTermCfg(
+      func=manipulation_mdp.object_to_goal_vector,
+      params={
+        "command_name": "lift_object",
+        "object_asset_name": "cube",
+      },
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    # Target orientation difference (6 dims)
+    "goal_orientation_diff": ObservationTermCfg(
+      func=manipulation_mdp.goal_orientation_diff,
+      params={
+        "command_name": "lift_object",
+        "object_asset_name": "cube",
+      },
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    # Control-qpos difference (8 dims)
+    "control_qpos_diff": ObservationTermCfg(
+      func=manipulation_mdp.control_qpos_difference,
+      params={
+        "robot_asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+      },
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
   }
+  # Total: 18 + 7 + 9 + 6 + 6 + 6 + 8 = 60 dims
 
   critic_terms = {**policy_terms}
 
@@ -61,17 +118,18 @@ def make_lift_cube_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   actions: dict[str, ActionTermCfg] = {
-    "joint_pos": JointPositionActionCfg(
+    "robot_joint_pos": JointDeltaPositionActionCfg(
       asset_name="robot",
       actuator_names=(".*",),
-      scale=0.5,  # Override per-robot.
-      use_default_offset=True,
+      scale=0.04,  # Harmonized with articulated tasks
+      offset=0.0,
     )
   }
 
   commands: dict[str, CommandTermCfg] = {
-    "lift_height": LiftingCommandCfg(
+    "lift_object": LiftingCommandCfg(
       asset_name="cube",
+      robot_asset_cfg=SceneEntityCfg("robot", site_names=()),  # Set per-robot
       resampling_time_range=(8.0, 12.0),
       debug_vis=True,
       difficulty="dynamic",
@@ -159,38 +217,37 @@ def make_lift_cube_env_cfg() -> ManagerBasedRlEnvCfg:
   )
 
   rewards = {
-    "lift": RewardTermCfg(
-      func=manipulation_mdp.staged_position_reward,
-      weight=1.0,
+    # Phase 1: Reach object
+    "reach_object": RewardTermCfg(
+      func=manipulation_mdp.reach_object_reward,
+      weight=4.0,
       params={
-        "command_name": "lift_height",
-        "object_name": "cube",
-        "reaching_std": 0.2,
-        "bringing_std": 0.3,
-        "asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot.
+        "object_asset_name": "cube",
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
-    "lift_precise": RewardTermCfg(
-      func=manipulation_mdp.bring_object_reward,
-      weight=1.0,
+    # Phase 2: Move object to goal
+    "move_object_to_goal": RewardTermCfg(
+      func=manipulation_mdp.move_object_to_goal_reward,
+      weight=8.0,
       params={
-        "command_name": "lift_height",
-        "object_name": "cube",
-        "std": 0.05,
+        "command_name": "lift_object",
+        "object_asset_name": "cube",
       },
     ),
+    # Regularization
     "action_rate_l2": RewardTermCfg(func=mdp.action_rate_l2, weight=-0.01),
     "joint_pos_limits": RewardTermCfg(
       func=mdp.joint_pos_limits,
       weight=-10.0,
       params={"asset_cfg": SceneEntityCfg("robot", joint_names=(".*",))},
     ),
-    "joint_vel_hinge": RewardTermCfg(
-      func=manipulation_mdp.joint_velocity_hinge_penalty,
+    "joint_vel_penalty": RewardTermCfg(
+      func=manipulation_mdp.joint_velocity_penalty,
       weight=-0.01,
       params={
         "max_vel": 0.5,
-        "asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+        "robot_asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
       },
     ),
   }
@@ -212,10 +269,10 @@ def make_lift_cube_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   curriculum = {
-    "joint_vel_hinge_weight": CurriculumTermCfg(
+    "joint_vel_penalty_weight": CurriculumTermCfg(
       func=manipulation_mdp.reward_weight,
       params={
-        "reward_name": "joint_vel_hinge",
+        "reward_name": "joint_vel_penalty",
         "weight_stages": [
           {"step": 0, "weight": -0.01},
           {"step": 1000 * 24, "weight": -0.1},
