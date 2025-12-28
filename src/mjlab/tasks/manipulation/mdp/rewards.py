@@ -18,8 +18,10 @@ def staged_manipulation_reward(
   env: ManagerBasedRlEnv,
   command_name: str,
   object_asset_name: str = "object",
-  reaching_std: float = 0.2,
-  bringing_std: float = 0.3,
+  reaching_std: float = 0.6,
+  bringing_std: float = 0.86,
+  reaching_max_dist: float = 1.0,
+  bringing_max_dist: float = 1.0,
   robot_asset_cfg: SceneEntityCfg = _DEFAULT_ASSET_CFG,
 ) -> torch.Tensor:
   """Staged reward that gates manipulation bonus on reaching progress.
@@ -45,11 +47,11 @@ def staged_manipulation_reward(
 
   # Reaching phase: gripper to object
   reach_error = torch.sum(torch.square(gripper_pos_w - object_pos_w), dim=-1)
-  reaching = torch.exp(-reach_error / reaching_std**2)
+  reaching = torch.exp(-reach_error / (reaching_std * reaching_max_dist)**2)
 
   # Manipulation phase: object to goal
   position_error = torch.sum(torch.square(command.target_pos - object_pos_w), dim=-1)
-  bringing = torch.exp(-position_error / bringing_std**2)
+  bringing = torch.exp(-position_error / (bringing_std * bringing_max_dist)**2)
 
   return reaching * (1.0 + bringing)
 
@@ -58,7 +60,8 @@ def object_at_goal_reward(
   env: ManagerBasedRlEnv,
   command_name: str,
   object_asset_name: str = "object",
-  std: float = 0.05,
+  std: float = 0.14,
+  max_dist: float = 1.0,
 ) -> torch.Tensor:
   """Precise reward for object reaching goal position.
 
@@ -77,7 +80,7 @@ def object_at_goal_reward(
   position_error = torch.sum(
     torch.square(command.target_pos - object_pos_w), dim=-1
   )
-  return torch.exp(-position_error / std**2)
+  return torch.exp(-position_error / (std * max_dist)**2)
 
 
 def joint_velocity_penalty(

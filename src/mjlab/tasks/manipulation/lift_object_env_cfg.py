@@ -224,8 +224,8 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       params={
         "command_name": "lift_object",
         "object_asset_name": "cube",
-        "reaching_std": 0.2,
-        "bringing_std": 0.3,
+        "reaching_max_dist": 0.35,
+        "bringing_max_dist": 0.35,
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
@@ -236,7 +236,7 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       params={
         "command_name": "lift_object",
         "object_asset_name": "cube",
-        "std": 0.05,
+        "max_dist": 0.35,
       },
     ),
     # Regularization
