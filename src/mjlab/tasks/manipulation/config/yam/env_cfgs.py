@@ -32,7 +32,7 @@ def yam_lift_cube_env_cfg(
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = YAM_ACTION_SCALE
 
   assert cfg.commands is not None
@@ -81,7 +81,7 @@ def yam_lift_cylinder_env_cfg(
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = YAM_ACTION_SCALE
 
   assert cfg.commands is not None

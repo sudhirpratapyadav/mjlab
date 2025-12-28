@@ -109,7 +109,7 @@ class LiftingCommand(CommandTerm):
       pos = sample_uniform(lower, upper, (n, 3), device=self.device)
       pos = pos + self._env.scene.env_origins[env_ids]
 
-      # Sample orientation (yaw only, keep upright).
+      # Sample object orientation (yaw only, keep upright).
       yaw = sample_uniform(r.yaw[0], r.yaw[1], (n,), device=self.device)
       quat = quat_from_euler_xyz(
         torch.zeros(n, device=self.device),  # roll
@@ -123,12 +123,21 @@ class LiftingCommand(CommandTerm):
       self.object.write_root_link_pose_to_sim(pose, env_ids=env_ids)
       self.object.write_root_link_velocity_to_sim(velocity, env_ids=env_ids)
 
-    # Update mocap_goal visualization (for goal_orientation_diff observation)
-    # Randomize both position AND orientation for the goal
-    mocap_pos = self.target_pos[env_ids].clone()
+      # Sample goal orientation independently (yaw only, keep upright).
+      goal_yaw = sample_uniform(r.yaw[0], r.yaw[1], (n,), device=self.device)
+      target_quats = quat_from_euler_xyz(
+        torch.zeros(n, device=self.device),  # roll
+        torch.zeros(n, device=self.device),  # pitch
+        goal_yaw,
+      )
+    else:
+      # Default to identity quaternion if object pose not randomized
+      target_quats = torch.zeros(n, 4, device=self.device)
+      target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity)
 
-    # Randomize goal orientation (sample random quaternion)
-    target_quats = random_orientation(n, device=self.device)
+    # Update mocap_goal visualization (for goal_orientation_diff observation)
+    # Goal has independently sampled orientation
+    mocap_pos = self.target_pos[env_ids].clone()
 
     mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
     self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)

@@ -1,5 +1,5 @@
 from mjlab.envs import ManagerBasedRlEnvCfg
-from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg
+from mjlab.envs.mdp.actions import JointPositionActionCfg
 from mjlab.managers.manager_term_config import (
   ActionTermCfg,
   CommandTermCfg,
@@ -118,11 +118,11 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   actions: dict[str, ActionTermCfg] = {
-    "robot_joint_pos": JointDeltaPositionActionCfg(
+    "robot_joint_pos": JointPositionActionCfg(
       asset_name="robot",
       actuator_names=(".*",),
-      scale=0.04,  # Harmonized with articulated tasks
-      offset=0.0,
+      scale=0.5,
+      use_default_offset=True,
     )
   }
 
@@ -219,20 +219,24 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
   rewards = {
     # Phase 1: Reach object
     "reach_object": RewardTermCfg(
-      func=manipulation_mdp.reach_object_reward,
-      weight=4.0,
+      func=manipulation_mdp.staged_manipulation_reward,
+      weight=1.0,
       params={
+        "command_name": "lift_object",
         "object_asset_name": "cube",
+        "reaching_std": 0.2,
+        "bringing_std": 0.3,
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
     # Phase 2: Move object to goal
     "move_object_to_goal": RewardTermCfg(
-      func=manipulation_mdp.move_object_to_goal_reward,
-      weight=8.0,
+      func=manipulation_mdp.object_at_goal_reward,
+      weight=1.0,
       params={
         "command_name": "lift_object",
         "object_asset_name": "cube",
+        "std": 0.05,
       },
     ),
     # Regularization

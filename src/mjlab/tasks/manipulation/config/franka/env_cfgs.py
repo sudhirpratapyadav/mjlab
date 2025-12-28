@@ -45,7 +45,7 @@ def franka_lift_cube_env_cfg(
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = FRANKA_ACTION_SCALE
 
   assert cfg.commands is not None
@@ -121,7 +121,7 @@ def franka_open_door_env_cfg(
 
   # Set action scale
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = FRANKA_ACTION_SCALE
 
   # Override door pose range for Franka workspace
@@ -197,7 +197,7 @@ def franka_open_drawer_env_cfg(
 
   # Set action scale
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = FRANKA_ACTION_SCALE
 
   # Override drawer pose range for Franka workspace
@@ -273,7 +273,7 @@ def franka_push_button_env_cfg(
 
   # Set action scale
   joint_pos_action = cfg.actions["robot_joint_pos"]
-  assert isinstance(joint_pos_action, JointDeltaPositionActionCfg)
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = FRANKA_ACTION_SCALE
 
   # Override button pose range for Franka workspace

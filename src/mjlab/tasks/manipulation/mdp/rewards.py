@@ -128,7 +128,7 @@ def move_object_to_goal_reward(
   env: ManagerBasedRlEnv,
   command_name: str,
   object_asset_name: str = "object",
-  k: float = 7.0,
+  k: float = 70.0,
   use_gating: bool = True,
 ) -> torch.Tensor:
   """Reward for moving object to goal position.
