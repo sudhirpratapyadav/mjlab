@@ -1,5 +1,5 @@
 from mjlab.envs import ManagerBasedRlEnvCfg
-from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg
+from mjlab.envs.mdp.actions import JointPositionActionCfg
 from mjlab.managers.manager_term_config import (
   ActionTermCfg,
   CommandTermCfg,
@@ -120,11 +120,11 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   actions: dict[str, ActionTermCfg] = {
-    "robot_joint_pos": JointDeltaPositionActionCfg(
+    "robot_joint_pos": JointPositionActionCfg(
       asset_name="robot",
       actuator_names=(".*",),
-      scale=0.04,  # Matches mujoco_playground action_scale
-      offset=0.0,  # No offset for delta control
+      scale=0.5,
+      use_default_offset=True,
     )
   }
 
@@ -256,20 +256,24 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
   rewards = {
     # Phase 1: Reach object
     "reach_object": RewardTermCfg(
-      func=manipulation_mdp.reach_object_reward,
-      weight=4.0,
+      func=manipulation_mdp.staged_manipulation_reward,
+      weight=1.0,
       params={
+        "command_name": "open_drawer",
         "object_asset_name": "drawer",
+        "reaching_max_dist": 0.6,
+        "bringing_max_dist": 0.25,
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
     # Phase 2: Move object to goal
     "move_object_to_goal": RewardTermCfg(
-      func=manipulation_mdp.move_object_to_goal_reward,
-      weight=8.0,
+      func=manipulation_mdp.object_at_goal_reward,
+      weight=1.0,
       params={
         "command_name": "open_drawer",
         "object_asset_name": "drawer",
+        "max_dist": 0.25,
       },
     ),
     # No collision with drawer body
@@ -277,6 +281,21 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
       func=manipulation_mdp.no_object_body_collision_reward,
       weight=0.25,
       params={"sensor_name": "ee_drawer_collision"},
+    ),
+    # Regularization
+    "action_rate_l2": RewardTermCfg(func=mdp.action_rate_l2, weight=-0.01),
+    "joint_pos_limits": RewardTermCfg(
+      func=mdp.joint_pos_limits,
+      weight=-10.0,
+      params={"asset_cfg": SceneEntityCfg("robot", joint_names=(".*",))},
+    ),
+    "joint_vel_penalty": RewardTermCfg(
+      func=manipulation_mdp.joint_velocity_penalty,
+      weight=-0.01,
+      params={
+        "max_vel": 0.5,
+        "robot_asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
+      },
     ),
   }
 
@@ -288,7 +307,19 @@ def make_open_drawer_env_cfg() -> ManagerBasedRlEnvCfg:
     ),
   }
 
-  curriculum = {}  # No curriculum
+  curriculum = {
+    "joint_vel_penalty_weight": CurriculumTermCfg(
+      func=manipulation_mdp.reward_weight,
+      params={
+        "reward_name": "joint_vel_penalty",
+        "weight_stages": [
+          {"step": 0, "weight": -0.01},
+          {"step": 1000 * 24, "weight": -0.1},
+          {"step": 1500 * 24, "weight": -1.0},
+        ],
+      },
+    ),
+  }
 
   return ManagerBasedRlEnvCfg(
     scene=SceneCfg(

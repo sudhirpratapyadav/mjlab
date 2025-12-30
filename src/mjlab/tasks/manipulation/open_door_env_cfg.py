@@ -278,19 +278,22 @@ def make_open_door_env_cfg() -> ManagerBasedRlEnvCfg:
     # No collision with door body
     "no_object_collision": RewardTermCfg(
       func=manipulation_mdp.no_object_body_collision_reward,
-      weight=0.25,
+      weight=0.0,
       params={"sensor_name": "ee_door_collision"},
     ),
     # Regularization
-    "action_rate_l2": RewardTermCfg(func=mdp.action_rate_l2, weight=-0.01),
+    "action_rate_l2": RewardTermCfg(
+      func=mdp.action_rate_l2,
+      weight=0.0
+    ),
     "joint_pos_limits": RewardTermCfg(
       func=mdp.joint_pos_limits,
-      weight=-10.0,
+      weight=0.0,
       params={"asset_cfg": SceneEntityCfg("robot", joint_names=(".*",))},
     ),
     "joint_vel_penalty": RewardTermCfg(
       func=manipulation_mdp.joint_velocity_penalty,
-      weight=-0.01,
+      weight=0.0,
       params={
         "max_vel": 0.5,
         "robot_asset_cfg": SceneEntityCfg("robot", joint_names=(".*",)),
@@ -312,9 +315,9 @@ def make_open_door_env_cfg() -> ManagerBasedRlEnvCfg:
       params={
         "reward_name": "joint_vel_penalty",
         "weight_stages": [
-          {"step": 0, "weight": -0.01},
-          {"step": 1000 * 24, "weight": -0.1},
-          {"step": 1500 * 24, "weight": -1.0},
+          {"step": 0, "weight": -0.0},
+          # {"step": 1000 * 24, "weight": -0.1},
+          # {"step": 1500 * 24, "weight": -1.0},
         ],
       },
     ),
