@@ -34,10 +34,37 @@ python -m mjlab.continual_distill.test_jax_teacher \
 4. **Runs mjlab environment** - Tests that everything works together
 5. **Prints statistics** - Episode rewards, lengths, action ranges, etc.
 
-## Next Steps:
+## Extract Teacher Dataset
 
-Once the test works:
-- [ ] Separate into modules (models.py, checkpoint_loader.py, data_extractor.py)
-- [ ] Add vectorized data collection
-- [ ] Add data saving/loading
-- [ ] Support all manipulation tasks
+Extract training data from teacher policies:
+
+```bash
+python -m mjlab.continual_distill.extract_teacher_dataset \
+    --checkpoint logs/rsl_rl/franka_open_door/2025-12-29_15-42-50/model_100.pt \
+    --task Mjlab-Open-Door-Franka \
+    --num-samples 150000 \
+    --num-envs 512 \
+    --episode-length 100
+    # Output saved to: continual_distill/teacher_datasets/ (default)
+```
+
+**What it does:**
+- Loads PyTorch checkpoint → converts to JAX
+- Runs vectorized environments (fast!)
+- Collects observations + action distributions (mean + logstd)
+- Saves as pickle file with metadata
+
+**Output format:**
+```python
+{
+    'observations': array (N, obs_dim),      # State observations
+    'action_targets': array (N, action_dim*2),  # [mean, logstd] concatenated
+    'metadata': dict                          # Task info, checkpoint, etc.
+}
+```
+
+## Files:
+
+- `test_jax_teacher.py` - Test script with viewer support (for verification)
+- `utils.py` - JAX models and PyTorch→JAX conversion utilities
+- `extract_teacher_dataset.py` - Fast data extraction (no viewer overhead)
