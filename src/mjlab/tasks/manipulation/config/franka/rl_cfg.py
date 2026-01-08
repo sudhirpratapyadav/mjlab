@@ -30,6 +30,7 @@ def franka_lift_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
       max_grad_norm=1.0,
     ),
     experiment_name="franka_lift_cube",
+    wandb_project="continual_mjlab",
     save_interval=100,
     num_steps_per_env=24,
     max_iterations=5_000,
@@ -62,6 +63,7 @@ def franka_open_door_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
       max_grad_norm=1.0,
     ),
     experiment_name="franka_open_door",
+    wandb_project="continual_mjlab",
     save_interval=100,  # Save checkpoint every N iterations
     num_steps_per_env=24,
     max_iterations=10_000,  # Total training iterations
@@ -94,6 +96,7 @@ def franka_open_drawer_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
       max_grad_norm=1.0,
     ),
     experiment_name="franka_open_drawer",
+    wandb_project="continual_mjlab",
     save_interval=100,  # Save checkpoint every N iterations
     num_steps_per_env=24,
     max_iterations=10_000,  # Total training iterations
@@ -126,6 +129,7 @@ def franka_push_button_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
       max_grad_norm=1.0,
     ),
     experiment_name="franka_push_button",
+    wandb_project="continual_mjlab",
     save_interval=100,  # Save checkpoint every N iterations
     num_steps_per_env=24,
     max_iterations=10_000,  # Total training iterations
