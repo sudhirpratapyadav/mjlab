@@ -17,6 +17,8 @@ Usage:
         --num-samples 150000 \\
         --num-envs 512 \\
         --output-dir teacher_data
+
+    Note: Episode length is automatically extracted from the environment test configuration.
 """
 
 import argparse
@@ -189,12 +191,6 @@ def main():
         help='Number of parallel environments'
     )
     parser.add_argument(
-        '--episode-length',
-        type=int,
-        default=100,
-        help='Maximum steps per episode'
-    )
-    parser.add_argument(
         '--output-dir',
         type=str,
         default=None,
@@ -246,17 +242,20 @@ def main():
     print("Loading mjlab Environment")
     print(f"{'='*80}")
 
-    env_cfg = load_env_cfg(args.task, play=True)
+    env_cfg = load_env_cfg(args.task, test=True)
     env_cfg.scene.num_envs = args.num_envs
     env_cfg.seed = args.seed
 
     device = args.device or ("cuda:0" if torch.cuda.is_available() else "cpu")
     env = ManagerBasedRlEnv(cfg=env_cfg, device=device)
 
+    # Get episode length from environment configuration
+    episode_length = env.max_episode_length
     print(f"✓ Environment loaded")
     print(f"  Device: {device}")
     print(f"  Observation space: {env.observation_space}")
     print(f"  Action space: {env.action_space}")
+    print(f"  Episode length: {episode_length} steps")
 
     # Get dimensions
     obs_sample, _ = env.reset()
@@ -291,7 +290,7 @@ def main():
         env=env,
         num_samples=args.num_samples,
         num_envs=args.num_envs,
-        episode_length=args.episode_length,
+        episode_length=episode_length,
         seed=args.seed,
     )
 
@@ -348,7 +347,7 @@ def main():
             'action_dim': action_size,
             'num_samples_requested': args.num_samples,
             'num_envs': args.num_envs,
-            'episode_length': args.episode_length,
+            'episode_length': episode_length,
             'total_samples': len(dataset['observations']),
             'collection_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'seed': args.seed,
@@ -393,9 +392,7 @@ def main():
     print(f"  - task_name: \"{args.task.split('-')[-2].title() if '-' in args.task else args.task}\"")
     print(f"    env_id: \"{args.task}\"")
     print(f"    dataset_folder: \"{folder_name}\"")
-    print(f"    obs_dim: {obs_size}")
-    print(f"    action_dim: {action_size}")
-    print(f"    ep_len: {args.episode_length}")
+    print(f"    num_epochs: 500")
     print(f"")
     print(f"To load in Python:")
     print(f"")

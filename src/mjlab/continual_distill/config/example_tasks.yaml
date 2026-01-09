@@ -5,43 +5,41 @@
 #   - task_name: Unique name for the task
 #   - env_id: mjlab environment ID
 #   - dataset_folder: Folder containing data.pkl and teacher.pkl
-#   - obs_dim: Observation dimension
-#   - action_dim: Action dimension
 #   - num_epochs: (Optional) Number of epochs for this task (default: 500)
 #
-# Episode length is automatically retrieved from the environment configuration.
+# Episode length, observation dimension, and action dimension are automatically
+# retrieved from the environment configuration.
 #
 # The dataset_folder should contain:
 #   - data.pkl: observations and action_targets
 #   - teacher.pkl: JAX weights, normalizer, and architecture
 
 task_info:
+  - task_name: "LiftCube"
+    env_id: "Mjlab-Lift-Cube-Franka"
+    dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Lift_Cube_Franka_model_2900_20260110_012100"
+    num_epochs: 500
+    
   - task_name: "OpenDoor"
     env_id: "Mjlab-Open-Door-Franka"
     dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260109_180505"
-    obs_dim: 60
-    action_dim: 8
     num_epochs: 500
 
   - task_name: "OpenDrawer"
     env_id: "Mjlab-Open-Drawer-Franka"
     dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260109_180410"
-    obs_dim: 60
-    action_dim: 8
     num_epochs: 500
 
   - task_name: "PushButton"
     env_id: "Mjlab-Push-Button-Franka"
     dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_model_1999_20260109_203838"
-    obs_dim: 60
-    action_dim: 8
     num_epochs: 500
+
+
 
 
   # Add more tasks as needed...
   # - task_name: "LiftObject"
   #   env_id: "Mjlab-Lift-Object-Franka"
   #   dataset_folder: "teacher_datasets/Mjlab_Lift_Object_Franka_model_xxx_TIMESTAMP"
-  #   obs_dim: 60
-  #   action_dim: 8
   #   num_epochs: 500

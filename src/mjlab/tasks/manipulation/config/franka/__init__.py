@@ -7,7 +7,7 @@ register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Franka",
   env_cfg=franka_lift_cube_env_cfg(),
   play_env_cfg=franka_lift_cube_env_cfg(play=True),
-  test_env_cfg=franka_lift_cube_env_cfg(play=True),  # TODO: Add test parameter
+  test_env_cfg=franka_lift_cube_env_cfg(test=True),
   rl_cfg=franka_lift_cube_ppo_runner_cfg(),
 )
 

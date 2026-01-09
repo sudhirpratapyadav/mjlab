@@ -795,16 +795,41 @@ def main() -> None:
     global_normalizer = _build_global_normalizer(datasets)
     print(f"Built global observation normalizer across {len(datasets)} tasks")
 
-    # Get dimensions from first task
-    obs_dim_values = {int(task["obs_dim"]) for task in task_configs}
-    if len(obs_dim_values) != 1:
-        raise ValueError(f"All tasks must share the same observation dimension; got {obs_dim_values}")
-    action_dim_values = {int(task["action_dim"]) for task in task_configs}
-    if len(action_dim_values) != 1:
-        raise ValueError(f"All tasks must share the same action dimension; got {action_dim_values}")
+    # Get dimensions from environment (not YAML config)
+    print("\nExtracting dimensions from environment...")
+    first_env_id = task_configs[0]["env_id"]
+    temp_env_cfg = load_env_cfg(first_env_id, test=True)
+    temp_env_cfg.scene.num_envs = 1
+    temp_env_cfg.seed = args.seed
+    temp_env = ManagerBasedRlEnv(cfg=temp_env_cfg, device=device)
 
-    obs_dim = obs_dim_values.pop()
-    action_dim = action_dim_values.pop()
+    obs_sample, _ = temp_env.reset()
+    obs_dim = obs_sample['policy'].shape[-1]
+    action_dim = temp_env.action_space.shape[-1]
+    temp_env.close()
+
+    print(f"  Observation dimension: {obs_dim}")
+    print(f"  Action dimension: {action_dim}")
+
+    # Validate all tasks have the same dimensions
+    print("Validating dimensions across all tasks...")
+    for task_idx, task_cfg in enumerate(task_configs):
+        temp_cfg = load_env_cfg(task_cfg["env_id"], test=True)
+        temp_cfg.scene.num_envs = 1
+        temp_cfg.seed = args.seed
+        temp = ManagerBasedRlEnv(cfg=temp_cfg, device=device)
+        obs_s, _ = temp.reset()
+        task_obs_dim = obs_s['policy'].shape[-1]
+        task_action_dim = temp.action_space.shape[-1]
+        temp.close()
+
+        if task_obs_dim != obs_dim:
+            raise ValueError(f"Task {task_idx} ({task_cfg['env_id']}) has obs_dim={task_obs_dim}, expected {obs_dim}")
+        if task_action_dim != action_dim:
+            raise ValueError(f"Task {task_idx} ({task_cfg['env_id']}) has action_dim={task_action_dim}, expected {action_dim}")
+
+    print(f"✓ All tasks validated with obs_dim={obs_dim}, action_dim={action_dim}")
+
     num_tasks = len(task_configs)
 
     # Create student policy

@@ -35,6 +35,7 @@ from mjlab.tasks.manipulation.push_button_env_cfg import make_push_button_env_cf
 
 def franka_lift_cube_env_cfg(
   play: bool = False,
+  test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   cfg = make_lift_object_env_cfg()
 
@@ -100,6 +101,16 @@ def franka_lift_cube_env_cfg(
     cfg.episode_length_s = int(1e9)
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
+
+  # Apply test mode overrides (no corruption, 150 steps episode length (same as other tasks)).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    # Set episode length to 150 steps (150 * 0.02 control_dt = 3.0s)
+    cfg.episode_length_s = 3.0
 
   return cfg
 
@@ -178,7 +189,7 @@ def franka_open_door_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
 
-  # Apply test mode overrides (no corruption, but train episode length).
+  # Apply test mode overrides (no corruption, but keep train episode length).
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
@@ -258,7 +269,7 @@ def franka_open_drawer_env_cfg(
 
   # Apply play mode overrides.
   if play:
-    cfg.episode_length_s = 4.0  # Reset every 4 seconds for debugging
+    cfg.episode_length_s = int(1e9)
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
 
