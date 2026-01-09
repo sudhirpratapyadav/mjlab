@@ -190,6 +190,7 @@ def franka_open_door_env_cfg(
 
 def franka_open_drawer_env_cfg(
   play: bool = False,
+  test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific drawer opening configuration."""
   cfg = make_open_drawer_env_cfg()
@@ -261,11 +262,19 @@ def franka_open_drawer_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
 
+  # Apply test mode overrides (no corruption, but keep train episode length).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
+
   return cfg
 
 
 def franka_push_button_env_cfg(
   play: bool = False,
+  test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific button pushing configuration."""
   cfg = make_push_button_env_cfg()
@@ -336,5 +345,12 @@ def franka_push_button_env_cfg(
     cfg.episode_length_s = int(1e9)
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
+
+  # Apply test mode overrides (no corruption, but keep train episode length).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
 
   return cfg

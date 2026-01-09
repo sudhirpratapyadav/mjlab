@@ -848,12 +848,29 @@ def main() -> None:
         teacher_mean = action_targets[:, :action_dim]
         teacher_logstd = action_targets[:, action_dim:]
 
+        task_name = task_cfg.get("task_name", f"task_{task_idx}")
+        task_slug = _slugify(task_name) or f"task_{task_idx}"
+        dataset_folder_str = str(Path(task_cfg["dataset_folder"]).expanduser())
+        num_epochs = int(task_cfg.get("num_epochs", 500))  # Default to 500 if not specified in YAML
+
+        # Create mjlab environment first to get actual episode length
+        env_id = task_cfg["env_id"]
+        env_cfg = load_env_cfg(env_id, test=True)
+        env_cfg.scene.num_envs = args.env_eval_episodes
+        env_cfg.seed = args.seed
+        env = ManagerBasedRlEnv(cfg=env_cfg, device=device)
+
+        # Use environment's actual episode length
+        episode_length = env.max_episode_length
+        print(f"[INFO] Task {task_idx} ({task_name}): Using environment episode length: {episode_length} steps")
+
+        # Split dataset using actual episode length
         train_obs_np, train_mean_np, train_logstd_np, test_obs_np, test_mean_np, test_logstd_np = _split_dataset_for_task(
             observations,
             teacher_mean,
             teacher_logstd,
             args.train_fraction,
-            int(task_cfg.get("ep_len", 0)),
+            episode_length,
         )
 
         train_size = int(train_obs_np.shape[0])
@@ -864,15 +881,9 @@ def main() -> None:
             )
         train_steps_per_epoch = max(1, train_size // args.batch_size)
 
-        task_name = task_cfg.get("task_name", f"task_{task_idx}")
-        task_slug = _slugify(task_name) or f"task_{task_idx}"
-        dataset_folder_str = str(Path(task_cfg["dataset_folder"]).expanduser())
-        num_epochs = int(task_cfg.get("num_epochs", 500))  # Default to 500 if not specified in YAML
-        episode_length = int(task_cfg.get("ep_len", 100))
-
         # Load teacher from preloaded teacher_info (already in JAX format!)
         teacher_info = teacher_infos[task_idx]
-        print(f"\n[Task {task_idx}] Loading teacher from: {dataset_folder_str}/teacher.pkl")
+        print(f"[Task {task_idx}] Loading teacher from: {dataset_folder_str}/teacher.pkl")
 
         # Create teacher policy and normalizer from loaded info
         teacher_policy = TeacherPolicy(
@@ -886,18 +897,6 @@ def main() -> None:
             mean=teacher_info['obs_normalizer_mean'],
             std=teacher_info['obs_normalizer_std'],
         )
-
-        # Create mjlab environment for evaluation
-        env_id = task_cfg["env_id"]
-        env_cfg = load_env_cfg(env_id, test=True)
-        env_cfg.scene.num_envs = args.env_eval_episodes
-        env_cfg.seed = args.seed
-        env = ManagerBasedRlEnv(cfg=env_cfg, device=device)
-
-        # Use environment's actual episode length for evaluation
-        env_episode_length = env.max_episode_length
-        print(f"[INFO] Task {task_idx}: Using environment episode length: {env_episode_length} steps")
-        episode_length = env_episode_length
 
         task_buffers.append(
             {
