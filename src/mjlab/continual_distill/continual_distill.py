@@ -604,13 +604,44 @@ def consolidate_si_state(state: StudentTrainStateSI, epsilon: float) -> StudentT
     )
 
 
-def _load_yaml_config(config_path: Path) -> List[Dict[str, Any]]:
-    """Load task configuration from YAML file."""
+def _load_yaml_config(config_path: Path, task_sequence: List[str]) -> List[Dict[str, Any]]:
+    """Load task configuration from YAML file and filter by sequence.
+
+    Args:
+        config_path: Path to tasks.yaml containing task definitions
+        task_sequence: List of task names to load in order
+
+    Returns:
+        List of task configurations in the order specified by task_sequence
+    """
     with config_path.open("r") as f:
         config = yaml.safe_load(f)
-    tasks = config.get("task_info", [])
+
+    # Load task definitions (new format: tasks as dict)
+    if "tasks" in config:
+        all_tasks = config["tasks"]
+    # Support legacy format (task_info as list)
+    elif "task_info" in config:
+        all_tasks = {task["task_name"]: task for task in config["task_info"]}
+    else:
+        raise ValueError(f"No 'tasks' or 'task_info' entries found in {config_path}")
+
+    # Build ordered list of tasks from sequence
+    tasks = []
+    for task_name in task_sequence:
+        if task_name not in all_tasks:
+            raise ValueError(f"Task '{task_name}' in sequence not found in {config_path}")
+
+        task_def = all_tasks[task_name]
+        # Add task_name to the dict if not present (for new format)
+        if "task_name" not in task_def:
+            task_def = dict(task_def)  # Make a copy
+            task_def["task_name"] = task_name
+        tasks.append(task_def)
+
     if not tasks:
-        raise ValueError(f"No task_info entries found in {config_path}")
+        raise ValueError(f"No tasks specified in sequence: {task_sequence}")
+
     return tasks
 
 
@@ -753,15 +784,16 @@ def parse_args() -> argparse.Namespace:
         description="Continual policy distillation with Synaptic Intelligence (SI) for mjlab.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--config", type=Path, required=True, help="YAML file describing the sequence of tasks.")
+    parser.add_argument("--tasks-config", type=Path, required=True, help="YAML file containing task definitions (tasks.yaml).")
+    parser.add_argument("--task-sequence", type=str, nargs="+", required=True, help="Sequence of task names to train on (space-separated).")
     parser.add_argument("--learning-rate", type=float, default=1e-4, help="Adam learning rate.")
     parser.add_argument("--batch-size", type=int, default=512, help="Mini-batch size for SGD/Adam updates.")
     parser.add_argument("--train-fraction", type=float, default=0.8, help="Fraction of each dataset used for training.")
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
-    parser.add_argument("--eval-every", type=int, default=50, help="Frequency (in epochs) of offline evaluation.")
-    parser.add_argument("--env-eval-every", type=int, default=50, help="Frequency (in epochs) of environment evaluation; 0 => match --eval-every.")
+    parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
+    parser.add_argument("--env-eval-every", type=int, default=100, help="Frequency (in epochs) of environment evaluation; 0 => match --eval-every.")
     parser.add_argument("--env-eval-episodes", type=int, default=4, help="Number of episodes for environment evaluation.")
     parser.add_argument("--seed", type=int, default=0, help="PRNG seed.")
     parser.add_argument("--no-tqdm", action="store_true", help="Disable tqdm progress bars.")
@@ -780,7 +812,7 @@ def main() -> None:
 
     env_eval_every = args.env_eval_every if args.env_eval_every > 0 else max(args.eval_every, 1)
 
-    task_configs = _load_yaml_config(args.config)
+    task_configs = _load_yaml_config(args.tasks_config, args.task_sequence)
 
     # Load datasets and teachers
     datasets: List[Dict[str, Any]] = []
@@ -794,6 +826,9 @@ def main() -> None:
     # Build global normalizer for student (shared across all tasks)
     global_normalizer = _build_global_normalizer(datasets)
     print(f"Built global observation normalizer across {len(datasets)} tasks")
+
+    # Determine device
+    device = args.device or ("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # Get dimensions from environment (not YAML config)
     print("\nExtracting dimensions from environment...")
@@ -863,8 +898,6 @@ def main() -> None:
     # Prepare task buffers
     task_summaries: List[Dict[str, Any]] = []
     task_buffers: List[Dict[str, Any]] = []
-
-    device = args.device or ("cuda:0" if torch.cuda.is_available() else "cpu")
 
     for task_idx, task_cfg in enumerate(task_configs):
         dataset = datasets[task_idx]
@@ -974,7 +1007,8 @@ def main() -> None:
     total_updates_planned = sum(tb["num_epochs"] * tb["train_steps_per_epoch"] for tb in task_buffers)
     run_config = {
         "num_tasks": num_tasks,
-        "config_path": str(args.config),
+        "tasks_config": str(args.tasks_config),
+        "task_sequence": args.task_sequence,
         "learning_rate": args.learning_rate,
         "batch_size": args.batch_size,
         "student_min_std": args.student_min_std,
