@@ -11,6 +11,7 @@ from mjlab.rl import RslRlOnPolicyRunnerCfg
 class _TaskCfg:
   env_cfg: ManagerBasedRlEnvCfg
   play_env_cfg: ManagerBasedRlEnvCfg
+  test_env_cfg: ManagerBasedRlEnvCfg
   rl_cfg: RslRlOnPolicyRunnerCfg
   runner_cls: type | None
 
@@ -23,6 +24,7 @@ def register_mjlab_task(
   task_id: str,
   env_cfg: ManagerBasedRlEnvCfg,
   play_env_cfg: ManagerBasedRlEnvCfg,
+  test_env_cfg: ManagerBasedRlEnvCfg,
   rl_cfg: RslRlOnPolicyRunnerCfg,
   runner_cls: type | None = None,
 ) -> None:
@@ -32,12 +34,13 @@ def register_mjlab_task(
     task_id: Unique task identifier (e.g., "Mjlab-Velocity-Rough-Unitree-Go1").
     env_cfg: Environment configuration used for training.
     play_env_cfg: Environment configuration in "play" mode.
+    test_env_cfg: Environment configuration for testing (no corruption, train episode length).
     rl_cfg: RL runner configuration.
     runner_cls: Optional custom runner class. If None, uses OnPolicyRunner.
   """
   if task_id in _REGISTRY:
     raise ValueError(f"Task '{task_id}' is already registered")
-  _REGISTRY[task_id] = _TaskCfg(env_cfg, play_env_cfg, rl_cfg, runner_cls)
+  _REGISTRY[task_id] = _TaskCfg(env_cfg, play_env_cfg, test_env_cfg, rl_cfg, runner_cls)
 
 
 def list_tasks() -> list[str]:
@@ -45,14 +48,22 @@ def list_tasks() -> list[str]:
   return sorted(_REGISTRY.keys())
 
 
-def load_env_cfg(task_name: str, play: bool = False) -> ManagerBasedRlEnvCfg:
+def load_env_cfg(task_name: str, play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
   """Load environment configuration for a task.
+
+  Args:
+    task_name: Name of the registered task.
+    play: If True, load play config (infinite episode, no corruption).
+    test: If True, load test config (train episode length, no corruption).
 
   Returns a deep copy to prevent mutation of the registered config.
   """
-  return deepcopy(
-    _REGISTRY[task_name].env_cfg if not play else _REGISTRY[task_name].play_env_cfg
-  )
+  if test:
+    return deepcopy(_REGISTRY[task_name].test_env_cfg)
+  elif play:
+    return deepcopy(_REGISTRY[task_name].play_env_cfg)
+  else:
+    return deepcopy(_REGISTRY[task_name].env_cfg)
 
 
 def load_rl_cfg(task_name: str) -> RslRlOnPolicyRunnerCfg:

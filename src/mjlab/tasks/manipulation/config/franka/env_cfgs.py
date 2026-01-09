@@ -106,6 +106,7 @@ def franka_lift_cube_env_cfg(
 
 def franka_open_door_env_cfg(
   play: bool = False,
+  test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific door opening configuration."""
   cfg = make_open_door_env_cfg()
@@ -176,6 +177,13 @@ def franka_open_door_env_cfg(
     cfg.episode_length_s = int(1e9)
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
+
+  # Apply test mode overrides (no corruption, but train episode length).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
 
   return cfg
 

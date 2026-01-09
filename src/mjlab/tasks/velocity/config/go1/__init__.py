@@ -12,6 +12,7 @@ register_mjlab_task(
   task_id="Mjlab-Velocity-Rough-Unitree-Go1",
   env_cfg=unitree_go1_rough_env_cfg(),
   play_env_cfg=unitree_go1_rough_env_cfg(play=True),
+  test_env_cfg=unitree_go1_rough_env_cfg(play=True),  # TODO: Add test parameter
   rl_cfg=unitree_go1_ppo_runner_cfg(),
   runner_cls=VelocityOnPolicyRunner,
 )
@@ -20,6 +21,7 @@ register_mjlab_task(
   task_id="Mjlab-Velocity-Flat-Unitree-Go1",
   env_cfg=unitree_go1_flat_env_cfg(),
   play_env_cfg=unitree_go1_flat_env_cfg(play=True),
+  test_env_cfg=unitree_go1_flat_env_cfg(play=True),  # TODO: Add test parameter
   rl_cfg=unitree_go1_ppo_runner_cfg(),
   runner_cls=VelocityOnPolicyRunner,
 )
@@ -28,6 +30,7 @@ register_mjlab_task(
   task_id="Mjlab-Velocity-Flat-Unitree-Go1-ActuatorNet",
   env_cfg=unitree_go1_flat_env_cfg_learned(),
   play_env_cfg=unitree_go1_flat_env_cfg_learned(play=True),
+  test_env_cfg=unitree_go1_flat_env_cfg_learned(play=True),  # TODO: Add test parameter
   rl_cfg=unitree_go1_ppo_runner_cfg(),
   runner_cls=VelocityOnPolicyRunner,
 )

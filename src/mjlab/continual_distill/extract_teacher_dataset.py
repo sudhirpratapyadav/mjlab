@@ -298,70 +298,126 @@ def main():
     # Clean up environment
     env.close()
 
-    # Add metadata
+    # Create output folder structure
     checkpoint_name = checkpoint_path.stem  # e.g., "model_100"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    task_name_slug = args.task.replace('-', '_')
 
-    metadata = {
+    # Folder name: {task}_{checkpoint}_{timestamp}
+    folder_name = f"{task_name_slug}_{checkpoint_name}_{timestamp}"
+    task_folder = output_dir / folder_name
+    task_folder.mkdir(parents=True, exist_ok=True)
+
+    # Convert JAX parameters to numpy for pickling
+    def jax_to_numpy(tree):
+        """Convert JAX arrays in pytree to numpy arrays."""
+        import jax.tree_util as tree_util
+        return tree_util.tree_map(lambda x: np.array(x) if isinstance(x, jnp.ndarray) else x, tree)
+
+    teacher_params_numpy = jax_to_numpy(actor_params)
+
+    # ===== Save Teacher Weights =====
+    teacher_data = {
+        'jax_params': teacher_params_numpy,  # Already converted PyTorch → JAX
+        'action_std': np.array(action_std),
+        'obs_normalizer_mean': np.array(obs_normalizer.mean),
+        'obs_normalizer_std': np.array(obs_normalizer.std),
+        'hidden_dims': teacher.hidden_dims,  # Network architecture (e.g., (512, 256, 128))
+
+        # Metadata
+        'checkpoint_path': str(checkpoint_path),  # Original PyTorch checkpoint (for reference)
+        'checkpoint_name': checkpoint_name,
         'task': args.task,
         'obs_dim': obs_size,
         'action_dim': action_size,
-        'num_samples_requested': args.num_samples,
-        'num_envs': args.num_envs,
-        'episode_length': args.episode_length,
-        'checkpoint_path': str(checkpoint_path),  # Full absolute path
-        'checkpoint_name': checkpoint_name,
-        'total_samples': len(dataset['observations']),
-        'collection_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'seed': args.seed,
-        'device': device,
     }
 
-    dataset['metadata'] = metadata
+    teacher_path = task_folder / 'teacher.pkl'
+    with open(teacher_path, 'wb') as f:
+        pickle.dump(teacher_data, f)
 
-    # Generate filename
-    # Format: teacher_dataset_{checkpoint}_{task}_{samples}samples_{timestamp}.pkl
-    task_name = args.task.replace('-', '_')
-    filename = f"teacher_dataset_{checkpoint_name}_{task_name}_{args.num_samples}samples_{timestamp}.pkl"
-    output_path = output_dir / filename
+    # ===== Save Dataset (observations + action targets) =====
+    dataset_with_metadata = {
+        'observations': dataset['observations'],
+        'action_targets': dataset['action_targets'],
 
-    # Save dataset
+        # Basic metadata
+        'metadata': {
+            'task': args.task,
+            'obs_dim': obs_size,
+            'action_dim': action_size,
+            'num_samples_requested': args.num_samples,
+            'num_envs': args.num_envs,
+            'episode_length': args.episode_length,
+            'total_samples': len(dataset['observations']),
+            'collection_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'seed': args.seed,
+            'device': device,
+        }
+    }
+
+    data_path = task_folder / 'data.pkl'
+    with open(data_path, 'wb') as f:
+        pickle.dump(dataset_with_metadata, f)
+
     print(f"\n{'='*80}")
-    print(f"Saving Dataset")
+    print(f"Saving Dataset & Teacher")
     print(f"{'='*80}")
-    print(f"Output path: {output_path}")
+    print(f"Output folder: {task_folder}")
+    print(f"  ├─ data.pkl     ({dataset['observations'].shape[0]} samples)")
+    print(f"  └─ teacher.pkl  (JAX weights + normalizer)")
 
-    with open(output_path, 'wb') as f:
-        pickle.dump(dataset, f)
-
-    print(f"✓ Dataset saved successfully!")
+    print(f"\n✓ Dataset saved successfully!")
 
     # Print summary
     print(f"\n{'='*80}")
     print("Dataset Summary")
     print(f"{'='*80}")
-    print(f"  Task: {metadata['task']}")
+    print(f"  Task: {args.task}")
     print(f"  Observations shape: {dataset['observations'].shape}")
     print(f"  Action targets shape: {dataset['action_targets'].shape}")
-    print(f"  Total samples: {metadata['total_samples']}")
+    print(f"  Total samples: {len(dataset['observations'])}")
     print(f"  Checkpoint: {checkpoint_name}")
-    print(f"  Checkpoint path: {metadata['checkpoint_path']}")
-    print(f"  Output file: {output_path.name}")
-    print(f"  Output full path: {output_path}")
+    print(f"  Original checkpoint path: {checkpoint_path}")
+    print(f"  Teacher network: JAX format, {teacher.hidden_dims}")
+    print(f"  Output folder: {folder_name}")
+    print(f"  Full path: {task_folder}")
 
     # Print usage example
     print(f"\n{'='*80}")
     print("Usage Example")
     print(f"{'='*80}")
-    print(f"To load this dataset in Python:")
+    print(f"In YAML config, use:")
+    print(f"")
+    print(f"task_info:")
+    print(f"  - task_name: \"{args.task.split('-')[-2].title() if '-' in args.task else args.task}\"")
+    print(f"    env_id: \"{args.task}\"")
+    print(f"    dataset_folder: \"{folder_name}\"")
+    print(f"    obs_dim: {obs_size}")
+    print(f"    action_dim: {action_size}")
+    print(f"    ep_len: {args.episode_length}")
+    print(f"")
+    print(f"To load in Python:")
     print(f"")
     print(f"import pickle")
-    print(f"with open('{output_path}', 'rb') as f:")
-    print(f"    data = pickle.load(f)")
+    print(f"from pathlib import Path")
     print(f"")
+    print(f"folder = Path('{task_folder}')")
+    print(f"")
+    print(f"# Load dataset")
+    print(f"with open(folder / 'data.pkl', 'rb') as f:")
+    print(f"    data = pickle.load(f)")
     print(f"observations = data['observations']  # Shape: {dataset['observations'].shape}")
     print(f"action_targets = data['action_targets']  # Shape: {dataset['action_targets'].shape}")
-    print(f"metadata = data['metadata']")
+    print(f"")
+    print(f"# Load teacher (JAX format, no conversion needed!)")
+    print(f"with open(folder / 'teacher.pkl', 'rb') as f:")
+    print(f"    teacher = pickle.load(f)")
+    print(f"teacher_params = teacher['jax_params']")
+    print(f"teacher_std = teacher['action_std']")
+    print(f"obs_mean = teacher['obs_normalizer_mean']")
+    print(f"obs_std = teacher['obs_normalizer_std']")
+    print(f"hidden_dims = teacher['hidden_dims']")
 
 
 if __name__ == "__main__":

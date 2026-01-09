@@ -7,6 +7,7 @@ register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Yam",
   env_cfg=yam_lift_cube_env_cfg(),
   play_env_cfg=yam_lift_cube_env_cfg(play=True),
+  test_env_cfg=yam_lift_cube_env_cfg(play=True),  # TODO: Add test parameter
   rl_cfg=yam_lift_cube_ppo_runner_cfg(),
 )
 
@@ -14,5 +15,6 @@ register_mjlab_task(
   task_id="Mjlab-Lift-Cylinder-Yam",
   env_cfg=yam_lift_cylinder_env_cfg(),
   play_env_cfg=yam_lift_cylinder_env_cfg(play=True),
+  test_env_cfg=yam_lift_cylinder_env_cfg(play=True),  # TODO: Add test parameter
   rl_cfg=yam_lift_cylinder_ppo_runner_cfg(),
 )

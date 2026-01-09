@@ -1,0 +1,40 @@
+# Example task configuration for continual distillation
+#
+# This file defines a sequence of tasks for continual learning.
+# Each task requires:
+#   - task_name: Unique name for the task
+#   - env_id: mjlab environment ID
+#   - dataset_folder: Folder containing data.pkl and teacher.pkl
+#   - obs_dim: Observation dimension
+#   - action_dim: Action dimension
+#   - ep_len: Episode length (for train/test split alignment)
+#   - num_epochs: (Optional) Number of epochs for this task
+#
+# The dataset_folder should contain:
+#   - data.pkl: observations and action_targets
+#   - teacher.pkl: JAX weights, normalizer, and architecture
+
+task_info:
+  - task_name: "OpenDoor"
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260108_192310"
+    obs_dim: 60
+    action_dim: 8
+    ep_len: 100
+    num_epochs: 500
+
+  - task_name: "OpenDrawer"
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260108_192417"
+    obs_dim: 60
+    action_dim: 8
+    ep_len: 100
+    num_epochs: 500
+
+  # Add more tasks as needed...
+  # - task_name: "PushButton"
+  #   env_id: "Mjlab-Push-Button-Franka"
+  #   dataset_folder: "teacher_datasets/Mjlab_Push_Button_Franka_model_xxx_TIMESTAMP"
+  #   obs_dim: 60
+  #   action_dim: 8
+  #   ep_len: 100

@@ -136,6 +136,200 @@ class TeacherPolicy:
 
 
 # ============================================================================
+# Student Network (Multi-Head for Continual Learning)
+# ============================================================================
+
+class StudentActorMLP(nn.Module):
+    """
+    Multi-head student MLP for continual learning.
+
+    Architecture matches teacher (ELU activation, Lecun init) but with
+    multiple output heads - one per task.
+    """
+    action_size: int
+    num_tasks: int
+    hidden_dims: Tuple[int, ...] = (512, 256, 128)
+
+    @nn.compact
+    def __call__(self, obs: jnp.ndarray) -> jnp.ndarray:
+        """Forward pass through student MLP.
+
+        Args:
+            obs: Normalized observations [batch_size, obs_dim]
+
+        Returns:
+            logits: All task heads concatenated [batch_size, 2*action_size*num_tasks]
+                   Format: [task0_mean, task0_scale, task1_mean, task1_scale, ...]
+        """
+        x = obs
+
+        # Shared hidden layers with ELU activation
+        for i, hidden_dim in enumerate(self.hidden_dims):
+            x = nn.Dense(
+                hidden_dim,
+                name=f'hidden_{i}',
+                kernel_init=nn.initializers.lecun_uniform(),
+            )(x)
+            x = nn.elu(x)
+
+        # Multi-head output layer
+        # Each head outputs 2*action_size (mean + scale_params)
+        logits = nn.Dense(
+            2 * self.action_size * self.num_tasks,
+            name=f'hidden_{len(self.hidden_dims)}',
+            kernel_init=nn.initializers.lecun_uniform(),
+        )(x)
+
+        return logits
+
+
+class StudentPolicy:
+    """
+    Multi-head student policy for continual distillation with SI tracking.
+
+    The student shares an MLP trunk across tasks with separate heads per task.
+    Uses ELU activation and same architecture as teacher network.
+    """
+
+    def __init__(
+        self,
+        obs_size: int,
+        action_size: int,
+        num_tasks: int,
+        hidden_dims: Tuple[int, ...] = (512, 256, 128),
+        min_std: float = 1e-3,
+    ):
+        self.obs_size = obs_size
+        self.action_size = action_size
+        self.num_tasks = num_tasks
+        self.hidden_dims = hidden_dims
+        self.min_std = min_std
+
+        self.network = StudentActorMLP(
+            action_size=action_size,
+            num_tasks=num_tasks,
+            hidden_dims=hidden_dims,
+        )
+
+    def init(self, key: jax.random.PRNGKey) -> dict:
+        """Initialize network parameters."""
+        dummy_obs = jnp.zeros((1, self.obs_size))
+        params = self.network.init(key, dummy_obs)
+        return params
+
+    def apply(
+        self,
+        params: dict,
+        normalizer_params,
+        obs: jnp.ndarray,
+    ) -> jnp.ndarray:
+        """Apply network to observations (forward pass).
+
+        Args:
+            params: Network parameters
+            normalizer_params: Dict with 'mean' and 'std' or ObservationNormalizer
+            obs: Raw observations [batch_size, obs_dim]
+
+        Returns:
+            logits: All task heads [batch_size, 2*action_size*num_tasks]
+        """
+        # Normalize observations (handle both dict and ObservationNormalizer)
+        if isinstance(normalizer_params, dict):
+            normalized_obs = (obs - normalizer_params['mean']) / (normalizer_params['std'] + 1e-8)
+        else:
+            normalized_obs = normalizer_params.normalize(obs)
+
+        # Forward pass through network
+        logits = self.network.apply(params, normalized_obs)
+
+        return logits
+
+    def head_logits(
+        self,
+        params: dict,
+        normalizer_params,
+        obs: jnp.ndarray,
+        task_idx: int,
+    ) -> jnp.ndarray:
+        """Get logits for specific task head.
+
+        Args:
+            params: Network parameters
+            normalizer_params: Dict with 'mean' and 'std' or ObservationNormalizer
+            obs: Raw observations
+            task_idx: Task index (0 to num_tasks-1)
+
+        Returns:
+            head_logits: Logits for specified task [batch_size, 2*action_size]
+        """
+        logits = self.apply(params, normalizer_params, obs)
+        head_dim = 2 * self.action_size
+        start = task_idx * head_dim
+        return jax.lax.dynamic_slice_in_dim(logits, start_index=start, slice_size=head_dim, axis=-1)
+
+    def head_mean_logstd(
+        self,
+        params: dict,
+        normalizer_params,
+        obs: jnp.ndarray,
+        task_idx: int,
+    ) -> Tuple[jnp.ndarray, jnp.ndarray]:
+        """Get mean and logstd for specific task head.
+
+        Args:
+            params: Network parameters
+            normalizer_params: Dict with 'mean' and 'std' or ObservationNormalizer
+            obs: Raw observations
+            task_idx: Task index
+
+        Returns:
+            Tuple of (mean, logstd)
+        """
+        head_logits = self.head_logits(params, normalizer_params, obs, task_idx)
+        loc, scale_params = jnp.split(head_logits, 2, axis=-1)
+        std = jax.nn.softplus(scale_params) + self.min_std
+        log_std = jnp.log(std)
+        return loc, log_std
+
+    def get_action(
+        self,
+        params: dict,
+        normalizer_params,
+        obs: jnp.ndarray,
+        key: jax.random.PRNGKey,
+        task_idx: int,
+        deterministic: bool = True,
+    ) -> jnp.ndarray:
+        """Get action for specific task.
+
+        Args:
+            params: Network parameters
+            normalizer_params: Dict with 'mean' and 'std' or ObservationNormalizer
+            obs: Raw observations
+            key: JAX random key (only used if not deterministic)
+            task_idx: Task index
+            deterministic: If True, return mean; else sample
+
+        Returns:
+            action: Unbounded action (no tanh applied)
+        """
+        mean, log_std = self.head_mean_logstd(params, normalizer_params, obs, task_idx)
+        if deterministic:
+            return mean
+
+        sample = jax.random.normal(key, shape=mean.shape)
+        raw_action = mean + jnp.exp(log_std) * sample
+        return raw_action
+
+    @staticmethod
+    def flatten_tree(tree: dict) -> jnp.ndarray:
+        """Flatten an arbitrary parameter/gradient PyTree into a 1-D buffer."""
+        from jax.flatten_util import ravel_pytree
+        flat, _ = ravel_pytree(tree)
+        return flat
+
+
+# ============================================================================
 # PyTorch Checkpoint Loading & Conversion
 # ============================================================================
 
