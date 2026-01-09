@@ -499,7 +499,7 @@ def evaluate_all_tasks_offline(
 
         eval_task_idx_arr = jnp.asarray(eval_task_idx, dtype=jnp.int32)
 
-        # Evaluate on train split
+        # Evaluate on train split (using global student normalizer)
         train_obs = task_data["train_obs"]
         train_mean = task_data["train_mean"]
         train_logstd = task_data["train_logstd"]
@@ -571,6 +571,7 @@ def evaluate_all_tasks_env(
                 wandb_run.log(payload, step=global_step)
             continue
 
+        # Evaluate environment (using global student normalizer)
         env_metrics = evaluate_environment(
             task=task_data,
             state=state,
@@ -663,19 +664,57 @@ def _load_dataset_and_teacher(dataset_folder: Path) -> Tuple[Dict[str, np.ndarra
     return dataset, teacher_info
 
 
-def _build_task_normalizer(observations: np.ndarray) -> Dict[str, jnp.ndarray]:
-    """Build observation normalizer parameters for single task.
+def _build_global_normalizer(datasets: List[Dict[str, Any]]) -> Dict[str, jnp.ndarray]:
+    """Build global observation normalizer across all tasks.
+
+    Aggregates statistics from all datasets to compute mean and std
+    that will be used by the student for all tasks.
 
     Returns a dictionary with 'mean' and 'std' JAX arrays (JIT-compatible).
     """
-    if observations.size == 0:
-        obs_dim = 1
+    aggregate: Dict[str, Any] = {}
+    obs_dim = None
+
+    for data in datasets:
+        obs = data["observations"]
+        if obs.size == 0:
+            continue
+        obs_dim = obs.shape[1]
+        batch_count = float(obs.shape[0])
+        batch_mean = obs.mean(axis=0)
+        batch_var = obs.var(axis=0)
+        batch_summed_var = batch_var * batch_count
+
+        if not aggregate:
+            aggregate["count"] = batch_count
+            aggregate["mean"] = batch_mean
+            aggregate["summed_var"] = batch_summed_var
+        else:
+            count = aggregate["count"]
+            mean = aggregate["mean"]
+            summed_var = aggregate["summed_var"]
+            total_count = count + batch_count
+            delta = batch_mean - mean
+            new_mean = mean + delta * (batch_count / total_count)
+            m_a = summed_var
+            m_b = batch_summed_var
+            new_summed_var = m_a + m_b + (delta ** 2) * count * batch_count / total_count
+            aggregate["count"] = total_count
+            aggregate["mean"] = new_mean
+            aggregate["summed_var"] = new_summed_var
+
+    if not aggregate:
+        if obs_dim is None:
+            obs_dim = 1
+        count = 1.0
         mean = np.zeros(obs_dim, dtype=np.float32)
-        std = np.ones(obs_dim, dtype=np.float32)
+        summed_var = np.ones(obs_dim, dtype=np.float32)
     else:
-        mean = observations.mean(axis=0).astype(np.float32)
-        std = observations.std(axis=0).astype(np.float32)
-        std = np.maximum(std, 1e-6)
+        count = aggregate["count"]
+        mean = aggregate["mean"]
+        summed_var = aggregate["summed_var"]
+
+    std = np.sqrt(np.maximum(summed_var / max(count, 1.0), 1e-6)).astype(np.float32)
 
     return {
         'mean': jnp.array(mean),
@@ -752,6 +791,10 @@ def main() -> None:
         datasets.append(data)
         teacher_infos.append(teacher_info)
 
+    # Build global normalizer for student (shared across all tasks)
+    global_normalizer = _build_global_normalizer(datasets)
+    print(f"Built global observation normalizer across {len(datasets)} tasks")
+
     # Get dimensions from first task
     obs_dim_values = {int(task["obs_dim"]) for task in task_configs}
     if len(obs_dim_values) != 1:
@@ -769,21 +812,19 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(512, 256, 128),  # Match teacher architecture
+        hidden_dims=(2048, 1024, 512),  # Match teacher architecture
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)
     flat_params = student.flatten_tree(params)
     optimizer = optax.adam(args.learning_rate)
 
-    # Create initial normalizer (will be replaced per-task)
-    init_normalizer = _build_task_normalizer(datasets[0]["observations"])
-
+    # Initialize state with global normalizer (shared across all tasks)
     state = StudentTrainStateSI.create(
         apply_fn=student.network.apply,
         params=params,
         tx=optimizer,
-        normalizer_params=init_normalizer,
+        normalizer_params=global_normalizer,
         prev_step_params_flat=flat_params,
         snapshot_params_flat=jnp.zeros_like(flat_params),
         omega=jnp.zeros_like(flat_params),
@@ -806,9 +847,6 @@ def main() -> None:
         action_targets = dataset["action_targets"]
         teacher_mean = action_targets[:, :action_dim]
         teacher_logstd = action_targets[:, action_dim:]
-
-        # Build task-specific normalizer
-        task_normalizer = _build_task_normalizer(observations)
 
         train_obs_np, train_mean_np, train_logstd_np, test_obs_np, test_mean_np, test_logstd_np = _split_dataset_for_task(
             observations,
@@ -876,7 +914,6 @@ def main() -> None:
                 "train_steps_per_epoch": train_steps_per_epoch,
                 "num_epochs": num_epochs,
                 "dataset_folder": dataset_folder_str,
-                "task_normalizer": task_normalizer,
                 "env": env,
                 "episode_length": episode_length,
                 "teacher_policy": teacher_policy,
@@ -937,9 +974,6 @@ def main() -> None:
         print("\n" + "-" * 80)
         print(f"[Task {task_idx}] {task_name}")
         print(f"Dataset folder: {task_data['dataset_folder']}")
-
-        # Update normalizer for this task
-        state = state.replace(normalizer_params=task_data["task_normalizer"])
 
         train_obs = task_data["train_obs"]
         train_mean = task_data["train_mean"]
@@ -1118,6 +1152,7 @@ def main() -> None:
         if test_size == 0:
             print(f"  - {task_name}: no test split available.")
             continue
+
         loss = float(
             dataset_kl_loss_si(
                 state,
@@ -1133,6 +1168,7 @@ def main() -> None:
         print("\nFinal environment evaluation:")
         for task_idx, task_data in enumerate(task_buffers):
             task_name = task_data["task_name"]
+
             env_metrics = evaluate_environment(
                 task=task_data,
                 state=state,
