@@ -794,7 +794,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
     parser.add_argument("--env-eval-every", type=int, default=100, help="Frequency (in epochs) of environment evaluation; 0 => match --eval-every.")
-    parser.add_argument("--env-eval-episodes", type=int, default=4, help="Number of episodes for environment evaluation.")
+    parser.add_argument("--env-eval-episodes", type=int, default=64, help="Number of episodes for environment evaluation.")
     parser.add_argument("--seed", type=int, default=0, help="PRNG seed.")
     parser.add_argument("--no-tqdm", action="store_true", help="Disable tqdm progress bars.")
     parser.add_argument("--track", action="store_true", default=True, help="Enable Weights & Biases logging.")
@@ -872,7 +872,7 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(2048, 1024, 512),  # Match teacher architecture
+        hidden_dims=(2048, 1024, 512),
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)

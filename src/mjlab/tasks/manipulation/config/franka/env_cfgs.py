@@ -110,7 +110,7 @@ def franka_lift_cube_env_cfg(
     cfg.terminations.pop("ee_ground_collision", None)
     cfg.terminations.pop("object_out_of_bounds", None)
     # Set episode length to 150 steps (150 * 0.02 control_dt = 3.0s)
-    cfg.episode_length_s = 3.0
+    cfg.episode_length_s = 5.0
 
   return cfg
 
