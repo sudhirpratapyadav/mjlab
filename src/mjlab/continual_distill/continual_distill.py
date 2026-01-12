@@ -778,6 +778,68 @@ def _split_dataset_for_task(
     return train_obs, train_mean, train_logstd, test_obs, test_mean, test_logstd
 
 
+def save_checkpoint(
+    state: StudentTrainStateSI,
+    checkpoint_dir: Path,
+    task_idx: int,
+    epoch: int,
+    global_step: int,
+    task_sequence: List[str],
+    env_ids: List[str],
+    obs_dim: int,
+    action_dim: int,
+    hidden_dims: Tuple[int, ...],
+) -> None:
+    """Save student checkpoint.
+
+    Args:
+        state: Student training state
+        checkpoint_dir: Directory to save checkpoint
+        task_idx: Current task index
+        epoch: Current epoch within task
+        global_step: Global training step
+        task_sequence: List of task names in order
+        env_ids: List of environment IDs in order
+        obs_dim: Observation dimension
+        action_dim: Action dimension
+        hidden_dims: Hidden layer dimensions
+    """
+    checkpoint = {
+        # Network weights
+        "params": state.params,
+        # Normalizer (dict with 'mean' and 'std' JAX arrays)
+        "normalizer_params": state.normalizer_params,
+        # Task sequence mapping (list of task names and env_ids)
+        "task_sequence": task_sequence,
+        "env_ids": env_ids,
+        # Network architecture info
+        "obs_dim": obs_dim,
+        "action_dim": action_dim,
+        "num_tasks": state.num_tasks,
+        "hidden_dims": hidden_dims,
+        "student_min_std": state.student_min_std,
+        # Training info
+        "task_idx": task_idx,
+        "epoch": epoch,
+        "global_step": global_step,
+    }
+
+    # Convert JAX arrays to numpy for serialization
+    def jax_to_numpy(tree):
+        """Convert JAX arrays in pytree to numpy arrays."""
+        import jax.tree_util as tree_util
+        return tree_util.tree_map(lambda x: np.array(x) if isinstance(x, jnp.ndarray) else x, tree)
+
+    checkpoint_np = jax_to_numpy(checkpoint)
+
+    # Save checkpoint
+    checkpoint_path = checkpoint_dir / f"checkpoint_task{task_idx}_epoch{epoch}_step{global_step}.pkl"
+    with checkpoint_path.open("wb") as f:
+        pickle.dump(checkpoint_np, f)
+
+    print(f"    Saved checkpoint: {checkpoint_path}")
+
+
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
@@ -795,6 +857,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
     parser.add_argument("--env-eval-every", type=int, default=100, help="Frequency (in epochs) of environment evaluation; 0 => match --eval-every.")
     parser.add_argument("--env-eval-episodes", type=int, default=64, help="Number of episodes for environment evaluation.")
+    parser.add_argument("--checkpoint-every", type=int, default=100, help="Frequency (in epochs) to save checkpoints.")
+    parser.add_argument("--checkpoint-dir", type=Path, default=None, help="Base directory to save checkpoints (default: ./results in same folder as script).")
     parser.add_argument("--seed", type=int, default=0, help="PRNG seed.")
     parser.add_argument("--no-tqdm", action="store_true", help="Disable tqdm progress bars.")
     parser.add_argument("--track", action="store_true", default=True, help="Enable Weights & Biases logging.")
@@ -872,7 +936,7 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(2048, 1024, 512),
+        hidden_dims=(4096, 2048, 1024),
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)
@@ -1003,6 +1067,18 @@ def main() -> None:
     print(f"SI coef: {args.si_coeff} | SI epsilon: {args.si_epsilon}")
 
     args.run_name = args.run_name or f"continual_distill_{int(time.time())}"
+
+    # Create checkpoint directory structure: base_dir/{run_name}/
+    # Default base_dir is ./results in the same folder as this script
+    if args.checkpoint_dir is None:
+        script_dir = Path(__file__).parent
+        base_checkpoint_dir = script_dir / "results"
+    else:
+        base_checkpoint_dir = args.checkpoint_dir
+
+    checkpoint_dir = base_checkpoint_dir / args.run_name
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    print(f"Checkpoint directory: {checkpoint_dir}")
 
     total_updates_planned = sum(tb["num_epochs"] * tb["train_steps_per_epoch"] for tb in task_buffers)
     run_config = {
@@ -1180,6 +1256,24 @@ def main() -> None:
                     epoch=epoch + 1,
                 )
                 print(f"      EnvEval | Evaluated all tasks 0-{task_idx}")
+
+            # Save checkpoint
+            should_save_checkpoint = ((epoch + 1) % args.checkpoint_every == 0) or (epoch + 1 == task_num_epochs)
+            if should_save_checkpoint:
+                # Build env_ids list from task_configs
+                env_ids = [tc["env_id"] for tc in task_configs]
+                save_checkpoint(
+                    state=state,
+                    checkpoint_dir=checkpoint_dir,
+                    task_idx=task_idx,
+                    epoch=epoch + 1,
+                    global_step=global_step,
+                    task_sequence=args.task_sequence,
+                    env_ids=env_ids,
+                    obs_dim=obs_dim,
+                    action_dim=action_dim,
+                    hidden_dims=(4096, 2048, 1024),
+                )
 
         state = consolidate_si_state(state, args.si_epsilon)
         print(f"Completed Task {task_idx}. SI buffers consolidated.")
