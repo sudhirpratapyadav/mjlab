@@ -212,15 +212,20 @@ def test_student(
 ):
     """Run student policy in environment and print results.
 
+    MODIFIED: Now runs parallel environments exactly like continual_distill.py
+    - Uses env.num_envs parallel environments
+    - Runs ONE episode across all parallel envs
+    - Extracts success from info["log"] after episode completes
+
     Args:
-        env: mjlab environment
+        env: mjlab environment (with num_envs parallel environments)
         student_policy: Student policy instance
         params: Student parameters
         normalizer_params: Observation normalizer
         task_idx: Task index to use (head selection)
         student_min_std: Minimum std for student policy
         action_dim: Action dimension
-        num_episodes: Number of episodes to run
+        num_episodes: Number of episodes to run (should be 1 for parallel envs)
         episode_length: Maximum steps per episode
     """
     task_idx_arr = jnp.asarray(task_idx, dtype=jnp.int32)
@@ -247,52 +252,75 @@ def test_student(
 
         return loc
 
-    episode_returns = []
-    episode_successes = []
+    # MODIFIED: Run parallel environments exactly like continual_distill.py
+    num_envs = env.num_envs
+    print(f"\nRunning {num_envs} parallel environments for {episode_length} steps...")
 
-    print(f"\nRunning {num_episodes} test episodes (max {episode_length} steps each)...")
+    # Reset all environments
+    obs, _ = env.reset()
+    episode_returns = np.zeros(num_envs)
 
-    for ep in range(num_episodes):
-        obs, _ = env.reset()
-        episode_return = 0.0
-        steps = 0
-        success_val = 0.0
+    # Run for FULL episode length (no early break) - like continual_distill.py
+    for step in range(episode_length):
+        # Get observation and convert to JAX
+        obs_array = obs['policy'].cpu().numpy()
+        obs_jax = jnp.array(obs_array)
 
-        for step in range(episode_length):
-            # Get observation and convert to JAX
-            obs_array = obs['policy'].cpu().numpy()
-            obs_jax = jnp.array(obs_array)
+        # Get student action
+        action_jax = get_student_action(obs_jax)
 
-            # Get student action
-            action_jax = get_student_action(obs_jax)
+        # Step environment
+        action_torch = torch.from_numpy(np.array(action_jax))
+        obs, reward, terminated, truncated, info = env.step(action_torch)
 
-            # Step environment
-            action_torch = torch.from_numpy(np.array(action_jax))
-            obs, reward, terminated, truncated, info = env.step(action_torch)
+        episode_returns += reward.cpu().numpy()
 
-            episode_return += reward.cpu().numpy().mean()
-            steps += 1
+    # MODIFIED: Extract success AFTER loop completes (exactly like continual_distill.py)
+    # Extract final success values from info["log"] (populated when episode ends)
+    mean_success = 0.0
 
-            # Extract success from info["log"] when episode terminates
-            if (terminated.any() or truncated.any()) and "log" in info and isinstance(info["log"], dict):
-                for key, value in info["log"].items():
-                    if "episode_success" in key.lower():
-                        success_val = float(value)
-                        break
-                # Episode terminated, exit loop
+    # DEBUG: Print what we get from info["log"]
+    print(f"\n=== DEBUG: After {episode_length} steps ===")
+    print(f"Final terminated: {terminated.cpu().numpy()}")
+    print(f"Final truncated: {truncated.cpu().numpy()}")
+    print(f"'log' in info: {'log' in info}")
+
+    if "log" in info and isinstance(info["log"], dict):
+        print(f"info['log'] keys: {list(info['log'].keys())}")
+        for key, value in info["log"].items():
+            if "success" in key.lower():
+                print(f"  {key}: {value}")
+                if isinstance(value, torch.Tensor):
+                    print(f"    Tensor shape: {value.shape}, dtype: {value.dtype}")
+                    print(f"    Values: {value.cpu().numpy()}")
+            if "episode_success" in key.lower():
+                # CRITICAL BUG FOUND: info["log"] contains MEAN, not per-env values!
+                # command_manager.reset() returns: extras[metric_name] = torch.mean(metric_value[env_ids]).item()
+                mean_success = float(value) if not isinstance(value, torch.Tensor) else float(value.cpu().numpy())
+                print(f"\n  *** BUG IDENTIFIED ***")
+                print(f"  info['log']['episode_success'] is a SCALAR MEAN, not per-environment array!")
+                print(f"  This is why continual_distill.py shows incorrect success rates!")
+                print(f"  The value {mean_success:.3f} represents the mean across all {num_envs} environments.")
                 break
+    else:
+        print("WARNING: No 'log' in info or info['log'] is not a dict!")
 
-        episode_returns.append(episode_return)
-        episode_successes.append(success_val)
-
-        # Print episode summary
-        success_str = "SUCCESS" if success_val > 0.5 else "FAIL"
-        print(f"Episode {ep + 1:3d}: Steps={steps:3d} Return={episode_return:7.2f} Success={success_val:.2f} [{success_str}]")
+    print(f"\nExtracted mean_success: {mean_success:.3f}")
+    print(f"Estimated successful environments: {int(mean_success * num_envs)}/{num_envs}")
+    print("=" * 60)
 
     # Print summary
-    print("=" * 60)
+    print("\n" + "=" * 60)
     print(f"Average Return:  {np.mean(episode_returns):.3f} ± {np.std(episode_returns):.3f}")
-    print(f"Success Rate:    {np.mean(episode_successes):.3f} ({int(np.sum(episode_successes))}/{num_episodes})")
+    print(f"Success Rate (from info['log']): {mean_success:.3f}")
+    print(f"Estimated successful envs: ~{int(mean_success * num_envs)}/{num_envs}")
+    print("=" * 60)
+
+    print("\n*** CONCLUSION ***")
+    print("The bug in continual_distill.py is that info['log']['episode_success']")
+    print("contains the MEAN across all environments that reset, not individual values.")
+    print("This means continual_distill.py cannot distinguish between individual")
+    print("environment successes - it only gets the aggregate mean!")
     print("=" * 60)
 
 
@@ -335,8 +363,8 @@ def parse_args():
     parser.add_argument(
         "--num-test-episodes",
         type=int,
-        default=5,
-        help="Number of test episodes to run before viewer",
+        default=64,
+        help="Number of parallel environments to test (matches continual_distill.py default)",
     )
     parser.add_argument(
         "--episode-length",
@@ -444,16 +472,26 @@ def main():
 
     # Run test episodes first (unless skipped)
     if not args.skip_test:
-        print(f"\nRunning {args.num_test_episodes} test episodes first...")
-        print(f"Creating environment: {args.env_id} on {device}")
+        print(f"\n{'='*70}")
+        print(f"MODIFIED TO MATCH continual_distill.py EXACTLY:")
+        print(f"  - Using {args.num_test_episodes} parallel environments")
+        print(f"  - Running 1 episode across all parallel envs")
+        print(f"  - Extracting success from info['log'] AFTER episode completes")
+        print(f"{'='*70}")
+        print(f"\nCreating environment: {args.env_id} on {device}")
 
-        # Create environment for testing
+        # MODIFIED: Create environment with PARALLEL environments (like continual_distill.py)
         env_cfg_test = load_env_cfg(args.env_id, test=True)
-        env_cfg_test.scene.num_envs = 1
+        env_cfg_test.scene.num_envs = args.num_test_episodes  # Use num_test_episodes as num_envs!
         env_cfg_test.seed = args.seed
         env_test = ManagerBasedRlEnv(cfg=env_cfg_test, device=device)
 
-        # Run test episodes
+        # MODIFIED: Use environment's actual max_episode_length (like continual_distill.py)
+        actual_episode_length = env_test.max_episode_length
+        print(f"Using environment's actual episode length: {actual_episode_length} steps")
+        print(f"Number of parallel environments: {env_test.num_envs}")
+
+        # Run test - now runs ONE episode across all parallel envs
         test_student(
             env=env_test,
             student_policy=student_policy,
@@ -462,8 +500,8 @@ def main():
             task_idx=task_idx,
             student_min_std=student_min_std,
             action_dim=action_dim,
-            num_episodes=args.num_test_episodes,
-            episode_length=args.episode_length,
+            num_episodes=1,  # Always 1 episode when using parallel envs
+            episode_length=actual_episode_length,
         )
 
         # Close test environment

@@ -1,0 +1,49 @@
+--- a/src/mjlab/continual_distill/continual_distill.py
++++ b/src/mjlab/continual_distill/continual_distill.py
+@@ -413,6 +413,16 @@ def evaluate_environment(
+         obs, reward, terminated, truncated, info = env.step(teacher_action_torch)
+         episode_returns += reward.cpu().numpy()
+
++    # DEBUG: Print info["log"] contents after teacher rollout
++    print(f"\n=== DEBUG TEACHER: Task {task_name} (idx {task_idx}) ===")
++    print(f"Step {step}: terminated={terminated.cpu().numpy()}, truncated={truncated.cpu().numpy()}")
++    print(f"info keys: {list(info.keys())}")
++    if "log" in info:
++        print(f"info['log'] keys: {list(info['log'].keys())}")
++        for key, value in info['log'].items():
++            if 'success' in key.lower():
++                print(f"  {key}: {value}")
++
+     # Extract final success values from info["log"] (populated when episode ends)
+     teacher_successes = np.zeros(num_envs)
+     if "log" in info and isinstance(info["log"], dict):
+@@ -438,6 +448,17 @@ def evaluate_environment(
+         obs, reward, terminated, truncated, info = env.step(student_action_torch)
+         episode_returns += reward.cpu().numpy()
+
++    # DEBUG: Print info["log"] contents after student rollout
++    print(f"\n=== DEBUG STUDENT: Task {task_name} (idx {task_idx}) ===")
++    print(f"Step {step}: terminated={terminated.cpu().numpy()}, truncated={truncated.cpu().numpy()}")
++    print(f"episode_length_buf: {env.episode_length_buf.cpu().numpy()}")
++    print(f"max_episode_length: {env.max_episode_length}")
++    print(f"info keys: {list(info.keys())}")
++    if "log" in info:
++        print(f"info['log'] keys: {list(info['log'].keys())}")
++        for key, value in info['log'].items():
++            if 'success' in key.lower():
++                print(f"  {key}: {value}")
++
+     # Extract final success values from info["log"] (populated when episode ends)
+     student_successes = np.zeros(num_envs)
+     if "log" in info and isinstance(info["log"], dict):
+@@ -446,6 +467,9 @@ def evaluate_environment(
+                 student_successes = value.cpu().numpy() if hasattr(value, 'cpu') else np.array(value)
+                 break
+
++    print(f"Extracted student_successes: {student_successes}")
++    print(f"Mean success: {np.mean(student_successes)}")
++    print("=" * 70)
++
+     student_episode_returns = episode_returns.tolist()
+     student_successes = student_successes.tolist()
+

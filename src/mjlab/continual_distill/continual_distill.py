@@ -341,6 +341,11 @@ def evaluate_environment(
     Returns:
         Dictionary of evaluation metrics
     """
+    # DEBUG: Start of evaluation
+    print(f"\n{'='*80}")
+    print(f"DEBUG EVAL START: Task {task_idx} ({task_name}) | Step {global_step} | Epoch {log_epoch}")
+    print(f"{'='*80}")
+
     if num_episodes <= 0:
         return {
             "env_loss": 0.0,
@@ -355,6 +360,23 @@ def evaluate_environment(
     teacher_params = task["teacher_params"]
     teacher_std = task["teacher_std"]
     teacher_normalizer = task["teacher_normalizer"]
+
+    # DEBUG: Print environment state before evaluation
+    print(f"Environment info:")
+    print(f"  num_envs: {env.num_envs}")
+    print(f"  max_episode_length: {env.max_episode_length}")
+    print(f"  episode_length_buf: {env.episode_length_buf[:5].cpu().numpy()} (first 5)")
+
+    # DEBUG: Check command manager state
+    if hasattr(env, 'command_manager') and hasattr(env.command_manager, '_terms'):
+        for cmd_name, cmd_term in env.command_manager._terms.items():
+            print(f"  Command '{cmd_name}':")
+            if hasattr(cmd_term, 'episode_success'):
+                print(f"    episode_success: {cmd_term.episode_success[:5].cpu().numpy()} (first 5)")
+            if hasattr(cmd_term, 'metrics'):
+                for metric_name, metric_value in cmd_term.metrics.items():
+                    if 'success' in metric_name.lower():
+                        print(f"    metrics['{metric_name}']: {metric_value[:5].cpu().numpy()} (first 5)")
 
     task_idx_arr = jnp.asarray(task_idx, dtype=jnp.int32)
 
@@ -381,11 +403,16 @@ def evaluate_environment(
         return mean
 
     # Teacher rollouts - parallel episodes (run full episode length, no early termination)
+    print(f"\n--- TEACHER ROLLOUT START ---")
     obs, _ = env.reset()
     num_envs = env.num_envs
     episode_returns = np.zeros(num_envs)
     teacher_total_kl = 0.0
     teacher_total_steps = 0
+
+    print(f"After env.reset() (Teacher):")
+    print(f"  num_envs: {num_envs}")
+    print(f"  episode_length to run: {episode_length}")
 
     # Run for full episode length (no early termination)
     for step in range(episode_length):
@@ -415,18 +442,44 @@ def evaluate_environment(
 
     # Extract final success values from info["log"] (populated when episode ends)
     teacher_successes = np.zeros(num_envs)
+
+    print(f"\nAfter teacher episode complete:")
+    print(f"  'log' in info: {'log' in info}")
     if "log" in info and isinstance(info["log"], dict):
+        print(f"  info['log'] keys: {list(info['log'].keys())}")
         for key, value in info["log"].items():
+            if "success" in key.lower():
+                print(f"    {key}: {value}")
             if "episode_success" in key.lower():
                 teacher_successes = value.cpu().numpy() if hasattr(value, 'cpu') else np.array(value)
+                print(f"    >>> EXTRACTED teacher episode_success: {teacher_successes}")
                 break
 
     teacher_episode_returns = episode_returns.tolist()
     teacher_successes = teacher_successes.tolist()
+    print(f"  Teacher successes mean: {np.mean(teacher_successes):.4f}")
+    print(f"--- TEACHER ROLLOUT END ---\n")
 
     # Student rollouts - parallel episodes (run full episode length, no early termination)
+    print(f"\n--- STUDENT ROLLOUT START ---")
     obs, _ = env.reset()
     episode_returns = np.zeros(num_envs)
+
+    # DEBUG: Check command manager state AFTER reset
+    print(f"After env.reset():")
+    print(f"  episode_length_buf: {env.episode_length_buf[:5].cpu().numpy()} (first 5)")
+    if hasattr(env, 'command_manager') and hasattr(env.command_manager, '_terms'):
+        for cmd_name, cmd_term in env.command_manager._terms.items():
+            if hasattr(cmd_term, 'episode_success'):
+                print(f"  {cmd_name}.episode_success: {cmd_term.episode_success[:5].cpu().numpy()} (first 5)")
+            if hasattr(cmd_term, 'target_pos'):
+                print(f"  {cmd_name}.target_pos[0]: {cmd_term.target_pos[0].cpu().numpy()}")
+            # Get object position if available
+            if hasattr(cmd_term, 'object'):
+                obj_pos = cmd_term.object.data.root_link_pos_w[0].cpu().numpy()
+                print(f"  {cmd_name}.object_pos[0]: {obj_pos}")
+                goal_error = np.linalg.norm(cmd_term.target_pos[0].cpu().numpy() - obj_pos)
+                print(f"  {cmd_name}.initial_goal_error[0]: {goal_error:.4f}m")
 
     # Run for full episode length (no early termination)
     for step in range(episode_length):
@@ -438,16 +491,68 @@ def evaluate_environment(
         obs, reward, terminated, truncated, info = env.step(student_action_torch)
         episode_returns += reward.cpu().numpy()
 
+        # DEBUG: Log progress at certain steps
+        if step in [0, episode_length//2, episode_length-1]:
+            print(f"  Step {step}: episode_length_buf={env.episode_length_buf[0].item()}")
+            if hasattr(env, 'command_manager') and hasattr(env.command_manager, '_terms'):
+                for cmd_name, cmd_term in env.command_manager._terms.items():
+                    if hasattr(cmd_term, 'episode_success'):
+                        succ = cmd_term.episode_success[:5].cpu().numpy()
+                        print(f"    {cmd_name}.episode_success[:5]: {succ}")
+
+    # DEBUG: Check final step info
+    print(f"\nAfter episode complete (step {episode_length}):")
+    print(f"  episode_length_buf: {env.episode_length_buf[:5].cpu().numpy()} (first 5)")
+    print(f"  terminated: {terminated[:5].cpu().numpy()} (first 5)")
+    print(f"  truncated: {truncated[:5].cpu().numpy()} (first 5)")
+
+    # DEBUG: Check command manager state BEFORE extracting from info
+    if hasattr(env, 'command_manager') and hasattr(env.command_manager, '_terms'):
+        for cmd_name, cmd_term in env.command_manager._terms.items():
+            print(f"  {cmd_name} state BEFORE extraction:")
+            if hasattr(cmd_term, 'episode_success'):
+                print(f"    episode_success[:10]: {cmd_term.episode_success[:10].cpu().numpy()}")
+            if hasattr(cmd_term, 'metrics'):
+                for metric_name, metric_value in cmd_term.metrics.items():
+                    if 'success' in metric_name.lower():
+                        print(f"    metrics['{metric_name}'][:10]: {metric_value[:10].cpu().numpy()}")
+
     # Extract final success values from info["log"] (populated when episode ends)
     student_successes = np.zeros(num_envs)
+
+    print(f"\n  Extracting from info['log']:")
+    print(f"    'log' in info: {'log' in info}")
     if "log" in info and isinstance(info["log"], dict):
+        print(f"    info['log'] keys: {list(info['log'].keys())}")
         for key, value in info["log"].items():
+            if "success" in key.lower():
+                print(f"    {key}: {value}")
+                if isinstance(value, torch.Tensor):
+                    print(f"      (Tensor) shape={value.shape}, dtype={value.dtype}")
+                elif isinstance(value, (int, float)):
+                    print(f"      (Scalar) type={type(value)}")
             if "episode_success" in key.lower():
                 student_successes = value.cpu().numpy() if hasattr(value, 'cpu') else np.array(value)
+                print(f"    >>> EXTRACTED episode_success: {student_successes}")
+                print(f"        Type: {type(student_successes)}, Shape: {np.array(student_successes).shape if hasattr(student_successes, 'shape') else 'scalar'}")
                 break
+    else:
+        print(f"    WARNING: No 'log' in info or not a dict!")
 
-    student_episode_returns = episode_returns.tolist()
-    student_successes = student_successes.tolist()
+    # Convert to appropriate format
+    if isinstance(student_successes, np.ndarray) and student_successes.ndim == 0:
+        # It's a 0-dimensional array (scalar)
+        print(f"  >>> student_successes is 0-dim array (scalar): {float(student_successes)}")
+        student_successes_mean = float(student_successes)
+        student_episode_returns = episode_returns.tolist()
+        student_successes = [student_successes_mean] * num_envs  # Replicate for compatibility
+    else:
+        student_episode_returns = episode_returns.tolist()
+        student_successes = student_successes.tolist() if hasattr(student_successes, 'tolist') else [student_successes] * num_envs
+
+    print(f"  Final student_successes (list): {student_successes[:10]} (first 10)")
+    print(f"  Mean: {np.mean(student_successes):.4f}")
+    print(f"--- STUDENT ROLLOUT END ---\n")
 
     # Compute metrics
     avg_env_kl = teacher_total_kl / max(teacher_total_steps, 1)
@@ -459,6 +564,16 @@ def evaluate_environment(
         "student_success": float(np.mean(student_successes)),
     }
 
+    # DEBUG: Print computed metrics
+    print(f"\n{'='*80}")
+    print(f"COMPUTED METRICS FOR TASK {task_idx} ({task_name}):")
+    print(f"  env_loss: {metrics['env_loss']:.6f}")
+    print(f"  teacher_return: {metrics['teacher_return']:.4f}")
+    print(f"  student_return: {metrics['student_return']:.4f}")
+    print(f"  teacher_success: {metrics['teacher_success']:.4f}")
+    print(f"  student_success: {metrics['student_success']:.4f}")
+    print(f"{'='*80}\n")
+
     if log_to_wandb and wandb_run is not None:
         payload = {
             f"EnvEval/task_{task_idx}_{task_name}/ts_loss/total": metrics["env_loss"],
@@ -467,6 +582,14 @@ def evaluate_environment(
         }
         if log_epoch is not None:
             payload["Training/epoch"] = log_epoch
+        # DEBUG: Print what's being logged to WandB
+        print(f"LOGGING TO WANDB (step {global_step}):")
+        for key, value in payload.items():
+            if isinstance(value, (int, float)):
+                print(f"  {key}: {value:.4f}")
+            else:
+                print(f"  {key}: {value}")
+        print()
         wandb_run.log(payload, step=global_step)
 
     return metrics
@@ -551,6 +674,13 @@ def evaluate_all_tasks_env(
     epoch: Optional[int] = None,
 ) -> None:
     """Evaluate all tasks from 0 to current_task_idx in the environment."""
+    print(f"\n{'#'*100}")
+    print(f"### EVALUATE_ALL_TASKS_ENV CALLED ###")
+    print(f"### Current training task: {current_task_idx}")
+    print(f"### Global step: {global_step}, Epoch: {epoch}")
+    print(f"### Will evaluate tasks 0 to {current_task_idx} (inclusive)")
+    print(f"{'#'*100}\n")
+
     if num_episodes <= 0:
         return
 
@@ -560,6 +690,7 @@ def evaluate_all_tasks_env(
 
         if eval_task_idx > current_task_idx:
             # Log placeholder for future tasks
+            print(f"  >>> Task {eval_task_idx} ({eval_task_name}): SKIPPED (future task)")
             if wandb_run is not None:
                 payload = {
                     f"EnvEval/task_{eval_task_idx}_{eval_task_name}/ts_loss/total": -0.01,
@@ -570,6 +701,8 @@ def evaluate_all_tasks_env(
                     payload["Training/epoch"] = epoch
                 wandb_run.log(payload, step=global_step)
             continue
+
+        print(f"\n  >>> Evaluating Task {eval_task_idx} ({eval_task_name}) in environment...")
 
         # Evaluate environment (using global student normalizer)
         env_metrics = evaluate_environment(
@@ -585,6 +718,14 @@ def evaluate_all_tasks_env(
             global_step=global_step,
             log_epoch=epoch,
         )
+
+        print(f"  >>> Task {eval_task_idx} ({eval_task_name}) evaluation complete!")
+        print(f"      Student success: {env_metrics['student_success']:.4f}")
+        print()
+
+    print(f"\n{'#'*100}")
+    print(f"### EVALUATE_ALL_TASKS_ENV COMPLETE ###")
+    print(f"{'#'*100}\n")
 
 
 def consolidate_si_state(state: StudentTrainStateSI, epsilon: float) -> StudentTrainStateSI:
