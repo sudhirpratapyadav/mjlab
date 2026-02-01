@@ -15,15 +15,15 @@ from mjlab.scene import SceneCfg
 from mjlab.sensor import ContactMatch, ContactSensorCfg
 from mjlab.sim import MujocoCfg, SimulationCfg
 from mjlab.tasks.manipulation import mdp as manipulation_mdp
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg
+from mjlab.tasks.manipulation.mdp import PushingCommandCfg
 from mjlab.tasks.velocity import mdp
 from mjlab.terrains import TerrainImporterCfg
 from mjlab.utils.noise import UniformNoiseCfg as Unoise
 from mjlab.viewer import ViewerConfig
 
 
-def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
-  """Create base object lifting task configuration."""
+def make_push_cube_env_cfg() -> ManagerBasedRlEnvCfg:
+  """Create base cube pushing task configuration."""
 
   policy_terms = {
     # Robot state (9 + 9 = 18 dims)
@@ -85,7 +85,7 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     "object_to_goal": ObservationTermCfg(
       func=manipulation_mdp.object_to_goal_vector,
       params={
-        "command_name": "lift_object",
+        "command_name": "push_cube",
         "object_asset_name": "cube",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
@@ -94,7 +94,7 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     "goal_orientation_diff": ObservationTermCfg(
       func=manipulation_mdp.goal_orientation_diff,
       params={
-        "command_name": "lift_object",
+        "command_name": "push_cube",
         "object_asset_name": "cube",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
@@ -127,16 +127,17 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   commands: dict[str, CommandTermCfg] = {
-    "lift_object": LiftingCommandCfg(
+    "push_cube": PushingCommandCfg(
       asset_name="cube",
       robot_asset_cfg=SceneEntityCfg("robot", site_names=()),  # Set per-robot
       resampling_time_range=(8.0, 12.0),
       debug_vis=True,
       difficulty="dynamic",
-      object_pose_range=LiftingCommandCfg.ObjectPoseRangeCfg(
+      goal_z_height=0.02,  # Goals at ground level (cube half-height)
+      object_pose_range=PushingCommandCfg.ObjectPoseRangeCfg(
         x=(0.2, 0.4),
         y=(-0.2, 0.2),
-        z=(0.02, 0.05),
+        z=(0.02, 0.02),  # Cube half-height is 0.02, spawn at ground level
         yaw=(-3.14, 3.14),
       ),
     )
@@ -222,10 +223,10 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       func=manipulation_mdp.staged_manipulation_reward,
       weight=1.0,
       params={
-        "command_name": "lift_object",
+        "command_name": "push_cube",
         "object_asset_name": "cube",
         "reaching_max_dist": 0.35,
-        "bringing_max_dist": 0.35,
+        "bringing_max_dist": 0.2,
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
     ),
@@ -234,7 +235,7 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       func=manipulation_mdp.object_at_goal_reward,
       weight=1.0,
       params={
-        "command_name": "lift_object",
+        "command_name": "push_cube",
         "object_asset_name": "cube",
         "max_dist": 0.35,
       },

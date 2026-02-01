@@ -17,6 +17,18 @@ from mjlab.asset_zoo.objects.free.cube import (
   get_cube_cfg,
   get_mocap_goal_cfg,
 )
+from mjlab.asset_zoo.objects.free.cuboid import (
+  get_cuboid_cfg,
+  get_mocap_goal_cfg as get_cuboid_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.disc import (
+  get_disc_cfg,
+  get_mocap_goal_cfg as get_disc_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.cylinder import (
+  get_cylinder_cfg,
+  get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
+)
 from mjlab.asset_zoo.robots import (
   FRANKA_ACTION_SCALE,
   get_franka_robot_cfg,
@@ -27,10 +39,12 @@ from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
 from mjlab.sensor import ContactSensorCfg
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg
+from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg
 from mjlab.tasks.manipulation.open_door_env_cfg import make_open_door_env_cfg
 from mjlab.tasks.manipulation.open_drawer_env_cfg import make_open_drawer_env_cfg
 from mjlab.tasks.manipulation.push_button_env_cfg import make_push_button_env_cfg
+from mjlab.tasks.manipulation.push_cuboid_env_cfg import make_push_cuboid_env_cfg
+from mjlab.tasks.manipulation.push_disc_env_cfg import make_push_disc_env_cfg
 
 
 def franka_lift_cube_env_cfg(
@@ -363,5 +377,167 @@ def franka_push_button_env_cfg(
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
     cfg.terminations.pop("ee_ground_collision", None)
+
+  return cfg
+
+
+def franka_push_cuboid_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka-specific cuboid pushing configuration."""
+  cfg = make_push_cuboid_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cuboid": get_cuboid_cfg(),
+    "mocap_goal": get_cuboid_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  push_command = cfg.commands["push_cuboid"]
+  assert isinstance(push_command, PushingCommandCfg)
+
+  # Override object and target ranges for Franka
+  push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+    z=(0.015, 0.015),  # Cuboid half-height is 0.015 - spawn at ground level
+    yaw=(0.0, 0.0),  # No rotation - keep upright
+  )
+  push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+  )
+
+  # Franka uses "gripper" site for end-effector
+  # Update all observation terms that use site_names
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  # Franka fingertip geoms for friction randomization
+  # Based on Franka hand structure: left_finger_pad, right_finger_pad
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params[
+    "asset_cfg"
+  ].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  # Configure collision sensor pattern - Franka end-effector is link7
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+
+  # Set environment spacing
+  cfg.scene.env_spacing = 1.5
+
+  # Apply play mode overrides.
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  # Apply test mode overrides (no corruption, 150 steps episode length (same as other tasks)).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+
+  return cfg
+
+
+def franka_push_disc_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka-specific disc pushing configuration."""
+  cfg = make_push_disc_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "disc": get_disc_cfg(),
+    "mocap_goal": get_disc_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  push_command = cfg.commands["push_disc"]
+  assert isinstance(push_command, PushingCommandCfg)
+
+  # Override object and target ranges for Franka
+  push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+    z=(0.05, 0.05),  # TEST: Fixed height
+    yaw=(0.0, 0.0),  # TEST: NO rotation - keep upright
+  )
+  push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+  )
+
+  # Franka uses "gripper" site for end-effector
+  # Update all observation terms that use site_names
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  # Franka fingertip geoms for friction randomization
+  # Based on Franka hand structure: left_finger_pad, right_finger_pad
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params[
+    "asset_cfg"
+  ].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  # Configure collision sensor pattern - Franka end-effector is link7
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+
+  # Set environment spacing
+  cfg.scene.env_spacing = 1.5
+
+  # Apply play mode overrides.
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  # Apply test mode overrides (no corruption, 150 steps episode length (same as other tasks)).
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    # Disable early termination - only terminate on timeout
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    # Set episode length to 150 steps (150 * 0.02 control_dt = 3.0s)
+    cfg.episode_length_s = 5.0
 
   return cfg

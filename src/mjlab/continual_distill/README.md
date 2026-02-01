@@ -14,6 +14,15 @@ python -m mjlab.continual_distill.extract_teacher_dataset \
     --num-envs 512
 ```
 
+/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/logs/rsl_rl/franka_open_door/2025-12-29_15-42-50/model_1900.pt
+
+
+/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/logs/rsl_rl/franka_open_drawer/2025-12-30_14-53-32/model_1999.pt
+
+/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/logs/rsl_rl/franka_push_button/2025-12-30_15-50-19/model_1999.pt
+
+
+
 Output: `teacher_datasets/{task}_{checkpoint}_{timestamp}/` with `data.pkl` and `teacher.pkl`
 
 ### 2. Train Student
@@ -44,3 +53,13 @@ task_info:
 - `extract_teacher_dataset.py` - Extract data from teacher policies
 - `continual_distill.py` - Train multi-task student with SI
 - `utils.py` - JAX models and PyTorch→JAX conversion
+
+
+
+
+ nohup python run_sequences.py --sequence-config /media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/config/task_sequence_test.yaml > train.log 2>&1 &
+
+
+ /media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/results/sequence7_1769647224/checkpoint_task1_epoch100_step143400.pkl
+
+  python eval_student.py --checkpoint /media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/results/sequence7_1769647224/checkpoint_task1_epoch200_step167300.pkl --env-id Mjlab-Push-Cuboid-Franka

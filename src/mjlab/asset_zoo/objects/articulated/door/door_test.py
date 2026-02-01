@@ -12,7 +12,7 @@ from mjlab.entity import EntityCfg
 ##
 
 DOOR_XML: Path = (
-    MJLAB_SRC_PATH / "asset_zoo" / "objects" / "articulated" / "door" / "xmls" / "mjx_door.xml"
+    MJLAB_SRC_PATH / "asset_zoo" / "objects" / "articulated" / "door" / "xmls" / "door.xml"
 )
 assert DOOR_XML.exists(), f"XML not found: {DOOR_XML}"
 

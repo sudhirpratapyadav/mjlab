@@ -507,10 +507,10 @@ def main():
         # Close test environment
         env_test.close()
 
-    # Create environment for viewer (needs num_envs=1)
+    # Create environment for viewer with same num_envs as test
     print(f"\nCreating environment for viewer: {args.env_id} on {device}")
     env_cfg = load_env_cfg(args.env_id, play=True)
-    env_cfg.scene.num_envs = args.num_envs
+    env_cfg.scene.num_envs = args.num_test_episodes if not args.skip_test else args.num_envs
     env_cfg.seed = args.seed
     env_base = ManagerBasedRlEnv(cfg=env_cfg, device=device)
 

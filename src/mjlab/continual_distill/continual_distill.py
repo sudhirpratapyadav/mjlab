@@ -24,6 +24,18 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 print("-------------- Setting up environment variables -----------")
+# Load project-specific wandb credentials from .env file
+from pathlib import Path as _Path
+_env_file = _Path(__file__).parent / ".env"
+if _env_file.exists():
+    with open(_env_file) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
+                os.environ[key.strip()] = value.strip()
+    print(f"[continual_distill] Loaded wandb credentials from {_env_file}")
+
 xla_flags = os.environ.get("XLA_FLAGS", "")
 xla_flags += " --xla_gpu_triton_gemm_any=True"
 os.environ["XLA_FLAGS"] = xla_flags
@@ -1077,7 +1089,7 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(4096, 2048, 1024),
+        hidden_dims=(8192, 4096, 2048),
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)

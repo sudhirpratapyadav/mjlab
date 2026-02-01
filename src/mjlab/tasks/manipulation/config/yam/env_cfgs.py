@@ -4,9 +4,17 @@ from mjlab.asset_zoo.objects.free.cube import (
   get_cube_cfg,
   get_mocap_goal_cfg,
 )
+from mjlab.asset_zoo.objects.free.cuboid import (
+  get_cuboid_cfg,
+  get_mocap_goal_cfg as get_cuboid_mocap_goal_cfg,
+)
 from mjlab.asset_zoo.objects.free.cylinder import (
   get_cylinder_cfg,
   get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.disc import (
+  get_disc_cfg,
+  get_mocap_goal_cfg as get_disc_mocap_goal_cfg,
 )
 from mjlab.asset_zoo.robots import (
   YAM_ACTION_SCALE,
@@ -17,7 +25,9 @@ from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
 from mjlab.sensor import ContactSensorCfg
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg
+from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, PushingCommandCfg
+from mjlab.tasks.manipulation.push_cuboid_env_cfg import make_push_cuboid_env_cfg
+from mjlab.tasks.manipulation.push_disc_env_cfg import make_push_disc_env_cfg
 
 
 def yam_lift_cube_env_cfg(
@@ -89,12 +99,16 @@ def yam_lift_cylinder_env_cfg(
   assert isinstance(lift_command, LiftingCommandCfg)
   lift_command.asset_name = "cylinder"
 
+  # Update ALL observation terms that reference the object
+  cfg.observations["policy"].terms["object_pos"].params["object_asset_name"] = "cylinder"
+  cfg.observations["policy"].terms["object_quat"].params["object_asset_name"] = "cylinder"
+  cfg.observations["policy"].terms["object_orientation"].params["object_asset_name"] = "cylinder"
   cfg.observations["policy"].terms["gripper_to_object"].params["object_asset_name"] = "cylinder"
   cfg.observations["policy"].terms["gripper_to_object"].params["robot_asset_cfg"].site_names = (
     "grasp_site",
   )
-
   cfg.observations["policy"].terms["object_to_goal"].params["object_asset_name"] = "cylinder"
+  cfg.observations["policy"].terms["goal_orientation_diff"].params["object_asset_name"] = "cylinder"
 
   cfg.rewards["reach_object"].params["object_asset_name"] = "cylinder"
   cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("grasp_site",)
@@ -110,6 +124,110 @@ def yam_lift_cylinder_env_cfg(
   cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
 
   # Configure collision sensor pattern.
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link_6"
+
+  cfg.viewer.body_name = "arm"
+
+  # Apply play mode overrides.
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  return cfg
+
+
+def yam_push_cuboid_env_cfg(
+  play: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """YAM-specific cuboid pushing configuration."""
+  cfg = make_push_cuboid_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_yam_robot_cfg(),
+    "cuboid": get_cuboid_cfg(),
+    "mocap_goal": get_cuboid_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = YAM_ACTION_SCALE
+
+  assert cfg.commands is not None
+  push_command = cfg.commands["push_cuboid"]
+  assert isinstance(push_command, PushingCommandCfg)
+
+  # Update observation terms to use "grasp_site" for YAM
+  cfg.observations["policy"].terms["gripper_to_object"].params["robot_asset_cfg"].site_names = (
+    "grasp_site",
+  )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("grasp_site",)
+
+  # YAM fingertip geoms for friction randomization
+  fingertip_geoms = r"[lr]f_down(6|7|8|9|10|11)_collision"
+  cfg.events["fingertip_friction_slide"].params[
+    "asset_cfg"
+  ].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  # Configure collision sensor pattern - YAM end-effector is link_6
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link_6"
+
+  cfg.viewer.body_name = "arm"
+
+  # Apply play mode overrides.
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  return cfg
+
+
+def yam_push_disc_env_cfg(
+  play: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """YAM-specific disc pushing configuration."""
+  cfg = make_push_disc_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_yam_robot_cfg(),
+    "disc": get_disc_cfg(),
+    "mocap_goal": get_disc_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = YAM_ACTION_SCALE
+
+  assert cfg.commands is not None
+  push_command = cfg.commands["push_disc"]
+  assert isinstance(push_command, PushingCommandCfg)
+
+  # Update observation terms to use "grasp_site" for YAM
+  cfg.observations["policy"].terms["gripper_to_object"].params["robot_asset_cfg"].site_names = (
+    "grasp_site",
+  )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("grasp_site",)
+
+  # YAM fingertip geoms for friction randomization
+  fingertip_geoms = r"[lr]f_down(6|7|8|9|10|11)_collision"
+  cfg.events["fingertip_friction_slide"].params[
+    "asset_cfg"
+  ].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  # Configure collision sensor pattern - YAM end-effector is link_6
   assert cfg.scene.sensors is not None
   for sensor in cfg.scene.sensors:
     if sensor.name == "ee_ground_collision":

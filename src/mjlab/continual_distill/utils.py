@@ -148,7 +148,7 @@ class StudentActorMLP(nn.Module):
     """
     action_size: int
     num_tasks: int
-    hidden_dims: Tuple[int, ...] = (512, 256, 128)
+    hidden_dims: Tuple[int, ...] = (8192, 8192, 8192, 8192)
 
     @nn.compact
     def __call__(self, obs: jnp.ndarray) -> jnp.ndarray:
@@ -196,7 +196,7 @@ class StudentPolicy:
         obs_size: int,
         action_size: int,
         num_tasks: int,
-        hidden_dims: Tuple[int, ...] = (512, 256, 128),
+        hidden_dims: Tuple[int, ...] = (8192, 8192, 8192, 8192),
         min_std: float = 1e-3,
     ):
         self.obs_size = obs_size

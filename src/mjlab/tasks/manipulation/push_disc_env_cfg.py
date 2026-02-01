@@ -15,15 +15,15 @@ from mjlab.scene import SceneCfg
 from mjlab.sensor import ContactMatch, ContactSensorCfg
 from mjlab.sim import MujocoCfg, SimulationCfg
 from mjlab.tasks.manipulation import mdp as manipulation_mdp
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg
+from mjlab.tasks.manipulation.mdp import PushingCommandCfg
 from mjlab.tasks.velocity import mdp
 from mjlab.terrains import TerrainImporterCfg
 from mjlab.utils.noise import UniformNoiseCfg as Unoise
 from mjlab.viewer import ViewerConfig
 
 
-def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
-  """Create base object lifting task configuration."""
+def make_push_disc_env_cfg() -> ManagerBasedRlEnvCfg:
+  """Create base disc pushing task configuration."""
 
   policy_terms = {
     # Robot state (9 + 9 = 18 dims)
@@ -44,12 +44,12 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     # Object state (3 + 4 = 7 dims)
     "object_pos": ObservationTermCfg(
       func=manipulation_mdp.object_position,
-      params={"object_asset_name": "cube"},
+      params={"object_asset_name": "disc"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     "object_quat": ObservationTermCfg(
       func=manipulation_mdp.object_quaternion,
-      params={"object_asset_name": "cube"},
+      params={"object_asset_name": "disc"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Gripper state (3 + 6 = 9 dims)
@@ -70,14 +70,14 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     # Object body orientation (6 dims)
     "object_orientation": ObservationTermCfg(
       func=manipulation_mdp.object_orientation,
-      params={"object_asset_name": "cube"},
+      params={"object_asset_name": "disc"},
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
     # Relative vectors (3 + 3 = 6 dims)
     "gripper_to_object": ObservationTermCfg(
       func=manipulation_mdp.gripper_to_object_vector,
       params={
-        "object_asset_name": "cube",
+        "object_asset_name": "disc",
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
@@ -85,8 +85,8 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     "object_to_goal": ObservationTermCfg(
       func=manipulation_mdp.object_to_goal_vector,
       params={
-        "command_name": "lift_object",
-        "object_asset_name": "cube",
+        "command_name": "push_disc",
+        "object_asset_name": "disc",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
@@ -94,8 +94,8 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     "goal_orientation_diff": ObservationTermCfg(
       func=manipulation_mdp.goal_orientation_diff,
       params={
-        "command_name": "lift_object",
-        "object_asset_name": "cube",
+        "command_name": "push_disc",
+        "object_asset_name": "disc",
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
@@ -127,16 +127,17 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
   }
 
   commands: dict[str, CommandTermCfg] = {
-    "lift_object": LiftingCommandCfg(
-      asset_name="cube",
+    "push_disc": PushingCommandCfg(
+      asset_name="disc",
       robot_asset_cfg=SceneEntityCfg("robot", site_names=()),  # Set per-robot
       resampling_time_range=(8.0, 12.0),
       debug_vis=True,
       difficulty="dynamic",
-      object_pose_range=LiftingCommandCfg.ObjectPoseRangeCfg(
+      goal_z_height=0.03,  # Goals stay at ground level
+      object_pose_range=PushingCommandCfg.ObjectPoseRangeCfg(
         x=(0.2, 0.4),
         y=(-0.2, 0.2),
-        z=(0.02, 0.05),
+        z=(0.02, 0.05),  # Disc half-height is 0.015, spawn at 0.02-0.05 for proper settling
         yaw=(-3.14, 3.14),
       ),
     )
@@ -222,8 +223,8 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       func=manipulation_mdp.staged_manipulation_reward,
       weight=1.0,
       params={
-        "command_name": "lift_object",
-        "object_asset_name": "cube",
+        "command_name": "push_disc",
+        "object_asset_name": "disc",
         "reaching_max_dist": 0.35,
         "bringing_max_dist": 0.35,
         "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),  # Set per-robot
@@ -234,8 +235,8 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
       func=manipulation_mdp.object_at_goal_reward,
       weight=1.0,
       params={
-        "command_name": "lift_object",
-        "object_asset_name": "cube",
+        "command_name": "push_disc",
+        "object_asset_name": "disc",
         "max_dist": 0.35,
       },
     ),
@@ -265,7 +266,7 @@ def make_lift_object_env_cfg() -> ManagerBasedRlEnvCfg:
     "object_out_of_bounds": TerminationTermCfg(
       func=manipulation_mdp.object_out_of_bounds,
       params={
-        "object_name": "cube",
+        "object_name": "disc",
         "x_bounds": (0.0, 1.0),
         "y_bounds": (-0.5, 0.5),
       },

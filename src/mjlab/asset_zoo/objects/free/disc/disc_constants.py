@@ -1,4 +1,4 @@
-"""Cylinder constants and configuration."""
+"""Disc constants and configuration."""
 
 from pathlib import Path
 
@@ -11,23 +11,23 @@ from mjlab.entity import EntityCfg
 # MJCF paths.
 ##
 
-CYLINDER_XML: Path = (
-    MJLAB_SRC_PATH / "asset_zoo" / "objects" / "free" / "cylinder" / "xmls" / "cylinder.xml"
+DISC_XML: Path = (
+    MJLAB_SRC_PATH / "asset_zoo" / "objects" / "free" / "disc" / "xmls" / "disc.xml"
 )
-assert CYLINDER_XML.exists(), f"XML not found: {CYLINDER_XML}"
+assert DISC_XML.exists(), f"XML not found: {DISC_XML}"
 
 
 ##
 # Spec functions.
 ##
 
-def get_cylinder_spec() -> mujoco.MjSpec:
-    """Load Cylinder MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(CYLINDER_XML))
+def get_disc_spec() -> mujoco.MjSpec:
+    """Load Disc MjSpec from XML."""
+    return mujoco.MjSpec.from_file(str(DISC_XML))
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
-    """Create mocap goal (orange cylinder matching object) for visualization."""
+    """Create mocap goal (orange disc matching disc) for visualization."""
     spec = mujoco.MjSpec()
     mocap_goal = spec.worldbody.add_body(name="mocap_goal")
     mocap_goal.mocap = True
@@ -35,7 +35,7 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
     mocap_goal.add_geom(
         name="mocap_goal_geom",
         type=mujoco.mjtGeom.mjGEOM_CYLINDER,
-        size=[0.02, 0.02, 0.0],  # Matches cylinder size (radius, half-height, unused)
+        size=[0.02, 0.02, 0.0],  # EXACT same as working cylinder (radius, half-height, unused)
         rgba=[1, 0.5, 0, 1],  # Orange (same as other mocap goals)
         contype=0,
         conaffinity=0,
@@ -47,10 +47,10 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
 # Entity configs.
 ##
 
-def get_cylinder_cfg() -> EntityCfg:
-    """Get a fresh cylinder configuration instance."""
+def get_disc_cfg() -> EntityCfg:
+    """Get a fresh disc configuration instance."""
     return EntityCfg(
-        spec_fn=get_cylinder_spec,
+        spec_fn=get_disc_spec,
     )
 
 

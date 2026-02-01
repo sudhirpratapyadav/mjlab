@@ -22,12 +22,17 @@ def staged_manipulation_reward(
   bringing_std: float = 0.86,
   reaching_max_dist: float = 1.0,
   bringing_max_dist: float = 1.0,
+  reaching_clip_dist: float = 0.0,
   robot_asset_cfg: SceneEntityCfg = _DEFAULT_ASSET_CFG,
 ) -> torch.Tensor:
   """Staged reward that gates manipulation bonus on reaching progress.
 
   Returns reaching * (1 + bringing), where both terms are Gaussian kernels
   over position error. Ensures learning signal for approach before manipulation.
+
+  Args:
+    reaching_clip_dist: Minimum distance for reward computation. When distance
+      is below this threshold, reward maxes out (clips). Default 0.0 (no clipping).
 
   Works for all manipulation tasks (free and articulated objects).
   """
@@ -46,7 +51,10 @@ def staged_manipulation_reward(
     object_pos_w = obj.data.root_link_pos_w
 
   # Reaching phase: gripper to object
-  reach_error = torch.sum(torch.square(gripper_pos_w - object_pos_w), dim=-1)
+  # Compute distance and clip to minimum threshold
+  reach_distance = torch.norm(gripper_pos_w - object_pos_w, dim=-1)
+  reach_distance_clamped = torch.clamp(reach_distance, min=reaching_clip_dist)
+  reach_error = reach_distance_clamped ** 2
   reaching = torch.exp(-reach_error / (reaching_std * reaching_max_dist)**2)
 
   # Manipulation phase: object to goal
