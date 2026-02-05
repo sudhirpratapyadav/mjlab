@@ -1089,7 +1089,7 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(8192, 4096, 2048),
+        hidden_dims=(4096, 2048, 1024),
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)
