@@ -12,6 +12,7 @@ from mjlab.envs import mdp as envs_mdp
 from mjlab.envs.mdp.actions import JointPositionActionCfg
 from mjlab.managers import TerminationTermCfg
 from mjlab.managers.event_manager import EventTermCfg
+from mjlab.managers.observation_manager import ObservationTermCfg
 from mjlab.managers.reward_manager import RewardTermCfg
 from mjlab.managers.scene_entity_config import SceneEntityCfg
 from mjlab.sensor import (
@@ -25,6 +26,7 @@ from mjlab.sensor import (
 from mjlab.tasks.velocity import mdp
 from mjlab.tasks.velocity.mdp import UniformVelocityCommandCfg
 from mjlab.tasks.velocity.velocity_env_cfg import make_velocity_env_cfg
+from mjlab.utils.noise import UniformNoiseCfg as Unoise
 
 TerrainType = Literal["rough", "obstacles"]
 
@@ -307,5 +309,30 @@ def unitree_go1_flat_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     assert isinstance(twist_cmd, UniformVelocityCommandCfg)
     twist_cmd.ranges.lin_vel_x = (-1.5, 2.0)
     twist_cmd.ranges.ang_vel_z = (-0.7, 0.7)
+
+  return cfg
+
+
+def unitree_go1_flat_proprio_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
+  """Create Unitree Go1 flat terrain proprioceptive velocity configuration.
+
+  Like the flat config but replaces base_lin_vel with IMU linear acceleration
+  in both actor and critic observations.
+  """
+  cfg = unitree_go1_flat_env_cfg(play=play)
+
+  lin_acc_term = ObservationTermCfg(
+    func=mdp.builtin_sensor,
+    params={"sensor_name": "robot/imu_lin_acc"},
+    noise=Unoise(n_min=-0.5, n_max=0.5),
+  )
+
+  del cfg.observations["actor"].terms["base_lin_vel"]
+  cfg.observations["actor"].terms["lin_acc"] = lin_acc_term
+
+  cfg.observations["critic"].terms["lin_acc"] = ObservationTermCfg(
+    func=mdp.builtin_sensor,
+    params={"sensor_name": "robot/imu_lin_acc"},
+  )
 
   return cfg

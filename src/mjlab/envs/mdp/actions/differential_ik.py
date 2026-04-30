@@ -64,6 +64,13 @@ class DifferentialIKActionCfg(ActionTermCfg):
   Ignored in absolute mode.
   """
 
+  kp_task: float = 1.0
+  """Proportional gain applied to the pose error before building the normal equations.
+
+  Equivalent to the ``kp_task`` in a Pinocchio-style diff-IK:
+  ``pos_dx = kp_task * pos_error``.
+  """
+
   damping: float = 0.05
   """Damping coefficient (lambda) for the DLS pseudoinverse."""
 
@@ -213,17 +220,19 @@ class DifferentialIKAction(ActionTerm):
     w_ori = self.cfg.orientation_weight
     w_lim = self.cfg.joint_limit_weight
     w_post = self.cfg.posture_weight
+    kp = self.cfg.kp_task
     lam = max(self.cfg.damping, 1e-6)
 
+    # Scale errors by task gain (matches Pinocchio-style: pos_dx = kp * error).
+    pos_dx = kp * pos_error
+    ori_dx = kp * rot_error
+
     # Joint-space normal equations: (J^T W J + λ²I) dq = J^T W dx.
-    # Equivalent to task-space DLS but solves a smaller n×n system instead of the
-    # (6 + 2n)-square task-space system.
-    wp2, wo2 = w_pos * w_pos, w_ori * w_ori
-    JTJ = wp2 * torch.einsum("bti,btj->bij", jacp, jacp) + wo2 * torch.einsum(
+    JTJ = w_pos * torch.einsum("bti,btj->bij", jacp, jacp) + w_ori * torch.einsum(
       "bti,btj->bij", jacr, jacr
     )
-    JTdx = wp2 * torch.einsum("bti,bt->bi", jacp, pos_error) + wo2 * torch.einsum(
-      "bti,bt->bi", jacr, rot_error
+    JTdx = w_pos * torch.einsum("bti,bt->bi", jacp, pos_dx) + w_ori * torch.einsum(
+      "bti,bt->bi", jacr, ori_dx
     )
 
     # Joint-limit penalty (diagonal contribution).
@@ -232,15 +241,13 @@ class DifferentialIKAction(ActionTerm):
       min=0
     )
     violated = (r_limit != 0).float()
-    wl2 = w_lim * w_lim
-    JTJ.diagonal(dim1=-2, dim2=-1).add_(wl2 * violated)
-    JTdx.add_(wl2 * violated * r_limit)
+    JTJ.diagonal(dim1=-2, dim2=-1).add_(w_lim * violated)
+    JTdx.add_(w_lim * violated * r_limit)
 
     # Posture regularization (identity Jacobian contribution).
     r_posture = self._posture_target - q
-    wpost2 = w_post * w_post
-    JTJ.diagonal(dim1=-2, dim2=-1).add_(wpost2)
-    JTdx.add_(wpost2 * r_posture)
+    JTJ.diagonal(dim1=-2, dim2=-1).add_(w_post)
+    JTdx.add_(w_post * r_posture)
 
     # Damping.
     JTJ.diagonal(dim1=-2, dim2=-1).add_(lam * lam)

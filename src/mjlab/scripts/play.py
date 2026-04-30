@@ -51,6 +51,8 @@ class PlayConfig:
   """Disable all termination conditions (useful for viewing motions with dummy agents)."""
   log_root: str = "logs/rsl_rl"
   """Root directory under which experiment logs are written."""
+  stochastic: bool = False
+  """Use stochastic (sampled) actions instead of deterministic (mean) actions during play."""
 
   # Internal flag used by demo script.
   _demo_mode: tyro.conf.Suppress[bool] = False
@@ -206,6 +208,13 @@ def run_play(task_id: str, cfg: PlayConfig):
       str(resume_path), load_cfg={"actor": True}, strict=True, map_location=device
     )
     policy = runner.get_inference_policy(device=device)
+    if cfg.stochastic:
+      print("[INFO]: Using stochastic (sampled) actions during play")
+      _det_policy = policy
+      class _StochasticPolicy:
+        def __call__(self, obs):
+          return _det_policy(obs, stochastic_output=True)
+      policy = _StochasticPolicy()
 
   # Build checkpoint manager for hot-swapping checkpoints in the viewer.
   ckpt_manager: CheckpointManager | None = None
