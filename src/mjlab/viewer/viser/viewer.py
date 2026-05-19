@@ -112,6 +112,13 @@ class ViserPlayViewer(BaseViewer):
       True  # Enable debug visualization by default
     )
 
+    # Wire up interactive drag-to-push perturbations. Adds a "Selection"
+    # GUI folder, click-to-select and ctrl/cmd-drag (translate),
+    # ctrl/cmd+shift-drag (rotate) on every batched mesh handle.
+    # The integration filters events so only the active env reacts.
+    self._scene.setup_perturbation()
+    self._perturbation_active_id: tuple[int, int] | None = None
+
     # Create tab group.
     tabs = self._server.gui.add_tab_group()
 
@@ -366,6 +373,11 @@ class ViserPlayViewer(BaseViewer):
         self._debug_overlays.on_env_switch()
       if self._contact_overlays:
         self._contact_overlays.on_env_switch()
+      # Drop any in-flight perturbation — its cached body id was for
+      # the previous env. Active wrench is zeroed on the next
+      # sync_viewer_to_env tick via _perturbation_active_id.
+      if self._scene._perturbation is not None:
+        self._scene._perturbation.clear()
 
     if self._term_overlays:
       self._term_overlays.update(self._is_paused)
@@ -519,8 +531,30 @@ class ViserPlayViewer(BaseViewer):
 
   @override
   def sync_viewer_to_env(self) -> None:
-    """Synchronize viewer state to environment (e.g., perturbations)."""
-    pass
+    """Apply interactive drag-perturbation wrench to ``sim.data.xfrc_applied``.
+
+    Zeros the previously-applied (env, body) slot first so the wrench
+    doesn't compound or linger after drag release. Then, if a drag is
+    in flight, writes the handler's spring force/torque to that slot.
+    """
+    from mjlab.viewer.viser.perturbation import write_perturbation_to_xfrc
+
+    sim = self.env.unwrapped.sim
+    xfrc = sim.data.xfrc_applied
+    # Clear last frame's perturbation.
+    if self._perturbation_active_id is not None:
+      env_idx, bid = self._perturbation_active_id
+      if 0 <= bid < xfrc.shape[1]:
+        xfrc[env_idx, bid, :] = 0.0
+      self._perturbation_active_id = None
+
+    pert_handler = self._scene._perturbation
+    if pert_handler is None:
+      return
+    pert = pert_handler.get_perturbation()
+    self._perturbation_active_id = write_perturbation_to_xfrc(
+      pert, xfrc, env_idx=int(self._scene.env_idx)
+    )
 
   @override
   def reset_environment(self) -> None:

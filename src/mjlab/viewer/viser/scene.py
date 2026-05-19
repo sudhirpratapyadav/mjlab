@@ -302,6 +302,54 @@ class MjlabViserScene(ViserMujocoScene, DebugVisualizer):
     # MjData used for ghost forward kinematics.
     self._viz_data = mujoco.MjData(mj_model)
 
+    # Interactive perturbation (drag-to-push). Constructed lazily by
+    # ``setup_perturbation`` once the viewer is ready; ``None`` until then.
+    self._perturbation: Any | None = None  # mjviser.interaction.PerturbationHandler
+
+  def setup_perturbation(self) -> None:
+    """Construct the perturbation handler and attach drag/click handlers."""
+    from mjviser.interaction import PerturbationHandler
+
+    from mjlab.viewer.viser.perturbation import attach_active_env_filter
+
+    # PerturbationHandler's API expects a (model, data) pair for body
+    # name lookup and the spring-stiffness constants; a fresh local
+    # MjData is enough (we never step it).
+    self._perturbation = PerturbationHandler(
+      self.server, self.mj_model, self._viz_data
+    )
+    self._perturbation.setup_gui()
+
+    active_env_fn = lambda: int(self.env_idx)
+    for mg in self._mesh_groups:
+      if isinstance(mg, _PerWorldMeshGroup):
+        attach_active_env_filter(
+          self._perturbation,
+          mg.handle,
+          mg.body_ids,
+          env_ids=mg.env_ids,
+          active_env_idx_fn=active_env_fn,
+        )
+      else:
+        # Upstream _MeshGroup: body_ids tiled num_envs times in C-order.
+        # instance_index = env_idx * len(body_ids) + body_idx_within_group.
+        attach_active_env_filter(
+          self._perturbation,
+          mg.handle,
+          mg.body_ids,
+          env_ids=None,
+          active_env_idx_fn=active_env_fn,
+        )
+    for hg in self._hull_per_world_groups:
+      body_ids_repeated = np.full_like(hg.env_ids, hg.body_id)
+      attach_active_env_filter(
+        self._perturbation,
+        hg.handle,
+        body_ids_repeated,
+        env_ids=hg.env_ids,
+        active_env_idx_fn=active_env_fn,
+      )
+
   # Properties.
 
   @property
@@ -674,6 +722,8 @@ class MjlabViserScene(ViserMujocoScene, DebugVisualizer):
       super()._update_visualization_locked(
         body_xpos, body_xmat, mocap_pos, mocap_quat, env_idx, scene_offset, mj_data
       )
+      if self._perturbation is not None:
+        self._perturbation.update_state(body_xpos, body_xmat, env_idx, scene_offset)
       return
 
     self._last_body_xpos = body_xpos
@@ -684,6 +734,9 @@ class MjlabViserScene(ViserMujocoScene, DebugVisualizer):
     self._scene_offset = scene_offset
     if mj_data is not None:
       self._last_mj_data = mj_data
+
+    if self._perturbation is not None:
+      self._perturbation.update_state(body_xpos, body_xmat, env_idx, scene_offset)
 
     self.fixed_bodies_frame.position = scene_offset
     slice_single = self.show_only_selected and self.num_envs > 1
