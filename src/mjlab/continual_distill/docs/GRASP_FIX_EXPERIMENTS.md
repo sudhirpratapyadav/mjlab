@@ -121,3 +121,23 @@ dataset actually contains the approach-and-grasp. Options:
 - **H2c**: if the env inherently starts lifted, shorten episodes / subsample so the
   hold doesn't dominate 80%.
 First: inspect the LiftCube env reset config to see WHY it starts lifted, then pick.
+
+### A4 delta_action RESULTS (2026-07-07, 2-task, 200 epochs, seed 0)
+
+LiftCube retention (last periodic eval) after task 1 trains. Weight profile:
+grasp 2.4x vs hold 0.4x (FLOOR=0.3, CLIP=8, median-scaled).
+
+| 2nd task | baseline | A4 | Δ |
+|---|---|---|---|
+| PushCuboid | 0.188 | 0.141 | -0.047 |
+| PushButton | 0.000 | 0.000 | 0.000 |
+| OpenDoor | 0.359 | 0.547 | +0.188 |
+| OpenDrawer | 0.172 | 0.766 | +0.594 |
+| **MEAN** | **0.180** | **0.363** | **+0.184** |
+
+**A4 works: ~2x mean retention.** Big wins where there's headroom (OpenDrawer
+0.17->0.77, OpenDoor +0.19). Two problem pairs: PushButton wipes LiftCube to 0.0
+for both (floor effect — A4 can't recover from total collapse); PushCuboid -0.05
+(within single-seed noise). => A4 validated but not complete. Next: tune contrast
+(stronger grasp weighting: lower FLOOR / higher effective ratio) to see if the
+hard pairs improve.
