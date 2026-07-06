@@ -1,0 +1,18 @@
+# 3-classical mix: PushButton+PushCuboid+OpenDrawer classical; OpenDoor RL
+tasks:
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_classical_20260706_015152"
+    num_epochs: 500
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260129_055421"
+    num_epochs: 500
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_classical_20260706_015820"
+    num_epochs: 500
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_classical_20260704_013344"
+    num_epochs: 500

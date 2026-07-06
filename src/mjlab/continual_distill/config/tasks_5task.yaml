@@ -1,0 +1,29 @@
+# 5-task definitions (all RL teachers) for the LiftCube-position sweep.
+# The 4 base tasks keep the standard order (PushCuboid, PushButton, OpenDoor,
+# OpenDrawer); LiftCube is inserted at each of the 5 positions across the 5
+# experiments. The order is passed via the CLI --task-sequence, so this single
+# config (which just defines all 5 tasks) serves all 5 runs.
+#
+# LiftCube RL teacher: model_2900 (2026-01-09 run), regenerated 2026-07-06,
+# teacher success 99.2%.
+tasks:
+  LiftCube:
+    env_id: "Mjlab-Lift-Cube-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Lift_Cube_Franka_model_2900_20260706_185155"
+    num_epochs: 500
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_4000_20260129_060250"
+    num_epochs: 500
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_model_1999_20260129_055221"
+    num_epochs: 500
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260129_055421"
+    num_epochs: 500
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260129_055326"
+    num_epochs: 500

@@ -100,6 +100,13 @@ def collect_dataset(
     # Reset environment
     obs, _ = env.reset()
 
+    # Teacher success tracking: latch episode_success DURING each episode (the
+    # env auto-resets on timeout, clearing it before a post-loop read).
+    cmd = env.command_manager.get_term(
+        next(iter(env.command_manager.active_terms))
+    )
+    ep_success_rates = []
+
     # Collect data with progress bar
     total_steps = num_episodes * episode_length
     with tqdm(total=total_steps, desc="Collecting data") as pbar:
@@ -108,6 +115,7 @@ def collect_dataset(
             if episode_idx > 0:
                 obs, _ = env.reset()
 
+            ep_success = np.zeros(num_envs)
             for step_idx in range(episode_length):
                 # Get observations as JAX array
                 obs_array = obs['policy'].cpu().numpy()
@@ -131,7 +139,12 @@ def collect_dataset(
                 action_torch = torch.from_numpy(action_means_np)
                 obs, reward, terminated, truncated, info = env.step(action_torch)
 
+                ep_success = np.maximum(
+                    ep_success, cmd.episode_success.detach().cpu().numpy()
+                )
                 pbar.update(1)
+
+            ep_success_rates.append(float(ep_success.mean()))
 
     # Concatenate and reshape data
     observations = np.concatenate(all_observations, axis=0)  # [total_steps, obs_dim]
@@ -154,10 +167,14 @@ def collect_dataset(
     print(f"Action targets shape: {action_targets.shape}")
     print(f"  Action means range: [{action_means.min():.3f}, {action_means.max():.3f}]")
     print(f"  Action stds range: [{action_stds.min():.3f}, {action_stds.max():.3f}]")
+    teacher_success = float(np.mean(ep_success_rates)) if ep_success_rates else float("nan")
+    print(f"  TEACHER SUCCESS RATE: {teacher_success:.4f} "
+          f"(over {len(ep_success_rates)} episodes x {num_envs} envs)")
 
     return {
         'observations': observations,
         'action_targets': action_targets,
+        'teacher_success': teacher_success,
     }
 
 

@@ -41,7 +41,7 @@ xla_flags += " --xla_gpu_triton_gemm_any=True"
 os.environ["XLA_FLAGS"] = xla_flags
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 os.environ["MUJOCO_GL"] = "egl"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")
 
 import jax
 import jax.numpy as jnp
@@ -372,6 +372,7 @@ def evaluate_environment(
     teacher_params = task["teacher_params"]
     teacher_std = task["teacher_std"]
     teacher_normalizer = task["teacher_normalizer"]
+    classical_teacher = task.get("classical_teacher")
 
     # DEBUG: Print environment state before evaluation
     print(f"Environment info:")
@@ -393,12 +394,19 @@ def evaluate_environment(
     task_idx_arr = jnp.asarray(task_idx, dtype=jnp.int32)
 
     # JIT compile action functions
-    @jax.jit
-    def get_teacher_actions_batch(obs_jax):
-        """Get teacher actions for batch of observations."""
-        normalized_obs = teacher_normalizer.normalize(obs_jax)
-        action_mean = teacher_policy.actor.apply(teacher_params, normalized_obs)
-        return action_mean
+    if classical_teacher is not None:
+
+        def get_teacher_actions_batch(obs_jax):
+            """Classical teacher: python policy on numpy observations."""
+            return jnp.asarray(classical_teacher(np.asarray(obs_jax)))
+    else:
+
+        @jax.jit
+        def get_teacher_actions_batch(obs_jax):
+            """Get teacher actions for batch of observations."""
+            normalized_obs = teacher_normalizer.normalize(obs_jax)
+            action_mean = teacher_policy.actor.apply(teacher_params, normalized_obs)
+            return action_mean
 
     @jax.jit
     def get_student_actions_batch(obs_jax):
@@ -417,6 +425,8 @@ def evaluate_environment(
     # Teacher rollouts - parallel episodes (run full episode length, no early termination)
     print(f"\n--- TEACHER ROLLOUT START ---")
     obs, _ = env.reset()
+    if classical_teacher is not None:
+        classical_teacher.reset()  # restart state machines with the episode
     num_envs = env.num_envs
     episode_returns = np.zeros(num_envs)
     teacher_total_kl = 0.0
@@ -1005,6 +1015,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=512, help="Mini-batch size for SGD/Adam updates.")
     parser.add_argument("--train-fraction", type=float, default=0.8, help="Fraction of each dataset used for training.")
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
+    parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1089,7 +1100,7 @@ def main() -> None:
         obs_size=obs_dim,
         action_size=action_dim,
         num_tasks=num_tasks,
-        hidden_dims=(4096, 2048, 1024),
+        hidden_dims=tuple(args.student_hidden_dims),
     )
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)
@@ -1160,13 +1171,24 @@ def main() -> None:
         teacher_info = teacher_infos[task_idx]
         print(f"[Task {task_idx}] Loading teacher from: {dataset_folder_str}/teacher.pkl")
 
-        # Create teacher policy and normalizer from loaded info
-        teacher_policy = TeacherPolicy(
-            obs_size=obs_dim,
-            action_size=action_dim,
-            hidden_dims=tuple(teacher_info['hidden_dims']),
-        )
-        teacher_params = teacher_info['jax_params']
+        # Create teacher policy and normalizer from loaded info.
+        # Classical (scripted) teachers carry no JAX weights; EnvEval rolls
+        # them out via the python policy object instead.
+        classical_teacher = None
+        if teacher_info.get('teacher_type') == 'classical':
+            from mjlab.continual_distill import classical as classical_mod
+
+            classical_cls = getattr(classical_mod, teacher_info['classical_class'])
+            classical_teacher = classical_cls(num_envs=env.num_envs)
+            teacher_policy = None
+            teacher_params = None
+        else:
+            teacher_policy = TeacherPolicy(
+                obs_size=obs_dim,
+                action_size=action_dim,
+                hidden_dims=tuple(teacher_info['hidden_dims']),
+            )
+            teacher_params = teacher_info['jax_params']
         teacher_std = teacher_info['action_std']
         teacher_normalizer = ObservationNormalizer(
             mean=teacher_info['obs_normalizer_mean'],
@@ -1194,6 +1216,7 @@ def main() -> None:
                 "teacher_params": teacher_params,
                 "teacher_std": teacher_std,
                 "teacher_normalizer": teacher_normalizer,
+                "classical_teacher": classical_teacher,
             }
         )
 
@@ -1241,6 +1264,7 @@ def main() -> None:
         "learning_rate": args.learning_rate,
         "batch_size": args.batch_size,
         "student_min_std": args.student_min_std,
+        "student_hidden_dims": list(args.student_hidden_dims),
         "train_fraction": args.train_fraction,
         "si_coeff": args.si_coeff,
         "si_epsilon": args.si_epsilon,
@@ -1425,7 +1449,7 @@ def main() -> None:
                     env_ids=env_ids,
                     obs_dim=obs_dim,
                     action_dim=action_dim,
-                    hidden_dims=(4096, 2048, 1024),
+                    hidden_dims=tuple(args.student_hidden_dims),
                 )
 
         state = consolidate_si_state(state, args.si_epsilon)

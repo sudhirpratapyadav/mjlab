@@ -1,0 +1,24 @@
+# BC-teacher variant (cluster paths): PushButton's dataset comes from the
+# behavior-cloned teacher (classical expert + noise -> BC policy); the other
+# three tasks keep their RL teachers.
+
+tasks:
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_4000_20260129_060250"
+    num_epochs: 500
+
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260129_055421"
+    num_epochs: 500
+
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260129_055326"
+    num_epochs: 500
+
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_bc_20260704_110316"
+    num_epochs: 500
