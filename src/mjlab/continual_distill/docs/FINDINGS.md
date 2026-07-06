@@ -360,10 +360,41 @@ OpenDoor are bulletproof (1.0); OpenDrawer ~0.96; PushCuboid is the other
 weak/variable task (0.42-0.89) — the long-standing task-0 fragility. LiftCube's
 presence does not harm the planar tasks (no neighbor poisoning).
 
-**Bottom line:** SI distillation protects forgiving planar skills but FAILS to
-protect contact-rich precision skills (LiftCube, and partially PushCuboid). This is
-the core open problem, now cleanly demonstrated. Fix directions: sharpness/curvature-
-aware SI importance, per-task-difficulty si_coeff, or replay for fragile tasks.
+**ROOT CAUSE (2026-07-07): it's the OBJECTIVE, not forgetting.** Checked whether KL
+degrades or only success. Answer: **only success; KL does not degrade, and KL never
+predicted LiftCube success even during its own training.** Evidence:
+
+- Offline distill test-KL for LiftCube = 0.003 (student clones teacher actions on the
+  dataset near-perfectly).
+- Env-eval KL is FLAT ~0.55-0.64 across the whole sequence (does NOT rise as
+  downstream tasks train) while success sits at ~0.11 the entire time — including
+  epoch 500 of LiftCube's OWN training phase, before any downstream task. So it is
+  NOT forgetting.
+- KL does not predict success across tasks at all (final periodic eval):
+
+  | task | env-KL | acc |
+  |---|---|---|
+  | PushButton | 0.69 (highest) | 1.000 |
+  | PushCuboid | 0.64 | 0.42 |
+  | LiftCube | 0.57 | 0.11 |
+  | OpenDrawer | 0.14 | 0.97 |
+  | OpenDoor | 0.09 | 1.00 |
+
+  PushButton has HIGHER KL than LiftCube yet 1.0 success; LiftCube has lower KL yet
+  0.11. Action-distribution fidelity is not the bottleneck.
+
+**Mechanism:** LiftCube is a PRECISION-BOTTLENECK task. The Gaussian-KL objective
+weights all action dims/timesteps equally, but a grasp is all-or-nothing: a small
+action error at the grasp instant -> no contact -> cube never lifts -> 0 reward, no
+recovery. The same ~0.6 env-KL is harmless for push/press tasks (object keeps
+sliding toward goal) but fatal for lift. PushCuboid (0.42) is a mild version.
+
+**=> Fix is on the OBJECTIVE side, NOT SI/consolidation** (KL/consolidation are
+fine). Candidates: action-sensitivity-weighted distill loss (up-weight
+success-critical dims/steps), a success/return-matching auxiliary term, or DAgger-
+style on-policy correction so the student's own compounding errors get labeled.
+This retires the earlier "SI under-protects sharp skills" framing — SI is not the
+problem; the KL loss is blind to which actions are success-critical.
 
 **Root cause of the eval bug (diagnosed 2026-07-06).** `evaluate_environment`
 accepted a `seed` arg but never applied it (`env.reset()` with no seed). Fixed to
