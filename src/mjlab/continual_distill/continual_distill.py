@@ -919,6 +919,8 @@ def compute_distill_weights(
     teacher_logstd: np.ndarray,
     num_envs: int,
     mode: str,
+    floor: float = 0.3,
+    clip: float = 8.0,
 ) -> np.ndarray:
     """Per-sample distillation-loss weights (shape [N]), normalized to mean 1.0.
 
@@ -957,8 +959,8 @@ def compute_distill_weights(
         # rare outliers are clipped. FLOOR keeps the hold learnable. Then renorm to
         # mean 1.0 so LR/SI scale matches the uniform baseline.
         scale = np.median(w[w > 1e-6]) + 1e-8
-        FLOOR = 0.3
-        CLIP = 8.0
+        FLOOR = float(floor)
+        CLIP = float(clip)
         w = FLOOR + np.clip(w / scale, 0.0, CLIP)
         w = w / (w.mean() + 1e-8)
         # report the grasp-vs-hold contrast actually applied
@@ -1077,6 +1079,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
     parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP.")
     parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
+    parser.add_argument("--distill-weight-floor", type=float, default=0.3, help="delta_action: min weight for low-action-change (hold) samples.")
+    parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1218,6 +1222,8 @@ def main() -> None:
         sample_weights = compute_distill_weights(
             teacher_mean, teacher_logstd, collect_num_envs,
             args.distill_weight_mode,
+            floor=args.distill_weight_floor,
+            clip=args.distill_weight_clip,
         )
 
         # Split dataset using actual episode length
