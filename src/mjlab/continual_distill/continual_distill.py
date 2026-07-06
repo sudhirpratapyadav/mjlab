@@ -168,6 +168,7 @@ def train_step_si(
     batch_obs: jnp.ndarray,
     batch_teacher_mean: jnp.ndarray,
     batch_teacher_logstd: jnp.ndarray,
+    batch_weights: jnp.ndarray,
     task_idx: jnp.ndarray,
     si_coeff: float,
 ) -> Tuple[StudentTrainStateSI, jnp.ndarray]:
@@ -204,7 +205,9 @@ def train_step_si(
         kl_vals = gaussian_kl(
             batch_teacher_mean, batch_teacher_logstd, student_mean, student_logstd
         )
-        dist_loss = jnp.mean(kl_vals)
+        # Weighted mean (weights normalized to mean 1.0 upstream; uniform weights
+        # reduce this exactly to jnp.mean(kl_vals)).
+        dist_loss = jnp.sum(batch_weights * kl_vals) / (jnp.sum(batch_weights) + 1e-8)
         params_flat = state.ravel_fn(params)
         surrogate = jnp.sum(
             state.omega_total * jnp.square(params_flat - state.snapshot_params_flat)
@@ -228,13 +231,14 @@ def train_step_si(
     return new_state, metrics
 
 
-@functools.partial(jax.jit, static_argnums=(5,))
+@functools.partial(jax.jit, static_argnums=(6,))
 def train_epoch_si(
     state: StudentTrainStateSI,
     rng: jax.random.PRNGKey,
     obs: jnp.ndarray,
     teacher_mean: jnp.ndarray,
     teacher_logstd: jnp.ndarray,
+    weights: jnp.ndarray,
     batch_size: int,
     si_coeff: float,
     task_idx: jnp.ndarray,
@@ -264,24 +268,28 @@ def train_epoch_si(
     shuffled_obs = jnp.take(obs, permutation, axis=0)
     shuffled_mean = jnp.take(teacher_mean, permutation, axis=0)
     shuffled_logstd = jnp.take(teacher_logstd, permutation, axis=0)
+    shuffled_w = jnp.take(weights, permutation, axis=0)
 
     batch_elems = num_batches * batch_size
     shuffled_obs = shuffled_obs[:batch_elems]
     shuffled_mean = shuffled_mean[:batch_elems]
     shuffled_logstd = shuffled_logstd[:batch_elems]
+    shuffled_w = shuffled_w[:batch_elems]
 
     obs_batches = shuffled_obs.reshape((num_batches, batch_size, shuffled_obs.shape[-1]))
     mean_batches = shuffled_mean.reshape((num_batches, batch_size, shuffled_mean.shape[-1]))
     logstd_batches = shuffled_logstd.reshape((num_batches, batch_size, shuffled_logstd.shape[-1]))
+    w_batches = shuffled_w.reshape((num_batches, batch_size))
 
     def batch_update(carry, batch):
         train_state, loss_sums = carry
-        batch_obs, batch_mean, batch_logstd = batch
+        batch_obs, batch_mean, batch_logstd, batch_w = batch
         train_state, metrics = train_step_si(
             train_state,
             batch_obs,
             batch_mean,
             batch_logstd,
+            batch_w,
             task_idx,
             si_coeff,
         )
@@ -292,7 +300,7 @@ def train_epoch_si(
     (final_state, total_metrics), metrics_per_batch = jax.lax.scan(
         batch_update,
         init_carry,
-        (obs_batches, mean_batches, logstd_batches),
+        (obs_batches, mean_batches, logstd_batches, w_batches),
     )
 
     mean_metrics = total_metrics / num_batches
@@ -906,17 +914,78 @@ def _build_global_normalizer(datasets: List[Dict[str, Any]]) -> Dict[str, jnp.nd
     }
 
 
+def compute_distill_weights(
+    teacher_mean: np.ndarray,
+    teacher_logstd: np.ndarray,
+    num_envs: int,
+    mode: str,
+) -> np.ndarray:
+    """Per-sample distillation-loss weights (shape [N]), normalized to mean 1.0.
+
+    IMPORTANT: the dataset is STEP-MAJOR. Collection stepped `num_envs` envs in
+    parallel and appended one (num_envs)-row block per timestep, so
+    obs[i] corresponds to (step = i // num_envs, env = i % num_envs). Temporal
+    modes must reshape to [S, E, ...] with E = num_envs, NOT [n_ep, T].
+    (Verified: with the correct layout, cube lifts off at step ~37 and |Δaction|
+    is 0.31 during the grasp vs 0.007 in the hold — a 44x ratio; the wrong
+    env-major reshape scrambled this to look flat.)
+
+    Modes:
+      uniform      : all 1.0 (baseline, == plain KL).
+      delta_action : per-step |a_t - a_{t-1}|; grasp (high) up-weighted, hold (~0)
+                     down-weighted, with a floor so hold samples don't vanish.
+      perdim       : handled in-loss; returns uniform here.
+    """
+    n = teacher_mean.shape[0]
+    E = int(num_envs)
+    if mode in ("uniform", "perdim") or E <= 0 or n % E != 0:
+        if mode == "delta_action" and (E <= 0 or n % E != 0):
+            print(f"[weights] WARNING: N={n} not divisible by num_envs={E}; "
+                  f"falling back to uniform weights.")
+        return np.ones(n, dtype=np.float32)
+
+    if mode == "delta_action":
+        A = teacher_mean.shape[1]
+        S = n // E
+        m = teacher_mean.reshape(S, E, A)   # [step, env, action]
+        d = np.zeros((S, E), dtype=np.float64)
+        d[1:] = np.abs(m[1:] - m[:-1]).mean(axis=-1)
+        d[0] = d[1]
+        w = d.reshape(-1)
+        # Weight = FLOOR + (|Δa| / median|Δa|), clipped. Using the MEDIAN (not max)
+        # as the scale keeps the typical grasp step at a meaningful multiple while
+        # rare outliers are clipped. FLOOR keeps the hold learnable. Then renorm to
+        # mean 1.0 so LR/SI scale matches the uniform baseline.
+        scale = np.median(w[w > 1e-6]) + 1e-8
+        FLOOR = 0.3
+        CLIP = 8.0
+        w = FLOOR + np.clip(w / scale, 0.0, CLIP)
+        w = w / (w.mean() + 1e-8)
+        # report the grasp-vs-hold contrast actually applied
+        we = w.reshape(S, E).mean(1)
+        gr = float(we[:47].mean()); ho = float(we[60:150].mean()) if S >= 150 else float(we[60:].mean())
+        print(f"[weights] delta_action (step-major, E={E}): min={w.min():.2f} "
+              f"mean={w.mean():.2f} max={w.max():.2f} | grasp(t<47)={gr:.2f} "
+              f"hold(t60+)={ho:.2f} ratio={gr/ho:.1f}x")
+        return w.astype(np.float32)
+
+    raise ValueError(f"Unknown distill weight mode: {mode}")
+
+
 def _split_dataset_for_task(
     observations: np.ndarray,
     teacher_mean: np.ndarray,
     teacher_logstd: np.ndarray,
     train_fraction: float,
     episode_length: int,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Split dataset into train and test."""
+    weights: np.ndarray = None,
+) -> Tuple[np.ndarray, ...]:
+    """Split dataset into train and test (optionally carrying per-sample weights)."""
     num_samples = observations.shape[0]
     if num_samples == 0:
         raise ValueError("Dataset is empty; cannot train.")
+    if weights is None:
+        weights = np.ones(num_samples, dtype=np.float32)
     train_fraction = float(np.clip(train_fraction, 0.0, 1.0))
     train_samples = int(train_fraction * num_samples)
     if episode_length > 0:
@@ -925,10 +994,11 @@ def _split_dataset_for_task(
     train_obs = observations[:train_samples]
     train_mean = teacher_mean[:train_samples]
     train_logstd = teacher_logstd[:train_samples]
+    train_w = weights[:train_samples]
     test_obs = observations[train_samples:]
     test_mean = teacher_mean[train_samples:]
     test_logstd = teacher_logstd[train_samples:]
-    return train_obs, train_mean, train_logstd, test_obs, test_mean, test_logstd
+    return train_obs, train_mean, train_logstd, train_w, test_obs, test_mean, test_logstd
 
 
 def save_checkpoint(
@@ -1006,6 +1076,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-fraction", type=float, default=0.8, help="Fraction of each dataset used for training.")
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
     parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP.")
+    parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1140,13 +1211,23 @@ def main() -> None:
         episode_length = env.max_episode_length
         print(f"[INFO] Task {task_idx} ({task_name}): Using environment episode length: {episode_length} steps")
 
+        # Per-sample distillation weights (A4 etc.); uniform == baseline KL.
+        # Dataset is STEP-MAJOR: reshape needs the collection num_envs (from
+        # metadata), not the eval episode_length.
+        collect_num_envs = int(dataset.get("metadata", {}).get("num_envs", 0))
+        sample_weights = compute_distill_weights(
+            teacher_mean, teacher_logstd, collect_num_envs,
+            args.distill_weight_mode,
+        )
+
         # Split dataset using actual episode length
-        train_obs_np, train_mean_np, train_logstd_np, test_obs_np, test_mean_np, test_logstd_np = _split_dataset_for_task(
+        train_obs_np, train_mean_np, train_logstd_np, train_w_np, test_obs_np, test_mean_np, test_logstd_np = _split_dataset_for_task(
             observations,
             teacher_mean,
             teacher_logstd,
             args.train_fraction,
             episode_length,
+            sample_weights,
         )
 
         train_size = int(train_obs_np.shape[0])
@@ -1190,6 +1271,7 @@ def main() -> None:
                 "train_obs": jnp.asarray(train_obs_np),
                 "train_mean": jnp.asarray(train_mean_np),
                 "train_logstd": jnp.asarray(train_logstd_np),
+                "train_weights": jnp.asarray(train_w_np),
                 "test_obs": jnp.asarray(test_obs_np),
                 "test_mean": jnp.asarray(test_mean_np),
                 "test_logstd": jnp.asarray(test_logstd_np),
@@ -1255,6 +1337,7 @@ def main() -> None:
         "batch_size": args.batch_size,
         "student_min_std": args.student_min_std,
         "student_hidden_dims": list(args.student_hidden_dims),
+        "distill_weight_mode": args.distill_weight_mode,
         "train_fraction": args.train_fraction,
         "si_coeff": args.si_coeff,
         "si_epsilon": args.si_epsilon,
@@ -1279,6 +1362,7 @@ def main() -> None:
         train_obs = task_data["train_obs"]
         train_mean = task_data["train_mean"]
         train_logstd = task_data["train_logstd"]
+        train_weights = task_data["train_weights"]
         test_obs = task_data["test_obs"]
         test_mean = task_data["test_mean"]
         test_logstd = task_data["test_logstd"]
@@ -1342,6 +1426,7 @@ def main() -> None:
                 train_obs,
                 train_mean,
                 train_logstd,
+                train_weights,
                 args.batch_size,
                 args.si_coeff,
                 task_idx_arr,

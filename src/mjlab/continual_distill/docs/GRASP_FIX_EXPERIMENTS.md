@@ -69,4 +69,55 @@ mid-episode for a pick task). Findings:
 
 ## Results log
 
-(pending STEP 0 signal assessment before launching any A/B run)
+### A4 |Δaction|-weighting — REJECTED at signal-assessment stage (2026-07-07)
+
+Implemented per-sample weighting (`--distill-weight-mode delta_action`), plumbed
+end-to-end (uniform reduces exactly to plain KL — regression safe). BUT assessing
+the signal ON THE DATASET (not a fresh rollout) killed it:
+
+- In the stored dataset, |Δaction| is ~UNIFORM across the episode: t<80 mean 3.10,
+  t>=80 mean 3.14 (ratio 1.0x). No grasp-time concentration.
+- Contradicts the earlier live-rollout probe (which showed |Δaction|->0 in the
+  hold). Reason: the dataset teacher keeps making small corrective actions through
+  the "hold" (holding a cube vs gravity/noise is NOT zero-action); the clean
+  hold=0 pattern was an artifact of the deterministic 32-env probe.
+- Also the grasp is not time-aligned across episodes (first-success t=35-71), so
+  even a real per-episode signal averages out.
+
+**Lesson: assess signals IN THE DATASET the loss actually sees, not a fresh rollout.**
+
+### A3 / B1 value signal — also REJECTED at signal stage
+
+Teacher V(s) on the dataset is FLAT: per-timestep mean 5.05-5.08 across the whole
+episode, early-vs-hold gap 0.00, ΔV oscillates around 0. The converged teacher's
+value is ~constant because it's always in a near-solved state. No temporal signal.
+
+### *** REAL ROOT CAUSE (2026-07-07): the DATASET has almost no grasp ***
+
+Assessing obs-space physical signals exposed it. In the LiftCube dataset:
+- **80.4% of episodes START with the cube ALREADY LIFTED** (mean cube-z at t=0 =
+  0.25m; gripper already on the cube).
+- **80.7% of all samples** are "already-lifted-and-holding" (z>0.2, g2o<0.04).
+- Only **10%** of samples show the gripper in approach (>5cm from object); only
+  **15%** have the cube still on the ground.
+
+=> The dataset is ~80% "hold a lifted cube" and barely contains the
+approach-and-grasp. This is a **data-collection artifact**: episodes were collected
+from the `test=True` env, which resets most envs into an already-grasped/lifted
+state. The teacher then just holds.
+
+**This explains everything cleanly and retires ALL the loss-weighting ideas:**
+- low env-KL: student perfectly clones the abundant HOLD behavior.
+- ~0 success: at eval the cube starts ON THE GROUND (real task); the student got
+  almost no training signal for approach/grasp, so it can't grasp -> 0.
+- no re-weighting can fix a skill that is barely IN the data (nothing to up-weight).
+
+**NEW HYPOTHESIS (H2): fix the DATA, not the loss.** Re-collect LiftCube so the
+dataset actually contains the approach-and-grasp. Options:
+- **H2a**: collect from the `play`/train env (not `test`) if it resets with the
+  cube on the ground -> full approach->grasp->lift trajectories.
+- **H2b**: force cube-on-ground resets during collection (override the reset event /
+  command so every episode starts pre-grasp).
+- **H2c**: if the env inherently starts lifted, shorten episodes / subsample so the
+  hold doesn't dominate 80%.
+First: inspect the LiftCube env reset config to see WHY it starts lifted, then pick.
