@@ -1,0 +1,12 @@
+# Tiny 2-task config to validate the eval-seed fix: does the final-sweep eval
+# now reproduce the last periodic eval? LiftCube first (so it's evaluated again
+# after PushButton trains), few epochs for speed. LOCAL paths.
+tasks:
+  LiftCube:
+    env_id: "Mjlab-Lift-Cube-Franka"
+    dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Lift_Cube_Franka_model_2900_20260706_185155"
+    num_epochs: 200
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_model_1999_20260129_055221"
+    num_epochs: 200

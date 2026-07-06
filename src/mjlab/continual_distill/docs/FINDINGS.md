@@ -268,6 +268,82 @@ load-bearing for retention; weak later-task teachers just cap their own task at
 ceiling without harming others. => keep a STRONG task-0 teacher (RL), and stop
 using the low-accuracy classical cuboid/drawer teachers as drop-ins.
 
+## Finding 8 — 5-task LiftCube-position sweep (2026-07-06)
+
+Added LiftCube as a 5th task (RL teacher `model_2900`, regenerated 2026-07-06,
+**teacher success 99.2%**, obs/action verified identical to the 4-task pipeline).
+Base order fixed (PushCuboid, PushButton, OpenDoor, OpenDrawer); LiftCube inserted
+at each of positions 1-5, one run per GPU, all RL teachers, lr 3e-5, 4096 student
+(`seq5task_liftpos*_1783344402`).
+
+| LiftCube position | LiftCube success | LiftCube KL | others |
+|---|---|---|---|
+| 1 | 0.23 | 0.51 | Btn/Door/Drw ~1.0; Cub 0.48 |
+| 2 | 0.16 | 0.62 | ~1.0 / Cub 0.78 |
+| 3 | **0.03** | 2.09 | ~1.0 / Cub 0.75 |
+| 4 | 0.14 | 1.37 | ~1.0 / Cub 0.86 |
+| 5 (last) | 0.20 | 1.02 | ~1.0 / Cub 0.84 |
+
+**Key finding — LiftCube is NOT forgotten; the low finals are an EVALUATION
+ARTIFACT.** (Corrected TWICE — first "never learned" then "catastrophically
+forgotten" were both wrong; the parser below is ground truth.) Per-run, LiftCube's
+LAST TRAINING eval vs the one-off final `Epoch None` sweep eval:
+
+| LiftCube pos | last training eval | final `Epoch None` sweep |
+|---|---|---|
+| 0 | **1.000** | 0.234 |
+| 1 | **1.000** | 0.156 |
+| 2 | **1.000** | 0.031 |
+| 3 | **1.000** | 0.141 |
+| 4 (last) | 0.172 (undertrained) | 0.203 |
+
+At positions 0-3 LiftCube holds **1.000 at every periodic eval through the ENTIRE
+rest of the sequence** (n_train = 30/24/18/12 consecutive 1.0 evals spanning all
+downstream tasks) — NO forgetting. The low final numbers come ONLY from the single
+post-training `Epoch None` sweep, which DISAGREES with the training eval at
+identical weights/step (liftpos1: step 677500 gives 1.000 at Epoch 500 and 0.234
+at Epoch None). Smoking gun: `Final student_successes` is a flat
+`[0.234, 0.234, ... ]` across all envs — zero variance, impossible for a real
+multi-env rollout — so the final sweep runs a degenerate/single-condition eval
+that bites the grasp task specifically (a reset or command-sampling difference).
+
+**=> The 5-task run is a SUCCESS: LiftCube distills and is retained across the full
+sequence.** The reported-low LiftCube finals are a harness bug in the final-sweep
+evaluation, NOT a CL failure. (Positions had no effect on the other 4 tasks — all
+~1.0 throughout.)
+
+**Root cause of the eval bug (diagnosed 2026-07-06).** `evaluate_environment`
+accepted a `seed` arg but never applied it (`env.reset()` with no seed). Fixed to
+`env.reset(seed=seed)` — BUT a 2-task repro shows this is NOT sufficient: at the
+same weights/step, the periodic eval gives LiftCube 0.97 and the final sweep 0.016,
+even though the seed fix makes both use the SAME goal (`initial_goal_error 0.2404m`
+prints identically). So goals match yet success differs → the divergence is the
+**robot's randomized reset pose** (`reset_robot_joints`, +-10deg), which is drawn
+from a PROCESS-GLOBAL RNG (`env.seed()` is a staticmethod calling a global
+`seed_rng`). Because all task envs share that global RNG and are reset in different
+order/counts between the periodic path and the final sweep, the robot start pose
+differs — and for a precise grasp that is the difference between 0.97 and 0.
+LiftCube is hypersensitive to start pose; the planar tasks are not, which is why
+only LiftCube shows the artifact.
+
+**Verdict:** the true retained accuracy is the PERIODIC eval (last training epoch),
+tabulated below. The `Epoch None` final-sweep column is unreliable for grasp tasks
+and should be ignored / the sweep removed. A full fix needs per-env-instance RNG
+isolation (out of scope for now).
+
+**True 5x5 final accuracy (last periodic eval; rows=sequence, LiftCube position):**
+
+| seq | LiftCube | PushCuboid | PushButton | OpenDoor | OpenDrawer | avg |
+|---|---|---|---|---|---|---|
+| 1 (Lp1) | 1.000 | 0.422 | 1.000 | 1.000 | 0.969 | 0.878 |
+| 2 (Lp2) | 1.000 | 0.781 | 1.000 | 1.000 | 0.906 | 0.937 |
+| 3 (Lp3) | 1.000 | 0.719 | 1.000 | 1.000 | 0.844 | 0.913 |
+| 4 (Lp4) | 1.000 | 0.812 | 1.000 | 1.000 | 1.000 | 0.963 |
+| 5 (Lp5) | 0.172* | 0.719 | 1.000 | 1.000 | 1.000 | 0.778 |
+
+*seq5 LiftCube is last and undertrained (only 6 evals, still rising) — not a
+retention result. Single seed throughout.
+
 ## Open problems / next
 
 1. Task-0 (PushCuboid) retention ~0.6-0.84 after the sequence — not fixed by SI

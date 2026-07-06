@@ -424,7 +424,11 @@ def evaluate_environment(
 
     # Teacher rollouts - parallel episodes (run full episode length, no early termination)
     print(f"\n--- TEACHER ROLLOUT START ---")
-    obs, _ = env.reset()
+    # Seed the reset so evaluation is reproducible and comparable across calls.
+    # Without this, the env RNG drifts with accumulated stepping, so the same
+    # weights get different goal poses at the periodic vs the final-sweep eval
+    # (this produced the spurious low LiftCube "final" numbers).
+    obs, _ = env.reset(seed=seed)
     if classical_teacher is not None:
         classical_teacher.reset()  # restart state machines with the episode
     num_envs = env.num_envs
@@ -435,6 +439,13 @@ def evaluate_environment(
     print(f"After env.reset() (Teacher):")
     print(f"  num_envs: {num_envs}")
     print(f"  episode_length to run: {episode_length}")
+
+    # Latch teacher success per-env across the rollout (same reason as student:
+    # robust to mid-rollout auto-resets).
+    teacher_cmd = env.command_manager.get_term(
+        next(iter(env.command_manager.active_terms))
+    )
+    teacher_latched_success = np.zeros(num_envs)
 
     # Run for full episode length (no early termination)
     for step in range(episode_length):
@@ -461,30 +472,20 @@ def evaluate_environment(
         teacher_action_torch = torch.from_numpy(np.array(teacher_action_jax))
         obs, reward, terminated, truncated, info = env.step(teacher_action_torch)
         episode_returns += reward.cpu().numpy()
-
-    # Extract final success values from info["log"] (populated when episode ends)
-    teacher_successes = np.zeros(num_envs)
-
-    print(f"\nAfter teacher episode complete:")
-    print(f"  'log' in info: {'log' in info}")
-    if "log" in info and isinstance(info["log"], dict):
-        print(f"  info['log'] keys: {list(info['log'].keys())}")
-        for key, value in info["log"].items():
-            if "success" in key.lower():
-                print(f"    {key}: {value}")
-            if "episode_success" in key.lower():
-                teacher_successes = value.cpu().numpy() if hasattr(value, 'cpu') else np.array(value)
-                print(f"    >>> EXTRACTED teacher episode_success: {teacher_successes}")
-                break
+        teacher_latched_success = np.maximum(
+            teacher_latched_success, teacher_cmd.episode_success.detach().cpu().numpy()
+        )
 
     teacher_episode_returns = episode_returns.tolist()
-    teacher_successes = teacher_successes.tolist()
+    teacher_successes = teacher_latched_success.tolist()
     print(f"  Teacher successes mean: {np.mean(teacher_successes):.4f}")
     print(f"--- TEACHER ROLLOUT END ---\n")
 
     # Student rollouts - parallel episodes (run full episode length, no early termination)
     print(f"\n--- STUDENT ROLLOUT START ---")
-    obs, _ = env.reset()
+    # Same fixed seed as the teacher rollout above: teacher and student are then
+    # scored on the SAME goal poses, and the eval is reproducible run-to-run.
+    obs, _ = env.reset(seed=seed)
     episode_returns = np.zeros(num_envs)
 
     # DEBUG: Check command manager state AFTER reset
@@ -503,6 +504,18 @@ def evaluate_environment(
                 goal_error = np.linalg.norm(cmd_term.target_pos[0].cpu().numpy() - obj_pos)
                 print(f"  {cmd_name}.initial_goal_error[0]: {goal_error:.4f}m")
 
+    # Live per-env success, LATCHED every step. The env auto-resets on timeout,
+    # which clears command_manager.episode_success; reading it once after the
+    # loop (or worse, the pre-reduced scalar in info["log"]) therefore misses
+    # successes and yields a stale/wrong number. np.maximum over the rollout
+    # captures a success whenever it occurs. (This is the fix for the spurious
+    # low LiftCube "final" accuracy — same weights read 1.0 vs 0.23 depending on
+    # where the auto-reset boundary fell.)
+    student_cmd = env.command_manager.get_term(
+        next(iter(env.command_manager.active_terms))
+    )
+    latched_success = np.zeros(num_envs)
+
     # Run for full episode length (no early termination)
     for step in range(episode_length):
         obs_array = obs['policy'].cpu().numpy()
@@ -512,6 +525,9 @@ def evaluate_environment(
         student_action_torch = torch.from_numpy(np.array(student_action_jax))
         obs, reward, terminated, truncated, info = env.step(student_action_torch)
         episode_returns += reward.cpu().numpy()
+        latched_success = np.maximum(
+            latched_success, student_cmd.episode_success.detach().cpu().numpy()
+        )
 
         # DEBUG: Log progress at certain steps
         if step in [0, episode_length//2, episode_length-1]:
@@ -539,40 +555,14 @@ def evaluate_environment(
                     if 'success' in metric_name.lower():
                         print(f"    metrics['{metric_name}'][:10]: {metric_value[:10].cpu().numpy()}")
 
-    # Extract final success values from info["log"] (populated when episode ends)
-    student_successes = np.zeros(num_envs)
+    # Use the per-env success LATCHED across the rollout (see above). This is the
+    # true per-episode success of THIS eval, robust to mid-rollout auto-resets —
+    # unlike the old path that read a pre-reduced, episode-boundary-dependent
+    # scalar from info["log"] and replicated it to all envs.
+    student_episode_returns = episode_returns.tolist()
+    student_successes = latched_success.tolist()
 
-    print(f"\n  Extracting from info['log']:")
-    print(f"    'log' in info: {'log' in info}")
-    if "log" in info and isinstance(info["log"], dict):
-        print(f"    info['log'] keys: {list(info['log'].keys())}")
-        for key, value in info["log"].items():
-            if "success" in key.lower():
-                print(f"    {key}: {value}")
-                if isinstance(value, torch.Tensor):
-                    print(f"      (Tensor) shape={value.shape}, dtype={value.dtype}")
-                elif isinstance(value, (int, float)):
-                    print(f"      (Scalar) type={type(value)}")
-            if "episode_success" in key.lower():
-                student_successes = value.cpu().numpy() if hasattr(value, 'cpu') else np.array(value)
-                print(f"    >>> EXTRACTED episode_success: {student_successes}")
-                print(f"        Type: {type(student_successes)}, Shape: {np.array(student_successes).shape if hasattr(student_successes, 'shape') else 'scalar'}")
-                break
-    else:
-        print(f"    WARNING: No 'log' in info or not a dict!")
-
-    # Convert to appropriate format
-    if isinstance(student_successes, np.ndarray) and student_successes.ndim == 0:
-        # It's a 0-dimensional array (scalar)
-        print(f"  >>> student_successes is 0-dim array (scalar): {float(student_successes)}")
-        student_successes_mean = float(student_successes)
-        student_episode_returns = episode_returns.tolist()
-        student_successes = [student_successes_mean] * num_envs  # Replicate for compatibility
-    else:
-        student_episode_returns = episode_returns.tolist()
-        student_successes = student_successes.tolist() if hasattr(student_successes, 'tolist') else [student_successes] * num_envs
-
-    print(f"  Final student_successes (list): {student_successes[:10]} (first 10)")
+    print(f"  Final student_successes (latched): {student_successes[:10]} (first 10)")
     print(f"  Mean: {np.mean(student_successes):.4f}")
     print(f"--- STUDENT ROLLOUT END ---\n")
 
@@ -1495,6 +1485,10 @@ def main() -> None:
 
     if args.env_eval_episodes > 0:
         print("\nFinal environment evaluation:")
+        # The last periodic eval ran at epoch index (num_epochs - 1) of the last
+        # task, with seed = args.seed + epoch (see evaluate_all_tasks_env call).
+        # Reuse that epoch so this final sweep reproduces it exactly.
+        last_epoch = task_buffers[-1]["num_epochs"] - 1
         for task_idx, task_data in enumerate(task_buffers):
             task_name = task_data["task_name"]
 
@@ -1505,7 +1499,10 @@ def main() -> None:
                 task_name=task_name,
                 num_episodes=args.env_eval_episodes,
                 episode_length=task_data["episode_length"],
-                seed=args.seed + 1234 + task_idx * 1000,
+                # Use the SAME seed the periodic eval used at the final epoch of
+                # the last task, so this final sweep reproduces that eval instead
+                # of scoring on a different (uncontrolled) set of goal poses.
+                seed=(args.seed + last_epoch) + task_idx * 1000,
                 wandb_run=wandb_run,
                 log_to_wandb=wandb_run is not None,
                 global_step=global_step,
