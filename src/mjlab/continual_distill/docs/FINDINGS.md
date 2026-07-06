@@ -307,10 +307,63 @@ at Epoch None). Smoking gun: `Final student_successes` is a flat
 multi-env rollout — so the final sweep runs a degenerate/single-condition eval
 that bites the grasp task specifically (a reset or command-sampling difference).
 
-**=> The 5-task run is a SUCCESS: LiftCube distills and is retained across the full
-sequence.** The reported-low LiftCube finals are a harness bug in the final-sweep
-evaluation, NOT a CL failure. (Positions had no effect on the other 4 tasks — all
-~1.0 throughout.)
+**RETRACTED / SUPERSEDED.** The "LiftCube is retained, just an eval artifact"
+conclusion was WRONG — see the correction below.
+
+### CORRECTION (2026-07-06 pm): two separate real problems
+
+**(A) The success metric was buggy.** `evaluate_environment` read
+`episode_success` from `info["log"]` — a pre-reduced scalar the env updates only on
+its own episode boundaries. Eval runs 250 steps but episodes are ~150, so the env
+auto-resets mid-rollout and CLEARS `episode_success`; the read value was then stale
+(could be spuriously HIGH or LOW depending on where the boundary fell). Fixed by
+latching the live per-env `command_manager.episode_success` with `np.maximum` every
+step (teacher and student rollouts) + seeding the eval reset. Committed 2026-07-06.
+
+**(B) LiftCube genuinely catastrophically forgets.** With the FIXED metric, a clean
+2-task run LiftCube->PushButton (200 epochs each, lr 3e-5) shows LiftCube go
+1.00 (after its own phase) -> 0.44 -> 0.00 -> 0.03 -> **0.016** as PushButton alone
+trains (final KL 6.8 = real weight drift). 200 epochs of SI did NOT protect it, so
+this is NOT epoch-starvation — it is real, severe forgetting after a SINGLE
+downstream task. The earlier "LiftCube = 1.0 through the whole 5-task sequence" was
+the buggy reader returning stale-HIGH (the 1.0 readings that looked like retention
+were actually captured DURING LiftCube's own training phase, not after).
+
+LiftCube is the one contact-rich grasp-and-lift task; SI's quadratic penalty
+protects the forgiving planar push/pull/slide tasks but not LiftCube's fragile,
+precise solution. This is the SAME mechanism as the milder PushCuboid task-0
+forgetting (0.6-0.84), at its extreme.
+
+**Fixed-metric re-run results (2026-07-06, `fixedmetric_*_1783359732`, lr 3e-5):**
+
+_Verification — 4-task RL baseline (`verify4task`):_ avg 0.922 (PushCuboid 0.766,
+PushButton 1.000, OpenDoor 0.984, OpenDrawer 0.938), and periodic == final-sweep on
+every task. This reproduces the old 0.93 baseline => **the 4-task experiments
+(teacher comparison, size sweep, mixes) are NOT affected by the eval bug and do not
+need redoing.** The bug only materially corrupted the grasp task; planar tasks
+finish their success cycle before the mid-rollout reset so they read correctly.
+
+_5-task LiftCube-position sweep (TRUE numbers, last periodic eval):_
+
+| seq | LiftCube pos | LiftCube | PushCuboid | PushButton | OpenDoor | OpenDrawer | avg |
+|---|---|---|---|---|---|---|---|
+| 1 | 1st | 0.109 | 0.422 | 1.000 | 1.000 | 0.969 | 0.700 |
+| 2 | 2nd | 0.125 | 0.797 | 1.000 | 1.000 | 0.938 | 0.772 |
+| 3 | 3rd | 0.094 | 0.781 | 1.000 | 1.000 | 0.969 | 0.769 |
+| 4 | 4th | 0.031 | 0.812 | 1.000 | 1.000 | 0.922 | 0.753 |
+| 5 | 5th | 0.109 | 0.891 | 1.000 | 1.000 | 1.000 | 0.800 |
+| col avg | | **0.094** | 0.741 | 1.000 | 1.000 | 0.959 | |
+
+**LiftCube is catastrophically forgotten at EVERY position (0.03-0.13).** Position
+does not rescue it (even last = 0.109; single seed, grasp is fragile). PushButton &
+OpenDoor are bulletproof (1.0); OpenDrawer ~0.96; PushCuboid is the other
+weak/variable task (0.42-0.89) — the long-standing task-0 fragility. LiftCube's
+presence does not harm the planar tasks (no neighbor poisoning).
+
+**Bottom line:** SI distillation protects forgiving planar skills but FAILS to
+protect contact-rich precision skills (LiftCube, and partially PushCuboid). This is
+the core open problem, now cleanly demonstrated. Fix directions: sharpness/curvature-
+aware SI importance, per-task-difficulty si_coeff, or replay for fragile tasks.
 
 **Root cause of the eval bug (diagnosed 2026-07-06).** `evaluate_environment`
 accepted a `seed` arg but never applied it (`env.reset()` with no seed). Fixed to
