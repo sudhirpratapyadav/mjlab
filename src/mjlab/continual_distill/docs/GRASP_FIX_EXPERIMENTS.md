@@ -20,6 +20,28 @@ matches the teacher's action distribution well (env-KL ~0.6, same as tasks that 
   the 5-task run used 500 but 200 already shows the collapse).
 - Report LiftCube acc AND env-KL for each (KL should stay ~0.6; we want ACC up).
 
+## Run registry (traceability)
+
+wandb project `continual_rl_mjlab` (IITJ entity). Run name == log stem: each run is
+`<group>_<pair>_<TS>`; log at `~/sudhir/mjlab/logs/cl_<runname>.log`; wandb run name
+== `<runname>`; wandb id in the table below. Each group = 4 pairs
+(pushcuboid/pushbutton/opendoor/opendrawer) unless noted.
+
+| group (TS) | config | wandb ids (cuboid / button / door / drawer) |
+|---|---|---|
+| `graspfix_base_*_1783381305` | uniform si1 (baseline) seed0 | 10xpti8g / sf4qei7u / kboam6dz / lwebed5u |
+| `graspfix_a4_*_1783381305` | A4 (floor0.3/clip8) si1 seed0 | v5yac3qt / 3jezoxip / ui8s5ykt / neaq7znu |
+| `a4tune_agg_*_1783382338` | A4 (0.1/12) si1 seed0 | gb9c6zs5 / 6ck2b6xe / 5kbns469 / 12j9fect |
+| `a4tune_vagg_*_1783382338` | A4 (0.05/20) si1 seed0 | mahesq6j / m0z05jim / xsls2tek / 9ufm7eoy |
+| `a4si_si3_*_1783383134` | A4 vagg si3 seed0 | i4o2zoo9 / x9i4mc8l / 2t7r21qw / d408c9m9 |
+| `a4si_si10_*_1783383134` | A4 vagg si10 seed0 | gvxi8ym2 / tci193z8 / yqr8j6gj / e3317911 |
+| `unifsi_si3_*_1783384101` | uniform si3 seed0 | 0g8ntccn / jv6pebot / fjnag3i1 / 6v0b6mnx |
+| `unifsi_si10_*_1783384101` | uniform si10 seed0 | 117qfxgq / 1atd9oi9 / sk5pl1q1 / 19w5jtf9 |
+| `mseed_s1_a4si1_*_1783397368` | A4 vagg si1 **seed1** | 002mir78 / bo5gyndi / d4jloe2l / mc5y6uuw |
+| `mseed_s1_unifsi1_*_1783397368` | uniform si1 **seed1** | rkb5lglf / 0ovlox6c / p4haqgsi / 2ll2ab0j |
+
+All result tables below reference these groups by their (config) label.
+
 ## STEP 0 — Signal assessment (do BEFORE building any weighting)
 
 Rule: never plug a signal into a weighting scheme without first confirming it
@@ -89,6 +111,7 @@ bug. With the CORRECT step-major layout [S=500, E=512]:
 A4 is well-motivated after all: up-weight the sharp, under-represented grasp steps.
 
 ### A4 delta_action RESULTS (2026-07-07, 2-task, 200 epochs, seed 0)
+Runs: baseline=`graspfix_base_*_1783381305`, A4=`graspfix_a4_*_1783381305`.
 
 LiftCube retention (last periodic eval) after task 1 trains. Weight profile:
 grasp 2.4x vs hold 0.4x (FLOOR=0.3, CLIP=8, median-scaled).
@@ -109,6 +132,7 @@ for both (floor effect — A4 can't recover from total collapse); PushCuboid -0.
 hard pairs improve.
 
 ### A4 contrast sweep (2026-07-07) — knob exhausted
+Runs: base=`graspfix_base_*_1783381305`, A4(0.3/8)=`graspfix_a4_*`, agg=`a4tune_agg_*_1783382338`, vagg=`a4tune_vagg_*_1783382338`.
 
 | LiftCube -> | base | A4 0.3/8 | agg 0.1/12 | vagg 0.05/20 |
 |---|---|---|---|---|
@@ -133,6 +157,7 @@ pairs need CONSOLIDATION help. Two directions left:
 Next: A4(vagg) x si_coeff {1(default),3,10} on the 2 hard pairs + 2 easy (control).
 
 ### A4(vagg) x si_coeff sweep (2026-07-07) — BREAKTHROUGH
+Runs: si1=`a4tune_vagg_*_1783382338`, si3=`a4si_si3_*_1783383134`, si10=`a4si_si10_*_1783383134`.
 
 | LiftCube -> | base | A4 si1 | A4 si3 | A4 si10 |
 |---|---|---|---|---|
@@ -152,6 +177,7 @@ consolidation (SI, protect it). Monotonic in si_coeff.
 uniform x si {3,10} on all 4 pairs to isolate A4's contribution.
 
 ### CONTROL (uniform+SI) + task-1 plasticity check (2026-07-07) — reframes it
+Runs: A4+si=`a4si_si{3,10}_*_1783383134`, unif+si=`unifsi_si{3,10}_*_1783384101`.
 
 LiftCube retention, A4+si10 vs uniform+si10 (isolating A4):
 | pair | A4+si10 | unif+si10 |
@@ -188,6 +214,7 @@ consolidation (protect only LiftCube's grasp-critical weights, not the whole net
 That's a per-parameter/importance idea, distinct from a global si_coeff.
 
 ### CORRECTED FRAMING (2026-07-07): A4 at FIXED consolidation budget — IT WORKS
+Runs: see si1/si3/si10 groups in the registry (A4=a4tune_vagg/a4si, unif=graspfix_base/unifsi).
 
 Prior conclusion "win is SI not A4" was the wrong comparison (it varied the SI
 budget). The right question (user's): at the SAME si (same weight-constraint), does
@@ -225,6 +252,7 @@ with the modest si that best exploits the frontier (si~3), multi-seed to de-nois
 better state-prioritization beats |Δaction|.
 
 ### PROPER METRICS (2026-07-07): task0-KL + retention-vs-plasticity (not just si)
+Runs: same groups as above (registry). seed0.
 
 si is only a knob; the real conserved quantities are the achieved task-0 KL (the
 actual weight-constraint) and the retention(task0-SR) vs plasticity(task1-SR) trade.
@@ -254,6 +282,7 @@ result of Direction A: **at fixed consolidation (KL), prioritizing success-criti
 states/actions improves retention-per-plasticity.**
 
 ### DUAL-CHECKPOINT (2026-07-07): end-of-task0 vs end-of-task1
+Runs: same seed0 groups (registry).
 
 Capturing task-0 KL/SR at END OF TASK 0 (fresh distill, before task1) and END OF
 TASK 1 (after forgetting) isolates initial-learning from forgetting. seed0, mean/4:
