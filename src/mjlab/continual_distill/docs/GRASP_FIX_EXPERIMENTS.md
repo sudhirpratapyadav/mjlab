@@ -6,6 +6,61 @@ contact-rich precision tasks (LiftCube) reach only ~0.1 success while the studen
 matches the teacher's action distribution well (env-KL ~0.6, same as tasks that hit
 1.0). Fix must be on the OBJECTIVE side, not SI/consolidation.
 
+---
+
+## EXECUTIVE SUMMARY (read this first)
+
+**Problem.** In SI-regularized policy distillation (no replay), a contact-rich
+precision task (LiftCube) is catastrophically forgotten: it distills to ~1.0 but
+collapses to ~0.1 after one downstream task. KL fidelity is fine (~0.6, same as
+tasks that succeed) — the loss is blind to which actions decide success. ~70% of a
+LiftCube episode is the trivial post-grasp HOLD; plain KL over-fits it and under-fits
+the ~30-step grasp.
+
+**Method (Direction A — success-weighted distillation).** Weight each per-sample KL
+by a grasp-importance signal (normalized to mean 1.0, so total budget / effective LR
+/ SI balance are unchanged — same "consolidation budget"). Signals tried:
+- **A4 = |Δaction|** (per-step action change). Needs no critic.
+- **A3 = |ΔV|** (per-step teacher-critic value change). Precomputed offline into
+  `value_weights.npy` per dataset. Slightly better, and task-specific.
+- A1 (per-state teacher σ) DEAD (σ is constant); A2 (per-dim) not run.
+
+**Core result (2-task, LiftCube→X, 3-seed, si=1, weight ONLY the retained task):**
+LiftCube retention — uniform 0.204±0.02, **A4 0.596±0.01, A3 0.643±0.02** (~3x).
+No cost to the weighted task's own SR (0.99 fresh either way) or task-1 plasticity.
+
+**Key gotchas found (all cost real debugging):**
+1. Dataset is STEP-MAJOR `[step, env]`, not episode-contiguous — wrong reshape made
+   all temporal signals look flat and nearly killed the whole idea.
+2. Only weight the task you're RETAINING (`--distill-weight-tasks 0`). Weighting the
+   task being LEARNED doesn't hurt ITS SR but collaterally damages EARLIER tasks'
+   retention (shared grasp weights).
+3. Env-eval success reader was buggy (stale `info["log"]` scalar under mid-rollout
+   auto-reset) — fixed to latch live per-env `episode_success`. Earlier "1.0
+   retained" numbers were this bug.
+
+**The 3-task tension (real limitation).** Weighting a later task (needed for ITS
+retention) damages an earlier task's retention (−0.11 mean) EVEN with the good |ΔV|
+signal — collateral weight-movement on shared (contact) weights. Good signal halves
+the damage vs |Δaction| but doesn't cure it.
+
+**End-to-end (delta_value all-tasks vs baseline plain-KL SI), best config dv+si≈3:**
+| sequence | baseline SI | delta_value | Δ |
+|---|---|---|---|
+| 4-task, LiftCube-free (planar) | 0.918 | 0.949 | +0.03 (safe/helpful) |
+| 4-task, with LiftCube | 0.605 | 0.711 | +0.11 |
+| 5-task, with LiftCube | 0.475 | 0.644 | +0.17 |
+
+**Bottom line.** `--distill-weight-mode delta_value --distill-weight-tasks all`
++ si~3 is a SAFE DEFAULT: big win when a fragile grasp/precision task is present
+(+0.13–0.18 on 5-task), small win / never a loss otherwise. Limitation: the earliest
+fragile task pays a compounding collateral cost as more weighted tasks follow it.
+
+Full chronological trace (including wrong turns, corrections, and every table with
+run-group tags) follows below.
+
+---
+
 ## Protocol (fixed for all experiments here)
 
 - **2-task sequences only.** LiftCube is ALWAYS task 0 (the fragile task we're
@@ -46,6 +101,10 @@ wandb project `continual_rl_mjlab` (IITJ entity). Run name == log stem: each run
 | `a3_s2_*_1783410622` / `a3_si3s0_*_1783410622` | A3 si1 seed2 / si3 seed0 | (wandb by run name) |
 | `ctrl_a4t0_*` / `ctrl_a3t0_*` (_1783411559) | A4/A3 **weight-tasks=0** (task1 uniform) si1 seed0 | (wandb by run name) |
 
+| `a3all_s{0,1}_*_1783414298` | A3 delta_value **weight-tasks=all** (both) si1 s0,1 | door rup6zqjl.. (per run) |
+| `e2e_{4t,5t}_{dv,un}_si{1,3}_1783419326` | end-to-end 4/5-task dv-all vs uniform | 4t:2vb11npn/o2fzsrv9/vsg6uvu3/ytxopmeg 5t:jp1nohom/j5bchasr/0zapl2r3/lk9a4l4t |
+| `old4t_{dv,un}_si{1,3}_1783421413` | LiftCube-free 4-task {Cub,Btn,Door,Drw} 500ep | dv:xm3bpjk7/q3z34say un:a914sxa2/36sx996n |
+
 All result tables below reference these groups by their (config) label.
 
 ## MASTER EXPERIMENT INDEX (exact config per batch)
@@ -70,6 +129,10 @@ configs. Columns below are the ONLY things that vary between batches.
 | a3_s{0,1,2} (1783410622) | delta_value | 0.05/20 | **all** | 1 | 0,1,2 | A3 (|ΔV|) |
 | a3_si3s0 (1783410622) | delta_value | 0.05/20 | **all** | 3 | 0 | A3 x SI |
 | ctrl_a4t0 / ctrl_a3t0 (1783411559) | d_action / d_value | 0.05/20 | **0 (task1 uniform)** | 1 | 0 | isolate task-0 signal |
+| a3all (1783414298) | delta_value | 0.05/20 | **all (both tasks)** | 1 | 0,1 | 3-task tension test |
+| e2e 4t/5t dv (1783419326) | delta_value | 0.05/20 | all | 1,3 | 0 | END-TO-END vs baseline |
+| e2e 4t/5t un (1783419326) | uniform | — | — | 1,3 | 0 | end-to-end baseline SI |
+| old4t dv/un (1783421413) | dv / uniform | 0.05/20 | all | 1,3 | 0 | LiftCube-free control, 500ep |
 
 **KEY CONFOUND (found 2026-07-07, see A3-vs-A4 section):** all batches BEFORE
 `ctrl_*` used `weight-tasks=all`. For delta_action that means TASK 1 was ALSO
