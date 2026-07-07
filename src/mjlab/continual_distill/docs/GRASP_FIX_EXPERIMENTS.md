@@ -43,8 +43,41 @@ wandb project `continual_rl_mjlab` (IITJ entity). Run name == log stem: each run
 | `mseed_s2_a4si1_*` / `mseed_s2_unifsi1_*` (_1783397368) | A4/unif si1 **seed2** | (see wandb by run name) |
 
 | `a3_s{0,1}_*_1783410622` | A3 delta_value si1 seeds0,1 | (wandb by run name) |
+| `a3_s2_*_1783410622` / `a3_si3s0_*_1783410622` | A3 si1 seed2 / si3 seed0 | (wandb by run name) |
+| `ctrl_a4t0_*` / `ctrl_a3t0_*` (_1783411559) | A4/A3 **weight-tasks=0** (task1 uniform) si1 seed0 | (wandb by run name) |
 
 All result tables below reference these groups by their (config) label.
+
+## MASTER EXPERIMENT INDEX (exact config per batch)
+
+Every run: LiftCube (task0) -> {PushCuboid|PushButton|OpenDoor|OpenDrawer} (task1),
+2-task, 200 epochs/task, lr 3e-5, 4096 student, `tasks_2t_lift_<x>.yaml` cluster
+configs. Columns below are the ONLY things that vary between batches.
+
+| batch (TS) | weight-mode | floor/clip | weight-tasks | si_coeff | seeds | purpose |
+|---|---|---|---|---|---|---|
+| graspfix_base (1783381305) | uniform | — | all | 1 | 0 | baseline (plain KL) |
+| graspfix_a4 (1783381305) | delta_action | 0.3/8 | **all** | 1 | 0 | first A4 (weak contrast) |
+| a4tune_agg (1783382338) | delta_action | 0.1/12 | **all** | 1 | 0 | A4 contrast sweep |
+| a4tune_vagg (1783382338) | delta_action | 0.05/20 | **all** | 1 | 0 | A4 max contrast |
+| a4si_si3 (1783383134) | delta_action | 0.05/20 | **all** | 3 | 0 | A4 x SI |
+| a4si_si10 (1783383134) | delta_action | 0.05/20 | **all** | 10 | 0 | A4 x SI |
+| unifsi_si3 (1783384101) | uniform | — | all | 3 | 0 | SI control |
+| unifsi_si10 (1783384101) | uniform | — | all | 10 | 0 | SI control |
+| mseed_s1/s2 a4si1 (1783397368) | delta_action | 0.05/20 | **all** | 1 | 1,2 | A4 multi-seed |
+| mseed_s1/s2 unifsi1 (1783397368) | uniform | — | all | 1 | 1,2 | baseline multi-seed |
+| mseed_s1 a4si3/unifsi3 (1783397368) | d_action/unif | 0.05/20 | all | 3 | 1 | si3 multi-seed |
+| a3_s{0,1,2} (1783410622) | delta_value | 0.05/20 | **all** | 1 | 0,1,2 | A3 (|ΔV|) |
+| a3_si3s0 (1783410622) | delta_value | 0.05/20 | **all** | 3 | 0 | A3 x SI |
+| ctrl_a4t0 / ctrl_a3t0 (1783411559) | d_action / d_value | 0.05/20 | **0 (task1 uniform)** | 1 | 0 | isolate task-0 signal |
+
+**KEY CONFOUND (found 2026-07-07, see A3-vs-A4 section):** all batches BEFORE
+`ctrl_*` used `weight-tasks=all`. For delta_action that means TASK 1 was ALSO
+reweighted (it needs no cache); for delta_value TASK 1 fell back to uniform (no
+value cache). So the earlier A3-vs-A4 comparison was NOT controlled — they differed
+on task-0 signal AND on whether task-1 got reweighted. The `ctrl_*` batch
+(weight-tasks=0) isolates the task-0 signal; results below are re-baselined against
+it. Earlier tables are KEPT (with this caveat noted inline).
 
 ## STEP 0 — Signal assessment (do BEFORE building any weighting)
 
@@ -371,7 +404,15 @@ weighted-mean KL as A4, just a different per-sample weight. si=1, 2-seed mean:
 **A3 > A4: 0.633 vs 0.447 (3.2x baseline vs 2.3x), same fixed budget.** Biggest win:
 A3 RESCUES PushCuboid (0.12->0.66), the pair where A4 failed.
 
-**Mechanism (why value beats action-change):** PushCuboid is itself a contact task,
+**[CAVEAT added 2026-07-07 — NOT a clean comparison]:** these A3 and A4 runs used
+`weight-tasks=all`, so A4 ALSO reweighted task1 (PushCuboid) while A3 left task1
+uniform. So this table confounds the task-0 signal (|ΔV| vs |Δa|) with whether
+task-1 was reweighted. The PushCuboid rescue may be due to task1 being uniform under
+A3, NOT to |ΔV| being a better task-0 signal. The `ctrl_*` batch (weight-tasks=0,
+both modes leave task1 uniform) isolates this — see its section. Result KEPT for the
+record; interpret via the controlled result.
+
+**Mechanism (TENTATIVE, pending ctrl):** (why value *appears* to beat action-change) PushCuboid is itself a contact task,
 so |Δaction| can't tell LiftCube's grasp from motion PushCuboid also needs -> A4
 over-protects generic "moving" weights that PushCuboid competes for. |ΔV| tracks
 LiftCube's TASK-SPECIFIC value/progress, orthogonal to PushCuboid -> it protects the
