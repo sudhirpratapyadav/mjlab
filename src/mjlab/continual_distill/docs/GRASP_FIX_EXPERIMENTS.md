@@ -502,3 +502,23 @@ consolidated solution (retention 0.14 vs 0.69) WITHOUT changing task1 SR. Mechan
 is "collateral weight movement harms the retained task", not "task1 learns worse".
 The practical rule (only weight the task you're retaining) still stands, but for
 this corrected reason.
+
+### CLEAN 2-seed A4 vs A3 (weight-tasks=0, no confound) — 2026-07-07
+
+Runs: A4=`ctrl_a4t0(s0)+clean_a4_s1`, A3=`ctrl_a3t0(s0)+clean_a3_s1`,
+unif=`graspfix_base(s0)+mseed_s1_unifsi1`. si=1, task1 always uniform. 2-seed mean:
+
+| pair | uniform | A4 | A3 |
+|---|---|---|---|
+| PushCuboid | 0.141 | 0.625 | 0.656 |
+| PushButton | 0.000 | 0.000 | 0.016 |
+| OpenDoor | 0.453 | 0.781 | 0.883 |
+| OpenDrawer | 0.195 | 0.953 | 0.984 |
+| MEAN | 0.197 | 0.590 | 0.635 |
+
+**Corrected, stable verdict:**
+- Both A4 & A3 ~3x uniform (0.59/0.64 vs 0.20) at fixed budget. A-direction solid.
+- A3 (|ΔV|) marginally > A4 (|Δa|): +0.045, small but consistent (mostly OpenDoor).
+  The earlier dramatic "A3 wins" was the task1 confound; real signal gap is small.
+- PushCuboid fixed for BOTH now (0.14->0.63) — confirms its failure was the confound.
+- PushButton ~0 for all A-signals (needs SI). seed2 running for 3-seed CIs.
