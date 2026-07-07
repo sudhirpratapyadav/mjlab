@@ -1105,6 +1105,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "delta_value", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
     parser.add_argument("--distill-weight-floor", type=float, default=0.3, help="delta_action: min weight for low-action-change (hold) samples.")
     parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
+    parser.add_argument("--distill-weight-tasks", type=str, default="all", help="Which task indices get non-uniform weighting (comma-sep, e.g. '0'); others use uniform KL. Default 'all'.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1242,10 +1243,22 @@ def main() -> None:
         # Per-sample distillation weights (A4 etc.); uniform == baseline KL.
         # Dataset is STEP-MAJOR: reshape needs the collection num_envs (from
         # metadata), not the eval episode_length.
+        # IMPORTANT: only apply non-uniform weighting to the task indices named in
+        # --distill-weight-tasks (default: all). For the LiftCube-retention study we
+        # weight ONLY task 0, leaving the second task as plain uniform KL — otherwise
+        # the comparison confounds "task-0 signal" with "did task-1 also get
+        # reweighted" (delta_action reweights ANY task since it needs no cache;
+        # delta_value fell back to uniform for task-1 lacking a value cache).
         collect_num_envs = int(dataset.get("metadata", {}).get("num_envs", 0))
+        _wt_tasks = args.distill_weight_tasks
+        _apply = (_wt_tasks == "all") or (str(task_idx) in _wt_tasks.split(","))
+        _mode_this = args.distill_weight_mode if _apply else "uniform"
+        if not _apply:
+            print(f"[weights] task {task_idx}: not in --distill-weight-tasks "
+                  f"({_wt_tasks}); using uniform.")
         sample_weights = compute_distill_weights(
             teacher_mean, teacher_logstd, collect_num_envs,
-            args.distill_weight_mode,
+            _mode_this,
             floor=args.distill_weight_floor,
             clip=args.distill_weight_clip,
             dataset_folder=dataset_folder_str,
