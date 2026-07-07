@@ -592,3 +592,41 @@ inter-task weight overlap; (c) candidate mitigations: weight task1 LESS (lower
 contrast) since it only needs to be retainable, not maximally so; or task-specific
 SI importance that separates overlapping grasp weights. TODO: real 3-task run to
 measure end-to-end, and a contrast sweep on the LATER task.
+
+### *** END-TO-END 4-task & 5-task: delta_value vs baseline SI (2026-07-07) ***
+
+Runs: `e2e_{4t,5t}_{dv,un}_si{1,3}_1783419326`. dv = delta_value on ALL tasks
+(each by its own verified |ΔV| cache, weight-tasks=all); un = plain-KL baseline SI.
+seq: LiftCube,PushCuboid,PushButton,OpenDoor(,OpenDrawer). 200 ep/task, seed0.
+Per-task FINAL accuracy (last periodic eval):
+
+4-TASK:
+| config | Lift | Cuboid | Button | Door | AVG |
+|---|---|---|---|---|---|
+| un si1 | 0.000 | 0.594 | 0.984 | 1.000 | 0.645 |
+| dv si1 | 0.016 | 0.500 | 1.000 | 0.938 | 0.613 |
+| un si3 | 0.172 | 0.281 | 1.000 | 0.969 | 0.605 |
+| dv si3 | 0.594 | 0.297 | 1.000 | 0.953 | **0.711** |
+
+5-TASK:
+| config | Lift | Cuboid | Button | Door | Drawer | AVG |
+|---|---|---|---|---|---|---|
+| un si1 | 0.000 | 0.172 | 1.000 | 0.984 | 0.219 | 0.475 |
+| dv si1 | 0.000 | 0.375 | 0.969 | 1.000 | 0.656 | 0.600 |
+| un si3 | 0.031 | 0.125 | 1.000 | 1.000 | 0.156 | 0.462 |
+| dv si3 | 0.109 | 0.234 | 1.000 | 1.000 | 0.875 | **0.644** |
+
+**VERDICT: delta_value BEATS baseline SI end-to-end.**
+- 5-task: dv > un by +0.13 (si1) and +0.18 (si3). 4-task: +0.11 at si3 (~tied si1).
+- Best config overall: dv si3 (4t 0.711, 5t 0.644).
+- Wins concentrate on FRAGILE/contact tasks: OpenDrawer 5t 0.16->0.88(si3);
+  LiftCube 4t 0.17->0.59(si3). These are exactly the grasp-protected tasks.
+- The 3-task collateral tension IS visible: LiftCube in 5-task stays low (0.00-0.11)
+  as FOUR downstream weighted tasks each disturb it (compounding). But dv still nets
+  ahead because rescuing later contact tasks > the cost to the earliest task.
+- delta_value helps MORE at higher si and longer sequences (more fragile tasks to
+  protect, stronger consolidation to lock in the grasp-weighted solution).
+
+**Bottom line:** value-progress-weighted distillation is a net win over plain SI for
+multi-task CL with contact/precision tasks; ~+0.15 avg SR on 5-task. Recommended
+config: delta_value (all tasks) + si~3.
