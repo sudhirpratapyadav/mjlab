@@ -452,3 +452,27 @@ weight-tasks=all A4 numbers are contaminated on the task1 axis (kept, tagged).
 
 Next: re-run A4/A3 multi-seed with weight-tasks=0 (clean baseline), then A2 (per-dim)
 and the si-frontier under the corrected setting.
+
+### 3-TASK REASONING (2026-07-07): is there a weight-vs-plasticity dilemma?
+
+User's concern: in A->B->C, task B is both "to-retain" and "being-learned"; weighting
+B seemed to lower its SR (confound), not weighting it leaves it less retainable.
+
+**Resolved — NOT a dilemma with a GOOD signal.** Fresh LiftCube SR @end-task0 (i.e.
+the weighted task's OWN learning, before any forgetting):
+  uniform 0.996 | A4-task0 0.992 | A3-task0 0.992  — identical.
+=> success-weighting a task's distillation does NOT cost its own SR; it only makes
+it more retainable. The plasticity hit in the confound came from weighting a task
+with a BAD/misleading signal (|Δaction| on PushCuboid, ratio 1.9x + outliers), not
+from the principle. Weighting the CURRENTLY-LEARNED task with its OWN good
+success-signal is fine.
+
+**Recipe for N-task:** weight EACH task's distillation by ITS OWN success-relevant
+signal (scoped to that task). |ΔV| is naturally task-specific (per-task critic) so
+it's the safe default; |Δaction| can mislead on contact tasks.
+
+**Genuinely-open 3-task questions (need the experiment):** does a MIDDLE task's
+grasp-weighting still help after TWO downstream consolidations? Does SI's omega
+allocation get confused when several weighted tasks stack? Requires value_weights
+for each task's teacher (only LiftCube has them now). TODO: precompute value weights
+for PushCuboid/Button/Door/Drawer teachers, then run a 3-task {Lift, X, Y}.
