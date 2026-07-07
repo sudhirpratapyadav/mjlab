@@ -186,3 +186,40 @@ consolidation strength, which has its own cost. Open question worth pursuing:
 can we get LiftCube retention WITHOUT the plasticity hit — i.e. SELECTIVE
 consolidation (protect only LiftCube's grasp-critical weights, not the whole net)?
 That's a per-parameter/importance idea, distinct from a global si_coeff.
+
+### CORRECTED FRAMING (2026-07-07): A4 at FIXED consolidation budget — IT WORKS
+
+Prior conclusion "win is SI not A4" was the wrong comparison (it varied the SI
+budget). The right question (user's): at the SAME si (same weight-constraint), does
+prioritizing success-relevant states improve retention? YES.
+
+A4 vs uniform at MATCHED si (mean LiftCube retention):
+| si | A4 | uniform | Δ |
+|---|---|---|---|
+| 1 | 0.406 | 0.180 | +0.227 |
+| 3 | 0.645 | 0.590 | +0.055 |
+| 10 | 0.910 | 0.902 | +0.008 |
+
+Retention<->plasticity FRONTIER (mean LiftCube ret, mean task-1 acc):
+| config | LiftRet | task1 |
+|---|---|---|
+| unif si1 | 0.180 | 0.887 |
+| A4 si1   | 0.406 | 0.883 |
+| unif si3 | 0.590 | 0.797 |
+| A4 si3   | 0.645 | 0.813 |
+| unif si10| 0.902 | 0.660 |
+| A4 si10  | 0.910 | 0.773 |
+
+**A4 DOMINATES the frontier: more retention for the same plasticity at every level.**
+- A4 si1 vs unif si1: task-1 tied (0.88) but retention 0.41 vs 0.18 (+0.23) — free
+  lunch at fixed budget. Exactly the A-direction hypothesis.
+- A4 si10 vs unif si10: retention tied (~0.91) but task-1 0.773 vs 0.660 (+0.11) —
+  A4 preserves more plasticity at matched retention.
+- The benefit is largest at LOW si (room to redirect) and shrinks as si->10 clamps
+  all weights (nothing left to redirect). A4 and SI are substitutable levers;
+  A4 shifts the whole frontier outward.
+
+**A-direction CONFIRMED and characterized.** Next tweaks within A: (i) A4 combined
+with the modest si that best exploits the frontier (si~3), multi-seed to de-noise;
+(ii) the OTHER A-signals now that layout is fixed (per-dim A2, value A3) to see if a
+better state-prioritization beats |Δaction|.
