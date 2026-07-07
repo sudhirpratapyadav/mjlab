@@ -131,3 +131,22 @@ pairs need CONSOLIDATION help. Two directions left:
   harder let A4's grasp-signal persist through PushButton? Cheap, tests the insight.
 - **B1 value/return matching** — deferred (weak temporal value signal), lower prior.
 Next: A4(vagg) x si_coeff {1(default),3,10} on the 2 hard pairs + 2 easy (control).
+
+### A4(vagg) x si_coeff sweep (2026-07-07) — BREAKTHROUGH
+
+| LiftCube -> | base | A4 si1 | A4 si3 | A4 si10 |
+|---|---|---|---|---|
+| PushCuboid | 0.188 | 0.141 | 0.562 | 0.969 |
+| PushButton | 0.000 | 0.016 | 0.234 | 0.750 |
+| OpenDoor | 0.359 | 0.562 | 0.812 | 0.938 |
+| OpenDrawer | 0.172 | 0.906 | 0.969 | 0.984 |
+| MEAN | 0.180 | 0.406 | 0.645 | **0.910** |
+
+**A4 + si_coeff=10 => 0.910 mean (5x baseline), rescues ALL pairs incl. the
+hopeless ones (PushButton 0->0.75, PushCuboid 0.19->0.97).** Confirms the mechanism:
+the fix needs BOTH the objective reshaping (A4, learn the grasp) AND strong
+consolidation (SI, protect it). Monotonic in si_coeff.
+
+**CRITICAL CONTROL PENDING:** is this A4, or would uniform+si=10 alone do it?
+(Earlier si sweeps were on the buggy eval metric AND without A4.) Running
+uniform x si {3,10} on all 4 pairs to isolate A4's contribution.
