@@ -630,3 +630,29 @@ Per-task FINAL accuracy (last periodic eval):
 **Bottom line:** value-progress-weighted distillation is a net win over plain SI for
 multi-task CL with contact/precision tasks; ~+0.15 avg SR on 5-task. Recommended
 config: delta_value (all tasks) + si~3.
+
+### CONTROL: LiftCube-free 4-task (no fragile task) — delta_value is SAFE (2026-07-07)
+
+Runs: `old4t_{dv,un}_si{1,3}_1783421413`. seq {PushCuboid,PushButton,OpenDoor,
+OpenDrawer} (NO LiftCube), 500 epochs. Answers "does delta_v hurt when there's
+nothing fragile to protect?"
+
+| config | Cuboid | Button | Door | Drawer | AVG |
+|---|---|---|---|---|---|
+| un si1 | 0.750 | 0.984 | 0.984 | 0.953 | 0.918 |
+| dv si1 | 0.844 | 1.000 | 1.000 | 0.953 | 0.949 |
+| un si3 | 0.875 | 0.969 | 1.000 | 0.984 | 0.957 |
+| dv si3 | 0.859 | 1.000 | 1.000 | 1.000 | 0.965 |
+
+**Findings:**
+1. Baseline reproduces the old ~0.92 (un si1 0.918) — confirms nothing regressed;
+   the 4-task e2e 0.645 was ENTIRELY the LiftCube swap (a task plain SI can't retain),
+   NOT a method problem.
+2. **delta_value does NOT hurt and slightly HELPS even here**: +0.03 (si1), +0.01
+   (si3). Gain mostly from PushCuboid (0.75->0.84), the one mildly-contact task. No
+   task regressed. The collateral tension does not cause NET harm absent a severely
+   fragile task.
+
+**=> delta_value is a SAFE DEFAULT:** big win with a fragile grasp task
+(+0.13-0.18 on 5-task LiftCube seq), small win / harmless without one (+0.01-0.03).
+Recommended default: delta_value (all tasks) + si~3.
