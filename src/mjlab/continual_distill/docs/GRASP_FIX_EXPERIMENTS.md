@@ -552,3 +552,43 @@ STILL OPEN (the user's 3-task concern): does weighting the LATER task (needed fo
 ITS retention in >=2-task-remaining sequences) damage the EARLIER task's retention?
 `a3all_*_1783414298` (both tasks |ΔV|-weighted, verified caches) is running to test
 whether a GOOD signal avoids the collateral damage that |Δaction|-all caused.
+
+### *** THE 3-TASK TENSION — user's concern VALIDATED (2026-07-07) ***
+
+Runs: `a3all_s{0,1}_*_1783414298` (BOTH tasks |ΔV|-weighted; caches VERIFIED loaded:
+task1 ratios PushCuboid 2.0x, OpenDrawer 13.1x — not fallback). vs A3_t0 (task1
+uniform). 2-seed mean, LiftCube (task0) retention:
+
+| pair | A3_t0 (task1 unif) | A3_all (task1 |ΔV|) | Δ | task1 SR t0->all |
+|---|---|---|---|---|
+| PushCuboid | 0.656 | 0.289 | -0.367 | 0.484->0.555 |
+| PushButton | 0.016 | 0.031 | +0.015 | 1.0->1.0 |
+| OpenDoor | 0.883 | 0.789 | -0.094 | 0.99->1.0 |
+| OpenDrawer | 0.984 | 0.992 | +0.008 | 0.98->1.0 |
+| MEAN | 0.635 | 0.525 | **-0.109** | (task1 UP if anything) |
+
+**VERDICT: the user's 3-task concern is REAL.** Weighting the LATER task (needed for
+ITS retention in a 3-task chain) DOES damage the EARLIER task's retention (-0.11
+mean), EVEN with the good |ΔV| signal. So it is NOT merely a bad-signal artifact.
+
+**Nuances:**
+1. Signal quality HALVES the damage: |Δaction|-all dropped PushCuboid LiftCube-ret to
+   0.14 (-0.55); |ΔV|-all only to 0.29 (-0.37). Good signal helps but doesn't cure.
+2. Damage concentrates on CONTACT tasks (PushCuboid -0.37, OpenDoor -0.09) whose
+   grasp-critical weights OVERLAP LiftCube's; OpenDrawer/PushButton unharmed.
+3. Task1's OWN SR goes UP slightly when weighted — the harm is purely COLLATERAL
+   weight-movement onto task0's solution, never task1 learning worse. (Consistent
+   with the earlier correction.)
+
+**Mechanism:** SI is regularization-only (no replay); task0 lives entirely in
+frozen-ish weights. Weighting task1 concentrates its gradient on ITS grasp-critical
+weights — which for contact tasks are the SAME weights task0 needs. So protecting
+task1's future overwrites task0's past. This is a genuine retention<->retention
+tension inherent to shared-weight + regularization CL.
+
+**Implications / next:** (a) the clean 2-task A-result (weight only the retained
+task) stands; (b) for >=3 tasks, per-task weighting has a real cost that scales with
+inter-task weight overlap; (c) candidate mitigations: weight task1 LESS (lower
+contrast) since it only needs to be retainable, not maximally so; or task-specific
+SI importance that separates overlapping grasp weights. TODO: real 3-task run to
+measure end-to-end, and a contrast sweep on the LATER task.
