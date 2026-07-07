@@ -508,13 +508,18 @@ this corrected reason.
 Runs: A4=`ctrl_a4t0(s0)+clean_a4_s1`, A3=`ctrl_a3t0(s0)+clean_a3_s1`,
 unif=`graspfix_base(s0)+mseed_s1_unifsi1`. si=1, task1 always uniform. 2-seed mean:
 
-| pair | uniform | A4 | A3 |
+| pair | uniform | **A4 t0** | **A3 t0** |
 |---|---|---|---|
 | PushCuboid | 0.141 | 0.625 | 0.656 |
 | PushButton | 0.000 | 0.000 | 0.016 |
 | OpenDoor | 0.453 | 0.781 | 0.883 |
 | OpenDrawer | 0.195 | 0.953 | 0.984 |
 | MEAN | 0.197 | 0.590 | 0.635 |
+
+NB: both weighted columns are the **task0-only (weight-tasks=0)** versions — this is
+the correct un-confounded setting, so they are the numbers to trust. They are NOT
+A4-all/A3-all. For reference, A4-ALL (task1 also weighted) on PushCuboid is 0.141
+(collapses); A4-t0 is 0.625. Do not confuse the two.
 
 **Corrected, stable verdict:**
 - Both A4 & A3 ~3x uniform (0.59/0.64 vs 0.20) at fixed budget. A-direction solid.
