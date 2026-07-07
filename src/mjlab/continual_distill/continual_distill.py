@@ -949,24 +949,23 @@ def compute_distill_weights(
     if mode == "delta_action":
         A = teacher_mean.shape[1]
         S = n // E
-        m = teacher_mean.reshape(S, E, A)   # [step, env, action]
+        # |Δa_t| averaged over action dims (grasp locator, no critic needed).
+        m = teacher_mean.reshape(S, E, A)
         d = np.zeros((S, E), dtype=np.float64)
         d[1:] = np.abs(m[1:] - m[:-1]).mean(axis=-1)
         d[0] = d[1]
         w = d.reshape(-1)
-        # Weight = FLOOR + (|Δa| / median|Δa|), clipped. Using the MEDIAN (not max)
-        # as the scale keeps the typical grasp step at a meaningful multiple while
-        # rare outliers are clipped. FLOOR keeps the hold learnable. Then renorm to
-        # mean 1.0 so LR/SI scale matches the uniform baseline.
+        # Weight = FLOOR + (signal / median), clipped; median-scaled so the typical
+        # grasp step gets a meaningful multiple, rare outliers clipped, hold floored.
+        # Renorm to mean 1.0 so LR/SI scale matches the uniform baseline.
         scale = np.median(w[w > 1e-6]) + 1e-8
         FLOOR = float(floor)
         CLIP = float(clip)
         w = FLOOR + np.clip(w / scale, 0.0, CLIP)
         w = w / (w.mean() + 1e-8)
-        # report the grasp-vs-hold contrast actually applied
         we = w.reshape(S, E).mean(1)
         gr = float(we[:47].mean()); ho = float(we[60:150].mean()) if S >= 150 else float(we[60:].mean())
-        print(f"[weights] delta_action (step-major, E={E}): min={w.min():.2f} "
+        print(f"[weights] {mode} (step-major, E={E}): min={w.min():.2f} "
               f"mean={w.mean():.2f} max={w.max():.2f} | grasp(t<47)={gr:.2f} "
               f"hold(t60+)={ho:.2f} ratio={gr/ho:.1f}x")
         return w.astype(np.float32)
