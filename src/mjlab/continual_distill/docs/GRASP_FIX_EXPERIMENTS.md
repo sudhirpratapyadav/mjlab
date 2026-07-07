@@ -42,6 +42,8 @@ wandb project `continual_rl_mjlab` (IITJ entity). Run name == log stem: each run
 | `mseed_s1_a4si3_*` / `mseed_s1_unifsi3_*` (_1783397368) | A4/unif si3 **seed1** | (see wandb by run name) |
 | `mseed_s2_a4si1_*` / `mseed_s2_unifsi1_*` (_1783397368) | A4/unif si1 **seed2** | (see wandb by run name) |
 
+| `a3_s{0,1}_*_1783410622` | A3 delta_value si1 seeds0,1 | (wandb by run name) |
+
 All result tables below reference these groups by their (config) label.
 
 ## STEP 0 — Signal assessment (do BEFORE building any weighting)
@@ -350,3 +352,31 @@ At fixed consolidation budget, prioritizing success-critical states MORE THAN
 DOUBLES LiftCube retention. Per-pair (3-seed): OpenDrawer +0.70, OpenDoor +0.27
 (carry the win); PushButton ~0 (needs SI); PushCuboid -0.02 (contact-competition,
 A4's blind spot). **A-direction hypothesis CONFIRMED.**
+
+### A3 |ΔV| value-weighting BEATS A4 |Δaction| (2026-07-07)
+
+Runs: `a3_s{0,1}_*_1783410622` (delta_value, floor0.05/clip20, si=1, seeds 0,1).
+Signal: teacher-critic |ΔV| precomputed offline (precompute_value_weights.py),
+cached as value_weights.npy; 26.8x grasp/hold offline, 12.3x effective. Loss = same
+weighted-mean KL as A4, just a different per-sample weight. si=1, 2-seed mean:
+
+| pair | uniform | A4 (|Δa|) | A3 (|ΔV|) | A3-A4 |
+|---|---|---|---|---|
+| PushCuboid | 0.141 | 0.117 | **0.656** | +0.539 |
+| PushButton | 0.000 | 0.016 | 0.008 | -0.008 |
+| OpenDoor | 0.453 | 0.711 | 0.883 | +0.172 |
+| OpenDrawer | 0.195 | 0.945 | 0.984 | +0.039 |
+| MEAN | 0.197 | 0.447 | **0.633** | +0.186 |
+
+**A3 > A4: 0.633 vs 0.447 (3.2x baseline vs 2.3x), same fixed budget.** Biggest win:
+A3 RESCUES PushCuboid (0.12->0.66), the pair where A4 failed.
+
+**Mechanism (why value beats action-change):** PushCuboid is itself a contact task,
+so |Δaction| can't tell LiftCube's grasp from motion PushCuboid also needs -> A4
+over-protects generic "moving" weights that PushCuboid competes for. |ΔV| tracks
+LiftCube's TASK-SPECIFIC value/progress, orthogonal to PushCuboid -> it protects the
+right (task-discriminative) weights. **Value-progress is a task-aware signal;
+action-change is not.** => A3 is the better state-prioritization signal.
+
+Next: 3rd seed for A3; A3 x si sweep (does it push the frontier further / need less
+SI?); then Direction A is well-characterized (A3 the winner).
