@@ -150,3 +150,39 @@ consolidation (SI, protect it). Monotonic in si_coeff.
 **CRITICAL CONTROL PENDING:** is this A4, or would uniform+si=10 alone do it?
 (Earlier si sweeps were on the buggy eval metric AND without A4.) Running
 uniform x si {3,10} on all 4 pairs to isolate A4's contribution.
+
+### CONTROL (uniform+SI) + task-1 plasticity check (2026-07-07) — reframes it
+
+LiftCube retention, A4+si10 vs uniform+si10 (isolating A4):
+| pair | A4+si10 | unif+si10 |
+|---|---|---|
+| PushCuboid | 0.969 | 0.969 |
+| PushButton | 0.750 | 0.688 |
+| OpenDoor | 0.938 | 0.969 |
+| OpenDrawer | 0.984 | 0.984 |
+| MEAN | 0.910 | 0.902 |
+
+**A4 ~= uniform at si=10 (0.910 vs 0.902): the win is STRONG SI, not A4.** A4 alone
+plateaus at 0.41; si=10 alone reaches 0.90. A4's marginal contribution is within
+noise. (Also: the earlier "si_coeff=3 doesn't fix task-0" was a BUGGY-EVAL-METRIC
+artifact — with the fixed metric, SI clearly protects LiftCube.)
+
+**BUT si=10 costs new-task PLASTICITY (task-1 own accuracy):**
+| task1 | A4+si10 | unif+si10 | normal |
+|---|---|---|---|
+| PushCuboid | 0.141 | 0.297 | ~0.75 |
+| PushButton | 1.000 | 1.000 | 1.000 |
+| OpenDoor | 0.969 | 0.797 | ~1.0 |
+| OpenDrawer | 0.984 | 0.547 | ~0.97 |
+
+PushCuboid-as-task1 collapses 0.75->0.14 (monotone in si: 0.56/0.34/0.14 at
+si=1/3/10); OpenDrawer-as-task1 to 0.55. => si=10 partially FREEZES the net. It is
+a retention<->plasticity TRADE-OFF, not a free fix; the fragile/precision task
+(PushCuboid) pays as task-1.
+
+**Direction A (objective reshaping) is EXHAUSTED and largely negative:** A4 helps
+modestly alone but is dominated by SI, and doesn't add over SI. The real lever is
+consolidation strength, which has its own cost. Open question worth pursuing:
+can we get LiftCube retention WITHOUT the plasticity hit — i.e. SELECTIVE
+consolidation (protect only LiftCube's grasp-critical weights, not the whole net)?
+That's a per-parameter/importance idea, distinct from a global si_coeff.
