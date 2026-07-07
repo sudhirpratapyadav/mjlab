@@ -107,3 +107,27 @@ for both (floor effect — A4 can't recover from total collapse); PushCuboid -0.
 (within single-seed noise). => A4 validated but not complete. Next: tune contrast
 (stronger grasp weighting: lower FLOOR / higher effective ratio) to see if the
 hard pairs improve.
+
+### A4 contrast sweep (2026-07-07) — knob exhausted
+
+| LiftCube -> | base | A4 0.3/8 | agg 0.1/12 | vagg 0.05/20 |
+|---|---|---|---|---|
+| PushCuboid | 0.188 | 0.141 | 0.156 | 0.141 |
+| PushButton | 0.000 | 0.000 | 0.000 | 0.016 |
+| OpenDoor | 0.359 | 0.547 | 0.516 | 0.562 |
+| OpenDrawer | 0.172 | 0.766 | 0.906 | 0.906 |
+| MEAN | 0.180 | 0.363 | 0.394 | 0.406 |
+
+- Stronger contrast helps monotonically on winnable pairs (OpenDrawer 0.77->0.91),
+  mean 0.36->0.41 (2.3x baseline). Plateaus by floor=0.05 => contrast knob EXHAUSTED.
+- Hard pairs (PushButton ~0, PushCuboid ~0.14) are UNMOVED by contrast. A4 only
+  reshapes WHICH actions are distilled; it adds no consolidation STRENGTH, so once
+  downstream training overwrites the grasp entirely (PushButton case), reweighting
+  the vanished grasp can't recover it.
+
+**Insight:** A4 fixes the OBJECTIVE (helps where the grasp survives) but the hard
+pairs need CONSOLIDATION help. Two directions left:
+- **A4 + stronger SI** (si_coeff sweep on top of vagg A4): does protecting weights
+  harder let A4's grasp-signal persist through PushButton? Cheap, tests the insight.
+- **B1 value/return matching** — deferred (weak temporal value signal), lower prior.
+Next: A4(vagg) x si_coeff {1(default),3,10} on the 2 hard pairs + 2 easy (control).
