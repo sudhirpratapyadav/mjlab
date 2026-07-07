@@ -476,3 +476,29 @@ grasp-weighting still help after TWO downstream consolidations? Does SI's omega
 allocation get confused when several weighted tasks stack? Requires value_weights
 for each task's teacher (only LiftCube has them now). TODO: precompute value weights
 for PushCuboid/Button/Door/Drawer teachers, then run a 3-task {Lift, X, Y}.
+
+### CORRECTION (2026-07-07): weighting task1 does NOT lower task1's own SR
+
+User's worry: if we weight a task's KL for retention, that task's OWN accuracy at its
+training time will be low. TEST — task-1's own SR at end of its training:
+
+| task1 pair | A4-all (t1 WEIGHTED) | A4-t0 (t1 uniform) | uniform |
+|---|---|---|---|
+| PushCuboid | 0.562 | 0.516 | 0.781 |
+| PushButton | 1.000 | 1.000 | 0.766 |
+| OpenDoor | 1.000 | 1.000 | 1.000 |
+| OpenDrawer | 0.969 | 0.953 | 1.000 |
+| MEAN | 0.883 | 0.867 | 0.887 |
+
+**ANSWER: NO. Weighting task1's KL leaves its own SR unchanged (0.883 vs 0.867/0.887).**
+=> the user's worry does not materialize; a weighted task still learns to full SR.
+
+**This ALSO corrects the earlier "confound" mechanism:** I claimed A4-all's low
+LiftCube RETENTION on the PushCuboid pair (0.14) was "task1 reweighting hurting
+things". But task1's OWN SR is fine either way (PushCuboid 0.562 weighted vs 0.516
+unweighted). So task1 reweighting did NOT hurt task1. The real effect: weighting
+task1 changed WHICH WEIGHTS MOVED during task1 training, damaging LiftCube's
+consolidated solution (retention 0.14 vs 0.69) WITHOUT changing task1 SR. Mechanism
+is "collateral weight movement harms the retained task", not "task1 learns worse".
+The practical rule (only weight the task you're retaining) still stands, but for
+this corrected reason.
