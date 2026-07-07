@@ -421,3 +421,34 @@ action-change is not.** => A3 is the better state-prioritization signal.
 
 Next: 3rd seed for A3; A3 x si sweep (does it push the frontier further / need less
 SI?); then Direction A is well-characterized (A3 the winner).
+
+### *** CONTROLLED A3 vs A4 (weight-tasks=0) — confound RESOLVED (2026-07-07) ***
+
+Runs: `ctrl_a4t0_*` / `ctrl_a3t0_*_1783411559` (weight ONLY task0; task1 uniform).
+User-predicted confound: A4-all also reweighted task1; A3-all left task1 uniform.
+seed0, si1:
+
+| pair | uniform | A4 all | **A4 t0** | A3 all | **A3 t0** |
+|---|---|---|---|---|---|
+| PushCuboid | 0.188 | 0.141 | **0.688** | 0.641 | 0.641 |
+| PushButton | 0.000 | 0.016 | 0.000 | 0.016 | 0.016 |
+| OpenDoor | 0.359 | 0.562 | 0.688 | 0.844 | 0.844 |
+| OpenDrawer | 0.172 | 0.906 | 0.938 | 0.984 | 0.984 |
+| MEAN | 0.180 | 0.406 | 0.578 | 0.621 | 0.621 |
+
+**CONFIRMED (user's hypothesis):** A4's PushCuboid failure was the TASK-1 REWEIGHTING,
+not the signal. A4-all 0.141 -> A4-t0 0.688 on PushCuboid once task1 is left uniform.
+A3-all==A3-t0 (0.621) — A3 already had task1 uniform (fallback), so it never had the
+bug. => the earlier "|ΔV| is task-aware, |Δaction| isn't" mechanism was WRONG.
+
+**Corrected conclusion:** with both scoped to task0-only, **A3 (0.621) ~= A4 (0.578)**;
+value marginally > action-change but not the dramatic gap previously seen. Both give
+~3x uniform (0.18).
+
+**NEW METHODOLOGICAL FINDING:** reweighting the NEW task's (task1) distillation HURTS
+its learning / the shared rep. Only reshape the loss for the task you want to RETAIN
+(task0). => `--distill-weight-tasks 0` is the correct setting; all prior
+weight-tasks=all A4 numbers are contaminated on the task1 axis (kept, tagged).
+
+Next: re-run A4/A3 multi-seed with weight-tasks=0 (clean baseline), then A2 (per-dim)
+and the si-frontier under the corrected setting.
