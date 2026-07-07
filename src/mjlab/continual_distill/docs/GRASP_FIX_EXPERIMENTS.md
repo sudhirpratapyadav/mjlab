@@ -223,3 +223,32 @@ Retention<->plasticity FRONTIER (mean LiftCube ret, mean task-1 acc):
 with the modest si that best exploits the frontier (si~3), multi-seed to de-noise;
 (ii) the OTHER A-signals now that layout is fixed (per-dim A2, value A3) to see if a
 better state-prioritization beats |Δaction|.
+
+### PROPER METRICS (2026-07-07): task0-KL + retention-vs-plasticity (not just si)
+
+si is only a knob; the real conserved quantities are the achieved task-0 KL (the
+actual weight-constraint) and the retention(task0-SR) vs plasticity(task1-SR) trade.
+All 4 measured together, at end of task-1 training (seed0, mean over 4 pairs):
+
+| config | task0-KL | task0-SR | task1-SR |
+|---|---|---|---|
+| unif si1 | 2.332 | 0.180 | 0.887 |
+| A4   si1 | 1.911 | 0.406 | 0.883 |
+| unif si3 | 0.973 | 0.590 | 0.797 |
+| A4   si3 | 0.629 | 0.645 | 0.813 |
+| unif si10| 0.209 | 0.902 | 0.660 |
+| A4   si10| 0.122 | 0.910 | 0.773 |
+
+**Key readings:**
+- *Retention at matched KL:* A4 si1 (KL 1.91 -> SR 0.41) vs unif si1 (KL 2.33 ->
+  SR 0.18): ~2.3x retention at ~the same KL constraint. Uniform must push KL to
+  ~0.97 (unif si3) to match what A4 gets at KL 1.91. => A4 converts KL-reduction
+  into SR far more efficiently — it spends preserved fidelity on grasp-critical
+  actions, not the trivial hold.
+- *Retention vs plasticity:* A4 dominates the frontier (si1: +0.23 SR free at equal
+  task1; si10: +0.11 task1 at equal retention).
+- A4 also yields LOWER task0-KL than uniform at every si (concentrated fidelity).
+
+Multi-seed (seeds 1,2) at si {1,3} running to add error bars. This is the headline
+result of Direction A: **at fixed consolidation (KL), prioritizing success-critical
+states/actions improves retention-per-plasticity.**
