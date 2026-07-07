@@ -252,3 +252,28 @@ All 4 measured together, at end of task-1 training (seed0, mean over 4 pairs):
 Multi-seed (seeds 1,2) at si {1,3} running to add error bars. This is the headline
 result of Direction A: **at fixed consolidation (KL), prioritizing success-critical
 states/actions improves retention-per-plasticity.**
+
+### DUAL-CHECKPOINT (2026-07-07): end-of-task0 vs end-of-task1
+
+Capturing task-0 KL/SR at END OF TASK 0 (fresh distill, before task1) and END OF
+TASK 1 (after forgetting) isolates initial-learning from forgetting. seed0, mean/4:
+
+| config | KL@end0 | SR@end0 | KL@end1 | SR@end1 | t1_SR | forget ΔSR |
+|---|---|---|---|---|---|---|
+| unif si1 | 0.034 | 0.996 | 2.332 | 0.180 | 0.887 | -0.82 |
+| A4   si1 | 0.033 | 0.988 | 1.911 | 0.406 | 0.883 | -0.58 |
+| unif si3 | 0.034 | 0.996 | 0.973 | 0.590 | 0.797 | -0.41 |
+| A4   si3 | 0.033 | 0.992 | 0.629 | 0.645 | 0.813 | -0.35 |
+| unif si10| 0.034 | 0.992 | 0.209 | 0.902 | 0.660 | -0.09 |
+| A4   si10| 0.033 | 0.992 | 0.122 | 0.910 | 0.773 | -0.08 |
+
+**Findings:**
+1. **Identical fresh distill for ALL configs**: end-of-task0 SR ~0.99, KL ~0.033,
+   invariant to si and mode. SI is off during task0 (only si_idx>0), and A4 does not
+   hurt initial learning. => same starting point; all differences are task1 damage.
+2. **A4 forgets LESS at matched budget**: si1 uniform -0.82 vs A4 -0.58 (30% less
+   forgetting) at equal task1-SR. This is the A-direction effect stated directly.
+3. **KL degradation is caused by task1, throttled by SI** (0.034->2.33 at si1;
+   SI=10 holds it to 0.12-0.21). SI does NOT degrade KL — it prevents degradation.
+   A4 + SI both fight forgetting (A4 by landing preserved fidelity on grasp actions,
+   SI by constraining weights).
