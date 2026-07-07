@@ -39,6 +39,8 @@ wandb project `continual_rl_mjlab` (IITJ entity). Run name == log stem: each run
 | `unifsi_si10_*_1783384101` | uniform si10 seed0 | 117qfxgq / 1atd9oi9 / sk5pl1q1 / 19w5jtf9 |
 | `mseed_s1_a4si1_*_1783397368` | A4 vagg si1 **seed1** | 002mir78 / bo5gyndi / d4jloe2l / mc5y6uuw |
 | `mseed_s1_unifsi1_*_1783397368` | uniform si1 **seed1** | rkb5lglf / 0ovlox6c / p4haqgsi / 2ll2ab0j |
+| `mseed_s1_a4si3_*` / `mseed_s1_unifsi3_*` (_1783397368) | A4/unif si3 **seed1** | (see wandb by run name) |
+| `mseed_s2_a4si1_*` / `mseed_s2_unifsi1_*` (_1783397368) | A4/unif si1 **seed2** | (see wandb by run name) |
 
 All result tables below reference these groups by their (config) label.
 
@@ -332,3 +334,19 @@ KL, retention 0.09-0.14, sometimes below baseline). So: on the 3 pairs A4 works,
 gives higher retention at similar/lower KL; PushCuboid is a separate problem (both
 are contact tasks that likely compete for the same grasp-critical weights).
 Seed2 running to firm up. Per-pair inspection (not just means) was essential.
+
+### *** DIRECTION A HEADLINE (2026-07-07): 3-seed, si=1, CONFIRMED ***
+
+Runs: A4=`{a4tune_vagg(s0), mseed_s1_a4si1, mseed_s2_a4si1}`,
+unif=`{graspfix_base(s0), mseed_s1_unifsi1, mseed_s2_unifsi1}`. Per-seed = mean/4 pairs.
+
+| | retention (per-seed) | mean±std | task1-SR |
+|---|---|---|---|
+| **A4 si1** | 0.41, 0.49, 0.44 | **0.445 ± 0.034** | 0.883 |
+| unif si1 | 0.18, 0.22, 0.22 | 0.204 ± 0.018 | 0.876 |
+
+**A4 advantage +0.241, non-overlapping error bars, task1 plasticity EQUAL.** =>
+At fixed consolidation budget, prioritizing success-critical states MORE THAN
+DOUBLES LiftCube retention. Per-pair (3-seed): OpenDrawer +0.70, OpenDoor +0.27
+(carry the win); PushButton ~0 (needs SI); PushCuboid -0.02 (contact-competition,
+A4's blind spot). **A-direction hypothesis CONFIRMED.**
