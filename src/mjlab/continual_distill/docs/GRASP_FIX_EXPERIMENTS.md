@@ -527,3 +527,28 @@ A4-all/A3-all. For reference, A4-ALL (task1 also weighted) on PushCuboid is 0.14
   The earlier dramatic "A3 wins" was the task1 confound; real signal gap is small.
 - PushCuboid fixed for BOTH now (0.14->0.63) — confirms its failure was the confound.
 - PushButton ~0 for all A-signals (needs SI). seed2 running for 3-seed CIs.
+
+### *** DIRECTION A FINAL (3-seed clean, weight-tasks=0) — 2026-07-07 ***
+
+Runs: A4=`ctrl_a4t0(s0)+clean_a4_s{1,2}`, A3=`ctrl_a3t0(s0)+clean_a3_s{1,2}`,
+unif=`graspfix_base(s0)+mseed_s{1,2}_unifsi1`. si=1, task1 uniform. LiftCube retention:
+
+| method | per-seed | mean ± std |
+|---|---|---|
+| uniform (plain KL) | 0.18, 0.22, 0.22 | 0.204 ± 0.018 |
+| A4 |Δaction| t0 | 0.58, 0.60, 0.61 | 0.596 ± 0.013 |
+| A3 |ΔV| t0 | 0.62, 0.65, 0.66 | 0.643 ± 0.016 |
+
+per-pair (3-seed): PushCuboid 0.18/0.65/0.69 | PushButton 0/0/0.02 |
+OpenDoor 0.45/0.80/0.89 | OpenDrawer 0.19/0.94/0.97 (unif/A4/A3).
+
+**CONFIRMED, tight CIs:** at fixed consolidation budget (same si, same fresh-SR,
+same task1 plasticity), grasp-weighting the RETAINED task's distillation ~3x its
+retention (0.20 -> 0.60/0.64). A3 (value-progress) > A4 (action-change) by +0.047,
+consistent across seeds. PushButton the lone holdout (needs SI). This is the core
+positive result of Direction A.
+
+STILL OPEN (the user's 3-task concern): does weighting the LATER task (needed for
+ITS retention in >=2-task-remaining sequences) damage the EARLIER task's retention?
+`a3all_*_1783414298` (both tasks |ΔV|-weighted, verified caches) is running to test
+whether a GOOD signal avoids the collateral damage that |Δaction|-all caused.
