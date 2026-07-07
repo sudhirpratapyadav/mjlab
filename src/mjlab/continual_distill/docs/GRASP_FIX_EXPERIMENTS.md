@@ -306,3 +306,29 @@ TASK 1 (after forgetting) isolates initial-learning from forgetting. seed0, mean
    SI=10 holds it to 0.12-0.21). SI does NOT degrade KL — it prevents degradation.
    A4 + SI both fight forgetting (A4 by landing preserved fidelity on grasp actions,
    SI by constraining weights).
+
+### 2-SEED consolidation (2026-07-07): seeds 0,1 — robust
+
+Runs: seed0 groups (registry) + seed1 `mseed_s1_{a4si1,unifsi1,a4si3,unifsi3}_*_1783397368`.
+Mean over seeds {0,1} x 4 pairs. KL/SR@0 = fresh distill (end task0); @1 = post-forget.
+
+| config | KL@0 | SR@0 | KL@1 | SR@1 | t1-SR | forget ΔSR |
+|---|---|---|---|---|---|---|
+| unif si1 | 0.027 | 0.998 | 2.639 | 0.197 | 0.885 | -0.80 |
+| A4   si1 | 0.028 | 0.994 | 3.992* | 0.447 | 0.916 | -0.55 |
+| unif si3 | 0.027 | 0.998 | 1.132 | 0.588 | 0.811 | -0.41 |
+| A4   si3 | 0.028 | 0.996 | 0.863 | 0.670 | 0.807 | -0.33 |
+
+**Robust (2-seed):**
+- Fresh distill identical for all (SR@0 ~0.99, KL@0 ~0.028).
+- A4 forgets LESS at matched si: si1 -0.55 vs -0.80; si3 -0.33 vs -0.41.
+- Retention up at both budgets: si1 0.45 vs 0.20; si3 0.67 vs 0.59. Also higher
+  task1 plasticity at si1 (0.916 vs 0.885).
+
+**HONEST caveat (*):** A4-si1 mean KL@1=3.99 > uniform 2.64 looks like "A4 keeps
+worse KL", BUT it's a single-pair OUTLIER: PushCuboid A4-seed1 KL=16.77. On the
+other 3 pairs A4's KL <= uniform. PushCuboid is A4's consistent FAILURE MODE (high
+KL, retention 0.09-0.14, sometimes below baseline). So: on the 3 pairs A4 works, it
+gives higher retention at similar/lower KL; PushCuboid is a separate problem (both
+are contact tasks that likely compete for the same grasp-critical weights).
+Seed2 running to firm up. Per-pair inspection (not just means) was essential.
