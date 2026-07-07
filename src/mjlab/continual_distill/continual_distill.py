@@ -921,6 +921,7 @@ def compute_distill_weights(
     mode: str,
     floor: float = 0.3,
     clip: float = 8.0,
+    dataset_folder: str = None,
 ) -> np.ndarray:
     """Per-sample distillation-loss weights (shape [N]), normalized to mean 1.0.
 
@@ -940,6 +941,30 @@ def compute_distill_weights(
     """
     n = teacher_mean.shape[0]
     E = int(num_envs)
+
+    # A3: value-change weighting. Load the cached |ΔV| (precompute_value_weights.py)
+    # and apply the same floor/clip/normalize pipeline as delta_action.
+    if mode == "delta_value":
+        vw_path = Path(dataset_folder) / "value_weights.npy" if dataset_folder else None
+        if vw_path is None or not vw_path.exists():
+            print(f"[weights] delta_value: no {vw_path}; run precompute_value_weights. "
+                  f"Falling back to uniform.")
+            return np.ones(n, dtype=np.float32)
+        w = np.load(vw_path).astype(np.float64)
+        if w.shape[0] != n:
+            print(f"[weights] delta_value: cache size {w.shape[0]} != N {n}; uniform.")
+            return np.ones(n, dtype=np.float32)
+        scale = np.median(w[w > 1e-9]) + 1e-9
+        w = float(floor) + np.clip(w / scale, 0.0, float(clip))
+        w = w / (w.mean() + 1e-8)
+        if E > 0 and n % E == 0:
+            we = w.reshape(n // E, E).mean(1)
+            S = n // E
+            gr = float(we[:47].mean()); ho = float(we[60:150].mean()) if S >= 150 else float(we[60:].mean())
+            print(f"[weights] delta_value: min={w.min():.2f} mean={w.mean():.2f} "
+                  f"max={w.max():.2f} | grasp={gr:.2f} hold={ho:.2f} ratio={gr/ho:.1f}x")
+        return w.astype(np.float32)
+
     if mode in ("uniform", "perdim") or E <= 0 or n % E != 0:
         if mode == "delta_action" and (E <= 0 or n % E != 0):
             print(f"[weights] WARNING: N={n} not divisible by num_envs={E}; "
@@ -1077,7 +1102,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-fraction", type=float, default=0.8, help="Fraction of each dataset used for training.")
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
     parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP.")
-    parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
+    parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "delta_value", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
     parser.add_argument("--distill-weight-floor", type=float, default=0.3, help="delta_action: min weight for low-action-change (hold) samples.")
     parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
@@ -1223,6 +1248,7 @@ def main() -> None:
             args.distill_weight_mode,
             floor=args.distill_weight_floor,
             clip=args.distill_weight_clip,
+            dataset_folder=dataset_folder_str,
         )
 
         # Split dataset using actual episode length
