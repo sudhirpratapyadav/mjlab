@@ -98,15 +98,15 @@ wandb `continual_rl_mjlab_sweep` now holds 99 runs:
 ## Student-size sweep on WORST seq p10 (Button->Door->Drawer->Cuboid)
 
 3 seeds, lr 3e-5, 500 ep. Run group `worstsize<dim>_s<seed>_1783670000`. 4096 from
-sweep p10. [seed-2 wave still running; 7/12 as of writing — numbers are partial]
+sweep p10. FINAL (12/12):
 
-| size | WORST-seq mean | per-seed | BEST-seq (p06) for ref |
+| size | WORST-seq mean | per-seed | BEST-seq (p06) |
 |---|---|---|---|
-| 512 | 0.561 | 0.60, 0.52 | 0.658 |
-| 1024 | 0.615 | 0.60, 0.63 | 0.792 |
-| 2048 | 0.617 | 0.63, 0.61 | 0.872 |
+| 512 | 0.544 | 0.60, 0.52, 0.51 | 0.658 |
+| 1024 | 0.595 | 0.60, 0.63, 0.56 | 0.792 |
+| 2048 | 0.602 | 0.63, 0.61, 0.57 | 0.872 |
 | 4096 | 0.659 | 0.67, 0.65, 0.66 | 0.960 |
-| 8192 | 0.598 | 0.60 (n=1) | 0.656 |
+| 8192 | 0.546 | 0.60, 0.58, 0.46 | 0.656 |
 
 **KEY INTERACTION — ordering dominates capacity:**
 - On the WORST ordering, size barely helps: nearly FLAT ~0.56 -> 0.66, plateaus by
