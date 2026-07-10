@@ -94,3 +94,26 @@ wandb `continual_rl_mjlab_sweep` now holds 99 runs:
 - 24-seq RL sweep (72): best p06 Cuboid->Drawer->Door->Button = 0.960
 - mix-teacher (18): all flavors viable, 0.89-0.94 vs RL 0.96
 - student-size (9): monotonic 0.66/0.79/0.87 for 512/1024/2048 (vs 4096=0.96)
+
+## Student-size sweep on WORST seq p10 (Button->Door->Drawer->Cuboid)
+
+3 seeds, lr 3e-5, 500 ep. Run group `worstsize<dim>_s<seed>_1783670000`. 4096 from
+sweep p10. [seed-2 wave still running; 7/12 as of writing — numbers are partial]
+
+| size | WORST-seq mean | per-seed | BEST-seq (p06) for ref |
+|---|---|---|---|
+| 512 | 0.561 | 0.60, 0.52 | 0.658 |
+| 1024 | 0.615 | 0.60, 0.63 | 0.792 |
+| 2048 | 0.617 | 0.63, 0.61 | 0.872 |
+| 4096 | 0.659 | 0.67, 0.65, 0.66 | 0.960 |
+| 8192 | 0.598 | 0.60 (n=1) | 0.656 |
+
+**KEY INTERACTION — ordering dominates capacity:**
+- On the WORST ordering, size barely helps: nearly FLAT ~0.56 -> 0.66, plateaus by
+  2048. Buys only ~+0.10 total.
+- On the BEST ordering, size climbs steeply 0.66 -> 0.96 (+0.30).
+- => **a bad task ordering CANNOT be fixed by adding capacity.** With PushCuboid
+  buried last (its worst position), even 4096 reaches only 0.66; the SAME net gets
+  0.96 with good ordering. Ordering matters far more than student size on a hard seq.
+- 4096 is the peak on BOTH sequences; 8192 reverses on both (best 0.66, worst 0.60)
+  -> over-parameterization instability is ordering-independent.
