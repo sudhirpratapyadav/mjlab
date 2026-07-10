@@ -60,3 +60,28 @@ run group: `mix_<cfg>_s<seed>_1783623195`.
 4. 1 swap ~= RL; 2 swaps cost a bit more (2cl 0.887 lowest, mainly Button 0.83).
 5. BC >= classical for Button: 2bc keeps Button 1.0 vs 2cl 0.83 — cloned BC teacher
    distills more cleanly than raw classical for that task.
+
+## Student-size sweep (on best seq p06, all RL teachers)
+
+3 seeds each, lr 3e-5, 500 ep/task. Run group `size<dim>_s<seed>_1783664057`.
+
+| student hidden dims | per-seed | mean ± std |
+|---|---|---|
+| 512-256-128 | 0.76, 0.68, 0.53 | 0.658 ± 0.095 |
+| 1024-512-256 | 0.75, 0.77, 0.86 | 0.792 ± 0.046 |
+| 2048-1024-512 | 0.85, 0.91, 0.86 | 0.872 ± 0.027 |
+| 4096-2048-1024 (baseline) | — | 0.960 |
+
+**Clean monotonic capacity curve: 0.66 -> 0.79 -> 0.87 -> 0.96.** Retention rises
+with student size AND variance shrinks (±0.095 at 512 -> ±0.027 at 2048) — bigger
+nets are better and more stable. Matches the earlier LiftCube-seq size sweep
+(0.62/0.74/0.88/0.93) — trend is task-set-independent. 4096 best; 2048 is the
+efficiency point (~0.87 at 1/4 the params). Verified each run built the correct
+model (checkpoint layer dims: 512->[128,256,512], 2048->[512,1024,2048]).
+
+## Project summary
+
+wandb `continual_rl_mjlab_sweep` now holds 99 runs:
+- 24-seq RL sweep (72): best p06 Cuboid->Drawer->Door->Button = 0.960
+- mix-teacher (18): all flavors viable, 0.89-0.94 vs RL 0.96
+- student-size (9): monotonic 0.66/0.79/0.87 for 512/1024/2048 (vs 4096=0.96)
