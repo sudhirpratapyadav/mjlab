@@ -70,7 +70,8 @@ run group: `mix_<cfg>_s<seed>_1783623195`.
 | 512-256-128 | 0.76, 0.68, 0.53 | 0.658 ± 0.095 |
 | 1024-512-256 | 0.75, 0.77, 0.86 | 0.792 ± 0.046 |
 | 2048-1024-512 | 0.85, 0.91, 0.86 | 0.872 ± 0.027 |
-| 4096-2048-1024 (baseline) | — | 0.960 |
+| 4096-2048-1024 | 0.94, 0.96, 0.98 | 0.960 ± 0.014 |
+| 8192-4096-2048 | 0.76, 0.38, 0.83 | 0.656 ± 0.201 |
 
 **Clean monotonic capacity curve: 0.66 -> 0.79 -> 0.87 -> 0.96.** Retention rises
 with student size AND variance shrinks (±0.095 at 512 -> ±0.027 at 2048) — bigger
@@ -78,6 +79,14 @@ nets are better and more stable. Matches the earlier LiftCube-seq size sweep
 (0.62/0.74/0.88/0.93) — trend is task-set-independent. 4096 best; 2048 is the
 efficiency point (~0.87 at 1/4 the params). Verified each run built the correct
 model (checkpoint layer dims: 512->[128,256,512], 2048->[512,1024,2048]).
+
+**8192 REVERSES the trend (0.656, ±0.201):** capacity helps only up to 4096; going
+bigger HURTS both mean AND stability. 8192-s1 collapses (PushButton 0.00, OpenDoor
+0.45); even good seeds are patchy (Drawer 0.39-0.80). Signature: the larger net
+changes loss-landscape sharpness so the lr-3e-5 fix (tuned at 4096) no longer fully
+stabilizes it -> re-enters bistability/consolidation difficulty. **4096 is the sweet
+spot; over-parameterization re-introduces instability.** 8192 fits memory fine
+(~5GB/run on 80GB A100 -> RAM was never the limit; optimization is).
 
 ## Project summary
 
