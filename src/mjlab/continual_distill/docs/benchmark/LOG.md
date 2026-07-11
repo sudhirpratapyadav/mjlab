@@ -104,3 +104,99 @@ combining avoids a trivial commit, matching the milestone-commit taste).
 **Phase 2 plan:** EE-delta action term + first Meta-World-style task ports. Risk to
 check first: is the Meta-World repo/assets available locally? If not, author from the
 survey's verified specs rather than block. Also must decide EE-delta design (open Q4).
+
+---
+
+### 2026-07-11 14:50 IST — Phase 2 recon: constraints + capabilities
+
+Investigated before authoring. Findings that reshape Phase 2:
+
+**Assets (real, git-tracked):** free = cube, cuboid, cylinder, disc; articulated =
+button, door, drawer. The `peg_in_hole` / `snapfit` / `t_shape` dirs are EMPTY stubs
+(only stale __pycache__) — insertion assets must be AUTHORED, not reused.
+
+**Meta-World: NOT installed, no assets local.** Pulling it in risks the one-simulator
+principle (it's its own MuJoCo env stack). Decision: do NOT depend on Meta-World.
+Author task designs from the survey's verified specs + our existing bases instead.
+(The `mujoco_playground` sibling fork DOES have `pick_cartesian.py` +
+`panda_kinematics.py` + `peg_in_hole.py` as reference Cartesian-control / insertion
+code we came from — reusable as design reference, not import.)
+
+**CRITICAL CAPABILITY CONFIRMED: can build + step envs LOCALLY.**
+2x RTX A6000 (48GB, idle). Built Mjlab-Push-Cuboid-Franka (4 envs), reset+stepped:
+obs=60-d, action=8-d (7 arm + 1 gripper), rewards wire up. => I can author AND
+smoke-test tasks autonomously (build/reset/step/shape-check). Full RL-teacher
+solvability still needs training runs (cluster datasets), but structural validation
+is fully local. This is a big unblock for autonomous authoring.
+
+**Authoring recipe (learned from push_cuboid vs push_disc — ~99% identical):**
+a new task = pick a base maker (`make_*_env_cfg`) + swap scene entities + set
+command pose/target ranges + wire Franka site names ("gripper") + set collision
+sensor pattern ("link7") + play/test overrides. Very mechanical once the base exists.
+
+**Revised Phase 2 (de-risk incrementally, don't stack unknowns):**
+- 2a: author the CHEAPEST genuinely-new task reusing existing assets + existing
+  joint-space action, to prove the full author->register->tag->build->smoke-test loop
+  locally. Candidate: a new pick_place variant (Stack) or a new skill (Reach).
+- 2b: THEN tackle EE-delta action term as its own focused sub-task (open Q4).
+- 2c: THEN author an insertion asset + task (fills the biggest skill gap, contact-rich).
+Rationale: never combine "new action term" + "new asset" + "new skill" in one step.
+
+---
+
+### 2026-07-11 15:15 IST — Phase 2a DONE: authoring loop proven (Lift-Cylinder)
+
+Authored the first new task, `Mjlab-Lift-Cylinder-Franka`, and proved the full
+autonomous loop LOCALLY: author env_cfg -> rl_cfg -> register+tag -> build (4 envs on
+A6000) -> reset -> step 10x -> obs=60/action=8 (matches pipeline) -> rewards finite ->
+17 tests green -> manifest regenerated (7 tasks now).
+
+Design choice: Lift-Cylinder swaps cube->cylinder in the lift base (recipe copied from
+the existing yam_lift_cylinder + franka_lift_cube). A cylinder rolls / has no flat top
+=> less forgiving grasp alignment than a cube: a real pick-place instance (grasp-
+geometry generalization), not a trivial dup. Same precision_grasp fragility tier.
+
+Fixed a brittle test (asserted a specific task_id leads the fragility ordering; now
+asserts the fragility-max property, since 2 precision_grasp tasks tie and sort alpha).
+
+**Reflection on pace / what belongs in the Phase 2 commit:** Lift-Cylinder alone is
+too small for a milestone commit. Per the milestone-commit taste, I'll batch several
+new tasks. But I should NOT just spam cube->{cylinder,...} geometry swaps — that
+inflates task count without skill diversity (the anti-LIBERO guardrail applies to our
+OWN padding too). Decision for the rest of Phase 2: add tasks that each buy a NEW
+SKILL FAMILY or a NEW FRAGILITY point, using existing assets where possible:
+  - Reach (NEW skill: reach; needs a reach command+reward+success — modest new MDP).
+  - Stack (NEW capability within pick_place; needs a stacking command referencing TWO
+    objects + success = object-on-object — more new MDP).
+Both need new MDP terms (commands/rewards/terminations), which is the real Phase-2
+investment (vs the trivial object swap). Next: assess the MDP surface for a Reach task
+(cheapest new *skill*), author it, then Stack if time. Commit Phase 2 as the batch.
+
+---
+
+### 2026-07-11 15:40 IST — Phase 2 COMPLETE: validation infra + authoring guide
+
+Made a deliberate scope call: do NOT speculatively author multiple new-skill MDP
+task types (Reach/Stack/insertion commands) unsupervised. Reason: reward-shaping /
+success-predicate correctness for a NEW skill can only be validated by an RL training
+run (smoke-test proves BUILD, not SOLVABILITY). Authoring several un-trainable tasks
+now risks shipping subtly-wrong rewards — worse than not shipping them. Matches the
+user's "don't over-extend" guidance.
+
+So Phase 2's verifiable, high-leverage deliverables:
+1. `Mjlab-Lift-Cylinder-Franka` — first new task, fully validated locally (Phase 2a).
+2. `scripts/benchmark_smoke.py` (+ `benchmark-smoke` entry point) — reusable harness:
+   builds/resets/steps every tagged task, checks finite obs/reward + shapes. Ran it:
+   **7/7 tasks PASS** (all obs=60, action=8). Every future task auto-validated.
+3. `docs/benchmark/AUTHORING_GUIDE.md` — the exact recipe reverse-engineered from the
+   codebase (Recipe A: cheap object-swap; Recipe B: new-skill MDP + its training-
+   validation caveat; new-embodiment steps; anti-inflation guardrails).
+
+Deferred to Phase 3+ (need training to validate, or bigger sub-projects): Reach/Stack/
+insertion MDP, peg+hole asset authoring, EE-delta action term, embodiments B/C.
+STATUS "Next action" now enumerates them in priority order.
+
+Committing Phase 2 as the second milestone. Net so far: taxonomy+query infra, 7 tagged
+tasks (1 new), local validation harness, authoring guide — the foundation that makes
+the rest of the benchmark fast and safe to build. Solid stopping point while user is
+away; remaining work benefits from their presence (training/solvability judgement).

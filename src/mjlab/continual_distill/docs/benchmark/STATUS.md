@@ -3,11 +3,15 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-11 14:35 IST
+Last updated: 2026-07-11 15:40 IST
 
-## Current phase: **Phase 2 — Class-A EE control + skill-diverse set** (starting)
+## Current phase: **Phase 2 — authoring loop proven + validation infra** (wrapping up)
 
-Phase 0 (tracking + audit) and Phase 1 (taxonomy infra) COMPLETE + committed.
+Phase 0 (tracking+audit), Phase 1 (taxonomy infra) COMPLETE + committed. Phase 2
+deliverables done: first new task authored & validated locally, reusable smoke-test
+harness, authoring guide. New-skill MDP (Reach/Stack/insertion) + EE-delta action +
+new embodiments deferred to Phase 3+ (they need training to validate — not safely
+done unsupervised in bulk).
 
 ## Branch
 `benchmark-manip-diversity`, off `continual_distill` (up to date w/ origin). Working
@@ -23,9 +27,11 @@ tree was clean of tracked mods before branching (only untracked new docs + scrat
 | 4 | Push-Disc | A | planar push | mild-contact | native (exists) |
 | 5 | Open-Door | A | articulation | mid | native (exists) |
 | 6 | Open-Drawer | A | articulation | mid | native (exists) |
+| 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, validated) |
 
-Distinct skills so far: pick-place, planar-push, articulation (~3-4 families, 6 tasks).
+Distinct skills so far: pick-place, planar-push, articulation (3 families, 7 tasks).
 Class B: 0. Class C: 0. **This is the gap the phases fill.**
+All 7 pass `benchmark-smoke` (build/step/shape; obs=60, action=8).
 
 ## Phase 0 checklist — DONE (commit e4c9561)
 
@@ -93,12 +99,24 @@ Decide at start of Phase 1.
 None. Fully autonomous. (Full CL regression re-runs need cluster teacher datasets at
 `/ihub/homedirs/svs_ald/...` — deferred; not blocking env authoring.)
 
-## Next action (Phase 2)
-1. Decide EE-delta action design (IK vs mocap-weld vs impedance) — see open Q4.
-2. Build the EE-delta action term in `envs/mdp/actions/`.
-3. Port ~5 Meta-World tasks spanning fragility tiers onto Franka via shared bases.
-4. Validate state-solvability; tag; regenerate manifest.
+## Next action (Phase 3 — new skills; needs training to validate)
 
-Note: Meta-World port needs the Meta-World repo/assets available locally — check
-availability first; if absent, author equivalent task designs from the survey's
-verified specs rather than blocking.
+The remaining task-authoring buys NEW SKILLS / FRAGILITY, which requires new MDP
+(commands/rewards/success) that can only be VALIDATED BY TRAINING (smoke-test proves
+build, not solvability). So these are best done with the user available to launch
+training + judge solvability, OR carefully one-at-a-time. Priority order:
+
+1. **Reach** (new skill: reach) — cheapest new skill; simple distance reward, low risk
+   even without training. Good first Phase-3 task. Uses `reach_object_reward` +
+   `gripper_to_object_vector` (already in mdp/). Needs a reach-target command.
+2. **Stack** (pick_place, higher fragility) — stacking command referencing two objects
+   + on-top success. Moderate new MDP.
+3. **Insertion / peg-in-hole** (NEW skill: insertion; the biggest contact-rich gap) —
+   must author the peg+hole asset (asset_zoo stubs are empty) + insertion command.
+   Reference: sibling `mujoco_playground` fork has `peg_in_hole.py` + `pick_cartesian.py`.
+4. **EE-delta action term** (open Q4) — enables Meta-World-style uniform control; build
+   in `envs/mdp/actions/`. Design decision needed (IK vs mocap-weld vs impedance).
+5. **Embodiments B/C** (Phase 4) — add Allegro/Shadow hand entities from Menagerie;
+   Adroit/ShadowHand tasks are near-native (Class C quick win).
+
+See AUTHORING_GUIDE.md for the exact recipe (Recipe A cheap, Recipe B new-skill).

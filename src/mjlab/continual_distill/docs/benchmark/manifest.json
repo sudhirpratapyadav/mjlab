@@ -1,16 +1,16 @@
 {
-  "num_tasks": 6,
+  "num_tasks": 7,
   "num_distinct_skills": 3,
   "counts_by_embodiment": {
-    "arm_gripper": 6
+    "arm_gripper": 7
   },
   "counts_by_skill": {
-    "pick_place": 1,
+    "pick_place": 2,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 1,
+    "precision_grasp": 2,
     "mild_contact": 4,
     "planar": 1
   },
@@ -23,6 +23,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Grasp-and-lift; the canonical fragile task in FINDINGS.md (catastrophic forgetting under regularization-only CL)."
+    },
+    "Mjlab-Lift-Cylinder-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Grasp-and-lift a cylinder; rolls and lacks flat faces, so grasp alignment is less forgiving than the cube (grasp-geometry generalization)."
     },
     "Mjlab-Open-Door-Franka": {
       "embodiment": "arm_gripper",

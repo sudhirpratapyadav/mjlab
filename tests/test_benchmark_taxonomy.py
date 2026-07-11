@@ -54,11 +54,15 @@ def test_filter_by_embodiment() -> None:
 
 
 def test_fragility_graded_ordering_puts_fragile_first() -> None:
+  taxo = benchmark.all_benchmark_tasks()
   order = benchmark.fragility_graded_ordering(fragile_first=True)
-  assert order[0] == "Mjlab-Lift-Cube-Franka"  # most fragile leads
-  # easy-first puts a planar/mild task first, grasp last
+  # The leading task is (one of) the most fragile; the trailing task the least.
+  assert taxo[order[0]].fragility == max(t.fragility for t in taxo.values())
+  assert taxo[order[-1]].fragility == min(t.fragility for t in taxo.values())
+  # easy-first is the reverse gradient.
   easy = benchmark.fragility_graded_ordering(fragile_first=False)
-  assert easy[-1] == "Mjlab-Lift-Cube-Franka"
+  assert taxo[easy[0]].fragility == min(t.fragility for t in taxo.values())
+  assert taxo[easy[-1]].fragility == max(t.fragility for t in taxo.values())
 
 
 def test_skill_diverse_ordering_covers_all_tasks() -> None:

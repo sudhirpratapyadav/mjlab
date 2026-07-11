@@ -129,6 +129,101 @@ def franka_lift_cube_env_cfg(
   return cfg
 
 
+def franka_lift_cylinder_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka grasp-and-lift of a cylinder.
+
+  Mirrors franka_lift_cube_env_cfg but swaps the free object for a cylinder. A cylinder
+  is a distinct grasp: it can roll and has no flat top faces, so grasp alignment is
+  less forgiving than the cube — a genuinely different pick-place instance for the
+  benchmark (grasp-geometry generalization along the same precision-grasp fragility).
+  """
+  cfg = make_lift_object_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cylinder": get_cylinder_cfg(),
+    "mocap_goal": get_cylinder_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  lift_command = cfg.commands["lift_object"]
+  assert isinstance(lift_command, LiftingCommandCfg)
+  lift_command.asset_name = "cylinder"
+
+  # Same spawn/target ranges as the cube lift.
+  lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+    z=(0.02, 0.05),
+    yaw=(-3.14, 3.14),
+  )
+  lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+    z=(0.2, 0.4),
+  )
+
+  # Point every object-referencing term at the cylinder.
+  for term_name in (
+    "object_pos",
+    "object_quat",
+    "object_orientation",
+    "gripper_to_object",
+    "object_to_goal",
+    "goal_orientation_diff",
+  ):
+    if term_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[term_name].params["object_asset_name"] = "cylinder"
+  cfg.rewards["reach_object"].params["object_asset_name"] = "cylinder"
+  cfg.rewards["move_object_to_goal"].params["object_asset_name"] = "cylinder"
+  cfg.terminations["object_out_of_bounds"].params["object_name"] = "cylinder"
+
+  # Franka uses "gripper" site for end-effector.
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  # Franka fingertip geoms for friction randomization.
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  # Franka end-effector is link7.
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 1.5
+
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    cfg.episode_length_s = 5.0
+
+  return cfg
+
+
 def franka_open_door_env_cfg(
   play: bool = False,
   test: bool = False,

@@ -37,6 +37,13 @@ def franka_lift_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   )
 
 
+def franka_lift_cylinder_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  # Same PPO recipe as lift-cube (grasp task, identical obs/action shape).
+  cfg = franka_lift_cube_ppo_runner_cfg()
+  cfg.experiment_name = "franka_lift_cylinder"
+  return cfg
+
+
 def franka_open_door_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   """PPO configuration for Franka door opening task."""
   return RslRlOnPolicyRunnerCfg(
