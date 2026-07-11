@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<mujoco model="sphere">
+  <worldbody>
+    <body name="sphere" pos="0.4 0 0.3">
+      <freejoint name="sphere_joint"/>
+      <!-- A small ball: rolls freely and has no flat faces, so it is the hardest
+           free object to grasp/lift (high-fragility pick_place). Radius 0.022. -->
+      <geom type="sphere" name="sphere_geom" size="0.022" mass="0.05"
+            rgba="0.9 0.6 0.1 1.0" condim="6" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

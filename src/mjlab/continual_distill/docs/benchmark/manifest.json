@@ -1,18 +1,18 @@
 {
-  "num_tasks": 10,
+  "num_tasks": 12,
   "num_distinct_skills": 5,
   "counts_by_embodiment": {
-    "arm_gripper": 10
+    "arm_gripper": 12
   },
   "counts_by_skill": {
-    "pick_place": 3,
+    "pick_place": 5,
     "insertion": 1,
     "reach": 1,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 3,
+    "precision_grasp": 5,
     "dexterous": 1,
     "planar": 2,
     "mild_contact": 4
@@ -35,6 +35,24 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Grasp-and-lift a cylinder; rolls and lacks flat faces, so grasp alignment is less forgiving than the cube (grasp-geometry generalization)."
+    },
+    "Mjlab-Lift-Ellipsoid-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Grasp-and-lift an elongated ellipsoid; grasp success depends on approach orientation (grasp across the short axis)."
+    },
+    "Mjlab-Lift-Sphere-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Grasp-and-lift a sphere; rolls, no flat faces \u2014 hardest free-object grasp geometry (grasp-geometry generalization)."
     },
     "Mjlab-Open-Door-Franka": {
       "embodiment": "arm_gripper",

@@ -29,6 +29,14 @@ from mjlab.asset_zoo.objects.free.peg_in_hole import (
   get_peg_cfg,
   get_hole_board_cfg,
 )
+from mjlab.asset_zoo.objects.free.sphere import (
+  get_sphere_cfg,
+  get_mocap_goal_cfg as get_sphere_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.ellipsoid import (
+  get_ellipsoid_cfg,
+  get_mocap_goal_cfg as get_ellipsoid_mocap_goal_cfg,
+)
 from mjlab.asset_zoo.objects.free.cylinder import (
   get_cylinder_cfg,
   get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
@@ -228,6 +236,102 @@ def franka_lift_cylinder_env_cfg(
     cfg.episode_length_s = 5.0
 
   return cfg
+
+
+def _franka_lift_object_env_cfg(
+  object_name: str,
+  object_cfg_fn,
+  mocap_goal_cfg_fn,
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Shared builder for a Franka grasp-and-lift task over an arbitrary free object.
+
+  Captures the lift recipe (see franka_lift_cube/cylinder) so new graspable-object
+  variants are a one-liner. Keeps obs/action/reward/success identical across all lift
+  tasks (uniform interfaces); only the object entity + its name differ.
+  """
+  cfg = make_lift_object_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    object_name: object_cfg_fn(),
+    "mocap_goal": mocap_goal_cfg_fn(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  lift_command = cfg.commands["lift_object"]
+  assert isinstance(lift_command, LiftingCommandCfg)
+  lift_command.asset_name = object_name
+  lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
+    x=(0.6, 0.8), y=(-0.15, 0.15), z=(0.02, 0.05), yaw=(-3.14, 3.14),
+  )
+  lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
+    x=(0.6, 0.8), y=(-0.15, 0.15), z=(0.2, 0.4),
+  )
+
+  for term_name in (
+    "object_pos", "object_quat", "object_orientation",
+    "gripper_to_object", "object_to_goal", "goal_orientation_diff",
+  ):
+    if term_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[term_name].params["object_asset_name"] = object_name
+  cfg.rewards["reach_object"].params["object_asset_name"] = object_name
+  cfg.rewards["move_object_to_goal"].params["object_asset_name"] = object_name
+  cfg.terminations["object_out_of_bounds"].params["object_name"] = object_name
+
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 1.5
+
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    cfg.episode_length_s = 5.0
+
+  return cfg
+
+
+def franka_lift_sphere_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Franka grasp-and-lift of a sphere (rolls, no flat faces — hardest grasp geometry)."""
+  return _franka_lift_object_env_cfg(
+    "sphere", get_sphere_cfg, get_sphere_mocap_goal_cfg, play=play, test=test
+  )
+
+
+def franka_lift_ellipsoid_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Franka grasp-and-lift of an elongated ellipsoid (orientation-sensitive grasp)."""
+  return _franka_lift_object_env_cfg(
+    "ellipsoid", get_ellipsoid_cfg, get_ellipsoid_mocap_goal_cfg, play=play, test=test
+  )
 
 
 def franka_stack_cube_env_cfg(

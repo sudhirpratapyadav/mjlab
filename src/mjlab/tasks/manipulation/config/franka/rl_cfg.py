@@ -65,6 +65,18 @@ def franka_peg_insertion_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   return cfg
 
 
+def franka_lift_sphere_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  cfg = franka_lift_cube_ppo_runner_cfg()
+  cfg.experiment_name = "franka_lift_sphere"
+  return cfg
+
+
+def franka_lift_ellipsoid_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  cfg = franka_lift_cube_ppo_runner_cfg()
+  cfg.experiment_name = "franka_lift_ellipsoid"
+  return cfg
+
+
 def franka_open_door_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   """PPO configuration for Franka door opening task."""
   return RslRlOnPolicyRunnerCfg(

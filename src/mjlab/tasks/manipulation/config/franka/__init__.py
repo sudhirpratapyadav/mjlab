@@ -6,8 +6,8 @@ from mjlab.tasks.manipulation.taxonomy import (
 )
 from mjlab.tasks.registry import register_mjlab_task
 
-from .env_cfgs import franka_lift_cube_env_cfg, franka_lift_cylinder_env_cfg, franka_open_door_env_cfg, franka_open_drawer_env_cfg, franka_peg_insertion_env_cfg, franka_push_button_env_cfg, franka_push_cuboid_env_cfg, franka_push_disc_env_cfg, franka_reach_target_env_cfg, franka_stack_cube_env_cfg
-from .rl_cfg import franka_lift_cube_ppo_runner_cfg, franka_lift_cylinder_ppo_runner_cfg, franka_open_door_ppo_runner_cfg, franka_open_drawer_ppo_runner_cfg, franka_peg_insertion_ppo_runner_cfg, franka_push_button_ppo_runner_cfg, franka_push_cuboid_ppo_runner_cfg, franka_push_disc_ppo_runner_cfg, franka_reach_target_ppo_runner_cfg, franka_stack_cube_ppo_runner_cfg
+from .env_cfgs import franka_lift_cube_env_cfg, franka_lift_cylinder_env_cfg, franka_lift_ellipsoid_env_cfg, franka_lift_sphere_env_cfg, franka_open_door_env_cfg, franka_open_drawer_env_cfg, franka_peg_insertion_env_cfg, franka_push_button_env_cfg, franka_push_cuboid_env_cfg, franka_push_disc_env_cfg, franka_reach_target_env_cfg, franka_stack_cube_env_cfg
+from .rl_cfg import franka_lift_cube_ppo_runner_cfg, franka_lift_cylinder_ppo_runner_cfg, franka_lift_ellipsoid_ppo_runner_cfg, franka_lift_sphere_ppo_runner_cfg, franka_open_door_ppo_runner_cfg, franka_open_drawer_ppo_runner_cfg, franka_peg_insertion_ppo_runner_cfg, franka_push_button_ppo_runner_cfg, franka_push_cuboid_ppo_runner_cfg, franka_push_disc_ppo_runner_cfg, franka_reach_target_ppo_runner_cfg, franka_stack_cube_ppo_runner_cfg
 
 register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Franka",
@@ -57,6 +57,40 @@ register_mjlab_task(
     contact_rich=True,
     notes="Stack a cube on a cuboid base: grasp + precise place + release. Dynamic "
     "goal (tracks the base object). Higher-fragility pick_place than lift.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Lift-Sphere-Franka",
+  env_cfg=franka_lift_sphere_env_cfg(),
+  play_env_cfg=franka_lift_sphere_env_cfg(play=True),
+  test_env_cfg=franka_lift_sphere_env_cfg(test=True),
+  rl_cfg=franka_lift_sphere_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PICK_PLACE,
+    fragility=Fragility.PRECISION_GRASP,
+    source="native",
+    contact_rich=True,
+    notes="Grasp-and-lift a sphere; rolls, no flat faces — hardest free-object grasp "
+    "geometry (grasp-geometry generalization).",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Lift-Ellipsoid-Franka",
+  env_cfg=franka_lift_ellipsoid_env_cfg(),
+  play_env_cfg=franka_lift_ellipsoid_env_cfg(play=True),
+  test_env_cfg=franka_lift_ellipsoid_env_cfg(test=True),
+  rl_cfg=franka_lift_ellipsoid_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PICK_PLACE,
+    fragility=Fragility.PRECISION_GRASP,
+    source="native",
+    contact_rich=True,
+    notes="Grasp-and-lift an elongated ellipsoid; grasp success depends on approach "
+    "orientation (grasp across the short axis).",
   ),
 )
 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<mujoco model="ellipsoid">
+  <worldbody>
+    <body name="ellipsoid" pos="0.4 0 0.3">
+      <freejoint name="ellipsoid_joint"/>
+      <!-- An elongated ellipsoid: grasp success depends on approach orientation
+           (grasp across the short axis), a distinct pick_place instance from the
+           symmetric cube/sphere. Semi-axes 0.035 x 0.018 x 0.018. -->
+      <geom type="ellipsoid" name="ellipsoid_geom" size="0.035 0.018 0.018" mass="0.05"
+            rgba="0.3 0.7 0.4 1.0" condim="6" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>
