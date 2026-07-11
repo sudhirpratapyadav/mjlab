@@ -28,12 +28,20 @@ tree was clean of tracked mods before branching (only untracked new docs + scrat
 | 5 | Open-Door | A | articulation | mid | native (exists) |
 | 6 | Open-Drawer | A | articulation | mid | native (exists) |
 | 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, smoke-validated) |
-| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3, TRAIN-validated) |
+| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3, TRAIN-validated 0.66) |
+| 9 | Stack-Cube | A | pick-place | precision-grasp | NEW (phase 3, structural only — see note) |
 
 Distinct skills so far: reach, pick-place, planar-push, articulation (**4 families,
-8 tasks**). Class B: 0. Class C: 0.
-All 8 pass `benchmark-smoke`. Reach-Target additionally TRAIN-validated: 150 PPO iters
-(74s) → episode_success 0.66, goal_error 0.062m, still climbing → SOLVABLE.
+9 tasks**). Class B: 0. Class C: 0.
+All 9 pass `benchmark-smoke`. Reach TRAIN-validated (0.66). **Stack: structurally sound
+but NOT train-validated** — didn't solve in 400 iters (needs ~5000 +/- reward tuning;
+quick to finish with user in the loop). Honestly flagged in its manifest note.
+
+### Validation status legend
+- **native**: pre-existing, previously trained (the original 6).
+- **train-validated**: authored here + confirmed learnable by a short PPO run (Reach).
+- **structural**: authored + builds/steps cleanly, learnability not yet confirmed
+  (Lift-Cylinder [smoke only], Stack-Cube [400-iter run insufficient]).
 
 ## Phase 0 checklist — DONE (commit e4c9561)
 

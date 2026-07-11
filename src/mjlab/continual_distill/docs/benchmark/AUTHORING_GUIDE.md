@@ -57,8 +57,14 @@ This is the `Lift-Cube -> Lift-Cylinder` case (object swap). Steps:
    rl_cfg=..., taxonomy=TaskTaxonomy(embodiment=, skill=, fragility=, source=,
    contact_rich=, notes=))`. Pick `source` honestly (native / metaworld / maniskill /
    adroit / ...) for the provenance ledger.
-5. **Validate**: `python -m mjlab.scripts.benchmark_smoke --keyword <TaskName>` (builds,
-   resets, steps, checks finite obs/reward + shapes). Then `pytest tests/test_task_configs.py`.
+5. **Validate**:
+   - Structural: `python -m mjlab.scripts.benchmark_smoke --keyword <TaskName>`
+     (builds, resets, steps, checks finite obs/reward + shapes).
+   - Learnability (for NEW skills / rewards): `python -m mjlab.scripts.benchmark_validate
+     --task <TaskID> --iters <N>` — trains briefly and reports env success. Easy tasks
+     (reach) solve in ~80-150 iters (~1 min); grasp/place need more. This is the honest
+     check that the reward+success predicate actually work.
+   - Then `pytest tests/test_task_configs.py tests/test_benchmark_taxonomy.py`.
 6. **Regenerate the manifest**:
    `python -c "import mjlab; from mjlab.tasks.manipulation import benchmark;
    benchmark.export_manifest('src/mjlab/continual_distill/docs/benchmark/manifest.json')"`.

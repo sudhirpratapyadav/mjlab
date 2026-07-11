@@ -1,17 +1,17 @@
 {
-  "num_tasks": 8,
+  "num_tasks": 9,
   "num_distinct_skills": 4,
   "counts_by_embodiment": {
-    "arm_gripper": 8
+    "arm_gripper": 9
   },
   "counts_by_skill": {
-    "pick_place": 2,
+    "pick_place": 3,
     "reach": 1,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 2,
+    "precision_grasp": 3,
     "planar": 2,
     "mild_contact": 4
   },
@@ -87,6 +87,15 @@
       "source": "native",
       "contact_rich": false,
       "notes": "Move the gripper to a sampled 3D target; dense monotonic reward, no contact. Anchors the low-fragility end of the axis (new 'reach' skill family)."
+    },
+    "Mjlab-Stack-Cube-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Stack a cube on a cuboid base: grasp + precise place + release. Dynamic goal (tracks base). Higher-fragility pick_place than lift. STRUCTURALLY validated (builds/steps); NOT yet train-validated \u2014 did not solve in 400 PPO iters (episode_success ~0.01). Multi-stage task likely needs longer training (lift-cube uses 5000) and/or reward tuning; deferred (see docs/benchmark/LOG.md 2026-07-11)."
     }
   }
 }

@@ -1002,3 +1002,154 @@ class ReachingCommandCfg(CommandTermCfg):
     target_color: tuple[float, float, float, float] = (0.0, 0.8, 1.0, 0.4)
 
   viz: VizCfg = field(default_factory=VizCfg)
+
+
+class StackingCommand(CommandTerm):
+  """Command for stacking one free object on top of another.
+
+  ``asset_name`` is the object to move (e.g. cube); ``base_asset_name`` is the object
+  to stack ONTO (e.g. cuboid). The goal position is DYNAMIC: it tracks the base
+  object's current position plus a stacking height offset, so the target follows the
+  base if it is nudged. Success latches when the moved object is within
+  ``success_threshold`` of the stack target in xy AND resting at the correct height
+  (i.e. actually stacked, not just hovering).
+
+  Mirrors LiftingCommand's structure (reach-then-bring), but the target is computed
+  from the base object each step rather than sampled once, and success also checks
+  the height so a hovering object does not count.
+  """
+
+  cfg: StackingCommandCfg
+
+  def __init__(self, cfg: StackingCommandCfg, env: ManagerBasedRlEnv):
+    super().__init__(cfg, env)
+
+    self.object: Entity = env.scene[cfg.asset_name]
+    self.base: Entity = env.scene[cfg.base_asset_name]
+    self.robot: Entity = env.scene[cfg.robot_asset_cfg.name]
+    self.robot_cfg = cfg.robot_asset_cfg
+
+    self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
+    self.episode_success = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
+
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["reached_object"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["stack_height_error"] = torch.zeros(self.num_envs, device=self.device)
+
+  @property
+  def command(self) -> torch.Tensor:
+    return self.target_pos
+
+  def _stack_target(self) -> torch.Tensor:
+    """Target = base object position, raised by the stacking height offset."""
+    base_pos = self.base.data.root_link_pos_w.clone()
+    base_pos[:, 2] = base_pos[:, 2] + self.cfg.stack_height
+    return base_pos
+
+  def _update_metrics(self) -> None:
+    self.target_pos = self._stack_target()
+    object_pos_w = self.object.data.root_link_pos_w
+
+    goal_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
+    xy_error = torch.norm(self.target_pos[:, :2] - object_pos_w[:, :2], dim=-1)
+    height_error = torch.abs(self.target_pos[:, 2] - object_pos_w[:, 2])
+
+    at_goal = (
+      (xy_error < self.cfg.success_threshold)
+      & (height_error < self.cfg.height_threshold)
+    ).float()
+    self.episode_success = torch.maximum(self.episode_success, at_goal)
+
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    reached = (torch.norm(object_pos_w - gripper_pos_w, dim=-1) < 0.10).float()
+    self.reached_object = torch.maximum(self.reached_object, reached)
+
+    self.metrics["goal_error"] = goal_error
+    self.metrics["at_goal"] = at_goal
+    self.metrics["episode_success"] = self.episode_success
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["stack_height_error"] = height_error
+
+  def compute_success(self) -> torch.Tensor:
+    return self.metrics["at_goal"] > 0.5
+
+  def _resample_command(self, env_ids: torch.Tensor) -> None:
+    n = len(env_ids)
+    self.episode_success[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
+
+    r = self.cfg.object_pose_range
+    origins = self._env.scene.env_origins[env_ids]
+
+    def _sample_pose(rng) -> torch.Tensor:
+      lower = torch.tensor([rng.x[0], rng.y[0], rng.z[0]], device=self.device)
+      upper = torch.tensor([rng.x[1], rng.y[1], rng.z[1]], device=self.device)
+      pos = sample_uniform(lower, upper, (n, 3), device=self.device) + origins
+      yaw = sample_uniform(rng.yaw[0], rng.yaw[1], (n,), device=self.device)
+      quat = quat_from_euler_xyz(
+        torch.zeros(n, device=self.device), torch.zeros(n, device=self.device), yaw
+      )
+      return torch.cat([pos, quat], dim=-1)
+
+    # Place the moving object and the base object at separated random poses.
+    obj_pose = _sample_pose(r)
+    base_pose = _sample_pose(self.cfg.base_pose_range)
+    vel = torch.zeros(n, 6, device=self.device)
+    self.object.write_root_link_pose_to_sim(obj_pose, env_ids=env_ids)
+    self.object.write_root_link_velocity_to_sim(vel, env_ids=env_ids)
+    self.base.write_root_link_pose_to_sim(base_pose, env_ids=env_ids)
+    self.base.write_root_link_velocity_to_sim(vel, env_ids=env_ids)
+
+    self.target_pos[env_ids] = self._stack_target()[env_ids]
+
+  def _update_command(self) -> None:
+    pass
+
+  def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
+    for env_idx in range(self.num_envs):
+      visualizer.add_sphere(
+        center=self.target_pos[env_idx].cpu().numpy(),
+        radius=0.02,
+        color=self.cfg.viz.target_color,
+        label=f"stack_target_{env_idx}",
+      )
+
+
+@dataclass(kw_only=True)
+class StackingCommandCfg(CommandTermCfg):
+  asset_name: str
+  base_asset_name: str
+  robot_asset_cfg: SceneEntityCfg = field(
+    default_factory=lambda: SceneEntityCfg("robot", site_names=())
+  )
+  class_type: type[CommandTerm] = StackingCommand
+  success_threshold: float = 0.03  # xy tolerance (m)
+  height_threshold: float = 0.02   # vertical tolerance (m)
+  stack_height: float = 0.035      # base-top + moved-object-half-height (m)
+
+  @dataclass
+  class ObjectPoseRangeCfg:
+    x: tuple[float, float] = (0.55, 0.7)
+    y: tuple[float, float] = (-0.15, -0.05)
+    z: tuple[float, float] = (0.02, 0.02)
+    yaw: tuple[float, float] = (0.0, 0.0)
+
+  object_pose_range: ObjectPoseRangeCfg = field(default_factory=ObjectPoseRangeCfg)
+
+  @dataclass
+  class BasePoseRangeCfg:
+    x: tuple[float, float] = (0.55, 0.7)
+    y: tuple[float, float] = (0.05, 0.15)
+    z: tuple[float, float] = (0.015, 0.015)
+    yaw: tuple[float, float] = (0.0, 0.0)
+
+  base_pose_range: BasePoseRangeCfg = field(default_factory=BasePoseRangeCfg)
+
+  @dataclass
+  class VizCfg:
+    target_color: tuple[float, float, float, float] = (1.0, 0.0, 0.5, 0.5)
+
+  viz: VizCfg = field(default_factory=VizCfg)

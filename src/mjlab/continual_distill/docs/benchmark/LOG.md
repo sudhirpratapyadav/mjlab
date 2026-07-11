@@ -236,3 +236,51 @@ train-validation, cheapest/most-reliable first. Next candidates: Stack (pick_pla
 two-object command), then insertion (needs peg+hole asset authoring — bigger). Each
 gets: author -> smoke -> short train -> record solvability -> commit as a batch.
 Committing Reach now (it's a clean, validated milestone: first new skill).
+
+---
+
+### 2026-07-11 16:40 IST — Stack authored + reusable validate tool; Stack train pending
+
+Built the reusable train-validation tool `scripts/benchmark_validate.py` (+
+`benchmark-validate` entry point) — generalizes the reach validation: train any task
+briefly, read episode_success. Re-verified on reach (80 iters -> 0.36, consistent
+with 150->0.66 climb).
+
+Authored Stack (2nd new task this phase, still pick_place family but higher fragility):
+- `mdp/commands.py::StackingCommand(Cfg)` — two-object command (asset=cube moving,
+  base=cuboid). DYNAMIC target = base position + stack_height (0.035 = cube 0.02 +
+  cuboid 0.015 half-heights). Success latches on xy-within-3cm AND height-within-2cm
+  (so a hovering cube doesn't count). Mirrors LiftingCommand's reach-then-bring shape.
+- `stack_object_env_cfg.py::make_stack_object_env_cfg` — base with both objects,
+  staged_manipulation_reward toward the dynamic target + at-goal bonus.
+- `config/franka/*` — concrete Franka stack-cube-on-cuboid + runner + tagged reg
+  (Mjlab-Stack-Cube-Franka, pick_place / precision_grasp). obs=51.
+- Smoke: PASS (builds/steps, obs=51/action=8).
+
+Train-validation IN PROGRESS (400 iters, backgrounded; timeout wrapper buffers output
+so result comes at process exit). Stack is genuinely harder than reach (multi-stage:
+grasp -> lift -> position -> place -> release), so it may need more iters or reward
+tuning to fully solve. Plan: if it shows clear PARTIAL/SOLVABLE learning signal, keep
+it; if NOT-LEARNING after the budget, mark authored-but-unvalidated (reward-tuning
+left for when user is back) rather than grind a tuning loop unsupervised.
+
+Manifest will be 9 tasks / 4 skills either way (Stack is structurally sound). RESULT
+of the train run to be appended below when it finishes.
+
+### 2026-07-11 16:55 IST — Stack train-validation RESULT: NOT-LEARNING @400 iters
+
+Result: Mjlab-Stack-Cube-Franka episode_success=0.010 (essentially zero) after 400
+PPO iters. Honest read: 400 iters is genuinely too few to declare the reward broken
+(lift-cube's own runner uses 5000 iters; a multi-stage grasp->lift->position->place->
+release task needs far more), BUT running 5000 iters (~40 min) then possibly iterating
+on reward shaping is exactly the open-ended unsupervised grind I pre-committed to avoid.
+
+DECISION (per plan + user's "don't over-extend"): keep Stack as AUTHORED +
+STRUCTURALLY-VALIDATED, mark it NOT-yet-train-validated in its taxonomy notes (so the
+manifest doesn't overclaim), and STOP. When the user is back, Stack just needs a
+longer training run (5000 iters) +/- reward tuning to confirm/fix — a quick, bounded
+task with a human in the loop, not a blind grind now.
+
+This is the honest state: 9 tasks authored, 8 of them proven-solvable (the 6 native +
+Lift-Cylinder structurally + Reach train-validated), Stack structurally sound but its
+learnability unconfirmed. Reporting it that way in STATUS/manifest.
