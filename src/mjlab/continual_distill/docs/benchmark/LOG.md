@@ -284,3 +284,28 @@ task with a human in the loop, not a blind grind now.
 This is the honest state: 9 tasks authored, 8 of them proven-solvable (the 6 native +
 Lift-Cylinder structurally + Reach train-validated), Stack structurally sound but its
 learnability unconfirmed. Reporting it that way in STATUS/manifest.
+
+### 2026-07-11 17:05 IST — Session wind-down + clean handoff
+
+Reached a disciplined stopping point (user on holiday). Rationale for stopping rather
+than authoring more: the Stack result showed contact-rich tasks need long training +
+likely reward tuning to validate — accumulating more `structural`-only tasks doesn't
+add real benchmark value and the tuning grind is unsafe to do blind. Better to hand off
+clean.
+
+Session delivered (5 milestone commits, branch benchmark-manip-diversity, all local,
+NOT pushed — user pushes when ready):
+- Phase 0: tracking + full repo/framework audit.
+- Phase 1: taxonomy/query/CL-ordering infra + tagged registry + manifest (17 tests).
+- Phase 2: proven authoring loop + Lift-Cylinder + benchmark-smoke harness + guide.
+- Phase 3: Reach (new skill, TRAIN-validated 0.66) + Stack (structural) +
+  benchmark-validate tool.
+Net: 6 -> 9 tasks, 3 -> 4 distinct skills, plus the whole taxonomy/validation/authoring
+foundation that makes the rest fast.
+
+Wrote a "WHEN YOU'RE BACK" resume plan at the top of STATUS.md: finish Stack
+train-validation (quick with human eyes), then insertion/peg-in-hole, EE-delta action,
+then embodiments B/C. Architecture Qs (shared-trunk vs per-embodiment; hand action
+param) flagged for the user's call.
+
+Working tree clean; only untracked is the pre-existing `plots/`. Nothing pushed.

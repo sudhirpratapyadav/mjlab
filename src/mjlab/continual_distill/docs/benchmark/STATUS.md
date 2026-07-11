@@ -109,24 +109,43 @@ Decide at start of Phase 1.
 None. Fully autonomous. (Full CL regression re-runs need cluster teacher datasets at
 `/ihub/homedirs/svs_ald/...` — deferred; not blocking env authoring.)
 
-## Next action (Phase 3 — new skills; needs training to validate)
+## === WHEN YOU'RE BACK: state of the benchmark + resume plan ===
 
-The remaining task-authoring buys NEW SKILLS / FRAGILITY, which requires new MDP
-(commands/rewards/success) that can only be VALIDATED BY TRAINING (smoke-test proves
-build, not solvability). So these are best done with the user available to launch
-training + judge solvability, OR carefully one-at-a-time. Priority order:
+**What exists (5 milestone commits on branch `benchmark-manip-diversity`):**
+- Full taxonomy + query/ordering infra (embodiment/skill/fragility), tagged registry,
+  JSON manifest, CL-ordering generators. 17 tests green.
+- Two local validation tools: `benchmark-smoke` (builds/steps every task) and
+  `benchmark-validate --task <id> --iters N` (short PPO run, reports success).
+- AUTHORING_GUIDE.md = the exact recipe (proven). Adding a task is now fast + safe.
+- 9 tasks / 4 skills (was 6/3): +Lift-Cylinder, +Reach (new skill, train-validated),
+  +Stack (structural only).
 
-1. **Reach** (new skill: reach) — cheapest new skill; simple distance reward, low risk
-   even without training. Good first Phase-3 task. Uses `reach_object_reward` +
-   `gripper_to_object_vector` (already in mdp/). Needs a reach-target command.
-2. **Stack** (pick_place, higher fragility) — stacking command referencing two objects
-   + on-top success. Moderate new MDP.
-3. **Insertion / peg-in-hole** (NEW skill: insertion; the biggest contact-rich gap) —
-   must author the peg+hole asset (asset_zoo stubs are empty) + insertion command.
+**The one thing to finish first (quick, 5-10 min of your time):**
+- **Stack-Cube train-validation.** It didn't solve in 400 iters. Run
+  `benchmark-validate --task Mjlab-Stack-Cube-Franka --iters 5000` (or a normal
+  `train` run). If it solves → flip its note/STATUS to train-validated, done. If not →
+  the reward likely needs a grasp-then-place shaping tweak (the current reward is
+  reach+bring toward a dynamic target + at-goal bonus; may need an explicit lift/grasp
+  gate + release incentive). Quick with your eyes on it; I deliberately didn't grind it.
+
+**Then resume authoring (priority order), each via the AUTHORING_GUIDE recipe:**
+1. **Insertion / peg-in-hole** — biggest contact-rich skill gap. Must author the
+   peg+hole asset (asset_zoo `peg_in_hole/` stub is empty) + an insertion command.
    Reference: sibling `mujoco_playground` fork has `peg_in_hole.py` + `pick_cartesian.py`.
-4. **EE-delta action term** (open Q4) — enables Meta-World-style uniform control; build
-   in `envs/mdp/actions/`. Design decision needed (IK vs mocap-weld vs impedance).
-5. **Embodiments B/C** (Phase 4) — add Allegro/Shadow hand entities from Menagerie;
-   Adroit/ShadowHand tasks are near-native (Class C quick win).
+2. **EE-delta action term** (open Q4) — enables Meta-World-style uniform EE control;
+   build in `envs/mdp/actions/`. Decide design: IK vs mocap-weld vs impedance. This
+   unlocks the fast Meta-World-style Class-A backbone (toward ~40 tasks).
+3. **Class A scale-out** — more distinct skills (sweep/tool-use, more articulation
+   variants) + a few grasp-object variants; keep skill vs instance diversity honest.
+4. **Embodiments B/C** (Phase 4, the novelty) — add Allegro/Shadow hand entities from
+   MuJoCo Menagerie under `asset_zoo/robots/`; author `config/<hand>/`. Class C
+   (Adroit/ShadowHand) is near-native = quick win. DECIDE hand action param first (Q2).
+5. **Procedural scaling** (Phase 5) — PartNet-Mobility / MolmoSpaces generators for 100+.
 
-See AUTHORING_GUIDE.md for the exact recipe (Recipe A cheap, Recipe B new-skill).
+**Architecture decisions still open (see PLAN.md §Open):** shared-trunk vs
+per-embodiment students (Q1, by Phase 4); hand action parameterization (Q2, by Phase 4).
+My default recommendation: per-embodiment students first.
+
+**Lesson learned this session:** easy tasks train-validate in ~1 min; contact-rich
+multi-stage tasks (Stack) need long runs + likely reward tuning — do those with a human
+in the loop, don't grind them autonomously.
