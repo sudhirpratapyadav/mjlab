@@ -8,6 +8,7 @@ keeps obs/action/reward/success uniform across embodiments.
 
 from mjlab.asset_zoo.objects.free.cube import get_cube_cfg, get_mocap_goal_cfg
 from mjlab.asset_zoo.objects.free.cuboid import get_cuboid_cfg
+from mjlab.asset_zoo.objects.free.sphere import get_sphere_cfg
 from mjlab.asset_zoo.objects.free.peg_in_hole import get_peg_cfg, get_hole_board_cfg
 from mjlab.asset_zoo.robots.leap_hand import LEAP_ACTION_SCALE, get_leap_hand_cfg
 from mjlab.envs import ManagerBasedRlEnvCfg
@@ -70,18 +71,29 @@ def leap_reach_target_env_cfg(play: bool = False, test: bool = False) -> Manager
   return cfg
 
 
-def leap_lift_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
-  """Floating LEAP hand grasping and lifting a cube (Class-C pick_place)."""
+def _leap_lift_object_env_cfg(
+  object_name, object_cfg_fn, play=False, test=False
+) -> ManagerBasedRlEnvCfg:
+  """Shared builder: floating LEAP hand lifting an arbitrary free object."""
   cfg = make_lift_object_env_cfg()
   cfg.scene.entities = {
     "robot": get_leap_hand_cfg(),
-    "cube": get_cube_cfg(),
+    object_name: object_cfg_fn(),
     "mocap_goal": get_mocap_goal_cfg(),
   }
   assert cfg.commands is not None
   lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
-  lift_command.asset_name = "cube"
+  lift_command.asset_name = object_name
+  for term_name in (
+    "object_pos", "object_quat", "object_orientation",
+    "gripper_to_object", "object_to_goal", "goal_orientation_diff",
+  ):
+    if term_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[term_name].params["object_asset_name"] = object_name
+  cfg.rewards["reach_object"].params["object_asset_name"] = object_name
+  cfg.rewards["move_object_to_goal"].params["object_asset_name"] = object_name
+  cfg.terminations["object_out_of_bounds"].params["object_name"] = object_name
   cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = (_EE_SITE,)
   _apply_leap_common(cfg)
 
@@ -95,6 +107,16 @@ def leap_lift_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBas
     cfg.terminations.pop("object_out_of_bounds", None)
     cfg.episode_length_s = 5.0
   return cfg
+
+
+def leap_lift_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Floating LEAP hand grasping and lifting a cube (Class-C pick_place)."""
+  return _leap_lift_object_env_cfg("cube", get_cube_cfg, play=play, test=test)
+
+
+def leap_lift_sphere_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Floating LEAP hand grasping and lifting a sphere."""
+  return _leap_lift_object_env_cfg("sphere", get_sphere_cfg, play=play, test=test)
 
 
 def _leap_stack_like_env_cfg(object_cfg_fn, base_cfg_fn, stack_height, xy_thresh,

@@ -480,3 +480,16 @@ MDP bases now serve 3 very different embodiments (8-D gripper, 22-D floating han
 arm+hand) with only per-embodiment entity+site+scale wiring. This is the benchmark's
 headline structure. Remaining: more tasks per class (breadth), procedural scaling,
 a 2nd hand (Shadow/Allegro) for Class B/C variety.
+
+### 2026-07-11 20:55 IST — LEAP embodiment dynamically VERIFIED (base controllable)
+
+Train-validated Mjlab-Reach-Target-Leap: NOT-LEARNING at 150 iters (goal_error 0.65m).
+Diagnosed: is the floating base actually controllable? YES — commanding max base
+translation moves the base joints ~0.1-0.14m over 50 steps. So the embodiment is
+dynamically functional (base moves under action, obs/reward/success correct); the
+NOT-LEARNING is a TRAINING concern (new 22-D embodiment, action_scale 0.1, needs more
+iters / tuning), not a malformed task. Per the mandate (build suite; solving = stage
+two), this is fine — the task is well-formed. Noted; not grinding training tuning.
+
+Adding object variants to the hand embodiments (sphere lift etc.) via parameterized
+helpers, same as the franka lift helper.

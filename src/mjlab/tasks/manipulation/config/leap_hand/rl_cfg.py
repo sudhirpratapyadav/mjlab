@@ -53,3 +53,7 @@ def leap_stack_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
 
 def leap_peg_insertion_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   return _leap_ppo_runner_cfg("leap_peg_insertion")
+
+
+def leap_lift_sphere_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  return _leap_ppo_runner_cfg("leap_lift_sphere")

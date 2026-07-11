@@ -1,20 +1,20 @@
 {
-  "num_tasks": 19,
+  "num_tasks": 20,
   "num_distinct_skills": 5,
   "counts_by_embodiment": {
     "arm_gripper": 12,
     "arm_hand": 3,
-    "floating_hand": 4
+    "floating_hand": 5
   },
   "counts_by_skill": {
-    "pick_place": 9,
+    "pick_place": 10,
     "insertion": 2,
     "reach": 3,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 9,
+    "precision_grasp": 10,
     "dexterous": 2,
     "planar": 4,
     "mild_contact": 4
@@ -73,6 +73,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Grasp-and-lift a sphere; rolls, no flat faces \u2014 hardest free-object grasp geometry (grasp-geometry generalization)."
+    },
+    "Mjlab-Lift-Sphere-Leap": {
+      "embodiment": "floating_hand",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Floating LEAP hand grasping and lifting a sphere (hardest grasp geometry)."
     },
     "Mjlab-Open-Door-Franka": {
       "embodiment": "arm_gripper",
