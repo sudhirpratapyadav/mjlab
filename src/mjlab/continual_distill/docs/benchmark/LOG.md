@@ -370,3 +370,36 @@ All 10 pass benchmark-smoke; 17 tests green.
 Reused Stack's MDP for insertion validates the uniform-interface strategy: new
 contact-rich skills can be added as (assets + thresholds) on shared commands, cheaply.
 Next: more Class-A distinct skills (sweep/tool-use), then embodiments B/C (full-joint hand).
+
+---
+
+### 2026-07-11 18:40 IST — Class-C spike: floating LEAP hand embodiment WORKS; design fork found
+
+Ran a feasibility spike on the Class-C (floating dexterous hand) embodiment.
+- mujoco_menagerie IS available locally (/media/cvlab/EXTDRIVE/vishwanath/scrl/
+  mujoco_menagerie) with leap_hand, shadow_hand, wonik_allegro, shadow_dexee, aero.
+- Copied leap_hand (Apache-2.0, 16-DoF) into asset_zoo/robots/leap_hand/. Added a
+  freejoint on the palm + a grasp_site => floating hand. Compiles: nq=23 (16 joints +
+  7 freejoint), nu=16. Loads as an mjlab Entity cleanly (leap_constants.py, mirrors
+  franka_constants pattern; XmlPositionActuatorCfg on the 16 finger joints).
+- **EMBODIMENT FOUNDATION VERIFIED**: floating LEAP hand builds as an mjlab entity.
+
+**DESIGN FORK (needs a call; I stopped rather than guess):** how does the floating
+hand MOVE?
+  (a) Base UNACTUATED (current) => hand can't translate itself => only IN-HAND tasks
+      (object reorientation) are possible. Classic Class-C (Adroit in-hand, ShadowHand
+      reorient). BUT needs orientation-goal MDP (new reward/success), which DIVERGES
+      from our position-based, "keep interfaces similar" tasks.
+  (b) Base ACTUATED (add 6-DoF palm actuators) => action = 22-D (6 base + 16 fingers);
+      floating-hand REACH / PICK / PLACE reuse our EXISTING position MDP directly =>
+      maximal interface consistency with Class A. This is how Adroit's hand base works.
+      More setup (add base actuators to the XML) but keeps the suite uniform.
+
+I LEAN (b): it keeps obs/action/reward/success families consistent across embodiments
+(the user's explicit "keep spaces similar" directive), and makes the floating hand a
+general manipulator not just an in-hand toy. But it's an embodiment-shape decision with
+downstream consequences for every Class-C task, so flagging for the user rather than
+committing a direction unilaterally.
+
+Committing the verified embodiment foundation (leap_hand entity) now; the Class-C TASK
+waits on the (a)/(b) call. Meanwhile Class-A authoring can continue.
