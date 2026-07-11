@@ -50,7 +50,10 @@ def test_filter_contact_rich() -> None:
 def test_filter_by_embodiment() -> None:
   arm = benchmark.filter_tasks(embodiment=Embodiment.ARM_GRIPPER)
   assert len(arm) >= 6
-  assert benchmark.filter_tasks(embodiment=Embodiment.FLOATING_HAND) == []  # none yet
+  # Floating-hand (Class C) tasks exist once the LEAP hand is registered.
+  floating = benchmark.filter_tasks(embodiment=Embodiment.FLOATING_HAND)
+  for t in floating:
+    assert benchmark.all_benchmark_tasks()[t].embodiment is Embodiment.FLOATING_HAND
 
 
 def test_fragility_graded_ordering_puts_fragile_first() -> None:

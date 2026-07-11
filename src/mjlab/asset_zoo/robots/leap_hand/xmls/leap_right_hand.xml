@@ -1,5 +1,5 @@
 <mujoco model="leap_rh">
-  <compiler angle="radian" meshdir="./assets/"/>
+  <compiler angle="radian" meshdir="assets"/>
   <option integrator="implicitfast" cone="elliptic" impratio="100"/>
 
   <!-- mesh assets -->
@@ -107,6 +107,14 @@
 
   <!-- actuators -->
   <actuator>
+    <!-- 6-DoF base (position-controlled floating wrist) -->
+    <position name="base_tx_act" joint="base_tx" kp="200" kv="20" ctrlrange="-0.5 0.5"/>
+    <position name="base_ty_act" joint="base_ty" kp="200" kv="20" ctrlrange="-0.5 0.5"/>
+    <position name="base_tz_act" joint="base_tz" kp="200" kv="20" ctrlrange="-0.5 0.5"/>
+    <position name="base_rx_act" joint="base_rx" kp="20" kv="2" ctrlrange="-3.14 3.14"/>
+    <position name="base_ry_act" joint="base_ry" kp="20" kv="2" ctrlrange="-3.14 3.14"/>
+    <position name="base_rz_act" joint="base_rz" kp="20" kv="2" ctrlrange="-3.14 3.14"/>
+
     <!-- index -->
     <position name="if_mcp_act" joint="if_mcp" class="mcp"/>
     <position name="if_rot_act" joint="if_rot" class="rot"/>
@@ -161,8 +169,16 @@
 
   <worldbody>
     <body name="palm" pos="0 0 0.2" quat="0 1 0 0">
-      <!-- Floating base: the palm is free to translate/rotate (Class-C floating hand). -->
-      <freejoint name="palm_freejoint"/>
+      <!-- Actuated 6-DoF floating base (Class-C floating hand): 3 slide + 3 hinge
+           joints let the palm translate and rotate under position control, so the hand
+           is a general manipulator (reach/pick/place) and Class-C tasks reuse the same
+           position-based MDP as the arm tasks. -->
+      <joint name="base_tx" type="slide" axis="1 0 0" range="-0.5 0.5" damping="20"/>
+      <joint name="base_ty" type="slide" axis="0 1 0" range="-0.5 0.5" damping="20"/>
+      <joint name="base_tz" type="slide" axis="0 0 1" range="-0.5 0.5" damping="20"/>
+      <joint name="base_rx" type="hinge" axis="1 0 0" range="-3.14 3.14" damping="5"/>
+      <joint name="base_ry" type="hinge" axis="0 1 0" range="-3.14 3.14" damping="5"/>
+      <joint name="base_rz" type="hinge" axis="0 0 1" range="-3.14 3.14" damping="5"/>
       <!-- Palm site: the end-effector reference for observations/rewards (gripper-equivalent). -->
       <site name="grasp_site" pos="-0.05 -0.02 -0.02" size="0.01" rgba="1 0 0 1"/>
       <!-- palm -->

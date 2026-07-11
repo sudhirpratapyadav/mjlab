@@ -1,6 +1,8 @@
 """Floating LEAP dexterous hand (Class-C embodiment)."""
 
 from .leap_constants import (
+    ALL_JOINTS,
+    BASE_JOINTS,
     LEAP_ACTION_SCALE,
     LEAP_XML,
     FINGER_JOINTS,
@@ -9,6 +11,8 @@ from .leap_constants import (
 )
 
 __all__ = [
+    "ALL_JOINTS",
+    "BASE_JOINTS",
     "LEAP_ACTION_SCALE",
     "LEAP_XML",
     "FINGER_JOINTS",

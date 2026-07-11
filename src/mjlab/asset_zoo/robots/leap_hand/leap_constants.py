@@ -1,11 +1,11 @@
 """LEAP hand constants and configuration (floating dexterous hand, Class C).
 
 The LEAP hand is a 16-DoF anthropomorphic hand (index/middle/ring fingers + thumb,
-4 joints each). Here it is set up as a FLOATING hand (a freejoint on the palm, no arm)
-for the benchmark's Class-C embodiment. Only the 16 finger joints are actuated; the
-palm freejoint is an unactuated floating base (in-hand tasks move the object, not the
-hand). Full joint-target action space (16-D), per the benchmark's dexterous-hand
-convention.
+4 joints each). Here it is set up as a FLOATING hand with an ACTUATED 6-DoF base (3
+slide + 3 hinge joints on the palm under position control), so the hand is a general
+manipulator: it can translate/rotate to reach, pick, and place, and Class-C tasks reuse
+the same position-based MDP as the arm tasks (uniform interfaces). Full joint-target
+action space: 22-D = 6 base + 16 finger.
 
 Model from MuJoCo Menagerie (leap_hand), Apache-2.0; see LICENSE in this directory.
 """
@@ -47,6 +47,9 @@ def get_spec() -> mujoco.MjSpec:
 # Joint names.
 ##
 
+# 6-DoF actuated base (3 translate + 3 rotate).
+BASE_JOINTS = ["base_tx", "base_ty", "base_tz", "base_rx", "base_ry", "base_rz"]
+
 # 16 actuated finger joints (index/middle/ring x mcp/rot/pip/dip + thumb x 4).
 FINGER_JOINTS = [
     "if_mcp", "if_rot", "if_pip", "if_dip",
@@ -55,15 +58,18 @@ FINGER_JOINTS = [
     "th_cmc", "th_axl", "th_mcp", "th_ipl",
 ]
 
+ALL_JOINTS = BASE_JOINTS + FINGER_JOINTS
+
 ##
 # Initial state.
 ##
 
-# Palm floating above the table, fingers slightly curled (a neutral pre-grasp).
+# Palm positioned above the table (base translate joints), fingers slightly curled.
 INIT_STATE = EntityCfg.InitialStateCfg(
     pos=(0.0, 0.0, 0.0),
     joint_pos={
-        "palm_freejoint": 0.0,  # freejoint qpos handled via root pose; fingers below
+        "base_tx": 0.0, "base_ty": 0.0, "base_tz": 0.0,
+        "base_rx": 0.0, "base_ry": 0.0, "base_rz": 0.0,
         **{j: 0.2 for j in FINGER_JOINTS},
     },
     joint_vel={".*": 0.0},
@@ -73,9 +79,9 @@ INIT_STATE = EntityCfg.InitialStateCfg(
 # Articulation config.
 ##
 
-# Only the finger joints are actuated (XML defines position actuators <joint>_act).
+# All 22 joints are actuated (XML defines position actuators <joint>_act).
 LEAP_ACTUATORS = XmlPositionActuatorCfg(
-    joint_names_expr=tuple(FINGER_JOINTS),
+    joint_names_expr=(".*",),
 )
 
 LEAP_ARTICULATION = EntityArticulationInfoCfg(

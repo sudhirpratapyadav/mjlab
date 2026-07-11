@@ -1,20 +1,21 @@
 {
-  "num_tasks": 12,
+  "num_tasks": 14,
   "num_distinct_skills": 5,
   "counts_by_embodiment": {
-    "arm_gripper": 12
+    "arm_gripper": 12,
+    "floating_hand": 2
   },
   "counts_by_skill": {
-    "pick_place": 5,
+    "pick_place": 6,
     "insertion": 1,
-    "reach": 1,
+    "reach": 2,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 5,
+    "precision_grasp": 6,
     "dexterous": 1,
-    "planar": 2,
+    "planar": 3,
     "mild_contact": 4
   },
   "tasks": {
@@ -26,6 +27,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Grasp-and-lift; the canonical fragile task in FINDINGS.md (catastrophic forgetting under regularization-only CL)."
+    },
+    "Mjlab-Lift-Cube-Leap": {
+      "embodiment": "floating_hand",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Floating LEAP hand grasping and lifting a cube with its fingers (dexterous grasp). Reuses the arm lift base with the hand embodiment."
     },
     "Mjlab-Lift-Cylinder-Franka": {
       "embodiment": "arm_gripper",
@@ -116,6 +126,15 @@
       "source": "native",
       "contact_rich": false,
       "notes": "Move the gripper to a sampled 3D target; dense monotonic reward, no contact. Anchors the low-fragility end of the axis (new 'reach' skill family)."
+    },
+    "Mjlab-Reach-Target-Leap": {
+      "embodiment": "floating_hand",
+      "skill": "reach",
+      "fragility": 1,
+      "fragility_name": "planar",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Floating LEAP hand reaching its palm to a 3D target (actuated 6-DoF base). First Class-C task; reuses the arm reach base with the hand embodiment."
     },
     "Mjlab-Stack-Cube-Franka": {
       "embodiment": "arm_gripper",
