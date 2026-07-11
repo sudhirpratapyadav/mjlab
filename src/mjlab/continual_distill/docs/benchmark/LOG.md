@@ -458,3 +458,25 @@ Implemented the actuated 6-DoF base (user's decision) and the first Class-C task
 Suite now 14 tasks / 5 skills / **2 embodiment classes** (arm_gripper:12, floating_hand:2).
 17 tests green. The benchmark's embodiment-diversity differentiator is now real, not just
 Class A. Next: more Class-C tasks (pick variants, insertion) + Class B (arm+hand).
+
+### 2026-07-11 20:40 IST — ALL 3 EMBODIMENT CLASSES LIVE (Class B: Franka+LEAP)
+
+Completed the benchmark's core differentiator: authored Class B (arm + dexterous hand)
+by composing the Franka arm + LEAP hand via MjSpec.attach.
+- Made a fixed-base LEAP variant (leap_right_hand_fixed.xml: 16 finger joints, no base
+  joints — the arm provides the wrist).
+- asset_zoo/robots/franka_leap/: get_spec() loads the Franka, DELETES the 2-finger
+  gripper (MjSpec.delete on the 'hand' body), and attaches the fixed LEAP palm at link7
+  with the original gripper mount pose. => 23-DoF arm+hand (7 arm + 16 finger), nu=23.
+  EE site = leap_grasp_site (prefixed by attach). Loads as an mjlab Entity cleanly.
+- config/franka_leap/: Reach-Target, Lift-Cube, Stack-Cube — all reuse the SAME arm
+  bases, only entity/EE-site/scale differ. 3/3 pass smoke (action=23).
+
+**SUITE NOW: 19 tasks / 5 skills / ALL 3 EMBODIMENT CLASSES**
+(arm_gripper 12, arm_hand 3, floating_hand 4) / all 4 fragility tiers. 17 tests green.
+
+The uniform-interface strategy paid off completely: the SAME reach/lift/stack/insertion
+MDP bases now serve 3 very different embodiments (8-D gripper, 22-D floating hand, 23-D
+arm+hand) with only per-embodiment entity+site+scale wiring. This is the benchmark's
+headline structure. Remaining: more tasks per class (breadth), procedural scaling,
+a 2nd hand (Shadow/Allegro) for Class B/C variety.

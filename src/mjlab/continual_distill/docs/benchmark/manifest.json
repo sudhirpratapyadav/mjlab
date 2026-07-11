@@ -1,21 +1,22 @@
 {
-  "num_tasks": 16,
+  "num_tasks": 19,
   "num_distinct_skills": 5,
   "counts_by_embodiment": {
     "arm_gripper": 12,
+    "arm_hand": 3,
     "floating_hand": 4
   },
   "counts_by_skill": {
-    "pick_place": 7,
+    "pick_place": 9,
     "insertion": 2,
-    "reach": 2,
+    "reach": 3,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 7,
+    "precision_grasp": 9,
     "dexterous": 2,
-    "planar": 3,
+    "planar": 4,
     "mild_contact": 4
   },
   "tasks": {
@@ -27,6 +28,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Grasp-and-lift; the canonical fragile task in FINDINGS.md (catastrophic forgetting under regularization-only CL)."
+    },
+    "Mjlab-Lift-Cube-Franka-Leap": {
+      "embodiment": "arm_hand",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Franka arm + LEAP hand grasping and lifting a cube (dexterous grasp on a full arm)."
     },
     "Mjlab-Lift-Cube-Leap": {
       "embodiment": "floating_hand",
@@ -136,6 +146,15 @@
       "contact_rich": false,
       "notes": "Move the gripper to a sampled 3D target; dense monotonic reward, no contact. Anchors the low-fragility end of the axis (new 'reach' skill family)."
     },
+    "Mjlab-Reach-Target-Franka-Leap": {
+      "embodiment": "arm_hand",
+      "skill": "reach",
+      "fragility": 1,
+      "fragility_name": "planar",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Franka arm + LEAP hand reaching to a 3D target. First Class-B (arm + dexterous hand) task; reuses the arm reach base."
+    },
     "Mjlab-Reach-Target-Leap": {
       "embodiment": "floating_hand",
       "skill": "reach",
@@ -153,6 +172,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Stack a cube on a cuboid base: grasp + precise place + release. Dynamic goal (tracks the base object). Higher-fragility pick_place than lift."
+    },
+    "Mjlab-Stack-Cube-Franka-Leap": {
+      "embodiment": "arm_hand",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Franka arm + LEAP hand stacking a cube on a cuboid base."
     },
     "Mjlab-Stack-Cube-Leap": {
       "embodiment": "floating_hand",
