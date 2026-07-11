@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<mujoco model="hole_board">
+  <!-- A board with a square hole, built from four wall geoms around a central gap
+       (MuJoCo has no boolean hole). The gap is ~3cm square, sized so the 2.4cm peg
+       fits with clearance. Board top at z=0.03 (half-height 0.015). A free body so it
+       can be repositioned per episode, like the Stack base. -->
+  <worldbody>
+    <body name="hole_board" pos="0.5 0 0.015">
+      <freejoint name="hole_board_joint"/>
+      <!-- Four walls forming a square frame; central 0.03x0.03 gap is the hole.
+           Outer footprint ~0.10 x 0.10, height 0.03 (half 0.015). -->
+      <geom type="box" name="hole_wall_px" pos="0.0325 0 0" size="0.0175 0.05 0.015"
+            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="hole_wall_nx" pos="-0.0325 0 0" size="0.0175 0.05 0.015"
+            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="hole_wall_py" pos="0 0.0325 0" size="0.015 0.0175 0.015"
+            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="hole_wall_ny" pos="0 -0.0325 0" size="0.015 0.0175 0.015"
+            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- Site at the hole CENTER opening (top of board), the insertion target. -->
+      <site name="object_site" pos="0 0 0.015" size="0.01" rgba="0 1 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

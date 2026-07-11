@@ -347,3 +347,26 @@ REVISED next actions (stage-one, structural acceptance only):
   (sweep/tool-use, articulation variants) and sensible grasp-object variants.
 - Then embodiments B/C (full-joint hand) reusing the same obs/reward/success patterns.
 - EE-delta + all training/solvability = STAGE TWO, not now.
+
+---
+
+### 2026-07-11 18:00 IST — Peg-Insertion authored (new skill; fragility axis now COMPLETE)
+
+Authored the insertion skill under the new "build suite, uniform interfaces" framing.
+- New assets (asset_zoo/objects/free/peg_in_hole/): peg.xml (slender graspable square
+  peg, tip object_site) + hole_board.xml (4-wall frame with ~3cm square hole, center
+  object_site). Both compile clean. Filled the previously-empty peg_in_hole stub.
+- Task Mjlab-Peg-Insertion-Franka: REUSES the Stack MDP verbatim (object=peg,
+  base=hole_board, dynamic target at hole opening) with tighter xy tolerance (1.5cm) —
+  no new command/reward/obs code. obs=51, action=8, identical shape to Stack. Exactly
+  the "keep spaces similar" goal: insertion differs from stack only in assets + thresholds.
+- Tagged skill=INSERTION, fragility=DEXTEROUS (most fragile tier), contact_rich.
+
+Result: **10 tasks / 5 skills, and the fragility axis is now FULLY SPANNED**
+(planar:2, mild_contact:4, precision_grasp:3, dexterous:1). That completeness is the
+scientifically important property for downstream CL — every difficulty tier represented.
+All 10 pass benchmark-smoke; 17 tests green.
+
+Reused Stack's MDP for insertion validates the uniform-interface strategy: new
+contact-rich skills can be added as (assets + thresholds) on shared commands, cheaply.
+Next: more Class-A distinct skills (sweep/tool-use), then embodiments B/C (full-joint hand).

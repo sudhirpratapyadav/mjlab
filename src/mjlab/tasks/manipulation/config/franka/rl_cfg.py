@@ -58,6 +58,13 @@ def franka_stack_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   return cfg
 
 
+def franka_peg_insertion_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  # Insertion is a grasp-and-place task; same PPO recipe as lift-cube.
+  cfg = franka_lift_cube_ppo_runner_cfg()
+  cfg.experiment_name = "franka_peg_insertion"
+  return cfg
+
+
 def franka_open_door_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   """PPO configuration for Franka door opening task."""
   return RslRlOnPolicyRunnerCfg(

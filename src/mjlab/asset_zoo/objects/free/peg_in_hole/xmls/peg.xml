@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<mujoco model="peg">
+  <worldbody>
+    <body name="peg" pos="0.5 0 0.3">
+      <freejoint name="peg_joint"/>
+      <!-- A slender square peg, graspable by the parallel gripper. Half-extents
+           0.012 x 0.012 x 0.05 => 2.4cm across, 10cm tall. -->
+      <geom type="box" name="peg_geom" size="0.012 0.012 0.05" mass="0.05"
+            rgba="0.2 0.4 0.8 1.0" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- Object site for observations, at the peg TIP (the point that enters the
+           hole) so success/obs track the functional end. -->
+      <site name="object_site" pos="0 0 -0.05" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

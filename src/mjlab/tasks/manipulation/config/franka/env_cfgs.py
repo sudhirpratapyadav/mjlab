@@ -25,6 +25,10 @@ from mjlab.asset_zoo.objects.free.disc import (
   get_disc_cfg,
   get_mocap_goal_cfg as get_disc_mocap_goal_cfg,
 )
+from mjlab.asset_zoo.objects.free.peg_in_hole import (
+  get_peg_cfg,
+  get_hole_board_cfg,
+)
 from mjlab.asset_zoo.objects.free.cylinder import (
   get_cylinder_cfg,
   get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
@@ -255,6 +259,75 @@ def franka_stack_cube_env_cfg(
   stack_command.stack_height = 0.035
 
   # Franka uses the "gripper" site.
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["stack"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 1.5
+
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    cfg.terminations.pop("ee_ground_collision", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    cfg.episode_length_s = 5.0
+
+  return cfg
+
+
+def franka_peg_insertion_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka inserting a peg into a hole board (the insertion skill).
+
+  Reuses the Stack MDP pattern (move 'object'=peg onto 'base'=hole_board, dynamic goal
+  at the hole opening), keeping obs/action/reward/success identical in shape to Stack.
+  Insertion is tighter than stacking: the peg must align to the ~3cm hole, so the xy
+  success tolerance is smaller. This is the benchmark's insertion / contact-precision
+  skill (the most fragile tier).
+  """
+  cfg = make_stack_object_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "object": get_peg_cfg(),
+    "base": get_hole_board_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  stack_command = cfg.commands["stack_object"]
+  assert isinstance(stack_command, StackingCommandCfg)
+  stack_command.robot_asset_cfg.site_names = ("gripper",)
+  # Peg tip (object_site) should reach the hole opening (board top ~+0.03 above the
+  # board body origin at z=0.015 => opening ~0.015 above origin). Aim the peg site
+  # slightly INTO the hole for an inserted pose.
+  stack_command.stack_height = 0.01
+  stack_command.success_threshold = 0.015  # tight xy alignment for insertion
+  stack_command.height_threshold = 0.03
+
   for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
     if obs_name in cfg.observations["policy"].terms:
       cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (

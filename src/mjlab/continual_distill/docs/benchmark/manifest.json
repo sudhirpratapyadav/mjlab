@@ -1,17 +1,19 @@
 {
-  "num_tasks": 9,
-  "num_distinct_skills": 4,
+  "num_tasks": 10,
+  "num_distinct_skills": 5,
   "counts_by_embodiment": {
-    "arm_gripper": 9
+    "arm_gripper": 10
   },
   "counts_by_skill": {
     "pick_place": 3,
+    "insertion": 1,
     "reach": 1,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
     "precision_grasp": 3,
+    "dexterous": 1,
     "planar": 2,
     "mild_contact": 4
   },
@@ -51,6 +53,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": ""
+    },
+    "Mjlab-Peg-Insertion-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "insertion",
+      "fragility": 4,
+      "fragility_name": "dexterous",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Insert a peg into a hole board: grasp + tight alignment into a ~3cm hole. Reuses the Stack MDP with tighter xy tolerance. New 'insertion' skill; most fragile tier (multi-contact precision)."
     },
     "Mjlab-Push-Button-Franka": {
       "embodiment": "arm_gripper",
