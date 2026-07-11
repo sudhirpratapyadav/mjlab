@@ -28,20 +28,19 @@ tree was clean of tracked mods before branching (only untracked new docs + scrat
 | 5 | Open-Door | A | articulation | mid | native (exists) |
 | 6 | Open-Drawer | A | articulation | mid | native (exists) |
 | 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, smoke-validated) |
-| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3, TRAIN-validated 0.66) |
-| 9 | Stack-Cube | A | pick-place | precision-grasp | NEW (phase 3, structural only — see note) |
+| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3) |
+| 9 | Stack-Cube | A | pick-place | precision-grasp | NEW (phase 3) |
 
 Distinct skills so far: reach, pick-place, planar-push, articulation (**4 families,
 9 tasks**). Class B: 0. Class C: 0.
-All 9 pass `benchmark-smoke`. Reach TRAIN-validated (0.66). **Stack: structurally sound
-but NOT train-validated** — didn't solve in 400 iters (needs ~5000 +/- reward tuning;
-quick to finish with user in the loop). Honestly flagged in its manifest note.
+**All 9 pass `benchmark-smoke` (build/reset/step, finite obs+reward, sane shapes) —
+which is the stage-one acceptance check. All 9 are valid suite tasks.**
 
-### Validation status legend
-- **native**: pre-existing, previously trained (the original 6).
-- **train-validated**: authored here + confirmed learnable by a short PPO run (Reach).
-- **structural**: authored + builds/steps cleanly, learnability not yet confirmed
-  (Lift-Cylinder [smoke only], Stack-Cube [400-iter run insufficient]).
+### On "train-validation" (stage two, informational only)
+Building the suite is stage one; solving it (RL/CL) is stage two. So train-solvability
+is NOT a suite-membership gate. For reference only: Reach trains to 0.66 in ~74s; Stack
+did not solve in 400 PPO iters (a multi-stage task — expected to need more, stage-two
+concern). Neither fact affects the task's validity for the suite.
 
 ## Phase 0 checklist — DONE (commit e4c9561)
 
@@ -120,32 +119,23 @@ None. Fully autonomous. (Full CL regression re-runs need cluster teacher dataset
 - 9 tasks / 4 skills (was 6/3): +Lift-Cylinder, +Reach (new skill, train-validated),
   +Stack (structural only).
 
-**The one thing to finish first (quick, 5-10 min of your time):**
-- **Stack-Cube train-validation.** It didn't solve in 400 iters. Run
-  `benchmark-validate --task Mjlab-Stack-Cube-Franka --iters 5000` (or a normal
-  `train` run). If it solves → flip its note/STATUS to train-validated, done. If not →
-  the reward likely needs a grasp-then-place shaping tweak (the current reward is
-  reach+bring toward a dynamic target + at-goal bonus; may need an explicit lift/grasp
-  gate + release incentive). Quick with your eyes on it; I deliberately didn't grind it.
+**All decisions resolved (2026-07-11):** build the SUITE (not solve it); joint-space
+action everywhere (no EE-delta now); dexterous hand = full joint targets; keep obs/
+action/reward/success SIMILAR across tasks; keep going autonomously. See LOG 17:30.
 
-**Then resume authoring (priority order), each via the AUTHORING_GUIDE recipe:**
-1. **Insertion / peg-in-hole** — biggest contact-rich skill gap. Must author the
-   peg+hole asset (asset_zoo `peg_in_hole/` stub is empty) + an insertion command.
-   Reference: sibling `mujoco_playground` fork has `peg_in_hole.py` + `pick_cartesian.py`.
-2. **EE-delta action term** (open Q4) — enables Meta-World-style uniform EE control;
-   build in `envs/mdp/actions/`. Decide design: IK vs mocap-weld vs impedance. This
-   unlocks the fast Meta-World-style Class-A backbone (toward ~40 tasks).
-3. **Class A scale-out** — more distinct skills (sweep/tool-use, more articulation
-   variants) + a few grasp-object variants; keep skill vs instance diversity honest.
-4. **Embodiments B/C** (Phase 4, the novelty) — add Allegro/Shadow hand entities from
-   MuJoCo Menagerie under `asset_zoo/robots/`; author `config/<hand>/`. Class C
-   (Adroit/ShadowHand) is near-native = quick win. DECIDE hand action param first (Q2).
-5. **Procedural scaling** (Phase 5) — PartNet-Mobility / MolmoSpaces generators for 100+.
+**Resume authoring (priority order), each via AUTHORING_GUIDE, uniform interfaces:**
+1. **Insertion / peg-in-hole** — biggest contact-rich skill gap. Author the peg+hole
+   asset (asset_zoo `peg_in_hole/` stub is empty) + an insertion command, REUSING the
+   staged reach→bring reward + latched success pattern (keep it similar to lift/stack).
+   Reference: sibling `mujoco_playground` fork has `peg_in_hole.py`.
+2. **Class A scale-out** — more distinct skills (sweep, tool-use, more articulation
+   variants) + a few sensible grasp-object variants. Same 8-D joint action, same obs/
+   reward/success shape. Keep skill vs instance diversity honest in the manifest.
+3. **Embodiments B/C** — add Allegro/Shadow hand entities (MuJoCo Menagerie) under
+   `asset_zoo/robots/`; author `config/<hand>/` mirroring `config/franka/`. FULL JOINT
+   TARGETS. Reuse the SAME reward/success/obs patterns (just more joints). Class C
+   (floating hand: Adroit/ShadowHand-style) is near-native = quick win.
+4. **Procedural scaling** — PartNet-Mobility / MolmoSpaces generators for 100+ instances
+   (tag as instance-diversity, separate from distinct-skill count).
 
-**Architecture decisions still open (see PLAN.md §Open):** shared-trunk vs
-per-embodiment students (Q1, by Phase 4); hand action parameterization (Q2, by Phase 4).
-My default recommendation: per-embodiment students first.
-
-**Lesson learned this session:** easy tasks train-validate in ~1 min; contact-rich
-multi-stage tasks (Stack) need long runs + likely reward tuning — do those with a human
-in the loop, don't grind them autonomously.
+Stage two (NOT now): EE-delta action, teachers, RL/CL, train-solvability, evaluation.

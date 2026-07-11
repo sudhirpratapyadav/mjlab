@@ -56,10 +56,7 @@ register_mjlab_task(
     source="native",
     contact_rich=True,
     notes="Stack a cube on a cuboid base: grasp + precise place + release. Dynamic "
-    "goal (tracks base). Higher-fragility pick_place than lift. STRUCTURALLY validated "
-    "(builds/steps); NOT yet train-validated — did not solve in 400 PPO iters "
-    "(episode_success ~0.01). Multi-stage task likely needs longer training (lift-cube "
-    "uses 5000) and/or reward tuning; deferred (see docs/benchmark/LOG.md 2026-07-11).",
+    "goal (tracks the base object). Higher-fragility pick_place than lift.",
   ),
 )
 

@@ -21,13 +21,24 @@ real benchmark contribution, not just a paper's eval set.
 1. One simulator: mjlab. Port task *designs + assets* in; never depend on another runtime.
 2. Diversity = **manipulation skill** (RLBench-style), not scene/spatial/language (anti-LIBERO).
 3. Structure by embodiment class: A=arm+2-finger, B=arm+5-finger, C=floating hand.
-4. Teachers OUT OF SCOPE this effort — a task = env + obs vector + action interface +
-   success predicate. Teacher strategy is a later, separate doc.
-5. Fragility axis (planar → mild-contact → precision-grasp → dexterous) sampled
-   deliberately, because an all-planar suite makes CL results non-discriminating
-   (established in FINDINGS.md).
-6. Work autonomously in phases; milestone-level commits only (not per-fix); do repo
-   restructuring up front; minimal-but-well-divided folder structure.
+4. **This effort BUILDS THE TASK SUITE; it does NOT solve it.** Teachers / RL / CL /
+   train-solvability / evaluation are all STAGE TWO (a later, separate effort). A task
+   is DONE for stage one when it is well-defined and structurally sound: builds, resets,
+   steps, finite obs/reward, sane shapes, a clear success predicate. Whether PPO solves
+   it is NOT a stage-one gate — `benchmark-smoke` is the acceptance check;
+   `benchmark-validate` (training) is an optional informational tool, not a gate.
+5. **Keep obs / action / reward / success spaces SANE and SIMILAR across tasks.**
+   Uniform interfaces beat per-task cleverness:
+   - Action: JOINT-SPACE everywhere (Franka 8-D). NO EE-delta term for now (stage two).
+   - Obs: consistent term layout across tasks as far as possible.
+   - Reward: consistent structure (staged reach→manipulate + shared regularization).
+   - Success: consistent latched predicate (`torch.maximum` on per-env success).
+   Dexterous hand (B/C) = FULL JOINT TARGETS (~16-22 dims), same reward/success patterns.
+6. Diversity should still span the fragility axis (planar → mild → precision-grasp →
+   dexterous) so the suite is scientifically useful downstream — but fragility is a
+   TAG we assign, not something we train-verify here.
+7. Work autonomously in phases; milestone-level commits only (not per-fix); minimal-
+   but-well-divided folder structure (framework is already well-factored → additive).
 
 ## Architectural ground truth (verified 2026-07-11)
 

@@ -309,3 +309,41 @@ then embodiments B/C. Architecture Qs (shared-trunk vs per-embodiment; hand acti
 param) flagged for the user's call.
 
 Working tree clean; only untracked is the pre-existing `plots/`. Nothing pushed.
+
+---
+
+### 2026-07-11 17:30 IST — MAJOR REFRAME from user: build the SUITE, not solve it
+
+User corrected a category error I was making. Decisions + their consequences:
+
+1. **This effort = building the TASK SUITE. Solving it (RL/teacher/CL/validation) is
+   STAGE TWO.** => a task belongs in the suite if it is WELL-DEFINED and STRUCTURALLY
+   SOUND (builds, sane obs/action/reward/success predicate), NOT if PPO solves it in N
+   iters. My earlier "Stack NOT-LEARNING @400 -> defer" reasoning was WRONG framing:
+   train-solvability is stage-two. CONSEQUENCE: stop running benchmark-validate training
+   as a gate. Stack stays as a valid task. benchmark-smoke (builds/steps/finite/shape)
+   is the RIGHT acceptance check for this stage. Keep benchmark-validate as an OPTIONAL
+   stage-two tool, not a gate.
+
+2. **Keep obs / action / reward / success spaces SANE and SIMILAR across tasks** — the
+   real design constraint now. Uniform interfaces:
+   - action: joint-space everywhere (8-D franka), NO EE-delta term for now (deferred to
+     stage two). "keep working in joint for now."
+   - obs: consistent layout/terms across tasks as much as possible.
+   - reward: consistent structure (staged reach->manipulate + regularization).
+   - success: consistent latched predicate.
+   Avoid bespoke-per-task spaces. Similarity > cleverness.
+
+3. **Dexterous hand (Class B/C) = FULL JOINT TARGETS** (~16-22 dims). Fixes the action
+   param question for all B/C tasks.
+
+4. **Keep going autonomously** per the resume plan.
+
+REVISED next actions (stage-one, structural acceptance only):
+- Update STATUS/manifest to drop the train-validation "gate" framing; Stack is a valid
+  task. Keep a stage-two-validation column as informational only.
+- Author more Class-A tasks with UNIFORM interfaces (joint action, shared obs/reward
+  patterns). Priority: insertion/peg-in-hole (needs asset), then more distinct skills
+  (sweep/tool-use, articulation variants) and sensible grasp-object variants.
+- Then embodiments B/C (full-joint hand) reusing the same obs/reward/success patterns.
+- EE-delta + all training/solvability = STAGE TWO, not now.
