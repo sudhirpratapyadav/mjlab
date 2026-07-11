@@ -3,22 +3,40 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-11 18:45 IST
+Last updated: 2026-07-11 21:05 IST
 
-## Current phase: **Phase 3/4 — Class-A skills done + Class-C embodiment up**
+## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 20 tasks**
 
-Phases 0-2 done. This session added: Lift-Cylinder, Reach (new skill), Stack (new),
-Peg-Insertion (new skill; fragility axis now COMPLETE), and the floating LEAP hand
-embodiment (Class C, verified as an entity). 10 Class-A tasks / 5 skills / all 4
-fragility tiers. Class-C embodiment loads; first Class-C TASK blocked on one design
-call (base actuation — see below).
+**Suite: 20 tasks / 5 skills / 3 embodiment classes / all 4 fragility tiers.**
+ALL 20 pass the full benchmark-smoke sweep; 17 unit tests green.
+- arm_gripper (Class A, 12): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
+  peg-insertion; push ×2 (cuboid/disc); articulation ×3 (door/drawer/button). action=8.
+- floating_hand (Class C, 5): reach, lift-cube, lift-sphere, stack, peg-insertion
+  (LEAP, actuated 6-DoF base, action=22).
+- arm_hand (Class B, 3): reach, lift-cube, stack (Franka+LEAP, action=23).
 
-### >>> DECISION NEEDED: floating-hand base actuation (blocks Class-C tasks) <<<
-- (a) Unactuated base → in-hand reorient tasks only; needs new orientation-goal MDP
-  (diverges from our position-based tasks).
-- (b) Actuated 6-DoF base → floating-hand reach/pick/place reuse existing position MDP;
-  keeps interfaces uniform across embodiments (my lean, matches "keep spaces similar").
-See LOG 2026-07-11 18:40.
+Uniform interfaces throughout: the SAME reach/lift/stack/insertion MDP bases serve all
+three embodiments (8-D / 22-D / 23-D) — only the entity, EE site, and action scale differ.
+
+### Embodiment integration recipes (proven, reusable)
+- New object: cube-template asset (xml+constants+__init__); plug into a lift/stack helper.
+- New floating hand: Menagerie model → add actuated 6-DoF base + grasp_site → robot cfg
+  (see leap_hand). New arm+hand: MjSpec delete gripper + attach fixed hand at link7
+  (see franka_leap).
+
+### Operating mode
+Autonomous, no decision-stops. North star: as many vision-free tasks as possible,
+uniform interfaces, structural-soundness (benchmark-smoke) as the acceptance gate
+(train-solvability is stage two).
+
+### Next (in priority order)
+1. Breadth: more object variants across hands (lift/stack cylinder/ellipsoid on
+   LEAP + Franka-LEAP), more Class-A skills (sweep/tool-use), more articulation
+   (lever/valve/knob — needs new articulated assets).
+2. A 2nd dexterous hand (Shadow/Allegro, available in Menagerie) for embodiment variety.
+3. Procedural scaling (Phase 5): PartNet-Mobility / object libraries → 100+ instances
+   (tag as instance-diversity, separate from distinct-skill count).
+STAGE TWO (not now): teachers, RL/CL, train-solvability, evaluation, EE-delta action.
 
 ## Branch
 `benchmark-manip-diversity`, off `continual_distill` (up to date w/ origin). Working

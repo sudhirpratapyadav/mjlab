@@ -493,3 +493,19 @@ two), this is fine — the task is well-formed. Noted; not grinding training tun
 
 Adding object variants to the hand embodiments (sphere lift etc.) via parameterized
 helpers, same as the franka lift helper.
+
+### 2026-07-11 21:05 IST — Full-suite validation: 20/20 smoke PASS
+
+Ran the complete benchmark-smoke sweep across all 20 tasks: 20/20 PASS. Definitive
+confirmation the whole benchmark is coherent: 3 embodiment classes (action 8/22/23),
+5 skills, 4 fragility tiers, all vision-free, one MuJoCo stack, shared MDP bases.
+
+Session tally (started from 6 native tasks / 3 skills / 1 embodiment):
+=> 20 tasks / 5 skills / 3 embodiment classes / 4 fragility tiers.
+New: Reach, Stack, Peg-Insertion (new skills); Lift cylinder/sphere/ellipsoid;
+LEAP floating hand (Class C, 5 tasks); Franka+LEAP arm+hand (Class B, 3 tasks).
+Plus: taxonomy/query/ordering infra, benchmark-smoke + benchmark-validate tools,
+authoring guide, new assets (peg+hole, sphere, ellipsoid, leap_hand, franka_leap).
+
+Updated STATUS with the final tally, proven embodiment-integration recipes, and the
+prioritized next steps. Clean state for the user's return. Nothing pushed (user pushes).
