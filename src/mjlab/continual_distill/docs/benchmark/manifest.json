@@ -1,0 +1,73 @@
+{
+  "num_tasks": 6,
+  "num_distinct_skills": 3,
+  "counts_by_embodiment": {
+    "arm_gripper": 6
+  },
+  "counts_by_skill": {
+    "pick_place": 1,
+    "articulation": 3,
+    "planar_push": 2
+  },
+  "counts_by_fragility": {
+    "precision_grasp": 1,
+    "mild_contact": 4,
+    "planar": 1
+  },
+  "tasks": {
+    "Mjlab-Lift-Cube-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Grasp-and-lift; the canonical fragile task in FINDINGS.md (catastrophic forgetting under regularization-only CL)."
+    },
+    "Mjlab-Open-Door-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": ""
+    },
+    "Mjlab-Open-Drawer-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": ""
+    },
+    "Mjlab-Push-Button-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 1,
+      "fragility_name": "planar",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Press a button; forgiving, retained near-1.0 through sequences."
+    },
+    "Mjlab-Push-Cuboid-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "planar_push",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Task-0 fragility case in FINDINGS.md (retains ~0.6-0.84)."
+    },
+    "Mjlab-Push-Disc-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "planar_push",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": false,
+      "notes": ""
+    }
+  }
+}
