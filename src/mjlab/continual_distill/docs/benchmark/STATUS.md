@@ -3,15 +3,22 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-11 16:10 IST
+Last updated: 2026-07-11 18:45 IST
 
-## Current phase: **Phase 3 — new skills (train-validated)** (in progress)
+## Current phase: **Phase 3/4 — Class-A skills done + Class-C embodiment up**
 
-Phases 0-2 COMPLETE + committed. Phase 3 underway: authored the first NEW SKILL
-(Reach) with full MDP (command+reward+obs+base) and TRAIN-VALIDATED it locally
-(solvable in 74s). Key unlock this session: local training works, so new-skill
-solvability CAN be validated autonomously (~1-2 min for easy tasks). This de-risks
-authoring the rest of Phase 3.
+Phases 0-2 done. This session added: Lift-Cylinder, Reach (new skill), Stack (new),
+Peg-Insertion (new skill; fragility axis now COMPLETE), and the floating LEAP hand
+embodiment (Class C, verified as an entity). 10 Class-A tasks / 5 skills / all 4
+fragility tiers. Class-C embodiment loads; first Class-C TASK blocked on one design
+call (base actuation — see below).
+
+### >>> DECISION NEEDED: floating-hand base actuation (blocks Class-C tasks) <<<
+- (a) Unactuated base → in-hand reorient tasks only; needs new orientation-goal MDP
+  (diverges from our position-based tasks).
+- (b) Actuated 6-DoF base → floating-hand reach/pick/place reuse existing position MDP;
+  keeps interfaces uniform across embodiments (my lean, matches "keep spaces similar").
+See LOG 2026-07-11 18:40.
 
 ## Branch
 `benchmark-manip-diversity`, off `continual_distill` (up to date w/ origin). Working
