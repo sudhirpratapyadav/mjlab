@@ -890,3 +890,115 @@ class PushingCommandCfg(CommandTermCfg):
     target_color: tuple[float, float, float, float] = (1.0, 0.5, 0.0, 0.3)
 
   viz: VizCfg = field(default_factory=VizCfg)
+
+
+class ReachingCommand(CommandTerm):
+  """Command for the end-effector reaching task.
+
+  Samples a 3D target position in the robot's workspace and tracks whether the gripper
+  site has reached it. Success is latched (via ``torch.maximum``) once the gripper
+  comes within ``success_threshold`` of the target — matching the eval-success
+  convention used across the benchmark (see continual_distill/docs FINDINGS.md).
+
+  Unlike the object-manipulation commands, there is no object to move: the target IS
+  the command, and success depends only on the gripper reaching it. The ``mocap_goal``
+  entity visualizes the target and provides a stable body for goal observations.
+  """
+
+  cfg: ReachingCommandCfg
+
+  def __init__(self, cfg: ReachingCommandCfg, env: ManagerBasedRlEnv):
+    super().__init__(cfg, env)
+
+    self.robot: Entity = env.scene[cfg.robot_asset_cfg.name]
+    self.robot_cfg = cfg.robot_asset_cfg
+    self.mocap_goal: Entity = env.scene["mocap_goal"]
+
+    self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
+    self.episode_success = torch.zeros(self.num_envs, device=self.device)
+
+    self.metrics["goal_error"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["at_goal"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["episode_success"] = torch.zeros(self.num_envs, device=self.device)
+
+  @property
+  def command(self) -> torch.Tensor:
+    return self.target_pos
+
+  def _gripper_pos_w(self) -> torch.Tensor:
+    return self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+
+  def _update_metrics(self) -> None:
+    goal_error = torch.norm(self.target_pos - self._gripper_pos_w(), dim=-1)
+    at_goal = (goal_error < self.cfg.success_threshold).float()
+    self.episode_success = torch.maximum(self.episode_success, at_goal)
+    self.metrics["goal_error"] = goal_error
+    self.metrics["at_goal"] = at_goal
+    self.metrics["episode_success"] = self.episode_success
+
+  def compute_success(self) -> torch.Tensor:
+    return self.metrics["goal_error"] < self.cfg.success_threshold
+
+  def _resample_command(self, env_ids: torch.Tensor) -> None:
+    n = len(env_ids)
+    self.episode_success[env_ids] = 0.0
+
+    if self.cfg.difficulty == "fixed":
+      target_pos = torch.tensor(
+        [0.5, 0.0, 0.3], device=self.device, dtype=torch.float32
+      ).expand(n, 3)
+      self.target_pos[env_ids] = target_pos + self._env.scene.env_origins[env_ids]
+    else:
+      assert self.cfg.difficulty == "dynamic"
+      r = self.cfg.target_position_range
+      lower = torch.tensor([r.x[0], r.y[0], r.z[0]], device=self.device)
+      upper = torch.tensor([r.x[1], r.y[1], r.z[1]], device=self.device)
+      target_pos = sample_uniform(lower, upper, (n, 3), device=self.device)
+      self.target_pos[env_ids] = target_pos + self._env.scene.env_origins[env_ids]
+
+    # Identity orientation for the mocap goal (reach is position-only).
+    quat = torch.zeros(n, 4, device=self.device)
+    quat[:, 0] = 1.0
+    mocap_pose = torch.cat([self.target_pos[env_ids], quat], dim=-1)
+    self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+
+  def _update_command(self) -> None:
+    pass
+
+  def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
+    for env_idx in range(self.num_envs):
+      target_pos = self.target_pos[env_idx].cpu().numpy()
+      visualizer.add_sphere(
+        center=target_pos,
+        radius=0.03,
+        color=self.cfg.viz.target_color,
+        label=f"reach_target_{env_idx}",
+      )
+
+
+@dataclass(kw_only=True)
+class ReachingCommandCfg(CommandTermCfg):
+  robot_asset_cfg: SceneEntityCfg = field(
+    default_factory=lambda: SceneEntityCfg("robot", site_names=())
+  )
+  class_type: type[CommandTerm] = ReachingCommand
+  success_threshold: float = 0.05
+  difficulty: Literal["fixed", "dynamic"] = "dynamic"
+
+  @dataclass
+  class TargetPositionRangeCfg:
+    """Workspace box the reach target is sampled from (dynamic mode)."""
+
+    x: tuple[float, float] = (0.4, 0.7)
+    y: tuple[float, float] = (-0.25, 0.25)
+    z: tuple[float, float] = (0.15, 0.5)
+
+  target_position_range: TargetPositionRangeCfg = field(
+    default_factory=TargetPositionRangeCfg
+  )
+
+  @dataclass
+  class VizCfg:
+    target_color: tuple[float, float, float, float] = (0.0, 0.8, 1.0, 0.4)
+
+  viz: VizCfg = field(default_factory=VizCfg)

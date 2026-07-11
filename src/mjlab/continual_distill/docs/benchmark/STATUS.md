@@ -3,15 +3,15 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-11 15:40 IST
+Last updated: 2026-07-11 16:10 IST
 
-## Current phase: **Phase 2 — authoring loop proven + validation infra** (wrapping up)
+## Current phase: **Phase 3 — new skills (train-validated)** (in progress)
 
-Phase 0 (tracking+audit), Phase 1 (taxonomy infra) COMPLETE + committed. Phase 2
-deliverables done: first new task authored & validated locally, reusable smoke-test
-harness, authoring guide. New-skill MDP (Reach/Stack/insertion) + EE-delta action +
-new embodiments deferred to Phase 3+ (they need training to validate — not safely
-done unsupervised in bulk).
+Phases 0-2 COMPLETE + committed. Phase 3 underway: authored the first NEW SKILL
+(Reach) with full MDP (command+reward+obs+base) and TRAIN-VALIDATED it locally
+(solvable in 74s). Key unlock this session: local training works, so new-skill
+solvability CAN be validated autonomously (~1-2 min for easy tasks). This de-risks
+authoring the rest of Phase 3.
 
 ## Branch
 `benchmark-manip-diversity`, off `continual_distill` (up to date w/ origin). Working
@@ -27,11 +27,13 @@ tree was clean of tracked mods before branching (only untracked new docs + scrat
 | 4 | Push-Disc | A | planar push | mild-contact | native (exists) |
 | 5 | Open-Door | A | articulation | mid | native (exists) |
 | 6 | Open-Drawer | A | articulation | mid | native (exists) |
-| 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, validated) |
+| 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, smoke-validated) |
+| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3, TRAIN-validated) |
 
-Distinct skills so far: pick-place, planar-push, articulation (3 families, 7 tasks).
-Class B: 0. Class C: 0. **This is the gap the phases fill.**
-All 7 pass `benchmark-smoke` (build/step/shape; obs=60, action=8).
+Distinct skills so far: reach, pick-place, planar-push, articulation (**4 families,
+8 tasks**). Class B: 0. Class C: 0.
+All 8 pass `benchmark-smoke`. Reach-Target additionally TRAIN-validated: 150 PPO iters
+(74s) → episode_success 0.66, goal_error 0.062m, still climbing → SOLVABLE.
 
 ## Phase 0 checklist — DONE (commit e4c9561)
 

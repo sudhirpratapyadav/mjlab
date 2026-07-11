@@ -200,3 +200,39 @@ Committing Phase 2 as the second milestone. Net so far: taxonomy+query infra, 7 
 tasks (1 new), local validation harness, authoring guide — the foundation that makes
 the rest of the benchmark fast and safe to build. Solid stopping point while user is
 away; remaining work benefits from their presence (training/solvability judgement).
+
+---
+
+### 2026-07-11 16:10 IST — Phase 3 begins: Reach (new skill) AUTHORED + TRAIN-VALIDATED
+
+Decided to push further (idle 2xA6000, holiday-length autonomy, user wants "as many
+tasks as we reasonably get"). Chose Reach as the first new SKILL: lowest-risk
+(monotonic distance reward, analyzable by construction, no contact/grasp).
+
+Authored the full new-skill MDP stack:
+- `mdp/commands.py::ReachingCommand(Cfg)` — samples a 3D workspace target, latches
+  success (torch.maximum) when gripper within 5cm. Simpler than LiftingCommand (no
+  object/reached-gating).
+- `mdp/rewards.py::reach_target_reward` — Gaussian on gripper->target distance.
+- `mdp/observations.py::gripper_to_target_vector` — relative task signal (offset-free).
+- `reach_target_env_cfg.py::make_reach_target_env_cfg` — object-free base (robot +
+  mocap_goal only). obs=38 (no object terms) — heterogeneous dim, fine (per-task heads).
+- `config/franka/{env_cfgs,rl_cfg,__init__}.py` — concrete Franka cfg + runner + tagged
+  registration (Mjlab-Reach-Target-Franka, skill=reach, fragility=planar).
+
+**KEY UNLOCK: local training works.** Wrote a minimal solvability check (scratchpad/
+validate_reach.py) using OnPolicyRunner directly (the full train.py CLI has wandb/
+checkpoint/distributed machinery not worth fighting). Result: **150 PPO iters, 1024
+envs, 74 SECONDS -> episode_success 0.66, goal_error 0.062m, still climbing = SOLVABLE.**
+So I CAN validate new-skill solvability autonomously (easy tasks ~1-2 min). This
+removes the main reason I'd deferred new-skill authoring. Harder tasks (grasp/insert)
+will take longer to train but are still checkable.
+
+Validation: 8/8 smoke PASS, 17 tests green, manifest = 8 tasks / 4 skills (reach added;
+fragility spread now planar:2 mild:4 precision_grasp:2). wandb val run is gitignored.
+
+**Revised stance for the rest of the session:** continue authoring NEW SKILLS with
+train-validation, cheapest/most-reliable first. Next candidates: Stack (pick_place,
+two-object command), then insertion (needs peg+hole asset authoring — bigger). Each
+gets: author -> smoke -> short train -> record solvability -> commit as a batch.
+Committing Reach now (it's a clean, validated milestone: first new skill).

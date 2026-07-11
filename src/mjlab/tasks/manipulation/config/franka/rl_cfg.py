@@ -44,6 +44,13 @@ def franka_lift_cylinder_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   return cfg
 
 
+def franka_reach_target_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  # Reach is an easy dense task; the shared PPO recipe suffices.
+  cfg = franka_lift_cube_ppo_runner_cfg()
+  cfg.experiment_name = "franka_reach_target"
+  return cfg
+
+
 def franka_open_door_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   """PPO configuration for Franka door opening task."""
   return RslRlOnPolicyRunnerCfg(

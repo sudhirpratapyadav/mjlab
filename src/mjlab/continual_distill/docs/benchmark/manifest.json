@@ -1,18 +1,19 @@
 {
-  "num_tasks": 7,
-  "num_distinct_skills": 3,
+  "num_tasks": 8,
+  "num_distinct_skills": 4,
   "counts_by_embodiment": {
-    "arm_gripper": 7
+    "arm_gripper": 8
   },
   "counts_by_skill": {
     "pick_place": 2,
+    "reach": 1,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
     "precision_grasp": 2,
-    "mild_contact": 4,
-    "planar": 1
+    "planar": 2,
+    "mild_contact": 4
   },
   "tasks": {
     "Mjlab-Lift-Cube-Franka": {
@@ -77,6 +78,15 @@
       "source": "native",
       "contact_rich": false,
       "notes": ""
+    },
+    "Mjlab-Reach-Target-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "reach",
+      "fragility": 1,
+      "fragility_name": "planar",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Move the gripper to a sampled 3D target; dense monotonic reward, no contact. Anchors the low-fragility end of the axis (new 'reach' skill family)."
     }
   }
 }

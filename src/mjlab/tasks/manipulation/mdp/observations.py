@@ -200,3 +200,19 @@ def control_qpos_difference(
   else:
     # Fallback: return zeros if dimensions don't match
     return torch.zeros(joint_pos.shape[0], 8, device=joint_pos.device)
+
+
+def gripper_to_target_vector(
+  env: ManagerBasedRlEnv,
+  command_name: str,
+  robot_asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+) -> torch.Tensor:
+  """Vector from the gripper site to the reach-command target (world frame, 3D).
+
+  Returns target_pos - gripper_pos. This is the primary task signal for the reach
+  task (offset-free relative vector — the FINDINGS "use relative obs only" lesson).
+  """
+  command = env.command_manager.get_term(command_name)
+  robot: Entity = env.scene[robot_asset_cfg.name]
+  gripper_pos_w = robot.data.site_pos_w[:, robot_asset_cfg.site_ids].squeeze(1)
+  return command.target_pos - gripper_pos_w

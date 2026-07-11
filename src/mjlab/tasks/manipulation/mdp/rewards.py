@@ -209,3 +209,24 @@ def robot_init_pose_reward(
   qpos_diff = torch.norm(current_qpos - init_joint_pos, dim=-1)
   reward = 1.0 - torch.tanh(qpos_diff)
   return reward
+
+
+def reach_target_reward(
+  env: ManagerBasedRlEnv,
+  command_name: str,
+  robot_asset_cfg: SceneEntityCfg = _DEFAULT_ASSET_CFG,
+  std: float = 0.1,
+) -> torch.Tensor:
+  """Reward for the gripper site reaching the reach-command target.
+
+  Gaussian kernel on the gripper-to-target distance: exp(-||target - gripper||^2 / std^2).
+  Monotonic in distance (dense, well-shaped, no local optima), so the reach task is
+  easy to learn — it exists to add the ``reach`` skill family, not to be hard.
+  """
+  robot: Entity = env.scene[robot_asset_cfg.name]
+  command = env.command_manager.get_term(command_name)
+  gripper_pos_w = robot.data.site_pos_w[:, robot_asset_cfg.site_ids].squeeze(1)
+  position_error = torch.sum(
+    torch.square(command.target_pos - gripper_pos_w), dim=-1
+  )
+  return torch.exp(-position_error / (std**2))

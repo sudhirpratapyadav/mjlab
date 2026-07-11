@@ -39,7 +39,8 @@ from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
 from mjlab.sensor import ContactSensorCfg
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg
+from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
+from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg, ReachingCommandCfg
 from mjlab.tasks.manipulation.open_door_env_cfg import make_open_door_env_cfg
 from mjlab.tasks.manipulation.open_drawer_env_cfg import make_open_drawer_env_cfg
 from mjlab.tasks.manipulation.push_button_env_cfg import make_push_button_env_cfg
@@ -219,6 +220,54 @@ def franka_lift_cylinder_env_cfg(
     cfg.events.pop("push_robot", None)
     cfg.terminations.pop("ee_ground_collision", None)
     cfg.terminations.pop("object_out_of_bounds", None)
+    cfg.episode_length_s = 5.0
+
+  return cfg
+
+
+def franka_reach_target_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka end-effector reaching to a sampled 3D target (no object).
+
+  The simplest benchmark skill: dense monotonic distance reward, no contact. Anchors
+  the low-fragility (planar) end of the axis and adds the ``reach`` skill family.
+  """
+  cfg = make_reach_target_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  # Franka uses the "gripper" site for the end-effector.
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_target"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params["robot_asset_cfg"].site_names = (
+        "gripper",
+      )
+  cfg.rewards["reach_target"].params["robot_asset_cfg"].site_names = ("gripper",)
+  assert cfg.commands is not None
+  reach_command = cfg.commands["reach_target"]
+  assert isinstance(reach_command, ReachingCommandCfg)
+  reach_command.robot_asset_cfg.site_names = ("gripper",)
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 1.5
+
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
     cfg.episode_length_s = 5.0
 
   return cfg

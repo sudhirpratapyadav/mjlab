@@ -6,8 +6,8 @@ from mjlab.tasks.manipulation.taxonomy import (
 )
 from mjlab.tasks.registry import register_mjlab_task
 
-from .env_cfgs import franka_lift_cube_env_cfg, franka_lift_cylinder_env_cfg, franka_open_door_env_cfg, franka_open_drawer_env_cfg, franka_push_button_env_cfg, franka_push_cuboid_env_cfg, franka_push_disc_env_cfg
-from .rl_cfg import franka_lift_cube_ppo_runner_cfg, franka_lift_cylinder_ppo_runner_cfg, franka_open_door_ppo_runner_cfg, franka_open_drawer_ppo_runner_cfg, franka_push_button_ppo_runner_cfg, franka_push_cuboid_ppo_runner_cfg, franka_push_disc_ppo_runner_cfg
+from .env_cfgs import franka_lift_cube_env_cfg, franka_lift_cylinder_env_cfg, franka_open_door_env_cfg, franka_open_drawer_env_cfg, franka_push_button_env_cfg, franka_push_cuboid_env_cfg, franka_push_disc_env_cfg, franka_reach_target_env_cfg
+from .rl_cfg import franka_lift_cube_ppo_runner_cfg, franka_lift_cylinder_ppo_runner_cfg, franka_open_door_ppo_runner_cfg, franka_open_drawer_ppo_runner_cfg, franka_push_button_ppo_runner_cfg, franka_push_cuboid_ppo_runner_cfg, franka_push_disc_ppo_runner_cfg, franka_reach_target_ppo_runner_cfg
 
 register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Franka",
@@ -40,6 +40,23 @@ register_mjlab_task(
     contact_rich=True,
     notes="Grasp-and-lift a cylinder; rolls and lacks flat faces, so grasp alignment "
     "is less forgiving than the cube (grasp-geometry generalization).",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Reach-Target-Franka",
+  env_cfg=franka_reach_target_env_cfg(),
+  play_env_cfg=franka_reach_target_env_cfg(play=True),
+  test_env_cfg=franka_reach_target_env_cfg(test=True),
+  rl_cfg=franka_reach_target_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.REACH,
+    fragility=Fragility.PLANAR,
+    source="native",
+    contact_rich=False,
+    notes="Move the gripper to a sampled 3D target; dense monotonic reward, no "
+    "contact. Anchors the low-fragility end of the axis (new 'reach' skill family).",
   ),
 )
 
