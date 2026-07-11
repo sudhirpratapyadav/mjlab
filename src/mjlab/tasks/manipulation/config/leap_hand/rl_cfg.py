@@ -45,3 +45,11 @@ def leap_reach_target_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
 
 def leap_lift_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
   return _leap_ppo_runner_cfg("leap_lift_cube")
+
+
+def leap_stack_cube_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  return _leap_ppo_runner_cfg("leap_stack_cube")
+
+
+def leap_peg_insertion_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  return _leap_ppo_runner_cfg("leap_peg_insertion")

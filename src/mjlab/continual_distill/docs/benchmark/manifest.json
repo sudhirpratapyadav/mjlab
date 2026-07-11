@@ -1,20 +1,20 @@
 {
-  "num_tasks": 14,
+  "num_tasks": 16,
   "num_distinct_skills": 5,
   "counts_by_embodiment": {
     "arm_gripper": 12,
-    "floating_hand": 2
+    "floating_hand": 4
   },
   "counts_by_skill": {
-    "pick_place": 6,
-    "insertion": 1,
+    "pick_place": 7,
+    "insertion": 2,
     "reach": 2,
     "articulation": 3,
     "planar_push": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 6,
-    "dexterous": 1,
+    "precision_grasp": 7,
+    "dexterous": 2,
     "planar": 3,
     "mild_contact": 4
   },
@@ -91,6 +91,15 @@
       "contact_rich": true,
       "notes": "Insert a peg into a hole board: grasp + tight alignment into a ~3cm hole. Reuses the Stack MDP with tighter xy tolerance. New 'insertion' skill; most fragile tier (multi-contact precision)."
     },
+    "Mjlab-Peg-Insertion-Leap": {
+      "embodiment": "floating_hand",
+      "skill": "insertion",
+      "fragility": 4,
+      "fragility_name": "dexterous",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Floating LEAP hand inserting a peg into a hole board."
+    },
     "Mjlab-Push-Button-Franka": {
       "embodiment": "arm_gripper",
       "skill": "articulation",
@@ -144,6 +153,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Stack a cube on a cuboid base: grasp + precise place + release. Dynamic goal (tracks the base object). Higher-fragility pick_place than lift."
+    },
+    "Mjlab-Stack-Cube-Leap": {
+      "embodiment": "floating_hand",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Floating LEAP hand stacking a cube on a cuboid base."
     }
   }
 }

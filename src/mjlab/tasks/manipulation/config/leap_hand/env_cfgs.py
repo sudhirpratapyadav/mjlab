@@ -7,12 +7,15 @@ keeps obs/action/reward/success uniform across embodiments.
 """
 
 from mjlab.asset_zoo.objects.free.cube import get_cube_cfg, get_mocap_goal_cfg
+from mjlab.asset_zoo.objects.free.cuboid import get_cuboid_cfg
+from mjlab.asset_zoo.objects.free.peg_in_hole import get_peg_cfg, get_hole_board_cfg
 from mjlab.asset_zoo.robots.leap_hand import LEAP_ACTION_SCALE, get_leap_hand_cfg
 from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp.actions import JointPositionActionCfg, JointDeltaPositionActionCfg
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, ReachingCommandCfg
+from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, ReachingCommandCfg, StackingCommandCfg
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
 from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
+from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_cfg
 
 _EE_SITE = "grasp_site"
 
@@ -92,3 +95,43 @@ def leap_lift_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBas
     cfg.terminations.pop("object_out_of_bounds", None)
     cfg.episode_length_s = 5.0
   return cfg
+
+
+def _leap_stack_like_env_cfg(object_cfg_fn, base_cfg_fn, stack_height, xy_thresh,
+                             play=False, test=False) -> ManagerBasedRlEnvCfg:
+  """Shared builder for LEAP stack/insertion (move 'object' onto/into 'base')."""
+  cfg = make_stack_object_env_cfg()
+  cfg.scene.entities = {
+    "robot": get_leap_hand_cfg(),
+    "object": object_cfg_fn(),
+    "base": base_cfg_fn(),
+  }
+  assert cfg.commands is not None
+  stack_command = cfg.commands["stack_object"]
+  assert isinstance(stack_command, StackingCommandCfg)
+  stack_command.robot_asset_cfg.site_names = (_EE_SITE,)
+  stack_command.stack_height = stack_height
+  stack_command.success_threshold = xy_thresh
+  cfg.rewards["stack"].params["robot_asset_cfg"].site_names = (_EE_SITE,)
+  _apply_leap_common(cfg)
+
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    cfg.terminations.pop("object_out_of_bounds", None)
+    cfg.episode_length_s = 5.0
+  return cfg
+
+
+def leap_stack_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Floating LEAP hand stacking a cube on a cuboid base (Class-C pick_place)."""
+  return _leap_stack_like_env_cfg(get_cube_cfg, get_cuboid_cfg, 0.035, 0.03, play=play, test=test)
+
+
+def leap_peg_insertion_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
+  """Floating LEAP hand inserting a peg into a hole board (Class-C insertion)."""
+  return _leap_stack_like_env_cfg(get_peg_cfg, get_hole_board_cfg, 0.01, 0.015, play=play, test=test)
