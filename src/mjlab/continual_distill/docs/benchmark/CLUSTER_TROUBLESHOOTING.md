@@ -3,6 +3,15 @@
 Log of every problem hit porting the benchmark to the cluster (svs_ald A100) and how
 it was solved. Local = RTX A6000 (sm_86); cluster = A100-SXM4-80GB (sm_80).
 
+> **⚠ ROOT CAUSE CORRECTED (2026-07-29).** §1 and §2 below attribute the segfaults to
+> miscompiled cylinder/ellipsoid/mesh *collision kernels* on sm_80. An isolated repro
+> disproved that: those kernels run **fine** — the crash only happens under
+> **CUDA-graph capture** of the convex/CCD narrowphase, and it is **already fixed
+> upstream** (warp >= 1.14 passes 14/14, including the real LEAP hand with all 21 mesh
+> colliders enabled). The geom workarounds are valid but no longer necessary after a
+> warp upgrade. See **`sm80_repro/FINDINGS.md`** for the full investigation and
+> `tests/test_sm80_graph_capture.py` for the regression guard.
+
 Cluster path: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch `benchmark-manip-diversity`).
 GitHub: `sudhirpratapyadav/mjlab`. Sync = push local → `git pull` on cluster.
 
@@ -112,7 +121,12 @@ pass individually — when run as `python -m ... :main`.
 All fixes keep obs/action dims and a distinct grasp geometry per task.
 
 ## Stage-two follow-ups
-- Upgrade mujoco-warp when the sm_80 cylinder/ellipsoid/mesh collision bug is fixed
-  upstream, then restore true cylinder/ellipsoid geoms + LEAP fingertip mesh colliders.
-- Or: add primitive (capsule/sphere) fingertip colliders to the LEAP hand for grasp
-  fidelity without relying on mesh collision.
+- **The upstream fix already exists** (verified 2026-07-29): warp 1.14/1.15 +
+  mujoco-warp 3.11 pass every case that crashes today, including the LEAP hand with
+  mesh colliders re-enabled. Upgrading is now a *validation* task, not a waiting task —
+  mjlab pins mujoco-warp to git rev `46b4421` (v0.0.1), so the bump needs a full
+  20-task `benchmark-smoke --isolate` re-run to check for moved APIs.
+- After upgrading, revert both workarounds (mesh `contype=0`; cylinder/disc/ellipsoid
+  → capsule) to restore true grasp geometry and fingertip contact fidelity.
+- `tests/test_sm80_graph_capture.py` guards this: its 4 convex cases are `xfail` today
+  and XPASS once the upgrade lands.
