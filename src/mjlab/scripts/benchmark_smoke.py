@@ -67,12 +67,40 @@ def smoke_test_task(
     return SmokeResult(task_id, False, detail=f"{type(exc).__name__}: {exc}")
 
 
+def _smoke_test_subprocess(task_id, num_envs, steps, device) -> SmokeResult:
+  """Run one task's smoke test in a fresh subprocess; parse its one-line result."""
+  import json
+  import subprocess
+  import sys
+
+  code = (
+    "import os,json,sys;"
+    "from mjlab.scripts.benchmark_smoke import smoke_test_task as s;"
+    f"r=s({task_id!r},num_envs={num_envs},steps={steps},"
+    f"device={device!r});"
+    "print('SMOKE_JSON'+json.dumps({'ok':r.ok,'obs':r.obs_dim,"
+    "'action':r.action_dim,'detail':r.detail}))"
+  )
+  env = {**os.environ, "PYTHONPATH": os.environ.get("PYTHONPATH", "src")}
+  proc = subprocess.run(
+    [sys.executable, "-c", code], capture_output=True, text=True, env=env
+  )
+  for line in proc.stdout.splitlines():
+    if line.startswith("SMOKE_JSON"):
+      d = json.loads(line[len("SMOKE_JSON"):])
+      return SmokeResult(task_id, d["ok"], d["obs"], d["action"], d["detail"])
+  # No result line -> crashed (e.g. segfault); report it.
+  tail = (proc.stderr.strip().splitlines() or ["no output"])[-1]
+  return SmokeResult(task_id, False, detail=f"subprocess rc={proc.returncode}: {tail}")
+
+
 def run(
   keyword: str | None = None,
   num_envs: int = 4,
   steps: int = 10,
   device: str | None = None,
   verbose: bool = False,
+  isolate: bool = False,
 ) -> int:
   """Smoke-test benchmark tasks and print a summary table.
 
@@ -82,6 +110,9 @@ def run(
     steps: Zero-action steps to take per task.
     device: "cuda"/"cpu"; auto if None.
     verbose: Print full traceback for failures.
+    isolate: Run each task in a fresh subprocess. Slower but robust — building many
+      warp/mujoco envs in one process can corrupt CUDA state and segfault on some GPUs
+      (cluster). Use this for a full sweep.
 
   Returns the number of failing tasks (0 == all green; usable as an exit code).
   """
@@ -91,7 +122,10 @@ def run(
 
   results: list[SmokeResult] = []
   for task_id in task_ids:
-    res = smoke_test_task(task_id, num_envs=num_envs, steps=steps, device=device)
+    if isolate:
+      res = _smoke_test_subprocess(task_id, num_envs, steps, device)
+    else:
+      res = smoke_test_task(task_id, num_envs=num_envs, steps=steps, device=device)
     results.append(res)
     if verbose and not res.ok:
       print(f"\n--- {task_id} FAILED ---\n{res.detail}\n")
