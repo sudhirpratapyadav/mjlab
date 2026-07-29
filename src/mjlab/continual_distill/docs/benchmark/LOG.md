@@ -582,3 +582,63 @@ only in throwaway venvs; the repo `.venv` is untouched. Next step (user's call):
 upgrade in a scratch env → full 20-task `benchmark-smoke --isolate` → if green, revert
 both workarounds and restore true cylinder/ellipsoid/disc geoms + LEAP mesh colliders.
 Commit 4bc5ab6.
+
+---
+
+### 2026-07-30 — warp/mujoco-warp upgrade applied; sm_80 workarounds reverted
+
+User: "fix everything". Validated the upgrade in a cloned scratch venv first (never
+touching the working `.venv` until green), then applied it. Commit fb15756.
+
+Bump: warp-lang 1.11.0.dev20251124 → 1.15.0, mujoco-warp 0.0.1 (git rev `46b4421`) →
+3.11.0, mujoco 3.3.7 → 3.11.0. The `mujoco<=3.3.8` cap had to be lifted — mujoco-warp
+3.11 requires mujoco 3.11. The git-rev pin in `[tool.uv.sources]` is gone; mujoco-warp
+is a released package now.
+
+**The upgrade was NOT drop-in.** Two real API breaks, found by re-running the 20-task
+sweep after each fix:
+
+1. `opt.ls_parallel` removed in MuJoCo Warp 3.9.1 — raises AttributeError on get AND
+   set. Killed all 20 tasks instantly. `Simulation` now sets it best-effort.
+
+2. `WarpBridge`/`TorchArray` silently stopped broadcasting shared model arrays. The
+   1 → nworld expansion was gated on `stride(0) == 0`, which only held because old
+   mujoco-warp built those arrays as zero-stride broadcasts; 3.x allocates them with
+   real strides (jnt_range stride(0): 0 → 2, body_pos: 0 → 6). The gate silently
+   skipped the expansion → `soft_joint_pos_limits` stayed (1, njnt, 2) instead of
+   (nworld, njnt, 2) → CUDA device-side assert on the first per-env index in
+   `reset_joints_by_offset`. Now keyed on `shape[0] == 1` alone; only the *model*
+   bridge passes nworld, so per-world Data arrays are unaffected.
+   **Worth remembering: a stride-dependent broadcast is a silent-correctness trap, not
+   just a crash.** Anything else indexing shared model arrays per-env would have been
+   quietly wrong, not loudly broken.
+
+**Both workarounds reverted** (via `git checkout <pre-workaround-rev> -- <paths>`):
+cylinder/disc/ellipsoid back to real CYLINDER/CYLINDER/ELLIPSOID geoms (verified by
+reading mjtGeom after compile), and LEAP + Franka-LEAP mesh collision re-enabled. The
+benchmark's advertised shape diversity is now the simulated shape diversity.
+
+**Two tests needed fixing.** `test_sim` asserted the removed `ls_parallel`. More
+interestingly, `test_builtin_sensor::test_accelerometer_sensor` stepped 100 times and
+asserted |accel| > 0 — but the base starts at z=1.0 and is STILL IN FREE FALL at step
+100 (z≈0.80), where a proper accelerometer correctly reads ~0. It had only ever passed
+by catching a ~1e-15 float artifact on the exact sampled step. Traced both stacks
+side-by-side: identical trajectories, identical ~1e-7/1e-15 noise — so this was a
+latent bad test, NOT a behaviour change from the upgrade. Now steps until the robot
+lands and asserts a real ground reaction (~g); passes on old and new stacks alike.
+
+`test_sm80_graph_capture.py`: the 4 convex cases flipped xfail → pass, so they are now
+hard assertions (a segfault there means the env is below the pin).
+
+Validation on A100 (sm_80), in the real venv: **20/20 benchmark-smoke --isolate** with
+real geoms + live mesh colliders, **325/325 pytest** (was 309 passed / 2 failed
+mid-upgrade), obs/action dims unchanged for all 20 tasks. uv.lock regenerated.
+
+Note: the old venv now segfaults on the test suite — expected and correct, since the
+reverted assets use real cylinder/ellipsoid/mesh geoms that need the upstream fix.
+Confirmed it dies at exactly `collision_convex.py:1027::convex_narrowphase`.
+
+Open cosmetic follow-up: mujoco-warp warns `MULTICCD is enabled, but the scene contains
+CCD pairs without multicontact support: [('CYLINDER','BOX')]` (≤1 contact for those
+pairs). Fires from test fixtures, not benchmark tasks; worth a look if cylinder grasp
+stability matters at train time.

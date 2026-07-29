@@ -10,13 +10,13 @@ Last updated: 2026-07-29
 **Suite: 20 tasks / 5 skills / 3 embodiment classes / all 4 fragility tiers.**
 ALL 20 pass benchmark-smoke — **LOCAL (A6000) and CLUSTER (A100, 20/20)**; 17 unit tests green.
 Cluster: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch benchmark-manip-diversity).
-sm_80 warp segfaults worked around (LEAP mesh→box colliders; cylinder/disc/ellipsoid
-→capsule); use `benchmark-smoke --isolate` on cluster.
-**Root cause isolated 2026-07-29** — it is a **CUDA-graph-capture** bug in the
-convex/CCD narrowphase, *not* a bad collision kernel (all geoms step fine eagerly), and
-it is **already fixed upstream**: warp 1.14/1.15 + mujoco-warp 3.11 pass 14/14 including
-the real LEAP hand with mesh colliders re-enabled. Upgrading (pin is git rev `46b4421`
-= v0.0.1) would let both workarounds be reverted, restoring true grasp geometry.
+Use `benchmark-smoke --isolate` on cluster.
+**sm_80 segfaults RESOLVED (commits 4bc5ab6, fb15756).** Root-caused to a
+**CUDA-graph-capture** bug in the convex/CCD narrowphase — *not* a bad collision kernel
+(all geoms step fine eagerly) — and fixed upstream. mjlab now requires
+`mujoco-warp>=3.11` / `warp-lang>=1.14`, and **both workarounds are reverted**:
+cylinder/disc/ellipsoid are real CYLINDER/ELLIPSOID geoms again and LEAP mesh collision
+is live. 20/20 smoke + 325/325 pytest on A100.
 See `sm80_repro/FINDINGS.md`; guarded by `tests/test_sm80_graph_capture.py`.
 - arm_gripper (Class A, 12): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
   peg-insertion; push ×2 (cuboid/disc); articulation ×3 (door/drawer/button). action=8.
@@ -82,13 +82,13 @@ Registered IDs (source of truth: `manifest.json`, `num_tasks: 20`); fragility ti
 Distinct skills: reach, pick-place, planar-push, articulation, insertion
 (**5 families, 20 tasks**). Class A: 12 (action=8). Class B: 3 (action=23).
 Class C: 5 (action=22).
-**All 20 pass `benchmark-smoke` on local A6000 and cluster A100 (`--isolate`)** —
-the stage-one acceptance check. 17 unit tests green, plus
-`tests/test_sm80_graph_capture.py` (10 passed / 4 xfail).
+**All 20 pass `benchmark-smoke` on cluster A100 (`--isolate`)** — the stage-one
+acceptance check — with real cylinder/ellipsoid geoms and live LEAP mesh colliders.
+**325/325 pytest green**, including `tests/test_sm80_graph_capture.py` (14/14).
 
-> Caveat on shape diversity: tasks 7/4/11 (cylinder/disc/ellipsoid) currently simulate
-> **capsule** geoms, and the LEAP hand grasps with **box** phalanges, due to the sm_80
-> graph-capture workaround. A warp upgrade restores the true geometry — see the header.
+> Shape diversity is now genuine: since fb15756 the cylinder/disc/ellipsoid tasks
+> simulate real CYLINDER/ELLIPSOID geoms (not capsule stand-ins) and the LEAP hand
+> grasps with its true fingertip meshes (not box phalanges).
 
 ### On "train-validation" (stage two, informational only)
 Building the suite is stage one; solving it (RL/CL) is stage two. So train-solvability

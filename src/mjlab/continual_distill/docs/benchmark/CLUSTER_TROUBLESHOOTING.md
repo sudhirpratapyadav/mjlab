@@ -3,13 +3,19 @@
 Log of every problem hit porting the benchmark to the cluster (svs_ald A100) and how
 it was solved. Local = RTX A6000 (sm_86); cluster = A100-SXM4-80GB (sm_80).
 
-> **⚠ ROOT CAUSE CORRECTED (2026-07-29).** §1 and §2 below attribute the segfaults to
-> miscompiled cylinder/ellipsoid/mesh *collision kernels* on sm_80. An isolated repro
-> disproved that: those kernels run **fine** — the crash only happens under
-> **CUDA-graph capture** of the convex/CCD narrowphase, and it is **already fixed
-> upstream** (warp >= 1.14 passes 14/14, including the real LEAP hand with all 21 mesh
-> colliders enabled). The geom workarounds are valid but no longer necessary after a
-> warp upgrade. See **`sm80_repro/FINDINGS.md`** for the full investigation and
+> **⚠ RESOLVED — §1 and §2 below are HISTORICAL (2026-07-29/30).** They attribute the
+> segfaults to miscompiled cylinder/ellipsoid/mesh *collision kernels* on sm_80. An
+> isolated repro disproved that: those kernels run **fine** — the crash only happened
+> under **CUDA-graph capture** of the convex/CCD narrowphase, and it was **already
+> fixed upstream**.
+>
+> **The fix has been applied (commit fb15756).** mjlab now requires
+> `mujoco-warp>=3.11` / `warp-lang>=1.14` (mujoco-warp was pinned to git rev
+> `46b4421` = v0.0.1), and **both workarounds are reverted**: cylinder/disc/ellipsoid
+> are real CYLINDER/ELLIPSOID geoms again, and LEAP mesh collision is re-enabled.
+> Validated on A100: 20/20 `benchmark-smoke --isolate`, 325/325 pytest.
+>
+> See **`sm80_repro/FINDINGS.md`** for the investigation and
 > `tests/test_sm80_graph_capture.py` for the regression guard.
 
 Cluster path: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch `benchmark-manip-diversity`).
@@ -120,13 +126,31 @@ pass individually — when run as `python -m ... :main`.
 **20/20 tasks pass `benchmark-smoke --isolate` on the A100 cluster** (and locally).
 All fixes keep obs/action dims and a distinct grasp geometry per task.
 
-## Stage-two follow-ups
-- **The upstream fix already exists** (verified 2026-07-29): warp 1.14/1.15 +
-  mujoco-warp 3.11 pass every case that crashes today, including the LEAP hand with
-  mesh colliders re-enabled. Upgrading is now a *validation* task, not a waiting task —
-  mjlab pins mujoco-warp to git rev `46b4421` (v0.0.1), so the bump needs a full
-  20-task `benchmark-smoke --isolate` re-run to check for moved APIs.
-- After upgrading, revert both workarounds (mesh `contype=0`; cylinder/disc/ellipsoid
-  → capsule) to restore true grasp geometry and fingertip contact fidelity.
-- `tests/test_sm80_graph_capture.py` guards this: its 4 convex cases are `xfail` today
-  and XPASS once the upgrade lands.
+## Upgrade — DONE (commit fb15756)
+
+The upgrade landed. What it took, beyond the version bump:
+
+- **`opt.ls_parallel` was removed in MuJoCo Warp 3.9.1** (raises `AttributeError` on
+  get *and* set). `Simulation` now sets it best-effort, so mjlab works either side of
+  the change.
+- **`WarpBridge`/`TorchArray` silently stopped broadcasting shared model arrays.** The
+  1 → `nworld` expansion was gated on `stride(0) == 0`, which only held because old
+  mujoco-warp built those arrays as zero-stride broadcasts; 3.x allocates them with
+  real strides (`jnt_range` stride(0): 0 → 2). The gate silently skipped the
+  expansion, so `soft_joint_pos_limits` stayed `(1, njnt, 2)` instead of
+  `(nworld, njnt, 2)` → device-side assert on the first per-env index. Now keyed on
+  `shape[0] == 1` alone. **This was a silent-correctness bug, not just a crash** —
+  worth remembering if other shared model arrays are indexed per-env.
+- Two tests needed fixing; one (`test_accelerometer_sensor`) turned out to be a latent
+  bad test that only ever passed on a ~1e-15 float artifact. See the commit message.
+
+Result: 20/20 `benchmark-smoke --isolate` and 325/325 pytest on A100, with **real**
+cylinder/ellipsoid geoms and **live** LEAP mesh colliders.
+
+## Remaining stage-two follow-ups
+- MuJoCo Warp warns `MULTICCD is enabled, but the scene contains CCD pairs without
+  multicontact support: [('CYLINDER','BOX')]` — at most 1 contact for those pairs.
+  Harmless for smoke (it fires from test fixtures, not the benchmark tasks), but worth
+  a look if cylinder grasp stability matters at train time.
+- `benchmark-smoke --isolate` is still recommended on the cluster (§3 — the
+  multi-env-per-process CUDA state corruption is a separate issue, not retested here).

@@ -10,6 +10,9 @@ The crash is **real and reproducible**, but the previously documented root cause
 
 > **The kernels are fine. The bug is in CUDA-graph capture of the convex/CCD narrowphase,
 > and it is already fixed upstream — warp >= 1.14 passes 14/14.**
+>
+> **STATUS: RESOLVED.** The upgrade has been applied and both geom workarounds reverted
+> (commit fb15756) — see [Resolution](#resolution--upgrade-applied-commit-fb15756).
 
 Evidence: every geom that crashes under `wp.ScopedCapture()` runs **perfectly when
 stepped eagerly** on the same GPU, same kernels, same data.
@@ -96,38 +99,70 @@ be fixing the wrong layer.
 
 ## What this means for the benchmark
 
-The two workarounds in the tree are **valid but no longer necessary** once warp is
-upgraded:
+The two workarounds were **valid but cost real fidelity** — the suite advertised
+cylinder/ellipsoid/disc grasping while actually simulating capsules, and the dexterous
+hand grasped with box phalanges. Both have since been **reverted** (see Resolution
+below):
 
 1. `leap_constants.py` / `franka_leap_constants.py`: `contype=conaffinity=0` on mesh
-   geoms → can be reverted, restoring true fingertip mesh collision fidelity.
-2. `cylinder` / `disc` / `ellipsoid` objects swapped to **capsule** → can be reverted,
+   geoms → reverted, restoring true fingertip mesh collision fidelity.
+2. `cylinder` / `disc` / `ellipsoid` objects swapped to **capsule** → reverted,
    restoring genuinely distinct grasp geometries (which matters for a benchmark whose
    whole point is shape diversity).
-
-Both currently cost real fidelity: the suite advertises cylinder/ellipsoid/disc grasping
-but actually simulates capsules, and the dexterous hand grasps with box phalanges.
 
 `benchmark-smoke --isolate` remains useful regardless — the multi-env-per-process CUDA
 state corruption (§3 of CLUSTER_TROUBLESHOOTING) is a separate issue, not retested here.
 
-## Recommended next steps (not yet done — needs your call)
+## Resolution — upgrade applied (commit fb15756)
 
-The version bump is not a free action: mujoco-warp `0.0.1` → `3.11.0` is a large jump
-and mjlab pins it to a **git rev** in `pyproject.toml`:
+Done, in the order above: validated in a cloned scratch venv first, then applied to the
+pinned env. `pyproject.toml` now requires `mujoco-warp>=3.11`, `warp-lang>=1.14`,
+`mujoco>=3.11` (the git-rev pin is gone; the `mujoco<=3.3.8` cap had to be lifted
+because mujoco-warp 3.11 requires mujoco 3.11).
 
-```
-mujoco-warp = { git = "...", rev = "46b4421c19a9d72eeeb7ed8c083d275746513d38" }
-warp-lang   = { index = "nvidia" }
-```
+**The upgrade was not drop-in — two real API breaks had to be fixed:**
 
-1. Upgrade in a scratch venv and run the **full 20-task `benchmark-smoke --isolate`**
-   before touching the pinned env — mjlab may use mujoco-warp APIs that moved.
-2. If green, revert the two workarounds and re-run smoke to confirm real
-   cylinder/ellipsoid/mesh geoms now build and step.
-3. Keep `tests/test_sm80_graph_capture.py` as the guard: the 4 convex cases are
-   `xfail` today and will **XPASS** the moment the upgrade lands, which is the signal
-   that the workarounds are safe to remove.
+1. **`opt.ls_parallel` was removed in MuJoCo Warp 3.9.1** and raises `AttributeError`
+   on both get and set. `Simulation` now applies it best-effort. Caused all 20 tasks to
+   fail instantly.
+
+2. **`WarpBridge`/`TorchArray` silently stopped broadcasting shared model arrays.** The
+   1 → `nworld` expansion was gated on `stride(0) == 0`. That held only because
+   mujoco-warp <= 0.0.1 built these arrays as zero-stride broadcasts; 3.x allocates
+   them with real strides (`jnt_range` stride(0): **0 → 2**, `body_pos`: 0 → 6). The
+   gate silently skipped the expansion, leaving `soft_joint_pos_limits` at
+   `(1, njnt, 2)` where `(nworld, njnt, 2)` was expected → CUDA device-side assert on
+   the first per-env index in `reset_joints_by_offset`. Now keyed on `shape[0] == 1`
+   alone. Only the *model* bridge passes `nworld`, so per-world `Data` arrays are
+   untouched.
+
+   This one is worth remembering: a stride-dependent broadcast is a **silent
+   correctness** trap, not just a crash — anything else indexing shared model arrays
+   per-env would have been quietly wrong.
+
+**Both workarounds reverted:**
+- `cylinder` / `disc` / `ellipsoid`: capsule → real `CYLINDER` / `CYLINDER` /
+  `ELLIPSOID` geoms (verified via `mjtGeom` after compile).
+- LEAP hand + Franka-LEAP: mesh collision re-enabled (the `contype=conaffinity=0` loops
+  are gone), restoring true fingertip contact instead of box phalanges.
+
+**Two tests needed fixing.** `test_sim` asserted the removed `ls_parallel`. And
+`test_builtin_sensor::test_accelerometer_sensor` stepped 100 times then asserted
+`|accel| > 0` — but the base starts at z=1.0 and is still in **free fall** at step 100
+(z≈0.80), where a proper accelerometer correctly reads ~0. It had only ever passed by
+catching a ~1e-15 float artifact on the sampled step. Both stacks produce *identical*
+trajectories, so this was a latent bad test, not a behaviour change; it now steps until
+the robot lands and asserts a real ground reaction (~g), passing on old and new alike.
+
+**Validation on A100 (sm_80):** 20/20 `benchmark-smoke --isolate` with real geoms and
+live mesh colliders; **325/325 pytest**; obs/action dims unchanged for all 20 tasks;
+`test_sm80_graph_capture.py` 14/14 (the 4 convex cases went xfail → pass, so they are
+now hard assertions rather than expected failures).
+
+Known cosmetic follow-up: MuJoCo Warp warns `MULTICCD is enabled, but the scene
+contains CCD pairs without multicontact support: [('CYLINDER','BOX')]` (≤1 contact for
+those pairs). It fires from test fixtures, not the benchmark tasks, but is worth a look
+if cylinder grasp stability matters at train time.
 
 ## Reproducing
 

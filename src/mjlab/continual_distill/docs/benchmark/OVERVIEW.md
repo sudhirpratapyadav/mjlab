@@ -123,22 +123,16 @@ Fragility: planar 4, mild_contact 4, precision_grasp 10, dexterous 2.
 - New arm+hand: `MjSpec` delete gripper + attach fixed hand at link7.
 
 ### Known issues / stage-two TODO
-- **mujoco-warp 0.0.1 segfaults on some collision geoms on sm_80 (A100), not sm_86
-  (A6000).** Root cause isolated 2026-07-29 (`sm80_repro/FINDINGS.md`): **not** a bad
-  collision kernel — every failing geom steps fine *eagerly*; the crash only occurs
-  under **CUDA-graph capture** of the convex/CCD narrowphase
-  (`collision_convex.py::convex_narrowphase`). Hence box/sphere/capsule survive: they
-  use the analytic primitive narrowphase and never enter CCD.
-  Current workarounds (valid, but only needed until warp is upgraded):
-  - LEAP hand: mesh collision disabled (per-phalanx box colliders keep contact).
-  - cylinder / disc / ellipsoid: → **capsule** (object + mocap goal).
-  **Already fixed upstream:** warp 1.14/1.15 + mujoco-warp 3.11 pass 14/14, including
-  the real LEAP hand with all 21 mesh colliders re-enabled. Upgrading is now a
-  validation task, not a waiting task — mujoco-warp is pinned to git rev `46b4421`
-  (v0.0.1), so the bump needs a full 20-task `benchmark-smoke --isolate` re-run first;
-  then both workarounds can be reverted to restore true grasp geometry and fingertip
-  contact fidelity. Guarded by `tests/test_sm80_graph_capture.py` (4 xfail → XPASS on
-  upgrade).
+- **sm_80 collision segfaults — RESOLVED** (commits 4bc5ab6, fb15756). Root cause was
+  **not** a bad collision kernel: every failing geom stepped fine *eagerly*; the crash
+  only occurred under **CUDA-graph capture** of the convex/CCD narrowphase
+  (`collision_convex.py::convex_narrowphase`), which is why box/sphere/capsule survived
+  — they use the analytic primitive narrowphase and never enter CCD. Fixed upstream;
+  mjlab now requires `mujoco-warp>=3.11` / `warp-lang>=1.14`, and **both workarounds
+  are reverted** — cylinder/disc/ellipsoid are real CYLINDER/ELLIPSOID geoms and LEAP
+  mesh collision is live. The upgrade also required fixing a silent
+  `WarpBridge` broadcast bug (see `sm80_repro/FINDINGS.md`).
+  Guarded by `tests/test_sm80_graph_capture.py`.
 - **Cluster sweep must use `--isolate`** (subprocess per task): building many warp envs
   in one process corrupts CUDA state → segfault, even when each task passes alone.
 - Hand tasks smoke-pass but need training to solve (stage two) — expected for new
