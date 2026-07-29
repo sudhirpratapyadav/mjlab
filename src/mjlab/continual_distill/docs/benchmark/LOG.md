@@ -509,3 +509,18 @@ authoring guide, new assets (peg+hole, sphere, ellipsoid, leap_hand, franka_leap
 
 Updated STATUS with the final tally, proven embodiment-integration recipes, and the
 prioritized next steps. Clean state for the user's return. Nothing pushed (user pushes).
+
+### 2026-07-11 (cluster port) — mujoco-warp sm_80 collision segfaults fixed
+
+Ported suite to cluster (svs_ald:~/sudhir/mjlab, git-init + fetch benchmark branch;
+venv/datasets preserved). Cluster A100 (sm_80) vs local A6000 (sm_86): same mujoco-warp
+0.0.1 segfaults on GPU-specific collision kernels.
+- LEAP hand mesh-mesh collision → segfault at CUDA-graph capture. Fix: disable mesh
+  collision (contype/conaffinity=0); per-phalanx box colliders keep contact.
+- cylinder/disc/ellipsoid CYLINDER/ELLIPSOID geoms → segfault. Fix: capsule geom
+  (object + mocap goal) — keeps distinct non-box grasp shape, warp-safe.
+- nconmax/njmax bumped for hand envs (many contacts).
+- benchmark-smoke: --isolate (subprocess/task) — multi-env-in-one-proc corrupts CUDA
+  on cluster; os._exit to dodge teardown segfault (exit 139).
+17/20 → fixing to 20/20 (sweep running). All fixes pushed to GitHub + pulled cluster.
+Cluster path: /ihub/homedirs/svs_ald/sudhir/mjlab

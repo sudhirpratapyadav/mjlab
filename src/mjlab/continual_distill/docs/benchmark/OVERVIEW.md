@@ -46,7 +46,9 @@ CL comparisons are discriminating (an all-planar suite washes out method signal)
 ## 2. Where it lives (code paths)
 
 Repo: `mjlab` (GitHub `sudhirpratapyadav/mjlab`), branch **`benchmark-manip-diversity`**.
-Cluster: `svs_ald:~/sudhir/mjlab` (same branch).
+- Local: `/media/cvlab/EXTDRIVE/sudhir/continual_learning/mjlab` (dev, RTX A6000 / sm_86).
+- **Cluster: `svs_ald:/ihub/homedirs/svs_ald/sudhir/mjlab`** (same branch; A100 / sm_80).
+  Sync = git push local → `git pull` on cluster. `.venv` is uv-managed (use `uv pip`).
 
 ```
 src/mjlab/
@@ -120,11 +122,17 @@ Fragility: planar 4, mild_contact 4, precision_grasp 10, dexterous 2.
 - New floating hand: Menagerie model → add actuated 6-DoF base + grasp_site → robot cfg.
 - New arm+hand: `MjSpec` delete gripper + attach fixed hand at link7.
 
-### Known issue / stage-two TODO
-LEAP mesh-collision disabled (mujoco-warp narrowphase segfaults on mesh-mesh on A100;
-per-phalanx box colliders keep contact). Replace with primitive fingertip colliders
-later for full grasp fidelity. Hand tasks smoke-pass but need training to solve (stage
-two) — expected for new 22/23-D embodiments.
+### Known issues / stage-two TODO
+- **mujoco-warp 0.0.1 segfaults on some collision geoms on sm_80 (A100), not sm_86
+  (A6000)** — same code, GPU-specific kernel bug. Worked around by geom swaps that keep
+  a distinct grasp shape and are warp-safe:
+  - LEAP hand: mesh collision disabled (per-phalanx box colliders keep contact).
+  - cylinder / disc / ellipsoid: → **capsule** (object + mocap goal).
+  Stage-two: revisit with newer mujoco-warp / primitive fingertip colliders.
+- **Cluster sweep must use `--isolate`** (subprocess per task): building many warp envs
+  in one process corrupts CUDA state → segfault, even when each task passes alone.
+- Hand tasks smoke-pass but need training to solve (stage two) — expected for new
+  22/23-D embodiments.
 
 ---
 

@@ -8,7 +8,10 @@ Last updated: 2026-07-11 21:05 IST
 ## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 20 tasks**
 
 **Suite: 20 tasks / 5 skills / 3 embodiment classes / all 4 fragility tiers.**
-ALL 20 pass the full benchmark-smoke sweep; 17 unit tests green.
+ALL 20 pass benchmark-smoke — **LOCAL (A6000) and CLUSTER (A100, 20/20)**; 17 unit tests green.
+Cluster: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch benchmark-manip-diversity).
+sm_80 warp collision segfaults fixed (LEAP mesh→box colliders; cylinder/disc/ellipsoid
+→capsule); use `benchmark-smoke --isolate` on cluster.
 - arm_gripper (Class A, 12): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
   peg-insertion; push ×2 (cuboid/disc); articulation ×3 (door/drawer/button). action=8.
 - floating_hand (Class C, 5): reach, lift-cube, lift-sphere, stack, peg-insertion
