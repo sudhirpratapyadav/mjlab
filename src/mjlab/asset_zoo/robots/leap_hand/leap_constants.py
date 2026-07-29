@@ -39,18 +39,13 @@ def get_assets(meshdir: str) -> dict[str, bytes]:
 def get_spec() -> mujoco.MjSpec:
     """Load the floating LEAP hand MjSpec with assets.
 
-    Mesh collision geoms are disabled (contype/conaffinity = 0): mujoco-warp's
-    narrowphase segfaults on this hand's mesh-mesh collision on some GPUs (A100).
-    Contact is preserved via the per-phalanx primitive (box) colliders, which remain
-    active. Fingertip-mesh collision fidelity is a stage-two TODO (replace with
-    primitive fingertip colliders).
+    Mesh collision is ENABLED. It was previously disabled (contype/conaffinity = 0)
+    to work around segfaults on A100 (sm_80), but that was root-caused to a
+    CUDA-graph-capture bug in mujoco-warp's convex/CCD narrowphase, fixed upstream in
+    warp >= 1.14 / mujoco-warp >= 3.x. See docs/benchmark/sm80_repro/FINDINGS.md.
     """
     spec = mujoco.MjSpec.from_file(str(LEAP_XML))
     spec.assets = get_assets(spec.meshdir)
-    for geom in spec.geoms:
-        if geom.type == mujoco.mjtGeom.mjGEOM_MESH:
-            geom.contype = 0
-            geom.conaffinity = 0
     return spec
 
 

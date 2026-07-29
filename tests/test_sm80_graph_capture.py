@@ -78,14 +78,17 @@ def test_graph_capture_works_for_primitive_geoms(geom: str) -> None:
 def test_graph_capture_for_convex_geoms(geom: str) -> None:
     """Convex/CCD geoms under graph capture.
 
-    Crashes (rc 139/-11) on warp 1.11.0.dev20251124 + sm_80; passes on warp >= 1.14.
-    An xfail here means the environment still needs the capsule/box workaround; an
-    XPASS means warp has been upgraded and the workaround can be reverted.
+    This crashed (rc 139/-11) on warp 1.11.0.dev20251124 + sm_80, which is what forced
+    the capsule/box asset workarounds. mjlab now requires mujoco-warp >= 3.11, where it
+    is fixed, so this must PASS — a failure here means the environment has been
+    downgraded below the pin, and the real cylinder/ellipsoid/mesh assets will segfault.
     """
     p = _run(geom)
     if p.returncode in (139, -11):
-        pytest.xfail(
-            f"known sm_80 graph-capture segfault for {geom} on this warp version; "
-            "upgrade warp (>=1.14) to fix — see docs/benchmark/sm80_repro/FINDINGS.md"
+        pytest.fail(
+            f"sm_80 graph-capture segfault for {geom}. The environment's mujoco-warp is "
+            "older than the pyproject pin (>=3.11); the asset_zoo's real "
+            "cylinder/ellipsoid/mesh geoms need the upstream fix. "
+            "See docs/benchmark/sm80_repro/FINDINGS.md"
         )
     assert p.returncode == 0, f"unexpected failure for {geom}:\n{p.stdout}\n{p.stderr}"

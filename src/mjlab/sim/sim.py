@@ -88,7 +88,11 @@ class SimulationCfg:
   
   Constraint arrays are batched by world: no world may have more than njmax
   constraints. If None, a heuristic value is used."""
-  ls_parallel: bool = True  # Boosts perf quite noticeably.
+  ls_parallel: bool = True
+  """Parallel linesearch. Boosts perf quite noticeably.
+
+  Ignored on MuJoCo Warp >= 3.9.1, which removed the option (the solver handles the
+  linesearch internally). Kept for backward compatibility with pinned older versions."""
   contact_sensor_maxmatch: int = 64
   mujoco: MujocoCfg = field(default_factory=MujocoCfg)
   nan_guard: NanGuardCfg = field(default_factory=NanGuardCfg)
@@ -114,7 +118,12 @@ class Simulation:
     # MJWarp model and data.
     with wp.ScopedDevice(self.wp_device):
       self._wp_model = mjwarp.put_model(self._mj_model)
-      self._wp_model.opt.ls_parallel = cfg.ls_parallel
+      # ls_parallel was removed in MuJoCo Warp 3.9.1 (raises AttributeError on both
+      # get and set). Setting it is best-effort so mjlab works across versions.
+      try:
+        self._wp_model.opt.ls_parallel = cfg.ls_parallel
+      except AttributeError:
+        pass
       self._wp_model.opt.contact_sensor_maxmatch = cfg.contact_sensor_maxmatch
 
       self._wp_data = mjwarp.put_data(

@@ -34,7 +34,7 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
     mocap_goal.pos = [0, 0, 0]
     mocap_goal.add_geom(
         name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_CAPSULE,
+        type=mujoco.mjtGeom.mjGEOM_CYLINDER,
         size=[0.02, 0.02, 0.0],  # EXACT same as working cylinder (radius, half-height, unused)
         rgba=[1, 0.5, 0, 1],  # Orange (same as other mocap goals)
         contype=0,

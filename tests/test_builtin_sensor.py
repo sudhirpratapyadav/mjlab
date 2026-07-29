@@ -127,15 +127,21 @@ def test_accelerometer_sensor(articulated_robot_xml, device):
 
   sensor = scene["robot/base_accel"]
 
-  # Step to make robot fall.
-  for _ in range(100):
+  # Step until the robot lands. The base starts at z=1.0 and free-falls; while it is
+  # in free fall a proper accelerometer correctly reads ~0, so the sensor only shows
+  # the ground-reaction (~g) once it is resting on the floor. 100 steps is not enough
+  # to land (z only reaches ~0.8) — sample after it has actually settled.
+  for _ in range(600):
     sim.step()
 
   data = sensor.data
 
   assert isinstance(data, torch.Tensor)
   assert data.shape == (2, 3)
-  assert torch.any(torch.abs(data) > 0)
+  # Resting on the floor, the accelerometer should read roughly +g along z.
+  assert torch.all(torch.abs(data[:, 2]) > 1.0), (
+    f"expected a non-trivial ground-reaction acceleration, got {data}"
+  )
 
 
 def test_multiple_sensors(articulated_robot_xml, device):

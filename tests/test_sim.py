@@ -79,4 +79,11 @@ def test_simulation_config_is_piped(robot_xml, device):
 
   # SimulationCfg should be applied to wp_model.
   assert sim.wp_model.opt.contact_sensor_maxmatch == cfg.contact_sensor_maxmatch
-  assert sim.wp_model.opt.ls_parallel == cfg.ls_parallel
+  # ls_parallel was removed in MuJoCo Warp 3.9.1 (accessing it raises AttributeError).
+  # Simulation applies it best-effort, so only assert it where the option still exists.
+  try:
+    ls_parallel = sim.wp_model.opt.ls_parallel
+  except AttributeError:
+    pass
+  else:
+    assert ls_parallel == cfg.ls_parallel

@@ -54,12 +54,8 @@ def get_spec() -> mujoco.MjSpec:
     hand = mujoco.MjSpec.from_file(str(_HAND_XML))
     hand_assets: dict[str, bytes] = {}
     update_assets(hand_assets, _HAND_XML.parent / "assets", hand.meshdir)
-    # Disable hand mesh collision (warp narrowphase segfaults on it, some GPUs);
-    # per-phalanx box colliders preserve contact. See leap_constants.get_spec.
-    for geom in hand.geoms:
-        if geom.type == mujoco.mjtGeom.mjGEOM_MESH:
-            geom.contype = 0
-            geom.conaffinity = 0
+    # Hand mesh collision is enabled; the sm_80 segfault that forced disabling it was
+    # a mujoco-warp graph-capture bug, fixed upstream. See leap_constants.get_spec.
 
     # Remove the Franka 2-finger gripper (the "hand" body and its finger children).
     arm.delete(arm.body("hand"))

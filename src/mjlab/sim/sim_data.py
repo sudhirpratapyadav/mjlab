@@ -20,11 +20,18 @@ class TorchArray:
     self._wp_array = wp_array
     self._tensor = wp.to_torch(wp_array)
 
+    # Model arrays that are shared across worlds have a leading dim of 1; expand them
+    # to nworld so callers can index them per-env.
+    #
+    # NOTE: do NOT gate this on `stride(0) == 0`. MuJoCo Warp <= 0.0.1 built these
+    # arrays as zero-stride broadcasts, but >= 3.x allocates them with real strides
+    # (e.g. jnt_range stride(0) goes 0 -> 2). Keying on the stride silently skipped
+    # the expansion on newer versions, leaving shape (1, ...) where (nworld, ...) was
+    # expected — an out-of-bounds index on any per-env access.
     if (
       nworld is not None
       and nworld > 1
       and len(self._tensor.shape) > 0
-      and self._tensor.stride(0) == 0
       and self._tensor.shape[0] == 1
     ):
       new_shape = (nworld,) + self._tensor.shape[1:]
