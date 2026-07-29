@@ -524,3 +524,61 @@ venv/datasets preserved). Cluster A100 (sm_80) vs local A6000 (sm_86): same mujo
   on cluster; os._exit to dodge teardown segfault (exit 139).
 17/20 → fixing to 20/20 (sweep running). All fixes pushed to GitHub + pulled cluster.
 Cluster path: /ihub/homedirs/svs_ald/sudhir/mjlab
+
+---
+
+### 2026-07-29 — sm_80 segfault root-caused: graph-capture bug, NOT bad kernels
+
+User asked to verify the sm_80 collision bug in isolation before accepting the geom
+workarounds as permanent. Built a standalone repro (`sm80_repro/`, no mjlab): minimal
+two-body MJCF, one geom type per subprocess, run on dgx2 A100 via the holder job.
+
+**The previously logged root cause (2026-07-11 cluster-port entry) was WRONG.** The
+cylinder/ellipsoid/mesh collision kernels are not miscompiled on sm_80. Decisive
+result — same GPU, same kernels, same data:
+- with `wp.ScopedCapture()`  : **3/14 pass**
+- with `--no-graph` (eager)  : **14/14 pass**
+
+So the bug is in **CUDA-graph capture of the convex/CCD narrowphase**, crashing at
+`collision_convex.py:1027::convex_narrowphase` (GJK/EPA) — one level deeper than the
+old note claimed. That explains the survivor set exactly: box/sphere/capsule use the
+analytic *primitive* narrowphase and never enter CCD; cylinder/ellipsoid/mesh do. Any
+pair involving a mesh crashes regardless of the other shape.
+
+Hypotheses tested and REFUTED (each with its own probe script):
+- alloc-during-capture — `convex_narrowphase` does ~20 `wp.empty()` per call, but
+  mempool is supported+enabled and `wp.empty()` inside capture works fine.
+- lazy JIT/module load inside capture — eager warmup + `force_load` first: still segfaults.
+- shared-memory over-request on sm_80 — `forward_smem_bytes = 0`.
+- capture stream/mode variants (explicit stream, pre-sync) — all segfault.
+- nconmax/njmax overflow — re-confirmed irrelevant.
+
+Side-finding that explains the misdiagnosis: warp *refuses* `verify_cuda` during
+capture ("Cannot use CUDA error verification during graph capture"), so capture runs
+with error checking off and a launch failure surfaces as a bare SIGSEGV instead of a
+catchable CUDA error. Likely underlying trigger: warp JITs against CUDA Toolkit **12.9**
+while the node driver is only CUDA **12.4** (550.54.15).
+
+**Upgrading fixes it entirely — no kernel patching needed or warranted:**
+| warp / mujoco-warp | matrix | real LEAP hand, 21 mesh colliders re-enabled |
+|---|---|---|
+| 1.11.0.dev20251124 / 0.0.1 (current) | 3/14 | SEGFAULT |
+| 1.14.0 / 3.11.0 | — | PASS |
+| 1.15.0 / 3.11.0 | 14/14 | PASS |
+
+`repro_leap_mesh.py` is the strongest evidence: loads the actual
+`leap_right_hand.xml`, re-enables collision on the 21 mesh geoms the workaround
+disables, graph-captures a step — old warp dies, new warp passes.
+
+Deliverables: `sm80_repro/{repro_geom_collision,run_matrix,repro_leap_mesh}.py` + 4
+hypothesis probes + `FINDINGS.md`; `tests/test_sm80_graph_capture.py` (10 passed /
+4 xfailed today — the 4 convex cases XPASS once warp is upgraded, signalling the
+workarounds are safe to revert). Corrected the wrong root-cause claim in
+CLUSTER_TROUBLESHOOTING.md and OVERVIEW.md.
+
+**Deliberately NOT done:** bumping the pin. mujoco-warp is pinned to git rev `46b4421`
+(v0.0.1); 0.0.1 → 3.11.0 is a large jump that may have moved APIs mjlab uses. Tested
+only in throwaway venvs; the repo `.venv` is untouched. Next step (user's call):
+upgrade in a scratch env → full 20-task `benchmark-smoke --isolate` → if green, revert
+both workarounds and restore true cylinder/ellipsoid/disc geoms + LEAP mesh colliders.
+Commit 4bc5ab6.

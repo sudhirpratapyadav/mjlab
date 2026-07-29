@@ -3,15 +3,21 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-11 21:05 IST
+Last updated: 2026-07-29
 
 ## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 20 tasks**
 
 **Suite: 20 tasks / 5 skills / 3 embodiment classes / all 4 fragility tiers.**
 ALL 20 pass benchmark-smoke — **LOCAL (A6000) and CLUSTER (A100, 20/20)**; 17 unit tests green.
 Cluster: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch benchmark-manip-diversity).
-sm_80 warp collision segfaults fixed (LEAP mesh→box colliders; cylinder/disc/ellipsoid
+sm_80 warp segfaults worked around (LEAP mesh→box colliders; cylinder/disc/ellipsoid
 →capsule); use `benchmark-smoke --isolate` on cluster.
+**Root cause isolated 2026-07-29** — it is a **CUDA-graph-capture** bug in the
+convex/CCD narrowphase, *not* a bad collision kernel (all geoms step fine eagerly), and
+it is **already fixed upstream**: warp 1.14/1.15 + mujoco-warp 3.11 pass 14/14 including
+the real LEAP hand with mesh colliders re-enabled. Upgrading (pin is git rev `46b4421`
+= v0.0.1) would let both workarounds be reverted, restoring true grasp geometry.
+See `sm80_repro/FINDINGS.md`; guarded by `tests/test_sm80_graph_capture.py`.
 - arm_gripper (Class A, 12): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
   peg-insertion; push ×2 (cuboid/disc); articulation ×3 (door/drawer/button). action=8.
 - floating_hand (Class C, 5): reach, lift-cube, lift-sphere, stack, peg-insertion
@@ -45,24 +51,44 @@ STAGE TWO (not now): teachers, RL/CL, train-solvability, evaluation, EE-delta ac
 `benchmark-manip-diversity`, off `continual_distill` (up to date w/ origin). Working
 tree was clean of tracked mods before branching (only untracked new docs + scratch).
 
-## Task inventory (distinct skills, by embodiment)
+## Task inventory (20 tasks / 5 skill families / 3 embodiment classes)
 
-| # | Task | Embodiment | Skill family | Fragility | Status |
-|---|---|---|---|---|---|
-| 1 | Lift-Cube | A | pick-place | precision-grasp | native (exists) |
-| 2 | Push-Cuboid | A | planar push | mild-contact | native (exists) |
-| 3 | Push-Button | A | articulation | low | native (exists) |
-| 4 | Push-Disc | A | planar push | mild-contact | native (exists) |
-| 5 | Open-Door | A | articulation | mid | native (exists) |
-| 6 | Open-Drawer | A | articulation | mid | native (exists) |
-| 7 | Lift-Cylinder | A | pick-place | precision-grasp | NEW (phase 2, smoke-validated) |
-| 8 | Reach-Target | A | **reach** | planar | NEW (phase 3) |
-| 9 | Stack-Cube | A | pick-place | precision-grasp | NEW (phase 3) |
+Registered IDs (source of truth: `manifest.json`, `num_tasks: 20`); fragility tier
+1=low … 4=contact-rich.
 
-Distinct skills so far: reach, pick-place, planar-push, articulation (**4 families,
-9 tasks**). Class B: 0. Class C: 0.
-**All 9 pass `benchmark-smoke` (build/reset/step, finite obs+reward, sane shapes) —
-which is the stage-one acceptance check. All 9 are valid suite tasks.**
+| # | Task ID | Embodiment | Skill family | Tier |
+|---|---|---|---|---|
+| 1 | `Mjlab-Reach-Target-Franka` | A arm_gripper | reach | 1 |
+| 2 | `Mjlab-Push-Button-Franka` | A arm_gripper | articulation | 1 |
+| 3 | `Mjlab-Push-Cuboid-Franka` | A arm_gripper | planar-push | 2 |
+| 4 | `Mjlab-Push-Disc-Franka` | A arm_gripper | planar-push | 2 |
+| 5 | `Mjlab-Open-Door-Franka` | A arm_gripper | articulation | 2 |
+| 6 | `Mjlab-Open-Drawer-Franka` | A arm_gripper | articulation | 2 |
+| 7 | `Mjlab-Lift-Cube-Franka` | A arm_gripper | pick-place | 3 |
+| 8 | `Mjlab-Lift-Cylinder-Franka` | A arm_gripper | pick-place | 3 |
+| 9 | `Mjlab-Lift-Sphere-Franka` | A arm_gripper | pick-place | 3 |
+| 10 | `Mjlab-Lift-Ellipsoid-Franka` | A arm_gripper | pick-place | 3 |
+| 11 | `Mjlab-Stack-Cube-Franka` | A arm_gripper | pick-place | 3 |
+| 12 | `Mjlab-Peg-Insertion-Franka` | A arm_gripper | **insertion** | 4 |
+| 13 | `Mjlab-Reach-Target-Leap` | C floating_hand | reach | 1 |
+| 14 | `Mjlab-Lift-Cube-Leap` | C floating_hand | pick-place | 3 |
+| 15 | `Mjlab-Lift-Sphere-Leap` | C floating_hand | pick-place | 3 |
+| 16 | `Mjlab-Stack-Cube-Leap` | C floating_hand | pick-place | 3 |
+| 17 | `Mjlab-Peg-Insertion-Leap` | C floating_hand | insertion | 4 |
+| 18 | `Mjlab-Reach-Target-Franka-Leap` | B arm_hand | reach | 1 |
+| 19 | `Mjlab-Lift-Cube-Franka-Leap` | B arm_hand | pick-place | 3 |
+| 20 | `Mjlab-Stack-Cube-Franka-Leap` | B arm_hand | pick-place | 3 |
+
+Distinct skills: reach, pick-place, planar-push, articulation, insertion
+(**5 families, 20 tasks**). Class A: 12 (action=8). Class B: 3 (action=23).
+Class C: 5 (action=22).
+**All 20 pass `benchmark-smoke` on local A6000 and cluster A100 (`--isolate`)** —
+the stage-one acceptance check. 17 unit tests green, plus
+`tests/test_sm80_graph_capture.py` (10 passed / 4 xfail).
+
+> Caveat on shape diversity: tasks 7/4/11 (cylinder/disc/ellipsoid) currently simulate
+> **capsule** geoms, and the LEAP hand grasps with **box** phalanges, due to the sm_80
+> graph-capture workaround. A warp upgrade restores the true geometry — see the header.
 
 ### On "train-validation" (stage two, informational only)
 Building the suite is stage one; solving it (RL/CL) is stage two. So train-solvability
