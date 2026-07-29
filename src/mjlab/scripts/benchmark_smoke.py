@@ -13,6 +13,7 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import traceback
 from dataclasses import dataclass
 
@@ -117,7 +118,12 @@ def run(
 
 def main():
   n_fail = tyro.cli(run)
-  raise SystemExit(1 if n_fail else 0)
+  # Flush then hard-exit: warp/mujoco + torch CUDA contexts can segfault (exit 139)
+  # during interpreter teardown even after a clean run. os._exit skips teardown.
+  import sys
+  sys.stdout.flush()
+  sys.stderr.flush()
+  os._exit(1 if n_fail else 0)
 
 
 if __name__ == "__main__":
