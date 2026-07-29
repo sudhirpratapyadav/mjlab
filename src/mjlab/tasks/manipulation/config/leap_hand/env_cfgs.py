@@ -42,6 +42,12 @@ def _apply_leap_common(cfg: ManagerBasedRlEnvCfg) -> None:
     )
   cfg.terminations.pop("ee_ground_collision", None)
 
+  # Dexterous hand has many finger geoms -> many contacts. The arm bases' nconmax=200
+  # overflows the warp narrowphase buffer (segfault at CUDA-graph capture on some GPUs).
+  # Bump the contact/constraint buffers for the hand.
+  cfg.sim.nconmax = 800
+  cfg.sim.njmax = 3000
+
   cfg.viewer.body_name = "palm"
   cfg.scene.env_spacing = 1.0
 

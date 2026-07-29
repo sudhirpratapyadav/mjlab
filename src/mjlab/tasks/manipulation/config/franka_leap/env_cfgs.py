@@ -37,6 +37,12 @@ def _apply_common(cfg: ManagerBasedRlEnvCfg) -> None:
     cfg.scene.sensors = tuple(s for s in cfg.scene.sensors if s.name != "ee_ground_collision")
   cfg.terminations.pop("ee_ground_collision", None)
 
+  # Arm + dexterous hand -> many finger geoms/contacts; bump contact/constraint
+  # buffers past the arm bases' nconmax=200 (else warp narrowphase segfaults at
+  # CUDA-graph capture on some GPUs).
+  cfg.sim.nconmax = 800
+  cfg.sim.njmax = 3000
+
   cfg.viewer.body_name = "link0"
   cfg.scene.env_spacing = 1.5
 
