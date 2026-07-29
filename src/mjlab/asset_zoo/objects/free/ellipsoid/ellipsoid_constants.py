@@ -26,8 +26,8 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
     mocap_goal.pos = [0, 0, 0]
     mocap_goal.add_geom(
         name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_ELLIPSOID,
-        size=[0.035, 0.018, 0.018],
+        type=mujoco.mjtGeom.mjGEOM_CAPSULE,
+        size=[0.018, 0.017, 0.0],  # capsule (radius, half-length) ~ elongated ellipsoid
         rgba=[1, 0.5, 0, 1],
         contype=0,
         conaffinity=0,
