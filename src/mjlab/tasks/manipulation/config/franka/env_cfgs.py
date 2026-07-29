@@ -54,6 +54,50 @@ from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cf
 from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
 from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_cfg
 from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg, ReachingCommandCfg, StackingCommandCfg
+from mjlab.tasks.manipulation.mdp.commands import (
+  _ObjectSpawnRangeCfg,
+  PlaceInContainerCommandCfg,
+  ReorientObjectCommandCfg,
+  ToolPullCommandCfg,
+)
+from mjlab.asset_zoo.objects.articulated.lever import (
+  get_lever_cfg,
+  get_mocap_target_cfg as get_lever_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.valve import (
+  get_valve_cfg,
+  get_mocap_target_cfg as get_valve_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.switch import (
+  get_switch_cfg,
+  get_mocap_target_cfg as get_switch_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.window import (
+  get_window_cfg,
+  get_mocap_target_cfg as get_window_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.lid import (
+  get_lid_cfg,
+  get_mocap_target_cfg as get_lid_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.free.container import get_container_cfg
+from mjlab.asset_zoo.objects.free.stick import get_stick_cfg
+from mjlab.asset_zoo.objects.free.puck import (
+  get_puck_cfg,
+  get_mocap_goal_cfg as get_puck_mocap_goal_cfg,
+)
+from mjlab.tasks.manipulation.turn_lever_env_cfg import make_turn_lever_env_cfg
+from mjlab.tasks.manipulation.rotate_valve_env_cfg import make_rotate_valve_env_cfg
+from mjlab.tasks.manipulation.flip_switch_env_cfg import make_flip_switch_env_cfg
+from mjlab.tasks.manipulation.slide_window_env_cfg import make_slide_window_env_cfg
+from mjlab.tasks.manipulation.open_lid_env_cfg import make_open_lid_env_cfg
+from mjlab.tasks.manipulation.place_in_container_env_cfg import (
+  make_place_in_container_env_cfg,
+)
+from mjlab.tasks.manipulation.reorient_object_env_cfg import (
+  make_reorient_object_env_cfg,
+)
+from mjlab.tasks.manipulation.tool_pull_env_cfg import make_tool_pull_env_cfg
 from mjlab.tasks.manipulation.open_door_env_cfg import make_open_door_env_cfg
 from mjlab.tasks.manipulation.open_drawer_env_cfg import make_open_drawer_env_cfg
 from mjlab.tasks.manipulation.push_button_env_cfg import make_push_button_env_cfg
@@ -926,3 +970,362 @@ def franka_push_disc_env_cfg(
     cfg.episode_length_s = 5.0
 
   return cfg
+
+
+##
+# Class A motion-profile expansion (see continual_distill/docs/benchmark/
+# CLASS_A_EXPANSION.md). Four new articulation profiles + four new manipulation
+# reward/success shapes, all on the same 8-D joint action.
+##
+
+
+def _apply_franka_articulation_common(cfg, asset_name: str, command_name: str):
+  """Shared Franka specialization for the new single-DoF articulation tasks.
+
+  Factors out the per-robot wiring that is identical across lever/valve/switch/
+  window/lid: EE site names, fingertip friction geoms, collision-sensor patterns,
+  viewer body and env spacing.
+  """
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(
+    joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg)
+  )
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  command = cfg.commands[command_name]
+  command.robot_asset_cfg.site_names = ("gripper",)
+
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params[
+        "robot_asset_cfg"
+      ].site_names = ("gripper",)
+
+  for reward_name in ["reach_object"]:
+    if reward_name in cfg.rewards:
+      cfg.rewards[reward_name].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if isinstance(sensor, ContactSensorCfg):
+      sensor.primary.pattern = "link7"
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 2.0
+  return cfg
+
+
+def _apply_play_test(cfg, play: bool, test: bool, extra_terminations=()):
+  """Shared play/test overrides (verbatim semantics from the existing tasks)."""
+  if play:
+    cfg.episode_length_s = int(1e9)
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+
+  if test:
+    cfg.observations["policy"].enable_corruption = False
+    cfg.events.pop("push_robot", None)
+    cfg.terminations.pop("ee_ground_collision", None)
+    for t in extra_terminations:
+      cfg.terminations.pop(t, None)
+  return cfg
+
+
+def franka_turn_lever_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka turning a lever about the approach axis (wrist-rotation profile)."""
+  cfg = make_turn_lever_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "lever": get_lever_cfg(),
+    "mocap_goal": get_lever_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "lever", "turn_lever")
+
+  cfg.events["reset_lever_position"].params["pose_range"] = {
+    "x": (0.60, 0.68),
+    "y": (-0.08, 0.08),
+    "z": (0.45, 0.55),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_rotate_valve_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka rotating a valve 270 deg (multi-cycle regrasp profile)."""
+  cfg = make_rotate_valve_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "valve": get_valve_cfg(),
+    "mocap_goal": get_valve_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "valve", "rotate_valve")
+
+  cfg.events["reset_valve_position"].params["pose_range"] = {
+    "x": (0.60, 0.68),
+    "y": (-0.08, 0.08),
+    "z": (0.45, 0.55),
+  }
+  # Multi-turn task: needs a longer episode than a single-stroke articulation.
+  cfg.episode_length_s = 8.0
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_flip_switch_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka flipping a detented toggle switch (ballistic-commit profile)."""
+  cfg = make_flip_switch_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "switch": get_switch_cfg(),
+    "mocap_goal": get_switch_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "switch", "flip_switch")
+
+  cfg.events["reset_switch_position"].params["pose_range"] = {
+    "x": (0.60, 0.68),
+    "y": (-0.08, 0.08),
+    "z": (0.45, 0.55),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_slide_window_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka sliding a window pane laterally (lateral face-push profile)."""
+  cfg = make_slide_window_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "window": get_window_cfg(),
+    "mocap_goal": get_window_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "window", "slide_window")
+
+  cfg.events["reset_window_position"].params["pose_range"] = {
+    "x": (0.60, 0.68),
+    "y": (-0.05, 0.05),
+    "z": (0.45, 0.55),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_open_lid_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka opening a hinged lid against gravity (vertical-arc profile).
+
+  Unlike the other articulation tasks this runs with gravity ENABLED — the lid falling
+  shut when released is the whole point of the task.
+  """
+  cfg = make_open_lid_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "lid": get_lid_cfg(),
+    "mocap_goal": get_lid_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "lid", "open_lid")
+
+  cfg.events["reset_lid_position"].params["pose_range"] = {
+    "x": (0.55, 0.62),
+    "y": (-0.08, 0.08),
+    "z": (0.38, 0.44),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_place_in_container_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka placing a cube inside an open-top bin (containment success shape)."""
+  cfg = make_place_in_container_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cube": get_cube_cfg(),
+    "container": get_container_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(
+    joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg)
+  )
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  cfg.commands["place_in_container"].robot_asset_cfg.site_names = ("gripper",)
+
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params[
+        "robot_asset_cfg"
+      ].site_names = ("gripper",)
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  # Cube spawns on the near side; the bin sits off to one side so the transport is a
+  # real lateral carry rather than a vertical lift.
+  place_command = cfg.commands["place_in_container"]
+  assert isinstance(place_command, PlaceInContainerCommandCfg)
+  place_command.object_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.45, 0.60), y=(-0.22, -0.08), z=(0.03, 0.03)
+  )
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 2.0
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_reorient_object_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka standing a lying cylinder upright (orientation success shape)."""
+  cfg = make_reorient_object_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cylinder": get_cylinder_cfg(),
+    "mocap_goal": get_cylinder_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(
+    joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg)
+  )
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  cfg.commands["reorient_object"].robot_asset_cfg.site_names = ("gripper",)
+
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params[
+        "robot_asset_cfg"
+      ].site_names = ("gripper",)
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  # Spawn the cylinder LYING DOWN (rolled 90 deg about x) so that standing it upright
+  # is a genuine reorientation rather than a no-op.
+  reorient_command = cfg.commands["reorient_object"]
+  assert isinstance(reorient_command, ReorientObjectCommandCfg)
+  reorient_command.object_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.45, 0.60),
+    y=(-0.12, 0.12),
+    z=(0.025, 0.025),
+    roll=(1.5707963, 1.5707963),
+    yaw=(-3.14159, 3.14159),
+  )
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 1.5
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_tool_pull_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka dragging an out-of-reach puck into the near zone with a stick (tool use)."""
+  cfg = make_tool_pull_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "puck": get_puck_cfg(),
+    "stick": get_stick_cfg(),
+    "mocap_goal": get_puck_mocap_goal_cfg(),
+  }
+
+  joint_pos_action = cfg.actions["robot_joint_pos"]
+  assert isinstance(
+    joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg)
+  )
+  joint_pos_action.scale = FRANKA_ACTION_SCALE
+
+  assert cfg.commands is not None
+  cfg.commands["tool_pull"].robot_asset_cfg.site_names = ("gripper",)
+
+  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+    if obs_name in cfg.observations["policy"].terms:
+      cfg.observations["policy"].terms[obs_name].params[
+        "robot_asset_cfg"
+      ].site_names = ("gripper",)
+  cfg.rewards["reach_object"].params["robot_asset_cfg"].site_names = ("gripper",)
+
+  fingertip_geoms = r"(left_finger_pad|right_finger_pad)"
+  cfg.events["fingertip_friction_slide"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_spin"].params["asset_cfg"].geom_names = fingertip_geoms
+  cfg.events["fingertip_friction_roll"].params["asset_cfg"].geom_names = fingertip_geoms
+
+  assert cfg.scene.sensors is not None
+  for sensor in cfg.scene.sensors:
+    if sensor.name == "ee_ground_collision":
+      assert isinstance(sensor, ContactSensorCfg)
+      sensor.primary.pattern = "link7"
+
+  # Puck spawns BEYOND direct reach — the tool is required, not optional.
+  # Stick spawns within easy reach, off to the side.
+  pull_command = cfg.commands["tool_pull"]
+  assert isinstance(pull_command, ToolPullCommandCfg)
+  pull_command.object_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.78, 0.88), y=(-0.10, 0.10), z=(0.012, 0.012), yaw=(0.0, 0.0)
+  )
+  pull_command.tool_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.42, 0.52), y=(-0.24, -0.14), z=(0.012, 0.012), yaw=(0.0, 0.0)
+  )
+  # Two-stage task (acquire tool, then drag): needs a longer episode.
+  cfg.episode_length_s = 12.0
+
+  cfg.viewer.body_name = "link0"
+  cfg.scene.env_spacing = 2.0
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))

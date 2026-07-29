@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+  Hinged box lid asset.
+
+  Motion profile: a hinge whose axis is HORIZONTAL and LATERAL (world y), mounted at
+  the far edge of a box, so opening it lifts the lid up and over through a vertical
+  arc. Unlike the door (vertical hinge axis, gravity-neutral swing), GRAVITY OPPOSES
+  THE MOTION THROUGHOUT — the lid falls shut if the policy lets go. This task runs with
+  gravity ENABLED (unlike door/drawer/button); see CLASS_A_EXPANSION.md.
+
+  Grasp point (object_site) is a lip on the lid's near edge, furthest from the hinge.
+
+  Success: lid hinge opened to the 75 deg target (see OpenLidCommand), latched.
+-->
+<mujoco model="lid">
+  <worldbody>
+    <body name="lid_base" pos="0.6 0 0.4" mocap="true">
+      <!-- Box body: four low walls, open top. Lid hinges at the FAR (+x) edge. -->
+      <geom type="box" name="lid_body" size="0.11 0.11 0.01" pos="0 0 -0.06"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="lid_wall_far" size="0.01 0.11 0.05" pos="0.10 0 -0.01"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="lid_wall_near" size="0.01 0.11 0.05" pos="-0.10 0 -0.01"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="lid_wall_left" size="0.11 0.01 0.05" pos="0 0.10 -0.01"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="lid_wall_right" size="0.11 0.01 0.05" pos="0 -0.10 -0.01"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the lid lip when joint = 0 (closed). -->
+      <site name="base_site" pos="-0.09 0.0 0.05" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!-- Hinge at the far edge, axis along world y -> lid swings up and over. -->
+        <joint name="lid_hinge" type="hinge" axis="0 1 0" pos="0.10 0 0.04"
+               range="-75 0" limited="true" damping="0.05"/>
+        <!-- Lid panel. -->
+        <geom type="box" name="lid_panel" size="0.10 0.11 0.008" pos="0.0 0 0.04"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.35"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Grab lip on the near edge (furthest from the hinge = best lever arm). -->
+        <geom type="box" name="handle" pos="-0.09 0.0 0.055" size="0.015 0.05 0.012"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <site name="object_site" pos="-0.09 0.0 0.05" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

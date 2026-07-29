@@ -1,25 +1,35 @@
 {
-  "num_tasks": 20,
-  "num_distinct_skills": 5,
+  "num_tasks": 28,
+  "num_distinct_skills": 6,
   "counts_by_embodiment": {
-    "arm_gripper": 12,
+    "arm_gripper": 20,
     "arm_hand": 3,
     "floating_hand": 5
   },
   "counts_by_skill": {
-    "pick_place": 10,
+    "pick_place": 12,
     "insertion": 2,
     "reach": 3,
-    "articulation": 3,
-    "planar_push": 2
+    "articulation": 8,
+    "planar_push": 2,
+    "tool_use": 1
   },
   "counts_by_fragility": {
-    "precision_grasp": 10,
-    "dexterous": 2,
+    "precision_grasp": 12,
+    "dexterous": 4,
     "planar": 4,
-    "mild_contact": 4
+    "mild_contact": 8
   },
   "tasks": {
+    "Mjlab-Flip-Switch-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: BALLISTIC COMMIT past a detent. A spring pushes the toggle back until it crosses centre, so quasi-static servoing fails and success is a state flip, not a displacement threshold (contrast Push-Button, a compliant press). Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Lift-Cube-Franka": {
       "embodiment": "arm_gripper",
       "skill": "pick_place",
@@ -101,6 +111,15 @@
       "contact_rich": true,
       "notes": ""
     },
+    "Mjlab-Open-Lid-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: VERTICAL ARC UNDER GRAVITY. Gravity opposes the motion throughout and the lid falls shut if released, unlike the door's gravity-neutral vertical-axis swing. NOTE: runs with gravity ENABLED, unlike the other articulation tasks. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Peg-Insertion-Franka": {
       "embodiment": "arm_gripper",
       "skill": "insertion",
@@ -118,6 +137,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Floating LEAP hand inserting a peg into a hole board."
+    },
+    "Mjlab-Place-In-Container-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Success shape: CONTAINMENT + RELEASE (inside the footprint, below the rim, settled) rather than the stable-contact predicate used by Stack. The bin walls also make the approach non-monotonic \u2014 a straight-line reach to the goal hits a wall. Structural (smoke) gate only; reward shaping not yet train-validated."
     },
     "Mjlab-Push-Button-Franka": {
       "embodiment": "arm_gripper",
@@ -173,6 +201,33 @@
       "contact_rich": false,
       "notes": "Floating LEAP hand reaching its palm to a 3D target (actuated 6-DoF base). First Class-C task; reuses the arm reach base with the hand embodiment."
     },
+    "Mjlab-Reorient-Object-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Success shape: ORIENTATION, not position \u2014 the only Class A task scored on angular alignment (stand a lying cylinder upright). Position enters only as a loose anti-fling drift bound. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Rotate-Valve-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 4,
+      "fragility_name": "dexterous",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: MULTI-CYCLE ROTATION WITH REGRASP. The 270deg target exceeds the wrist range from any single grasp, so the policy must turn, release, re-grasp the opposite spoke and continue \u2014 the only Class A task needing a regrasp cycle. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Slide-Window-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Motion profile: LATERAL FACE-PUSH. Same joint type as Open-Drawer but along the robot's lateral axis, and the drawer's proven fingertip-hook strategy does not transfer (you push a face, not hook a bar). Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Stack-Cube-Franka": {
       "embodiment": "arm_gripper",
       "skill": "pick_place",
@@ -199,6 +254,24 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Floating LEAP hand stacking a cube on a cuboid base."
+    },
+    "Mjlab-Tool-Pull-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "tool_use",
+      "fragility": 4,
+      "fragility_name": "dexterous",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: TWO-STAGE TOOL USE \u2014 grasp a stick, then drag a puck that spawns beyond direct reach back into the near zone. Contact that matters happens at the tool tip, not the fingertips. First TOOL_USE task in the benchmark. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Turn-Lever-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: WRIST ROTATION about the approach axis. The lever hinge points at the robot, so turning it rotates the wrist rather than pulling with the arm (contrast Open-Door, a whole-arm hinge arc). Structural (smoke) gate only; reward shaping not yet train-validated."
     }
   }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  Puck: the out-of-reach target object dragged by the stick in the tool-pull task.
+
+  Deliberately low-profile and wide so it cannot be grasped directly by the Franka
+  fingers from a distance — the point is that the TOOL is required. Spawned beyond
+  the arm's comfortable reach; success = puck dragged back into the near zone.
+-->
+<mujoco model="puck">
+  <worldbody>
+    <body name="puck" pos="0.75 0 0.31">
+      <freejoint name="puck_joint"/>
+      <geom type="cylinder" name="puck_geom" size="0.035 0.012" mass="0.03"
+            condim="3" friction="0.4 0.03 0.003" rgba="0.2 0.5 0.8 1"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

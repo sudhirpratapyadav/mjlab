@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  Open-top container / bin (static receptacle for the place-in-container task).
+
+  Motion profile it serves: success requires CONTAINMENT (object inside the walls,
+  below the rim) plus a release, rather than the stable-contact-on-top predicate used
+  by stack. The walls also make the approach non-monotonic — the gripper must clear
+  the rim before descending, so a straight-line reach into the goal collides.
+
+  Static (mocap) body: the bin does not move; only the carried object does.
+-->
+<mujoco model="container">
+  <worldbody>
+    <body name="container_base" pos="0.55 0.2 0.02" mocap="true">
+      <!-- Floor of the bin. -->
+      <geom type="box" name="container_floor" size="0.07 0.07 0.008" pos="0 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 1"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- Four walls (inner clear span ~12cm, rim 7cm above the floor). -->
+      <geom type="box" name="container_wall_px" size="0.008 0.07 0.035" pos="0.062 0 0.035"
+            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="container_wall_nx" size="0.008 0.07 0.035" pos="-0.062 0 0.035"
+            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="container_wall_py" size="0.07 0.008 0.035" pos="0 0.062 0.035"
+            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="container_wall_ny" size="0.07 0.008 0.035" pos="0 -0.062 0.035"
+            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!--
+        Containment reference site: centre of the interior volume, just above the
+        floor. PlaceInContainerCommand measures the object against this site with
+        separate lateral / vertical tolerances (a box test, not a sphere test).
+      -->
+      <site name="object_site" pos="0 0 0.02" size="0.01" rgba="1 0 0 1"/>
+      <site name="base_site" pos="0 0 0.02" size="0.01" rgba="0 0 1 0.3"/>
+    </body>
+  </worldbody>
+</mujoco>

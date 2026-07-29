@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  Lever / door-handle asset.
+
+  Motion profile: a hinge whose axis points ALONG THE APPROACH DIRECTION (world +x,
+  i.e. away from the robot). Turning it is therefore a WRIST ROTATION about the
+  approach axis, not a whole-arm pull like the door. That is what makes this a
+  distinct motion profile rather than a door variant.
+
+  The lever arm is a horizontal bar offset from the hinge axis; the grasp point
+  (object_site) sits at the free end, so the gripper must ride a circular arc in the
+  y-z plane while the wrist rotates.
+
+  Success: hinge rotated to the -90 deg target (see TurnLeverCommand).
+-->
+<mujoco model="lever">
+  <worldbody>
+    <body name="lever_base" pos="0.65 0 0.5" mocap="true">
+      <!-- Wall plate the lever is mounted on. -->
+      <geom type="box" name="lever_body" size="0.01 0.15 0.15" pos="0.02 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the lever tip when joint = 0 (horizontal, pointing +y). -->
+      <site name="base_site" pos="-0.05 0.12 0.0" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!-- Hinge about the approach axis (+x) -> wrist rotation. -->
+        <joint name="lever_hinge" type="hinge" axis="1 0 0" pos="0 0 0"
+               range="-90 0" limited="true" damping="0.05"/>
+        <!-- Hub. -->
+        <geom type="cylinder" name="lever_hub" size="0.015 0.01"
+              pos="-0.02 0 0" quat="0.7071 0 0.7071 0"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.4"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Lever arm: horizontal bar out along +y from the hinge axis. -->
+        <geom type="box" name="handle" pos="-0.05 0.07 0.0" size="0.012 0.07 0.012"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Grasp point at the free end of the lever arm. -->
+        <site name="object_site" pos="-0.05 0.12 0.0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

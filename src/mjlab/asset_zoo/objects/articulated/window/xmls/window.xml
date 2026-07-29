@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+  Sliding window asset.
+
+  Motion profile: a SLIDE joint like the drawer, but along the robot's LATERAL axis
+  (world y) instead of toward the robot (world x). The drawer's proven hook strategy
+  (drop a closed fingertip into the slot behind the bar and pull) does NOT transfer:
+  here the handle is a vertical bar you push side-on, so the control problem is a
+  lateral face-push with the arm reaching across its own workspace. Distinct profile.
+
+  Success: pane slid to within threshold of the +0.25m open stop (see SlideWindowCommand).
+-->
+<mujoco model="window">
+  <worldbody>
+    <body name="window_base" pos="0.65 0 0.5" mocap="true">
+      <!-- Window frame: a tall back plate the pane slides across. -->
+      <geom type="box" name="window_body" size="0.01 0.32 0.22" pos="0.03 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the handle when joint = 0 (closed). -->
+      <site name="base_site" pos="-0.04 -0.10 0.0" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!-- Slide along the LATERAL axis (+y opens). -->
+        <joint name="window_slide" type="slide" axis="0 1 0"
+               range="0 0.25" limited="true" damping="0.1"/>
+        <!-- Sliding pane. -->
+        <geom type="box" name="window_pane" size="0.01 0.15 0.2" pos="0.0 -0.02 0"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.2"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Vertical grab bar on the pane's leading edge: pushed side-on. -->
+        <geom type="box" name="handle" pos="-0.04 -0.10 0.0" size="0.012 0.012 0.07"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <site name="object_site" pos="-0.04 -0.10 0.0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

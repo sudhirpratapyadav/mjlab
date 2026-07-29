@@ -240,3 +240,266 @@ def franka_push_disc_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
     num_steps_per_env=24,
     max_iterations=5_000,
   )
+
+
+##
+# Class A motion-profile expansion. Obs/action shapes are unchanged from the
+# existing Franka tasks, so these clone the proven runner and only rename the
+# experiment (per AUTHORING_GUIDE Recipe A step 3).
+##
+
+def franka_turn_lever_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka lever-turning task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_turn_lever",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_rotate_valve_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka valve-rotation task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_rotate_valve",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_flip_switch_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka switch-flipping task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_flip_switch",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_slide_window_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka window-sliding task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_slide_window",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_open_lid_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka lid-opening task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_open_lid",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_place_in_container_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka place-in-container task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_place_in_container",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_reorient_object_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka object-reorientation task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_reorient_object",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_tool_pull_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka tool-pull task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_tool_pull",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )

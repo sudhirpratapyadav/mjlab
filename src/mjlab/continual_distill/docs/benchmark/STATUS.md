@@ -3,12 +3,19 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-29
+Last updated: 2026-07-30
 
-## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 20 tasks**
+## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 28 tasks**
 
-**Suite: 20 tasks / 5 skills / 3 embodiment classes / all 4 fragility tiers.**
-ALL 20 pass benchmark-smoke — **LOCAL (A6000) and CLUSTER (A100, 20/20)**; 17 unit tests green.
+**Suite: 28 tasks / 6 skills / 3 embodiment classes / all 4 fragility tiers.**
+ALL pass benchmark-smoke; 28 unit tests green (17 taxonomy/config + 11 Class-A expansion).
+
+**2026-07-30 — Class A motion-profile expansion: 8 -> 16 distinct profiles**
+(12 -> 20 registered IDs). Added Turn-Lever, Rotate-Valve, Flip-Switch, Slide-Window,
+Open-Lid, Place-In-Container, Reorient-Object, Tool-Pull. TOOL_USE is a new skill
+family (6th). Counting rule: a task counts iff its MOTION PROFILE differs — object
+swaps (lift-cube vs lift-sphere) do NOT count. See CLASS_A_EXPANSION.md.
+Verified 23/23 benchmark-smoke on CPU; a cluster A100 re-run is the remaining check.
 Cluster: `/ihub/homedirs/svs_ald/sudhir/mjlab` (branch benchmark-manip-diversity).
 Use `benchmark-smoke --isolate` on cluster.
 **sm_80 segfaults RESOLVED (commits 4bc5ab6, fb15756).** Root-caused to a
@@ -18,8 +25,10 @@ Use `benchmark-smoke --isolate` on cluster.
 cylinder/disc/ellipsoid are real CYLINDER/ELLIPSOID geoms again and LEAP mesh collision
 is live. 20/20 smoke + 325/325 pytest on A100.
 See `sm80_repro/FINDINGS.md`; guarded by `tests/test_sm80_graph_capture.py`.
-- arm_gripper (Class A, 12): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
-  peg-insertion; push ×2 (cuboid/disc); articulation ×3 (door/drawer/button). action=8.
+- arm_gripper (Class A, 20): reach; lift ×4 (cube/cylinder/sphere/ellipsoid); stack;
+  peg-insertion; push ×2 (cuboid/disc); articulation ×7 (door/drawer/button/lever/
+  valve/switch/window); lid; place-in-container; reorient; tool-pull. action=8.
+  **16 distinct motion profiles** (the honest count; the 20 IDs include object variants).
 - floating_hand (Class C, 5): reach, lift-cube, lift-sphere, stack, peg-insertion
   (LEAP, actuated 6-DoF base, action=22).
 - arm_hand (Class B, 3): reach, lift-cube, stack (Franka+LEAP, action=23).
@@ -39,9 +48,12 @@ uniform interfaces, structural-soundness (benchmark-smoke) as the acceptance gat
 (train-solvability is stage two).
 
 ### Next (in priority order)
+0. **Cluster re-validation of the 8 new Class-A tasks** (A100, `--isolate`). They pass
+   23/23 on CPU locally; the cluster run is outstanding.
 1. Breadth: more object variants across hands (lift/stack cylinder/ellipsoid on
-   LEAP + Franka-LEAP), more Class-A skills (sweep/tool-use), more articulation
-   (lever/valve/knob — needs new articulated assets).
+   LEAP + Franka-LEAP). **DONE for Class A: lever/valve/switch/window articulation +
+   tool-use.** Remaining Class-A ideas: sweep (multi-object, deferred by user),
+   wipe/trace-surface (needs a contact-force success predicate).
 2. A 2nd dexterous hand (Shadow/Allegro, available in Menagerie) for embodiment variety.
 3. Procedural scaling (Phase 5): PartNet-Mobility / object libraries → 100+ instances
    (tag as instance-diversity, separate from distinct-skill count).

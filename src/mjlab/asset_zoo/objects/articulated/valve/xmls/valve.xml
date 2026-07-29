@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+  Valve / wheel asset.
+
+  Motion profile: hinge about the approach axis like the lever, BUT the target is a
+  large rotation (270 deg) that exceeds the Franka wrist's usable range from any single
+  grasp. The policy must therefore turn, release, re-grasp, and turn again — the only
+  Class A task requiring a MULTI-CYCLE regrasp. That is its distinct profile.
+
+  Geometry: a hub with two opposed spokes, so a regrasp target is always available at
+  180 deg. The spoke ends (object_site on one of them) are the grasp points.
+
+  Success: hinge angle reaches the target (see RotateValveCommand). Because the goal is
+  angular and multi-turn, success is measured on the JOINT ANGLE, not on a Cartesian
+  goal position (the site returns near its start every half turn).
+-->
+<mujoco model="valve">
+  <worldbody>
+    <body name="valve_base" pos="0.65 0 0.5" mocap="true">
+      <!-- Mounting plate. -->
+      <geom type="box" name="valve_body" size="0.01 0.15 0.15" pos="0.03 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the spoke tip when joint = 0 (spoke along +y). -->
+      <site name="base_site" pos="-0.04 0.09 0.0" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!-- Hinge about the approach axis; wide range to allow multi-turn. -->
+        <joint name="valve_hinge" type="hinge" axis="1 0 0" pos="0 0 0"
+               range="0 360" limited="true" damping="0.08"/>
+        <!-- Central hub. -->
+        <geom type="cylinder" name="valve_hub" size="0.02 0.012"
+              pos="-0.01 0 0" quat="0.7071 0 0.7071 0"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.4"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Spoke A (+y) — the primary grasp target. -->
+        <geom type="box" name="handle" pos="-0.04 0.055 0.0" size="0.012 0.055 0.012"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Spoke B (-y) — the regrasp target at 180 deg. -->
+        <geom type="box" name="valve_spoke_b" pos="-0.04 -0.055 0.0" size="0.012 0.055 0.012"
+              condim="3" friction="1 0.03 0.003" rgba="0 0.8 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <site name="object_site" pos="-0.04 0.09 0.0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

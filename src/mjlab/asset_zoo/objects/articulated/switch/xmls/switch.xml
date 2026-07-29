@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+  Toggle switch asset.
+
+  Motion profile: a small hinge with a DETENT (a spring that pushes the toggle back
+  toward whichever side it is on). Success is a STATE FLIP past the detent, not a
+  displacement threshold — the policy must COMMIT with a ballistic stroke rather than
+  servo gently toward a goal. Gentle quasi-static pushing is actively punished by the
+  spring, which is exactly what distinguishes this from push-button (a compliant press
+  that succeeds at any sufficient displacement).
+
+  The detent is modelled with a stiff spring whose rest length sits at the far end of
+  travel (springref beyond the range), so once the toggle passes centre it SNAPS over.
+
+  Success: hinge angle past +30 deg (see FlipSwitchCommand), latched.
+-->
+<mujoco model="switch">
+  <worldbody>
+    <body name="switch_base" pos="0.65 0 0.5" mocap="true">
+      <!-- Faceplate. -->
+      <geom type="box" name="switch_body" size="0.01 0.06 0.06" pos="0.02 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the toggle tip when joint = 0 (the OFF/centre pose). -->
+      <site name="base_site" pos="0.0 0.0 0.062" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!--
+          Hinge about world y (toggle swings in the x-z plane, up/down).
+
+          BISTABILITY comes from an OVER-CENTRE WEIGHTED LEVER, not from a joint
+          spring. A single linear spring (stiffness + springref) has exactly ONE rest
+          pose, so it always drags the toggle back to the same side and can never be
+          bistable — the toggle would simply fall back to OFF when released past
+          centre, collapsing the task into "hold against a spring". Verified
+          empirically before this was replaced.
+
+          Instead the lever carries its mass ABOVE the pivot (an inverted pendulum).
+          That equilibrium at centre is UNSTABLE: gravity torque grows with tilt, so
+          the toggle accelerates toward whichever stop it is leaning to and is held
+          there by the range limit. Crossing centre is therefore a genuine commit
+          point, which is exactly the motion profile this task exists to test.
+
+          Requires gravity, so this task runs with gravity ENABLED (see the env cfg).
+        -->
+        <joint name="switch_hinge" type="hinge" axis="0 1 0" pos="0 0 0"
+               range="-45 45" limited="true" damping="0.0015" armature="1e-5"/>
+        <!-- Toggle lever: light shaft... -->
+        <geom type="box" name="handle" pos="0.0 0.0 0.026" size="0.012 0.012 0.03"
+              mass="0.004"
+              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- ...with a top weight well above the pivot -> over-centre bistability. -->
+        <geom type="box" name="switch_weight" pos="0.0 0.0 0.062"
+              size="0.013 0.013 0.013" mass="0.05"
+              condim="3" friction="1 0.03 0.003" rgba="0 0.7 0 1"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <site name="object_site" pos="0.0 0.0 0.062" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

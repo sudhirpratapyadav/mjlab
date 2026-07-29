@@ -642,3 +642,75 @@ Open cosmetic follow-up: mujoco-warp warns `MULTICCD is enabled, but the scene c
 CCD pairs without multicontact support: [('CYLINDER','BOX')]` (≤1 contact for those
 pairs). Fires from test fixtures, not benchmark tasks; worth a look if cylinder grasp
 stability matters at train time.
+
+---
+
+### 2026-07-30 — Class A motion-profile expansion: 8 -> 16 profiles (8 new tasks)
+
+User: increase the number of Class A tasks, counting by **motion profile** rather than
+object variant ("i dont want to differentiate between lift a vs b ... Articulation i
+counted different because of motion profile kind of"), everything from the candidate
+list "except multi object like sweep", and work autonomously without stopping to ask.
+
+**The counting rule matters more than the count.** Class A's pre-expansion baseline is
+8 motion profiles, not the 12 registered IDs: the four lift variants collapse to one,
+the two pushes to one, while door/drawer/button stay separate because a hinge arc, a
+linear slide and a normal-force press are different control problems. We now report
+both numbers and never conflate them — registered IDs (manifest) vs distinct motion
+profiles (the scientific claim). Full rationale in CLASS_A_EXPANSION.md.
+
+Added, each with asset + command + base maker + concrete cfg + rl_cfg + taxonomy tag:
+Turn-Lever (wrist rotation about the approach axis), Rotate-Valve (multi-turn, forces a
+regrasp), Flip-Switch (ballistic commit past a detent), Slide-Window (lateral face-push),
+Open-Lid (vertical arc, gravity opposes), Place-In-Container (containment predicate),
+Reorient-Object (orientation predicate — the only rotationally-scored Class A task),
+Tool-Pull (two-stage tool use; **TOOL_USE is the benchmark's 6th skill family**).
+
+Result: 20 -> 28 registered tasks; Class A 12 -> 20 IDs / 8 -> 16 profiles. All 8 keep
+the uniform 60-D obs / 8-D joint action. 23/23 benchmark-smoke (CPU), 11/11 new tests.
+
+**Smoke-testing is not enough, and this run proved it.** `benchmark-smoke` shows an env
+builds, resets and steps with finite rewards — it says nothing about whether the success
+predicate can EVER fire. A predicate that never fires produces a task that is silently
+unsolvable while passing every structural check. So `tests/test_class_a_expansion.py`
+drives each mechanism into a success state and asserts the latch, with a near-miss
+negative control to prove it discriminates rather than always firing.
+
+That caught exactly such a bug: **Tool-Pull's goal sat 0.3m above the puck's resting
+height** (goal_offset z=0.31 vs puck rest z=0.012, threshold 0.07), so no amount of
+correct dragging could satisfy it. Smoke passed it happily. Fixed and pinned with a
+regression test. Worth internalizing: for a new task, "it steps" and "it is achievable"
+are independent claims needing independent evidence.
+
+Two smaller API traps, both logged in CLASS_A_EXPANSION.md: object spawn belongs to the
+COMMAND (`object_pose_range`), not to a `reset_object_position` event that doesn't
+exist; and `Scene` has no `.get()`, only `__getitem__`.
+
+Deferred with reasons: sweep and unstack (multi-object, excluded by the user);
+peg-at-angle (a peg variant under our own counting rule — including it would be the
+object-swap padding the mandate rejects); wipe/trace-surface (needs a contact-force
+success predicate that `mdp/` does not have).
+
+Caveat carried forward, per PLAN commitment #4: this is the STAGE-ONE structural gate.
+Reward shaping for the new skills is NOT train-validated, and each task's `notes` field
+says so. Cluster (A100) re-validation is still outstanding.
+
+**Addendum (same day) — Flip-Switch's detent was monostable; redesigned.** Testing the
+physics rather than trusting the XML caught a second design bug. The detent was first a
+joint spring (`stiffness` + `springref`), but a single linear spring has exactly ONE
+rest pose: released past centre the toggle still fell back to OFF. Monostable. That
+quietly turns "ballistic commit past a detent" into "hold against a spring" — i.e. the
+very thing that justifies counting Flip-Switch as a distinct motion profile disappears,
+while every structural check still passes.
+
+Replaced with an **over-centre weighted lever** (inverted pendulum): centre of mass
+directly above the pivot, so the centre equilibrium is unstable and the toggle
+accelerates to whichever stop it leans toward. A first attempt still failed because the
+weight was offset in x — a constant gravity torque that overwhelms the over-centre
+effect. The COM must sit on the pivot axis. Now genuinely bistable (settles -0.787 from
+any negative start, +0.787 from any positive one), gravity ENABLED, and pinned by
+`test_flip_switch_detent_is_actually_bistable`.
+
+Lesson, consistent with the Tool-Pull bug: for a new mechanism, the XML compiling and
+the env stepping say nothing about whether the mechanism DOES WHAT THE TASK NAME CLAIMS.
+Both bugs were only findable by driving the physics and asserting on the outcome.
