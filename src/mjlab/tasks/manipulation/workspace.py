@@ -161,10 +161,23 @@ def min_mechanism_mount_z(asset: str) -> float:
 GROUND_Z: float = 0.0
 """Class A scenes have no table; free objects rest on the ground plane."""
 
-SITE_TO_FINGERTIP: float = 0.10
-"""The ``gripper`` site sits 10cm behind the fingertips along the approach axis. A
-grasp of an object whose centre is at z=h puts the SITE near z=h+0.10 — the reason the
-grasp-height analysis above uses site z~0.10 for a floor-resting object."""
+SITE_TO_FINGERTIP: float = 0.019
+"""Distance from the ``gripper`` site to the lowest fingertip geometry, along the
+approach axis.
+
+MEASURED (fingers open, home pose): the site is 0.0189m above ``right_finger_pad``.
+
+An earlier value of 0.10 here was WRONG and actively harmful: a teacher that offsets
+its target by 10cm commands the gripper a full 10cm too high and never touches the
+object. ``gripper_to_object`` in the observations is already effectively a
+pad-to-object vector, so most teachers need no offset at all. Verify against the model
+before applying any offset:
+
+    site z 0.3819, lowest hand/finger geom 0.3630 -> 0.0189
+
+The grasp-height analysis in this module's docstring uses site z~0.10 for a
+floor-resting object, which remains correct for a different reason: an object centre at
+z~0.02 plus clearance puts the SITE near 0.10 during the approach, not at contact."""
 
 
 def grasp_box(

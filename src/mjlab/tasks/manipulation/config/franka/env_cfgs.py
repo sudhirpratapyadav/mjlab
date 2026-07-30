@@ -1442,7 +1442,15 @@ def franka_tool_pull_env_cfg(
   assert cfg.commands is not None
   cfg.commands["tool_pull"].robot_asset_cfg.site_names = ("gripper",)
 
-  for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
+  # gripper_to_tool is tool-pull specific: it must be resolved to the "gripper"
+  # site like the other EE-relative terms, or its SceneEntityCfg stays empty and
+  # the observation build fails on a 0-width tensor.
+  for obs_name in [
+    "gripper_pos",
+    "gripper_orientation",
+    "gripper_to_object",
+    "gripper_to_tool",
+  ]:
     if obs_name in cfg.observations["policy"].terms:
       cfg.observations["policy"].terms[obs_name].params[
         "robot_asset_cfg"

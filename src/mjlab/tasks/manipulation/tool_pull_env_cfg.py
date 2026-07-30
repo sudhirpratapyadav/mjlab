@@ -103,6 +103,24 @@ def make_tool_pull_env_cfg() -> ManagerBasedRlEnvCfg:
       },
       noise=Unoise(n_min=-0.01, n_max=0.01),
     ),
+    # --- TOOL (stick) observations -------------------------------------------
+    # Without these the task is UNSOLVABLE, not merely hard: every other term binds to
+    # the puck, and the stick spawns uniformly over a ~20x19cm box, so no function of
+    # the observation could locate the tool the task requires you to pick up. Found by
+    # a classical teacher that could not do tool use because it could not see the tool.
+    "gripper_to_tool": ObservationTermCfg(
+      func=manipulation_mdp.gripper_to_object_vector,
+      params={
+        "robot_asset_cfg": SceneEntityCfg("robot", site_names=()),
+        "object_asset_name": "stick",
+      },
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
+    "tool_orientation": ObservationTermCfg(
+      func=manipulation_mdp.object_orientation,
+      params={"object_asset_name": "stick"},
+      noise=Unoise(n_min=-0.01, n_max=0.01),
+    ),
     # Control-qpos difference (8 dims)
     "control_qpos_diff": ObservationTermCfg(
       func=manipulation_mdp.control_qpos_difference,

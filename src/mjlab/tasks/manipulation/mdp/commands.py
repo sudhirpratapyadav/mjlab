@@ -1430,10 +1430,19 @@ class _ObjectSpawnRangeCfg:
   yaw: tuple[float, float] = (-math.pi, math.pi)
 
 
-def _spawn_object(command, entity: Entity, rng, env_ids: torch.Tensor) -> None:
-  """Write a uniformly-sampled root pose (and zero velocity) for ``entity``."""
+def _spawn_object(command, entity: Entity, rng, env_ids: torch.Tensor):
+  """Write a uniformly-sampled root pose (and zero velocity) for ``entity``.
+
+  Returns the world-frame ROOT position just written, or None if ``rng`` is None.
+
+  Callers that need the spawned position MUST use this return value rather than
+  reading it back from ``data.site_pos_w`` / ``root_link_pos_w``: forward kinematics
+  has not re-run at this point in the step, so a read-back returns the PREVIOUS
+  episode's pose. That is a silent-correctness trap — it produced a reorient task whose
+  drift bound was measured from a stale point, making 25% of envs unwinnable at spawn.
+  """
   if rng is None:
-    return
+    return None
   n = len(env_ids)
   device = command.device
   lower = torch.tensor([rng.x[0], rng.y[0], rng.z[0]], device=device)
@@ -1449,6 +1458,7 @@ def _spawn_object(command, entity: Entity, rng, env_ids: torch.Tensor) -> None:
   entity.write_root_link_velocity_to_sim(
     torch.zeros(n, 6, device=device), env_ids=env_ids
   )
+  return pos
 
 
 class PlaceInContainerCommand(CommandTerm):
@@ -1701,9 +1711,16 @@ class ReorientObjectCommand(CommandTerm):
     self.episode_success[env_ids] = 0.0
     self.reached_object[env_ids] = 0.0
 
-    _spawn_object(self, self.object, self.cfg.object_spawn_range, env_ids)
+    spawned = _spawn_object(self, self.object, self.cfg.object_spawn_range, env_ids)
 
-    self.target_pos[env_ids] = self._object_pos()[env_ids]
+    # Anchor the drift bound to the pose we JUST wrote. Reading it back via
+    # _object_pos() returns the previous episode's position (FK has not re-run), which
+    # put the anchor metres away and left envs already outside max_drift at spawn —
+    # unwinnable no matter how well the policy stands the object up.
+    if spawned is not None:
+      self.target_pos[env_ids] = spawned
+    else:
+      self.target_pos[env_ids] = self._object_pos()[env_ids]
     axis = torch.tensor(self.cfg.target_axis, device=self.device, dtype=torch.float32)
     self.target_axis[env_ids] = axis / torch.norm(axis)
 

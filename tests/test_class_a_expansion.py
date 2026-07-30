@@ -155,6 +155,43 @@ def test_reorient_scores_orientation_not_position() -> None:
     env.close()
 
 
+def test_every_manipulated_entity_is_observable() -> None:
+  """A task may not require manipulating an object the policy cannot see.
+
+  Regression: Tool-Pull bound EVERY observation term to the puck, so the stick — the
+  tool the task exists to make you pick up — appeared nowhere in the 60-D observation.
+  It spawns uniformly over a ~20x19cm box, so no function of the observation could
+  locate it: the task was unsolvable, not merely hard, for scripted and learned policies
+  alike. Found by a classical teacher that could not do tool use because it could not
+  see the tool.
+
+  Checked structurally (which entities are referenced by observation terms) rather than
+  by rollout, so it stays fast and catches the omission at authoring time.
+  """
+  for task_id in NEW_TASKS:
+    cfg = load_env_cfg(task_id, test=True)
+    manipulable = {
+      name
+      for name in cfg.scene.entities
+      if name not in ("robot", "mocap_goal")
+    }
+    referenced: set[str] = set()
+    for term in cfg.observations["policy"].terms.values():
+      for key in ("object_asset_name", "container_asset_name", "tool_asset_name"):
+        value = term.params.get(key)
+        if isinstance(value, str):
+          referenced.add(value)
+
+    # A static receptacle whose pose the command owns (the container) is exempt: the
+    # goal vector already encodes it.
+    exempt = {"container"}
+    missing = manipulable - referenced - exempt
+    assert not missing, (
+      f"{task_id}: entities {sorted(missing)} must be manipulated but appear in no "
+      "observation term — the policy cannot locate them."
+    )
+
+
 def test_flip_switch_detent_is_actually_bistable() -> None:
   """The switch must SNAP to whichever side of centre it is released on.
 
