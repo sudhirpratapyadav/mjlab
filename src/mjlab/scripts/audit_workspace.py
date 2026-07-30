@@ -34,6 +34,10 @@ from mjlab.tasks.registry import load_env_cfg, load_taxonomy
 _TOPDOWN_COS = -0.85
 """EE z-axis vs world +z. -0.85 is within ~32 deg of straight down."""
 
+_FLOOR_TOLERANCE = 0.02
+"""Metres a geom may dip below z=0 before it counts as buried (rbound is a conservative
+bounding sphere, so a little slack avoids false positives on rounded geoms)."""
+
 # Entities that are DELIBERATELY outside the direct-grasp envelope, with the bound that
 # does apply instead. Tool-pull's whole premise is that the puck cannot be reached by
 # hand — it must be dragged in with the stick — so holding it to GRASP_RADIAL_MAX would
@@ -118,6 +122,71 @@ def measure() -> None:
     print(f"  {label:<22} {_grasp_pose_fraction(*box):5.1f}%")
 
 
+def _geom_half_height(model, data, gid: int) -> float:
+  """Vertical half-extent of a geom in WORLD frame, accounting for its rotation."""
+  import mujoco
+
+  gtype = model.geom_type[gid]
+  size = model.geom_size[gid]
+  if gtype == mujoco.mjtGeom.mjGEOM_SPHERE:
+    return float(size[0])
+  if gtype == mujoco.mjtGeom.mjGEOM_PLANE:
+    return 0.0
+  rot = data.geom_xmat[gid].reshape(3, 3)
+  if gtype == mujoco.mjtGeom.mjGEOM_BOX:
+    half = size[:3]
+  elif gtype in (mujoco.mjtGeom.mjGEOM_CYLINDER, mujoco.mjtGeom.mjGEOM_CAPSULE):
+    half = np.array([size[0], size[0], size[1] + (size[0] if gtype ==
+                     mujoco.mjtGeom.mjGEOM_CAPSULE else 0.0)])
+  elif gtype == mujoco.mjtGeom.mjGEOM_ELLIPSOID:
+    half = size[:3]
+  else:  # mesh and anything exotic: fall back to the conservative bound
+    return float(model.geom_rbound[gid])
+  # Projection of the box's half-extents onto world z.
+  return float(np.abs(rot[2, :]) @ half)
+
+
+def _floor_penetration(task_id: str) -> dict[str, float]:
+  """How far each entity's lowest geom sits BELOW the ground plane, in metres.
+
+  Radial distance from the base says nothing about vertical placement, so a mechanism
+  can be perfectly in reach while half of it is buried in the floor. Articulated
+  mechanisms hang DOWNWARD from a mocap mount (the door panel drops 0.94m below its
+  mount), and Class A scenes have no table or wall for them to hang from, so the mount
+  height has to account for the asset's own downward extent.
+  """
+  import mujoco
+
+  from mjlab.envs import ManagerBasedRlEnv
+
+  cfg = load_env_cfg(task_id, test=True)
+  cfg.scene.num_envs = 1
+  env = ManagerBasedRlEnv(cfg, device="cpu")
+  try:
+    env.reset()
+    model = env.sim.mj_model
+    data = mujoco.MjData(model)
+    data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
+    mujoco.mj_forward(model, data)
+    out: dict[str, float] = {}
+    for gid in range(model.ngeom):
+      name = mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, gid) or ""
+      if "/" not in name:
+        continue
+      entity = name.split("/", 1)[0]
+      if entity in ("robot", "terrain"):
+        continue
+      # Use the geom's true vertical half-extent, not geom_rbound: rbound is a
+      # bounding SPHERE, which massively over-reports for flat/elongated geoms (a
+      # 4cm cube resting correctly on the floor would look 2cm buried).
+      half_z = _geom_half_height(model, data, gid)
+      low = float(data.geom_xpos[gid][2] - half_z)
+      out[entity] = min(out.get(entity, 0.0), low)
+    return out
+  finally:
+    env.close()
+
+
 def _object_positions(task_id: str, num_envs: int = 64) -> dict[str, np.ndarray]:
   """Reset a task and return each free/articulated entity's position, env-local."""
   from mjlab.envs import ManagerBasedRlEnv
@@ -171,6 +240,7 @@ def main(cfg: AuditConfig) -> None:
   for task_id in task_ids:
     try:
       positions = _object_positions(task_id, cfg.num_envs)
+      buried = _floor_penetration(task_id)
     except Exception as exc:  # noqa: BLE001 — report and continue
       print(f"{task_id:<34} ERROR {type(exc).__name__}: {exc}")
       continue
@@ -183,22 +253,25 @@ def main(cfg: AuditConfig) -> None:
       free = _grasp_pose_fraction(x0, x1, y0, y1)
 
       flags = []
+      sunk = buried.get(name, 0.0)
+      if sunk < -_FLOOR_TOLERANCE:
+        flags.append(f"below-floor({sunk:.2f}m)")
       exempt = _REACH_EXEMPT.get((task_id, name))
+      note = ""
       if exempt is not None:
         lo, hi, why = exempt
         if not (lo <= radial <= hi):
           flags.append(f"exempt-but-outside[{lo},{hi}]")
-        tag = ",".join(flags) if flags else f"ok (exempt: {why})"
+        note = f" (exempt: {why})"
       elif is_mechanism:
         if radial > workspace.MECHANISM_HANDLE_RADIAL_MAX:
           flags.append(f"radial>{workspace.MECHANISM_HANDLE_RADIAL_MAX}")
-        tag = ",".join(flags) if flags else "ok"
       else:
         if radial > workspace.GRASP_RADIAL_MAX:
           flags.append(f"radial>{workspace.GRASP_RADIAL_MAX}")
         if free < 3.0:
           flags.append("sparse-reach")
-        tag = ",".join(flags) if flags else "ok"
+      tag = ",".join(flags) if flags else f"ok{note}"
       if flags:
         problems.append(f"{task_id}/{name}: {tag}")
       print(
