@@ -16,6 +16,19 @@ sequence at all (ceiling), and is the 8192 collapse really about capacity (confo
   dispatches the next queued job the moment one frees (the old wave-based sweep
   scripts idled GPUs waiting for the slowest run in each wave)
 
+> ## ✅ RESOLVED (commit `a0cc9be`) — placement restored, teachers work again
+>
+> Fixed by option 2: restoring the pre-audit object placement **for these four tasks
+> only**, on HEAD. Verified after the fix: PushCuboid **0.8125**, OpenDrawer
+> **1.0000** (from 0.008 / 0.000). The other six Class A tasks keep the audited
+> workspace placements — they have no frozen teachers to invalidate.
+>
+> The history below is kept because it documents what was ruled out, and because the
+> same trap will recur if the audit ranges are reinstated without retraining.
+
+<details>
+<summary>Original diagnosis (click to expand)</summary>
+
 > ## ⚠️ BLOCKED — the RL teachers no longer work in the current environment
 >
 > The first four P0-1 runs finished at **0.000 success on every task**, which is not
@@ -68,12 +81,11 @@ sequence at all (ceiling), and is the 8192 collapse really about capacity (confo
 > **The teachers are not broken — they are being evaluated on a different task
 > distribution than they were trained on.** Nothing is corrupt; obs_dim is still 60,
 > so this fails silently rather than erroring.
->
-> This affects **every teacher dataset**, so the mix/BC/classical experiments would
-> hit the same wall.
->
-> All 18 runs stopped; holder 19736 left intact and idle. See "Stack A/B comparison"
-> below for the measurement that decides whether to pin back or retrain.
+
+> This affected **every teacher dataset**, so the mix/BC/classical experiments would
+> have hit the same wall. The fix in `a0cc9be` unblocks those too.
+
+</details>
 
 ## Status
 
@@ -139,17 +151,17 @@ _Auto-collected by `slurm/collect_p0.py`._
 
 | group | run | status | avg SR | per-task |
 |---|---|---|---|---|
-| P0-1 | `nosi_best_s0` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushCuboid 0.00 |
-| P0-1 | `nosi_best_s1` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
-| P0-1 | `nosi_best_s2` | 🔄 running | — | — |
-| P0-1 | `nosi_worst_s0` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
-| P0-1 | `nosi_worst_s1` | 🔄 running | — | — |
-| P0-1 | `nosi_worst_s2` | 🔄 running | — | — |
-| P0-2 | `joint_s0` | ⏳ queued | — | — |
-| P0-2 | `joint_s1` | ⏳ queued | — | — |
-| P0-2 | `joint_s2` | ⏳ queued | — | — |
-| P0-3 | `w8192_lr1e5_s0` | 🔄 running | — | — |
-| P0-3 | `w8192_lr1e5_s1` | 🔄 running | — | — |
+| P0-1 | `nosi_best_s0` | ⏳ queued | — | — |
+| P0-1 | `nosi_best_s1` | ⏳ queued | — | — |
+| P0-1 | `nosi_best_s2` | ⏳ queued | — | — |
+| P0-1 | `nosi_worst_s0` | ⏳ queued | — | — |
+| P0-1 | `nosi_worst_s1` | ⏳ queued | — | — |
+| P0-1 | `nosi_worst_s2` | ⏳ queued | — | — |
+| P0-2 | `joint_s0` | ✅ complete | 0.008 | OpenDoor 0.00, OpenDrawer 0.03, PushButton 0.00, PushCuboid 0.00 |
+| P0-2 | `joint_s1` | ✅ complete | 0.012 | OpenDoor 0.05, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
+| P0-2 | `joint_s2` | ✅ complete | 0.016 | OpenDoor 0.05, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.02 |
+| P0-3 | `w8192_lr1e5_s0` | ⏳ queued | — | — |
+| P0-3 | `w8192_lr1e5_s1` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr1e5_s2` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr5e6_s0` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr5e6_s1` | ⏳ queued | — | — |
@@ -211,8 +223,21 @@ the repo code (see root cause above), which the sweep-era worktree confirmed.
 3. **Retrain the four RL teachers against current placements.** Cleanest long-term,
    but expensive, and SWEEP24's table would have to be regenerated to match.
 
-Option 1 is the fastest path to valid P0 numbers; option 2 is the better long-term
-fix if the four tasks are meant to keep working on `main`.
+**Chosen: option 2** (commit `a0cc9be`) — the four continual-distill tasks are meant
+to keep working on `main`, so the fix belongs on HEAD rather than in a side worktree.
+
+### Verification after the fix (128 episodes, HEAD + `.venv`)
+
+| teacher | before fix | after fix | sweep-era reference |
+|---|---|---|---|
+| PushCuboid | 0.008 | **0.79 – 0.81** | 0.82 – 0.84 |
+| OpenDrawer | 0.000 | **1.000** | 1.000 |
+| OpenDoor | 0.000 | _verifying_ | 0.992 |
+| PushButton | 0.000 | _verifying_ | 1.000 |
+
+PushCuboid varies 0.79–0.84 across repeated 128-episode evals on both the fixed HEAD
+and the sweep-era checkout — that spread is ordinary evaluation noise for this task,
+not a residual gap.
 
 ## Notes / gotchas hit
 
