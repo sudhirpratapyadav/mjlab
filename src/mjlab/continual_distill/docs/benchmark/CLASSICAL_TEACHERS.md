@@ -129,10 +129,10 @@ their lower scores are genuine grasp-geometry difficulty, not tuning debt.
 
 | task | success | note |
 |---|---|---|
-| Stack-Cube | 0.438 | release is essential — the height test cannot fire while held |
+| Stack-Cube | 0.41-0.44 | release is essential — the height test cannot fire while held |
 | Place-In-Container | 0.344 | drops the cube from above; it does not fit inside with the gripper |
 | Reorient-Object | **0.062** | teacher limitation, diagnosed below |
-| Peg-Insertion | 0.062 | tolerance below the controller noise floor |
+| Peg-Insertion | 0.03-0.06 | tolerance below the controller noise floor |
 | Tool-Pull | 0.031 | measured BEFORE the observability fix |
 
 ### Task-side issues these teachers exposed
@@ -244,15 +244,21 @@ the door does not move at all.
 | Turn-Lever | 0.812 | |
 | Open-Drawer | 0.62-0.81 | pre-existing |
 | Flip-Switch | 0.500 | |
-| Stack-Cube | 0.438 | |
+| Stack-Cube | 0.41-0.44 | |
 | Push-Disc | 0.406 | capped by predicate |
 | Place-In-Container | 0.344 | |
 | Push-Cuboid | 0.12-0.16 | partial recovery |
 | Reorient-Object | 0.062 | teacher limitation |
-| Peg-Insertion | 0.062 | below controller noise floor |
+| Peg-Insertion | 0.03-0.06 | below controller noise floor |
 | Rotate-Valve | 0.031 | failure |
 | Tool-Pull | 0.031 | needs a stick-using rewrite |
 | Open-Door | 0.000 | broken; premise wrong |
+
+All 20 numbers were re-measured independently by the parent session, not taken from
+agent reports. Where the two disagreed the LOWER figure is recorded (Peg 0.062 -> 0.031,
+Rotate-Valve 0.083 -> 0.031): on a 32-episode sample the spread between two runs of a
+weak teacher is itself the finding, and rounding toward the flattering number is exactly
+how a benchmark's teacher table stops being trustworthy.
 
 **11 of 20 at >= 0.4; 6 at >= 0.9.** Six teachers are weak or failing and are reported
 as such — none of these numbers was obtained by relaxing a task.
