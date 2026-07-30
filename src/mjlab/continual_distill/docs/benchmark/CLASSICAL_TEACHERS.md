@@ -331,3 +331,59 @@ retention-limited, so hurrying loses the bar sooner.
 The valve was rescued by a ratcheting multi-regrasp cycle over 400 steps; the door has
 150. That is the honest difference. This needs a learned teacher, or a task-side change
 that is out of scope under the current constraint.
+
+### Reorient-Object: 0.125 -> 0.41-0.59, from ONE constant
+
+Parent-verified at **0.594**; the authoring agent reported its lower batch (0.406).
+
+The entire gain is `floor_min_z` 0.022 -> 0.030. Head-to-head: 0.022 -> 0.125,
+0.030 -> 0.531, 0.034 -> 0.500.
+
+**This corrects a repo-wide error.** Teachers assumed the lowest end-effector COLLISION
+geom sits 1.24cm below the `gripper` site. Measured over only the genuinely collidable
+link7-subtree geoms (`hand_capsule`, `left_finger_pad`, `right_finger_pad` — the rest
+are `contype=conaffinity=0` visual-only), it is **1.38-1.4cm**. A guard at 0.022 leaves
+~8mm of pad material, so `ee_ground_collision` fires on transient dips and silently
+auto-resets the env under a state machine the harness never informs: **45 collisions in
+600 steps x 8 envs, 34 of them during descent.**
+
+The earlier diagnosis ("the teacher fails to stand the cylinder up") was right about the
+symptom and wrong about the cause. Envs that SURVIVED to the rotate phase already
+reached 0.99 axis alignment with the unmodified grasp strategy. The teacher was not
+losing the cylinder — it was being killed on the way down.
+
+Both strategies proposed in the improvement brief measured WORSE and were reverted, with
+the negative results recorded in the module docstring so they are not re-tried:
+- barrel grasp **0.469** vs 0.531 (the end-face grasp makes the cylinder's axis *be*
+  the closing axis, so the wrist rotation cannot disturb the grip);
+- phase-dependent rate limits **0.188** vs 0.531 (no travel leg worth accelerating; the
+  larger stride just throws the wrist into the floor).
+
+Worth noting for future work: a suggestion from a brief is a hypothesis, not an
+instruction. Measuring both and keeping the incumbent was the right call.
+
+### Tool-Pull: 0.031, unimproved — and tool use is not scriptable with this gripper
+
+The same floor fix moved it 0.000 -> 0.031/0.042, within noise of its own baseline
+(per-batch variance 0.000-0.250 across five batches of 16). The authoring agent first
+reported 0.125 from a standalone harness, then re-measured through `test_classical`,
+got 0.031, and RETRACTED the higher figure. The official path wins.
+
+Genuine tool use was built and measured **0.000**. The blocker is mechanical and
+isolated:
+- the approach works — the gripper converges to 0.023-0.028m of the stick's grasp site
+  with the closing axis at exactly (0.00, 1.00, 0.00), perpendicular to the shaft;
+- the fingers genuinely grip, stalling at qpos ~0.010 per side, **exactly half the 22mm
+  shaft**;
+- but the stick never leaves the ground: during the squeeze `gripper_to_tool`'s x
+  component grows monotonically -0.004 -> -0.042. **The pinch ejects it axially.** A
+  0.26m box with its mass 9cm off the grasp point turns any residual misalignment into
+  axial force, and randomised slide friction (as low as 0.3) cannot arrest it.
+- reproduced across 7 grasp heights x 3 grasp points (`object_site`, CoM, hook bar) x 2
+  orientation modes x 2 close windows.
+
+Even granting a grasp, the plan needs the stick carried ~0.12m in +x and ~0.23m in +y —
+a carry a marginal grip would not survive. Conclusion: this needs a learned teacher, or
+a stick with an actual graspable feature rather than a smooth shaft. The task is now
+well-posed (the stick is observable since d8e5115); it is the GRIPPER-object pair that
+defeats scripting.

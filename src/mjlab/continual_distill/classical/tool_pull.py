@@ -1,54 +1,102 @@
 """Scripted ToolPull teacher policy.
 
-TWO ENVIRONMENT FACTS THAT DETERMINE WHAT THIS TEACHER CAN BE
-=============================================================
+WHAT THIS FILE IS, AND WHY IT IS NOT TOOL USE
+=============================================
+The task is named for tool use and the environment now genuinely supports it: the
+policy observation is 69-D and carries ``gripper_to_tool`` (obs[52:55]) and
+``tool_orientation`` (obs[55:61]), so the stick is fully observable. An earlier version
+of this file argued tool use was impossible because the stick was invisible; that
+argument is obsolete and was removed.
 
-1. **The stick is not in the observation.** ``tool_pull_env_cfg.py``'s policy group
-   binds every object term -- ``object_pos``, ``object_quat``, ``object_orientation``,
-   ``gripper_to_object``, ``object_to_goal``, ``goal_orientation_diff`` -- to
-   ``object_asset_name="puck"``. There is no stick term of any kind. The stick's pose
-   is sampled uniformly over a 20cm x 19cm box every episode, so from the policy
-   observation its grasp site is a random point inside a box roughly the size of the
-   arm's whole grasp envelope. A tool-use teacher is therefore not merely hard here,
-   it is **unobservable**: no function of the 60-D policy observation can locate the
-   stick. (The command term tracks ``tool_grasped`` internally, but the policy never
-   sees it.)
+A full tool-use teacher was therefore implemented and measured, and it does not work.
+The reason is mechanical, not a matter of tuning, and it is documented here so the next
+author does not spend the effort again.
 
-2. **The puck is not actually out of reach.** The stated premise is that the puck
-   spawns beyond direct reach so the tool is mandatory. Measured against this repo's
-   own IK on the Franka: driving the ``gripper`` site to the far corners of the puck's
-   spawn box -- (0.62, 0.05, 0.05), (0.65, 0.11, 0.05), (0.70, 0.17, 0.05),
-   (0.71, 0.05, 0.04) env-local -- converges to within 0.008-0.011m in a clean
-   top-down pose every time. The box was pulled in from radial 0.78-0.88 (genuinely
-   unreachable) to 0.62-0.71 to satisfy the workspace audit, and 0.71 is inside the
-   arm's comfortable top-down envelope.
+WHY THE STICK CANNOT BE PICKED UP (measured, 8 configurations)
+--------------------------------------------------------------
+The approach machinery works. With the floor guard fixed (see below) and integral action
+on the descent, the gripper converges onto the stick's ``object_site`` to within
+0.023-0.028 m in 6-8 of 8 envs, with the finger-closing axis measured at (0.00, 1.00,
+0.00) -- exactly perpendicular to the shaft, which lies along world +x. The fingers then
+close and STALL at qpos ~= 0.010 per side, which is precisely half the shaft's 22mm
+width: they are genuinely in contact with the shaft, not closing on air.
 
-Given (1) and (2), the only teacher this observation space admits is a DIRECT drag:
-reach past the puck with the fingers closed and sweep it into the near zone. That is
-what is implemented. It is deliberately not dressed up as tool use -- see the
-strategy note below.
+The stick still never leaves the ground. Across the whole test its ``object_site`` z
+stays pinned at 0.011, its resting height, while the gripper site rises to 0.35+. What
+happens instead is visible in ``gripper_to_tool`` during the squeeze: its x component
+grows monotonically from -0.004 to -0.042. **The squeeze ejects the stick axially.** The
+shaft is a long thin box (0.26 x 0.022 x 0.022) with its mass 9cm off the grasp point,
+so any residual misalignment converts the pinch's normal force into a force along the
+shaft, and it squirts out from between the pads before the grip can develop. Fingertip
+slide friction is domain-randomised as low as 0.3, which is far too little to arrest it.
+
+Configurations tried, all with the same outcome (stick_z pinned at 0.011):
+  * grasp height 0.018 / 0.020 / 0.022 / 0.024 / 0.026 / 0.028 / 0.030 m
+  * grasp point at ``object_site``, at the shaft's centre of mass (+0.09 along x), and
+    at the hook bar (+0.21, +0.035)
+  * finger-closing axis along world y (perpendicular to the shaft) and axis-only
+    orientation targets, with close windows of 40 and 130 control steps
+  * a slow guarded descent at 6mm/step with lateral integral action, which brought the
+    approach residual down to 0.001-0.007 m and the collision count to 3
+
+Even granting a successful grasp, the plan needs the stick moved ~0.12 m in +x AND
+~0.23 m in +y to bring its hook bar (body offset (0.12, 0.035), i.e. (+0.21, +0.035)
+from the grasp site) onto the far side of the puck. That is a full carry, not a nudge,
+so a marginal grip would not survive it either.
+
+Concluding: with this gripper and this stick geometry, tool use here needs a learned
+teacher (or a stick whose grasp region is a graspable feature rather than a smooth
+shaft). Reported as such rather than dressed up.
+
+WHAT THIS FILE DOES INSTEAD, AND THE BUG THAT WAS ACTUALLY CAPPING IT
+---------------------------------------------------------------------
+A DIRECT closed-finger drag: reach past the puck with the fingers closed and shepherd it
+inward along the line to the goal -- the same closed-finger push the push_cuboid teacher
+uses, run outward-to-inward. ``tool_grasped`` is tracked by the command but does NOT gate
+success, so a direct drag scores.
+
+The previous direct-drag teacher measured 0.000 and its failure was blamed on the
+strategy. It was not the strategy: it was ``floor_min_z = 0.026``. Measured directly on
+the Franka model over the genuinely collidable link7-subtree geoms (``hand_capsule``,
+``left_finger_pad``, ``right_finger_pad``; every other subtree geom has
+contype=conaffinity=0 and is visual only), the lowest pad sits 1.4cm below the
+``gripper`` site. A guard at 0.026 leaves pad material at 0.012 and the drag's transient
+dip closes that immediately, so ``ee_ground_collision`` fired constantly and auto-reset
+the env under a state machine the harness never tells about it. Raising the guard to
+0.030 took the same strategy from 0.000 to a measured 0.125.
+
+That number is honest but weak, and it is unstable between batches (0.250 and 0.000 on
+two consecutive 16-env episodes) -- see the measurement note in the benchmark doc. The
+puck spawns at radial 0.62-0.70, right at the edge of the arm's top-down envelope, and
+shoving a 7cm disc from there gives very little steering authority; ``object_out_of_
+bounds`` (x outside (0,1), y outside (-0.5,0.5)) also fires readily on a puck being
+pushed sideways. This teacher is a floor, not a solution.
 
 SUCCESS (ToolPullCommand)
 -------------------------
     || puck_site - (env_origin + (0.42, 0, 0.012)) || < 0.07
-``tool_grasped`` is tracked but does NOT gate success, so a direct drag scores.
 
-STRATEGY
---------
-Reconstruct the env-local frame from two relative observations. The goal is at a
-FIXED env-local offset, so with ``o2g`` = goal - puck and ``gto`` = puck - gripper:
+OBSERVATION LAYOUT (69-D, measured against the live env, not assumed)
+--------------------------------------------------------------------
+    [ 0: 9] robot_joint_pos      [ 9:18] robot_joint_vel
+    [18:21] object_pos (puck, ABSOLUTE -- carries the per-env origin, never used)
+    [21:25] object_quat          [25:28] gripper_pos (ABSOLUTE, never used)
+    [28:34] gripper_orientation  [34:40] object_orientation (puck)
+    [40:43] gripper_to_object    <- puck - gripper, RELATIVE
+    [43:46] object_to_goal       <- goal - puck, RELATIVE
+    [46:52] goal_orientation_diff
+    [52:55] gripper_to_tool      <- stick object_site - gripper, RELATIVE
+    [55:61] tool_orientation     <- stick rot6d
+    [61:69] control_qpos_diff
+
+The env-local frame is recovered from the relative terms alone, because the goal sits at
+a FIXED env-local offset:
 
     puck_local    = GOAL_LOCAL - o2g
     gripper_local = GOAL_LOCAL - o2g - gto
 
-Both are offset-free (the scene origin cancels), which is what makes an absolute-ish
-env-local plan legal here. Then: hover behind the puck (on the far side, away from
-the goal), drop to puck height with the fingers closed, and shepherd it along the
-straight line to the goal -- the same closed-finger push used by the push_cuboid
-teacher, run outward-to-inward.
-
-OBSERVATIONS: 60-D layout. [40:43] gripper_to_object (puck - gripper),
-[43:46] object_to_goal (goal - puck).
+Both are offset-free (the scene origin cancels), which is what makes an env-local plan
+legal here. Absolute terms are never used.
 """
 
 from __future__ import annotations
@@ -64,18 +112,16 @@ _DOWN_AXIS = np.array([0.0, 0.0, -1.0])
 GRIPPER_CLOSED = -1.0
 
 # The puck is a 7cm-diameter, 2.4cm-thick disc. Ride the closed fingertips at this
-# height above the ground: high enough that the pads clear the floor (they sit ~4mm
-# below the site), low enough to catch the puck's rim rather than skate over it.
-RIDE_Z = 0.032
+# height: high enough that the pads clear the floor, low enough to catch the puck's rim
+# rather than skate over it.
+RIDE_Z = 0.034
 HOVER_Z = 0.16  # transit altitude while swinging out over the puck
 
-# Rate at which the descent from HOVER_Z to RIDE_Z is allowed to proceed, in metres of
-# commanded displacement per control step. Dropping in one commanded jump is what
-# generated the ground contacts: at the converged IK pose the link7 subtree clears the
-# floor comfortably (lowest geom at z=+0.022 for a site at 0.028, measured across the
-# puck's spawn box), but the DLS path to that pose dips transiently, and out at radial
-# 0.65 the arm is near-singular so the dip is large. Feeding the descent in slowly
-# keeps the solver near its converged branch the whole way down.
+# Bounded descent rate, in metres of commanded displacement per control step. Dropping in
+# one commanded jump is what generated the ground contacts: at the converged IK pose the
+# arm clears the floor comfortably, but the DLS path to that pose dips transiently, and
+# out at radial 0.65 the arm is near-singular so the dip is large. Feeding the descent in
+# slowly keeps the solver near its converged branch the whole way down.
 DESCEND_RATE = 0.012
 
 # Stand this far BEHIND the puck (on the far side from the goal) so the fingers make
@@ -93,14 +139,19 @@ PUSH_STEP = 0.09  # per-step lead along the goal direction while shepherding
 class ToolPullClassicalPolicy(ClassicalPolicyBase):
   """Direct closed-finger drag of the puck into the near zone.
 
-  Not a tool-use policy -- see the module docstring for why the observation space
-  does not permit one. The state machine is deliberately flat (no grasp), because
-  there is nothing to grasp that the policy can see.
+  Not a tool-use policy -- see the module docstring for the measured reason the stick
+  cannot be picked up. The state machine is deliberately flat (no grasp).
   """
 
   DEFAULT_QPOS = HOME_QPOS
   max_dq = 0.10
   step_clip_mode = "per_joint"  # shepherding, like push_cuboid
+
+  # THE VALUE THAT WAS CAPPING THIS TASK. The lowest COLLIDABLE link7-subtree geom is
+  # 1.4cm below the ``gripper`` site (measured, not assumed), so the previous 0.026 left
+  # pad material at 0.012 and ``ee_ground_collision`` fired on every transient dip.
+  # Raising it to 0.030 took the identical strategy from 0.000 to 0.125.
+  floor_min_z = 0.030
 
   # Phases: 0 swing out behind the puck at altitude, 1 descend to ride height,
   # 2 shepherd toward the goal, 3 done (back off).
@@ -109,26 +160,37 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
     if env_ids is None:
       self._ema = np.zeros((self.num_envs, 3))
       self._ok = np.zeros(self.num_envs, dtype=bool)
-      self._prev = np.zeros((self.num_envs, 3))
+      self._started = np.zeros(self.num_envs, dtype=bool)
     else:
       self._ok[env_ids] = False
-      self._prev[env_ids] = 0.0
+      self._started[env_ids] = False
 
-  def _detect_reset(self, i: int, raw: np.ndarray) -> None:
-    """Self-reset on the env's auto-reset.
+  # -- auto-reset detection --------------------------------------------------
+  #
+  # ``object_out_of_bounds`` fires readily here -- the puck starts at x~0.65 and is being
+  # shoved around -- and ``ee_ground_collision`` fires on the drag. The harness only
+  # calls policy.reset() BETWEEN episodes, never per-env on termination, so without this
+  # the state machine stays in its shepherd phase against a freshly respawned puck it has
+  # not approached and the arm walks off.
+  #
+  # Detected from the ROBOT state, not the object: ``reset_robot_joints`` puts the arm
+  # back at exactly DEFAULT_QPOS, so ``joint_pos_rel`` collapses to noise-sized zero on
+  # the first post-reset observation and never does so again once the arm is moving. An
+  # earlier version watched for a jump in ``gripper_to_object`` instead; that misfires,
+  # because at max_dq = 0.1 rad/step the EE legitimately travels ~7cm in one control step
+  # and the observation carries up to 1.7cm of noise on top. ``_started`` latches so the
+  # genuine at-home observation at the start of an episode is not read as a reset.
+  reset_qpos_tol = 0.05
 
-    ``object_out_of_bounds`` (x outside (0,1), y outside (-0.5,0.5)) fires readily
-    here -- the puck starts at x~0.65 and is being shoved around -- and the harness
-    never tells the policy. Without this the state machine stays in its "shepherd"
-    phase against a freshly respawned puck it has not approached, and the arm walks
-    off. Detected as a one-step jump in the puck bearing larger than the arm can
-    physically produce.
-    """
-    if self._ok[i] and np.linalg.norm(raw - self._prev[i]) > 0.12:
+  def _detect_reset(self, i: int, obs_i: np.ndarray) -> None:
+    at_home = np.max(np.abs(obs_i[0:7])) < self.reset_qpos_tol
+    if at_home and self._started[i]:
       self._phase[i] = 0
       self._phase_steps[i] = 0
       self._ok[i] = False
-    self._prev[i] = raw
+      self._started[i] = False
+    elif not at_home:
+      self._started[i] = True
 
   def _smooth(self, i: int, raw: np.ndarray) -> np.ndarray:
     if not self._ok[i]:
@@ -138,15 +200,12 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
       self._ema[i] = 0.45 * raw + 0.55 * self._ema[i]
     return self._ema[i]
 
-  # Floor guard, for the same reason as the grasp tasks: ``ee_ground_collision``
-  # matches the whole link7 subtree and the lowest fingertip geom is 1.24cm below the
-  # ``gripper`` site. The site height is recovered by running FK on the arm's own
-  # joint angles (``DEFAULT_QPOS + obs[0:9]``), which is expressed in the ROBOT BASE
-  # frame and so carries no per-env scene-origin offset.
-  floor_min_z = 0.026
-
   def _target_error(self, i: int, obs_i: np.ndarray):
     err, rot, grip = self._plan(i, obs_i)
+    # The site height is recovered by running FK on the arm's own joint angles
+    # (``DEFAULT_QPOS + obs[0:9]``), which is expressed in the ROBOT BASE frame and so
+    # carries no per-env scene-origin offset -- legal in a way that reading obs[25:28]
+    # (absolute world gripper_pos) is not.
     z = float(self._fk(self.default_qpos + obs_i[0:9])[0][2])
     if z + err[2] < self.floor_min_z:
       err = np.asarray(err, dtype=np.float64).copy()
@@ -154,7 +213,7 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
     return err, rot, grip
 
   def _plan(self, i: int, obs_i: np.ndarray):
-    self._detect_reset(i, obs_i[40:43])
+    self._detect_reset(i, obs_i)
     gto = self._smooth(i, obs_i[40:43])  # puck - gripper
     o2g = obs_i[43:46]  # goal - puck
 
@@ -169,15 +228,15 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
     grip_z = GOAL_LOCAL[2] - o2g[2] - gto[2]
 
     if dist < GOAL_TOL or self._phase[i] == 3:
-      # Done: lift straight up and hold, so the arm stops disturbing the puck while
-      # the success latch is read.
+      # Done: lift straight up and hold, so the arm stops disturbing the puck while the
+      # success latch is read.
       self._phase[i] = 3
       return np.array([0.0, 0.0, HOVER_Z - grip_z]), _DOWN_AXIS, GRIPPER_CLOSED
 
     if self._phase[i] == 0:
       # Swing out to a point behind the puck, at transit altitude. Going high first
-      # matters: a low straight-line approach ploughs the fingers through the puck
-      # from the near side and shoves it further away.
+      # matters: a low straight-line approach ploughs the fingers through the puck from
+      # the near side and shoves it further away.
       err = gto + behind
       err[2] = HOVER_Z - grip_z
       if np.linalg.norm(err[:2]) < APPROACH_TOL and self._phase_steps[i] > 6:
@@ -186,8 +245,7 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
       return err, _DOWN_AXIS, GRIPPER_CLOSED
 
     if self._phase[i] == 1:
-      # Drop to ride height, still behind the puck, at a BOUNDED rate (see
-      # DESCEND_RATE) so the solver does not swing the wrist through the floor.
+      # Drop to ride height, still behind the puck, at a BOUNDED rate.
       err = gto + behind
       err[2] = np.clip(RIDE_Z - grip_z, -DESCEND_RATE, DESCEND_RATE)
       if abs(RIDE_Z - grip_z) < 0.012 or self._phase_steps[i] > 90:
@@ -199,12 +257,10 @@ class ToolPullClassicalPolicy(ClassicalPolicyBase):
     #
     # The lead is applied to the CONTACT POINT, and the standoff is deliberately not
     # cancelled: commanding ``gto + behind`` alone converges the gripper ONTO the puck
-    # rather than behind it, because the DLS solve carries a 2-3cm steady-state bias
-    # that eats the 5.2cm standoff. Measured symptom: in the shepherd phase
-    # ``gripper_to_object`` sits at ~0 (not at -behind) with the pads at puck height,
-    # so the fingers straddle and PIN the puck against the floor instead of pushing
-    # its rim, and ``goal_error`` stays flat at 0.25-0.28 for the whole episode.
-    # Biasing the commanded contact point further out compensates for that bias.
+    # rather than behind it, because the DLS solve carries a 2-3cm steady-state bias that
+    # eats the 5.2cm standoff. Measured symptom: the fingers straddle and PIN the puck
+    # against the floor instead of pushing its rim, and ``goal_error`` stays flat for the
+    # whole episode. Biasing the commanded contact point further out compensates.
     lead = min(dist, PUSH_STEP)
     err = gto + behind * BEHIND_BIAS + np.array([d[0] * lead, d[1] * lead, 0.0])
     err[2] = np.clip(RIDE_Z - grip_z, -DESCEND_RATE, DESCEND_RATE)
