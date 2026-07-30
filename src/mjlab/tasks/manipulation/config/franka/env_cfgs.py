@@ -663,18 +663,12 @@ def franka_open_door_env_cfg(
   # Set robot asset config for gripper position in metrics
   door_command.robot_asset_cfg.site_names = ("gripper",)
 
-  # NOTE: door_pose_range above does NOT position the door — the actual mount pose is
-  # written by the `reset_door_position` reset event, which is what we override here.
-  # door.xml: the handle (object_site) sits at (-0.04, +0.25, 0) from door_base, so the
-  # mount is shifted 0.25 to -y to bring the handle onto the robot's midline. Handle
-  # then lands at x 0.44-0.48, y +-0.05 -> radial <= 0.49, under
-  # workspace.MECHANISM_HANDLE_RADIAL_MAX. z is left at the asset's 0.61 wall height,
-  # which the door's hinge geometry and success target depend on.
-  cfg.events["reset_door_position"].params["pose_range"] = {
-    "x": (0.48, 0.52),
-    "y": (-0.30, -0.20),
-    "z": _mech_z("door"),
-  }
+  # NOTE: the workspace-audit placement override (`reset_door_position` pose_range,
+  # added in 2ab6d11) is deliberately NOT applied here. The continual-distill RL
+  # teachers for this task were trained against the pre-audit placement, and moving
+  # the mount silently drops them to ~0 success (they still see obs_dim=60, so it
+  # fails silently rather than erroring). See docs/P0_EXPERIMENTS.md. Re-enable this
+  # only together with retrained teachers.
 
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
@@ -760,14 +754,9 @@ def franka_open_drawer_env_cfg(
   # Set robot asset config for gripper position in metrics
   drawer_command.robot_asset_cfg.site_names = ("gripper",)
 
-  # As for the door, placement comes from the reset event, not drawer_pose_range.
-  # drawer.xml: handle at (-0.04, 0, 0) from drawer_base and the drawer resets closed,
-  # so handle x = mount x - 0.04 -> 0.42-0.52 here (radial <= 0.53).
-  cfg.events["reset_drawer_position"].params["pose_range"] = {
-    "x": (0.46, 0.56),
-    "y": (-0.10, 0.10),
-    "z": _mech_z("drawer"),
-  }
+  # NOTE: workspace-audit placement override intentionally not applied — see the
+  # note in franka_open_door_env_cfg and docs/P0_EXPERIMENTS.md. The RL teacher for
+  # this task predates it.
 
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
@@ -853,14 +842,9 @@ def franka_push_button_env_cfg(
   # Set robot asset config for gripper position in metrics
   button_command.robot_asset_cfg.site_names = ("gripper",)
 
-  # As for the door, placement comes from the reset event, not button_pose_range.
-  # button.xml: the button cap (object_site) is directly ABOVE the mount at
-  # (0, 0, +0.1), so handle radial == mount radial; only x needs pulling in.
-  cfg.events["reset_button_position"].params["pose_range"] = {
-    "x": (0.44, 0.48),
-    "y": (-0.10, 0.10),
-    "z": _mech_z("button"),
-  }
+  # NOTE: workspace-audit placement override intentionally not applied — see the
+  # note in franka_open_door_env_cfg and docs/P0_EXPERIMENTS.md. The RL teacher for
+  # this task predates it.
 
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
@@ -933,21 +917,22 @@ def franka_push_cuboid_env_cfg(
   push_command = cfg.commands["push_cuboid"]
   assert isinstance(push_command, PushingCommandCfg)
 
-  # Class A grasp envelope: the cuboid must be contacted top-down/side-on by the
-  # fingertips, so it obeys the same reachability bound as a graspable object.
-  # Spawn takes the near half of the x band and the target the far half, so every
-  # episode is a genuine forward push rather than a nudge; y keeps the full spread.
-  _x_lo, _x_hi = workspace.GRASP_X_RANGE
-  _x_mid = (_x_lo + _x_hi) / 2
+  # Override object and target ranges for Franka.
+  #
+  # NOTE: these are the PRE-workspace-audit ranges. 2ab6d11 replaced them with
+  # workspace.GRASP_X_RANGE halves (spawn near / target far); that moves the cuboid
+  # off the distribution the continual-distill RL teacher was trained on and drops
+  # it from ~0.83 to ~0.008 success. obs_dim stays 60, so the failure is silent.
+  # See docs/P0_EXPERIMENTS.md. Restore the audit ranges only with a retrained teacher.
   push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
-    x=(_x_lo, _x_mid),
-    y=workspace.GRASP_Y_RANGE,
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
     z=(0.015, 0.015),  # Cuboid half-height is 0.015 - spawn at ground level
     yaw=(0.0, 0.0),  # No rotation - keep upright
   )
   push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
-    x=(_x_mid, _x_hi),
-    y=workspace.GRASP_Y_RANGE,
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
   )
 
   # Franka uses "gripper" site for end-effector
