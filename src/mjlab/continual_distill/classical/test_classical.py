@@ -11,22 +11,10 @@ import argparse
 import numpy as np
 import torch
 
-from mjlab.continual_distill.classical import (
-  OpenDoorClassicalPolicy,
-  OpenDrawerClassicalPolicy,
-  PushButtonClassicalPolicy,
-  PushCuboidClassicalPolicy,
-)
+from mjlab.continual_distill.classical import CLASSICAL_POLICIES as POLICIES
 from mjlab.envs import ManagerBasedRlEnv
 from mjlab.tasks.registry import load_env_cfg
 from mjlab.utils.torch import configure_torch_backends
-
-POLICIES = {
-  "Mjlab-Push-Button-Franka": PushButtonClassicalPolicy,
-  "Mjlab-Push-Cuboid-Franka": PushCuboidClassicalPolicy,
-  "Mjlab-Open-Door-Franka": OpenDoorClassicalPolicy,
-  "Mjlab-Open-Drawer-Franka": OpenDrawerClassicalPolicy,
-}
 
 
 def main() -> None:

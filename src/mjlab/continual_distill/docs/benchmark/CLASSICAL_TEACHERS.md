@@ -265,6 +265,7 @@ as such — none of these numbers was obtained by relaxing a task.
 - [x] Re-tune: Push-Button (1.000), Push-Cuboid (0.12-0.16), Open-Door (still 0.000)
 - [x] Author: Reach, Lift x4, Push-Disc
 - [x] Author: Stack, Peg-Insertion, Place-In-Container, Reorient, Tool-Pull
-- [ ] Register all teachers in `__init__.py` / `test_classical.py`
+- [x] Register all teachers — `classical.CLASSICAL_POLICIES` is the single source of
+      truth (20/20 Class A tasks); `test_classical` reads it
 - [ ] Open decisions: Push-Disc goal z; Rotate-Valve task softening; Open-Door strategy;
       Tool-Pull teacher rewrite now that the stick is observable
