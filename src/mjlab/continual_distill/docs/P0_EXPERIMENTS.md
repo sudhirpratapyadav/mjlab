@@ -119,6 +119,19 @@ and the other three teachers at ~1.00, the best achievable four-task average is
 ≈0.96 — which is what both the joint ceiling (0.958) and sequential-best (0.960)
 reach. The method is not leaving performance on the table; the teachers are.
 
+### Before running anything else on these four tasks
+
+The placement fix (`a0cc9be`) is a prerequisite for **every** experiment that reuses
+the existing teacher datasets, not just P0. The mix/BC/classical configs
+(`tasks_mix_*.yaml`) and the P1 PLA grid all target the same four env_ids
+(`Mjlab-{Push-Cuboid,Push-Button,Open-Door,Open-Drawer}-Franka`) and would have
+produced the same silent ~0.00 results on pre-fix HEAD. They are unblocked now.
+
+Cheap guard for any future run: `config/tasks_teachercheck.yaml` (`num_epochs: 0`)
+does only the step-0 teacher rollout, so a ~3-minute run tells you whether the
+teachers still work before committing GPU-days to a sweep. Expected values:
+PushCuboid ~0.82, OpenDrawer ~1.00, OpenDoor ~0.99, PushButton ~1.00.
+
 ## Status
 
 Legend: ⏳ queued · 🔄 running · ✅ complete · ❌ failed
