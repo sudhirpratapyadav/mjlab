@@ -399,8 +399,12 @@ Tool-pull is the cautionary case. SIX measurements of *identical code*:
 | agent, `test_classical` | 32 | 0.031 |
 | agent, `test_classical` | 48 | 0.042 |
 | parent, `test_classical` | 32 | 0.125 |
+| **parent, `test_classical`** | **128** | **0.039  <- settles it** |
 
-Per-batch figures across all of them span **0.000 to 0.250**. The agent saw 0.125,
+Per-batch figures across all of them span **0.000 to 0.250**. The 128-episode run
+(4x any earlier sample) puts the true value near 0.04, so BOTH 0.125 readings were
+favourable-batch noise — including the parent's, which had reproduced the agent's
+retracted figure exactly and briefly looked like vindication of it. The agent saw 0.125,
 re-measured at 0.031, and retracted its higher claim as a favourable-batch artifact —
 then the parent's independent run reproduced 0.125 exactly. Neither party was careless;
 **32 episodes is simply not enough resolution to separate 0.03 from 0.13.**
@@ -410,7 +414,9 @@ Practical rules this implies for anything below ~0.3:
 - report a RANGE, not a point, and say how many episodes produced it;
 - a 2-4x disagreement between two 32-episode runs is expected, not a contradiction, and
   should never be resolved by picking the flattering one;
-- a claimed improvement from 0.03 to 0.13 on 32 episodes is not evidence of anything.
+- a claimed improvement from 0.03 to 0.13 on 32 episodes is not evidence of anything;
+- when a weak number matters, spend the 128 episodes. It cost one run to convert a
+  four-way disagreement into a settled 0.039.
 
 The strong teachers do not have this problem: 1.000 over 32 episodes, reproduced twice,
 is a real result. The variance caveat applies specifically to the tail.
