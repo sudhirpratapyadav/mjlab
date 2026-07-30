@@ -239,6 +239,19 @@ PushCuboid varies 0.79–0.84 across repeated 128-episode evals on both the fixe
 and the sweep-era checkout — that spread is ordinary evaluation noise for this task,
 not a residual gap.
 
+**End-to-end confirmation:** the relaunched `nosi_best_s0` reports
+`teacher_success: 0.8281` at its first evaluation — the exact value the July sweep
+logged (0.828). The P0 runs are training against working teachers.
+
+### Relaunch bookkeeping
+
+The 18 runs from the pre-fix attempt are archived under
+`logs/invalid_p0_preplacementfix/` (with the old `p0_state/`). This matters because
+the scheduler treats `"Training complete"` in a run's log as "done and skip" — the
+three `joint_*` runs had actually *finished* during the broken window (returning
+0.008–0.016) and would otherwise have been silently kept. All 18 now re-run against
+the fixed environment.
+
 ## Notes / gotchas hit
 
 - **`config/tasks.yaml` cannot run on the cluster.** It still carries the old
