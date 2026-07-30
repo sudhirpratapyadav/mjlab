@@ -58,11 +58,17 @@ from dataclasses import dataclass
 
 GRASP_X_RANGE: tuple[float, float] = (0.30, 0.52)
 """Comfortable fore/aft band for a graspable object. Centred on the density peak
-(x~0.33) and stopping well short of the p90 reach tail."""
+(x~0.33) and stopping well short of the p90 reach tail.
+
+CAUTION: this and ``GRASP_Y_RANGE`` bound each axis INDEPENDENTLY, so the box corner
+escapes the radial ceiling: hypot(0.52, 0.25) = 0.577 > GRASP_RADIAL_MAX (0.55). A task
+that uses both ranges verbatim will occasionally sample an out-of-envelope corner. Use
+``grasp_box(y_max=...)`` instead of pairing the raw constants — it clamps x so the whole
+box, corners included, respects the ceiling."""
 
 GRASP_Y_RANGE: tuple[float, float] = (-0.25, 0.25)
 """Lateral band. The arm is symmetric in y; +-0.25 stays inside the comfortable cone
-at these x values."""
+at these x values. See the corner caveat on ``GRASP_X_RANGE``."""
 
 GRASP_RADIAL_MAX: float = 0.55
 """Hard ceiling on sqrt(x^2+y^2) for anything that must be GRASPED. Beyond this the
@@ -103,6 +109,45 @@ SITE_TO_FINGERTIP: float = 0.10
 """The ``gripper`` site sits 10cm behind the fingertips along the approach axis. A
 grasp of an object whose centre is at z=h puts the SITE near z=h+0.10 — the reason the
 grasp-height analysis above uses site z~0.10 for a floor-resting object."""
+
+
+def grasp_box(
+  y_max: float | None = None,
+  x_min: float | None = None,
+  margin: float = 0.01,
+) -> tuple[tuple[float, float], tuple[float, float]]:
+  """Return an (x_range, y_range) grasp box whose CORNERS respect the radial ceiling.
+
+  ``GRASP_X_RANGE`` and ``GRASP_Y_RANGE`` bound each axis independently, so pairing
+  them directly yields a box whose far corner (hypot(0.52, 0.25) = 0.577) exceeds
+  ``GRASP_RADIAL_MAX`` (0.55). A task sampling uniformly in that box occasionally
+  spawns an object outside the comfortable envelope — intermittently, so it may pass
+  one audit and fail the next depending on the sample.
+
+  This keeps the full lateral spread (the y variation is what gives lift/push their
+  character) and pulls x back so the corner lands on the ceiling:
+
+      x_max = sqrt(GRASP_RADIAL_MAX^2 - y_max^2) - margin
+
+  Args:
+    y_max: half-width of the lateral band. Defaults to the full ``GRASP_Y_RANGE``.
+    x_min: near edge. Defaults to ``GRASP_X_RANGE[0]``.
+    margin: safety gap below the ceiling, in metres.
+  """
+  y = GRASP_Y_RANGE[1] if y_max is None else y_max
+  x0 = GRASP_X_RANGE[0] if x_min is None else x_min
+  if abs(y) >= GRASP_RADIAL_MAX:
+    raise ValueError(
+      f"grasp_box: y_max={y} is beyond GRASP_RADIAL_MAX ({GRASP_RADIAL_MAX}); "
+      "no x band can satisfy the ceiling."
+    )
+  x1 = min(GRASP_X_RANGE[1], (GRASP_RADIAL_MAX**2 - y**2) ** 0.5 - margin)
+  if x1 <= x0:
+    raise ValueError(
+      f"grasp_box: y_max={y} leaves no valid x band (x_min={x0}, x_max={x1:.3f}). "
+      "Reduce y_max."
+    )
+  return (x0, x1), (-y, y)
 
 
 @dataclass(frozen=True)

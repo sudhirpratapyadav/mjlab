@@ -1544,13 +1544,34 @@ class PlaceInContainerCommand(CommandTerm):
 
     _spawn_object(self, self.object, self.cfg.object_spawn_range, env_ids)
 
-    # Goal = the container's interior reference site (it is a static mocap body).
+    # The container is a STATIC MOCAP body. Mocap bodies are not reset by the scene,
+    # so unless we write them ourselves every env shares the single world-frame pose
+    # baked into the MJCF — i.e. the bin sits at the world origin and only env 0's
+    # robot has it in reach. Write it per-env, relative to that env's origin.
+    origins = self._env.scene.env_origins[env_ids]
+    crng = self.cfg.container_spawn_range
+    container_pos = origins + sample_uniform(
+      torch.tensor([crng.x[0], crng.y[0], crng.z[0]], device=self.device),
+      torch.tensor([crng.x[1], crng.y[1], crng.z[1]], device=self.device),
+      (n, 3),
+      device=self.device,
+    )
+    quats = torch.zeros(n, 4, device=self.device)
+    quats[:, 0] = 1.0
+    self.container.write_mocap_pose_to_sim(
+      torch.cat([container_pos, quats], dim=-1), env_ids=env_ids
+    )
+
+    # Goal = the container's interior reference site. Computed analytically from the
+    # pose we just wrote rather than read back from ``site_pos_w``: forward kinematics
+    # has not re-run yet this step, so the cached site position is still the old one.
     site_idx = self.container.site_names.index("object_site")
-    self.target_pos[env_ids] = self.container.data.site_pos_w[env_ids, site_idx]
+    site_offset = torch.tensor(
+      self.container.spec.sites[site_idx].pos, device=self.device, dtype=torch.float
+    )
+    self.target_pos[env_ids] = container_pos + site_offset
 
     if self.mocap_goal is not None:
-      quats = torch.zeros(n, 4, device=self.device)
-      quats[:, 0] = 1.0
       pose = torch.cat([self.target_pos[env_ids].clone(), quats], dim=-1)
       self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
 
@@ -1577,6 +1598,17 @@ class PlaceInContainerCommandCfg(CommandTermCfg):
   """Guard against a below-floor (tunnelled) false positive."""
   settle_speed: float = 0.12
   """Object must be moving slower than this — i.e. released, not carried."""
+  container_spawn_range: _ObjectSpawnRangeCfg = field(
+    default_factory=lambda: _ObjectSpawnRangeCfg(
+      x=(0.55, 0.55), y=(0.20, 0.20), z=(0.02, 0.02), yaw=(0.0, 0.0)
+    )
+  )
+  """Container body placement in ENV-LOCAL coordinates, written per-env every resample.
+
+  The container is a mocap body, so nothing else resets it; the MJCF's own ``pos``
+  would otherwise leave it at the world origin for every env but env 0. Defaults to
+  the MJCF value so behaviour is unchanged for env 0.
+  """
   object_spawn_range: _ObjectSpawnRangeCfg | None = field(
     default_factory=_ObjectSpawnRangeCfg
   )

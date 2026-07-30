@@ -50,6 +50,7 @@ from mjlab.entity import EntityCfg
 from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
 from mjlab.sensor import ContactSensorCfg
+from mjlab.tasks.manipulation import workspace
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
 from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
 from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_cfg
@@ -105,6 +106,16 @@ from mjlab.tasks.manipulation.push_cuboid_env_cfg import make_push_cuboid_env_cf
 from mjlab.tasks.manipulation.push_disc_env_cfg import make_push_disc_env_cfg
 
 
+def _grasp_box_corner_safe() -> tuple[tuple[float, float], tuple[float, float]]:
+  """The Class A grasp envelope, with x trimmed so its CORNERS obey GRASP_RADIAL_MAX.
+
+  Thin alias for ``workspace.grasp_box()`` — see there for why the raw
+  ``GRASP_X_RANGE`` x ``GRASP_Y_RANGE`` rectangle is not itself corner-safe. Kept as a
+  named local so the lift/push call sites read clearly.
+  """
+  return workspace.grasp_box()
+
+
 def franka_lift_cube_env_cfg(
   play: bool = False,
   test: bool = False,
@@ -125,17 +136,20 @@ def franka_lift_cube_env_cfg(
   lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
 
-  # Override object and target ranges for Franka
+  # Object spawn / lift goal live in the measured Class A grasp envelope
+  # (mjlab.tasks.manipulation.workspace). z is unchanged: the resting height is a
+  # property of the cube, not of the workspace.
+  _obj_x, _obj_y = _grasp_box_corner_safe()
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=_obj_x,
+    y=_obj_y,
     z=(0.02, 0.05),
     yaw=(-3.14, 3.14),
   )
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
-    z=(0.2, 0.4),
+    x=workspace.GOAL_X_RANGE,
+    y=workspace.GOAL_Y_RANGE,
+    z=workspace.GOAL_Z_RANGE,
   )
 
   # Franka uses "gripper" site for end-effector
@@ -215,17 +229,18 @@ def franka_lift_cylinder_env_cfg(
   assert isinstance(lift_command, LiftingCommandCfg)
   lift_command.asset_name = "cylinder"
 
-  # Same spawn/target ranges as the cube lift.
+  # Same spawn/target ranges as the cube lift: the shared Class A grasp envelope.
+  _obj_x, _obj_y = _grasp_box_corner_safe()
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=_obj_x,
+    y=_obj_y,
     z=(0.02, 0.05),
     yaw=(-3.14, 3.14),
   )
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
-    z=(0.2, 0.4),
+    x=workspace.GOAL_X_RANGE,
+    y=workspace.GOAL_Y_RANGE,
+    z=workspace.GOAL_Z_RANGE,
   )
 
   # Point every object-referencing term at the cylinder.
@@ -311,11 +326,14 @@ def _franka_lift_object_env_cfg(
   lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
   lift_command.asset_name = object_name
+  # Shared Class A grasp envelope; z (resting height) stays object-specific.
+  _obj_x, _obj_y = _grasp_box_corner_safe()
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
-    x=(0.6, 0.8), y=(-0.15, 0.15), z=(0.02, 0.05), yaw=(-3.14, 3.14),
+    x=_obj_x, y=_obj_y,
+    z=(0.02, 0.05), yaw=(-3.14, 3.14),
   )
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=(0.6, 0.8), y=(-0.15, 0.15), z=(0.2, 0.4),
+    x=workspace.GOAL_X_RANGE, y=workspace.GOAL_Y_RANGE, z=workspace.GOAL_Z_RANGE,
   )
 
   for term_name in (
@@ -406,6 +424,25 @@ def franka_stack_cube_env_cfg(
   stack_command.robot_asset_cfg.site_names = ("gripper",)
   stack_command.stack_height = 0.035
 
+  # Two objects that must not overlap: split the shared GRASP_* box laterally, one
+  # either side of y=0. Each half keeps the FULL |y| extent of GRASP_Y_RANGE (that is
+  # what makes the two objects' relative bearing vary), so x is squeezed instead: it
+  # runs from GRASP_RADIAL_MIN out to 0.47, short of GRASP_X_RANGE's 0.52, putting the
+  # far corner at sqrt(0.47^2 + 0.25^2) = 0.532 — inside GRASP_RADIAL_MAX (0.55).
+  _STACK_X = (workspace.GRASP_RADIAL_MIN, 0.47)
+  stack_command.object_pose_range = StackingCommandCfg.ObjectPoseRangeCfg(
+    x=_STACK_X,
+    y=(workspace.GRASP_Y_RANGE[0], -0.04),  # cube: right half
+    z=(0.02, 0.02),  # cube half-height, resting on the ground plane
+    yaw=(0.0, 0.0),
+  )
+  stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
+    x=_STACK_X,
+    y=(0.04, workspace.GRASP_Y_RANGE[1]),  # cuboid base: left half
+    z=(0.015, 0.015),  # cuboid half-height
+    yaw=(0.0, 0.0),
+  )
+
   # Franka uses the "gripper" site.
   for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
     if obs_name in cfg.observations["policy"].terms:
@@ -475,6 +512,23 @@ def franka_peg_insertion_env_cfg(
   stack_command.stack_height = 0.01
   stack_command.success_threshold = 0.015  # tight xy alignment for insertion
   stack_command.height_threshold = 0.03
+
+  # Same lateral split as stack (see franka_stack_cube_env_cfg): peg on the right half
+  # of the GRASP_* box, hole board on the left, neither overlapping and both under
+  # GRASP_RADIAL_MAX (far corner sqrt(0.47^2 + 0.25^2) = 0.532).
+  _PEG_X = (workspace.GRASP_RADIAL_MIN, 0.47)
+  stack_command.object_pose_range = StackingCommandCfg.ObjectPoseRangeCfg(
+    x=_PEG_X,
+    y=(workspace.GRASP_Y_RANGE[0], -0.04),  # peg
+    z=(0.02, 0.02),
+    yaw=(0.0, 0.0),
+  )
+  stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
+    x=_PEG_X,
+    y=(0.04, workspace.GRASP_Y_RANGE[1]),  # hole board
+    z=(0.015, 0.015),
+    yaw=(0.0, 0.0),
+  )
 
   for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
     if obs_name in cfg.observations["policy"].terms:
@@ -592,6 +646,19 @@ def franka_open_door_env_cfg(
   # Set robot asset config for gripper position in metrics
   door_command.robot_asset_cfg.site_names = ("gripper",)
 
+  # NOTE: door_pose_range above does NOT position the door — the actual mount pose is
+  # written by the `reset_door_position` reset event, which is what we override here.
+  # door.xml: the handle (object_site) sits at (-0.04, +0.25, 0) from door_base, so the
+  # mount is shifted 0.25 to -y to bring the handle onto the robot's midline. Handle
+  # then lands at x 0.44-0.48, y +-0.05 -> radial <= 0.49, under
+  # workspace.MECHANISM_HANDLE_RADIAL_MAX. z is left at the asset's 0.61 wall height,
+  # which the door's hinge geometry and success target depend on.
+  cfg.events["reset_door_position"].params["pose_range"] = {
+    "x": (0.48, 0.52),
+    "y": (-0.30, -0.20),
+    "z": (0.61, 0.61),
+  }
+
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
   for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
@@ -675,6 +742,15 @@ def franka_open_drawer_env_cfg(
   )
   # Set robot asset config for gripper position in metrics
   drawer_command.robot_asset_cfg.site_names = ("gripper",)
+
+  # As for the door, placement comes from the reset event, not drawer_pose_range.
+  # drawer.xml: handle at (-0.04, 0, 0) from drawer_base and the drawer resets closed,
+  # so handle x = mount x - 0.04 -> 0.42-0.52 here (radial <= 0.53).
+  cfg.events["reset_drawer_position"].params["pose_range"] = {
+    "x": (0.46, 0.56),
+    "y": (-0.10, 0.10),
+    "z": (0.50, 0.50),
+  }
 
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
@@ -760,6 +836,15 @@ def franka_push_button_env_cfg(
   # Set robot asset config for gripper position in metrics
   button_command.robot_asset_cfg.site_names = ("gripper",)
 
+  # As for the door, placement comes from the reset event, not button_pose_range.
+  # button.xml: the button cap (object_site) is directly ABOVE the mount at
+  # (0, 0, +0.1), so handle radial == mount radial; only x needs pulling in.
+  cfg.events["reset_button_position"].params["pose_range"] = {
+    "x": (0.44, 0.48),
+    "y": (-0.10, 0.10),
+    "z": (0.50, 0.50),
+  }
+
   # Franka uses "gripper" site for end-effector
   # Update all observation terms that use site_names
   for obs_name in ["gripper_pos", "gripper_orientation", "gripper_to_object"]:
@@ -831,16 +916,21 @@ def franka_push_cuboid_env_cfg(
   push_command = cfg.commands["push_cuboid"]
   assert isinstance(push_command, PushingCommandCfg)
 
-  # Override object and target ranges for Franka
+  # Class A grasp envelope: the cuboid must be contacted top-down/side-on by the
+  # fingertips, so it obeys the same reachability bound as a graspable object.
+  # Spawn takes the near half of the x band and the target the far half, so every
+  # episode is a genuine forward push rather than a nudge; y keeps the full spread.
+  _x_lo, _x_hi = workspace.GRASP_X_RANGE
+  _x_mid = (_x_lo + _x_hi) / 2
   push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=(_x_lo, _x_mid),
+    y=workspace.GRASP_Y_RANGE,
     z=(0.015, 0.015),  # Cuboid half-height is 0.015 - spawn at ground level
     yaw=(0.0, 0.0),  # No rotation - keep upright
   )
   push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=(_x_mid, _x_hi),
+    y=workspace.GRASP_Y_RANGE,
   )
 
   # Franka uses "gripper" site for end-effector
@@ -911,16 +1001,19 @@ def franka_push_disc_env_cfg(
   push_command = cfg.commands["push_disc"]
   assert isinstance(push_command, PushingCommandCfg)
 
-  # Override object and target ranges for Franka
+  # Class A grasp envelope, split near/far in x as in the cuboid push so the disc
+  # actually has to travel; y keeps the full lateral spread.
+  _x_lo, _x_hi = workspace.GRASP_X_RANGE
+  _x_mid = (_x_lo + _x_hi) / 2
   push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=(_x_lo, _x_mid),
+    y=workspace.GRASP_Y_RANGE,
     z=(0.05, 0.05),  # TEST: Fixed height
     yaw=(0.0, 0.0),  # TEST: NO rotation - keep upright
   )
   push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
-    x=(0.6, 0.8),
-    y=(-0.15, 0.15),
+    x=(_x_mid, _x_hi),
+    y=workspace.GRASP_Y_RANGE,
   )
 
   # Franka uses "gripper" site for end-effector
@@ -1051,10 +1144,14 @@ def franka_turn_lever_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "lever", "turn_lever")
 
+  # Mount placement is chosen so the HANDLE lands inside the workspace, not the mount.
+  # lever.xml: object_site sits at (-0.05, +0.12, 0) from lever_base, so the mount is
+  # pushed 0.12 to -y and the handle ends up at x 0.45-0.51, y +-0.08
+  # (radial <= 0.52, comfortably under workspace.MECHANISM_HANDLE_RADIAL_MAX).
   cfg.events["reset_lever_position"].params["pose_range"] = {
-    "x": (0.60, 0.68),
-    "y": (-0.08, 0.08),
-    "z": (0.45, 0.55),
+    "x": (0.50, 0.56),
+    "y": (-0.20, -0.04),
+    "z": workspace.MECHANISM_Z_RANGE,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1074,10 +1171,13 @@ def franka_rotate_valve_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "valve", "rotate_valve")
 
+  # valve.xml: object_site (spoke tip) at (-0.04, +0.09, 0) from valve_base. Offsetting
+  # the mount by -0.09 in y centres the spoke tip on the robot's midline; the spoke
+  # sweeps a 0.09 radius circle in the y-z plane, which stays inside the ceiling.
   cfg.events["reset_valve_position"].params["pose_range"] = {
-    "x": (0.60, 0.68),
-    "y": (-0.08, 0.08),
-    "z": (0.45, 0.55),
+    "x": (0.49, 0.55),
+    "y": (-0.17, -0.01),
+    "z": workspace.MECHANISM_Z_RANGE,
   }
   # Multi-turn task: needs a longer episode than a single-stroke articulation.
   cfg.episode_length_s = 8.0
@@ -1099,10 +1199,13 @@ def franka_flip_switch_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "switch", "flip_switch")
 
+  # switch.xml: object_site is directly ABOVE the mount at (0, 0, +0.062), so the
+  # handle radial equals the mount radial and z is raised 6cm. Mount z is kept at the
+  # low end of workspace.MECHANISM_Z_RANGE so the toggle tip lands mid-band.
   cfg.events["reset_switch_position"].params["pose_range"] = {
-    "x": (0.60, 0.68),
+    "x": (0.46, 0.52),
     "y": (-0.08, 0.08),
-    "z": (0.45, 0.55),
+    "z": (0.42, 0.50),
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1122,10 +1225,13 @@ def franka_slide_window_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "window", "slide_window")
 
+  # window.xml: object_site (grab bar) at (-0.04, -0.10, 0) from window_base, so the
+  # mount is shifted +0.10 in y to bring the closed-position bar back to the midline.
+  # The pane then slides +y (toward the midline and beyond), never further out.
   cfg.events["reset_window_position"].params["pose_range"] = {
-    "x": (0.60, 0.68),
-    "y": (-0.05, 0.05),
-    "z": (0.45, 0.55),
+    "x": (0.50, 0.56),
+    "y": (0.05, 0.15),
+    "z": workspace.MECHANISM_Z_RANGE,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1149,8 +1255,12 @@ def franka_open_lid_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "lid", "open_lid")
 
+  # lid.xml: the grab lip (object_site) is at (-0.09, 0, +0.05) from lid_base — a deep
+  # -x protrusion, so the mount may sit further out than the others. The box is a
+  # mocap-mounted body (not floor-standing), but its z is what sets the lift arc, so
+  # the original height band is preserved; only x is pulled in.
   cfg.events["reset_lid_position"].params["pose_range"] = {
-    "x": (0.55, 0.62),
+    "x": (0.52, 0.59),
     "y": (-0.08, 0.08),
     "z": (0.38, 0.44),
   }
@@ -1203,8 +1313,25 @@ def franka_place_in_container_env_cfg(
   # real lateral carry rather than a vertical lift.
   place_command = cfg.commands["place_in_container"]
   assert isinstance(place_command, PlaceInContainerCommandCfg)
+  # Cube on the -y half of the GRASP_* box, bin on the +y half: a genuine lateral
+  # carry across the midline, both inside GRASP_RADIAL_MAX. x runs from
+  # GRASP_RADIAL_MIN to 0.48, so the far corner sqrt(0.48^2 + 0.25^2) = 0.541 stays
+  # under the 0.55 ceiling.
+  _PLACE_X = (workspace.GRASP_RADIAL_MIN, 0.48)
   place_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.45, 0.60), y=(-0.22, -0.08), z=(0.03, 0.03)
+    x=_PLACE_X, y=(workspace.GRASP_Y_RANGE[0], -0.04), z=(0.03, 0.03)
+  )
+  # The container is a static MOCAP body: nothing resets it, so the command must
+  # write it per-env (see PlaceInContainerCommand._resample_command). Before this it
+  # kept the MJCF world-frame pose, leaving the bin at the world origin for every env
+  # except env 0. The +y band leaves >=0.14 of clearance to the cube band, comfortably
+  # more than the bin's 0.078 half-width.
+  # The bin only has to be REACHED OVER, never grasped, so it uses a slightly wider x
+  # band than GRASP_X_RANGE (starting at 0.28) — that keeps its approach-freedom
+  # comfortably above the audit's 3% floor while its far corner,
+  # sqrt(0.48^2 + 0.24^2) = 0.537, still clears GRASP_RADIAL_MAX.
+  place_command.container_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.28, 0.48), y=(0.07, 0.24), z=(0.02, 0.02), yaw=(0.0, 0.0)
   )
 
   cfg.viewer.body_name = "link0"
@@ -1257,9 +1384,13 @@ def franka_reorient_object_env_cfg(
   # is a genuine reorientation rather than a no-op.
   reorient_command = cfg.commands["reorient_object"]
   assert isinstance(reorient_command, ReorientObjectCommandCfg)
+  # Inside the shared Class A grasp envelope. The cylinder lies on its side, so its
+  # body extends ~0.05 either side of the spawn point along a random yaw; inset x/y by
+  # that half-length so no part of it leaves the envelope regardless of yaw.
+  _pad = 0.05
   reorient_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.45, 0.60),
-    y=(-0.12, 0.12),
+    x=(workspace.GRASP_X_RANGE[0] + _pad, workspace.GRASP_X_RANGE[1] - _pad),
+    y=(workspace.GRASP_Y_RANGE[0] + _pad, workspace.GRASP_Y_RANGE[1] - _pad),
     z=(0.025, 0.025),
     roll=(1.5707963, 1.5707963),
     yaw=(-3.14159, 3.14159),
@@ -1316,11 +1447,30 @@ def franka_tool_pull_env_cfg(
   # Stick spawns within easy reach, off to the side.
   pull_command = cfg.commands["tool_pull"]
   assert isinstance(pull_command, ToolPullCommandCfg)
+  # PUCK — DELIBERATELY OUTSIDE workspace.GRASP_RADIAL_MAX (0.55). Do NOT "fix" this
+  # to satisfy the workspace audit: the puck being unreachable by hand is the entire
+  # premise of the task, and pulling it inside the grasp envelope would make the tool
+  # optional. It is still bounded: radial 0.62-0.71, which the stick's ~0.25m
+  # effective extension can cover from a grasp inside the GRASP_* box, and which the
+  # goal at x=0.42 is a ~0.24m drag away. (The previous 0.78-0.88 was not bounded by
+  # anything: 0.1% approach freedom even WITH the tool.)
+  # The puck sits on the +y side and the stick on the -y side so the stick's forward-
+  # pointing hook (body +0.12 x, +0.035 y) can never spawn intersecting the puck.
   pull_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.78, 0.88), y=(-0.10, 0.10), z=(0.012, 0.012), yaw=(0.0, 0.0)
+    x=(0.62, 0.69), y=(0.05, 0.17), z=(0.012, 0.012), yaw=(0.0, 0.0)
   )
+  # STICK — must be grasped, so it obeys the shared GRASP_* envelope. Offset toward
+  # -y so it never overlaps the puck (x bands are disjoint anyway) and stays clear of
+  # the straight-line drag corridor along y=0. Far corner radial 0.519 < 0.55.
+  # The +0.09 offset accounts for the stick's ``object_site`` (the grasp point) sitting
+  # 0.09m BEHIND the body origin along the shaft: this puts the SITE, not the body
+  # origin, in the 0.28-0.48 band (0.28 == GRASP_RADIAL_MIN, so the near edge is still
+  # in front of the base; far corner sqrt(0.48^2 + 0.25^2) = 0.541 < GRASP_RADIAL_MAX).
   pull_command.tool_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.42, 0.52), y=(-0.24, -0.14), z=(0.012, 0.012), yaw=(0.0, 0.0)
+    x=(0.28 + 0.09, 0.48 + 0.09),
+    y=(workspace.GRASP_Y_RANGE[0], -0.06),
+    z=(0.012, 0.012),
+    yaw=(0.0, 0.0),
   )
   # Two-stage task (acquire tool, then drag): needs a longer episode.
   cfg.episode_length_s = 12.0

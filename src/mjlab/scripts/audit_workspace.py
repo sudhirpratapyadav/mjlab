@@ -34,6 +34,19 @@ from mjlab.tasks.registry import load_env_cfg, load_taxonomy
 _TOPDOWN_COS = -0.85
 """EE z-axis vs world +z. -0.85 is within ~32 deg of straight down."""
 
+# Entities that are DELIBERATELY outside the direct-grasp envelope, with the bound that
+# does apply instead. Tool-pull's whole premise is that the puck cannot be reached by
+# hand — it must be dragged in with the stick — so holding it to GRASP_RADIAL_MAX would
+# delete the task. It is still bounded: it must sit inside the stick's effective
+# extension, or the task becomes unsolvable in the other direction.
+_REACH_EXEMPT: dict[tuple[str, str], tuple[float, float, str]] = {
+  ("Mjlab-Tool-Pull-Franka", "puck"): (
+    0.58,
+    0.75,
+    "out of direct reach by design; must stay inside the stick's extension",
+  ),
+}
+
 
 @functools.lru_cache(maxsize=1)
 def _sample_workspace(n: int = 400_000, joint_frac: float = 0.90):
@@ -170,15 +183,22 @@ def main(cfg: AuditConfig) -> None:
       free = _grasp_pose_fraction(x0, x1, y0, y1)
 
       flags = []
-      if is_mechanism:
+      exempt = _REACH_EXEMPT.get((task_id, name))
+      if exempt is not None:
+        lo, hi, why = exempt
+        if not (lo <= radial <= hi):
+          flags.append(f"exempt-but-outside[{lo},{hi}]")
+        tag = ",".join(flags) if flags else f"ok (exempt: {why})"
+      elif is_mechanism:
         if radial > workspace.MECHANISM_HANDLE_RADIAL_MAX:
           flags.append(f"radial>{workspace.MECHANISM_HANDLE_RADIAL_MAX}")
+        tag = ",".join(flags) if flags else "ok"
       else:
         if radial > workspace.GRASP_RADIAL_MAX:
           flags.append(f"radial>{workspace.GRASP_RADIAL_MAX}")
         if free < 3.0:
           flags.append("sparse-reach")
-      tag = ",".join(flags) if flags else "ok"
+        tag = ",".join(flags) if flags else "ok"
       if flags:
         problems.append(f"{task_id}/{name}: {tag}")
       print(
