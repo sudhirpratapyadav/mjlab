@@ -80,6 +80,13 @@ nets are better and more stable. Matches the earlier LiftCube-seq size sweep
 efficiency point (~0.87 at 1/4 the params). Verified each run built the correct
 model (checkpoint layer dims: 512->[128,256,512], 2048->[512,1024,2048]).
 
+> ⚠️ **SUPERSEDED — the 8192 conclusion below is confounded.** Every width in this
+> sweep shares the LR tuned at 4096. The P0-3 LR sweep shows 8192 reaches
+> **0.946 ± 0.010 at lr 1e-5**, matching 4096's 0.960 ± 0.014 with 24× less variance.
+> Capacity is not the binding constraint — the LR must scale with width. The "sweet
+> spot" and "over-parameterization instability" claims in this section need rewriting.
+> See [P0_EXPERIMENTS.md](P0_EXPERIMENTS.md).
+
 **8192 REVERSES the trend (0.656, ±0.201):** capacity helps only up to 4096; going
 bigger HURTS both mean AND stability. 8192-s1 collapses (PushButton 0.00, OpenDoor
 0.45); even good seeds are patchy (Drawer 0.39-0.80). Signature: the larger net

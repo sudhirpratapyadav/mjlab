@@ -45,7 +45,17 @@ the abstract ("versus X for sequential fine-tuning").
 
 ---
 
-## P0-2. Multitask joint-distillation upper bound
+## P0-2. Multitask joint-distillation upper bound — **✅ DONE**
+
+> **Result: 0.958 ± 0.006 (3 seeds).** Statistically identical to sequential+SI on
+> the best ordering (0.960 ± 0.014) — the anticipated "strong result": continual
+> learning at **no cost** relative to joint training. Both are capped by the same
+> thing: PushCuboid's teacher (student/teacher = 1.003), so ≈0.96 is the maximum this
+> teacher set allows.
+>
+> Required new code — the trainer was sequential-only. Added `--joint-distill`.
+
+
 
 **Why:** gives the *ceiling*. With the floor (P0-1) and ceiling (this), your 0.966
 sits on a scale a reviewer can read. Also pre-empts "how much does continual cost you
@@ -64,7 +74,28 @@ result — "continual learning at no cost relative to joint training."
 
 ---
 
-## P0-3. Capacity 8192 with a learning-rate sweep
+## P0-3. Capacity 8192 with a learning-rate sweep — **✅ DONE**
+
+> **Result: the first of the two anticipated outcomes — lower LR recovers 8192, so
+> the collapse is an optimizer artifact, not a capacity limit.**
+>
+> | 8192 @ lr | mean ± std |
+> |---|---|
+> | 3e-5 (original) | 0.657 ± 0.242 |
+> | **1e-5** | **0.946 ± 0.010** ← matches 4096's 0.960 ± 0.014 |
+> | 5e-6 | 0.757 ± 0.031 |
+> | 1e-6 | 0.518 ± 0.113 |
+>
+> An inverted U with a locatable optimum, which is stronger than a one-sided
+> recovery: 1e-6 genuinely underfits, ruling out "any LR reduction would do".
+> Variance also drops 24×.
+>
+> **Action required: §5.G of SWEEP24_RESULTS.md must be rewritten before submission.**
+> "4096 is the sweet spot; over-parameterization re-introduces instability" is
+> confounded — all widths shared the LR tuned at 4096. Correct claim: *capacity is not
+> the binding constraint; the LR must scale with width.*
+
+
 
 **Why:** The paper currently asserts the 8192 collapse is an optimizer effect
 ("re-enters the sharp-loss regime"). That mechanism is **not tested** — capacity and
