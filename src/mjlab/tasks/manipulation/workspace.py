@@ -117,12 +117,19 @@ MECHANISM_DROP_BELOW_MOUNT: dict[str, float] = {
   "valve": 0.150,
   "switch": 0.060,
   "window": 0.220,
-  "lid": 0.070,
+  "lid": 0.157,
   "door": 0.800,
   "drawer": 0.300,
   "button": 0.030,
 }
 """How far each mechanism's geometry extends BELOW its mount body, in metres.
+
+This is the SWEPT extent over the joint's full range of motion, not the extent at the
+closed/rest pose. The distinction is not academic: the lid's flap swings DOWN as it
+opens, dropping 0.157m at full travel versus 0.070m closed. Mounting for the closed
+pose left the open lid's lip below the floor, which made the task literally
+unsolvable — the success angle required driving the lip underground, so no policy,
+scripted or learned, could ever pass it. Always sweep the joint range.
 
 Mechanisms hang downward from a mocap mount, and Class A scenes have no table or wall
 for them to hang from — so a mount placed at a height chosen purely for reachability

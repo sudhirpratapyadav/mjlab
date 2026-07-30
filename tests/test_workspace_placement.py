@@ -131,6 +131,47 @@ def test_nothing_is_buried_in_the_floor(task_id: str) -> None:
     )
 
 
+def test_mechanism_drops_are_swept_over_the_joint_range() -> None:
+  """`MECHANISM_DROP_BELOW_MOUNT` must be the SWEPT extent, not the rest pose.
+
+  Regression: the lid's flap swings DOWN as it opens, dropping 0.157m at full travel
+  versus 0.070m closed. Mounting for the closed pose left the OPEN lid's lip below the
+  floor, and since success required that angle the task was literally unsolvable — no
+  policy, scripted or learned, could pass it. A classical teacher scoring 0.000 is what
+  exposed it; nothing else in the suite could.
+  """
+  import mujoco
+
+  from mjlab.scripts.audit_workspace import _geom_half_height
+
+  for asset, recorded in workspace.MECHANISM_DROP_BELOW_MOUNT.items():
+    path = (
+      f"src/mjlab/asset_zoo/objects/articulated/{asset}/xmls/{asset}.xml"
+    )
+    model = mujoco.MjModel.from_xml_path(path)
+    data = mujoco.MjData(model)
+    mount_z = float(model.body_pos[1][2])
+    worst = float("inf")
+    for angle in np.linspace(
+      float(model.jnt_range[0][0]), float(model.jnt_range[0][1]), 40
+    ):
+      data.qpos[0] = angle
+      mujoco.mj_forward(model, data)
+      worst = min(
+        worst,
+        min(
+          float(data.geom_xpos[g][2] - _geom_half_height(model, data, g))
+          for g in range(model.ngeom)
+        ),
+      )
+    swept = mount_z - worst
+    assert recorded >= swept - 1e-3, (
+      f"{asset}: recorded drop {recorded:.3f} < swept drop {swept:.3f}. The mechanism "
+      "dips lower somewhere in its travel than at rest; mounting for the rest pose "
+      "buries it mid-motion."
+    )
+
+
 def test_mechanism_mount_heights_clear_the_floor() -> None:
   """`min_mechanism_mount_z` must exceed each asset's own downward extent."""
   for asset, drop in workspace.MECHANISM_DROP_BELOW_MOUNT.items():
