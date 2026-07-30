@@ -387,3 +387,30 @@ a carry a marginal grip would not survive. Conclusion: this needs a learned teac
 a stick with an actual graspable feature rather than a smooth shaft. The task is now
 well-posed (the stick is observable since d8e5115); it is the GRIPPER-object pair that
 defeats scripting.
+
+
+## How to read a weak teacher's number (measurement variance)
+
+Tool-pull is the cautionary case. SIX measurements of *identical code*:
+
+| run | episodes | result |
+|---|---|---|
+| agent, standalone harness | 32 | 0.125 |
+| agent, `test_classical` | 32 | 0.031 |
+| agent, `test_classical` | 48 | 0.042 |
+| parent, `test_classical` | 32 | 0.125 |
+
+Per-batch figures across all of them span **0.000 to 0.250**. The agent saw 0.125,
+re-measured at 0.031, and retracted its higher claim as a favourable-batch artifact —
+then the parent's independent run reproduced 0.125 exactly. Neither party was careless;
+**32 episodes is simply not enough resolution to separate 0.03 from 0.13.**
+
+Practical rules this implies for anything below ~0.3:
+- 32 episodes resolves "works" vs "does not work" and nothing finer;
+- report a RANGE, not a point, and say how many episodes produced it;
+- a 2-4x disagreement between two 32-episode runs is expected, not a contradiction, and
+  should never be resolved by picking the flattering one;
+- a claimed improvement from 0.03 to 0.13 on 32 episodes is not evidence of anything.
+
+The strong teachers do not have this problem: 1.000 over 32 episodes, reproduced twice,
+is a real result. The variance caveat applies specifically to the tail.
