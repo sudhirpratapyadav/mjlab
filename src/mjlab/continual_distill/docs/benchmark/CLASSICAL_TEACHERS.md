@@ -188,11 +188,83 @@ domain randomisation drives as low as 0.3. The two lowest scorers (valve at 0.08
 switch at 0.500) are precisely the two where geometric engagement is hardest to
 maintain.
 
+### Re-tuned existing teachers
+
+| task | pre-fix | post-fix (broken) | after re-tune | verified |
+|---|---|---|---|---|
+| Push-Button | 1.00 | 0.16 | **1.000** | yes |
+| Push-Cuboid | 0.31 | 0.00 | **0.12-0.16** | yes |
+| Open-Door | 0.00 | 0.00 | **0.000** | yes, still broken |
+
+**Push-Button fully recovered.** The break was NOT geometry but TRAVEL TIME: the button
+mount dropped to z~0.16, so the gripper starts ~0.85m above the cap instead of level
+with it, and at the inherited `max_dq=0.05` the descent ate ~130 of the 150 steps. Fixed
+by making the rate phase-dependent — brisk while travelling, gentle while pressing.
+Worth remembering: after a geometry change, check the TIME budget, not just reachability.
+
+**Push-Cuboid recovered only to ~0.12-0.16** against a 0.31 pre-fix baseline. Two real
+bugs fixed (constant ground terminations once the table vanished; the pusher aiming
+*through* the object and shoving it away from the goal), but ride height is genuinely
+tight: the box is 3cm tall, so too high hovers over it and too low trips
+`ee_ground_collision`. Reported as a partial recovery, not a success.
+
+**Open-Door remains broken at 0.000 and the premise is wrong.** Three genuine defects
+were found and fixed along the way (a wrong hinge-arc radius `_R0`, corrected by circle-
+fitting the measured handle path; height not held during the drag; too-slow arc
+advance). None rescued it. The blocker is geometric: the bar **cams out of the finger
+gap along the approach axis**. Alignment at closure is good (~0.02-0.03, inside the 2cm
+bar), but over ~8 steps the approach-axis error grows to 0.13 and the grasp is gone —
+the arc waypoint pushes the hand into the panel, driving the bar out through the open
+finger gap, the one direction the cage cannot resist. Confirmed not force-limited
+(`cmd_lead_max` at 0.35/0.8/1.5 all gave 0.00 deg) and not speed-limited (84 deg in 3s
+needs only 0.26 m/s).
+
+**Verified independently:** `GRIPPER_CAGE = -0.5` leaves a ~4.2cm finger gap around a
+2cm bar (fingers span 0-0.08m total), so the bar is NEVER gripped. The "geometric
+containment" premise in the module docstring does not hold. A full pinch is worse — the
+fingers close before clearing the bar. This needs a strategy change (hook the panel
+edge, or close *after* seating with an explicit approach-axis preload), not tuning.
+
+Caution left in the code: `TIP_VEC` must stay at 0.04, NOT the physically-correct
+site-to-fingertip offset. The "correct" value parks the bar at the very fingertips and
+the door does not move at all.
+
+## Final results — all 20 Class A tasks
+
+| task | success | |
+|---|---|---|
+| Reach-Target | 1.000 | |
+| Lift-Cube | 1.000 | |
+| Lift-Cylinder | 1.000 | |
+| Push-Button | 1.000 | re-tuned |
+| Slide-Window | 1.000 | |
+| Open-Lid | 1.000 | after task fix |
+| Lift-Sphere | 0.969 | |
+| Lift-Ellipsoid | 0.906 | |
+| Turn-Lever | 0.812 | |
+| Open-Drawer | 0.62-0.81 | pre-existing |
+| Flip-Switch | 0.500 | |
+| Stack-Cube | 0.438 | |
+| Push-Disc | 0.406 | capped by predicate |
+| Place-In-Container | 0.344 | |
+| Push-Cuboid | 0.12-0.16 | partial recovery |
+| Reorient-Object | 0.062 | teacher limitation |
+| Peg-Insertion | 0.062 | below controller noise floor |
+| Rotate-Valve | 0.031 | failure |
+| Tool-Pull | 0.031 | needs a stick-using rewrite |
+| Open-Door | 0.000 | broken; premise wrong |
+
+**11 of 20 at >= 0.4; 6 at >= 0.9.** Six teachers are weak or failing and are reported
+as such — none of these numbers was obtained by relaxing a task.
+
 ## Status
 
 - [x] Baseline measured for the 4 existing teachers
 - [x] Articulation family: lever, valve, switch, window, lid
 - [x] Open-Lid task-design bug found and fixed (96ebbb4)
-- [ ] Re-tune: Push-Button, Push-Cuboid, Open-Door
-- [ ] Author: Reach, Lift (x4 objects), Push-Disc
-- [ ] Author: Stack, Peg-Insertion, Place-In-Container, Reorient, Tool-Pull
+- [x] Re-tune: Push-Button (1.000), Push-Cuboid (0.12-0.16), Open-Door (still 0.000)
+- [x] Author: Reach, Lift x4, Push-Disc
+- [x] Author: Stack, Peg-Insertion, Place-In-Container, Reorient, Tool-Pull
+- [ ] Register all teachers in `__init__.py` / `test_classical.py`
+- [ ] Open decisions: Push-Disc goal z; Rotate-Valve task softening; Open-Door strategy;
+      Tool-Pull teacher rewrite now that the stick is observable

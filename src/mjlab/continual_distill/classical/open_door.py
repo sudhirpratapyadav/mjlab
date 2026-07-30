@@ -30,13 +30,33 @@ _ROT_GRASP = np.column_stack([_X_COL, _Y_COL, _Z_COL])
 
 # Door geometry (door frame, yaw 0): hinge at (0, -0.3), handle/object_site at
 # (-0.04, +0.25) -> handle-to-hinge radius r0 = (-0.04, 0.55, 0).
-_R0 = np.array([-0.04, 0.55, 0.0])
+_R0 = np.array([-0.009, 0.526, 0.0])
+# Sign of the hinge rotation about world z for an OPENING motion.
+#
+# MEASURED by driving the hinge 0..90 deg and fitting a circle to the handle's
+# world path: hinge centre (x, y) = (0.4795, -0.5714), radius 0.526. The polar
+# angle of the handle's radius vector tracks the hinge angle 1:1 and INCREASES
+# with it (91 -> 113 -> 133 -> 155 -> 187 deg at hinge 0/20/40/60/90), so the
+# panel rotates about +z and _rot_z(+theta) is correct.
+#
+# Recorded explicitly because it is easy to talk yourself into the opposite: the
+# handle does travel toward -y while opening, which looks like a -z rotation
+# until you account for the hinge sitting at y = -0.57, well behind the handle.
+# Driving this negative presses the door into its range="0 90" lower stop — the
+# hinge parks at -0.1 deg and never opens.
+_OPEN_SIGN = 1.0
 
 STANDOFF_X = 0.10  # pre-grasp standoff in front of the handle (-x side)
-# Fingertips sit ~6cm beyond the gripper site along the approach axis. The
-# site stops short of the handle by only 2.5cm so the TIPS REACH PAST the bar
-# (2cm wide, ~3cm clearance to the panel): the bar must sit BETWEEN the
-# fingers, not at their very tips, or the pull slides straight off.
+# Site-to-fingertip offset along the approach axis, i.e. how far SHORT of the
+# bar the gripper site is driven.
+#
+# NOT the true site-to-fingertip distance (~0.10m, workspace.SITE_TO_FINGERTIP).
+# It is deliberately much smaller so the tips reach PAST the bar and the 2cm bar
+# ends up BETWEEN the fingers rather than at their tips. Setting this to the
+# "correct" 0.085-0.10 parks the hand with the bar at the very fingertips, the
+# cage gets no purchase at all, and the door does not move (measured: 0.0 deg
+# across all 16 envs, vs 7 deg mean and one full 90 deg open at 0.04). Measured
+# best; do not "fix" it to the physical offset.
 TIP_VEC = 0.04 * _Z_COL
 ALIGN_TOL = 0.06
 ENGAGE_TOL = 0.04
@@ -46,7 +66,8 @@ EMA_ALPHA = 0.4  # smooth the noisy gto (obs noise ~±1.4cm)
 CLOSE_STEPS = 3
 GOAL_TOL = 0.03
 PULL_STEP = 0.12
-PULL_DTHETA = np.radians(14.0)  # arc-waypoint advance per control step
+PULL_DTHETA = np.radians(20.0)  # arc-waypoint advance per control step
+Z_HOLD_GAIN = 3.0  # over-weight the z residual during the drag (see phase 3)
 PULL_MODE = "arc"  # "arc" (waypoint at theta+dtheta) or "tangent"
 PULL_ROT = "rotate"  # "rotate" | "fixed" | "free"
 SLIP_DIST = 0.07
@@ -127,11 +148,13 @@ class OpenDoorClassicalPolicy(ClassicalPolicyBase):
     r_len = float(np.linalg.norm(_R0))
     chord = np.clip(np.linalg.norm(o2g) / (2.0 * r_len), 0.0, 1.0)
     theta = np.pi / 2.0 - 2.0 * np.arcsin(chord)
-    rot_th = _rot_z(theta)
+    # theta is a positive opening MAGNITUDE; the panel swings about -z, so the
+    # actual hinge rotation is _OPEN_SIGN * theta (see _OPEN_SIGN above).
+    rot_th = _rot_z(_OPEN_SIGN * theta)
     tip_vec = rot_th @ TIP_VEC
     # Rotate the hand at 0.6x the door angle: full tracking churns the wrist
     # (slowing the drag) and the cage tolerates ~30deg of misalignment.
-    grasp_rot = _rot_z(0.6 * theta) @ _ROT_GRASP
+    grasp_rot = _rot_z(_OPEN_SIGN * 0.6 * theta) @ _ROT_GRASP
 
     gripper_a = GRIPPER_OPEN
     target_rot = grasp_rot
@@ -204,14 +227,24 @@ class OpenDoorClassicalPolicy(ClassicalPolicyBase):
         self._settle[i] = 0
         self._integ[i] = 0.0
         return gto + rot_th @ np.array([-STANDOFF_X, 0.0, 0.0]), grasp_rot, GRIPPER_OPEN
-      anchor = raw_err
+      # Hold height hard during the drag. Under load the IK's posture term
+      # walks the wrist UPWARD: the measured residual grows to +6..9cm in z
+      # while x/y stay seated, which slides the fingers off the top of the
+      # 16cm bar and triggers the slip/re-approach loop that caps the door at
+      # ~2-3 deg. Weighting z above the horizontal arc term keeps the cage on
+      # the bar for the whole pull.
+      anchor = raw_err.copy()
+      anchor[2] *= Z_HOLD_GAIN
       ramp = min(1.0, (self._phase_steps[i] + 1) / 6.0)
       if np.linalg.norm(o2g) < GOAL_TOL:
         pos_err = anchor
       else:
+        # Advance the waypoint further OPEN, i.e. further along _OPEN_SIGN.
         r_now = rot_th @ _R0
-        r_next = _rot_z(theta + PULL_DTHETA * ramp) @ _R0
-        pos_err = anchor + (r_next - r_now)
+        r_next = _rot_z(_OPEN_SIGN * (theta + PULL_DTHETA * ramp)) @ _R0
+        step = r_next - r_now
+        step[2] = 0.0  # arc is horizontal; never let it fight the z hold
+        pos_err = anchor + step
     else:
       # Phase 4: released — back the hand away from the swinging panel and
       # let the door coast. If it stalls short of the goal, re-engage.
