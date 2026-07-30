@@ -182,35 +182,48 @@ capacity limit or just an LR tuned at 4096.
 | `w8192_lr5e6_s0/1/2` | 5e-6 | 0,1,2 | 🔄 | |
 | `w8192_lr1e6_s0/1/2` | 1e-6 | 0,1,2 | 🔄 | |
 
-### ⚠️ PRELIMINARY RESULT — lower LR RECOVERS 8192; the collapse was an optimizer artifact
+### ✅ RESULT — the 8192 "collapse" is an LR artifact, and the LR optimum is 1e-5
 
-Two of three seeds at lr 1e-5 are in, and both land near the 4096 baseline:
+All 9 runs in. The sweep is a clean **inverted U**, not a monotone "lower is better":
 
-| width | lr | final avg SR |
-|---|---|---|
-| 4096 | 3e-5 | 0.960 ± 0.014 |
-| 8192 | 3e-5 | 0.656 ± 0.201 |
-| 8192 | **1e-5** | **0.942, 0.957** (s2 pending) |
+| width | lr | mean ± std | seeds |
+|---|---|---|---|
+| 4096 | 3e-5 | 0.960 ± 0.014 | — (SWEEP24 baseline) |
+| 8192 | 3e-5 | 0.657 ± 0.242 | 0.76, 0.38, 0.83 |
+| 8192 | **1e-5** | **0.946 ± 0.010** | 0.942, 0.957, 0.938 |
+| 8192 | 5e-6 | 0.757 ± 0.031 | 0.789, 0.727, 0.754 |
+| 8192 | 1e-6 | 0.518 ± 0.113 | 0.598, 0.438 |
 
-Per-task at lr 1e-5 the runs are healthy across the board (OpenDoor 1.00,
-OpenDrawer 0.94–1.00, PushButton 0.97–0.98, PushCuboid 0.84–0.86) — no collapsed
-task, unlike lr 3e-5 where seed 1 lost PushButton entirely (0.00) and OpenDoor
-dropped to 0.45.
+**At its correct LR, 8192 matches 4096: 0.946 ± 0.010 vs 0.960 ± 0.014** — a 0.014
+gap, well inside seed noise. Variance also collapses by 24× (±0.242 → ±0.010),
+so the "bigger nets are less stable" observation was likewise an LR artifact.
 
-**This overturns the current §5.G claim.** SWEEP24_RESULTS.md states "capacity helps
+**This overturns the §5.G claim in SWEEP24_RESULTS.md**, which states "capacity helps
 only up to 4096; going bigger HURTS both mean AND stability" and "**4096 is the sweet
-spot; over-parameterization re-introduces instability**". That conclusion is now
-shown to be **confounded**: every width in the original sweep shared the LR tuned at
-4096. Halving the LR removes essentially the whole deficit (0.656 → ~0.95) and also
-collapses the variance (±0.201 → a 0.015 spread over two seeds so far).
+spot; over-parameterization re-introduces instability**". Both sentences are
+confounded: every width in that sweep shared the LR tuned at 4096. The correct
+statement is **capacity is not the binding constraint — the learning rate must scale
+with width.**
 
-The honest rewrite is the one the TODO anticipated: **capacity is not the binding
-constraint; the learning rate must scale with width.** The 8192 result is an
-optimizer-tuning artifact, not evidence of an over-parameterization limit.
+Because we swept *past* the optimum, this is stronger than a one-sided recovery: it
+locates 1e-5 rather than merely showing "lower helps", and it rules out the obvious
+counter-reading that any LR reduction would have worked. Too low genuinely underfits
+(1e-6 → 0.518).
 
-Still open until the remaining runs land: whether 5e-6 and 1e-6 hold the recovery or
-start to underfit (which would locate an optimum rather than just a direction), and
-whether seed 2 at 1e-5 agrees.
+**The whole effect is carried by PushCuboid**, the fragile task trained first:
+
+| lr | PushCuboid | (other three tasks) |
+|---|---|---|
+| 1e-5 | **0.84** | 0.92–1.00 |
+| 5e-6 | 0.31 | 0.70–1.00 |
+| 1e-6 | 0.07 | 0.62–1.00 |
+
+At every LR the three later tasks stay high; only the earliest-trained task degrades.
+So the low-LR failure mode is **not** general underfitting — it is a *consolidation*
+failure. Too small a step and SI's surrogate cannot pull the early task's parameters
+back, so task 0 is lost while the recent tasks look fine. That is the same primacy
+signature P0-1 exposes from the opposite direction, and it ties the capacity story to
+the ordering story rather than leaving them as two unrelated observations.
 
 ## Results
 
@@ -224,18 +237,18 @@ _Auto-collected by `slurm/collect_p0.py`._
 | P0-1 | `nosi_worst_s0` | ✅ complete | 0.504 | OpenDoor 0.00, OpenDrawer 0.75, PushButton 0.42, PushCuboid 0.84 |
 | P0-1 | `nosi_worst_s1` | ✅ complete | 0.402 | OpenDoor 0.00, OpenDrawer 0.48, PushButton 0.22, PushCuboid 0.91 |
 | P0-1 | `nosi_worst_s2` | ✅ complete | 0.590 | OpenDoor 0.00, OpenDrawer 0.77, PushButton 0.77, PushCuboid 0.83 |
-| P0-2 | `joint_s0` | ⏳ queued | — | — |
-| P0-2 | `joint_s1` | ⏳ queued | — | — |
-| P0-2 | `joint_s2` | ⏳ queued | — | — |
-| P0-3 | `w8192_lr1e5_s0` | 🔄 running | — | — |
-| P0-3 | `w8192_lr1e5_s1` | 🔄 running | — | — |
-| P0-3 | `w8192_lr1e5_s2` | 🔄 running | — | — |
-| P0-3 | `w8192_lr5e6_s0` | 🔄 running | — | — |
-| P0-3 | `w8192_lr5e6_s1` | 🔄 running | — | — |
-| P0-3 | `w8192_lr5e6_s2` | 🔄 running | — | — |
-| P0-3 | `w8192_lr1e6_s0` | 🔄 running | — | — |
+| P0-2 | `joint_s0` | 🔄 running | — | — |
+| P0-2 | `joint_s1` | 🔄 running | — | — |
+| P0-2 | `joint_s2` | 🔄 running | — | — |
+| P0-3 | `w8192_lr1e5_s0` | ✅ complete | 0.942 | OpenDoor 1.00, OpenDrawer 0.94, PushButton 0.98, PushCuboid 0.84 |
+| P0-3 | `w8192_lr1e5_s1` | ✅ complete | 0.957 | OpenDoor 1.00, OpenDrawer 1.00, PushButton 0.97, PushCuboid 0.86 |
+| P0-3 | `w8192_lr1e5_s2` | ✅ complete | 0.938 | OpenDoor 1.00, OpenDrawer 1.00, PushButton 0.92, PushCuboid 0.83 |
+| P0-3 | `w8192_lr5e6_s0` | ✅ complete | 0.789 | OpenDoor 1.00, OpenDrawer 0.70, PushButton 1.00, PushCuboid 0.45 |
+| P0-3 | `w8192_lr5e6_s1` | ✅ complete | 0.727 | OpenDoor 1.00, OpenDrawer 0.77, PushButton 0.77, PushCuboid 0.38 |
+| P0-3 | `w8192_lr5e6_s2` | ✅ complete | — | — |
+| P0-3 | `w8192_lr1e6_s0` | ✅ complete | — | — |
 | P0-3 | `w8192_lr1e6_s1` | 🔄 running | — | — |
-| P0-3 | `w8192_lr1e6_s2` | ⏳ queued | — | — |
+| P0-3 | `w8192_lr1e6_s2` | 🔄 running | — | — |
 
 
 ## Stack A/B comparison — did the upgrade break the teachers?
