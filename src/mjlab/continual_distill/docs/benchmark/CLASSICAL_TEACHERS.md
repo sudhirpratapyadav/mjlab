@@ -275,3 +275,59 @@ as such — none of these numbers was obtained by relaxing a task.
       truth (20/20 Class A tasks); `test_classical` reads it
 - [ ] Open decisions: Push-Disc goal z; Rotate-Valve task softening; Open-Door strategy;
       Tool-Pull teacher rewrite now that the stick is observable
+
+
+## Improvement pass (2026-07-30, user: "improve all except peg-insertion")
+
+Constraint: **strategy changes only** — no thresholds, tolerances, spawn ranges, assets
+or task definitions, and nothing under `src/mjlab/tasks/`. A number obtained by
+loosening a task would defeat the purpose of having these teachers at all.
+
+### Rotate-Valve: 0.031 -> 0.50 (verified; agent conservatively reported 0.344)
+
+The 16x win came from two changes, and the SECOND mattered more:
+
+1. **Pad-push -> genuine pinch.** Fingers close on the spoke at 80% of its length so
+   the driving load is carried face-on between the pads; friction is only asked to
+   resist *radial* sliding, keeping the 0.3-friction randomisation off the critical
+   path. The pinch alone measured ~0.125.
+2. **A stall watchdog.** The spoke handoff gate keyed on *swept angle*, so a jammed
+   engagement made no progress, never reached the gate, and deadlocked for the rest of
+   the episode — envs were traced frozen at a constant angle (one sat at exactly 85.81
+   deg from t=200 to t=400) with the EE motionless. Forcing a handoff on lack of
+   progress is what unlocked the ratchet.
+
+Root cause of the old failure, verified live: the pad walks inboard along the 2.4cm
+spoke until it rests against the hub, where the moment arm vanishes. The old
+lost-contact test never fired because the pad *is* still near the arc — just at the
+useless end of it.
+
+### Open-Door: 0.000 -> 0.000 (not improved; two corrections to the old diagnosis)
+
+Reported honestly as a failure. Mechanics did improve — mean peak angle **2.5 -> 12.0
+deg**, with individual envs now reaching 80-90 deg where the old teacher never passed
+~7 — but 26/32 envs still never clear 10 deg. The cam-out IS fixed (wrist rotated 90
+deg so the pads sandwich the bar normal to the pull).
+
+Two measured corrections to what was previously believed:
+
+- **Opening is a PULL, not a push.** Driving the hinge through its range and reading
+  `object_site` in the robot frame: hinge centre (0.4873, -0.5395), radius 0.5514,
+  handle polar angle tracking hinge angle 1:1, handle moving toward -x throughout. The
+  face-push idea was tested directly and measured 0.1 deg mean over 32 episodes; the
+  static `door_body` barrier also walls off the far side.
+- **Reach is NOT the constraint.** The handle stays 0.53-0.77m from the shoulder,
+  inside the ~0.85m envelope. The difficulty is that it passes within 0.18m of the base
+  axis (shoulder singularity) and finishes behind the base.
+
+**Why it still fails — a throughput budget, verified independently:** the episode is
+150 steps and success needs 1.471 of 1.571 rad, i.e. **84.3 of 90 deg with no partial
+credit**. A holding pull advances ~1-2 deg per 25 steps and the approach alone costs
+~40 steps, so success requires one seat to hold almost the entire episode. Every
+speed-up made it worse (arc rate 22->40 deg: 6.7 deg mean; faster approach: 1.4 deg;
+higher drag rate + command lead: neutral; stall watchdog: 2.4 deg) — the pinch is
+retention-limited, so hurrying loses the bar sooner.
+
+The valve was rescued by a ratcheting multi-regrasp cycle over 400 steps; the door has
+150. That is the honest difference. This needs a learned teacher, or a task-side change
+that is out of scope under the current constraint.
