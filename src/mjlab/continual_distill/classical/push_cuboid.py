@@ -59,6 +59,18 @@ GRIPPER_CLOSED = -1.0
 # cuboid without loading it and |o2g| stays flat. ADVANCE - BEHIND is the
 # effective penetration into the contact face, which is what generates the push.
 ADVANCE = 0.085
+# Minimum "behind-ness" (component of object-minus-gripper along the push
+# direction) that still counts as a usable contact. Below this the pusher has
+# drawn level with the 8x8cm box's centre and is about to overtake it, so the
+# shepherd phase bails out and re-approaches from behind. Measured successes hold
+# +0.03..+0.05 here; measured failures decay through 0 to -0.05 and never recover.
+MIN_BEHIND = 0.012
+# Steps spent backing off behind the contact face once a re-seat is triggered.
+# Acts as hysteresis: without it the shepherd re-triggers every other step.
+RESEAT_STEPS = 12
+# Absolute lower bound on the commanded gripper-site height, in the robot base
+# frame. See the guard at the end of ``_target_error``.
+FLOOR_MIN_Z = 0.030
 
 
 class PushCuboidClassicalPolicy(ClassicalPolicyBase):
@@ -67,6 +79,13 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
 
   DEFAULT_QPOS = HOME_QPOS  # push_cuboid env uses get_franka_robot_cfg (home)
   max_dq = 0.08  # correct kinematics allow brisker motion; episode is 150 steps
+
+  def reset(self, env_ids=None) -> None:
+    super().reset(env_ids)
+    if env_ids is None:
+      self._reseat = np.zeros(self.num_envs, dtype=np.int64)
+    else:
+      self._reseat[env_ids] = 0
 
   def _target_error(self, i: int, obs_i: np.ndarray):
     gto = obs_i[40:43]  # object - gripper
@@ -106,15 +125,71 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
       # Instead: target = object + behind-offset, then step that point toward the
       # goal by a bounded advance. The pusher stays on the correct side and the
       # advance is what generates contact force.
-      # Taper the lead as the goal nears (less overshoot), but never below the
-      # BEHIND standoff or the net penetration goes to zero and the push stalls
-      # short of the 2cm success threshold.
-      adv = max(BEHIND + 0.015, min(ADVANCE, dist_goal + BEHIND))
-      pos_err = (
-        gto
-        + behind
-        + np.array([d[0] * adv, d[1] * adv, RIDE_HEIGHT])
-      )
+      #
+      # RE-APPROACH WHEN THE PUSHER OVERTAKES THE OBJECT. Measured over 32
+      # episodes, this is the dominant failure and it is a slow structural drift,
+      # not a tuning miss. Define `along` = component of (object - gripper) along
+      # the push direction; it is POSITIVE while the pusher is correctly behind
+      # the object. In the runs that succeed it stays at +0.03..+0.05 throughout.
+      # In the runs that fail it starts at +0.04 and decays through zero to
+      # -0.03..-0.05, after which the pusher sits BETWEEN the object and the goal
+      # and every further advance shoves the cuboid backwards -- |o2g| plateaus
+      # and never reaches the 2cm threshold.
+      #
+      # The drift is built into the tapering lead: as `dist_goal` shrinks, `adv`
+      # collapses toward the BEHIND standoff, net penetration goes to zero, and
+      # the DLS steady-state bias is then free to walk the site through the
+      # 8x8cm box to the far side. Creeping onward from there cannot recover.
+      #
+      # So treat "behind the object" as a hard geometric precondition: if the
+      # pusher has lost it, stop pushing and go back around to re-acquire the
+      # contact face. A re-approach costs ~15 steps and restores a working
+      # contact; continuing to creep wastes the rest of the episode.
+      # The recovery is a CHEAP LATERAL RE-SEAT, not a return to the hover phase.
+      # Sending this back to phase 0 was tried and is much worse: phase 0 climbs
+      # to HOVER_HEIGHT and has to descend again, ~25 steps out of 150, so the
+      # policy thrashed p2->p0->p1->p2 every ten steps and the object barely moved
+      # at all (measured |o2g| 0.366 -> 0.337 over 140 steps). Instead, stay at
+      # ride height and slide back around behind the contact face, with
+      # hysteresis so a single noisy sample cannot trigger a re-seat.
+      along = float(gto[:2] @ d)
+      if self._reseat[i] > 0:
+        self._reseat[i] -= 1
+        # Track a point well behind the object at ride height; no advance term,
+        # so the pusher backs off and re-acquires the face without loading it.
+        pos_err = gto + 1.6 * behind + np.array([0.0, 0.0, RIDE_HEIGHT])
+      elif along < MIN_BEHIND:
+        self._reseat[i] = RESEAT_STEPS
+        pos_err = gto + 1.6 * behind + np.array([0.0, 0.0, RIDE_HEIGHT])
+      else:
+        adv = max(BEHIND + 0.015, min(ADVANCE, dist_goal + BEHIND))
+        pos_err = (
+          gto
+          + behind
+          + np.array([d[0] * adv, d[1] * adv, RIDE_HEIGHT])
+        )
 
     pos_err[2] = max(pos_err[2], -DESCENT_RATE)  # rate-limit descents
+
+    # ABSOLUTE FLOOR GUARD. Every height above is expressed relative to the
+    # OBSERVED object centre, and that observation carries +-1cm of noise per
+    # axis; combined with the DLS solve's vertical sag, nothing stopped the site
+    # being commanded below the floor. ``ee_ground_collision`` then terminates
+    # the episode and the env AUTO-RESETS IN PLACE without notifying the harness,
+    # so the state machine keeps shepherding an object that is no longer there.
+    #
+    # The clearance figure the teachers in this package used to assume (1.24cm
+    # below the site) counted the whole link7 subtree, most of which is
+    # contype=conaffinity=0 and cannot collide at all. Over the geoms that
+    # genuinely collide it is 1.4cm to the fingertip pads, and the hand capsule's
+    # bounding volume reaches ~3.1cm below the site. Hence the same 0.030 floor
+    # the shared grasp spine now uses.
+    #
+    # Site height comes from FK on the arm's own joint angles, which is expressed
+    # in the ROBOT BASE frame and so is free of the per-env scene-origin offset --
+    # legal in a way that reading the absolute gripper_pos observation is not.
+    q_abs = self.default_qpos + obs_i[0:9]
+    z = float(self._fk(q_abs)[0][2])
+    if z + pos_err[2] < FLOOR_MIN_Z:
+      pos_err[2] = FLOOR_MIN_Z - z
     return pos_err, _DOWN_AXIS, GRIPPER_CLOSED

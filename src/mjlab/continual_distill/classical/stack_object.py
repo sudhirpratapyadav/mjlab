@@ -88,6 +88,12 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   close_steps = 12  # steps to hold the squeeze before lifting
   lift_height = 0.16  # carry altitude above the grasp point
   lift_steps = 22
+  # Fraction of ``lift_steps`` over which the lift command ramps from 0 to
+  # ``lift_height`` (see P_LIFT). A fraction, not a step count, so that
+  # subclasses which shorten ``lift_steps`` still reach full height in time.
+  # DEFAULT 0.0 (= no ramp, the original behaviour). Ramping was measured over 96
+  # episode-instances and made both cube tasks WORSE, not better -- see P_LIFT.
+  lift_ramp_frac = 0.0
   carry_tol = 0.02  # xy tolerance above the drop point before lowering
   place_tol = 0.012
   release_steps = 12
@@ -99,7 +105,8 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   carry_integ_clip = 0.06
   grasp_yaw = None  # None -> axis-only (yaw free); else a float in radians
   # Vertical offset added to the grasp point. In a top-down pose the lowest robot
-  # COLLISION geom (a fingertip pad) sits 1.24cm below the ``gripper`` site, and
+  # COLLISION geom (a fingertip pad) sits 1.4cm below the ``gripper`` site -- and the
+  # hand capsule's bounding volume reaches ~3.1cm below it -- and
   # ``ee_ground_collision`` terminates the episode on any robot/ground contact. So
   # grasping a ground-resting object exactly at its centre leaves under a centimetre
   # of clearance, and the descent's overshoot eats it. Grasp slightly high instead.
@@ -143,7 +150,7 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   # -- auto-reset detection --------------------------------------------------
   #
   # These envs terminate EARLY and often: ``ee_ground_collision`` fires whenever any
-  # robot geom touches the ground plane (and the lowest fingertip geom is only 1.24cm
+  # robot geom touches the ground plane (and the lowest fingertip geom is only 1.4cm
   # below the ``gripper`` site, so a top-down grasp of a 4cm cube has under a
   # centimetre of clearance), and ``object_out_of_bounds`` fires if the object is
   # knocked outside x in (0,1) / y in (-0.5,0.5). On termination the env auto-resets
@@ -184,18 +191,38 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   # -- floor guard -----------------------------------------------------------
   #
   # ``ee_ground_collision`` matches the whole link7 SUBTREE against the terrain and
-  # terminates the episode outright. Measured in a top-down pose, the lowest geom in
-  # that subtree (a fingertip pad, open or closed) sits 1.24cm below the ``gripper``
-  # site, so the site must never be driven below ~0.02 to have any margin. Without
-  # this guard the descent's overshoot tripped it constantly: 68 terminations in
-  # 400 steps across 8 envs, and no environment ever advanced past the descend phase.
+  # terminates the episode outright. Without this guard the descent's overshoot
+  # tripped it constantly: 68 terminations in 400 steps across 8 envs, and no
+  # environment ever advanced past the descend phase.
+  #
+  # THE OLD 0.022 WAS BASED ON A WRONG CONSTANT and was itself a major bug. It came
+  # from "the lowest geom sits 1.24cm below the site", which counted the whole link7
+  # subtree -- but most of that subtree is contype=conaffinity=0, i.e. visual only.
+  # Over the geoms that can ACTUALLY collide (``hand_capsule`` and the two finger
+  # pads) the deepest is a finger pad at 1.38cm below the site.
+  #
+  # (An earlier note here claimed the hand capsule reaches ~3.1cm below the site.
+  # That figure is ``geom_rbound`` -- a bounding SPHERE, which for a capsule mounted
+  # above the site vastly overstates its downward reach. Projecting the capsule's
+  # true half-extent onto world z puts its lowest point 1.69cm ABOVE the site, so it
+  # cannot touch the floor before the pads do. Use true extents, not rbound: the same
+  # trap produced phantom "buried in the floor" readings in the workspace audit.)
+  #
+  # So 0.022 left almost no margin and
+  # ``ee_ground_collision`` fired on transient dips -- which silently auto-resets the
+  # env WITHOUT telling the harness, so the state machine kept marching through
+  # phases that no longer matched the world (instrumented elsewhere in this package
+  # at 45 collisions in 600 steps x 8 envs, 34 of them during descent).
+  #
+  # This mattered more than any strategy change measured in this file: on the sibling
+  # reorient task, 0.022 -> 0.030 alone moved success 0.125 -> 0.594.
   #
   # The site height is obtained by running FK on the arm's own joint angles:
   # ``q_abs = DEFAULT_QPOS + obs[0:9]`` (obs[0:9] is joint_pos_rel), which yields the
   # site position IN THE ROBOT BASE FRAME. That is env-local and therefore free of the
   # per-env scene-origin offset -- it is legal in a way that reading obs[25:28]
   # (absolute world gripper_pos) is not.
-  floor_min_z = 0.022
+  floor_min_z = 0.030
 
   def _site_z(self, obs_i: np.ndarray) -> float:
     q_abs = self.default_qpos + obs_i[0:9]
@@ -274,10 +301,40 @@ class GraspTransportPolicy(ClassicalPolicyBase):
       return np.zeros(3), rot, GRIPPER_CLOSED
 
     if ph == P_LIFT:
+      # OPTIONAL lift ramp, DISABLED BY DEFAULT (``lift_ramp_frac = 0.0``), kept
+      # only as a tunable because the diagnosis behind it is solid even though the
+      # remedy did not pay.
+      #
+      # The diagnosis: losing the object HERE is this spine's dominant failure.
+      # Instrumented over 32 episode-instances on both cube dependents, Stack lost
+      # the cube in 22/32 runs (13 of them inside this phase) and
+      # place-in-container in 19/32 (12 here); of the 10 Stack runs that never
+      # dropped it, 9 succeeded. So retention in P_LIFT, not placement accuracy,
+      # is what these tasks' success rates are mostly made of. The mechanism is
+      # plausible too: this phase commands ``up * lift_height`` (0.14-0.22 m) as a
+      # single constant error the instant the fingers close, which saturates the
+      # solver and jerks a pinch that is barely established -- and the pinch is
+      # marginal by construction, since the only colliding fingertip geom is one
+      # 1.75x1.5cm pad per finger with friction randomised as low as 0.3.
+      #
+      # The remedy did NOT follow. Ramping the command (with a longer squeeze and
+      # a deeper grasp) was measured over 96 episode-instances against a matched
+      # 96-instance baseline and made BOTH tasks worse: Stack 0.354 -> 0.292,
+      # place-in-container 0.302 -> 0.188. It also silently broke peg-insertion
+      # when the ramp was an absolute step count rather than a fraction (peg
+      # overrides ``lift_steps = 20``, so a fixed 14-step ramp left it at full
+      # height for six steps and it never cleared the board: 0.03-0.06 -> 0.000).
+      # Hence the ramp is off and the fraction form is retained so that no
+      # subclass can be starved if anyone re-enables it.
+      #
+      # The retention problem is therefore REAL AND STILL OPEN -- it just is not
+      # solved by lifting more gently.
+      ramp = max(1.0, self.lift_ramp_frac * self.lift_steps)
+      frac = min(1.0, (self._phase_steps[i] + 1) / ramp)
       if self._phase_steps[i] >= self.lift_steps:
         self._phase[i] = P_CARRY
         self._phase_steps[i] = 0
-      return up * self.lift_height, rot, GRIPPER_CLOSED
+      return up * (self.lift_height * frac), rot, GRIPPER_CLOSED
 
     if ph == P_CARRY:
       return self._carry(i, obs_i, rot)
@@ -369,8 +426,14 @@ class StackObjectClassicalPolicy(GraspTransportPolicy):
   # Release slightly HIGH rather than pressing down: the cube's own weight seats it
   # and pressing pushes the base out from under it (both objects are free bodies).
   place_tol = 0.014
-  # Grasp 1cm above the cube's centre. The 4cm cube spans z 0.00-0.04 and the pads
-  # are 1.65cm tall, so pads at 0.018-0.034 still bite the upper half of the cube
-  # while clearing the ground by 1.8cm -- enough that the descent's overshoot does
-  # not trip ``ee_ground_collision``.
+  # Grasp 1cm above the cube's centre. The 4cm cube spans z 0.00-0.04 and the
+  # colliding fingertip pad is 1.65cm tall, so the pad spans 0.022-0.038 and bites
+  # the cube's upper half while keeping the wrist clear of the ground.
+  #
+  # Grasping DEEPER (0.004, straddling the cube's centre of mass at 0.020) was
+  # tried, on the theory that a top-45% pinch is torqued out of the pads by the
+  # lift. It helps on this task in isolation but was part of a change set that
+  # measured WORSE over 96 episode-instances (0.354 -> 0.292), so it is not kept.
+  # See the note in P_LIFT: grip retention really is the dominant failure here,
+  # but neither a deeper grasp nor a gentler lift is the fix.
   grasp_z_offset = 0.010

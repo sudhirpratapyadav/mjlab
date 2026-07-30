@@ -75,9 +75,18 @@ class PlaceInContainerClassicalPolicy(GraspTransportPolicy):
   lift_steps = 26
   carry_tol = 0.020
   max_dq = 0.09
-  # Same reason as Stack: the lowest fingertip geom is 1.24cm below the site and
-  # ``ee_ground_collision`` terminates on any ground contact, so grasp the 4cm cube
-  # 1cm above its centre rather than at it.
+  # Losing the cube during the LIFT, not missing the bin, is this task's dominant
+  # failure -- and it is worth recording because it contradicts the obvious guess.
+  # Instrumented over 32 episode-instances, 19 runs dropped the cube and 12 of
+  # those dropped it inside P_LIFT; only 13 runs ever kept hold of it at all. So
+  # dropping from lower, centring harder or damping longer all tune a phase that
+  # most failures never reach.
+  #
+  # Deepening the grasp to 0.004 (straddling the cube's centre of mass) and
+  # ramping the lift were both tried against that diagnosis and measured WORSE
+  # over 96 episode-instances: 0.302 baseline -> 0.188. This task has the tallest
+  # carry in the file (lift_height 0.22, to clear a 9cm bin), so the lower wrist
+  # pose costs more clearance than the firmer grip buys back. Kept at 1cm.
   grasp_z_offset = 0.010
 
   def _carry(self, i, obs_i, rot):

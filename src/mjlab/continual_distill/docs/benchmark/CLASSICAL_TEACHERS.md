@@ -420,3 +420,58 @@ Practical rules this implies for anything below ~0.3:
 
 The strong teachers do not have this problem: 1.000 over 32 episodes, reproduced twice,
 is a real result. The variance caveat applies specifically to the tail.
+
+
+### Push-Cuboid, Flip-Switch, Stack, Place-In-Container
+
+Measured at **96 episode-instances** (32 envs x 3 episodes) with matched 96-instance
+baselines re-measured at HEAD in the same session — not carried over from earlier docs.
+
+| task | baseline (96) | after (96) | verdict |
+|---|---|---|---|
+| Flip-Switch | 0.406 | **0.594-0.615** | improved ~1.5x |
+| Push-Cuboid | 0.104 | **0.167-0.240** | improved ~2x |
+| Stack-Cube | 0.354 | 0.28-0.375 | unchanged |
+| Place-In-Container | 0.302 | 0.27-0.29 | unchanged |
+
+**Flip-Switch: the seat gate was unsigned.** It fired on an unsigned 3D residual, so it
+was equally satisfied 5cm SHORT of the toggle and 5cm PAST it. Instrumented failures
+entered the ballistic stroke at `gto.x ~ -0.05` (gripper already beyond the toggle) and
+the hinge never left -45 deg. A signed gate — must still need +x travel, aligned in y/z
+— plus removing x from the integrator fixed it. Parent-verified at 0.615/96.
+
+**Push-Cuboid: the pusher overtakes its own workpiece.** Tracking `along` (the component
+of object-minus-gripper along the push direction), successes hold +0.03..+0.05
+throughout; failures start at +0.04 and decay through ZERO to -0.05, after which the
+gripper sits BETWEEN object and goal and every advance shoves the box backwards. Cause:
+as the goal nears, the tapering lead lets net penetration reach 0 and the DLS bias walks
+the site through the 8x8cm box. Fixed with "behind the object" as a hard precondition
+plus a cheap lateral re-seat and hysteresis. (A full return to the hover phase was tried
+first and measured much worse — it thrashed p2->p0->p1 every ~10 steps.) push_cuboid
+also had NO absolute floor guard at all; every height was relative to a +-1cm-noisy
+observation.
+
+**Stack and Place: the bottleneck is GRASP RETENTION, and it was not fixable here.**
+Instrumented grasp-loss: Stack drops the cube in 22/32 runs (13 of them inside the lift
+phase), Place-In-Container in 19/32 (12 in lift). Of the 10 Stack runs that KEPT hold,
+9 succeeded. So these scores are made of retention, not placement precision — which
+means the obvious remedies (drop lower, damp longer, tune the integrator) target a phase
+most failures never reach. Deeper grasp, longer squeeze and a ramped lift were all
+measured at 96 instances, all worse, all reverted with the negative result recorded
+in-code.
+
+### A correction to the floor-guard constant
+
+The agent reported the `hand_capsule` reaching ~3.1cm below the gripper site. That
+figure is `geom_rbound` — a bounding SPHERE — which for a capsule mounted above the site
+vastly overstates its downward reach. Projecting its true half-extent onto world z puts
+its lowest point **1.69cm ABOVE** the site, so it cannot touch the floor before the pads
+do. The deepest genuinely-colliding geom is a finger pad at **1.38cm below** the site,
+as originally measured. `floor_min_z = 0.030` is still correct; only the rationale
+needed fixing. Same trap as the phantom "buried in the floor" readings in the workspace
+audit: use true extents, never rbound.
+
+**Peg-insertion is pinned at `floor_min_z = 0.022`** and must stay there: its place phase
+deliberately drives the peg DOWN THROUGH THE HOLE to the ground, so the raised guard
+clamps the insertion itself and peg measures 0.000. Excluded from improvement by the
+user; the pin exists purely to keep it from regressing.

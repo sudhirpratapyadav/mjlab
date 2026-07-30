@@ -82,6 +82,18 @@ class PegInsertionClassicalPolicy(GraspTransportPolicy):
   release_steps = 16
   max_dq = 0.08  # slower than stack: precision over speed
 
+  # KEEP THE OLD, LOWER FLOOR GUARD. The shared spine raised ``floor_min_z`` to
+  # 0.030 because the true end-effector collision clearance is ~1.4cm (pads) and
+  # the hand capsule reaches ~3.1cm below the site, so 0.022 was tripping
+  # ``ee_ground_collision`` on transient dips. That is right for tasks working
+  # over the bare floor -- but this task deliberately drives the peg DOWN THROUGH
+  # a hole to the ground (``_place`` targets ``d[2] - INSERT_DEPTH``), so a 0.030
+  # guard clamps the insertion itself and the peg never seats: measured 0.000
+  # across 32 episodes with the raised guard, against a 0.03-0.06 baseline.
+  # The peg is inside the board's hole here, not over open floor, so the extra
+  # margin buys nothing and costs the whole task.
+  floor_min_z = 0.022
+
   def _gripper_to_grasp(self, i: int, obs_i: np.ndarray) -> np.ndarray:
     # obs points at the TIP; the grasp point is GRASP_UP above it.
     return self._gto(i, obs_i) + np.array([0.0, 0.0, GRASP_UP])

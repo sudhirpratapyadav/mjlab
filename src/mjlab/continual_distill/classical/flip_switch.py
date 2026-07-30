@@ -50,9 +50,13 @@ HOVER_X = 0.07
 HOVER_Z = 0.05
 ALIGN_TOL = 0.035  # y-z alignment before closing the last of the -x gap
 CONTACT_TOL = 0.05
+# Signed seat gates (see phase 1). The pad must be within SEAT_Z_TOL vertically
+# and no further than SEAT_X_MAX short of the face, while still being BEHIND it.
+SEAT_Z_TOL = 0.030
+SEAT_X_MAX = 0.055
 EMA_ALPHA = 0.4
 INTEG_GAIN = 0.22
-SETTLE = 2
+SETTLE = 3
 # Hard timeouts: this task has only 150 steps and the commit stroke must fire.
 # Without them a persistent DLS steady-state bias parks the arm in an approach
 # phase forever (measured 0/32 before these were added).
@@ -112,21 +116,59 @@ class FlipSwitchClassicalPolicy(ClassicalPolicyBase):
         self._phase_steps[i] = 0
         self._integ[i] = 0.0
     elif self._phase[i] == 1:
-      # Close the -x gap to just short of contact. Integral action nulls the DLS
-      # steady-state bias so the pad genuinely arrives at the face.
+      # Close the -x gap to just short of contact.
+      #
+      # THE GATE IS DIRECTIONAL, and that is the whole point of this phase.
+      # It used to fire on ``norm(seat) < CONTACT_TOL`` -- an UNSIGNED 3D
+      # residual, which is equally satisfied by a hand 5cm SHORT of the seat
+      # point and by one 5cm PAST it, on the far side of the toggle. Measured
+      # over 32 episodes, that is exactly what the misses were doing: at stroke
+      # entry the failures sat at gto.x ~ -0.05 (gripper 5cm beyond the toggle)
+      # and gto.z ~ +0.06..+0.10 (hand well below the tip), so the +x ballistic
+      # stroke swept through empty air on the far side and the hinge never moved
+      # at all (max angle stayed at the -45 deg start). The successes sat at
+      # gto.x ~ +0.05, gto.z ~ 0.00. Same stroke, opposite side of the switch.
+      #
+      # So gate on the SIGNED axes instead: the pad must still need to travel
+      # +x to reach the face (never already past it), and must be aligned in y
+      # and z. Only then is a blind +x stroke guaranteed to hit something.
+      # A SUSTAINED closed-loop press was tried here instead of handing off to
+      # the stroke (drive +x with a constant lead so the servo never converges,
+      # while holding y/z closed-loop). It measured 0.500 against a 0.531
+      # baseline, i.e. no better, and it is recorded here so it is not retried:
+      # instrumenting the hinge angle does show many successes flipping the
+      # toggle during the approach rather than during the stroke, but converting
+      # that observation into a deliberate press did not pay.
       raw = seat
-      self._integ[i] = np.clip(self._integ[i] + INTEG_GAIN * raw, -0.06, 0.06)
-      pos_err = raw + self._integ[i]
-      seated = np.linalg.norm(raw) < CONTACT_TOL
-      if seated:
+      # Integrate the lateral/vertical axes only. Integrating x as well is what
+      # drove the hand through the switch plane in the first place: the x error
+      # is deliberately held slightly positive here, so an x integrator winds up
+      # without bound until it overshoots.
+      lat = np.array([0.0, raw[1], raw[2]])
+      self._integ[i] = np.clip(self._integ[i] + INTEG_GAIN * lat, -0.06, 0.06)
+      aligned = abs(raw[1]) < ALIGN_TOL and abs(raw[2]) < SEAT_Z_TOL
+      behind = raw[0] > 0.0  # the face is still ahead of the pad in +x
+      close = raw[0] < SEAT_X_MAX
+      if aligned and behind and close:
         self._settle[i] += 1
       else:
         self._settle[i] = 0
-      if self._settle[i] >= SETTLE or (
-        self._phase_steps[i] > SEAT_TIMEOUT and np.linalg.norm(raw) < 0.10
-      ):
+      pos_err = raw + self._integ[i]
+      # Never command past the seat point in +x: approach it, do not shoot it.
+      pos_err[0] = min(pos_err[0], max(raw[0], 0.0))
+      # Hand off to the ballistic stroke once seated, or when the window expires.
+      if self._settle[i] >= SETTLE:
         self._phase[i] = 2
         self._phase_steps[i] = 0
+        self._integ[i] = 0.0
+      elif self._phase_steps[i] > SEAT_TIMEOUT:
+        if behind and abs(raw[1]) < 0.06:
+          self._phase[i] = 2
+        else:
+          self._phase[i] = 0
+        self._phase_steps[i] = 0
+        self._integ[i] = 0.0
+        self._settle[i] = 0
     else:
       # BALLISTIC COMMIT. Open-loop on purpose: the waypoint is a fixed +x offset
       # from the gripper's own position, NOT from the toggle, so the command never
