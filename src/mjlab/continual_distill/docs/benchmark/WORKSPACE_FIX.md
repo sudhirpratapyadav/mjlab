@@ -190,3 +190,55 @@ bugs are invisible to every other gate: `benchmark-smoke` still passes (the env 
 and steps), and the success-predicate tests teleport objects into success states so
 they never exercise spawn. Verified the per-env test actually catches the container bug
 by reintroducing it — it fails with "varies by 6.17m across envs".
+
+
+## Round 2 — vertical placement (found by watching the re-recorded videos)
+
+Fixing the radial placement made a SECOND defect visible: mechanisms clipping the
+ground. Radial reach says nothing about vertical placement, so the audit passed
+mechanisms that were half-sunk in the floor.
+
+**Pre-existing, not caused by the radial fix** — verified by re-measuring at the
+pre-fix commit, where the door already sat 0.94m below the floor. Articulated
+mechanisms hang DOWNWARD from a mocap mount and Class A scenes have no table or wall
+to hang them from, so mount height must clear the asset's own drop:
+
+| asset | drops below mount | min mount z |
+|---|---|---|
+| door | 0.800 | 0.83 |
+| drawer | 0.300 | 0.33 |
+| window | 0.220 | 0.25 |
+| lever / valve | 0.150 | 0.18 |
+| lid | 0.070 | 0.10 |
+| switch | 0.060 | 0.09 |
+| button | 0.030 | 0.06 |
+
+Encoded as `workspace.MECHANISM_DROP_BELOW_MOUNT` + `min_mechanism_mount_z()`. All
+eight mechanisms now sit exactly `MECHANISM_FLOOR_CLEARANCE` (3cm) above the ground
+with handles still at 0.42-0.51 radial — both constraints satisfied simultaneously.
+
+Also fixed: the **peg** is a 10cm box (half-length 0.05) spawned UPRIGHT at z=0.02, so
+its lower half was underground. Now z=0.05.
+
+`MECHANISM_Z_RANGE` (0.35-0.50) is retained but marked superseded for placement: it is
+the ideal band for REACH alone, and would be right for a table-based Class A variant.
+The consequence of floor-clearance mounting is that mechanisms sit lower than a
+human-scale workstation (drawer handle ~0.33, not ~0.5). That is correct for this
+scene — a floor-standing cabinet — and the arm reaches it comfortably.
+
+### Two measurement traps hit while fixing this
+
+1. **`geom_rbound` is a bounding SPHERE.** Using it for floor penetration flags a 4cm
+   cube resting correctly on the ground as 2cm buried. The audit now projects each
+   geom's true half-extents onto world z.
+2. **Mocap poses do not live in `qpos`.** Rebuilding an `MjData` from `qpos` alone
+   leaves every mechanism at its MJCF authoring pose, producing phantom penetration
+   readings. Geom positions must come from the live sim. This one cost a wrong
+   diagnosis before it was caught — the first "everything is buried" reading was an
+   artifact of exactly this.
+3. **`is_mechanism` by height was fragile.** Lowering mounts for floor clearance pushed
+   several below the old `z > 0.25` heuristic, which then applied the free-object
+   grasp-density test to a wall-mounted switch and produced five false `sparse-reach`
+   flags. Now keyed off `MECHANISM_DROP_BELOW_MOUNT` membership.
+
+Final: **0 placement problems**, 382 passed / 18 skipped, 23/23 benchmark-smoke.

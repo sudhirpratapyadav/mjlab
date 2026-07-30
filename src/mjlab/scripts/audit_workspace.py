@@ -165,6 +165,11 @@ def _floor_penetration(task_id: str) -> dict[str, float]:
   try:
     env.reset()
     model = env.sim.mj_model
+    # Read geom positions from the LIVE sim. Mocap bodies are positioned by
+    # write_mocap_pose_to_sim, which does NOT show up in qpos — rebuilding an MjData
+    # from qpos alone leaves every mechanism at its MJCF authoring pose and reports
+    # phantom floor penetration.
+    geom_xpos = env.sim.data.geom_xpos[0].cpu().numpy()
     data = mujoco.MjData(model)
     data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
     mujoco.mj_forward(model, data)
@@ -180,7 +185,7 @@ def _floor_penetration(task_id: str) -> dict[str, float]:
       # bounding SPHERE, which massively over-reports for flat/elongated geoms (a
       # 4cm cube resting correctly on the floor would look 2cm buried).
       half_z = _geom_half_height(model, data, gid)
-      low = float(data.geom_xpos[gid][2] - half_z)
+      low = float(geom_xpos[gid][2] - half_z)
       out[entity] = min(out.get(entity, 0.0), low)
     return out
   finally:
@@ -248,8 +253,8 @@ def main(cfg: AuditConfig) -> None:
       x0, x1 = float(p[:, 0].min()), float(p[:, 0].max())
       y0, y1 = float(p[:, 1].min()), float(p[:, 1].max())
       radial = float(np.linalg.norm(p[:, :2], axis=1).max())
-      z_mean = float(p[:, 2].mean())
-      is_mechanism = z_mean > 0.25
+      z_mean = float(p[:, 2].mean())  # noqa: F841 — kept for the printed table
+      is_mechanism = name in workspace.MECHANISM_DROP_BELOW_MOUNT
       free = _grasp_pose_fraction(x0, x1, y0, y1)
 
       flags = []

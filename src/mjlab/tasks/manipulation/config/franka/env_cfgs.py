@@ -106,6 +106,20 @@ from mjlab.tasks.manipulation.push_cuboid_env_cfg import make_push_cuboid_env_cf
 from mjlab.tasks.manipulation.push_disc_env_cfg import make_push_disc_env_cfg
 
 
+
+def _mech_z(asset: str) -> tuple[float, float]:
+  """Mount-height range for an articulated mechanism, clear of the ground plane.
+
+  Mechanisms hang DOWNWARD from their mocap mount and Class A scenes have no table or
+  wall to hang them from, so mount height is dictated by the asset's own downward
+  extent (door: 0.80m) rather than by what is comfortable to reach. Picking a mount z
+  for reachability alone buries the mechanism in the floor — invisible to
+  benchmark-smoke and to the radial reach audit, but obvious in a rendered frame.
+  """
+  z = workspace.min_mechanism_mount_z(asset)
+  return (z, z)
+
+
 def _grasp_box_corner_safe() -> tuple[tuple[float, float], tuple[float, float]]:
   """The Class A grasp envelope, with x trimmed so its CORNERS obey GRASP_RADIAL_MAX.
 
@@ -520,7 +534,10 @@ def franka_peg_insertion_env_cfg(
   stack_command.object_pose_range = StackingCommandCfg.ObjectPoseRangeCfg(
     x=_PEG_X,
     y=(workspace.GRASP_Y_RANGE[0], -0.04),  # peg
-    z=(0.02, 0.02),
+    # The peg is a 10cm box (half-length 0.05) spawned UPRIGHT, so its centre must sit
+    # a half-length above the floor. The old 0.02 buried its lower half in the ground
+    # plane — invisible to smoke and to the reach audit, but a real 3cm penetration.
+    z=(0.05, 0.05),
     yaw=(0.0, 0.0),
   )
   stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
@@ -656,7 +673,7 @@ def franka_open_door_env_cfg(
   cfg.events["reset_door_position"].params["pose_range"] = {
     "x": (0.48, 0.52),
     "y": (-0.30, -0.20),
-    "z": (0.61, 0.61),
+    "z": _mech_z("door"),
   }
 
   # Franka uses "gripper" site for end-effector
@@ -749,7 +766,7 @@ def franka_open_drawer_env_cfg(
   cfg.events["reset_drawer_position"].params["pose_range"] = {
     "x": (0.46, 0.56),
     "y": (-0.10, 0.10),
-    "z": (0.50, 0.50),
+    "z": _mech_z("drawer"),
   }
 
   # Franka uses "gripper" site for end-effector
@@ -842,7 +859,7 @@ def franka_push_button_env_cfg(
   cfg.events["reset_button_position"].params["pose_range"] = {
     "x": (0.44, 0.48),
     "y": (-0.10, 0.10),
-    "z": (0.50, 0.50),
+    "z": _mech_z("button"),
   }
 
   # Franka uses "gripper" site for end-effector
@@ -1151,7 +1168,7 @@ def franka_turn_lever_env_cfg(
   cfg.events["reset_lever_position"].params["pose_range"] = {
     "x": (0.50, 0.56),
     "y": (-0.20, -0.04),
-    "z": workspace.MECHANISM_Z_RANGE,
+    "z": _mech_z("lever"),
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1177,7 +1194,7 @@ def franka_rotate_valve_env_cfg(
   cfg.events["reset_valve_position"].params["pose_range"] = {
     "x": (0.49, 0.55),
     "y": (-0.17, -0.01),
-    "z": workspace.MECHANISM_Z_RANGE,
+    "z": _mech_z("valve"),
   }
   # Multi-turn task: needs a longer episode than a single-stroke articulation.
   cfg.episode_length_s = 8.0
@@ -1205,7 +1222,7 @@ def franka_flip_switch_env_cfg(
   cfg.events["reset_switch_position"].params["pose_range"] = {
     "x": (0.46, 0.52),
     "y": (-0.08, 0.08),
-    "z": (0.42, 0.50),
+    "z": _mech_z("switch"),
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1231,7 +1248,7 @@ def franka_slide_window_env_cfg(
   cfg.events["reset_window_position"].params["pose_range"] = {
     "x": (0.50, 0.56),
     "y": (0.05, 0.15),
-    "z": workspace.MECHANISM_Z_RANGE,
+    "z": _mech_z("window"),
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1262,7 +1279,7 @@ def franka_open_lid_env_cfg(
   cfg.events["reset_lid_position"].params["pose_range"] = {
     "x": (0.52, 0.59),
     "y": (-0.08, 0.08),
-    "z": (0.38, 0.44),
+    "z": _mech_z("lid"),
   }
 
   return _apply_play_test(cfg, play, test)

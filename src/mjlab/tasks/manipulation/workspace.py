@@ -92,13 +92,62 @@ MECHANISM_X_RANGE: tuple[float, float] = (0.42, 0.56)
 than a graspable object; the handle itself protrudes back toward the arm."""
 
 MECHANISM_Y_RANGE: tuple[float, float] = (-0.12, 0.12)
+
 MECHANISM_Z_RANGE: tuple[float, float] = (0.35, 0.50)
-"""Mount height. The any-orientation envelope at z=0.45-0.60 has p50 radial 0.563, so
-a handle at radial ~0.45 is comfortably mid-range."""
+"""Mount height that would be ideal for REACH alone (the any-orientation envelope at
+z=0.45-0.60 has p50 radial 0.563).
+
+SUPERSEDED for actual placement: mount height is dictated by FLOOR CLEARANCE, not
+reach. Mechanisms hang downward from their mount and Class A scenes have no table or
+wall to hang them from, so a mount at 0.35-0.50 buries the taller assets in the ground
+plane. Use ``min_mechanism_mount_z(asset)``.
+
+The consequence is that mechanisms sit lower than a human-scale workstation would put
+them (the drawer handle ends up near 0.33 rather than 0.5). That is correct for THIS
+scene — a floor-standing cabinet, not a wall-mounted one — and the arm reaches it
+comfortably. Kept here as the reference for what a table-based Class A variant should
+use, if one is ever added."""
 
 MECHANISM_HANDLE_RADIAL_MAX: float = 0.58
 """The HANDLE (not the mount) must stay within this radius — that is the point the
 gripper actually has to reach."""
+
+MECHANISM_DROP_BELOW_MOUNT: dict[str, float] = {
+  "lever": 0.150,
+  "valve": 0.150,
+  "switch": 0.060,
+  "window": 0.220,
+  "lid": 0.070,
+  "door": 0.800,
+  "drawer": 0.300,
+  "button": 0.030,
+}
+"""How far each mechanism's geometry extends BELOW its mount body, in metres.
+
+Mechanisms hang downward from a mocap mount, and Class A scenes have no table or wall
+for them to hang from — so a mount placed at a height chosen purely for reachability
+buries the mechanism in the ground plane. The door is the extreme case: its panel drops
+0.80m below its mount point.
+
+Mount z must therefore be at least this value (plus clearance). Use
+``min_mechanism_mount_z()`` rather than reading this directly. Regenerate with
+``python -m mjlab.scripts.audit_workspace --measure-drops`` if an asset changes.
+"""
+
+MECHANISM_FLOOR_CLEARANCE: float = 0.03
+"""Gap left between a mechanism's lowest geom and the ground plane."""
+
+
+def min_mechanism_mount_z(asset: str) -> float:
+  """Lowest mount height that keeps ``asset`` clear of the ground plane."""
+  try:
+    drop = MECHANISM_DROP_BELOW_MOUNT[asset]
+  except KeyError:
+    raise KeyError(
+      f"unknown mechanism {asset!r}; add its drop to MECHANISM_DROP_BELOW_MOUNT "
+      "(measure with audit_workspace --measure-drops)"
+    ) from None
+  return drop + MECHANISM_FLOOR_CLEARANCE
 
 # --- Shared object geometry -------------------------------------------------------
 

@@ -106,6 +106,40 @@ def test_objects_spawn_per_env(task_id: str) -> None:
     )
 
 
+@pytest.mark.parametrize("task_id", _class_a_tasks())
+def test_nothing_is_buried_in_the_floor(task_id: str) -> None:
+  """No object or mechanism may extend below the ground plane.
+
+  Radial reach says nothing about VERTICAL placement, so a mechanism can be perfectly
+  in reach while half-sunk in the floor. Two real cases this pins:
+
+  - Articulated mechanisms hang downward from a mocap mount (the door panel drops 0.80m
+    below its mount) and Class A has no table or wall to hang them from, so mount
+    height must clear the asset's own drop.
+  - The peg is a 10cm box spawned upright; at the old z=0.02 its lower half was
+    underground.
+
+  Neither is visible to `benchmark-smoke` (the env builds and steps regardless).
+  """
+  from mjlab.scripts.audit_workspace import _floor_penetration
+
+  for name, low in _floor_penetration(task_id).items():
+    assert low > -0.02, (
+      f"{task_id}/{name} extends {low:.3f}m below the floor. For a mechanism, raise "
+      "its mount (see workspace.min_mechanism_mount_z); for a free object, spawn it a "
+      "half-extent above the ground."
+    )
+
+
+def test_mechanism_mount_heights_clear_the_floor() -> None:
+  """`min_mechanism_mount_z` must exceed each asset's own downward extent."""
+  for asset, drop in workspace.MECHANISM_DROP_BELOW_MOUNT.items():
+    assert workspace.min_mechanism_mount_z(asset) > drop, asset
+
+  with pytest.raises(KeyError, match="unknown mechanism"):
+    workspace.min_mechanism_mount_z("not_a_mechanism")
+
+
 def test_grasp_box_corners_respect_the_radial_ceiling() -> None:
   """`grasp_box()` must be corner-safe, unlike pairing the raw ranges.
 
