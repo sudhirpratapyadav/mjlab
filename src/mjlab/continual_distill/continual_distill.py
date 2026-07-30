@@ -308,6 +308,78 @@ def train_epoch_si(
     return final_state, rng, mean_metrics, last_metrics
 
 
+def train_epoch_joint(
+    state: StudentTrainStateSI,
+    rng: jax.random.PRNGKey,
+    per_task: List[Dict[str, jnp.ndarray]],
+    batch_size: int,
+) -> Tuple[StudentTrainStateSI, jax.random.PRNGKey, jnp.ndarray, jnp.ndarray]:
+    """Train one epoch of JOINT (multitask) distillation — the P0-2 ceiling.
+
+    All tasks are learned simultaneously rather than in sequence: every task
+    contributes batches to the same epoch, each routed to its own output head via
+    task_idx, all sharing the trunk. There is no task ordering and therefore no
+    forgetting, which is what makes this an upper bound on the sequential runs.
+
+    SI is inert here (callers pass si_coeff=0), and the optimizer is never reset
+    between tasks, unlike the sequential loop.
+
+    Args:
+        state: Training state
+        rng: Random key
+        per_task: One dict per task with obs/mean/logstd/weights arrays
+        batch_size: Mini-batch size
+
+    Returns:
+        Tuple of (updated state, updated rng, mean metrics, last batch metrics)
+    """
+    # Build a flat, shuffled schedule of (task, batch) pairs so the tasks are
+    # interleaved within the epoch rather than visited block-by-block (which
+    # would just be sequential training again, one epoch at a time).
+    schedule: List[Tuple[int, jnp.ndarray, jnp.ndarray, jnp.ndarray, jnp.ndarray]] = []
+    for t_idx, buf in enumerate(per_task):
+        obs = buf["obs"]
+        num_samples = obs.shape[0]
+        num_batches = num_samples // batch_size
+        if num_batches == 0:
+            raise ValueError(f"Task {t_idx} training set has no full batch.")
+
+        rng, perm_key = jax.random.split(rng)
+        perm = jax.random.permutation(perm_key, num_samples)
+        elems = num_batches * batch_size
+        sel = perm[:elems]
+
+        shuffled_obs = jnp.take(obs, sel, axis=0).reshape((num_batches, batch_size, obs.shape[-1]))
+        shuffled_mean = jnp.take(buf["mean"], sel, axis=0).reshape((num_batches, batch_size, -1))
+        shuffled_logstd = jnp.take(buf["logstd"], sel, axis=0).reshape((num_batches, batch_size, -1))
+        shuffled_w = jnp.take(buf["weights"], sel, axis=0).reshape((num_batches, batch_size))
+
+        for b in range(num_batches):
+            schedule.append((t_idx, shuffled_obs[b], shuffled_mean[b], shuffled_logstd[b], shuffled_w[b]))
+
+    rng, order_key = jax.random.split(rng)
+    order = np.asarray(jax.random.permutation(order_key, len(schedule)))
+
+    loss_sums = jnp.zeros(4, dtype=jnp.float32)
+    last_metrics = jnp.zeros(4, dtype=jnp.float32)
+    for i in order:
+        t_idx, b_obs, b_mean, b_logstd, b_w = schedule[int(i)]
+        state, metrics = train_step_si(
+            state,
+            b_obs,
+            b_mean,
+            b_logstd,
+            b_w,
+            jnp.asarray(t_idx, dtype=jnp.int32),
+            0.0,  # SI disabled: joint training has nothing to consolidate against
+        )
+        loss_sums = loss_sums + metrics
+        last_metrics = metrics
+
+    mean_metrics = loss_sums / len(schedule)
+    return state, rng, mean_metrics, last_metrics
+
+
 @jax.jit
 def dataset_kl_loss_si(
     state: StudentTrainStateSI,
@@ -1106,6 +1178,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--distill-weight-floor", type=float, default=0.3, help="delta_action: min weight for low-action-change (hold) samples.")
     parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
     parser.add_argument("--distill-weight-tasks", type=str, default="all", help="Which task indices get non-uniform weighting (comma-sep, e.g. '0'); others use uniform KL. Default 'all'.")
+    parser.add_argument("--joint-distill", action="store_true", help="Joint (multitask) distillation: train on ALL teachers simultaneously instead of sequentially. Upper-bound control (P0-2); implies no SI and no task ordering.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1397,7 +1470,80 @@ def main() -> None:
     global_step = 0
     offline_eval_every = max(args.eval_every, 1)
 
-    for task_idx, task_data in enumerate(task_buffers):
+    if args.joint_distill:
+        # ---- P0-2: joint multitask distillation (upper bound) -----------------
+        # All teachers at once, no sequence, no SI. For fairness with the
+        # sequential runs we match TOTAL gradient steps: the sequential run does
+        # sum(num_epochs) passes over one task each, so here we do the same total
+        # number of per-task passes, but interleaved within each joint epoch.
+        joint_epochs = max(int(task_buffers[0]["num_epochs"]), 1)
+        per_task = [
+            {
+                "obs": tb["train_obs"],
+                "mean": tb["train_mean"],
+                "logstd": tb["train_logstd"],
+                "weights": tb["train_weights"],
+            }
+            for tb in task_buffers
+        ]
+        print("\n" + "=" * 80)
+        print(f"JOINT DISTILLATION over {len(task_buffers)} tasks "
+              f"({', '.join(tb['task_name'] for tb in task_buffers)})")
+        print(f"  epochs: {joint_epochs} | SI: disabled | ordering: none")
+        print("=" * 80)
+
+        steps_per_joint_epoch = sum(
+            tb["train_steps_per_epoch"] for tb in task_buffers
+        )
+        for epoch in range(joint_epochs):
+            state, train_rng, mean_metrics, last_metrics = train_epoch_joint(
+                state, train_rng, per_task, args.batch_size
+            )
+            global_step += steps_per_joint_epoch
+            mean_np = np.asarray(mean_metrics)
+
+            if wandb_run is not None:
+                wandb_run.log(
+                    {
+                        "Train_Loss/Total": float(mean_np[0]),
+                        "Train_Loss/dist": float(mean_np[1]),
+                        "Training/epoch": epoch + 1,
+                        "Training/global_updates": global_step,
+                    },
+                    step=global_step,
+                )
+
+            if (epoch + 1) % offline_eval_every == 0 or epoch == joint_epochs - 1:
+                print(f"  [joint] epoch {epoch + 1}/{joint_epochs} | loss {mean_np[0]:.4f}")
+                evaluate_all_tasks_offline(
+                    state=state,
+                    task_buffers=task_buffers,
+                    current_task_idx=len(task_buffers) - 1,
+                    wandb_run=wandb_run,
+                    global_step=global_step,
+                    epoch=epoch + 1,
+                )
+
+            if args.env_eval_episodes > 0 and (
+                (epoch + 1) % env_eval_every == 0 or epoch == joint_epochs - 1
+            ):
+                evaluate_all_tasks_env(
+                    state=state,
+                    task_buffers=task_buffers,
+                    current_task_idx=len(task_buffers) - 1,
+                    num_episodes=args.env_eval_episodes,
+                    episode_length=task_buffers[0]["episode_length"],
+                    seed=args.seed,
+                    wandb_run=wandb_run,
+                    global_step=global_step,
+                    epoch=epoch + 1,
+                )
+
+        task_buffers_to_train = []
+    else:
+        task_buffers_to_train = task_buffers
+
+    for task_idx, task_data in enumerate(task_buffers_to_train):
         task_name = task_data["task_name"]
         print("\n" + "-" * 80)
         print(f"[Task {task_idx}] {task_name}")
