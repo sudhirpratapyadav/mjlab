@@ -151,17 +151,17 @@ _Auto-collected by `slurm/collect_p0.py`._
 
 | group | run | status | avg SR | per-task |
 |---|---|---|---|---|
-| P0-1 | `nosi_best_s0` | ⏳ queued | — | — |
-| P0-1 | `nosi_best_s1` | ⏳ queued | — | — |
-| P0-1 | `nosi_best_s2` | ⏳ queued | — | — |
-| P0-1 | `nosi_worst_s0` | ⏳ queued | — | — |
-| P0-1 | `nosi_worst_s1` | ⏳ queued | — | — |
-| P0-1 | `nosi_worst_s2` | ⏳ queued | — | — |
-| P0-2 | `joint_s0` | ✅ complete | 0.008 | OpenDoor 0.00, OpenDrawer 0.03, PushButton 0.00, PushCuboid 0.00 |
-| P0-2 | `joint_s1` | ✅ complete | 0.012 | OpenDoor 0.05, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
-| P0-2 | `joint_s2` | ✅ complete | 0.016 | OpenDoor 0.05, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.02 |
-| P0-3 | `w8192_lr1e5_s0` | ⏳ queued | — | — |
-| P0-3 | `w8192_lr1e5_s1` | ⏳ queued | — | — |
+| P0-1 | `nosi_best_s0` | 🔄 running | — | — |
+| P0-1 | `nosi_best_s1` | 🔄 running | — | — |
+| P0-1 | `nosi_best_s2` | 🔄 running | — | — |
+| P0-1 | `nosi_worst_s0` | 🔄 running | — | — |
+| P0-1 | `nosi_worst_s1` | 🔄 running | — | — |
+| P0-1 | `nosi_worst_s2` | 🔄 running | — | — |
+| P0-2 | `joint_s0` | ⏳ queued | — | — |
+| P0-2 | `joint_s1` | ⏳ queued | — | — |
+| P0-2 | `joint_s2` | ⏳ queued | — | — |
+| P0-3 | `w8192_lr1e5_s0` | 🔄 running | — | — |
+| P0-3 | `w8192_lr1e5_s1` | 🔄 running | — | — |
 | P0-3 | `w8192_lr1e5_s2` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr5e6_s0` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr5e6_s1` | ⏳ queued | — | — |
