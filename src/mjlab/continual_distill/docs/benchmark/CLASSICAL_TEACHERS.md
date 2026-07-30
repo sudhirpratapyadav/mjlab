@@ -108,6 +108,78 @@ problem. Getting past ~0.3 likely needs a caging grasp, which reintroduces exact
 friction fragility the drawer's geometric-hook approach exists to avoid. Open question
 for the CL work: is a 0.08 teacher useful, or should the task be softened?
 
+### Reach / grasp-and-lift
+
+| task | success |
+|---|---|
+| Reach-Target | **1.000** |
+| Lift-Cube | **1.000** |
+| Lift-Cylinder | **1.000** |
+| Lift-Sphere | **0.969** |
+| Lift-Ellipsoid | **0.906** |
+| Push-Disc | **0.406** (capped by the task, see below) |
+
+One `LiftObjectClassicalPolicy` with four thin subclasses differing only in object
+centre height and squeeze duration — the same collapse the motion-profile counting rule
+applies to the tasks themselves. Hover open -> descend -> close -> climb -> drive
+`object_to_goal` to zero. Sphere/ellipsoid get tighter alignment and longer squeezes;
+their lower scores are genuine grasp-geometry difficulty, not tuning debt.
+
+### Two-object / novel success shapes
+
+| task | success | note |
+|---|---|---|
+| Stack-Cube | 0.438 | release is essential — the height test cannot fire while held |
+| Place-In-Container | 0.344 | drops the cube from above; it does not fit inside with the gripper |
+| Reorient-Object | **0.062** | teacher limitation, diagnosed below |
+| Peg-Insertion | 0.062 | tolerance below the controller noise floor |
+| Tool-Pull | 0.031 | measured BEFORE the observability fix |
+
+### Task-side issues these teachers exposed
+
+**Push-Disc (0.406) is capped by its success predicate, not the teacher.** The goal sits
+at fixed z=0.03 while the disc rests at z=0.020, and success is a 3D distance under
+0.02. The 1cm vertical residual is unavoidable, leaving ~1.7cm of lateral budget versus
+the 5cm ball lift is scored against. Setting the goal z to the disc's resting height
+would roughly double the budget. NOT changed — altering a threshold to improve a number
+is exactly what these teachers exist to detect, so it is flagged for a human decision.
+
+**Reorient-Object (0.062): a genuine teacher limitation, NOT an env bug.** The
+authoring agent attributed this to a stale `target_pos` anchor. That bug was real and is
+now fixed (d8e5115) — but re-measuring afterwards gave the SAME 0.062, so it was not the
+limiter. Instrumented over a full episode x 16 envs:
+
+- only **2/16 envs ever met the angular criterion** at any point;
+- best axis alignment in the other 14 was ~0.04-0.17, i.e. still essentially horizontal;
+- when the angle WAS met, drift was 0.048-0.134, comfortably inside the 0.18 bound.
+
+So the drift bound is not binding and the anchor fix, while correct, does not rescue
+this task. The teacher does not reliably stand the cylinder up: grasping a lying
+cylinder across its flat end faces and rotating the wrist to vertical demands both a
+secure grasp on a rolling object and a large wrist rotation, and it usually loses the
+object mid-rotation. Reported as a failing teacher. Worth noting the fix was still
+worth making — an unwinnable-at-spawn env is a defect regardless of whether it was the
+dominant one.
+
+**Peg-Insertion (0.062): the tolerance is below the controller's noise floor.** A 2.4cm
+peg in a 3cm hole is 3mm clearance per side against a 1.5cm xy tolerance, ~1cm
+observation noise, and a measured 2-3.6cm DLS lateral steady-state bias that integral
+action only partly removes. Insertion also wants compliance a position servo does not
+have: residual lateral error at contact wedges the peg on the rim instead of sliding in.
+This is a genuine limit of scripted control, and a fair argument that peg-insertion
+needs a learned teacher.
+
+### Two general controller findings (they generalise to any teacher here)
+
+1. **Stale phase state after mid-episode auto-resets.** `ee_ground_collision` ends
+   episodes mid-flight and respawns the object, but `policy.reset()` is only called
+   BETWEEN episodes. The state machine then runs "carry" against an object it never
+   picked up. Detecting the discontinuity and rewinding took cube-lift from
+   **0.125 -> 1.000**. Any teacher on a task with a non-timeout termination needs this.
+2. **The DLS solve has a 2-3.6cm lateral steady-state bias** — larger than Stack's 3cm
+   and Peg's 1.5cm tolerances, so proportional-only placement can never succeed on the
+   tighter tasks. Integral action on the carry/place phases is required, not optional.
+
 ### Design principle that generalises
 
 Every teacher above follows `open_drawer`'s winning idea: **fingers stay closed and the
