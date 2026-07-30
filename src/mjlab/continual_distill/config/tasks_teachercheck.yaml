@@ -1,0 +1,28 @@
+# Teacher-competence probe: same four RL teachers as tasks_p0.yaml, but with
+# num_epochs: 0 so the run performs ONLY the step-0 environment evaluation and
+# then exits. That step-0 eval rolls out each teacher and reports
+# teacher_success / teacher_return, which is exactly the number we want to
+# compare across the MuJoCo 3.3.7 and 3.11 stacks.
+#
+# Using the real pipeline (rather than a bespoke rollout script) guarantees the
+# two stacks are measured through an identical code path.
+tasks:
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_4000_20260129_060250"
+    num_epochs: 0
+
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260129_055421"
+    num_epochs: 0
+
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260129_055326"
+    num_epochs: 0
+
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_model_1999_20260129_055221"
+    num_epochs: 0

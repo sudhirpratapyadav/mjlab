@@ -16,6 +16,65 @@ sequence at all (ceiling), and is the 8192 collapse really about capacity (confo
   dispatches the next queued job the moment one frees (the old wave-based sweep
   scripts idled GPUs waiting for the slowest run in each wave)
 
+> ## ⚠️ BLOCKED — the RL teachers no longer work in the current environment
+>
+> The first four P0-1 runs finished at **0.000 success on every task**, which is not
+> a forgetting floor (that would leave the *last* task near 1.0). Root cause is not
+> the P0 code: the **teachers themselves** now fail. Verified with the stock
+> pipeline (SI on, all defaults, none of the P0 flags):
+>
+> | teacher | July sweep | now (MuJoCo 3.11) |
+> |---|---|---|
+> | PushCuboid | ~1.00 succ / 6.49 ret | **0.008** succ / 0.81 ret |
+> | OpenDrawer | ~0.99 succ / 6.11 ret | **0.000** succ / 3.36 ret |
+>
+> **The warp upgrade (`fb15756`) is NOT the cause** — it was the initial suspect,
+> but a controlled A/B disproved it: rebuilding the exact sweep-era physics stack
+> (MuJoCo 3.3.7 / warp 1.11.0.dev / mujoco-warp `46b4421`) in a separate
+> `.venv_old` reproduces the *same* failure (PushCuboid 0.008, OpenDrawer 0.000).
+> Both stacks fail identically, so the physics is exonerated.
+>
+> Also ruled out:
+> - **Env code** — the four task cfgs are untouched since the sweep, reward terms
+>   are byte-identical, and the shared MDP modules (`commands.py`,
+>   `observations.py`, `rewards.py`) changed by *pure addition only*
+>   (1000 insertions / 0 deletions in commands.py; new reach-task functions in the
+>   other two). No existing observation or reward was modified.
+> - **Teacher files** — `data.pkl` / `teacher.pkl` are unmodified since January
+>   (mtime + md5 verified), so the checkpoints are not corrupt.
+> - **Distill code** — no commit touched `continual_distill.py` / `utils.py`
+>   between the sweep and this work except the P0 commit itself.
+>
+> ### ROOT CAUSE: the benchmark workspace commits moved object spawn ranges
+>
+> Checking out the sweep-era commit `69b2896` into a worktree and re-probing
+> **restores the teachers completely**:
+>
+> | teacher | sweep-era code (`69b2896`) | current code (HEAD) |
+> |---|---|---|
+> | PushCuboid | **0.81 – 0.84** | 0.008 |
+> | OpenDrawer | **1.00** | 0.000 |
+>
+> (Sweep-era 0.836 matches the July sweep's own first eval of 0.828.) Same teacher
+> files, same `.venv_old` physics stack, same probe — only the repo code differs.
+>
+> The culprit is **`2ab6d11` "benchmark: fix Class A object placement against the
+> measured workspace"** (and the related `8e7fd5c` / `babf036`), which rewrote
+> `config/franka/env_cfgs.py` (997 lines). PushCuboid's spawn range went from the
+> sweep's literal `x=(0.6, 0.8), y=(-0.15, 0.15)` to workspace-derived
+> `GRASP_X_RANGE` halves, and the articulated tasks got new `_mech_z()` mount
+> heights via overridden `reset_*_position` event `pose_range`s.
+>
+> **The teachers are not broken — they are being evaluated on a different task
+> distribution than they were trained on.** Nothing is corrupt; obs_dim is still 60,
+> so this fails silently rather than erroring.
+>
+> This affects **every teacher dataset**, so the mix/BC/classical experiments would
+> hit the same wall.
+>
+> All 18 runs stopped; holder 19736 left intact and idle. See "Stack A/B comparison"
+> below for the measurement that decides whether to pin back or retrain.
+
 ## Status
 
 Legend: ⏳ queued · 🔄 running · ✅ complete · ❌ failed
@@ -80,10 +139,10 @@ _Auto-collected by `slurm/collect_p0.py`._
 
 | group | run | status | avg SR | per-task |
 |---|---|---|---|---|
-| P0-1 | `nosi_best_s0` | 🔄 running | — | — |
-| P0-1 | `nosi_best_s1` | 🔄 running | — | — |
+| P0-1 | `nosi_best_s0` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushCuboid 0.00 |
+| P0-1 | `nosi_best_s1` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
 | P0-1 | `nosi_best_s2` | 🔄 running | — | — |
-| P0-1 | `nosi_worst_s0` | 🔄 running | — | — |
+| P0-1 | `nosi_worst_s0` | ✅ complete | 0.000 | OpenDoor 0.00, OpenDrawer 0.00, PushButton 0.00, PushCuboid 0.00 |
 | P0-1 | `nosi_worst_s1` | 🔄 running | — | — |
 | P0-1 | `nosi_worst_s2` | 🔄 running | — | — |
 | P0-2 | `joint_s0` | ⏳ queued | — | — |
@@ -99,6 +158,61 @@ _Auto-collected by `slurm/collect_p0.py`._
 | P0-3 | `w8192_lr1e6_s1` | ⏳ queued | — | — |
 | P0-3 | `w8192_lr1e6_s2` | ⏳ queued | — | — |
 
+
+## Stack A/B comparison — did the upgrade break the teachers?
+
+Measures every RL teacher's standalone competence under both physics stacks,
+through an **identical code path**: `config/tasks_teachercheck.yaml` sets
+`num_epochs: 0`, so the pipeline performs only its step-0 environment evaluation
+(which rolls out the teacher and reports `teacher_success` / `teacher_return`) and
+then exits. 128 episodes, seed 0.
+
+| stack | venv | mujoco | mujoco-warp | warp |
+|---|---|---|---|---|
+| **A (old, = the sweep)** | `.venv_old` | 3.3.7 | git `46b4421` (v0.0.1) | 1.11.0.dev20251124 |
+| **B (new, current)** | `.venv` | 3.11.0 | 3.11.0 | 1.15.0 |
+
+`.venv` is untouched; stack A lives in a separate `.venv_old`. Confirmed faithful:
+the old-stack run loads the same warp kernel module hashes (`a88f545`, `769a44d`,
+`1699532`) as the July sweep log.
+
+Note the four sweep tasks use **none** of the assets `fb15756` reverted
+(cylinder/disc/ellipsoid/LEAP), so this isolates the physics stack cleanly.
+
+### Teacher success rate (128 episodes)
+
+| teacher | July sweep (recorded) | stack B (new) | stack A (old) |
+|---|---|---|---|
+| PushCuboid | ~1.00 (ret 6.49) | **0.008** (ret 1.26) | _pending_ |
+| OpenDrawer | ~0.99 (ret 6.11) | **0.000** (ret 3.36) | _pending_ |
+| OpenDoor | ~1.00 (ret 7.35) | **0.000** (ret 1.93) | _pending_ |
+| PushButton | ~1.00 (ret 7.71) | **0.000** (ret 0.93) | _pending_ |
+
+**Stack B is a total wipeout — all four teachers at ~0.** This is not partial
+degradation from slightly different contact dynamics; the policies do not function
+at all.
+
+### Outcome
+
+**Stack A also gives ~0 → the physics upgrade is exonerated.** Both stacks fail
+identically, so `fb15756` is not the cause. The `.venv_old` build still has value as
+a reproduction of the sweep environment, but the deciding variable turned out to be
+the repo code (see root cause above), which the sweep-era worktree confirmed.
+
+### How to unblock P0
+
+1. **Run P0 from the sweep-era worktree** (`../mjlab_sweepera` @ `69b2896`) with
+   `.venv_old`. Teachers work there and the numbers stay directly comparable to
+   SWEEP24's 0.960. The P0 code additions (`--joint-distill`, `tasks_p0.yaml`)
+   would need cherry-picking onto that checkout.
+2. **Restore the old spawn ranges for the four sweep tasks on HEAD** — keeps the
+   benchmark's workspace fix for the new Class A tasks while leaving the four
+   continual-distill tasks on the distribution their teachers know.
+3. **Retrain the four RL teachers against current placements.** Cleanest long-term,
+   but expensive, and SWEEP24's table would have to be regenerated to match.
+
+Option 1 is the fastest path to valid P0 numbers; option 2 is the better long-term
+fix if the four tasks are meant to keep working on `main`.
 
 ## Notes / gotchas hit
 
