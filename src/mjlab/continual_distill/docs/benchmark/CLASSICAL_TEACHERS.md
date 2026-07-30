@@ -475,3 +475,64 @@ audit: use true extents, never rbound.
 deliberately drives the peg DOWN THROUGH THE HOLE to the ground, so the raised guard
 clamps the insertion itself and peg measures 0.000. Excluded from improvement by the
 user; the pin exists purely to keep it from regressing.
+
+
+## FINAL TABLE — all 20 Class A teachers, after the improvement pass
+
+Every number parent-verified. Weak entries (<0.3) carry their episode count because at
+32 instances they are not resolvable — see the variance section above.
+
+| task | before pass | after pass | n |
+|---|---|---|---|
+| Reach-Target | 1.000 | **1.000** | 32 |
+| Lift-Cube | 1.000 | **1.000** | 32 |
+| Lift-Cylinder | 1.000 | **1.000** | 32 |
+| Push-Button | 1.000 | **1.000** | 32 |
+| Slide-Window | 1.000 | **1.000** | 32 |
+| Open-Lid | 1.000 | **1.000** | 32 |
+| Lift-Sphere | 0.969 | **0.969** | 32 |
+| Lift-Ellipsoid | 0.906 | **0.906** | 32 |
+| Turn-Lever | 0.812 | **0.812** | 32 |
+| Open-Drawer | 0.719 | **0.719** | 32 |
+| Flip-Switch | 0.406 | **0.615** | 96 |
+| Reorient-Object | 0.125 | **0.594** | 32 |
+| Rotate-Valve | 0.031 | **0.500** | 32 |
+| Stack-Cube | 0.354 | 0.28-0.375 | 96 |
+| Place-In-Container | 0.302 | 0.27-0.29 | 96 |
+| Push-Disc | 0.406 | 0.406 | 32 |
+| Push-Cuboid | 0.104 | **0.177** | 96 |
+| Tool-Pull | 0.000 | 0.039 | 128 |
+| Peg-Insertion | 0.031-0.062 | (excluded by the user) | 96 |
+| Open-Door | 0.000 | 0.000 | 32 |
+
+**13 of 20 at >= 0.4; 10 at >= 0.7.** Four teachers improved materially
+(valve 16x, reorient ~5x, flip-switch 1.5x, push-cuboid 1.7x). Three remain at or near
+zero and are characterised rather than merely low.
+
+### What actually produced the gains
+
+Not tuning. Every material improvement came from finding a MECHANISM:
+
+| task | the actual bug |
+|---|---|
+| Rotate-Valve | state-machine deadlock — the handoff gate keyed on swept angle, so a jammed engagement could never reach the gate |
+| Reorient | a wrong collision constant killing envs during descent |
+| Flip-Switch | an UNSIGNED seat gate, equally satisfied 5cm short of the toggle and 5cm past it |
+| Push-Cuboid | the pusher overtaking its own workpiece, then shoving it backwards |
+
+In every case the pre-existing diagnosis named the right symptom and the wrong cause.
+That is the argument for instrumenting before tuning, and it held four times out of four.
+
+### The three that remain hard, and why
+
+- **Open-Door (0.000)** — 150 steps; success needs 84.3 of 90 deg with no partial
+  credit while a holding pull advances ~1-2 deg per 25 steps. The valve was rescued by
+  ratcheting over 400 steps; the door has no such budget.
+- **Tool-Pull (0.039)** — the pinch ejects the smooth 26cm shaft axially (mass 9cm off
+  the grasp point converts any misalignment into axial force that 0.3 friction cannot
+  arrest). Reproduced across 7 grasp heights x 3 grasp points x 2 orientation modes.
+- **Stack / Place (~0.3)** — grasp RETENTION, not placement: Stack drops the cube in
+  22/32 runs, and 9 of the 10 runs that kept hold succeeded.
+
+All three point the same way: they want a learned teacher, or a task-side change that
+the user's strategy-only constraint (correctly) forbids.
