@@ -837,6 +837,92 @@ def consolidate_si_state(state: StudentTrainStateSI, epsilon: float) -> StudentT
     )
 
 
+@functools.partial(jax.jit, static_argnums=(4,))
+def _fisher_diagonal(
+    state: StudentTrainStateSI,
+    obs: jnp.ndarray,
+    teacher_mean: jnp.ndarray,
+    teacher_logstd: jnp.ndarray,
+    batch_size: int,
+    task_idx: jnp.ndarray,
+) -> jnp.ndarray:
+    """Empirical diagonal Fisher of the distillation loss, for EWC.
+
+    The squared gradient of the per-batch loss, averaged over batches. This is the
+    standard empirical-Fisher approximation, computed on exactly the objective the
+    student is trained on so EWC and SI are penalising the same thing.
+    """
+    num_samples = obs.shape[0]
+    num_batches = max(1, num_samples // batch_size)
+    elems = num_batches * batch_size
+
+    obs_b = obs[:elems].reshape((num_batches, batch_size, obs.shape[-1]))
+    mean_b = teacher_mean[:elems].reshape((num_batches, batch_size, -1))
+    logstd_b = teacher_logstd[:elems].reshape((num_batches, batch_size, -1))
+
+    def batch_sq_grad(carry, batch):
+        b_obs, b_mean, b_logstd = batch
+
+        def loss_fn(params):
+            s_mean, s_logstd = compute_student_distribution(
+                state.apply_fn, params, state.normalizer_params, b_obs,
+                state.student_min_std, state.action_dim, task_idx,
+            )
+            return jnp.mean(gaussian_kl(b_mean, b_logstd, s_mean, s_logstd))
+
+        grads = jax.grad(loss_fn)(state.params)
+        return carry + jnp.square(state.ravel_fn(grads)), None
+
+    init = jnp.zeros_like(state.ravel_fn(state.params))
+    total, _ = jax.lax.scan(batch_sq_grad, init, (obs_b, mean_b, logstd_b))
+    return total / num_batches
+
+
+def consolidate_ewc_state(
+    state: StudentTrainStateSI,
+    obs: jnp.ndarray,
+    teacher_mean: jnp.ndarray,
+    teacher_logstd: jnp.ndarray,
+    batch_size: int,
+    task_idx: int,
+) -> StudentTrainStateSI:
+    """Consolidate with EWC: accumulate the diagonal Fisher as the penalty weight.
+
+    Drop-in replacement for consolidate_si_state. Both write `omega_total`, the
+    per-parameter quadratic weight against `snapshot_params_flat`, so the training
+    step is untouched and the ONLY difference between the SI and EWC arms is how
+    that weight is estimated — which is what makes the comparison fair.
+    """
+    fisher = _fisher_diagonal(
+        state, obs, teacher_mean, teacher_logstd, batch_size,
+        jnp.asarray(task_idx, dtype=jnp.int32),
+    )
+    fisher = jnp.where(jnp.isfinite(fisher), fisher, 0.0)
+    params_flat = state.ravel_fn(state.params)
+    return state.replace(
+        omega=jnp.zeros_like(state.omega),
+        omega_total=jnp.maximum(0.0, state.omega_total + fisher),
+        snapshot_params_flat=params_flat,
+        prev_step_params_flat=params_flat,
+    )
+
+
+def consolidate_l2_state(state: StudentTrainStateSI) -> StudentTrainStateSI:
+    """Consolidate with plain L2: every parameter weighted equally.
+
+    The weakest sensible regulariser — an ablation isolating how much of SI's benefit
+    comes from *which* parameters it protects versus merely anchoring to the previous
+    task's solution at all.
+    """
+    params_flat = state.ravel_fn(state.params)
+    return state.replace(
+        omega=jnp.zeros_like(state.omega),
+        omega_total=jnp.ones_like(state.omega_total),
+        snapshot_params_flat=params_flat,
+        prev_step_params_flat=params_flat,
+    )
+
+
 def _load_yaml_config(config_path: Path, task_sequence: List[str]) -> List[Dict[str, Any]]:
     """Load task configuration from YAML file and filter by sequence.
 
@@ -1179,6 +1265,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
     parser.add_argument("--distill-weight-tasks", type=str, default="all", help="Which task indices get non-uniform weighting (comma-sep, e.g. '0'); others use uniform KL. Default 'all'.")
     parser.add_argument("--joint-distill", action="store_true", help="Joint (multitask) distillation: train on ALL teachers simultaneously instead of sequentially. Upper-bound control (P0-2); implies no SI and no task ordering.")
+    parser.add_argument("--regularizer", type=str, default="si", choices=["si", "ewc", "l2"], help="Continual-learning regulariser in Stage 2 (P1-5). All three write the same quadratic penalty weight, differing only in how it is estimated: si=path integral, ewc=diagonal Fisher, l2=uniform.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1458,6 +1545,8 @@ def main() -> None:
         "train_fraction": args.train_fraction,
         "si_coeff": args.si_coeff,
         "si_epsilon": args.si_epsilon,
+        "regularizer": args.regularizer,
+        "joint_distill": args.joint_distill,
         "eval_every": args.eval_every,
         "env_eval_every": env_eval_every,
         "env_eval_episodes": args.env_eval_episodes,
@@ -1717,8 +1806,15 @@ def main() -> None:
                     hidden_dims=tuple(args.student_hidden_dims),
                 )
 
-        state = consolidate_si_state(state, args.si_epsilon)
-        print(f"Completed Task {task_idx}. SI buffers consolidated.")
+        if args.regularizer == "ewc":
+            state = consolidate_ewc_state(
+                state, train_obs, train_mean, train_logstd, args.batch_size, task_idx,
+            )
+        elif args.regularizer == "l2":
+            state = consolidate_l2_state(state)
+        else:
+            state = consolidate_si_state(state, args.si_epsilon)
+        print(f"Completed Task {task_idx}. {args.regularizer.upper()} buffers consolidated.")
 
     total_time = time.time() - start_time
     print("\n" + "=" * 80)
