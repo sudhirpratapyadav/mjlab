@@ -848,34 +848,52 @@ def _fisher_diagonal(
 ) -> jnp.ndarray:
     """Empirical diagonal Fisher of the distillation loss, for EWC.
 
-    The squared gradient of the per-batch loss, averaged over batches. This is the
-    standard empirical-Fisher approximation, computed on exactly the objective the
-    student is trained on so EWC and SI are penalising the same thing.
+    Mean over samples of the SQUARED PER-SAMPLE gradient — F_j = E_i[(d L_i / d w_j)^2],
+    which is the definition used by the reference EWC implementations.
+
+    The per-sample part is essential and was got wrong here once. Squaring the
+    gradient of a BATCH-MEAN loss instead computes (E_i[g_i])^2, which averages away
+    per-sample gradient variance: near convergence the per-sample gradients are
+    noise-dominated and largely cancel, so (E_i[g_i])^2 ~= E_i[g_i^2] / B. With
+    B = 512 that underestimates the Fisher by up to ~500x, leaving the EWC penalty
+    numerically inert — it measured 0.269 against a no-regularizer floor of 0.267.
+
+    jax.vmap over single samples gives the per-sample gradients directly; the scan
+    over chunks bounds peak memory. The chunk is deliberately NOT the training batch
+    size: vmap materialises chunk x num_params floats, which at 512 x 10.8M is ~22 GB
+    and OOMs. 32 keeps it near 1.4 GB with the same result — chunking affects only
+    memory, not the value, since we sum squares over all samples either way.
     """
+    FISHER_CHUNK = 32
     num_samples = obs.shape[0]
-    num_batches = max(1, num_samples // batch_size)
-    elems = num_batches * batch_size
+    chunk = max(1, min(FISHER_CHUNK, num_samples))
+    num_chunks = max(1, num_samples // chunk)
+    elems = num_chunks * chunk
 
-    obs_b = obs[:elems].reshape((num_batches, batch_size, obs.shape[-1]))
-    mean_b = teacher_mean[:elems].reshape((num_batches, batch_size, -1))
-    logstd_b = teacher_logstd[:elems].reshape((num_batches, batch_size, -1))
+    obs_b = obs[:elems].reshape((num_chunks, chunk, obs.shape[-1]))
+    mean_b = teacher_mean[:elems].reshape((num_chunks, chunk, -1))
+    logstd_b = teacher_logstd[:elems].reshape((num_chunks, chunk, -1))
 
-    def batch_sq_grad(carry, batch):
-        b_obs, b_mean, b_logstd = batch
-
-        def loss_fn(params):
+    def single_sample_grad(params, o, m, ls):
+        """Gradient of ONE sample's KL (leading axis kept so shapes match)."""
+        def loss_fn(p):
             s_mean, s_logstd = compute_student_distribution(
-                state.apply_fn, params, state.normalizer_params, b_obs,
+                state.apply_fn, p, state.normalizer_params, o[None, :],
                 state.student_min_std, state.action_dim, task_idx,
             )
-            return jnp.mean(gaussian_kl(b_mean, b_logstd, s_mean, s_logstd))
+            return jnp.sum(gaussian_kl(m[None, :], ls[None, :], s_mean, s_logstd))
+        return state.ravel_fn(jax.grad(loss_fn)(params))
 
-        grads = jax.grad(loss_fn)(state.params)
-        return carry + jnp.square(state.ravel_fn(grads)), None
+    def chunk_sq_grad(carry, batch):
+        c_obs, c_mean, c_logstd = batch
+        per_sample = jax.vmap(single_sample_grad, in_axes=(None, 0, 0, 0))(
+            state.params, c_obs, c_mean, c_logstd
+        )
+        return carry + jnp.sum(jnp.square(per_sample), axis=0), None
 
     init = jnp.zeros_like(state.ravel_fn(state.params))
-    total, _ = jax.lax.scan(batch_sq_grad, init, (obs_b, mean_b, logstd_b))
-    return total / num_batches
+    total, _ = jax.lax.scan(chunk_sq_grad, init, (obs_b, mean_b, logstd_b))
+    return total / elems
 
 
 def consolidate_ewc_state(
@@ -1266,6 +1284,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--distill-weight-tasks", type=str, default="all", help="Which task indices get non-uniform weighting (comma-sep, e.g. '0'); others use uniform KL. Default 'all'.")
     parser.add_argument("--joint-distill", action="store_true", help="Joint (multitask) distillation: train on ALL teachers simultaneously instead of sequentially. Upper-bound control (P0-2); implies no SI and no task ordering.")
     parser.add_argument("--regularizer", type=str, default="si", choices=["si", "ewc", "l2"], help="Continual-learning regulariser in Stage 2 (P1-5). All three write the same quadratic penalty weight, differing only in how it is estimated: si=path integral, ewc=diagonal Fisher, l2=uniform.")
+    parser.add_argument("--reg-coeff", type=float, default=None, help="Penalty coefficient for the chosen regulariser; overrides --si-coeff when set. REQUIRED for a fair EWC comparison: SI's omega is normalised by squared parameter displacement so c~1 is right, but EWC's Fisher is a raw squared gradient (~1e-4 at a converged optimum), so the literature uses lambda~40-5000. Reusing SI's 1.0 for EWC leaves the penalty numerically inert.")
     parser.add_argument("--si-coeff", type=float, default=1.0, help="Regularization coefficient for SI surrogate.")
     parser.add_argument("--si-epsilon", type=float, default=1e-3, help="Stability term for SI consolidation.")
     parser.add_argument("--eval-every", type=int, default=20, help="Frequency (in epochs) of offline evaluation.")
@@ -1516,7 +1535,13 @@ def main() -> None:
     print("=" * 80)
     print(f"Tasks: {num_tasks} | Obs dim: {obs_dim} | Action dim: {action_dim}")
     print(f"Learning rate: {args.learning_rate} | Batch size: {args.batch_size}")
-    print(f"SI coef: {args.si_coeff} | SI epsilon: {args.si_epsilon}")
+
+    # --reg-coeff overrides --si-coeff so each regulariser can use its own scale.
+    # EWC's raw Fisher and SI's displacement-normalised omega are orders of magnitude
+    # apart, so a shared coefficient silently disables one of them.
+    if args.reg_coeff is not None:
+        args.si_coeff = args.reg_coeff
+    print(f"Regulariser: {args.regularizer} | coef: {args.si_coeff} | SI epsilon: {args.si_epsilon}")
 
     args.run_name = args.run_name or f"continual_distill_{int(time.time())}"
 
