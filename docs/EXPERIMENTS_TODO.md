@@ -156,23 +156,36 @@ teacher.
 
 ## P1-5. Comparison against a published replay-free CL method — **✅ DONE (best ordering)**
 
-> **Result (best ordering, 3 seeds):**
+> **Result (3 seeds; λ optimum bracketed at 5000):**
 >
-> | method | coefficient | final avg SR |
-> |---|---|---|
-> | SI (ours) | c=1.0 | **0.960 ± 0.014** |
-> | EWC | λ=5000 | **0.923 ± 0.010** |
-> | L2 | c=1.0 | 0.610 ± 0.170 |
-> | none (floor) | — | 0.267 ± 0.002 |
+> | method | coefficient | best ordering | worst ordering |
+> |---|---|---|---|
+> | SI (ours) | c=1.0 | **0.960 ± 0.014** | 0.659 |
+> | EWC | λ=5000 | **0.923 ± 0.010** | **0.824 ± 0.014** |
+> | L2 | c=1.0 | 0.610 ± 0.170 | — |
+> | none (floor) | — | 0.267 ± 0.002 | 0.499 ± 0.094 |
 >
-> **EWC is a strong baseline, not a failure.** SI leads by 0.037 (~3 seed-std) — a
-> real but modest margin. Report it that way; "EWC collapses" would be wrong and a
-> reviewer would catch it.
+> λ sweep (best ordering), now **bracketed** — the curve turns over, so 5000 is a
+> genuine optimum and not a grid edge:
+> 40→0.539, 400→0.732, **5000→0.923**, 20000→0.897, 50000→0.892.
 >
-> ⚠️ **λ is not yet bracketed** — the sweep is monotone increasing (40→0.539,
-> 400→0.732, 5000→0.923), so 5000 is the edge of the grid, not a proven peak.
-> λ ∈ {20000, 50000} is running to settle whether EWC plateaus below SI or catches it.
-> Do not quote "SI > EWC" until that lands.
+> **⚠️ The headline is NOT "SI beats EWC" — it is ordering-dependent, and this is
+> the most reviewer-sensitive result in the whole set:**
+>
+> - best ordering: SI − EWC = **+0.037** (SI wins, ~3 seed-std)
+> - worst ordering: SI − EWC = **−0.165** (**EWC wins, decisively**)
+>
+> EWC is also far more *robust to ordering* than SI: it spans 0.923→0.824 (−0.099)
+> between best and worst, where SI spans 0.960→0.659 (−0.301), a 3× larger swing.
+> So SI buys peak performance when the ordering is favourable, and EWC buys
+> insensitivity to ordering. That is a genuinely interesting trade-off and a stronger,
+> more honest framing than a flat "ours wins" — but it does mean the paper cannot
+> claim SI dominates. A reviewer running EWC on an unfavourable ordering would find
+> it beats SI by 0.165.
+>
+> It also reframes the primacy story: SI's advantage *depends* on good ordering, which
+> is consistent with P0-1 (SI's gain is +0.693 on the best ordering vs +0.160 on the
+> worst) and with P0-3 (the LR failure is a consolidation failure on the first task).
 >
 > L2 (0.610) sits well below both and degrades at c=10 (0.222): a uniform anchor
 > over-constrains. Useful ablation — *which* parameters are protected matters, not
