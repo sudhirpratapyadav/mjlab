@@ -154,6 +154,43 @@ teacher.
 
 ---
 
+## P1-5. Comparison against a published replay-free CL method — **✅ DONE (best ordering)**
+
+> **Result (best ordering, 3 seeds):**
+>
+> | method | coefficient | final avg SR |
+> |---|---|---|
+> | SI (ours) | c=1.0 | **0.960 ± 0.014** |
+> | EWC | λ=5000 | **0.923 ± 0.010** |
+> | L2 | c=1.0 | 0.610 ± 0.170 |
+> | none (floor) | — | 0.267 ± 0.002 |
+>
+> **EWC is a strong baseline, not a failure.** SI leads by 0.037 (~3 seed-std) — a
+> real but modest margin. Report it that way; "EWC collapses" would be wrong and a
+> reviewer would catch it.
+>
+> ⚠️ **λ is not yet bracketed** — the sweep is monotone increasing (40→0.539,
+> 400→0.732, 5000→0.923), so 5000 is the edge of the grid, not a proven peak.
+> λ ∈ {20000, 50000} is running to settle whether EWC plateaus below SI or catches it.
+> Do not quote "SI > EWC" until that lands.
+>
+> L2 (0.610) sits well below both and degrades at c=10 (0.222): a uniform anchor
+> over-constrains. Useful ablation — *which* parameters are protected matters, not
+> just that anchoring happens.
+>
+> **Two implementation bugs were found and fixed here** (2517a83); the first attempt
+> reported EWC at 0.269, i.e. exactly the no-regulariser floor:
+> 1. The Fisher was the BATCHED variant (squared batch-mean gradient) rather than the
+>    canonical per-sample square-then-average. Measured 5.5× underestimate.
+> 2. Dominant: EWC ran at SI's c=1.0. SI's omega is displacement-normalised so c~1 is
+>    right; EWC's raw Fisher is ~6e-4, and the literature uses λ~40–5000. The penalty
+>    was numerically inert — EWC was never switched on.
+>
+> Anyone re-running this must give each regulariser its own coefficient (`--reg-coeff`).
+
+<details>
+<summary>Original P1-5 plan</summary>
+
 ## P1-5. Comparison against a published replay-free CL method
 
 **Why:** Table I says competitors are replay-based, but the paper never *runs* one.
@@ -179,7 +216,43 @@ full competing method rather than a regularizer swap.
 rehearsal-based or use a different acquisition setup; reproducing them fairly is a
 project in itself, and the property table already positions them.
 
+</details>
+
 ---
+
+## P1-6. Number of tasks beyond four (scalability) — **✅ DONE**
+
+> **Result (6 tasks = the 4 + LiftCube + OpenLid, 3 seeds each):**
+>
+> | ordering | 4096 | 8192 |
+> |---|---|---|
+> | fragile-first | **0.792 ± 0.016** | 0.785 ± 0.014 |
+> | fragile-last | 0.724 ± 0.018 | 0.667 ± 0.115 |
+> | random | 0.686 ± 0.029 | 0.679 ± 0.019 |
+>
+> **1. The primacy effect survives at N=6** — fragile-first still wins. The ordering
+> claim is not an artifact of a short sequence.
+>
+> **2. Capacity is saturated at 4096.** 8192 is equal or slightly worse at every
+> ordering, with each width at its OWN optimal LR (4096@3e-5, 8192@1e-5 per P0-3).
+> This settles the question P0-3 left open: 4096 genuinely saturates — it is not that
+> four tasks were too few to reveal a capacity difference. Two more tasks changed
+> nothing.
+>
+> **3. Retention falls 0.960 (N=4) → 0.792 (N=6)**, giving a scalability curve rather
+> than a single point.
+>
+> **Worth following up:** in fragile-first, LiftCube collapses to 0.016 while every
+> other task is 0.80–1.00 and its own teacher scores 1.000 in the same run. It sits
+> 5th of 6 there but is retained at ~0.9 when trained 2nd. So LiftCube is a SECOND
+> fragile task — the primacy story may be about grasp-type tasks generally, not
+> PushCuboid specifically. That is a sharper claim than the paper currently makes.
+>
+> Both new teachers were competence-verified on HEAD before launch (LiftCube
+> 0.95–0.98 after the 97703b4 placement fix; OpenLid 1.000).
+
+<details>
+<summary>Original P1-6 plan</summary>
 
 ## P1-6. Number of tasks beyond four (scalability)
 
@@ -196,6 +269,8 @@ show the primacy effect persists.
 
 **If no new tasks are feasible:** state the 4-task limit explicitly in a Limitations
 sentence rather than leaving it for a reviewer to raise.
+
+</details>
 
 ---
 
@@ -243,18 +318,43 @@ position already).
 
 ## Priority summary
 
-| Priority | Experiment | Runs | Why |
+| Priority | Experiment | Runs | Status |
 |---|---|---|---|
-| **P0** | Sequential fine-tuning floor | 6 | No baseline exists; cheapest, highest impact |
-| **P0** | Joint-distillation ceiling | 3 | Anchors 0.966 on a scale |
-| **P0** | 8192 + LR sweep | 9 | Removes a stated confound |
-| **P1** | PLA grid completion | 18 | Headline-adjacent claim is thinnest evidence |
-| **P1** | EWC / L2 regularizer comparison | 9 | Only real method comparison |
-| **P1** | 6-task scalability | 9 | Standard CL reviewer question |
-| **P2** | Real-robot N=10/task | 40 trials | Makes sim-to-real claim falsifiable |
-| **P2** | MSE at 4 tasks | 3 | Closes an extrapolation |
-| **P2** | More seeds on high-variance configs | — | Tightens error bars |
+| **P0** | Sequential fine-tuning floor | 6 | ✅ 0.267 / 0.499 |
+| **P0** | Joint-distillation ceiling | 3 | ✅ 0.958 |
+| **P0** | 8192 + LR sweep | 9 | ✅ 0.946 @ 1e-5 — collapse was an LR artifact |
+| **P1** | EWC / L2 regularizer comparison | 9+18 | ✅ EWC 0.923 vs SI 0.960 (λ bracketing in flight) |
+| **P1** | 6-task scalability | 18 | ✅ primacy holds; 4096 saturates |
+| **P1** | PLA grid completion | 18 | ⬜ **partly blocked** — see below |
+| **P2** | Real-robot N=10/task | 40 trials | ⬜ hardware, not schedulable here |
+| **P2** | MSE at 4 tasks | 3 | ⬜ cheap, unblocked |
+| **P2** | More seeds on high-variance configs | — | ⬜ mostly moot now (see below) |
 
-**If you run only three things: P0-1, P0-2, P0-3.** Floor, ceiling, and the confound.
-Those three convert the paper from "here is our number" to "here is our number, and
-here is what it means."
+### What is actually left
+
+**P1-4 (PLA grid) — the last substantive item, and it needs teachers that don't exist.**
+Inventory against what the plan asks for:
+
+| needed | have |
+|---|---|
+| PushCuboid classical | ✅ |
+| PushCuboid **BC** | ❌ |
+| OpenDoor BC *or* classical | ❌ **neither** |
+| OpenDrawer BC / classical | ✅ both |
+| PushButton BC / classical | ✅ both |
+
+So 4a is half-runnable (`pc-cl` yes, `pc-bc` no), 4b (all-four-swapped) is blocked,
+and 4c (crossA on two more orderings) is fully runnable today. Collecting the missing
+teachers is now cheap — `collect_classical_dataset.py` was fixed to use the full
+19-task registry (9f25bbf), and Open-Lid took ~10 min end to end.
+
+**P2-8 (MSE vs KL at 4 tasks)** — 3 runs, no blockers, closes a stated extrapolation.
+
+**P2-9 (more seeds)** — largely overtaken. The high-variance configs that motivated it
+(8192 at ±0.210, Drawer at ±0.164) were LR artifacts; at its proper LR 8192 is
+±0.010. Worth revisiting only for `fl_w8192` (±0.115) in P1-6.
+
+**Follow-up the results themselves suggest:** LiftCube behaves as a second fragile
+task (0.016 when trained 5th of 6, ~0.9 when trained 2nd). Testing whether *any*
+grasp-type task is fragile would generalise the primacy claim from one task to a
+task class — a stronger result than the paper currently claims.
