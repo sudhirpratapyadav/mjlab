@@ -1,0 +1,14 @@
+# Teacher-competence probe for the two P1-6 additions (num_epochs: 0 => step-0
+# teacher rollout only). PushCuboid is included as a known-good control: it is
+# already placement-fixed, so if it reads ~0.82 the harness is sound and any low
+# number on Lift-Cube is real.
+tasks:
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_4000_20260129_060250"
+    num_epochs: 0
+
+  LiftCube:
+    env_id: "Mjlab-Lift-Cube-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Lift_Cube_Franka_model_2900_20260706_185155"
+    num_epochs: 0

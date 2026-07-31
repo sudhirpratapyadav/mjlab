@@ -1,0 +1,44 @@
+# P1-6: six-task scalability sequence.
+#
+# The four continual-distill tasks plus two additions chosen for skill diversity:
+#   LiftCube  — grasp-and-lift (RL teacher, SR ~1.00). The existing four are all
+#               contact-and-move; none involves lifting an object clear of the table.
+#   OpenLid   — hinge-up (classical teacher, measured 1.000 over 128 episodes on
+#               current HEAD via classical.test_classical).
+#
+# Both additions have near-perfect standalone teachers, which is what the TODO's
+# competence-control requirement asks for: any retention loss at N=6 is then
+# attributable to the continual-learning problem, not to a weak teacher.
+#
+# 500 epochs/task, same as the four-task runs, so per-task optimisation is unchanged
+# and the only variable is sequence length.
+tasks:
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_4000_20260129_060250"
+    num_epochs: 500
+
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1999_20260129_055326"
+    num_epochs: 500
+
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Open_Door_Franka_model_1999_20260129_055421"
+    num_epochs: 500
+
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Push_Button_Franka_model_1999_20260129_055221"
+    num_epochs: 500
+
+  LiftCube:
+    env_id: "Mjlab-Lift-Cube-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/teacher_datasets/Mjlab_Lift_Cube_Franka_model_2900_20260706_185155"
+    num_epochs: 500
+
+  OpenLid:
+    env_id: "Mjlab-Open-Lid-Franka"
+    dataset_folder: "__OPENLID_DATASET__"
+    num_epochs: 500

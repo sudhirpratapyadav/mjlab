@@ -150,20 +150,23 @@ def franka_lift_cube_env_cfg(
   lift_command = cfg.commands["lift_object"]
   assert isinstance(lift_command, LiftingCommandCfg)
 
-  # Object spawn / lift goal live in the measured Class A grasp envelope
-  # (mjlab.tasks.manipulation.workspace). z is unchanged: the resting height is a
-  # property of the cube, not of the workspace.
-  _obj_x, _obj_y = _grasp_box_corner_safe()
+  # NOTE: these are the PRE-workspace-audit ranges, restored for the same reason as
+  # the four tasks in a0cc9be — Lift-Cube is the 5th continual-distill task (P1-6) and
+  # its RL teacher predates the audit. Measured on HEAD with the audited ranges the
+  # teacher scores 0.023 (128 episodes); these are the ranges it was trained against.
+  # obs_dim is unchanged either way, so the failure is silent rather than an error.
+  # See docs/P0_EXPERIMENTS.md. Restore the audited ranges (_grasp_box_corner_safe /
+  # workspace.GOAL_*) only together with a retrained teacher.
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
-    x=_obj_x,
-    y=_obj_y,
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
     z=(0.02, 0.05),
     yaw=(-3.14, 3.14),
   )
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=workspace.GOAL_X_RANGE,
-    y=workspace.GOAL_Y_RANGE,
-    z=workspace.GOAL_Z_RANGE,
+    x=(0.6, 0.8),
+    y=(-0.15, 0.15),
+    z=(0.2, 0.4),
   )
 
   # Franka uses "gripper" site for end-effector
