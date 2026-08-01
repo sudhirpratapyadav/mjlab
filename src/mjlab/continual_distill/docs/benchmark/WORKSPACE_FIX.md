@@ -242,3 +242,31 @@ scene — a floor-standing cabinet — and the arm reaches it comfortably.
    flags. Now keyed off `MECHANISM_DROP_BELOW_MOUNT` membership.
 
 Final: **0 placement problems**, 382 passed / 18 skipped, 23/23 benchmark-smoke.
+
+
+## Branch split (2026-08-01)
+
+The audited placements and the frozen continual-distill RL teachers are mutually
+incompatible: the teachers were trained on the pre-audit distribution and collapse
+(0.82-1.00 -> 0.000-0.023, measured) when objects move into the measured envelope.
+Rather than force one to give way, the two live on separate branches:
+
+| branch | placement | why |
+|---|---|---|
+| `continual_paper` | PRE-audit, pinned | the P0/P1 continual-learning experiments depend on the frozen teachers; moving objects invalidates every run |
+| `benchmark-manip-diversity` | AUDITED (this doc) | the benchmark's own correctness — 0 placement problems across all 20 Class A tasks |
+
+`continual_paper` carries a `LEGACY_TEACHER_PLACEMENT` exemption in
+`tests/test_workspace_placement.py` so the pins read as tracked debt rather than test
+failures, plus a guard that keeps them documented. This branch has no exemption because
+it has nothing to exempt.
+
+**The debt is resolved by retraining, not by choosing.** When the five affected tasks
+(Lift-Cube, Push-Cuboid, Open-Door, Open-Drawer, Push-Button) have teachers trained
+against the audited geometry, the branches can converge.
+
+Restored here: all five tasks back to the measured envelope. Approach freedom
+Lift-Cube 1.2% -> 10.4%, Push-Cuboid 0.9% -> 7.7%; door/drawer/button handles back
+under MECHANISM_HANDLE_RADIAL_MAX with `_mech_z()` clearance (the door's static frame
+slab no longer sits 0.19m underground). Verified: **0 placement problems**, 406 passed
+/ 18 skipped, 23/23 benchmark-smoke.
