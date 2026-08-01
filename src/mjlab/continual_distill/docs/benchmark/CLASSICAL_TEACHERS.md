@@ -554,8 +554,15 @@ re-derive. Baseline at the time: **0.094–0.156** (32 envs × 3 episodes, CPU).
 | v6 | terminal brake, 4 mm/step inside 5 cm | 0.000 ❌ |
 | v7 | `GOAL_TOL` 0.015→0.009 + 8 mm brake | 0.031 / 0.000 ❌ |
 
-v4–v7 are reverted; **v3's constants are kept** (the only variant that beat baseline).
-Each revert carries an inline comment in `push_cuboid.py` so they are not retried.
+v4–v7 are reverted; **v3's constants are kept**. Each revert carries an inline
+comment in `push_cuboid.py` so they are not retried.
+
+**Final measured state of the kept config: 0.078** (4 episodes × 32 envs = 128
+instances: 0.094, 0.094, 0.031, 0.094). That is at the LOW end of the 0.094–0.156
+baseline band and below the 0.167–0.240 recorded earlier in this document — so this
+work did **not** leave Push-Cuboid better than it found it. v3's single 0.250 reading
+was one favourable 32-env draw, not a durable gain; the spread across draws
+(0.000–0.250) is wider than any effect measured here.
 
 ### What was actually established
 
