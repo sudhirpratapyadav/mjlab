@@ -109,7 +109,14 @@ SEAT_SETTLE = 2
 CLOSE_STEPS = 5  # let the fingers actually close before loading the grasp
 EMA_ALPHA = 0.4
 INTEG_GAIN = 0.18
-PULL_DTHETA = np.radians(22.0)  # arc-waypoint advance per control step
+PULL_DTHETA = np.radians(22.0)  # arc-waypoint advance per control step (legacy)
+# Tangential lead actually commanded during the drag. Sized to be a FORCE BIAS,
+# not a reachable-in-one-step waypoint: a working pull moves the panel ~1-2 deg
+# per 25 steps, so a 22 deg lead is ~20 deg permanently out of reach and leaves
+# the slip residual saturated (see the strategy note in the drag phase). A few
+# degrees keeps the pads loaded against the bar while letting the residual settle
+# close enough that SLIP_DIST detects genuine slippage instead of the lead itself.
+PULL_BIAS = np.radians(4.0)
 SLIP_DIST = 0.10  # pad this far off the bar => the pinch is gone, re-approach
 MAX_WAYPOINT = 0.22
 # Timeouts, in steps. These are a LAST RESORT, not a schedule: cutting them to
@@ -298,8 +305,25 @@ class OpenDoorClassicalPolicy(ClassicalPolicyBase):
       # Ramping the arc term in over the first few drag frames also measured
       # worse (8 deg mean vs 28). The pinch either holds from the first frame
       # or it never holds; easing in just spends budget.
-      pos_err = seat + step + self._integ[i]
-      _, target_rot, _ = self._grasp_frame(theta + PULL_DTHETA)
+      # STRATEGY CHANGE (track the bar, bias the force). The law above aimed the
+      # waypoint a full PULL_DTHETA (22 deg) of arc AHEAD of the bar, every control
+      # step, on a door whose working pull advances only ~1-2 deg per 25 steps.
+      # The reference is therefore permanently ~20 deg out of reach, which has two
+      # measured consequences: the residual never settles, so the SLIP_DIST check
+      # above "fires on nearly every drag frame" (its own comment), and the policy
+      # spends the episode ratcheting through re-seats instead of pulling. The
+      # 22 deg is not a push force -- the IK has no contact model, so an unreachable
+      # setpoint just saturates the step clip in a fixed direction.
+      #
+      # Instead track where the bar IS and add a small tangential bias. The bias
+      # is what loads the hinge; keeping it small means the residual reflects real
+      # slippage, so SLIP_DIST becomes a true slip detector rather than a constant
+      # alarm, and the pinch is allowed to hold and pull continuously.
+      step_track = rot_next - rot_now          # full-stride arc vector (unused now)
+      bias = step_track * (PULL_BIAS / max(PULL_DTHETA, 1e-6))
+      bias[2] = 0.0
+      pos_err = seat + bias + self._integ[i]
+      _, target_rot, _ = self._grasp_frame(theta + PULL_BIAS)
 
     n = float(np.linalg.norm(pos_err))
     if n > MAX_WAYPOINT:

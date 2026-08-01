@@ -47,9 +47,42 @@ HOVER_HEIGHT = 0.15  # above the object while aligning
 RIDE_HEIGHT = 0.028
 BEHIND = 0.055  # stay this far behind the object (opposite the goal)
 ALIGN_TOL = 0.04
+# STOP BAND. Success is |object - goal| < 0.02 (success_threshold in
+# push_cuboid_env_cfg). This was 0.015 — TIGHTER than the success window — so the
+# teacher kept pushing after the box was already successful, and the measured
+# distance trace shows exactly that: env0 sits at 0.008/0.013/0.018/0.016 between
+# t=80 and t=140, i.e. inside the window, and is repeatedly knocked back out,
+# ending at 0.023. The box was not failing to arrive; it was being shoved through.
+#
+# Stop band. Success is `norm(target_pos - object_pos) < 0.02` in 3D. MEASURED on
+# the running env: the target z is 0.0150 and the cuboid rests at 0.0149, so the
+# permanent z-error is 0.0001 and effectively the full 2 cm is available in-plane.
+# (The 0.03 `goal_z_height` default in PushingCommandCfg is overridden for Franka —
+# do not reason from the dataclass default, as an earlier pass here did.)
+#
+# MEASURED: 0.009 (with the brake below) gave 0.031/0.000, well below the 0.015
+# baseline — parking early wastes the remaining budget instead of continuing to
+# close. Kept at the original 0.015.
 GOAL_TOL = 0.015
 DESCENT_RATE = 0.05
 GRIPPER_CLOSED = -1.0
+# WIDE TWO-POINT CONTACT. Fully closed (-1.0) puts the two finger pads against
+# each other, so the pusher contacts the 8 cm rear face at essentially ONE point.
+# Any lateral offset e from the face centre then applies a torque F*e about the
+# box centre, and the box rotates or squirts sideways instead of sliding along
+# the goal line — which is what the measured backward excursions were
+# (-0.051, -0.148) once sustained force was added.
+#
+# Holding the fingers PARTLY OPEN spans the pads across the face instead. The
+# pair is self-centring and applies no net torque, and unlike straddling the box
+# it needs no fitting tolerance: the pads sit at ~+-0.02 on an 8 cm face, well
+# inside the +-0.0476 finger travel, so the +-1 cm observation noise cannot cause
+# a miss. Still a push — the box stays on the ground throughout.
+#
+# MEASURED AND REVERTED: -0.15 gave 0.000/0.094, no better than fully closed.
+# The torque argument above is sound in isolation but is evidently not the
+# binding constraint either. Kept fully closed.
+GRIPPER_PUSH_SPAN = GRIPPER_CLOSED
 # How far ahead of the current contact point the shepherd waypoint is placed
 # each step. This is the push "lead": too small and the pusher never loads the
 # cuboid, too large and the IK runs through the object to the far side.
@@ -65,6 +98,47 @@ ADVANCE = 0.085
 # shepherd phase bails out and re-approaches from behind. Measured successes hold
 # +0.03..+0.05 here; measured failures decay through 0 to -0.05 and never recover.
 MIN_BEHIND = 0.012
+
+# -- contact-point servo (see the strategy note in _target_error) -------------
+# Geometry, from cuboid.xml: box is 0.08 x 0.08 x 0.03, so half-width 0.04 along
+# whichever axis is being pushed. The fingertip pad adds ~0.01 of radius.
+HALF_WIDTH = 0.04
+PAD_RADIUS = 0.010
+# Clearance between the pad surface and the box face at zero advance. Small and
+# positive: the reference must sit OUTSIDE the box (which is the whole point of
+# this rewrite) but close enough that a modest `step` makes contact immediately.
+STANDOFF = 0.004
+# Advance = GAIN * remaining distance, clipped. GAIN < 1 makes it a proportional
+# controller on the push; STEP_MAX bounds the penetration so the commanded point
+# can never cross to the far face even at maximum.
+GAIN = 0.60
+STEP_MIN = 0.012
+# MEASURED transport budget (16 envs, instrumented): the box starts 0.127 m from
+# the goal and the previous cap moved it only 0.057 m in 150 steps -- 0.38 mm/step
+# against the 0.71 mm/step needed to reach the 2 cm window, a 1.89x shortfall.
+# The failure is transport RATE, not the overtake (measured: 1/16 overtook, 15/16
+# were still shepherding at timeout).
+#
+# The earlier 0.011 came from requiring the COMMANDED point to stay outside the
+# box. That is stricter than necessary: contact stops the pusher well short of its
+# setpoint, so what must stay outside the box is where the pusher ACTUALLY is, not
+# where it is aimed. A larger advance is simply a larger contact force, which is
+# what moves the box. The overtake guard (MIN_BEHIND + re-seat) remains as the
+# safety net for the case where the pusher does slip past.
+STEP_MAX = 0.030
+# Endgame: success is a 2cm window, so inside FINE_ZONE the advance is throttled
+# to a fraction of the remaining distance to avoid overshooting through it.
+FINE_ZONE = 0.06
+FINE_GAIN = 0.35
+# Cross-track correction. Keeps the pusher on the object->goal line so contact
+# stays square and the box tracks straight instead of rotating off-axis.
+CROSS_GAIN = 0.8
+# Command lead (rad) during the shepherd phase. The joint command integrates from
+# the previous COMMAND rather than the lagging actual position, up to this far
+# ahead — which is what converts a blocked position servo into a sustained push.
+# open_door uses 0.35 for its drag; the cuboid needs less force (0.49 N of sliding
+# friction vs a hinge), and too much lead near the ground risks the floor guard.
+PUSH_CMD_LEAD = 0.20
 # Steps spent backing off behind the contact face once a re-seat is triggered.
 # Acts as hysteresis: without it the shepherd re-triggers every other step.
 RESEAT_STEPS = 12
@@ -78,7 +152,12 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
   """Shepherd the cuboid to the goal with closed fingers at cuboid height."""
 
   DEFAULT_QPOS = HOME_QPOS  # push_cuboid env uses get_franka_robot_cfg (home)
-  max_dq = 0.08  # correct kinematics allow brisker motion; episode is 150 steps
+  # 0.08 was roughly half what the two teachers that actually work on this budget
+  # use (push_button 0.20 at SR 1.000, open_drawer 0.15 at 0.81), and the measured
+  # bottleneck here is transport rate: 0.38 mm/step achieved against 0.71 needed.
+  # The floor guard below is what protects against a brisk rate near the ground,
+  # not the rate cap itself.
+  max_dq = 0.15
 
   def reset(self, env_ids=None) -> None:
     super().reset(env_ids)
@@ -90,6 +169,29 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
   def _target_error(self, i: int, obs_i: np.ndarray):
     gto = obs_i[40:43]  # object - gripper
     o2g = obs_i[43:46]  # goal - object
+
+    # SUSTAINED PUSH FORCE. Measured per-25-step box displacement: +0.050 in the
+    # first 25 steps, then ~0.000 for the remaining 125, while `along` stayed a
+    # healthy +0.03..+0.04 — i.e. the pusher is correctly seated and in contact,
+    # and the box simply stops moving. That is not a control-law error, it is
+    # plain position control: the arm servos TO its commanded point and stops, so
+    # once the box resists there is no force left to push through the 0.49 N of
+    # sliding friction. It explains why tripling the advance, the gain and max_dq
+    # all failed to move the 0.06 m plateau — those set WHERE and HOW FAST the arm
+    # goes, not how hard it presses.
+    #
+    # cmd_lead_max is the mechanism the base class provides for exactly this
+    # ("sustained lead = sustained servo force"), and open_door is the only other
+    # teacher that uses it.
+    #
+    # MEASURED AND REVERTED: enabling it at 0.20 during the shepherd phase made
+    # things WORSE — 0.125/0.062 against a 0.094-0.156 baseline — and the per-25-step
+    # trace picked up large NEGATIVE excursions (-0.051, -0.148, -0.056) that the
+    # zero-lead runs did not have. Sustained force through a single fingertip on an
+    # 8 cm face applies a torque about the box centre, so the extra push rotates the
+    # cuboid or squirts it sideways instead of sliding it along the goal line. The
+    # missing ingredient is a SQUARE contact, not more force. Left disabled.
+    self.cmd_lead_max = 0.0
 
     o2g_xy = o2g[:2]
     dist_goal = np.linalg.norm(o2g_xy)
@@ -152,22 +254,64 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
       # at all (measured |o2g| 0.366 -> 0.337 over 140 steps). Instead, stay at
       # ride height and slide back around behind the contact face, with
       # hysteresis so a single noisy sample cannot trigger a re-seat.
+      # STRATEGY CHANGE (contact-point servo). The law above commanded
+      #   target = object + (-d*BEHIND) + d*adv
+      # whose net penetration (adv - BEHIND) is +0.030 for essentially the whole
+      # push, i.e. the commanded point sits INSIDE the 8cm box the entire time.
+      # The IK has no contact model, so it is permanently solving to drive the
+      # fingertip through the workpiece; contact blocks the site, the DLS solve
+      # keeps integrating, and the accumulated bias eventually squirts the site
+      # around the box. That IS the overtake, and MIN_BEHIND/RESEAT_STEPS are
+      # patches on a reference that is unreachable by construction.
+      #
+      # Instead servo the CONTACT POINT itself, never commanding anything inside
+      # the box:
+      #   contact face  = object centre - d*(half_width + pad_radius)
+      #   commanded pt  = contact face - d*STANDOFF + d*step
+      # `step` is a bounded closed-loop advance proportional to the remaining
+      # distance, so the reference is always OUTSIDE the box and the penetration
+      # that generates push force comes from `step` alone, which is explicitly
+      # capped. Cross-track error is corrected separately so the pusher stays on
+      # the goal line rather than drifting off the face.
       along = float(gto[:2] @ d)
+
+      # Lateral (cross-track) offset of the pusher from the object->goal line.
+      # Positive `cross` means the pusher sits off to one side; zeroing it keeps
+      # the contact square, which is what stops the box from being pushed at an
+      # angle and rotating away.
+      n = np.array([-d[1], d[0]])
+      cross = float(gto[:2] @ n)
+
       if self._reseat[i] > 0:
         self._reseat[i] -= 1
-        # Track a point well behind the object at ride height; no advance term,
-        # so the pusher backs off and re-acquires the face without loading it.
         pos_err = gto + 1.6 * behind + np.array([0.0, 0.0, RIDE_HEIGHT])
       elif along < MIN_BEHIND:
         self._reseat[i] = RESEAT_STEPS
         pos_err = gto + 1.6 * behind + np.array([0.0, 0.0, RIDE_HEIGHT])
       else:
-        adv = max(BEHIND + 0.015, min(ADVANCE, dist_goal + BEHIND))
-        pos_err = (
-          gto
-          + behind
-          + np.array([d[0] * adv, d[1] * adv, RIDE_HEIGHT])
-        )
+        # Where the pusher should sit: just off the rear face, on the goal line.
+        seat_back = HALF_WIDTH + PAD_RADIUS + STANDOFF
+        # Closed-loop advance: push hard while far, ease off near the goal so the
+        # 2cm success window is not overshot. Bounded so penetration can never
+        # reach the far side of the box.
+        step = float(np.clip(GAIN * dist_goal, STEP_MIN, STEP_MAX))
+        if dist_goal < FINE_ZONE:
+          step = min(step, dist_goal * FINE_GAIN)
+        # NOTE: a hard terminal brake was tried here (throttle `step` to 4 mm, then
+        # 8 mm, inside the last 3-5 cm) on the theory that the box — which moves up
+        # to 23 mm/step — can jump across the 20 mm success window between two
+        # control steps. Measured WORSE both times (0.000 at 4 mm, 0.031/0.000 at
+        # 8 mm vs a 0.094-0.156 baseline): braking spends the remaining step budget
+        # without closing the distance. Deliberately absent.
+
+        # Target expressed as an error from the CURRENT gripper position:
+        #   (object - gripper) + (-d * seat_back) + (d * step) - (n * cross)
+        # The -n*cross term drives the pusher back onto the goal line.
+        pos_err = gto + np.array([
+          -d[0] * seat_back + d[0] * step - n[0] * cross * CROSS_GAIN,
+          -d[1] * seat_back + d[1] * step - n[1] * cross * CROSS_GAIN,
+          RIDE_HEIGHT,
+        ])
 
     pos_err[2] = max(pos_err[2], -DESCENT_RATE)  # rate-limit descents
 
@@ -192,4 +336,4 @@ class PushCuboidClassicalPolicy(ClassicalPolicyBase):
     z = float(self._fk(q_abs)[0][2])
     if z + pos_err[2] < FLOOR_MIN_Z:
       pos_err[2] = FLOOR_MIN_Z - z
-    return pos_err, _DOWN_AXIS, GRIPPER_CLOSED
+    return pos_err, _DOWN_AXIS, GRIPPER_PUSH_SPAN

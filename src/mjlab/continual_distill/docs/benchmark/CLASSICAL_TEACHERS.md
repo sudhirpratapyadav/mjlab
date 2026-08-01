@@ -536,3 +536,49 @@ That is the argument for instrumenting before tuning, and it held four times out
 
 All three point the same way: they want a learned teacher, or a task-side change that
 the user's strategy-only constraint (correctly) forbids.
+
+---
+
+## 2026-08-01: Push-Cuboid strategy attempts (7 measured, none reached the target)
+
+Goal was >99% on Push-Cuboid and Open-Door by changing STRATEGY, not constants.
+Recording all of it because the negative results are informative and expensive to
+re-derive. Baseline at the time: **0.094–0.156** (32 envs × 3 episodes, CPU).
+
+| # | change | measured |
+|---|---|---|
+| v2 | contact-point servo — command a point OUTSIDE the box instead of one 3 cm inside it | 0.094 |
+| v3 | 3× advance, GAIN 0.22→0.60, `max_dq` 0.08→0.15 | **0.250 / 0.000** |
+| v4 | `cmd_lead_max` 0→0.20 (sustained servo force) | 0.125 / 0.062 ❌ |
+| v5 | wide two-point contact (fingers partly open, −0.15) | 0.000 / 0.094 ❌ |
+| v6 | terminal brake, 4 mm/step inside 5 cm | 0.000 ❌ |
+| v7 | `GOAL_TOL` 0.015→0.009 + 8 mm brake | 0.031 / 0.000 ❌ |
+
+v4–v7 are reverted; **v3's constants are kept** (the only variant that beat baseline).
+Each revert carries an inline comment in `push_cuboid.py` so they are not retried.
+
+### What was actually established
+
+- **The pusher is not overtaking the box.** Instrumented over 16 envs: 1/16 overtook,
+  15/16 ended still shepherding with `along` at a healthy +0.03..+0.05. The re-seat
+  machinery is guarding against a failure that rarely fires.
+- **The box never stalls.** It moves 8–23 mm *every step* for the whole episode.
+  (An earlier claim here that it "stops after 25 steps" was wrong — that measurement
+  summed SIGNED per-25-step displacement, so forward and backward motion cancelled.)
+- **The failure is endgame precision.** env0's distance trace: 0.033 → 0.008 → 0.013
+  → 0.018 → 0.016 → 0.023. The box arrives near the goal and is knocked around it.
+- **Success IS latched** (`torch.maximum` in `commands.py`), so being knocked out
+  afterwards does not lose a success that was already achieved.
+- **The 2 cm window is fully available in-plane.** Measured on the running env: target
+  z = 0.0150, cuboid rests at 0.0149, permanent dz = 0.0001. An earlier pass here
+  computed a "1.32 cm planar window" from the `goal_z_height = 0.03` dataclass
+  default — that default is overridden for Franka. Do not reason from it.
+
+### Open-Door: 2 further attempts, both 0.000
+
+Replacing the 22°-per-control-step arc lead with a 4° force bias (on the reasoning
+that a 22° lead on a door advancing 1–2° per 25 steps is a permanently unreachable
+setpoint, which is why the slip check "fires on nearly every drag frame") measured
+0.000, unchanged. The throughput arithmetic in the section above still holds: ~84.3°
+needed in 150 steps at 1–2° per 25 steps after a ~40-step approach is a ~13×
+shortfall. This wants a longer episode or a learned teacher.
