@@ -371,3 +371,18 @@ teachers is now cheap — `collect_classical_dataset.py` was fixed to use the fu
 task (0.016 when trained 5th of 6, ~0.9 when trained 2nd). Testing whether *any*
 grasp-type task is fragile would generalise the primacy claim from one task to a
 task class — a stronger result than the paper currently claims.
+
+**Classical-teacher improvement — attempted, not achieved.** Seven strategy changes
+on Push-Cuboid and two on Open-Door, all measured, none reaching >99%; see the
+2026-08-01 section of `continual_distill/docs/benchmark/CLASSICAL_TEACHERS.md` for
+every attempt and what each ruled out. Push-Cuboid stays at ~0.10–0.25 and Open-Door
+at 0.000. This matters for **P1-4**: the PLA grid needs a classical or BC teacher for
+Open-Door and there is still none, so 4b remains blocked and 4a is half-runnable
+(`pc-cl` only). The useful residue is diagnostic — the cuboid's failure is endgame
+precision (the box reaches the goal region and is knocked around it), not transport
+or contact geometry, and the door's is a ~13× throughput shortfall that wants a
+longer episode or a learned teacher.
+
+**Documentation of results:** `continual_distill/docs/P0_EXPERIMENTS.md` (18 runs,
+wandb `continual_rl_mjlab_p0`) and `P1_EXPERIMENTS.md` (57 runs, wandb
+`continual_rl_mjlab_p1`) carry the run inventories, per-arm numbers and readings.

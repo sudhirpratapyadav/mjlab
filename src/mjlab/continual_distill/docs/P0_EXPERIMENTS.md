@@ -87,6 +87,21 @@ sequence at all (ceiling), and is the 8192 collapse really about capacity (confo
 
 </details>
 
+## Run inventory (wandb `continual_rl_mjlab_p0`, 18 runs)
+
+| block | run-name pattern | runs | per-run results |
+|---|---|---|---|
+| P0-1 floor | `nosi_{best,worst}_s<seed>` | 6 | 0.270, 0.266, 0.266 / 0.504, 0.402, 0.590 |
+| P0-2 ceiling | `joint_s<seed>` | 3 | 0.953, 0.965, 0.957 |
+| P0-3 8192 × LR | `w8192_lr{1e5,5e6,1e6}_s<seed>` | 9 | see the LR table below |
+
+Scheduler `slurm/run_p0.sh`, supervisor `slurm/p0_supervisor.sh`, results collected
+with `slurm/collect_p0.py`. Per-run logs are `logs/cl_<run-name>.log`.
+
+The P1 block (regulariser comparison, LR × width sweep, six-task scalability — 57
+further runs in wandb `continual_rl_mjlab_p1`) is documented in
+[P1_EXPERIMENTS.md](P1_EXPERIMENTS.md).
+
 ## ✅ ALL 18 RUNS COMPLETE — summary
 
 | | result | what it establishes |
@@ -318,8 +333,8 @@ _Auto-collected by `slurm/collect_p0.py`._
 | P0-1 | `nosi_worst_s1` | ✅ complete | 0.402 | OpenDoor 0.00, OpenDrawer 0.48, PushButton 0.22, PushCuboid 0.91 |
 | P0-1 | `nosi_worst_s2` | ✅ complete | 0.590 | OpenDoor 0.00, OpenDrawer 0.77, PushButton 0.77, PushCuboid 0.83 |
 | P0-2 | `joint_s0` | ✅ complete | 0.953 | OpenDoor 0.98, OpenDrawer 1.00, PushButton 1.00, PushCuboid 0.83 |
-| P0-2 | `joint_s1` | 🔄 running | — | — |
-| P0-2 | `joint_s2` | 🔄 running | — | — |
+| P0-2 | `joint_s1` | ✅ complete | 0.965 | OpenDoor 1.00, OpenDrawer 1.00, PushButton 1.00, PushCuboid 0.86 |
+| P0-2 | `joint_s2` | ✅ complete | 0.957 | OpenDoor 1.00, OpenDrawer 0.98, PushButton 1.00, PushCuboid 0.84 |
 | P0-3 | `w8192_lr1e5_s0` | ✅ complete | 0.942 | OpenDoor 1.00, OpenDrawer 0.94, PushButton 0.98, PushCuboid 0.84 |
 | P0-3 | `w8192_lr1e5_s1` | ✅ complete | 0.957 | OpenDoor 1.00, OpenDrawer 1.00, PushButton 0.97, PushCuboid 0.86 |
 | P0-3 | `w8192_lr1e5_s2` | ✅ complete | 0.938 | OpenDoor 1.00, OpenDrawer 1.00, PushButton 0.92, PushCuboid 0.83 |
@@ -328,7 +343,7 @@ _Auto-collected by `slurm/collect_p0.py`._
 | P0-3 | `w8192_lr5e6_s2` | ✅ complete | 0.754 | OpenDoor 0.98, OpenDrawer 0.94, PushButton 1.00, PushCuboid 0.09 |
 | P0-3 | `w8192_lr1e6_s0` | ✅ complete | 0.598 | OpenDoor 0.97, OpenDrawer 0.34, PushButton 1.00, PushCuboid 0.08 |
 | P0-3 | `w8192_lr1e6_s1` | ✅ complete | 0.438 | OpenDoor 0.62, OpenDrawer 0.12, PushButton 0.95, PushCuboid 0.05 |
-| P0-3 | `w8192_lr1e6_s2` | 🔄 running | — | — |
+| P0-3 | `w8192_lr1e6_s2` | ✅ complete | 0.570 | OpenDoor 0.98, OpenDrawer 0.28, PushButton 0.97, PushCuboid 0.05 |
 
 
 ## Stack A/B comparison — did the upgrade break the teachers?
