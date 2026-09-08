@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CL-V2 — realistic assets for the 25 Class-A tasks</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; font:14px/1.5 ui-sans-serif,system-ui,-apple-system,sans-serif;
+         background:#0b0f17; color:#e5e7eb; }
+  a { color:#7dd3fc; }
+  header { margin-bottom:20px; max-width:960px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .sub { color:#9ca3af; font-size:13px; }
+  h2 { font-size:15px; margin:28px 0 12px; text-transform:uppercase; letter-spacing:.06em; color:#9ca3af; font-weight:600; }
+  .count { background:#1f2937; color:#9ca3af; border-radius:10px; padding:1px 8px; font-size:12px; margin-left:6px; }
+  .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); }
+  .card { background:#111827; border:1px solid #1f2937; border-radius:10px; overflow:hidden; }
+  .card.pending { opacity:0.55; }
+  .card.done { border-color:#10b98166; }
+  .clips { display:grid; grid-template-columns:1fr 1fr; }
+  video, img.still, .noclip { width:100%; display:block; background:#000; aspect-ratio:16/9; object-fit:cover; }
+  .noclip { display:flex; align-items:center; justify-content:center; color:#4b5563; font-size:12px; }
+  .cliplabel { font-size:10px; text-transform:uppercase; letter-spacing:.04em; padding:2px 6px; background:#00000099; color:#e5e7eb; position:relative; top:-22px; float:left; }
+  .body { padding:10px 12px 12px; }
+  .title { font-weight:600; font-size:13px; margin-bottom:6px; }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px; }
+  .chip { font-size:11px; padding:1px 7px; border-radius:20px; background:#1f2937; border:1px solid #374151; color:#d1d5db; }
+  .chip.ok { background:#10b98122; color:#10b981; border-color:#10b98155; }
+  .chip.bad { background:#ef444422; color:#f87171; border-color:#ef444455; }
+  .meta { font-size:11px; color:#9ca3af; font-variant-numeric:tabular-nums; }
+  .meta b { color:#e5e7eb; font-weight:600; }
+  input { background:#111827; color:#e5e7eb; border:1px solid #374151; border-radius:6px; padding:5px 10px; font-size:12px; min-width:220px; }
+</style></head>
+<body>
+<header>
+  <h1>CL-V2 — realistic assets for the 25 Class-A Franka tasks</h1>
+  <div class="sub"><a href="/">&larr; home</a> &nbsp;&middot;&nbsp; <a href="/phase1/">phase-1 teacher rollouts (primitive assets)</a></div>
+  <div class="sub" style="margin-top:8px">
+    Each card: the new asset on its own (still + turntable) and the classical teacher running the task
+    with it. SR is measured at n = 128 on the stated HEAD; the phase-1 (primitive) number is shown for
+    comparison. Gates G1–G7 are the CL-V2 STATUS.md gates.
+  </div>
+  <div style="margin-top:10px"><input id="filter" placeholder="filter by task name…"></div>
+</header>
+<div id="root"><div class="sub">Loading…</div></div>
+<script>
+const TASKS = {
+  "Free objects": [
+    "Mjlab-Lift-Cube-Franka","Mjlab-Stack-Cube-Franka","Mjlab-Push-Cuboid-Franka","Mjlab-Drag-Pull-Franka",
+    "Mjlab-Topple-Block-Franka","Mjlab-Place-In-Container-Franka","Mjlab-Throw-To-Bin-Franka",
+    "Mjlab-Reorient-Object-Franka","Mjlab-Cage-Drag-Franka","Mjlab-Strike-Slide-Franka","Mjlab-Tool-Pull-Franka",
+    "Mjlab-Peg-Insertion-Franka","Mjlab-Axial-Extract-Franka","Mjlab-Edge-Grasp-Franka","Mjlab-Pivot-Lift-Franka",
+    "Mjlab-Reach-Target-Franka"],
+  "Articulated": [
+    "Mjlab-Push-Button-Franka","Mjlab-Open-Drawer-Franka","Mjlab-Open-Door-Franka","Mjlab-Slide-Window-Franka",
+    "Mjlab-Open-Lid-Franka","Mjlab-Turn-Lever-Franka","Mjlab-Rotate-Valve-Franka","Mjlab-Flip-Switch-Franka",
+    "Mjlab-Push-Flap-Franka"],
+  "Collapsed variants (share a motion profile with a task above)": [
+    "Mjlab-Lift-Cylinder-Franka","Mjlab-Lift-Sphere-Franka","Mjlab-Lift-Ellipsoid-Franka","Mjlab-Push-Disc-Franka"],
+};
+const pct = x => (x === null || x === undefined) ? "—" : (x * 100).toFixed(1) + "%";
+async function j(url) { try { const r = await fetch(url, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch (e) { return null; } }
+async function head(url) { try { const r = await fetch(url, {method: "HEAD", cache: "no-store"}); return r.ok; } catch (e) { return false; } }
+function card(id, a, r, has) {
+  const name = id.replace(/^Mjlab-/, "").replace(/-Franka$/, "");
+  const gates = a && a.gates ? Object.entries(a.gates).map(([g, v]) => `<span class="chip ${v === 'ok' ? 'ok' : (v === 'x' ? 'bad' : '')}">${g} ${v}</span>`).join("") : "";
+  const done = a && a.gates && Object.values(a.gates).every(v => v === "ok");
+  const still = has.still ? `<img class="still" src="${id}/still.png" alt="${name} asset"><span class="cliplabel">asset</span>` : `<div class="noclip">no still yet</div>`;
+  const turn = has.turntable ? `<video src="${id}/turntable.mp4" muted loop autoplay playsinline></video><span class="cliplabel">turntable</span>` : `<div class="noclip">no turntable yet</div>`;
+  const teacher = has.teacher ? `<video src="${id}/teacher.mp4" controls muted loop playsinline preload="metadata" poster="${id}/thumb.jpg"></video><span class="cliplabel">teacher rollout</span>` : `<div class="noclip">no rollout yet</div>`;
+  const sr = r ? `<b>${pct(r.sr)}</b> (n=${r.n}, HEAD ${r.head})` : "not measured";
+  const prior = a && a.sr_cl25 !== undefined ? `phase-1: ${pct(a.sr_cl25)}` : "";
+  return `<div class="card ${done ? 'done' : (a ? '' : 'pending')}" data-name="${name.toLowerCase()}">
+    <div class="clips">${still}${turn}</div>
+    <div>${teacher}</div>
+    <div class="body">
+      <div class="title">${name}</div>
+      <div class="chips">${gates}</div>
+      <div class="meta">Asset: <b>${a ? a.asset : "—"}</b>${a && a.source ? ` &middot; <a href="${a.source_url || '#'}">${a.source}</a> &middot; ${a.license || ''}` : ""}</div>
+      <div class="meta">Teacher SR: ${sr} &nbsp; ${prior}</div>
+      ${a && a.notes ? `<div class="meta">${a.notes}</div>` : ""}
+    </div></div>`;
+}
+async function main() {
+  const root = document.getElementById("root");
+  let html = "";
+  for (const [lane, ids] of Object.entries(TASKS)) {
+    const cards = await Promise.all(ids.map(async id => {
+      const [a, r, still, turntable, teacher] = await Promise.all([
+        j(`${id}/asset.json`), j(`${id}/result.json`), head(`${id}/still.png`), head(`${id}/turntable.mp4`), head(`${id}/teacher.mp4`)]);
+      return card(id, a, r, {still, turntable, teacher});
+    }));
+    html += `<h2>${lane}<span class="count">${ids.length}</span></h2><div class="grid">${cards.join("")}</div>`;
+  }
+  root.innerHTML = html;
+  document.getElementById("filter").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(c => c.style.display = c.dataset.name.includes(q) ? "" : "none");
+  });
+}
+main();
+</script>
+</body></html>

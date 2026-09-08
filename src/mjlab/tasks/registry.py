@@ -54,6 +54,20 @@ def register_mjlab_task(
   )
 
 
+def edit_registered_cfgs(prefix: str, fn) -> int:
+  """Apply ``fn(env_cfg)`` to every stored cfg (train/play/test) of tasks whose id
+  starts with ``prefix``. Returns the number of tasks edited. Used by task families
+  to attach shared scene hooks after registration (e.g. the Franka studio rig)."""
+  n = 0
+  for task_id, entry in _REGISTRY.items():
+    if not task_id.startswith(prefix):
+      continue
+    for cfg in (entry.env_cfg, entry.play_env_cfg, entry.test_env_cfg):
+      fn(cfg)
+    n += 1
+  return n
+
+
 def list_tasks() -> list[str]:
   """List all registered task IDs."""
   return sorted(_REGISTRY.keys())

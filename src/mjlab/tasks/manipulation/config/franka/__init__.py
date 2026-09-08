@@ -28,6 +28,28 @@ from .rl_cfg import (
 )
 from .env_cfgs import franka_lift_cube_env_cfg, franka_lift_cylinder_env_cfg, franka_lift_ellipsoid_env_cfg, franka_lift_sphere_env_cfg, franka_open_door_env_cfg, franka_open_drawer_env_cfg, franka_peg_insertion_env_cfg, franka_push_button_env_cfg, franka_push_cuboid_env_cfg, franka_push_disc_env_cfg, franka_reach_target_env_cfg, franka_stack_cube_env_cfg
 from .rl_cfg import franka_lift_cube_ppo_runner_cfg, franka_lift_cylinder_ppo_runner_cfg, franka_lift_ellipsoid_ppo_runner_cfg, franka_lift_sphere_ppo_runner_cfg, franka_open_door_ppo_runner_cfg, franka_open_drawer_ppo_runner_cfg, franka_peg_insertion_ppo_runner_cfg, franka_push_button_ppo_runner_cfg, franka_push_cuboid_ppo_runner_cfg, franka_push_disc_ppo_runner_cfg, franka_reach_target_ppo_runner_cfg, franka_stack_cube_ppo_runner_cfg
+from .env_cfgs import (
+  franka_drag_pull_env_cfg,
+  franka_strike_slide_env_cfg,
+  franka_cage_drag_env_cfg,
+  franka_topple_block_env_cfg,
+  franka_push_flap_env_cfg,
+  franka_axial_extract_env_cfg,
+  franka_edge_grasp_env_cfg,
+  franka_pivot_lift_env_cfg,
+  franka_throw_to_bin_env_cfg,
+)
+from .rl_cfg import (
+  franka_drag_pull_ppo_runner_cfg,
+  franka_strike_slide_ppo_runner_cfg,
+  franka_cage_drag_ppo_runner_cfg,
+  franka_topple_block_ppo_runner_cfg,
+  franka_push_flap_ppo_runner_cfg,
+  franka_axial_extract_ppo_runner_cfg,
+  franka_edge_grasp_ppo_runner_cfg,
+  franka_pivot_lift_ppo_runner_cfg,
+  franka_throw_to_bin_ppo_runner_cfg,
+)
 
 register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Franka",
@@ -356,3 +378,157 @@ register_mjlab_task(
     notes="Motion profile: TWO-STAGE TOOL USE — grasp a stick, then drag a puck that spawns beyond direct reach back into the near zone. Contact that matters happens at the tool tip, not the fingertips. First TOOL_USE task in the benchmark. Structural (smoke) gate only; reward shaping not yet train-validated.",
   ),
 )
+
+
+##
+# Class A Wave-1 expansion (continual_distill/docs/benchmark/CATALOG_100_TASKS.md,
+# T17-T25). Counted as distinct MOTION PROFILES: Class A goes 16 -> 25.
+##
+
+register_mjlab_task(
+  task_id="Mjlab-Drag-Pull-Franka",
+  env_cfg=franka_drag_pull_env_cfg(),
+  play_env_cfg=franka_drag_pull_env_cfg(play=True),
+  test_env_cfg=franka_drag_pull_env_cfg(test=True),
+  rl_cfg=franka_drag_pull_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PLANAR_PUSH,
+    fragility=Fragility.MILD_CONTACT,
+    source="native",
+    notes="Motion profile: PLANAR DRAG-PULL — engagement inverted vs push: the object spawns FAR and the goal sits NEAR, so the fingertips reach over and behind the object and the arm retracts while keeping far-face contact (metaworld pull/push-back lineage). Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Strike-Slide-Franka",
+  env_cfg=franka_strike_slide_env_cfg(),
+  play_env_cfg=franka_strike_slide_env_cfg(play=True),
+  test_env_cfg=franka_strike_slide_env_cfg(test=True),
+  rl_cfg=franka_strike_slide_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PLANAR_PUSH,
+    fragility=Fragility.PRECISION_GRASP,
+    source="metaworld",
+    notes="Motion profile: IMPULSIVE STRIKE-TO-SLIDE — the goal band (x 0.88-1.05) sits beyond the arm's ~0.85 m stretch, so the puck must be struck and released; contact ends before arrival (FetchSlide lineage). Tier 3 by the instant-criticality criterion: no grasp is involved, but the impulse is all-or-nothing at release with no recovery. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Cage-Drag-Franka",
+  env_cfg=franka_cage_drag_env_cfg(),
+  play_env_cfg=franka_cage_drag_env_cfg(play=True),
+  test_env_cfg=franka_cage_drag_env_cfg(test=True),
+  rl_cfg=franka_cage_drag_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.NON_PREHENSILE,
+    fragility=Fragility.MILD_CONTACT,
+    source="native",
+    contact_rich=True,
+    notes="Motion profile: FORM-CLOSURE (CAGING) TRANSPORT — straddle the cube with OPEN fingers and translate; success carries the benchmark's first episode-long NEGATIVE constraint (min aperture over the episode must never dip below the cage threshold), so a pinch-and-drag solution scores zero. First NON_PREHENSILE task. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Topple-Block-Franka",
+  env_cfg=franka_topple_block_env_cfg(),
+  play_env_cfg=franka_topple_block_env_cfg(play=True),
+  test_env_cfg=franka_topple_block_env_cfg(test=True),
+  rl_cfg=franka_topple_block_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.NON_PREHENSILE,
+    fragility=Fragility.MILD_CONTACT,
+    source="native",
+    contact_rich=True,
+    notes="Motion profile: NON-PREHENSILE TOPPLE — every block face exceeds the 0.08 m aperture so force closure is impossible by construction; poke above the centre of mass to tip it over an edge until the body x-axis lands vertical (either sign: symmetric predicate). Orientation-scored like Reorient-Object but grasp-free and ballistic past the tipping point. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Push-Flap-Franka",
+  env_cfg=franka_push_flap_env_cfg(),
+  play_env_cfg=franka_push_flap_env_cfg(play=True),
+  test_env_cfg=franka_push_flap_env_cfg(test=True),
+  rl_cfg=franka_push_flap_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.ARTICULATION,
+    fragility=Fragility.MILD_CONTACT,
+    source="metaworld",
+    notes="Motion profile: NON-PREHENSILE HINGE-ARC PUSH — same vertical hinge as Open-Door but the panel has NO handle: fingertips face-push and must re-orient along the arc as the contact normal rotates (metaworld faucet/door-close lineage, ~15 external tasks collapse onto this one profile). Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Axial-Extract-Franka",
+  env_cfg=franka_axial_extract_env_cfg(),
+  play_env_cfg=franka_axial_extract_env_cfg(play=True),
+  test_env_cfg=franka_axial_extract_env_cfg(test=True),
+  rl_cfg=franka_axial_extract_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.INSERTION,
+    fragility=Fragility.PRECISION_GRASP,
+    source="metaworld",
+    contact_rich=True,
+    notes="Motion profile: FRICTION-BREAKAWAY EXTRACTION — pinch the plug head top-down, exceed the ~4 N static-friction breakaway, then guide the plug straight up out of the bore (metaworld peg-unplug / disassemble lineage). Inverse of the drawer's low-friction hooked glide. Tagged INSERTION, not ARTICULATION: the plug IS a joint, but the family tag names the manipulation SKILL (the inverse of peg-insertion), not the machinery the command term reuses. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Edge-Grasp-Franka",
+  env_cfg=franka_edge_grasp_env_cfg(),
+  play_env_cfg=franka_edge_grasp_env_cfg(play=True),
+  test_env_cfg=franka_edge_grasp_env_cfg(test=True),
+  rl_cfg=franka_edge_grasp_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PICK_PLACE,
+    fragility=Fragility.PRECISION_GRASP,
+    source="native",
+    contact_rich=True,
+    notes="Motion profile: EXTRINSIC-DEXTERITY EDGE GRASP — the plate is unspannable and, flat, unpinchable; slide it over the ledge edge until it overhangs, then pinch the exposed 16 mm thickness and lift clear (edge-grasp literature, Chavan-Dafle lineage). Two-stage: a slide phase whose only purpose is to manufacture graspability. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Pivot-Lift-Franka",
+  env_cfg=franka_pivot_lift_env_cfg(),
+  play_env_cfg=franka_pivot_lift_env_cfg(play=True),
+  test_env_cfg=franka_pivot_lift_env_cfg(test=True),
+  rl_cfg=franka_pivot_lift_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PICK_PLACE,
+    fragility=Fragility.PRECISION_GRASP,
+    source="native",
+    contact_rich=True,
+    notes="Motion profile: PIVOT-AGAINST-WALL GRASP — the flat board is ungraspable on open ground; push it INTO the wall to pivot it up onto an edge, then pinch the exposed thickness and carry it to an airborne goal (Zhou & Held extrinsic-dexterity lineage). The wall is a per-env static fixture owned by the command. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+register_mjlab_task(
+  task_id="Mjlab-Throw-To-Bin-Franka",
+  env_cfg=franka_throw_to_bin_env_cfg(),
+  play_env_cfg=franka_throw_to_bin_env_cfg(play=True),
+  test_env_cfg=franka_throw_to_bin_env_cfg(test=True),
+  rl_cfg=franka_throw_to_bin_ppo_runner_cfg(),
+  taxonomy=TaskTaxonomy(
+    embodiment=Embodiment.ARM_GRIPPER,
+    skill=SkillFamily.PICK_PLACE,
+    fragility=Fragility.PRECISION_GRASP,
+    source="native",
+    contact_rich=True,
+    notes="Motion profile: THROW-TO-BIN — grasp the cube, accelerate, and RELEASE ON TIME so the ballistic arc lands in a bin beyond the arm's stretch (TossingBot lineage). Reuses the place-in-container base: same containment+settled predicate, and the bin band beyond reach (x 0.78-0.90) is what turns placing into throwing. Structural (smoke) gate only; reward shaping not yet train-validated.",
+  ),
+)
+
+# CL-V2: every Franka task renders with the shared studio rig (lights, skybox, wood
+# floor). Render-only; see mjlab.tasks.manipulation.studio.
+from mjlab.tasks.registry import edit_registered_cfgs as _edit_registered_cfgs  # noqa: E402
+from mjlab.tasks.manipulation.studio import apply_studio as _apply_studio  # noqa: E402
+
+_edit_registered_cfgs("Mjlab-", _apply_studio)
