@@ -1579,3 +1579,31 @@ tests/test_class_a_wave1.py tests/test_class_a_expansion.py` -> **149 passed**.
    rotated 90 deg relative to it. A hook that engages UNDER the cap (friction-free, like
    the drawer's) is the obvious next teacher, and the collider is already shaped for it
    (`handle` stem + `handle_cap`).
+
+
+### 2026-09-09 — W3 lead: exit check — lead
+
+**Context:** all five wave agents reported (W1-a 7/7, W1-b 5/5, W1-c 4/4, W2-a 5/5,
+W2-b 4/4). STATUS recomputed from rows: 25/25 all seven gates green, 0 blocked.
+GPUs used: 1 (W1-a, W2-a), 2 (W1-b, W2-b), 3 (W1-c); holder 20277 never touched.
+Three stray PENDING allocations (20298–20300) came from the shell's `nvidia-smi`
+alias inside agent shells; all cancelled (ours).
+
+**Did:** merged the five wave logs into this file (originals in `logs/`); applied
+W1-b's framing handover (mocap sync + frame after the first reset) on top of the
+robot-exclusion fix, camera moved to a side three-quarter view (azimuth 60,
+elevation −24, distance 0.9·extent+0.30); full CPU test suite **454 passed, 18 skipped**;
+`benchmark_smoke --keyword Franka` PASS on all 29 Franka tasks (collapsed variants
+still load, D5); committed everything as `9053ac6`; added the CL-V2 card to the
+cl.untuai.com home page; wrote `HANDOVER.md` (mechanics changes, shared-code changes,
+traps, next work). Global re-render of all 25 rollouts with the final framing runs
+on GPUs 1–3, then every card's rollout clips + result.json are republished.
+
+**Found:** site `result.json` SRs (render_rollout stats phase) bracket the STATUS
+numbers on every task — two independent n=128 reads on the same tree.
+
+**Decided:** Open-Lid keeps the reversed hinge (the cl25 asset was winnable by free
+fall; the task now matches its own cfg/command docs). Rotate-Valve ships as a cross
+handwheel without a rim (rim would sit in the pinch path; recorded by W2-a).
+
+**Next:** nothing blocking. Follow-ups are listed at the end of `HANDOVER.md`.

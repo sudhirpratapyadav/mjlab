@@ -6,7 +6,7 @@
 > counts are RECOMPUTED from the rows, never incremented by hand (cl25's drifted twice).
 
 Last updated: 2026-09-09 (recomputed from rows by update_status.py)
-Measured on HEAD: `1127d12` (teacher baselines only, from `../cl25/phase_1/STATUS.md`)
+Measured on HEAD: `41b36cb` (W0) + wave edits, committed as `9053ac6`; the site's result.json is a second n=128 read from render_rollout on the same tree
 
 ## Summary (computed from rows)
 
