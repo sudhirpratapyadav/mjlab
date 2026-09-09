@@ -25,8 +25,19 @@ TASK_ID="$1"; LOCAL_DIR="$2"
 [[ "$TASK_ID" =~ ^Mjlab-[A-Za-z0-9-]+-Franka$ ]] || echo "warning: '$TASK_ID' does not look like a task id" >&2
 [[ -d "$LOCAL_DIR" ]] || { echo "error: '$LOCAL_DIR' missing" >&2; exit 1; }
 shopt -s nullglob
-FILES=("$LOCAL_DIR"/still.png "$LOCAL_DIR"/turntable.mp4 "$LOCAL_DIR"/colliders.png "$LOCAL_DIR"/teacher.mp4 \
-       "$LOCAL_DIR"/failure.mp4 "$LOCAL_DIR"/thumb.jpg "$LOCAL_DIR"/result.json "$LOCAL_DIR"/asset.json)
+# Every one of these is OPTIONAL: a task whose teacher never fails has no failure.mp4
+# (Push-Button, Push-Flap), and a task rendered before its rollout has no teacher.mp4.
+# nullglob does NOT drop these — they are literal paths, not globs — so listing a
+# missing one made rsync exit 23 and `set -e` killed the script AFTER it had already
+# copied everything else, i.e. a successful publish that reported failure. (W2-a)
+CANDIDATES=(still.png turntable.mp4 colliders.png teacher.mp4 failure.mp4 thumb.jpg \
+            result.json asset.json)
+FILES=()
+# (`|| true`: without it a false test on the LAST candidate is the loop's exit status
+# and `set -e` would kill the script.)
+for f in "${CANDIDATES[@]}"; do
+  [[ -f "$LOCAL_DIR/$f" ]] && FILES+=("$LOCAL_DIR/$f") || true
+done
 [[ ${#FILES[@]} -gt 0 ]] || { echo "error: nothing publishable in $LOCAL_DIR" >&2; exit 1; }
 ssh -o BatchMode=yes -o ConnectTimeout=10 "$REMOTE_HOST" "mkdir -p ${REMOTE_BASE}/${TASK_ID}" \
   || { echo "error: ssh to ${REMOTE_HOST} failed — STOP, do not guess around it" >&2; exit 1; }

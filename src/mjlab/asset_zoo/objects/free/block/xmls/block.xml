@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+  Topple block: a standing cracker box, too wide to grasp on every face.
+
+  Asset: YCB 003_cracker_box (google_16k scan, CC-BY 4.0), standing on its base and
+  NON-UNIFORMLY scaled to 100 x 160 x 210 mm (x1.3926, y0.9762, z0.9839).
+  See PROVENANCE.md for why the x stretch is not cosmetic.
+
+  Motion profile it serves: TOPPLE-TO-FACE. Every full width (0.10 x, 0.16 y) exceeds
+  the Franka's aperture (0.08 m of joint travel, ~0.095 m of actual pad gap), so force
+  closure is impossible by construction and the only way to reorient the block is to
+  poke it above its centre of mass and tip it over an edge. That is exactly why the
+  real 71.8 mm depth of the scan was stretched to 100 mm: at its real depth the box is
+  graspable, which would convert a poke task into a pick task.
+
+  It preferentially topples over the +-x edges (0.05 half-extent, tipping angle
+  atan(0.05/0.105) = 25.5 deg, against 37.3 deg over the +-y edges) — a rotation about
+  y that carries the BODY X-AXIS to vertical, which is what ReorientObjectCommand
+  measures (body_axis=(1,0,0), symmetric, since either of the two opposite landing
+  faces is the same outcome).
+
+  Collision is a single box, half-extents 0.0500 x 0.0800 x 0.1050, body frame at the
+  bbox centre; the mesh CoM sits within 1 mm of it. Mass 0.550 kg is the published
+  0.411 kg carried across by volume (density 164 kg/m^3, a realistic full cracker box).
+-->
+<mujoco model="block">
+  <compiler meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="block_tex" type="2d" file="block_tex.png"/>
+    <material name="block_mat" texture="block_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="block_vis" file="block_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="block" pos="0.4 0 0.105">
+      <freejoint name="block_joint"/>
+      <inertial pos="-0.00102 0.00025 -0.00045" quat="0.003477 0.710895 0.001747 -0.703288" mass="0.55000" diaginertia="1.515e-03 2.364e-03 3.071e-03"/>
+      <geom name="block_visual" type="mesh" mesh="block_vis" material="block_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="block_geom" type="box" pos="0 0 0" size="0.0500 0.0800 0.1050" group="3" rgba="0.5 0.5 0.5 0.3" condim="3" friction="0.8 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

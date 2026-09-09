@@ -1,50 +1,64 @@
 <?xml version="1.0"?>
 <!--
-  Hinged box lid asset.
+  Open-Lid mechanism (CL-V2, W2-b).  A 220 x 220 x 120 mm plank-built oak chest: three
+  floor boards, four two-plank walls on corner battens, a three-board lid on two brass
+  strap hinges with a turned lifting knob on the near edge and a brass hasp on the front.
+  Built procedurally (see PROVENANCE.md); textures Poly Haven oak_wood_planks and
+  ambientCG Metal032 tinted to brass (both CC0).
 
-  Motion profile: a hinge whose axis is HORIZONTAL and LATERAL (world y), mounted at
-  the far edge of a box, so opening it lifts the lid up and over through a vertical
-  arc. Unlike the door (vertical hinge axis, gravity-neutral swing), GRAVITY OPPOSES
-  THE MOTION THROUGHOUT — the lid falls shut if the policy lets go. This task runs with
-  gravity ENABLED (unlike door/drawer/button); see CLASS_A_EXPANSION.md.
+  ANGLES ARE RADIANS (explicit <compiler angle="radian"/>): lid_hinge range
+  -1.308997 .. 0 rad = -75 .. 0 deg, matching OpenLidCommand's -1.308997 target.  The
+  cl25 XML had no compiler tag, so its bare range="-75 0" was silently degrees and
+  happened to agree; this makes it explicit.
 
-  Grasp point (object_site) is a lip on the lid's near edge, furthest from the hinge.
-
-  Success: lid hinge opened to the 75 deg target (see OpenLidCommand), latched.
+  Motion profile: a hinge on the FAR edge with a horizontal, lateral axis, so the lid
+  swings UP and back over the box through a vertical arc.  Gravity is ENABLED and
+  OPPOSES the motion throughout; the lid falls shut if the policy lets go.
 -->
 <mujoco model="lid">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="oak_tex" type="2d" file="oak.png"/>
+    <material name="oak" texture="oak_tex" specular="0.12" shininess="0.2" reflectance="0.0"/>
+    <texture name="brass_tex" type="2d" file="brass.png"/>
+    <material name="brass" texture="brass_tex" specular="0.75" shininess="0.7" reflectance="0.2"/>
+    <mesh name="lid_box" file="lid_box.obj"/>
+    <mesh name="lid_hinge_leaf" file="lid_hinge_leaf.obj"/>
+    <mesh name="lid_boards" file="lid_boards.obj"/>
+    <mesh name="lid_straps" file="lid_straps.obj"/>
+  </asset>
+
   <worldbody>
     <body name="lid_base" pos="0.6 0 0.4" mocap="true">
-      <!-- Box body: four low walls, open top. Lid hinges at the FAR (+x) edge. -->
-      <geom type="box" name="lid_body" size="0.11 0.11 0.01" pos="0 0 -0.06"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
-            contype="2" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="lid_wall_far" size="0.01 0.11 0.05" pos="0.10 0 -0.01"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
-            contype="2" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="lid_wall_near" size="0.01 0.11 0.05" pos="-0.10 0 -0.01"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
-            contype="2" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="lid_wall_left" size="0.11 0.01 0.05" pos="0 0.10 -0.01"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
-            contype="2" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="lid_wall_right" size="0.11 0.01 0.05" pos="0 -0.10 -0.01"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
-            contype="2" conaffinity="1" solref="0.01 1"/>
-      <!-- Base site at the lid lip when joint = 0 (closed). -->
+      <geom name="lid_box_visual" type="mesh" mesh="lid_box" material="oak" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="lid_hinge_leaf_visual" type="mesh" mesh="lid_hinge_leaf" material="brass" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="lid_body" type="box" pos="0.0000 0.0000 -0.0600" size="0.1100 0.1100 0.0100" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="lid_wall_far" type="box" pos="0.1000 0.0000 -0.0100" size="0.0100 0.1100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="lid_wall_near" type="box" pos="-0.1000 0.0000 -0.0100" size="0.0100 0.1100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="lid_wall_left" type="box" pos="0.0000 0.1000 -0.0100" size="0.1100 0.0100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="lid_wall_right" type="box" pos="0.0000 -0.1000 -0.0100" size="0.1100 0.0100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the lifting lip when the lid is closed. -->
       <site name="base_site" pos="-0.09 0.0 0.05" size="0.01" rgba="0 0 1 0.3"/>
       <body name="handle">
-        <!-- Hinge at the far edge, axis along world y -> lid swings up and over. -->
-        <joint name="lid_hinge" type="hinge" axis="0 1 0" pos="0.10 0 0.04"
-               range="-75 0" limited="true" damping="0.05"/>
-        <!-- Lid panel. -->
-        <geom type="box" name="lid_panel" size="0.10 0.11 0.008" pos="0.0 0 0.04"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.35"
-              contype="2" conaffinity="1" solref="0.01 1"/>
-        <!-- Grab lip on the near edge (furthest from the hinge = best lever arm). -->
-        <geom type="box" name="handle" pos="-0.09 0.0 0.055" size="0.015 0.05 0.012"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
-              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- AXIS SIGN: (0,-1,0), so the -1.309 rad target LIFTS the lid up and back
+             over the hinge, as a real chest lid does.  cl25 used (0,1,0), which turned
+             the same target into a DROP-DOWN flap and had two measured consequences:
+             (a) the lid free-fell to the -75 deg stop in 0.25 s with zero actions, so
+             the task was winnable by doing nothing and verify_task's G3 joint-drift
+             check failed; (b) the lid swept THROUGH the box from about -27 deg onward
+             (nothing collides: every mechanism geom is contype="2" conaffinity="1",
+             and 2 & 1 = 0), which also put the grasp point inside the carcass where
+             the arm cannot follow it.  With the axis reversed, gravity OPPOSES the
+             motion throughout and the lid falls shut if released — exactly what
+             open_lid_env_cfg.py and OpenLidCommand have always said this task is. -->
+        <joint name="lid_hinge" type="hinge" axis="0 -1 0" pos="0.10 0 0.04"
+               range="-1.308997 0" limited="true" damping="0.05"/>
+      <geom name="lid_boards_visual" type="mesh" mesh="lid_boards" material="oak" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="lid_straps_visual" type="mesh" mesh="lid_straps" material="brass" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="lid_panel" type="box" pos="0.0000 0.0000 0.0400" size="0.1000 0.1100 0.0080" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1" density="450.0"/>
+      <geom name="handle" type="box" pos="-0.0900 0.0000 0.0640" size="0.0140 0.0140 0.0180" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1" density="450.0"/>
+      <geom name="handle_cap" type="box" pos="-0.0900 0.0000 0.0880" size="0.0220 0.0220 0.0060" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1" density="450.0"/>
         <site name="object_site" pos="-0.09 0.0 0.05" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
       </body>
     </body>

@@ -305,10 +305,12 @@ class OpenDoorCommand(CommandTerm):
     base_site_idx = self.door.site_names.index("base_site")
     base_site_pos = self.door.data.site_pos_w[env_ids, base_site_idx]
 
-    # Calculate target: base_site is at handle's closed position
-    # Hinge is at [0, -0.3, 0] in door_base frame, handle at base_site is at [-0.04, 0.25, 0]
-    # So hinge relative to base_site is [0.04, -0.55, 0]
-    handle_to_hinge_dist = 0.55  # Distance from handle to hinge
+    # Calculate target: base_site is at handle's closed position.
+    # door.xml (CL-V2): the hinge is on the leaf's y=0 edge and the handle sits at
+    # (-0.04, 0.25, 0) in door_base frame, so the hinge relative to base_site is
+    # [0.04, -0.25, 0]. (cl25's 1.2m slab hinged at y=-0.30 gave 0.55 here; the real
+    # 300mm cabinet door has a 0.25m lever arm — see the door XML header.)
+    handle_to_hinge_dist = 0.25  # y distance from handle to hinge
 
     for i, env_id in enumerate(env_ids):
       # Hinge position = base_site + offset to hinge
@@ -320,7 +322,7 @@ class OpenDoorCommand(CommandTerm):
       sin_a = torch.sin(angle)
 
       # Vector from hinge to handle at target angle (rotating around Z axis)
-      # Initial vector is [-0.04, 0.55, 0.0] (handle relative to hinge when closed)
+      # Initial vector is [-0.04, 0.25, 0.0] (handle relative to hinge when closed)
       rotated_x = -0.04 * cos_a - handle_to_hinge_dist * sin_a
       rotated_y = -0.04 * sin_a + handle_to_hinge_dist * cos_a
 
@@ -791,12 +793,14 @@ class PushingCommand(CommandTerm):
       self.target_pos[env_ids] = target_pos + self._env.scene.env_origins[env_ids]
 
     # Reset object to new position.
+    object_pos_w = None
     if self.cfg.object_pose_range is not None:
       r = self.cfg.object_pose_range
       lower = torch.tensor([r.x[0], r.y[0], r.z[0]], device=self.device)
       upper = torch.tensor([r.x[1], r.y[1], r.z[1]], device=self.device)
       pos = sample_uniform(lower, upper, (n, 3), device=self.device)
       pos = pos + self._env.scene.env_origins[env_ids]
+      object_pos_w = pos
 
       # Sample object orientation (yaw only, keep upright).
       yaw = sample_uniform(r.yaw[0], r.yaw[1], (n,), device=self.device)
@@ -823,6 +827,40 @@ class PushingCommand(CommandTerm):
       # Default to identity quaternion if object pose not randomized
       target_quats = torch.zeros(n, 4, device=self.device)
       target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity)
+
+    # MINIMUM OBJECT->GOAL SEPARATION (opt-in; 0.0 reproduces the old behaviour).
+    # The goal and the object are drawn INDEPENDENTLY, so wherever the two boxes
+    # overlap a fraction of resets lands the object already inside the success
+    # radius. Measured: cage-drag 37/1000, i.e. 3.7% of episodes won at t=0 —
+    # which fails the G5 "success at reset must be 0/1000" gate.
+    # Bounded REJECTION of the goal, rather than pushing the goal away from the
+    # object, because a pushed goal walks outside the range the workspace audit
+    # checked. Cage-drag needs this because its object box and goal box are the SAME
+    # box by design (caged transport is omnidirectional); push-cuboid and drag-pull
+    # instead split their x band, which is cheaper and keeps the push direction
+    # meaningful, so they leave this at 0.0.
+    if (
+      self.cfg.min_goal_distance > 0.0
+      and object_pos_w is not None
+      and self.cfg.difficulty == "dynamic"
+    ):
+      rt = self.cfg.target_position_range
+      g_lo = torch.tensor([rt.x[0], rt.y[0]], device=self.device)
+      g_hi = torch.tensor([rt.x[1], rt.y[1]], device=self.device)
+      for _ in range(24):
+        too_close = (
+          torch.norm(self.target_pos[env_ids] - object_pos_w, dim=-1)
+          < self.cfg.min_goal_distance
+        )
+        if not bool(too_close.any()):
+          break
+        idx = env_ids[too_close]
+        k = int(idx.numel())
+        xy = sample_uniform(g_lo, g_hi, (k, 2), device=self.device)
+        z = torch.full((k, 1), self.cfg.goal_z_height, device=self.device)
+        self.target_pos[idx] = (
+          torch.cat([xy, z], dim=-1) + self._env.scene.env_origins[idx]
+        )
 
     # Update mocap_goal visualization (for goal_orientation_diff observation)
     # Goal has independently sampled orientation
@@ -858,6 +896,15 @@ class PushingCommandCfg(CommandTermCfg):
 
   # Fixed z-height for goals (ground level)
   goal_z_height: float = 0.03
+
+  min_goal_distance: float = 0.0
+  """Minimum sampled object->goal distance, in metres. 0.0 (the default) keeps the
+  historical behaviour: goal and object are drawn independently and may coincide.
+
+  Set it ABOVE ``success_threshold`` on any task whose object box and goal box
+  overlap, or a fraction of episodes start already successful (G5 measures this as
+  ``success_at_reset``). Enforced by bounded rejection of the GOAL, so the goal
+  always stays inside ``target_position_range``."""
 
   @dataclass
   class TargetPositionRangeCfg:
@@ -956,6 +1003,34 @@ class ReachingCommand(CommandTerm):
       target_pos = sample_uniform(lower, upper, (n, 3), device=self.device)
       self.target_pos[env_ids] = target_pos + self._env.scene.env_origins[env_ids]
 
+      # MINIMUM CLEARANCE FROM THE GRIPPER (opt-in; 0.0 = the old behaviour).
+      # The default sampling box CONTAINS the Franka's reset EE pose
+      # (0.677, 0.000, 0.382 at HOME_QPOS), so ~0.5% of resets draw a target the
+      # gripper is already standing on and the episode is won at t=0 — measured
+      # 5/1000, which fails the G5 "success at reset = 0/1000" gate. Bounded
+      # rejection keeps the target inside its declared range, so the reach band
+      # still spans the whole envelope exactly as before.
+      #
+      # ``site_pos_w`` is FRESH here (measured: 0.6774 at resample against 0.6772
+      # after reset + one zero step) because the robot's reset event runs BEFORE
+      # command resampling — unlike the object poses written inside this same call,
+      # which must not be read back (see ``_spawn_object``).
+      if self.cfg.min_gripper_clearance > 0.0:
+        gripper = self._gripper_pos_w()
+        for _ in range(24):
+          too_close = (
+            torch.norm(self.target_pos[env_ids] - gripper[env_ids], dim=-1)
+            < self.cfg.min_gripper_clearance
+          )
+          if not bool(too_close.any()):
+            break
+          idx = env_ids[too_close]
+          k = int(idx.numel())
+          self.target_pos[idx] = (
+            sample_uniform(lower, upper, (k, 3), device=self.device)
+            + self._env.scene.env_origins[idx]
+          )
+
     # Identity orientation for the mocap goal (reach is position-only).
     quat = torch.zeros(n, 4, device=self.device)
     quat[:, 0] = 1.0
@@ -984,6 +1059,11 @@ class ReachingCommandCfg(CommandTermCfg):
   class_type: type[CommandTerm] = ReachingCommand
   success_threshold: float = 0.05
   difficulty: Literal["fixed", "dynamic"] = "dynamic"
+
+  min_gripper_clearance: float = 0.0
+  """Minimum distance (m) between a freshly sampled target and the gripper site at
+  the moment of resampling. 0.0 (the default) keeps the historical behaviour. Set it
+  above ``success_threshold`` so no episode can start already at the goal."""
 
   @dataclass
   class TargetPositionRangeCfg:
@@ -1600,17 +1680,31 @@ class PlaceInContainerCommandCfg(CommandTermCfg):
     default_factory=lambda: SceneEntityCfg("robot", site_names=())
   )
   class_type: type[CommandTerm] = PlaceInContainerCommand
-  lateral_tolerance: float = 0.055
-  """Inside the bin footprint (walls are at ~0.062 from centre)."""
-  rim_height: float = 0.05
-  """Object centre must be below this height above the interior reference site."""
-  floor_tolerance: float = 0.04
-  """Guard against a below-floor (tunnelled) false positive."""
+  lateral_tolerance: float = 0.0585
+  """Inside the bin footprint, measured from the bin's ``object_site``.
+
+  RE-DERIVED from the CL-V2 basket (`free/container/xmls/container.xml`): the moulded
+  inner clear half-span at the floor is 0.0815 and the cube's half-width is 0.0230, so
+  0.0585 is exactly the offset at which an axis-aligned cube's face touches the wall.
+  A cube any further out is physically OUTSIDE the basket, which is what makes this a
+  containment test rather than a proximity test."""
+  rim_height: float = 0.093
+  """Object centre must be below this height above the interior reference site.
+
+  RE-DERIVED: the basket's scalloped rim dips to z = 0.113 above the bin's underside
+  and the site sits at z = 0.020, so 0.093 is the lowest point of the real rim. An
+  object above it is over the edge, not in the bin."""
+  floor_tolerance: float = 0.020
+  """Guard against a below-floor (tunnelled) false positive.
+
+  RE-DERIVED: the site is 0.016 above the inner floor surface, so this allows 4 mm of
+  contact penetration and nothing more. (The 0.04 it replaces allowed a centre 28 mm
+  BELOW the old bin's floor.)"""
   settle_speed: float = 0.12
   """Object must be moving slower than this — i.e. released, not carried."""
   container_spawn_range: _ObjectSpawnRangeCfg = field(
     default_factory=lambda: _ObjectSpawnRangeCfg(
-      x=(0.55, 0.55), y=(0.20, 0.20), z=(0.02, 0.02), yaw=(0.0, 0.0)
+      x=(0.55, 0.55), y=(0.20, 0.20), z=(0.0, 0.0), yaw=(0.0, 0.0)
     )
   )
   """Container body placement in ENV-LOCAL coordinates, written per-env every resample.
@@ -1647,6 +1741,12 @@ class ReorientObjectCommand(CommandTerm):
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
     self.reached_object = torch.zeros(self.num_envs, device=self.device)
 
+    # Which BODY-frame axis is measured against target_axis. The original task
+    # (stand a lying cylinder upright) uses the body z-axis; the topple task
+    # measures a horizontal body axis instead, so it is configurable.
+    axis = torch.tensor(cfg.body_axis, device=self.device, dtype=torch.float32)
+    self.body_axis = axis / torch.norm(axis)
+
     # Scene has no .get(); mocap goal is optional so probe by key.
     try:
       self.mocap_goal: Entity | None = env.scene["mocap_goal"]
@@ -1674,11 +1774,17 @@ class ReorientObjectCommand(CommandTerm):
     return self.object.data.root_link_pos_w
 
   def _update_metrics(self) -> None:
-    # Object body z-axis in world frame = third column of its rotation matrix.
+    # Selected body axis in world frame: R @ body_axis (columns of xmat are the body
+    # axes, so the default (0,0,1) reproduces the original third-column read).
     mat = self.object.data.data.xmat[:, self.object.data.indexing.root_body_id]
-    obj_z = mat[:, :, 2]
+    obj_axis = torch.matmul(mat, self.body_axis.unsqueeze(-1)).squeeze(-1)
 
-    alignment = torch.sum(obj_z * self.target_axis, dim=-1).clamp(-1.0, 1.0)
+    alignment = torch.sum(obj_axis * self.target_axis, dim=-1).clamp(-1.0, 1.0)
+    if self.cfg.symmetric_axis:
+      # Either direction of the axis counts (topple onto either of two opposite
+      # faces); without this the task would secretly designate one of two
+      # physically identical outcomes as failure.
+      alignment = alignment.abs()
     angle_error = torch.acos(alignment)
 
     object_pos = self._object_pos()
@@ -1749,6 +1855,14 @@ class ReorientObjectCommandCfg(CommandTermCfg):
   target_axis: tuple[float, float, float] = (0.0, 0.0, 1.0)
   """Desired world-frame direction of the object's body z-axis. The cylinder spawns
   lying down (z-axis horizontal); standing it up means aligning z with world +z."""
+  body_axis: tuple[float, float, float] = (0.0, 0.0, 1.0)
+  """Body-frame axis measured against ``target_axis``. Default is the body z-axis
+  (the stand-the-cylinder task); the topple task measures a body axis that is
+  HORIZONTAL at spawn and must end up vertical."""
+  symmetric_axis: bool = False
+  """If True, +axis and -axis both satisfy the goal (|dot|). A block toppled over
+  either of two opposite edges lands with the measured axis pointing up or down;
+  both are the same physical outcome and both must count."""
   angle_threshold: float = 0.35  # rad (~20 deg)
   max_drift: float = 0.18  # m — object must stay near its start
   marker_z_offset: float = 0.12
@@ -1874,13 +1988,13 @@ class ToolPullCommandCfg(CommandTermCfg):
     default_factory=lambda: SceneEntityCfg("robot", site_names=())
   )
   class_type: type[CommandTerm] = ToolPullCommand
-  goal_offset: tuple[float, float, float] = (0.42, 0.0, 0.012)
+  goal_offset: tuple[float, float, float] = (0.42, 0.0, 0.0127)
   """Near-zone goal in env-local coordinates (well within direct reach).
 
   The z MUST match the puck's resting height on the ground plane (its half-thickness,
-  0.012). An earlier value of 0.31 put the goal in mid-air, 0.3m above where the puck
-  physically rests — with a 0.07 threshold the task was unsatisfiable. Keep this tied
-  to the puck geometry if either changes.
+  0.0127 for the regulation 25.4 mm puck). An earlier value of 0.31 put the goal in
+  mid-air, 0.3m above where the puck physically rests — with a 0.07 threshold the task
+  was unsatisfiable. Keep this tied to the puck geometry if either changes.
   """
   success_threshold: float = 0.07
   grasp_threshold: float = 0.06
@@ -1890,3 +2004,406 @@ class ToolPullCommandCfg(CommandTermCfg):
   tool_spawn_range: _ObjectSpawnRangeCfg | None = field(
     default_factory=_ObjectSpawnRangeCfg
   )
+
+
+##
+# Class A Wave-1 expansion (continual_distill/docs/benchmark/CATALOG_100_TASKS.md,
+# T17-T25). Five new command shapes; drag-pull, strike-to-slide and throw-to-bin
+# reuse PushingCommand / PlaceInContainerCommand unchanged (see their base makers).
+##
+
+
+class CageDragCommand(PushingCommand):
+  """Transport an object caged between OPEN fingers — pinching is forbidden.
+
+  Motion profile: FORM-CLOSURE TRANSPORT. The gripper straddles the object with the
+  fingers held open and translates; the object is constrained geometrically, never
+  force-closed. Success carries an episode-long NEGATIVE constraint: the combined
+  finger opening must never drop below ``aperture_min``. This is the benchmark's
+  first minimum-over-time constraint latch — every other latch is a maximum-over-time
+  success latch, so resetting ``min_aperture`` on resample is as load-bearing as
+  resetting ``episode_success``.
+  """
+
+  cfg: CageDragCommandCfg
+
+  def __init__(self, cfg: CageDragCommandCfg, env: ManagerBasedRlEnv):
+    super().__init__(cfg, env)
+    self.finger_idx = tuple(
+      self.robot.joint_names.index(name) for name in cfg.finger_joint_names
+    )
+    # Start at a value far above any physical aperture (Franka max is 0.08) so the
+    # first _update_metrics establishes the true minimum; inf would poison the
+    # logged metric means.
+    self.min_aperture = torch.full((self.num_envs,), 1.0, device=self.device)
+    self.metrics["min_aperture"] = torch.zeros(self.num_envs, device=self.device)
+    self.metrics["caged"] = torch.zeros(self.num_envs, device=self.device)
+
+  def _aperture(self) -> torch.Tensor:
+    joint_pos = self.robot.data.joint_pos
+    return joint_pos[:, self.finger_idx[0]] + joint_pos[:, self.finger_idx[1]]
+
+  def _update_metrics(self) -> None:
+    self.min_aperture = torch.minimum(self.min_aperture, self._aperture())
+    caged = self.min_aperture > self.cfg.aperture_min
+
+    object_pos_w = self.object.data.root_link_pos_w
+    goal_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
+    at_goal = ((goal_error < self.cfg.success_threshold) & caged).float()
+    self.episode_success = torch.maximum(self.episode_success, at_goal)
+
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
+    self.reached_object = torch.maximum(
+      self.reached_object, (gripper_object_distance < 0.10).float()
+    )
+
+    self.metrics["goal_error"] = goal_error
+    self.metrics["at_goal"] = at_goal
+    self.metrics["episode_success"] = self.episode_success
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+    self.metrics["object_height"] = object_pos_w[:, 2]
+    self.metrics["min_aperture"] = self.min_aperture
+    self.metrics["caged"] = caged.float()
+
+  def compute_success(self) -> torch.Tensor:
+    return (self.metrics["goal_error"] < self.cfg.success_threshold) & (
+      self.min_aperture > self.cfg.aperture_min
+    )
+
+  def _resample_command(self, env_ids: torch.Tensor) -> None:
+    super()._resample_command(env_ids)
+    self.min_aperture[env_ids] = 1.0
+
+
+@dataclass(kw_only=True)
+class CageDragCommandCfg(PushingCommandCfg):
+  """Configuration for caged (open-gripper) object transport."""
+
+  class_type: type[CommandTerm] = CageDragCommand
+  finger_joint_names: tuple[str, str] = ("finger_joint1", "finger_joint2")
+  aperture_min: float = 0.055
+  """Combined finger-joint opening (m) that must NEVER be undercut. Franka fully open
+  is 0.04 + 0.04 = 0.08; a pinch on the 0.04 cube would read ~0.04. The threshold
+  sits between, so straddling stays legal and any force-closure attempt voids the
+  episode."""
+
+
+class PushFlapCommand(_ArticulationJointCommand):
+  """Swing a hinged flap by face-pushing it — there is no handle to grasp.
+
+  Motion profile: NON-PREHENSILE HINGE-ARC PUSH. The door is pulled by its handle
+  through a whole-arm arc; the flap presents only a flat panel, so the fingertips
+  must push the face and keep re-orienting along the arc as the contact normal
+  rotates. Same joint type as the door, different (grasp-free) contact strategy.
+  """
+
+  cfg: PushFlapCommandCfg
+
+
+@dataclass(kw_only=True)
+class PushFlapCommandCfg(_ArticulationJointCommandCfg):
+  asset_name: str = "flap"
+  joint_name: str = "flap_hinge"
+  class_type: type[CommandTerm] = PushFlapCommand
+  target_value: float = -1.2217305  # -70 deg
+  """NEGATIVE by the hinge geometry: the robot pushes the panel's -x face, and a +x
+  force applied at the panel's +y lever arm produces a -z torque about the vertical
+  hinge (r x F = (0,L,0) x (F,0,0) = (0,0,-LF)). A positive target would require
+  pulling the handle-less panel toward the robot — unreachable by face-pushing."""
+  init_value: float = 0.0
+  success_threshold: float = 0.15  # rad (~8.6 deg)
+  goal_marker_offset: tuple[float, float, float] = (0.11, -0.08, 0.0)
+
+
+class AxialExtractCommand(_ArticulationJointCommand):
+  """Pull a friction-fit plug axially out of its socket.
+
+  Motion profile: FRICTION-BREAKAWAY EXTRACTION. The plug's slide joint carries a
+  large ``frictionloss``, so nothing moves until the pull force exceeds breakaway;
+  then the plug must be guided straight up along the socket axis. The drawer is the
+  inverse profile (low-friction pull toward the robot with a hooked fingertip);
+  here the grasp is a pinch on the plug head and the load is a static-friction
+  threshold, not a damped glide.
+  """
+
+  cfg: AxialExtractCommandCfg
+
+
+@dataclass(kw_only=True)
+class AxialExtractCommandCfg(_ArticulationJointCommandCfg):
+  asset_name: str = "plug"
+  joint_name: str = "plug_slide"
+  class_type: type[CommandTerm] = AxialExtractCommand
+  target_value: float = 0.10  # m, near the 0.12 stop
+  init_value: float = 0.0
+  success_threshold: float = 0.02  # m
+  goal_marker_offset: tuple[float, float, float] = (0.0, 0.0, 0.10)
+
+
+class EdgeGraspCommand(CommandTerm):
+  """Slide a thin plate to a ledge edge, pinch it at the overhang, lift it clear.
+
+  Motion profile: EXTRINSIC-DEXTERITY EDGE GRASP. Flat on a surface the plate cannot
+  be pinched (no finger fits under 16mm of plate); the ledge edge is the fixture
+  that exposes a graspable face. Success = the plate held ABOVE the ledge top — a
+  height that sliding alone cannot produce (pushing the plate off the edge drops it
+  to the ground, LOWER than the ledge top, so the failure mode and the success mode
+  are separated by construction).
+  """
+
+  cfg: EdgeGraspCommandCfg
+
+  def __init__(self, cfg: EdgeGraspCommandCfg, env: ManagerBasedRlEnv):
+    super().__init__(cfg, env)
+
+    self.object: Entity = env.scene[cfg.asset_name]
+    self.ledge: Entity = env.scene[cfg.ledge_asset_name]
+    self.robot: Entity = env.scene[cfg.robot_asset_cfg.name]
+    self.robot_cfg = cfg.robot_asset_cfg
+
+    self.target_pos = torch.zeros(self.num_envs, 3, device=self.device)
+    self.ledge_center = torch.zeros(self.num_envs, 3, device=self.device)
+    self.episode_success = torch.zeros(self.num_envs, device=self.device)
+    self.reached_object = torch.zeros(self.num_envs, device=self.device)
+
+    try:
+      self.mocap_goal: Entity | None = env.scene["mocap_goal"]
+    except KeyError:
+      self.mocap_goal = None
+
+    for k in (
+      "goal_error",
+      "at_goal",
+      "episode_success",
+      "reached_object",
+      "gripper_object_distance",
+      "plate_lift",
+    ):
+      self.metrics[k] = torch.zeros(self.num_envs, device=self.device)
+
+  @property
+  def command(self) -> torch.Tensor:
+    return self.target_pos
+
+  def _object_pos(self) -> torch.Tensor:
+    if "object_site" in self.object.site_names:
+      idx = self.object.site_names.index("object_site")
+      return self.object.data.site_pos_w[:, idx]
+    return self.object.data.root_link_pos_w
+
+  def _update_metrics(self) -> None:
+    plate_pos = self._object_pos()
+    ledge_top_z = self.ledge_center[:, 2] + self.cfg.ledge_top_height
+    lift = plate_pos[:, 2] - ledge_top_z
+    drift = torch.norm(plate_pos[:, :2] - self.ledge_center[:, :2], dim=-1)
+
+    at_goal = ((lift > self.cfg.lift_clearance) & (drift < self.cfg.max_drift)).float()
+    self.episode_success = torch.maximum(self.episode_success, at_goal)
+
+    gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
+    gripper_object_distance = torch.norm(plate_pos - gripper_pos_w, dim=-1)
+    self.reached_object = torch.maximum(
+      self.reached_object, (gripper_object_distance < 0.06).float()
+    )
+
+    self.metrics["goal_error"] = torch.norm(plate_pos - self.target_pos, dim=-1)
+    self.metrics["at_goal"] = at_goal
+    self.metrics["episode_success"] = self.episode_success
+    self.metrics["reached_object"] = self.reached_object
+    self.metrics["gripper_object_distance"] = gripper_object_distance
+    self.metrics["plate_lift"] = lift
+
+  def compute_success(self) -> torch.Tensor:
+    return self.metrics["at_goal"] > 0.0
+
+  def _resample_command(self, env_ids: torch.Tensor) -> None:
+    n = len(env_ids)
+    self.episode_success[env_ids] = 0.0
+    self.reached_object[env_ids] = 0.0
+
+    origins = self._env.scene.env_origins[env_ids]
+
+    # The ledge is a static MOCAP body: nothing else resets it, so write it per-env
+    # (same trap as the place-in-container bin — the MJCF pose only serves env 0).
+    lrng = self.cfg.ledge_spawn_range
+    ledge_pos = origins + sample_uniform(
+      torch.tensor([lrng.x[0], lrng.y[0], lrng.z[0]], device=self.device),
+      torch.tensor([lrng.x[1], lrng.y[1], lrng.z[1]], device=self.device),
+      (n, 3),
+      device=self.device,
+    )
+    quats = torch.zeros(n, 4, device=self.device)
+    quats[:, 0] = 1.0
+    self.ledge.write_mocap_pose_to_sim(
+      torch.cat([ledge_pos, quats], dim=-1), env_ids=env_ids
+    )
+    self.ledge_center[env_ids] = ledge_pos
+
+    # Plate spawns ON the ledge top, inland of the near edge. Computed from the pose
+    # just written, NOT read back through FK (the read-back returns the previous
+    # episode's pose — see _spawn_object's warning).
+    rel_x = sample_uniform(
+      self.cfg.plate_rel_x[0], self.cfg.plate_rel_x[1], (n,), device=self.device
+    )
+    rel_y = sample_uniform(
+      self.cfg.plate_rel_y[0], self.cfg.plate_rel_y[1], (n,), device=self.device
+    )
+    plate_pos = ledge_pos.clone()
+    plate_pos[:, 0] += rel_x
+    plate_pos[:, 1] += rel_y
+    plate_pos[:, 2] += self.cfg.ledge_top_height + self.cfg.plate_rest_offset
+    yaw = sample_uniform(
+      self.cfg.plate_yaw[0], self.cfg.plate_yaw[1], (n,), device=self.device
+    )
+    plate_quat = quat_from_euler_xyz(
+      torch.zeros(n, device=self.device), torch.zeros(n, device=self.device), yaw
+    )
+    self.object.write_root_link_pose_to_sim(
+      torch.cat([plate_pos, plate_quat], dim=-1), env_ids=env_ids
+    )
+    self.object.write_root_link_velocity_to_sim(
+      torch.zeros(n, 6, device=self.device), env_ids=env_ids
+    )
+
+    offset = torch.tensor(self.cfg.goal_offset, device=self.device)
+    self.target_pos[env_ids] = ledge_pos + offset
+
+    if self.mocap_goal is not None:
+      pose = torch.cat([self.target_pos[env_ids].clone(), quats], dim=-1)
+      self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
+
+  def _update_command(self) -> None:
+    pass
+
+  def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
+    pass
+
+
+@dataclass(kw_only=True)
+class EdgeGraspCommandCfg(CommandTermCfg):
+  asset_name: str = "plate"
+  ledge_asset_name: str = "ledge"
+  robot_asset_cfg: SceneEntityCfg = field(
+    default_factory=lambda: SceneEntityCfg("robot", site_names=())
+  )
+  class_type: type[CommandTerm] = EdgeGraspCommand
+  ledge_top_height: float = 0.10
+  """Height of the ledge TOP surface above the ledge body origin (see ledge.xml)."""
+  plate_rest_offset: float = 0.012
+  """Plate half-thickness plus settle clearance: spawn resting on the top surface.
+  RE-DERIVED for the 150 mm scanned side plate (W1-c): AABB half-height 0.0096 plus
+  2.4 mm of settle clearance."""
+  lift_clearance: float = 0.04
+  """Plate centre must rise this far ABOVE the ledge top. Unreachable by sliding:
+  pushing the plate off the edge drops it to the ground, 0.10 BELOW the top."""
+  max_drift: float = 0.40
+  """Anti-fling bound on horizontal distance from the ledge centre."""
+  goal_offset: tuple[float, float, float] = (-0.13, 0.0, 0.18)
+  """Dense-reward goal point relative to the ledge origin: above and beyond the near
+  (robot-facing) edge, where the lifted plate naturally ends up."""
+  plate_rel_x: tuple[float, float] = (-0.02, 0.02)
+  """RE-DERIVED for the 150 mm plate on the 200 mm-wide riser (W1-c): the plate's own
+  half-length is 0.075 and the ledge's is 0.10, so |rel_x| <= 0.025 keeps the plate
+  entirely ON the riser at spawn (never pre-overhanging) and the near edge lands
+  5-45 mm inland of the riser's near edge. It also holds the PUSH CONTACT POINT at
+  ledge_x + rel_x_max + 0.075 = ledge_x + 0.095, i.e. exactly where it was with the
+  primitive pair, so the reach derivation in ``ledge_spawn_range`` is unchanged."""
+  plate_rel_y: tuple[float, float] = (-0.05, 0.05)
+  """|rel_y| <= 0.055 keeps the 150 mm plate on the 260 mm-deep riser; 0.05 with margin."""
+  plate_yaw: tuple[float, float] = (0.0, 0.0)
+  ledge_spawn_range: _ObjectSpawnRangeCfg = field(
+    default_factory=lambda: _ObjectSpawnRangeCfg(
+      x=(0.39, 0.43), y=(-0.06, 0.06), z=(0.0, 0.0), yaw=(0.0, 0.0)
+    )
+  )
+  """Ledge placement in env-local coordinates, written per-env every resample.
+
+  The band is set by the PUSH CONTACT POINT, not by the plate centre. The plate is
+  driven toward the robot (``goal_offset`` x is negative), so the gripper contacts
+  its FAR face at ``plate_x + 0.05``; with ``plate_rel_x`` the plate centre reaches
+  ``ledge_x + 0.04``, hence contact at ``ledge_x + 0.09`` = 0.52 at the far end,
+  radial 0.540 at the y-band corner — inside GRASP_RADIAL_MAX.
+
+  The earlier 0.44-0.50 band was audited on the plate centre alone (radial 0.547,
+  1.3% approach freedom) and left the actual contact point at ~0.58, outside the
+  envelope entirely: the plate could not be pushed at all without the arm entering
+  a near-singular configuration.
+
+  Lower bound: the overhang pinch happens at the ledge's NEAR edge,
+  ``ledge_x - LEDGE_HALF_X``; the riser widened to 0.10 in CL-V2, so the band's lower
+  end moved 0.38 -> 0.39 to keep that pinch point at 0.29-0.33, clear of
+  GRASP_RADIAL_MIN (0.28)."""
+
+
+class PivotLiftCommand(LiftingCommand):
+  """Lift a flat board that cannot be pinched on open ground.
+
+  Motion profile: PIVOT-AGAINST-WALL GRASP (extrinsic dexterity). The board is too
+  thin to get a finger under and too wide to span, so the only route to the airborne
+  goal is to push it INTO the wall until it pivots up onto an edge, then pinch the
+  exposed face. Inherits LiftingCommand's goal/success machinery unchanged; adds the
+  per-env placement of the wall, which is a static mocap body (same trap as the
+  container: without an explicit write, every env but env 0 has no wall in reach and
+  the task silently degenerates to plain — impossible — lifting).
+  """
+
+  cfg: PivotLiftCommandCfg
+
+  def __init__(self, cfg: PivotLiftCommandCfg, env: ManagerBasedRlEnv):
+    super().__init__(cfg, env)
+    self.wall: Entity = env.scene[cfg.wall_asset_name]
+
+  def _resample_command(self, env_ids: torch.Tensor) -> None:
+    super()._resample_command(env_ids)
+    n = len(env_ids)
+    origins = self._env.scene.env_origins[env_ids]
+    wrng = self.cfg.wall_spawn_range
+    wall_pos = origins + sample_uniform(
+      torch.tensor([wrng.x[0], wrng.y[0], wrng.z[0]], device=self.device),
+      torch.tensor([wrng.x[1], wrng.y[1], wrng.z[1]], device=self.device),
+      (n, 3),
+      device=self.device,
+    )
+    quats = torch.zeros(n, 4, device=self.device)
+    quats[:, 0] = 1.0
+    self.wall.write_mocap_pose_to_sim(
+      torch.cat([wall_pos, quats], dim=-1), env_ids=env_ids
+    )
+
+
+@dataclass(kw_only=True)
+class PivotLiftCommandCfg(LiftingCommandCfg):
+  """Configuration for the pivot-against-wall lift."""
+
+  class_type: type[CommandTerm] = PivotLiftCommand
+  wall_asset_name: str = "wall"
+  wall_spawn_range: _ObjectSpawnRangeCfg = field(
+    default_factory=lambda: _ObjectSpawnRangeCfg(
+      x=(0.5605, 0.5605), y=(0.0, 0.0), z=(0.075, 0.075), yaw=(0.0, 0.0)
+    )
+  )
+  """Wall placement in env-local coordinates, written per-env every resample. Sits
+  beyond the board spawn band so pushing the board +x jams it against the wall.
+
+  x=0.5605 puts the INNER FACE (wall half-thickness 0.0525) at 0.508. THREE constraints
+  fix this number; an earlier 0.57 violated the first two and 0.50 violated the third:
+
+  1. The board must SPAWN CLEAR of it. The board's worst-case +x extent is its
+     yaw-swept half-extent, 0.06*cos(0.15) + 0.109*sin(0.15) = 0.0756, so a board band
+     ending at 0.41 reaches 0.486 — 22 mm of clearance at the worst yaw and 38 mm at
+     yaw 0. At the old 0.57/0.42-0.50 pairing the board reached 0.572 against an inner
+     face at 0.555: boards spawned up to 13.4 mm INSIDE the wall (measured, plain-MuJoCo
+     contact mirror), with no travel to push through.
+  2. The pivoted-up board must be GRASPABLE. Standing against the inner face its
+     graspable centre is at ~0.498, radial ~0.512 at the y band edge — inside
+     GRASP_RADIAL_MAX (0.55). At 0.57 the grasp face sat at 0.545-0.57 with 0.0% of
+     comfortable top-down poses available.
+  3. **The PUSH APPROACH POINT must be reachable** — the cl25 M4 blocker. Any single-pad
+     pusher has to stand at ``board_x - (BOARD_HALF_X + PAD_RADIUS + clearance)`` =
+     ``board_x - 0.076``. With the old board band at x 0.32-0.38 that is 0.244-0.304,
+     at or below GRASP_RADIAL_MIN (0.28) — workspace.py's documented "folds the arm back
+     over its own base" dead zone — and the teacher never made contact at all
+     (see classical/pivot_lift.py's module docstring). Moving the board band OUT to
+     0.38-0.41 puts the approach point at 0.304-0.334, and the wall has to follow it."""

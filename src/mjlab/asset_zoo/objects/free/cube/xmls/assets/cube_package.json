@@ -1,0 +1,48 @@
+{
+ "name": "cube",
+ "source": "YCB 077_rubiks_cube (google_16k scan)",
+ "license": "CC-BY 4.0",
+ "visual_tris": 12000,
+ "extent_m": [
+  0.046,
+  0.0453,
+  0.0451
+ ],
+ "bounds": [
+  [
+   -0.023,
+   -0.0226,
+   -0.0226
+  ],
+  [
+   0.023,
+   0.0226,
+   0.0226
+  ]
+ ],
+ "collider": "box",
+ "n_colliders": 1,
+ "collider_tris": [],
+ "texture": "cube_tex.png",
+ "mass_kg": 0.05,
+ "volume_m3": 8.993782570813548e-05,
+ "com": [
+  5e-05,
+  -4e-05,
+  -4e-05
+ ],
+ "diaginertia": [
+  1.6497110200616578e-05,
+  1.6626200621665344e-05,
+  1.6639562027944124e-05
+ ],
+ "asset_xml": "    <texture name=\"cube_tex\" type=\"2d\" file=\"cube_tex.png\"/>\n    <material name=\"cube_mat\" texture=\"cube_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"cube_vis\" file=\"cube_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"cube_visual\" type=\"mesh\" mesh=\"cube_vis\" material=\"cube_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>\n      <geom name=\"cube_col_00\" type=\"box\" pos=\"0.0000 0.0000 0.0000\" size=\"0.0230 0.0226 0.0226\" group=\"3\" rgba=\"0.5 0.5 0.5 0.3\" condim=\"3\" friction=\"1 0.03 0.003\" contype=\"1\" conaffinity=\"1\" solref=\"0.01 1\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00005 -0.00004 -0.00004\" quat=\"0.996575 -0.063327 -0.039454 0.035648\" mass=\"0.05000\" diaginertia=\"1.650e-05 1.663e-05 1.664e-05\"/>",
+ "files": [
+  "cube_tex.png",
+  "cube_vis.mtl",
+  "cube_vis.obj"
+ ],
+ "bytes": 1182321
+}

@@ -53,11 +53,26 @@ CONTACT_TOL = 0.04
 EMA_ALPHA = 0.4
 INTEG_GAIN = 0.2
 LEAD_ANGLE = 0.60  # rad of arc to lead by; recomputed from the CURRENT angle
-SETTLE = 2
+# Consecutive in-tolerance steps required before phase 1 -> 2 (and, after a re-seat,
+# phase 1 -> 2 again). Was 2. Once RESEAT_TOL (below) started firing correctly, a new
+# residual appeared: recovered episodes still fell short of the target within the
+# 150-step budget. Instrumented (2026-09-08): a typical recovering episode re-seats
+# 3-6 times, and each re-seat pays this settle delay on top of the re-approach itself
+# -- at SETTLE=2 that is 6-12+ wasted steps per episode just re-confirming contact
+# already re-confirmed the step before. Dropping to 1 measured 0.891->0.953 (128) with
+# no regression in the direct (non-recovery) path, because CONTACT_TOL (0.04) is tight
+# enough on its own that a single in-tolerance step is not a false positive here.
+SETTLE = 1
 # Hard cap on how far the commanded waypoint may sit from the gripper. Without
 # it a momentarily bad angle estimate produces a waypoint metres away and the
 # arm flings itself out of the workspace (observed: gripper-object distance 0.9m).
 MAX_WAYPOINT = 0.20
+
+# Re-seat gate for the arc-follow phase (phase 2). See the "STALL" note on
+# `_target_error`'s phase-2 branch: this was 0.14 and it silently deadlocked a large
+# fraction of episodes, never triggering. 0.06 is calibrated directly off instrumented
+# traces, not an arbitrary retune -- see that note for the numbers.
+RESEAT_TOL = 0.06
 
 
 class TurnLeverClassicalPolicy(ClassicalPolicyBase):
@@ -165,8 +180,22 @@ class TurnLeverClassicalPolicy(ClassicalPolicyBase):
         + lead_n * FACE_STANDOFF
       )
       pos_err = target + self._integ[i]
-      # Re-seat only if the pad has genuinely lost the bar.
-      if np.linalg.norm(contact) > 0.14:
+      # STALL / re-seat gate. Instrumented finding (2026-09-08): the gate used to be
+      # `norm(contact) > 0.14`, and it essentially never fired. Traced per-step: a
+      # failing env's pad drifts off the bar's pushing face (almost entirely a +z
+      # climb, e.g. contact=[+0.02,+0.01,+0.12] by ~12 steps into phase 2) and then
+      # SITS at a stable ~0.10-0.13 contact-norm equilibrium for the rest of the
+      # episode with jv frozen to 4 decimal places -- genuinely zero force, not slow
+      # progress. That equilibrium never crosses 0.14, so the gate designed to catch
+      # "lost the bar" never caught the one failure mode that actually occurs.
+      # Contrast with envs that succeed: during the real accelerating push (jv
+      # racing from 0 to past -90deg) contact-norm stays under ~0.05 the whole time;
+      # it only grows past 0.08 AFTER the joint has already hit its hard stop and
+      # success is already latched, so tightening this does not cost those episodes
+      # anything. 0.06 sits between the "actively pushing" band (<0.05) and the
+      # "silently stuck" plateau (>=0.10), so it now actually fires while the
+      # episode still has budget left to recover.
+      if np.linalg.norm(contact) > RESEAT_TOL:
         self._phase[i] = 1
         self._settle[i] = 0
         self._integ[i] = 0.0

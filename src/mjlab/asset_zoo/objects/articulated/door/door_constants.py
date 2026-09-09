@@ -6,6 +6,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -25,9 +26,18 @@ MOCAP_TARGET_XML: Path = (
 # Spec functions.
 ##
 
+def get_door_assets(meshdir: str) -> dict[str, bytes]:
+    """Load the mesh/texture assets next to the XML (Franka pattern, CODE_MAP §1)."""
+    assets: dict[str, bytes] = {}
+    update_assets(assets, DOOR_XML.parent / "assets", meshdir)
+    return assets
+
+
 def get_door_spec() -> mujoco.MjSpec:
-    """Load Door MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(DOOR_XML))
+    """Load Door MjSpec from XML, with its meshes and textures."""
+    spec = mujoco.MjSpec.from_file(str(DOOR_XML))
+    spec.assets = get_door_assets(spec.meshdir)
+    return spec
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:

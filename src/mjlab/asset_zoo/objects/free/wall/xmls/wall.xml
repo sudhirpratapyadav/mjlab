@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  Wall: the static fixture for the pivot-against-wall grasp.  CL-V2 asset upgrade, W1-c.
+
+  A low brick wall the board is pushed against so it pivots up onto an edge.  Static
+  (mocap) body, written per-env by PivotLiftCommand (same convention as the bin/ledge).
+  Body origin at the wall CENTRE: PivotLiftCommandCfg places it at z = 0.075 so the wall
+  sits flush on the ground plane.
+
+  REAL REFERENCE: **500 x 105 x 150 mm** -- two courses of standard 215 x 102.5 x 65 mm
+  bricks on 10 mm beds.  Texture: Poly Haven `brick_wall_001` (CC0).  Grown from the
+  primitive's 400 x 30 x 150 mm because (a) 30 mm is not a thickness any masonry comes
+  in, and (b) the board is now 219 mm long, so a 400 mm wall would be overrun by a board
+  spawned at the y-band edge (219/2 + 0.12 = 0.229 > 0.20).
+
+  Collision is ONE box at the full envelope; only the inner (-x) face is ever touched.
+-->
+<mujoco model="wall">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="wall_tex" type="2d" file="wall_tex.png"/>
+    <material name="wall_mat" texture="wall_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="wall_vis" file="wall_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="wall_base" pos="0.5605 0 0.075" mocap="true">
+      <geom name="wall_visual" type="mesh" mesh="wall_vis" material="wall_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom type="box" name="wall_geom" size="0.0525 0.25 0.075" pos="0 0 0"
+            condim="3" friction="0.9 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- object_site marks the wall's INNER (robot-facing) face, not its centre: that
+           face is the only point on the wall the task interacts with, it is what every
+           derivation in PivotLiftCommandCfg.wall_spawn_range is written in terms of,
+           and it is the point the placement audit should be measuring (the wall is a
+           fixture -- it is pushed against, never grasped). -->
+      <site name="object_site" pos="-0.0525 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

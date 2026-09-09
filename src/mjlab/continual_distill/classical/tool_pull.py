@@ -25,7 +25,8 @@ The stick still never leaves the ground. Across the whole test its ``object_site
 stays pinned at 0.011, its resting height, while the gripper site rises to 0.35+. What
 happens instead is visible in ``gripper_to_tool`` during the squeeze: its x component
 grows monotonically from -0.004 to -0.042. **The squeeze ejects the stick axially.** The
-shaft is a long thin box (0.26 x 0.022 x 0.022) with its mass 9cm off the grasp point,
+shaft is a long thin dowel (0.26 m long, 22 mm across; a box of the same extents before
+CL-V2) with its mass 9cm off the grasp point,
 so any residual misalignment converts the pinch's normal force into a force along the
 shaft, and it squirts out from between the pads before the grip can develop. Fingertip
 slide friction is domain-randomised as low as 0.3, which is far too little to arrest it.
@@ -68,13 +69,13 @@ the env under a state machine the harness never tells about it. Raising the guar
 That number is honest but weak, and it is unstable between batches (0.250 and 0.000 on
 two consecutive 16-env episodes) -- see the measurement note in the benchmark doc. The
 puck spawns at radial 0.62-0.70, right at the edge of the arm's top-down envelope, and
-shoving a 7cm disc from there gives very little steering authority; ``object_out_of_
+shoving a 7.6cm, 160 g disc from there gives very little steering authority; ``object_out_of_
 bounds`` (x outside (0,1), y outside (-0.5,0.5)) also fires readily on a puck being
 pushed sideways. This teacher is a floor, not a solution.
 
 SUCCESS (ToolPullCommand)
 -------------------------
-    || puck_site - (env_origin + (0.42, 0, 0.012)) || < 0.07
+    || puck_site - (env_origin + (0.42, 0, 0.0127)) || < 0.07
 
 OBSERVATION LAYOUT (69-D, measured against the live env, not assumed)
 --------------------------------------------------------------------
@@ -105,15 +106,18 @@ import numpy as np
 
 from mjlab.continual_distill.classical.base import HOME_QPOS, ClassicalPolicyBase
 
-# Env-local goal, from ToolPullCommandCfg.goal_offset.
-GOAL_LOCAL = np.array([0.42, 0.0, 0.012])
+# Env-local goal, from ToolPullCommandCfg.goal_offset (z = the puck's half-thickness).
+GOAL_LOCAL = np.array([0.42, 0.0, 0.0127])
 
 _DOWN_AXIS = np.array([0.0, 0.0, -1.0])
 GRIPPER_CLOSED = -1.0
 
-# The puck is a 7cm-diameter, 2.4cm-thick disc. Ride the closed fingertips at this
-# height: high enough that the pads clear the floor, low enough to catch the puck's rim
-# rather than skate over it.
+# The puck is a regulation 7.62 cm-diameter, 2.54 cm-thick ice-hockey puck (CL-V2, W1-b;
+# it was a 7 cm x 2.4 cm primitive of 30 g, and is now 160 g). Ride the closed fingertips
+# at this height: high enough that the pads clear the floor, low enough to catch the
+# puck's rim rather than skate over it. RE-DERIVED: pads sit ~1.3 cm below the site, so
+# 0.034 puts the pad bottom at 0.021 -- 83% of the way up the puck's 0-0.0254 face (it
+# was 87% of the old 0-0.024 face), still clear of the 0.030 site floor guard. Unchanged.
 RIDE_Z = 0.034
 HOVER_Z = 0.16  # transit altitude while swinging out over the puck
 
@@ -125,8 +129,8 @@ HOVER_Z = 0.16  # transit altitude while swinging out over the puck
 DESCEND_RATE = 0.012
 
 # Stand this far BEHIND the puck (on the far side from the goal) so the fingers make
-# contact on its outer rim and push inward. Puck radius 0.035 + a pad half-width.
-BEHIND = 0.052
+# contact on its outer rim and push inward. Puck radius 0.0381 + a pad half-width 0.017.
+BEHIND = 0.055
 # Multiplier on the standoff during the shepherd phase, to compensate the DLS
 # steady-state bias that otherwise pulls the gripper on top of the puck.
 BEHIND_BIAS = 1.8

@@ -1,0 +1,48 @@
+{
+ "name": "ledge",
+ "source": "Poly Haven texture 'oak_wood_planks' (CC0); plank-built riser modelled with trimesh",
+ "license": "CC0",
+ "visual_tris": 116,
+ "extent_m": [
+  0.2,
+  0.26,
+  0.1
+ ],
+ "bounds": [
+  [
+   -0.1,
+   -0.13,
+   0.0
+  ],
+  [
+   0.1,
+   0.13,
+   0.1
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "ledge_tex.png",
+ "mass_kg": 2.184,
+ "volume_m3": 0.005198969462297167,
+ "com": [
+  0.0,
+  0.0,
+  0.04999
+ ],
+ "diaginertia": [
+  0.009097698614723523,
+  0.014120414659456147,
+  0.01957951356314376
+ ],
+ "asset_xml": "    <texture name=\"ledge_tex\" type=\"2d\" file=\"ledge_tex.png\"/>\n    <material name=\"ledge_mat\" texture=\"ledge_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"ledge_vis\" file=\"ledge_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"ledge_visual\" type=\"mesh\" mesh=\"ledge_vis\" material=\"ledge_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00000 0.00000 0.04999\" quat=\"0.000000 0.707107 0.707107 -0.000000\" mass=\"2.18400\" diaginertia=\"9.098e-03 1.412e-02 1.958e-02\"/>",
+ "files": [
+  "ledge_tex.png",
+  "ledge_vis.mtl",
+  "ledge_vis.obj"
+ ],
+ "bytes": 1592790
+}

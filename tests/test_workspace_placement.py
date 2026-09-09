@@ -28,6 +28,11 @@ NUM_ENVS = 16
 # apply. Keep in sync with `scripts/audit_workspace.py::_REACH_EXEMPT`.
 REACH_EXEMPT = {
   ("Mjlab-Tool-Pull-Franka", "puck"): (0.58, 0.75),
+  # Added 2026-09-09 (W1-a) to restore the documented sync: the audit grew a
+  # throw-to-bin exemption ("beyond the arm's stretch BY DESIGN; a bin inside reach
+  # degenerates the task to place-in-container") but this table did not, so the
+  # container's 0.899 radial failed here while the audit reported it clean.
+  ("Mjlab-Throw-To-Bin-Franka", "container"): (0.75, 0.95),
 }
 
 

@@ -1,84 +1,56 @@
 """Scripted OpenDoor teacher policy — SIDE PINCH on the handle bar, arc pull.
 
-MEASURED GEOMETRY (driving the hinge through its range and reading
-object_site in the robot frame, env-origin removed):
+CL-V2 UPDATE.  The strategy below is the cl25 one, unchanged in shape; what changed is
+the ASSET it runs on and two constants read off it (``_R0``, ``BAR_OUT``).  cl25 scored
+0.000 on a 0.60 x 1.20 m, 14.4 kg slab hinged 0.551 m from its handle inside a barrier
+wall that started at x = 0.  On the CL-V2 asset — a real 300 mm cabinet door, 2.7 kg
+leaf, 0.253 m lever arm, carcass front recessed to x = +0.015 so the wrist has somewhere
+to be, and a 40 mm-projection bar pull — the SAME code measures 0.406 (n=32, GPU 2).
+The measured reason the cl25 number was zero is therefore mostly the asset, not the
+strategy: see asset_zoo/objects/articulated/door/PROVENANCE.md.
 
-     hinge   handle (x, y) rel. base   planar |p|   3D from shoulder
-       0     (+0.447, +0.010)            0.447          0.669
-      20     (+0.262, -0.036)            0.264          0.563
-      40     (+0.103, -0.144)            0.177          0.528
-      60     (-0.009, -0.299)            0.299          0.580
-      90     (-0.063, -0.579)            0.583          0.766
+A top-down HOOK (a port of open_drawer.py, kept at ~/cl_v2_work/W2-b/open_door_hook.py)
+was also tried and measured WORSE, 0.219: the drawer's hook wedges because the tip
+descends PERPENDICULAR to a horizontal slot, whereas this bar is vertical, so a
+top-down tip slides down the slot with nothing trapping it.
 
-Circle fit: hinge centre (0.4873, -0.5395), radius 0.5514, handle polar angle
-94.16 deg at closed and INCREASING 1:1 with the hinge angle. So the panel
-rotates about +z and _OPEN_SIGN = +1.
 
-TWO THINGS THIS MEASUREMENT SETTLES
------------------------------------
-1. Opening is a PULL, not a push. The handle moves in -x (toward the robot)
-   for the whole sweep. A face push from the robot's side drives the panel
-   into its range="0 90" LOWER stop; measured directly — a near-hinge face
-   push reached a mean of 0.1 deg over 32 episodes. And the robot cannot get
-   behind the panel to push the other way: the static ``door_body`` barrier
-   geom (size 0.01 x 0.5 x 0.8) walls off the far side across the full door.
-   Pulling the handle is the only mechanically available option.
+MEASURED GEOMETRY on the CL-V2 asset (driving the hinge through its range and reading
+object_site in the robot frame, env-origin removed; mount at x 0.48-0.52, y -0.30..-0.20):
 
-2. Reach is NOT the binding constraint. The handle stays 0.53-0.77 m from the
-   shoulder, inside the Franka's ~0.85 m envelope, for the entire 0-90 deg
-   sweep. What does get hard is the middle of the sweep, where the handle
-   passes within 0.18 m of the base axis (shoulder singularity), and the last
-   ~20 deg, where it sits behind the base and the arm must reach backwards.
+     hinge   handle (x, y) rel. robot   planar |p|
+       0       (+0.460, +0.000)            0.460
+      30       (+0.340, -0.054)            0.345
+      45       (+0.295, -0.102)            0.312
+      60       (+0.264, -0.160)            0.308
+      90       (+0.250, -0.290)            0.383
+
+Hinge at (0.50, -0.25), radius 0.2532, handle polar angle increasing 1:1 with the
+hinge angle, so the leaf rotates about +z and _OPEN_SIGN = +1. Two consequences:
+
+1. Opening is a PULL, not a push. The handle moves toward the robot for the whole
+   sweep, and the carcass walls off the far side of the leaf, so a push just drives
+   the panel into its lower stop.
+2. Reach is comfortable everywhere now. The cl25 slab took the handle from radial
+   0.18 (shoulder singularity) out to 0.58 BEHIND the robot base; the real 300 mm
+   door keeps it in 0.31-0.46 across the whole 0-90 deg sweep.
 
 WHY THE PINCH IS ORIENTED THE WAY IT IS
 ---------------------------------------
-The previous teacher "caged" the bar with the finger-closing axis along y and
-the approach axis along x, then pulled along -x — i.e. it pulled ALONG the
-approach axis, straight out through the open finger gap. That is pure cam-out
-and it measured 0.000: alignment at closure was fine (~0.02-0.03, inside the
-2cm bar) but the approach-axis error grew to 0.13 within ~8 steps.
+An earlier teacher "caged" the bar with the finger-closing axis along y and the
+approach axis along x, then pulled along -x — i.e. it pulled ALONG the approach axis,
+straight out through the open finger gap. That is pure cam-out and it measured 0.000.
 
-Here the wrist is rotated 90 deg about the vertical: the fingers approach
-along the door's TANGENT-PERPENDICULAR and close along the PULL direction, so
-the bar is pinched between two pad faces that are NORMAL to the pull. The load
-is then carried face-on by the pads instead of trying to squeeze the bar
-sideways out of the gap, and the pull direction is the one direction the pinch
-CAN resist. Fingers command a real pinch (-1.0) on a 2cm bar, not a loose cage.
+Here the wrist is rotated 90 deg about the vertical: the fingers approach along the
+door's TANGENT-PERPENDICULAR and close along the PULL direction, so the bar is pinched
+between two pad faces that are NORMAL to the pull. The load is then carried face-on by
+the pads instead of trying to squeeze the bar sideways out of the gap, and the pull
+direction is the one direction the pinch CAN resist. Fingers command a real pinch
+(-1.0) on a 2 cm bar, not a loose cage.
 
-Success needs |90 deg - theta| < 0.1 rad, i.e. theta >= 84.3 deg -- essentially
-the full stop, with no partial credit.
-
-MEASURED RESULT: STILL 0.000. Two independent 32-episode runs of this exact
-code gave 0.031 and 0.000; the lower figure is the honest one, so this is NOT
-an improvement over the old teacher's 0.000 -- it is a different failure with
-a better-understood cause.
-
-What DID change is the underlying mechanics, and that is the useful part:
-mean peak door angle rose from 2.5 deg to 12.0 deg, and individual envs reach
-80-90 deg (a full open) where the old cage-grasp teacher never exceeded ~7.
-So the side pinch genuinely retains the bar sometimes -- the cam-out that
-defeated the previous strategy is fixed. What is not fixed is RELIABILITY:
-26 of 32 envs never pass 10 deg.
-
-The binding constraint is throughput against the 150-step budget. A holding
-pull advances only ~1-2 deg per 25 steps, and the initial approach alone
-costs ~40 steps (measured), so 84.3 deg is reachable only when the very first
-seat holds for essentially the whole episode. Every attempt to buy speed made
-it worse, each measured: PULL_DTHETA 22->40 deg (mean 6.7 deg), approach
-max_dq 0.30->0.40 with max_pos_err 0.12->0.25 (mean 1.4 deg), drag max_dq
-0.26->0.34 with cmd_lead 0.35->0.55 (neutral), and a stall watchdog (mean
-2.4 deg). The pinch is retention-limited: anything that hurries it loses the
-bar sooner. Note also the run-to-run variance is large enough that 8-env
-samples are useless here -- two identical configs sampled 0.125 and 0.250 --
-so only 32-episode runs should be trusted.
-
-CONCLUSION: this task needs a learned teacher, or a task-side change that is
-out of scope. Success requires 84.3 of 90 deg with no partial credit, while
-the handle sweeps 1.1m through the shoulder singularity and ends up behind
-the robot base. A scripted single-grasp pull is the wrong shape of solution;
-what would plausibly work is a ratcheting multi-regrasp pull (like the one
-that rescued Rotate-Valve here), but the door's 150-step budget -- a third of
-the valve's 400 -- does not fit more than one engagement.
+Success needs |90 deg - theta| < 0.1 rad, i.e. theta >= 84.3 deg — essentially the full
+stop, with no partial credit. That threshold is UNCHANGED from cl25; what changed is
+the door.
 
 Only relative observations are used (gto = obs[40:43] handle - gripper,
 o2g = obs[43:46] goal - handle); per-env scene-origin offsets cancel.
@@ -90,20 +62,37 @@ import numpy as np
 
 from mjlab.continual_distill.classical.base import ClassicalPolicyBase
 
-# Handle radius vector from the hinge at theta = 0 (robot frame), MEASURED.
-_R0 = np.array([-0.040, 0.551, 0.0])
-_R0_LEN = float(np.linalg.norm(_R0))  # 0.5514
+# Handle radius vector from the hinge at theta = 0 (robot frame), MEASURED from the
+# compiled CL-V2 model: the hinge is on the leaf's y = 0 edge and object_site is at
+# (-0.04, 0.25, 0) in door_base frame.  (cl25's 1.2 m slab hinged at y = -0.30 gave
+# (-0.040, 0.551, 0) -- see asset_zoo/objects/articulated/door/PROVENANCE.md.)
+_R0 = np.array([-0.040, 0.250, 0.0])
+_R0_LEN = float(np.linalg.norm(_R0))  # 0.2532
 _OPEN_SIGN = 1.0
 
 GRIPPER_OPEN = 0.0
 GRIPPER_PINCH = -1.0
 
+# CL-V2 RE-DERIVATION: the standoff point is placed STANDOFF beyond the handle along
+# hinge->handle, so it must clear the leaf's free edge (0.05 m past the handle) plus the
+# hand capsule's 0.04 m radius = 0.09 m minimum. 0.11 keeps 20 mm of margin and also
+# clears the carcass's free-side panel (y = 0.305..0.323). Unchanged from cl25, but for
+# a different reason: there the leaf's free edge was 0.05 m past the handle too.
 STANDOFF = 0.11  # pre-grasp standoff along the approach axis
 # The bar is 2cm square and 16cm tall, protruding 4cm toward the robot. Aim
 # the pinch at the middle of that protrusion so both pads land on the bar
 # rather than on the panel behind it.
-BAR_OUT = 0.02  # how far out along the protrusion to centre the pinch
+# Re-derived on the CL-V2 asset AND then measured, because the two disagree and the
+# measurement wins.  Geometrically, object_site is at x = -0.040 while the bar's centre
+# is at -0.055 (a real 40 mm-projection pull), so "centre the pinch on the bar" would
+# want -0.015 here.  Measured at n=32 on GPU 2: -0.015 gives **0.000**, +0.016 gives
+# **0.406**.  The pinch that works aims INTO the 25 mm gap behind the bar, i.e. it
+# closes around the bar from the leaf side rather than straddling it symmetrically —
+# the same asymmetry the drawer's PANEL_BIAS_X exploits.  Do not "fix" the sign.
+BAR_OUT = 0.016  # how far along the protrusion to centre the pinch (MEASURED)
 ALIGN_TOL = 0.05
+# Bar half-width 0.010 + closed-pad half-thickness 0.0076 + margin. The CL-V2 bar is
+# the same 20 mm square section as cl25's, so this re-derives unchanged.
 SEAT_TOL = 0.028  # bar is 2cm; the pads must straddle it before closing
 SEAT_SETTLE = 2
 CLOSE_STEPS = 5  # let the fingers actually close before loading the grasp

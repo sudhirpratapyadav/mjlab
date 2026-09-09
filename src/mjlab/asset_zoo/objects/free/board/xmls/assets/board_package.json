@@ -1,0 +1,48 @@
+{
+ "name": "board",
+ "source": "Poly Haven 'wooden_cutting_board' (450x247x41 mm), uniformly scaled 0.486 to a 219x120x20 mm chopping board and yawed 90 deg so its long axis lies along +y (across the push direction)",
+ "license": "CC0",
+ "visual_tris": 3520,
+ "extent_m": [
+  0.12,
+  0.2189,
+  0.0201
+ ],
+ "bounds": [
+  [
+   -0.06,
+   -0.1094,
+   -0.01
+  ],
+  [
+   0.06,
+   0.1094,
+   0.01
+  ]
+ ],
+ "collider": "box",
+ "n_colliders": 1,
+ "collider_tris": [],
+ "texture": "board_tex.png",
+ "mass_kg": 0.17,
+ "volume_m3": 0.00045904120936391107,
+ "com": [
+  9e-05,
+  0.00016,
+  -0.00042
+ ],
+ "diaginertia": [
+  0.000197784008615258,
+  0.0006535874384083052,
+  0.000842289264993974
+ ],
+ "asset_xml": "    <texture name=\"board_tex\" type=\"2d\" file=\"board_tex.png\"/>\n    <material name=\"board_mat\" texture=\"board_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"board_vis\" file=\"board_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"board_visual\" type=\"mesh\" mesh=\"board_vis\" material=\"board_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>\n      <geom name=\"board_col_00\" type=\"box\" pos=\"0.0000 0.0000 0.0000\" size=\"0.0600 0.1094 0.0100\" group=\"3\" rgba=\"0.5 0.5 0.5 0.3\" condim=\"3\" friction=\"0.7 0.03 0.003\" contype=\"1\" conaffinity=\"1\" solref=\"0.01 1\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00009 0.00016 -0.00042\" quat=\"0.705468 -0.000689 0.003909 -0.708731\" mass=\"0.17000\" diaginertia=\"1.978e-04 6.536e-04 8.423e-04\"/>",
+ "files": [
+  "board_tex.png",
+  "board_vis.mtl",
+  "board_vis.obj"
+ ],
+ "bytes": 1956791
+}

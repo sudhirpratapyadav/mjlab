@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+  Ceramic side plate (for the slide-to-edge overhang grasp).  CL-V2 asset upgrade, W1-c.
+
+  REAL ASSET: Google Scanned Objects `Room_Essentials_Salad_Plate_Turquoise` (a scanned
+  222 mm salad plate), uniformly scaled 0.676 to **150 mm** -- a standard 6 in
+  bread-and-butter / side plate.  19.2 mm tall, 180 g (a real 150 mm stoneware plate is
+  150-200 g).  Texture is the scan's own albedo.
+
+  Motion profile it serves: EXTRINSIC-DEXTERITY EDGE GRASP.  The plate is 150 mm across
+  in BOTH in-plane directions, far past the 80 mm aperture, so it cannot be spanned;
+  lying flat on the riser its rim offers no finger clearance underneath.  The ONLY
+  graspable configuration is thickness-wise at an overhang -- which is exactly what
+  sliding it over the riser's edge exposes.  The rim itself is ~5 mm thick, a genuine
+  thin edge to pinch.
+
+  Collision: ONE analytic **cylinder** (r 75 mm, half-height 9.6 mm). CoACD (8 hulls)
+  and the plain convex hull are both geometrically better but neither SETTLES: MuJoCo's
+  mesh-plane contact returns only three points under a flat circular foot and the plate
+  micro-rocks forever (measured after 2 s: CoACD |v| 5.9 mm/s |w| 0.013 rad/s, hull
+  |v| 0.7 mm/s |w| 0.101 rad/s; cylinder-plane is analytic and gives |v| = |w| = 0.000).
+  Nothing in this task needs the dish's concavity: the plate is pushed on its trailing
+  face, overhung at the riser edge, and pinched on its thickness, and a solid disc of
+  the same footprint and thickness reproduces all three exactly.
+-->
+<mujoco model="plate">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="plate_tex" type="2d" file="plate_tex.png"/>
+    <material name="plate_mat" texture="plate_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="plate_vis" file="plate_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="plate" pos="0.45 0 0.12">
+      <freejoint name="plate_joint"/>
+      <inertial pos="-0.00006 -0.00019 0.00118" quat="0.897310 0.004082 -0.006277 -0.441338" mass="0.18000" diaginertia="2.001e-04 2.004e-04 3.919e-04"/>
+      <geom name="plate_visual" type="mesh" mesh="plate_vis" material="plate_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Analytic cylinder collider (see the header note on why not CoACD). -->
+      <geom name="plate_geom" type="cylinder" size="0.075 0.0096" pos="0 0 0" group="3"
+            rgba="0.5 0.5 0.5 0.3" mass="0" condim="3" friction="0.5 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,115 @@
+{
+ "task": "Mjlab-Reorient-Object-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "cylinder": {
+    "n": 1000,
+    "x": [
+     0.33126169443130493,
+     0.4889209270477295
+    ],
+    "y": [
+     -0.21877384185791016,
+     0.21883153915405273
+    ],
+    "z": [
+     0.01452849991619587,
+     0.014528502710163593
+    ],
+    "radial": [
+     0.3326449394226074,
+     0.5324940085411072
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "cylinder": -0.0007429990407623582
+  },
+  "goal": {
+   "term": "reorient_object",
+   "radial": [
+    0.3326449394226074,
+    0.5324940085411072
+   ],
+   "z": [
+    0.01600000075995922,
+    0.01600000075995922
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "angle_threshold": 0.35,
+   "max_drift": 0.18
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "cylinder": {
+   "xml": "src/mjlab/asset_zoo/objects/free/cylinder/xmls/cylinder.xml",
+   "mass_kg": 0.025,
+   "ngeom_collision": 1,
+   "nmesh": 2,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 1.386092495987274e-12,
+    "w_final": 1.2431788744508249e-11,
+    "z_drop_after_quarter_s": -8.053068898533633e-08,
+    "tilt_deg": 0.6871397412639908,
+    "lowest_point_z": -0.00011785794750218681,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -0.00011785794747648168,
+    "v_final": 3.5965051049549003e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.0296,
+    0.0296,
+    0.0529
+   ],
+   "grasp_width_m": 0.02959800041298408,
+   "graspable_pass": true,
+   "step_time_us": 3.4005269408226013,
+   "step_time_baseline_us": 2.638649195432663,
+   "step_time_ratio": 1.2887377930756014,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

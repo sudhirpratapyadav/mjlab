@@ -34,6 +34,14 @@ from mjlab.tasks.registry import load_env_cfg, load_taxonomy
 _TOPDOWN_COS = -0.85
 """EE z-axis vs world +z. -0.85 is within ~32 deg of straight down."""
 
+_OVERLAP_TOLERANCE = 0.001
+"""Metres two entities may interpenetrate at reset before it counts as a bug.
+
+Much tighter than ``_FLOOR_TOLERANCE``: that one is loose because ``rbound`` is a
+conservative bounding sphere, whereas contact ``dist`` is exact. 1 mm is contact
+solver noise; anything deeper is a placement error. The board-in-wall bug this check
+was written for was 13.4 mm, which a 0.02 threshold would have waved through."""
+
 _FLOOR_TOLERANCE = 0.02
 """Metres a geom may dip below z=0 before it counts as buried (rbound is a conservative
 bounding sphere, so a little slack avoids false positives on rounded geoms)."""
@@ -48,6 +56,67 @@ _REACH_EXEMPT: dict[tuple[str, str], tuple[float, float, str]] = {
     0.58,
     0.75,
     "out of direct reach by design; must stay inside the stick's extension",
+  ),
+  ("Mjlab-Throw-To-Bin-Franka", "container"): (
+    0.75,
+    0.95,
+    "beyond the arm's stretch BY DESIGN; a bin inside reach degenerates the task "
+    "to place-in-container. Bounded so the ballistic arc stays achievable.",
+  ),
+}
+
+# Tasks whose objects are approached from the SIDE (a poke, a straddle, a face push),
+# never pinched top-down. The top-down grasp-pose fraction is meaningless for them —
+# it reported "sparse-reach" on placements that are entirely comfortable for the
+# approach they actually use. They are still bound by the radial ceiling.
+_SIDE_APPROACH: dict[tuple[str, str], str] = {
+  ("Mjlab-Topple-Block-Franka", "block"): "poked on the near face above its CoM",
+  ("Mjlab-Cage-Drag-Franka", "cube"): "straddled with open fingers, never pinched",
+  ("Mjlab-Pivot-Lift-Franka", "board"): "pinched standing on edge against the wall",
+  ("Mjlab-Edge-Grasp-Franka", "plate"): (
+    "pushed on its far face where it spawns; the PINCH happens later at the "
+    "overhang, which is audited as goal:edge_grasp (radial 0.30)"
+  ),
+}
+
+# Static fixtures: extrinsic-dexterity furniture the arm works AGAINST but never
+# grasps. Scoring them by grasp-pose freedom is meaningless — the question for a
+# fixture is only whether the arm can reach the object at it, which is covered by
+# that object's own row. They remain bound by the radial ceiling so a fixture cannot
+# drift somewhere the arm could never work against it.
+_FIXTURES: dict[tuple[str, str], str] = {
+  ("Mjlab-Pivot-Lift-Franka", "wall"): "pushed against, never grasped",
+  ("Mjlab-Edge-Grasp-Franka", "ledge"): "the plate's support surface, never grasped",
+}
+
+# Command goals that are deliberately outside the reach envelope. Same rule as
+# _REACH_EXEMPT: exempt from the ceiling, still BOUNDED, and justified in writing.
+_GOAL_EXEMPT: dict[tuple[str, str], tuple[float, float, str]] = {
+  ("Mjlab-Strike-Slide-Franka", "strike_slide"): (
+    0.85,
+    1.10,
+    "past the arm's ~0.85 m stretch BY DESIGN; a reachable goal degenerates the "
+    "task to a quasi-static push",
+  ),
+  ("Mjlab-Reach-Target-Franka", "reach_target"): (
+    0.0,
+    0.75,
+    "the goal IS the reach probe — this task exists to span the envelope, and it "
+    "carries nothing, so the carry ceiling does not apply. ONE-SIDED, unlike "
+    "tool-pull and throw-to-bin, whose whole band is deliberately out of reach so a "
+    "floor is meaningful for them; reach's band runs from the near envelope "
+    "(radial 0.40) out to the far one, so only the ceiling constrains it. The floor "
+    "was 0.60, copied from that two-sided pattern; audit_workspace only ever tested "
+    "the MAX radial so it never fired, but verify_task tests every sampled goal and "
+    "flagged it (2026-09-09, W1-a). CAVEAT: the far end "
+    "(0.73) sits at the top-down p90 (0.726), i.e. in the sparse tail this module "
+    "otherwise warns against. Left as-is deliberately because Reach has trained "
+    "teachers; trimming it would invalidate them. Revisit if those are retrained.",
+  ),
+  ("Mjlab-Throw-To-Bin-Franka", "place_in_container"): (
+    0.75,
+    0.95,
+    "the bin is beyond reach BY DESIGN; the object must be released ballistically",
   ),
 }
 
@@ -76,6 +145,18 @@ def _sample_workspace(n: int = 400_000, joint_frac: float = 0.90):
     pos[i] = data.site_xpos[site_id]
     down[i] = data.site_xmat[site_id].reshape(3, 3)[2, 2]
   return pos, down
+
+
+_APPROACH_OFFSET = 0.08
+"""Height of the gripper SITE above an object's centre during a top-down approach.
+
+The metric's old hardcoded ``site_z=0.10`` silently assumed a floor-resting object
+(centre z ~0.02). That is wrong for anything raised: the edge-grasp plate sits on a
+0.10 m ledge, so its pinch happens with the site near 0.19, and scoring it at 0.10
+sampled a slice of the envelope the task never uses — reporting "sparse-reach" on a
+placement that is comfortable at the height it is actually grasped.
+
+0.02 + 0.08 = 0.10 reproduces the original default exactly for floor objects."""
 
 
 def _grasp_pose_fraction(x0, x1, y0, y1, site_z=0.10, tol=0.04) -> float:
@@ -140,7 +221,22 @@ def _geom_half_height(model, data, gid: int) -> float:
                      mujoco.mjtGeom.mjGEOM_CAPSULE else 0.0)])
   elif gtype == mujoco.mjtGeom.mjGEOM_ELLIPSOID:
     half = size[:3]
-  else:  # mesh and anything exotic: fall back to the conservative bound
+  elif gtype == mujoco.mjtGeom.mjGEOM_MESH:
+    # EXACT, from the compiled mesh vertices. `geom_rbound` (used here before any
+    # asset had a mesh) is a bounding SPHERE, so a flat 200x200x10mm plate reports a
+    # 0.14m half-height instead of 0.005m. That is not a cosmetic over-estimate: this
+    # function feeds `_floor_penetration` AND
+    # tests/test_workspace_placement.py::test_mechanism_drops_are_swept_over_the_joint_range,
+    # so every mechanism that grows a textured visual mesh would demand a much higher
+    # `MECHANISM_DROP_BELOW_MOUNT` and get mounted well above the band its task was
+    # tuned for. MuJoCo re-frames mesh vertices (`geom_xpos` sits at the mesh frame,
+    # not the authored origin), so project the stored vertices on the world z row.
+    mid = int(model.geom_dataid[gid])
+    adr = int(model.mesh_vertadr[mid])
+    num = int(model.mesh_vertnum[mid])
+    verts = np.asarray(model.mesh_vert[adr : adr + num], dtype=float)
+    return float(-(verts @ rot[2, :]).min())
+  else:  # anything exotic: fall back to the conservative bound
     return float(model.geom_rbound[gid])
   # Projection of the box's half-extents onto world z.
   return float(np.abs(rot[2, :]) @ half)
@@ -187,6 +283,85 @@ def _floor_penetration(task_id: str) -> dict[str, float]:
       half_z = _geom_half_height(model, data, gid)
       low = float(geom_xpos[gid][2] - half_z)
       out[entity] = min(out.get(entity, 0.0), low)
+    return out
+  finally:
+    env.close()
+
+
+def _entity_overlaps(task_id: str, trials: int = 12) -> dict[str, float]:
+  """Deepest object<->object interpenetration at RESET, per geom pair, in metres.
+
+  ``_floor_penetration`` catches an entity buried in the ground and the earlier
+  placement audit covered robot<->object, but nothing checked one placed entity
+  against another. That gap hid a real bug: Pivot-Lift spawned its board up to
+  13.4 mm inside the wall it was supposed to be pushed against, so the episode began
+  in contact with no travel available. Fixtures (wall, ledge, container) are written
+  per-env by their command AFTER the object spawn, so an overlap here is a config
+  error, not a physics transient.
+
+  Negative ``dist`` is penetration. Terrain contacts are skipped — that is
+  ``_floor_penetration``'s job, and a resting object legitimately touches the floor.
+  """
+  import mujoco
+
+  from mjlab.envs import ManagerBasedRlEnv
+
+  cfg = load_env_cfg(task_id, test=True)
+  cfg.scene.num_envs = 1
+  env = ManagerBasedRlEnv(cfg, device="cpu")
+  worst: dict[str, float] = {}
+  try:
+    model = env.sim.mj_model
+    for _ in range(trials):
+      env.reset()
+      # Mirror the LIVE sim into plain MuJoCo: mocap fixtures are written by
+      # write_mocap_pose_to_sim and never appear in qpos, so a data built from qpos
+      # alone would test every fixture at its MJCF authoring pose.
+      data = mujoco.MjData(model)
+      data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
+      data.mocap_pos[:] = env.sim.data.mocap_pos[0].cpu().numpy()
+      data.mocap_quat[:] = env.sim.data.mocap_quat[0].cpu().numpy()
+      mujoco.mj_forward(model, data)
+      for i in range(data.ncon):
+        con = data.contact[i]
+        n1 = mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, con.geom1) or "?"
+        n2 = mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, con.geom2) or "?"
+        if "terrain" in n1 or "terrain" in n2:
+          continue
+        key = f"{n1}<->{n2}"
+        worst[key] = min(worst.get(key, 0.0), float(con.dist))
+    return worst
+  finally:
+    env.close()
+
+
+def _goal_positions(task_id: str, num_envs: int = 64) -> dict[str, np.ndarray]:
+  """Reset a task and return each command's sampled goal point, env-local.
+
+  Goals were never audited: only spawned entities were. A goal outside the envelope
+  is just as much a task-design bug as an object outside it — the policy is asked to
+  bring the object somewhere the arm cannot follow. Every command in this suite
+  exposes its goal as ``target_pos`` in WORLD frame, so the env origin comes off here.
+  """
+  from mjlab.envs import ManagerBasedRlEnv
+
+  cfg = load_env_cfg(task_id, test=True)
+  cfg.scene.num_envs = num_envs
+  env = ManagerBasedRlEnv(cfg, device="cpu")
+  try:
+    env.reset()
+    # Step once before reading. Not every command populates target_pos in
+    # _resample_command: StackingCommand derives it from the base object's live pose
+    # in _update_metrics, so straight after reset its target_pos is still all zeros
+    # and the audit would report the negated env origins as the "goal".
+    env.step(torch.zeros(env.num_envs, env.action_manager.total_action_dim))
+    origins = env.scene.env_origins
+    out = {}
+    for name, term in env.command_manager._terms.items():
+      target = getattr(term, "target_pos", None)
+      if target is None:
+        continue
+      out[name] = (target - origins).cpu().numpy()
     return out
   finally:
     env.close()
@@ -246,6 +421,8 @@ def main(cfg: AuditConfig) -> None:
     try:
       positions = _object_positions(task_id, cfg.num_envs)
       buried = _floor_penetration(task_id)
+      goals = _goal_positions(task_id, cfg.num_envs)
+      overlaps = _entity_overlaps(task_id)
     except Exception as exc:  # noqa: BLE001 — report and continue
       print(f"{task_id:<34} ERROR {type(exc).__name__}: {exc}")
       continue
@@ -253,9 +430,13 @@ def main(cfg: AuditConfig) -> None:
       x0, x1 = float(p[:, 0].min()), float(p[:, 0].max())
       y0, y1 = float(p[:, 1].min()), float(p[:, 1].max())
       radial = float(np.linalg.norm(p[:, :2], axis=1).max())
-      z_mean = float(p[:, 2].mean())  # noqa: F841 — kept for the printed table
+      z_mean = float(p[:, 2].mean())
       is_mechanism = name in workspace.MECHANISM_DROP_BELOW_MOUNT
-      free = _grasp_pose_fraction(x0, x1, y0, y1)
+      # Score the envelope at the height this object is actually grasped, not at a
+      # fixed floor-grasp height. See _APPROACH_OFFSET.
+      free = _grasp_pose_fraction(
+        x0, x1, y0, y1, site_z=z_mean + _APPROACH_OFFSET
+      )
 
       flags = []
       sunk = buried.get(name, 0.0)
@@ -272,9 +453,21 @@ def main(cfg: AuditConfig) -> None:
         if radial > workspace.MECHANISM_HANDLE_RADIAL_MAX:
           flags.append(f"radial>{workspace.MECHANISM_HANDLE_RADIAL_MAX}")
       else:
-        if radial > workspace.GRASP_RADIAL_MAX:
-          flags.append(f"radial>{workspace.GRASP_RADIAL_MAX}")
-        if free < 3.0:
+        side = _SIDE_APPROACH.get((task_id, name))
+        fixture = _FIXTURES.get((task_id, name))
+        # A FIXTURE is never grasped -- it is pushed against or rested on -- so the
+        # top-down GRASP ceiling is the wrong bound for it. ``verify_task.g4_g5``
+        # already gives _FIXTURES entries GRASP_RADIAL_MAX + 0.05 (it imports this very
+        # table to stay in sync); this branch was still applying the grasp ceiling, so
+        # the two tools disagreed on the same entity. Matched to verify_task. (W1-c)
+        ceiling = workspace.GRASP_RADIAL_MAX + (0.05 if fixture is not None else 0.0)
+        if radial > ceiling:
+          flags.append(f"radial>{ceiling}")
+        if fixture is not None:
+          note = f" (fixture: {fixture})"
+        elif side is not None:
+          note = f" (side-approach: {side})"
+        elif free < 3.0:
           flags.append("sparse-reach")
       tag = ",".join(flags) if flags else f"ok{note}"
       if flags:
@@ -283,6 +476,43 @@ def main(cfg: AuditConfig) -> None:
         f"{task_id:<34} {name:<12} [{x0:5.2f},{x1:5.2f}] [{y0:5.2f},{y1:5.2f}] "
         f"{radial:7.3f} {free:5.1f}%  {tag}"
       )
+
+    # --- Command goals -----------------------------------------------------------
+    for name, g in goals.items():
+      gx0, gx1 = float(g[:, 0].min()), float(g[:, 0].max())
+      gy0, gy1 = float(g[:, 1].min()), float(g[:, 1].max())
+      gradial = float(np.linalg.norm(g[:, :2], axis=1).max())
+      gflags = []
+      gnote = ""
+      gexempt = _GOAL_EXEMPT.get((task_id, name))
+      # A mechanism goal is the end of the member's own arc, reached with any
+      # orientation and nothing in hand — a looser bound than a carry goal.
+      is_mech_goal = any(e in workspace.MECHANISM_DROP_BELOW_MOUNT for e in positions)
+      ceiling = (
+        workspace.MECHANISM_GOAL_RADIAL_MAX
+        if is_mech_goal
+        else workspace.GOAL_RADIAL_MAX
+      )
+      if gexempt is not None:
+        lo, hi, why = gexempt
+        if not (lo <= gradial <= hi):
+          gflags.append(f"exempt-but-outside[{lo},{hi}]")
+        gnote = f" (exempt: {why})"
+      elif gradial > ceiling:
+        gflags.append(f"goal-radial>{ceiling}")
+      gtag = ",".join(gflags) if gflags else f"ok{gnote}"
+      if gflags:
+        problems.append(f"{task_id}/goal:{name}: {gtag}")
+      print(
+        f"{task_id:<34} {'goal:' + name:<12} [{gx0:5.2f},{gx1:5.2f}] "
+        f"[{gy0:5.2f},{gy1:5.2f}] {gradial:7.3f} {'':>5}   {gtag}"
+      )
+
+    # --- Object <-> object interpenetration at reset ------------------------------
+    for pair, dist in sorted(overlaps.items(), key=lambda kv: kv[1]):
+      if dist < -_OVERLAP_TOLERANCE:
+        problems.append(f"{task_id}/{pair}: overlap({dist:.4f}m)")
+        print(f"{task_id:<34} {pair:<12} spawns interpenetrating: dist={dist:+.4f} m")
 
   print(f"\n{len(problems)} placement problem(s)")
   for p in problems:

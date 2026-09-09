@@ -2,9 +2,13 @@
 
 TASK
 ----
-The cylinder is squat: radius 0.02, half-length 0.02 (a 4cm x 4cm billet). It spawns
-LYING DOWN (rolled 90deg about x, then a uniformly random yaw), so its body z-axis is
-horizontal with an arbitrary bearing, and its axis sits 0.02 above the ground.
+CL-V2 (2026-09-09, W1-b): the primitive billet is now a real object -- GSO `CoQ10`, a
+Jarrow amber HDPE packer bottle, scaled to **radius 0.0150, half-length 0.0266**
+(29.9 x 53.2 mm, a real 12 cc packer bottle). It spawns LYING DOWN (rolled 90deg about
+x, then a uniformly random yaw), so its body z-axis is horizontal with an arbitrary
+bearing, and its axis sits **0.0150** above the ground (the collision hull's max radius).
+The object is now LONGER than it is wide (1.78:1), which is what the end-face grasp
+below spans, and 25 g instead of 50 g.
 
 SUCCESS (ReorientObjectCommand) -- the only ANGULAR predicate in the suite
 --------------------------------------------------------------------------
@@ -13,6 +17,30 @@ SUCCESS (ReorientObjectCommand) -- the only ANGULAR predicate in the suite
     ||object_xy - target_pos_xy|| < max_drift               (0.18, anti-fling)
 Position is otherwise irrelevant, so this is a pure reorientation: do NOT transport the
 object anywhere, every centimetre of travel spends drift budget for no gain.
+
+MEASURED (2026-09-09, n=128, HEAD 1127d12): 0.570, confirming the pre-audit
+0.594(32) was not optimistic; no regression from the 2026-09-02 placement audit.
+
+SECOND MECHANISM (2026-09-09) -- COLLISION-DRIVEN DRIFT, not a new floor-guard bug:
+`ee_ground_collision` still fires ~9.5-10 times per episode-instance, matching the
+already-optimized, already-documented rate at floor_min_z=0.030 below -- NOT a
+regression. But each collision triggers a full state-machine reset, and each reset is
+another physical re-approach that can nudge the loose cylinder. Instrumented over 48
+episode-instances: ~1/3 of ALL failures are envs that DO achieve the angular
+criterion -- sometimes max_align up to 1.000, a textbook-perfect reorientation -- but
+fail anyway because cumulative drift from the repeated collision/reset cycles pushed
+the cylinder outside max_drift=0.18 by the time a good grasp+rotation finally landed
+(measured drift 0.22-0.44m in these envs, 1.2-2.4x over budget; all had reset_count
+>= 5). This directly supersedes the "drift is not binding" note further down -- that
+was true for the version measured then; it no longer holds once the collision-churn-
+vs-drift interaction is measured directly. The other ~2/3 of failures never achieve
+alignment at all (either stuck oscillating in DESCEND without ever reaching the
+rotate phase, or completing the full rotate window with a grasp that was never
+actually gripping the cylinder correctly for that spawn bearing). No teacher edit
+made: the drift bound is task-frozen, and floor_min_z is already at the documented
+optimum from the sweep below -- re-litigating it without new leverage would be
+tuning, not mechanism-finding. See docs/cl25/phase_1/LOGS.md (2026-09-09, W2-b) for
+the full instrumented trail.
 
 WHAT WAS ACTUALLY WRONG (measured, not guessed)
 -----------------------------------------------
@@ -53,6 +81,11 @@ STRATEGY
 
 A BARREL GRASP WAS TRIED AND IS WORSE -- record, so it is not re-tried
 ---------------------------------------------------------------------
+(Everything in this section, and every number in the two sections above, was measured
+on the ORIGINAL 40 x 40 mm primitive billet. The conclusion is what selected the CL-V2
+asset -- the end-face grasp is why the object had to be short enough for the gripper to
+span its LENGTH, which is why the bottle is scaled. Diameters quoted below are the
+billet's.)
 The obvious hypothesis from "geometric engagement beats friction" is that closing across
 the curved barrel (closing axis perpendicular to the cylinder axis) should cage the
 object better than pinching two flat end faces in a friction-randomised grip. It was
@@ -86,8 +119,14 @@ from mjlab.continual_distill.classical.stack_object import (
 ROTATE_STEPS = 55
 SETTLE_STEPS = 45
 
-# How far to lift before rotating. Enough that the swinging end clears the ground (the
-# cylinder's half-length is 0.02) without spending drift budget on lateral motion.
+# How far to lift before rotating. Enough that the swinging end clears the ground
+# without spending drift budget on lateral motion. RE-DERIVED for the bottle (W1-b):
+# the object rotates about the grasp point at its mid-length, so the end that swings
+# down needs the axis to be at least ``half_length`` above the ground -- 0.0266 m,
+# against a lying-down axis height of 0.0150, i.e. a required lift of 0.0116 m (it was
+# 0.0000 for the old 0.02/0.02 billet, whose half-length equalled its radius). This is
+# a commanded servo ERROR, not an absolute height, and 0.10 clears the new requirement
+# by 8.8 cm, so the measured value stands unchanged.
 ROTATE_LIFT = 0.10
 
 
@@ -114,6 +153,15 @@ class ReorientObjectClassicalPolicy(GraspTransportPolicy):
 
   hover_height = 0.12
   align_tol = 0.020
+  # MEASURED AND REVERTED for the CL-V2 bottle. The end faces the pads land on shrank
+  # from 40 mm to 30 mm across and the aperture clearance per side from 20 mm to
+  # 13.4 mm, so tightening this to 0.008 (asking the descent to converge inside the
+  # smaller face before closing) is the obvious move. It is WORSE: 0.156 at n=64
+  # against 0.258 at n=128 for 0.012, whose own per-32 blocks ranged 0.219-0.344, so
+  # the tighter value is below the baseline's whole spread. The reason is the mechanism
+  # this file's docstring already names -- P_DESCEND has a 60-step timeout and cannot
+  # beat the DLS lateral bias, so a tighter tolerance only keeps the wrist low near the
+  # floor for longer and buys more ``ee_ground_collision`` terminations. Kept at 0.012.
   descend_tol = 0.012
   close_steps = 14
 
@@ -136,10 +184,13 @@ class ReorientObjectClassicalPolicy(GraspTransportPolicy):
   # collisions for a shorter reach; 0.030 is the measured optimum of that trade.
   floor_min_z = 0.030
 
-  # The lying cylinder's axis is 0.02 above the ground and the lowest pad is 1.4cm below
-  # the ``gripper`` site, so grasping at the axis would need the site at 0.02 -- below
-  # the guard. Grasp 8mm high instead: the flat end faces are 4cm across, so the pads
-  # still land well inside them.
+  # RE-DERIVED for the bottle (W1-b). The lying bottle's axis is 0.0150 above the ground
+  # and the lowest pad is 1.4cm below the ``gripper`` site, so the floor guard
+  # (floor_min_z = 0.030) pins the pads at ~0.016 whatever this offset asks for: the
+  # commanded site height 0.0150 + 0.008 = 0.023 is below the guard and gets clamped.
+  # The pads therefore land ~1 mm above the axis on a 15 mm-radius end face -- BETTER
+  # centred than on the old billet, where the same clamp put them 4 mm BELOW the axis of
+  # a 20 mm-radius face. Kept at 0.008.
   grasp_z_offset = 0.008
 
   def reset(self, env_ids=None) -> None:

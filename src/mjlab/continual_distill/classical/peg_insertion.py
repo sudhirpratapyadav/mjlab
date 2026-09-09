@@ -1,31 +1,37 @@
 """Scripted PegInsertion teacher policy.
 
-GEOMETRY (peg.xml / hole_board.xml, measured)
----------------------------------------------
-* The peg is a 2.4cm-square, 10cm-tall box that spawns UPRIGHT with its centre at
-  z=0.05, i.e. standing on the ground. Its ``object_site`` is at the peg TIP
-  (body-local ``0 0 -0.05``), so ``gripper_to_object`` points at the BOTTOM of the
-  peg, 5cm below its centre and 10cm below its top. Grasping where that vector
-  points would drive the fingers into the ground.
+GEOMETRY (peg.xml / hole_board.xml, CL-V2 shape-sorter assets, measured)
+------------------------------------------------------------------------
+* The peg is a 2.5cm-square, 10cm-tall wooden shape-sorter post (2 mm lead chamfer
+  on the insert end) that spawns UPRIGHT with its centre at z=0.05, i.e. standing on
+  the ground. Its ``object_site`` is at the peg TIP (body-local ``0 0 -0.05``), so
+  ``gripper_to_object`` points at the BOTTOM of the peg, 5cm below its centre and
+  10cm below its top. Grasping where that vector points would drive the fingers into
+  the ground.
   -> We grasp at ``tip + GRASP_UP`` (7.5cm up the peg, 2.5cm below the top). That
      leaves the whole lower half of the peg free to enter the hole.
-* The board is a square frame with a 3cm x 3cm central gap and a 3cm-thick body
-  (centre z=0.015, top z=0.03). The gap goes right through, so an inserted peg
-  stands on the ground with its centre back at z=0.05.
+* The board is a 12cm-square, 3cm-thick plywood sorter lid (centre z=0.015, top
+  z=0.03) with a 3cm square through-bore and a 45 deg x 6 mm lead-in chamfer, so the
+  MOUTH is 4.2cm across at z=0.03 and narrows to 3.0cm at z=0.024. Clearance on the
+  bore is 2.5 mm per side. The chamfer is real collision geometry (four rotated
+  boxes), so a tip landing up to ~6 mm off-centre is funnelled in rather than
+  stopping on the rim -- this is the capture range the whole task hangs on.
+  An inserted peg stands on the ground with its centre back at z=0.05.
 * The board's ``object_site`` is the hole opening (body +0.015). ``object_to_goal``
-  is (board_root + 0.01) - peg_tip, i.e. it points from the peg tip to a point 1cm
-  above the board's centre.
+  is (board_root + 0.035) - peg_tip, i.e. it points from the peg tip to the height an
+  inserted peg's CENTRE reaches.
 
 SUCCESS (StackingCommand with tightened tolerances)
 ---------------------------------------------------
 Measured on the peg's BODY ORIGIN (its centre), not on the tip site the observation
 uses -- a 5cm offset that must be accounted for:
-    xy error < 0.015   (half the hole's clearance: the peg is 2.4cm in a 3cm hole)
-    |z error| < 0.03   against goal z = board_root_z + 0.01 = 0.025
-A peg standing on the ground through the hole has centre z=0.05, so the height test
-passes with 5mm to spare and the task reduces to the xy alignment. 1.5cm is tighter
-than the ~1cm effective observation noise plus the DLS steady-state bias, which is
-what makes this the hardest task in the set.
+    xy error < 0.015   (6x the 2.5 mm per-side bore clearance: in the bore => success)
+    |z error| < 0.015  against goal z = board_root_z + 0.035 = 0.050
+A peg standing on the ground through the hole has centre z=0.05, so a fully seated
+peg has ZERO height error; resting on the board top is 0.030 and jammed on the
+chamfer is 0.021, both outside. The task therefore reduces to the xy alignment, and
+1.5cm is tighter than the ~1cm effective observation noise plus the DLS steady-state
+bias -- which is what makes this the hardest task in the set.
 
 STRATEGY
 --------
@@ -42,6 +48,7 @@ import numpy as np
 
 from mjlab.continual_distill.classical.stack_object import (
   GRIPPER_CLOSED,
+  P_HOVER,
   P_PLACE,
   P_RELEASE,
   GraspTransportPolicy,
@@ -52,12 +59,58 @@ from mjlab.continual_distill.classical.stack_object import (
 # the fingers stay clear of the board while the lower half enters the hole.
 GRASP_UP = 0.075
 
-# Extra descent past the point where the tip reaches the observed goal. The goal sits
-# at board_root_z + 0.01 = 0.025, i.e. 1cm below the board's top face; the hole is a
-# through-gap, so a fully inserted peg stands on the GROUND with its tip at z=0. This
-# offset therefore targets tip_z = 0 exactly (0.025 - 0.025), which is also where the
-# peg physically bottoms out.
-INSERT_DEPTH = 0.025
+# Extra descent past the point where the tip reaches the observed goal. RE-DERIVED
+# for the CL-V2 geometry: the goal now sits at board_root_z + 0.035 = 0.050 (the
+# height an inserted peg's CENTRE reaches). ``_place`` servos ``d[2] - INSERT_DEPTH``
+# to zero, i.e. it drives tip_z -> goal_z - INSERT_DEPTH; the hole is a through-bore,
+# so a fully inserted peg stands on the GROUND with its tip at z=0, which needs
+# INSERT_DEPTH = goal_z = 0.050. (It was 0.025 when the goal was at 0.025.)
+INSERT_DEPTH = 0.050
+
+# Unconditional CARRY-phase escape. THE MECHANISM (instrumented 2026-09-09, W3-b):
+# every other phase in the shared spine has an unconditional timeout fallback
+# (DESCEND: phase_steps>60, CLOSE: phase_steps>=close_steps, LIFT: phase_steps>=
+# lift_steps, PLACE: phase_steps>70) -- CARRY does not. Its only exit is
+# ``norm(d[:2]) < carry_tol``, which is unreachable if the peg was never actually
+# grasped (fingers close on nothing, or a hold established in CLOSE/LIFT is lost
+# before/during CARRY): with nothing gripped the peg sits wherever it was dropped
+# and ``object_to_goal`` reports the SAME large, roughly-constant offset forever, so
+# the condition can never fire.
+#
+# Per-step traces (true `robot.data.site_pos_w` / `object.data.root_link_pos_w`,
+# not the noisy obs) over 16 envs x 1000 steps show this is not rare: the
+# gripper-empty signature (finger aperture collapses to ~0.0000, i.e. fully closed
+# with NOTHING between the pads -- the peg's true 2.4cm width would hold it near
+# 0.024-0.025) appears in 14/16 traced envs, and once it appears the env's own
+# `xy_err`/`peg_z` FREEZE at a fixed value for the rest of the episode -- one
+# instrumented env sat frozen in CARRY for 580+ consecutive steps out of a
+# 1000-step budget on a SINGLE failed grasp, with zero further attempts, because
+# nothing in this phase's own logic can ever break out of it. Two distinct root
+# causes were seen feeding this same terminal state: the fingers closing on empty
+# air during CLOSE (aperture goes to 0 without ever showing a true-width plateau),
+# and a hold that WAS established (aperture briefly ~0.025, peg genuinely rising
+# during LIFT/CARRY) being lost partway through the carry (aperture collapses from
+# ~0.025 to ~0 mid-phase, peg_z falling back to ~0.012 -- the peg's lying-flat
+# half-width, i.e. it topples over once dropped rather than merely sliding).
+# Whichever the cause, only an EXTERNAL auto-reset (``ee_ground_collision`` /
+# ``object_out_of_bounds``, caught by ``_detect_reset``) was ever observed to free
+# a deadlocked env -- never the policy's own logic. The ONE success in a 16-env
+# instrumented episode got there by having three complete grasp attempts inside the
+# first 400 of 1000 steps (via auto-reset escapes each time an early attempt
+# failed); envs that instead deadlocked in CARRY got only ONE attempt for the
+# whole episode and could not succeed no matter how good the CARRY servo itself is
+# (a noise-free kinematic replay of this exact CARRY/PLACE law, fed realistic
+# +-1cm noise, converges to within ``carry_tol``/the success tolerance in ~95-100%
+# of trials in under 10 of the 70 available PLACE steps when it actually gets a
+# grasp to work with -- the servo is not the bottleneck, the lack of a retry is).
+#
+# Fix: give CARRY the same unconditional escape every other phase already has.
+# Falls through to P_HOVER (not a task change -- this only touches how the
+# TEACHER recovers from its own missed grasp), which is a state ``_detect_reset``
+# already proves safe to land in (fingers command OPEN there, so a phantom "hold"
+# is released rather than dragged around). The integrator and EMA are cleared so
+# the retry does not inherit a bias/estimate from the failed attempt.
+CARRY_TIMEOUT = 100
 
 
 class PegInsertionClassicalPolicy(GraspTransportPolicy):
@@ -72,7 +125,11 @@ class PegInsertionClassicalPolicy(GraspTransportPolicy):
   # faces parallel to the hole's walls.
   grasp_yaw = 0.0
 
-  hover_height = 0.13
+  # RE-DERIVED with INSERT_DEPTH: ``_carry`` holds the tip at goal_z + hover_height,
+  # and goal_z moved from 0.025 to 0.050, so the carry altitude drops by the same
+  # 0.025 to keep the peg tip at the SAME physical 0.155 m (well clear of the 0.03
+  # board top, and low enough that the grasp point at tip+0.075 stays in reach).
+  hover_height = 0.105
   align_tol = 0.018
   descend_tol = 0.012
   lift_height = 0.12  # only needs to clear the 3cm board
@@ -125,6 +182,16 @@ class PegInsertionClassicalPolicy(GraspTransportPolicy):
       self._phase_steps[i] = 0
       # Keep the integrator: it is holding out the same steady-state bias during the
       # descent, and zeroing it here would let the peg drift straight back off-centre.
+    elif self._phase_steps[i] > CARRY_TIMEOUT:
+      # UNCONDITIONAL ESCAPE -- see CARRY_TIMEOUT's module-level note. Reaching here
+      # means carry_tol was never satisfied in 100 steps, which the noise-free probe
+      # says should take under 25; the only way that happens is an empty or lost
+      # grip. Give up on this attempt and retry from HOVER rather than burn the rest
+      # of the episode's step budget on a peg that is not moving.
+      self._phase[i] = P_HOVER
+      self._phase_steps[i] = 0
+      self._integ[i] = 0.0
+      self._ema_ok[i] = False
     return err, rot, GRIPPER_CLOSED
 
   def _place(self, i, obs_i, rot):

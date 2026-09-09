@@ -79,11 +79,20 @@ TASKS: dict[str, dict] = {
   "Mjlab-Lift-Sphere-Franka": dict(entity="sphere", kind="free", graspable=True),
   "Mjlab-Lift-Ellipsoid-Franka": dict(entity="ellipsoid", kind="free", graspable=True),
   "Mjlab-Stack-Cube-Franka": dict(entity="object", kind="free", graspable=True),
-  "Mjlab-Peg-Insertion-Franka": dict(entity="object", kind="free", graspable=True),
+  # oracle_root: StackingCommand's predicate compares the peg's ROOT to target_pos,
+  # but the peg's object_site is 5 cm away at its tip. Placing the SITE on the goal
+  # (the default) drops the peg in mid-air with 25 mm still to fall, which three
+  # 0.02 s steps cannot cover -- a verifier artefact, not a task defect. (W1-c)
+  "Mjlab-Peg-Insertion-Franka": dict(entity="object", kind="free", graspable=True,
+                                     oracle_root=True),
   "Mjlab-Reach-Target-Franka": dict(entity=None, kind="none", graspable=False),
   "Mjlab-Open-Door-Franka": dict(entity="door", kind="joint", joint="door_hinge", graspable=False),
   "Mjlab-Open-Drawer-Franka": dict(entity="drawer", kind="joint", joint="drawer_slide", graspable=False),
-  "Mjlab-Push-Button-Franka": dict(entity="button", kind="joint", joint="button_slide", graspable=False),
+  # oracle_hold: the button's slide joint is SPRING-RETURNED (stiffness 1000 on a 36 g
+  # plunger), so it does not stay where the oracle puts it. See the oracle_hold note
+  # in g4_g5. (W2-a)
+  "Mjlab-Push-Button-Franka": dict(entity="button", kind="joint", joint="button_slide",
+                                   graspable=False, oracle_hold=True),
   "Mjlab-Push-Cuboid-Franka": dict(entity="cuboid", kind="free", graspable=False),
   "Mjlab-Push-Disc-Franka": dict(entity="disc", kind="free", graspable=False),
   "Mjlab-Turn-Lever-Franka": dict(entity="lever", kind="joint", joint="lever_hinge", graspable=False),
@@ -100,8 +109,14 @@ TASKS: dict[str, dict] = {
   "Mjlab-Topple-Block-Franka": dict(entity="block", kind="free", graspable=False, quat=_X_UP),
   "Mjlab-Push-Flap-Franka": dict(entity="flap", kind="joint", joint="flap_hinge", graspable=False),
   "Mjlab-Axial-Extract-Franka": dict(entity="plug", kind="joint", joint="plug_slide", graspable=True),
-  "Mjlab-Edge-Grasp-Franka": dict(entity="plate", kind="free", graspable=True),
-  "Mjlab-Pivot-Lift-Franka": dict(entity="board", kind="free", graspable=True),
+  # graspable="thin_axis": these two are the EXTRINSIC-DEXTERITY pair. Their premise
+  # is that the object is unspannable where it lies (both in-plane widths exceed the
+  # 80 mm aperture) and is pinched on its THICKNESS only after the ledge edge / wall
+  # has re-presented it. Measuring the flat-pose in-plane width would fail the task
+  # for doing exactly what it is designed to do, so the pinchable axis is the min
+  # over ALL THREE extents. (W1-c)
+  "Mjlab-Edge-Grasp-Franka": dict(entity="plate", kind="free", graspable="thin_axis"),
+  "Mjlab-Pivot-Lift-Franka": dict(entity="board", kind="free", graspable="thin_axis"),
   "Mjlab-Throw-To-Bin-Franka": dict(entity="cube", kind="free", graspable=True),
 }
 
@@ -327,7 +342,12 @@ def g3_physics(task_id: str, cfg, xml_paths: dict[str, Path], baseline: str, spe
       ext = (hi - lo)
       r["collision_extent_m"] = ext.round(4).tolist()
       if spec_info.get("graspable") and name == spec_info.get("entity"):
-        r["grasp_width_m"] = float(min(ext[0], ext[1]))
+        # Default: the object is pinched as it lies, so only the two horizontal axes
+        # can be spanned. "thin_axis": the object is re-presented (tipped onto an edge)
+        # before the pinch, so any axis may become the graspable one.
+        axes = ext if spec_info["graspable"] == "thin_axis" else ext[:2]
+        r["grasp_axis_rule"] = str(spec_info["graspable"])
+        r["grasp_width_m"] = float(min(axes))
         r["graspable_pass"] = r["grasp_width_m"] <= 0.060
 
     # --- step time vs baseline -------------------------------------------------------
@@ -525,7 +545,7 @@ def g4_g5(task_id: str, cfg, spec_info: dict, num_resets: int, num_envs: int, de
         q[:] = torch.tensor(spec_info["quat"], device=device)
       # Site offset: the predicate compares the SITE (or body) to target_pos; put the
       # site on the target by shifting the root by the site's current offset.
-      if "object_site" in ent.site_names:
+      if "object_site" in ent.site_names and not spec_info.get("oracle_root"):
         sp = ent.data.site_pos_w[:, ent.site_names.index("object_site")]
         off = ent.data.root_link_pos_w - sp
       else:
@@ -541,8 +561,30 @@ def g4_g5(task_id: str, cfg, spec_info: dict, num_resets: int, num_envs: int, de
       ent.write_joint_velocity_to_sim(torch.zeros(env.num_envs, 1, device=device),
                                       joint_ids=torch.tensor([jid], device=device))
     hits = []
+    # oracle_hold: SPRING-RETURNED mechanisms. Push-Button's slide joint carries
+    # stiffness=1000 on a 36 g plunger (zeta = 0.42, period 38 ms), so writing it to
+    # -0.05 and then taking three free 20 ms steps samples the predicate AFTER the
+    # spring has already thrown the cap back through zero — measured trajectory
+    # +0.0163, -0.0045, +0.0010. The oracle then reads 0.000 and G5 fails on a task
+    # whose scripted teacher scores 1.000, because the button is only ever AT the
+    # target while something holds it there. Identical numbers on the pre-CL-V2
+    # primitive asset, so this is a verifier artefact, not an asset defect (W2-a).
+    # Re-seat the joint after each step and refresh the metrics, i.e. ask the real G5
+    # question: with the mechanism AT the goal configuration, does the predicate fire?
+    # Same move `tests/test_class_a_expansion.py` makes for the switch's detent.
+    hold_jid = (
+      torch.tensor([jid], device=device)
+      if kind == "joint" and spec_info.get("oracle_hold")
+      else None
+    )
     for _ in range(3):
       env.step(zero)
+      if hold_jid is not None:
+        ent.write_joint_position_to_sim(tv, joint_ids=hold_jid)
+        ent.write_joint_velocity_to_sim(
+          torch.zeros(env.num_envs, 1, device=device), joint_ids=hold_jid
+        )
+        term._update_metrics()
       hits.append(term.compute_success().float().cpu().numpy())
     frac = float(np.max(np.stack(hits), axis=0).mean())
     g5["oracle_success_fraction"] = frac
@@ -563,13 +605,33 @@ def _hist(path: Path, name: str, P, rad, yaw, bound):
     import matplotlib.pyplot as plt
   except Exception:
     return
-  fig, ax = plt.subplots(1, 4, figsize=(14, 3))
-  ax[0].hist(P[:, 0], bins=30); ax[0].set_title(f"{name} x")
-  ax[1].hist(P[:, 1], bins=30); ax[1].set_title("y")
-  ax[2].hist(rad, bins=30); ax[2].axvline(bound[0], c="r"); ax[2].axvline(bound[1], c="r"); ax[2].set_title("radial")
-  if yaw is not None:
-    ax[3].hist(yaw, bins=30); ax[3].set_title("yaw")
-  fig.tight_layout(); fig.savefig(path, dpi=80); plt.close(fig)
+  def _rng(v):
+    """Bin range for a possibly CONSTANT coordinate.
+
+    A fixture written to a fixed pose (the pivot wall, the edge-grasp riser) comes back
+    with a range of ~1e-16 -- the float noise of adding and subtracting the env origin --
+    and numpy then refuses: "Too many bins for data range". Widening a degenerate range
+    by hand is the whole fix; it is a plotting concern only, and the gate numbers above
+    are computed from the raw arrays. (W1-c)
+    """
+    lo, hi = float(np.min(v)), float(np.max(v))
+    return (lo - 5e-4, hi + 5e-4) if (hi - lo) < 1e-6 else (lo, hi)
+
+  try:
+    fig, ax = plt.subplots(1, 4, figsize=(14, 3))
+    ax[0].hist(P[:, 0], bins=30, range=_rng(P[:, 0])); ax[0].set_title(f"{name} x")
+    ax[1].hist(P[:, 1], bins=30, range=_rng(P[:, 1])); ax[1].set_title("y")
+    ax[2].hist(rad, bins=30, range=_rng(rad)); ax[2].axvline(bound[0], c="r"); ax[2].axvline(bound[1], c="r"); ax[2].set_title("radial")
+    if yaw is not None:
+      ax[3].hist(yaw, bins=30, range=_rng(yaw)); ax[3].set_title("yaw")
+    fig.tight_layout(); fig.savefig(path, dpi=80); plt.close(fig)
+  except Exception as e:  # noqa: BLE001
+    # The histograms are EVIDENCE, not a gate. A plotting failure must never take the
+    # run down with it -- it did, on a fixture written to a fixed pose. (W1-c)
+    print(f"[hist] {name}: skipped ({type(e).__name__}: {e}); "
+          f"x span {float(np.ptp(P[:, 0])):.3e} y span {float(np.ptp(P[:, 1])):.3e} "
+          f"rad span {float(np.ptp(rad)):.3e} "
+          f"yaw span {'-' if yaw is None else format(float(np.ptp(yaw)), '.3e')}")
 
 
 # ======================================================================================

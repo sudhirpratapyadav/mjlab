@@ -714,3 +714,59 @@ any negative start, +0.787 from any positive one), gravity ENABLED, and pinned b
 Lesson, consistent with the Tool-Pull bug: for a new mechanism, the XML compiling and
 the env stepping say nothing about whether the mechanism DOES WHAT THE TASK NAME CLAIMS.
 Both bugs were only findable by driving the physics and asserting on the outcome.
+
+## 2026-09-08 — flap.xml hinge range was compiled in DEGREES, making Push-Flap unsolvable
+
+**Benchmark bug, found during CL-25 Phase 1 (see `docs/cl25/phase_1/LOGS.md`). Fixed here
+because it is a task-validity bug, not a teacher problem.**
+
+`flap.xml`'s joint was written:
+
+```xml
+<joint name="flap_hinge" type="hinge" axis="0 0 1" pos="0 0 0"
+       range="-1.4 0" limited="true" damping="0.2"/>
+```
+
+`-1.4` reads as radians (-80.2 deg), and the file's own header comment says success is
+"-70 deg". But **MuJoCo's compiler defaults to `angle="degree"`** and `flap.xml` sets no
+`<compiler>` tag, so the compiled range was **-1.4 DEGREES**:
+
+```
+mujoco.MjModel.from_xml_path('.../flap.xml').jnt_range[0]
+  -> (-0.024435, 0.0) rad  ==  (-1.40, 0.00) deg
+```
+
+`PushFlapCommandCfg.target_value = -1.2217305` rad (-70 deg) with
+`success_threshold = 0.15` rad, so success needs the hinge at <= -1.0717 rad (-61.4 deg).
+The joint's hard stop was at -0.024435 rad. **Success was unreachable by ~44x even at the
+loosest threshold — the task was physically unsolvable by any policy, learned or scripted.**
+
+This is a unit error isolated to one file. Every sibling hinge asset writes degrees
+correctly: door `0 90`, lid `-75 0`, lever `-90 0`, valve `0 360`, switch `-45 45`.
+(drawer/window/button are SLIDE joints, so their small numbers are metres and correct.)
+No articulated asset in the zoo carries a `<compiler>` tag, so all of them are degrees.
+
+**Fix applied:** `range="-80.2 0"` — the -1.4 rad the author intended, expressed in the
+degrees the compiler actually reads, matching sibling convention. Adding
+`<compiler angle="radian"/>` would also work and `flap.xml` has no other angle-valued
+attributes (no euler/axisangle/quat/fromto) so it would have been safe, but degrees keeps
+flap consistent with every other asset.
+
+**Verification:** compiled range is now (-1.39975, 0) rad = (-80.20, 0) deg; the -70 deg
+target is reachable with ~10 deg of margin.
+
+**Impact:** the CL-25 Phase-1 scripted teacher for Push-Flap had measured **0.000 (96)**
+against the broken asset. Its author correctly declined to tune around the anomaly and
+wrote the policy against the task's intended geometry, per the "never change a task to
+make a teacher work / a genuine task bug is a benchmark fix" rule. Against the fixed
+asset that **unchanged** teacher measures **1.000 (128)** on HEAD `1127d12`.
+
+Nothing else is invalidated: Push-Flap is a Wave-1 task with no prior teacher, no dataset
+and no published results, so there is no earlier number built on the broken range.
+
+**Lesson, and it is the same one as the Tool-Pull and Flip-Switch detent bugs already in
+this log:** an asset that compiles cleanly and steps without error still says nothing
+about whether the mechanism can do what the task name claims. Five separate teacher
+hypotheses all converged on the same ~-0.03 rad plateau — that plateau was the joint's
+real hard stop, and the apparent "spring-back" was the limit's own solref/solimp
+behaviour. Drive the mechanism to its target in a test and assert on the outcome.

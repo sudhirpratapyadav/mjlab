@@ -62,6 +62,13 @@ class OffscreenRenderer:
     env_idx = self._cfg.env_idx
     self._data.qpos[:] = data.qpos[env_idx].cpu().numpy()
     self._data.qvel[:] = data.qvel[env_idx].cpu().numpy()
+    # Mocap bodies live OUTSIDE qpos: without this sync every mocap-mounted asset
+    # (door/drawer/window mounts, bins, fixtures) renders at its compiled default —
+    # the env origin, i.e. visually inside the robot base — while the physics has it
+    # correctly placed. Videos looked broken; the sim never was.
+    if self._model.nmocap:
+      self._data.mocap_pos[:] = data.mocap_pos[env_idx].cpu().numpy()
+      self._data.mocap_quat[:] = data.mocap_quat[env_idx].cpu().numpy()
     mujoco.mj_forward(self._model, self._data)
     self._renderer.update_scene(self._data, camera=self._cam)
 
@@ -77,6 +84,9 @@ class OffscreenRenderer:
     for i in range(min(nworld, _MAX_ENVS)):
       self._data.qpos[:] = data.qpos[i].cpu().numpy()
       self._data.qvel[:] = data.qvel[i].cpu().numpy()
+      if self._model.nmocap:
+        self._data.mocap_pos[:] = data.mocap_pos[i].cpu().numpy()
+        self._data.mocap_quat[:] = data.mocap_quat[i].cpu().numpy()
       mujoco.mj_forward(self._model, self._data)
       mujoco.mjv_addGeoms(
         self._model,

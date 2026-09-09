@@ -1,27 +1,71 @@
 <?xml version="1.0"?>
+<!--
+  Shape-sorter board with a chamfered square hole (CL-V2 asset upgrade, W1-c).
+
+  Real reference: the plywood lid of a wooden shape sorter.  120 x 120 x 30 mm,
+  30 mm square through-hole with a 45 deg x 6 mm lead-in chamfer at the top
+  (every real sorter has one — it is what lets a toddler find the hole).
+  Mass 281 g at plywood density 700 kg/m^3.  Texture: Poly Haven 'plywood' (CC0).
+
+  COLLISION.  MuJoCo collides meshes as their convex hull, so a hole cannot be a
+  mesh; the board is built from 12 boxes that reproduce the visual solid EXACTLY
+  (verified on a 0.9 mm grid: 0.000 cm^3 missing, 0.000 cm^3 extra):
+    * hole_wall_{px,nx,py,ny}  the bore walls, z in [-0.015, +0.009], gap 30 mm
+    * hole_rim_{px,nx,py,ny}   the flat top face outside the chamfer mouth (42 mm)
+    * hole_chamfer_{px,nx,py,ny}  four boxes rotated 45 deg (quat, so the MJCF angle
+      unit cannot bite) whose inner faces ARE the lead-in cone.
+  The chamfer is therefore PHYSICAL: a peg landing up to 6 mm off-centre is funnelled
+  into the bore instead of stopping on the rim.  That is decision D4's whole point.
+
+  Board top at z = +0.015 above the body origin; the body spawns at z = 0.015 so the
+  board rests on the ground plane and the bore is a through-hole.
+  object_site stays at the hole centre on the top face (0 0 0.015).
+-->
 <mujoco model="hole_board">
-  <!-- A board with a square hole, built from four wall geoms around a central gap
-       (MuJoCo has no boolean hole). The gap is ~3cm square, sized so the 2.4cm peg
-       fits with clearance. Board top at z=0.03 (half-height 0.015). A free body so it
-       can be repositioned per episode, like the Stack base. -->
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="hole_board_tex" type="2d" file="hole_board_tex.png"/>
+    <material name="hole_board_mat" texture="hole_board_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="hole_board_vis" file="hole_board_vis.obj"/>
+  </asset>
+
+  <default>
+    <default class="hole_col">
+      <geom type="box" group="3" rgba="0.5 0.5 0.5 0.3" mass="0" condim="3"
+            friction="1 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1"/>
+    </default>
+  </default>
+
   <worldbody>
     <body name="hole_board" pos="0.5 0 0.015">
       <freejoint name="hole_board_joint"/>
-      <!-- Four walls forming a square frame; central 0.03x0.03 gap is the hole.
-           Outer footprint ~0.10 x 0.10, height 0.03 (half 0.015). -->
-      <geom type="box" name="hole_wall_px" pos="0.0325 0 0" size="0.0175 0.05 0.015"
-            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="hole_wall_nx" pos="-0.0325 0 0" size="0.0175 0.05 0.015"
-            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="hole_wall_py" pos="0 0.0325 0" size="0.015 0.0175 0.015"
-            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="hole_wall_ny" pos="0 -0.0325 0" size="0.015 0.0175 0.015"
-            mass="0.2" rgba="0.5 0.5 0.55 1.0" condim="3" friction="1 0.03 0.003"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <!-- Site at the hole CENTER opening (top of board), the insertion target. -->
+      <inertial pos="0 0 0" quat="0.707107 0 0 -0.707107" mass="0.28104"
+                diaginertia="3.574e-04 3.574e-04 6.729e-04"/>
+      <geom name="hole_board_visual" type="mesh" mesh="hole_board_vis"
+            material="hole_board_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+
+      <!-- Bore walls: 30 mm square gap, z in [-0.015, +0.009]. -->
+      <geom class="hole_col" name="hole_wall_px" pos="0.0375 0 -0.003" size="0.0225 0.06 0.012"/>
+      <geom class="hole_col" name="hole_wall_nx" pos="-0.0375 0 -0.003" size="0.0225 0.06 0.012"/>
+      <geom class="hole_col" name="hole_wall_py" pos="0 0.0375 -0.003" size="0.015 0.0225 0.012"/>
+      <geom class="hole_col" name="hole_wall_ny" pos="0 -0.0375 -0.003" size="0.015 0.0225 0.012"/>
+      <!-- Flat top face outside the 42 mm chamfer mouth. -->
+      <geom class="hole_col" name="hole_rim_px" pos="0.0405 0 0.012" size="0.0195 0.06 0.003"/>
+      <geom class="hole_col" name="hole_rim_nx" pos="-0.0405 0 0.012" size="0.0195 0.06 0.003"/>
+      <geom class="hole_col" name="hole_rim_py" pos="0 0.0405 0.012" size="0.021 0.0195 0.003"/>
+      <geom class="hole_col" name="hole_rim_ny" pos="0 -0.0405 0.012" size="0.021 0.0195 0.003"/>
+      <!-- 45 deg lead-in: gap 42 mm at z=+0.015 narrowing to 30 mm at z=+0.009. -->
+      <geom class="hole_col" name="hole_chamfer_px" pos="0.023657 0 0.006343"
+            size="0.008 0.021 0.0042426" quat="0.9238795 0 0.3826834 0"/>
+      <geom class="hole_col" name="hole_chamfer_nx" pos="-0.023657 0 0.006343"
+            size="0.008 0.021 0.0042426" quat="0.9238795 0 -0.3826834 0"/>
+      <geom class="hole_col" name="hole_chamfer_py" pos="0 0.023657 0.006343"
+            size="0.021 0.008 0.0042426" quat="0.9238795 -0.3826834 0 0"/>
+      <geom class="hole_col" name="hole_chamfer_ny" pos="0 -0.023657 0.006343"
+            size="0.021 0.008 0.0042426" quat="0.9238795 0.3826834 0 0"/>
+
+      <!-- Site at the hole CENTRE on the top face: the insertion target. -->
       <site name="object_site" pos="0 0 0.015" size="0.01" rgba="0 1 0 1"/>
     </body>
   </worldbody>

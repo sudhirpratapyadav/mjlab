@@ -1,67 +1,53 @@
 <?xml version="1.0"?>
-<mujoco model="door">
-  <worldbody>
-    <!-- Door assembly -->
-    <body name="door_base" pos="1.5 0 0.61" mocap="true">
-      <!-- Door frame/barrier -->
-      <geom
-        type="box"
-        name="door_body"
-        size="0.01 0.5 0.8"
-        pos="0.01 0 0.0"
-        condim="3"
-        friction="1 0.03 0.003"
-        rgba="0.5 0.5 0 0.5"
-        contype="2"
-        conaffinity="1"
-        solref="0.01 1"/>
+<!--
+  Open-Door mechanism (CL-V2, W2-b).  A 300 x 320 x 636 mm walnut wall cabinet with an
+  20 mm, 2.5 kg door leaf on a side hinge and a 160 mm vertical square-bar steel pull.
+  Built procedurally (see PROVENANCE.md); textures ambientCG Wood067 / Metal032 (CC0).
 
-      <!-- Base site positioned at handle location when joint = 0 (closed) -->
+  ANGLES ARE RADIANS (explicit <compiler angle="radian"/>): door_hinge range 0 ..
+  1.5708 rad = 0 .. 90 deg, matching OpenDoorCommand's 1.5708 target EXACTLY (a bare
+  range="0 90" compiles to 1.5707963, a hair BELOW the command target, which
+  verify_task flags as "command target outside compiled range").  The cl25 XML
+  had no compiler tag, so its bare range="0 90" was silently degrees.
+
+  Frozen interface: door_base (mocap), handle body, door_hinge, geoms door_body /
+  door_panel / handle, sites base_site / object_site at (-0.04, 0.25, 0).
+  The hinge moved from y=-0.30 to y=0 (lever arm 0.551 -> 0.253 m): see PROVENANCE.md
+  and OpenDoorCommand.handle_to_hinge_dist.
+-->
+<mujoco model="door">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="walnut_tex" type="2d" file="walnut.png"/>
+    <material name="walnut" texture="walnut_tex" specular="0.15" shininess="0.3" reflectance="0.0"/>
+    <texture name="steel_tex" type="2d" file="steel.png"/>
+    <material name="steel" texture="steel_tex" specular="0.7" shininess="0.6" reflectance="0.15"/>
+    <mesh name="door_case" file="door_case.obj"/>
+    <mesh name="door_leaf" file="door_leaf.obj"/>
+    <mesh name="door_pull" file="door_pull.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="door_base" pos="1.5 0 0.61" mocap="true">
+      <geom name="door_case_visual" type="mesh" mesh="door_case" material="walnut" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="door_body" type="box" pos="0.3300 0.1500 0.0000" size="0.0050 0.1550 0.3000" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="door_case_hinge" type="box" pos="0.1750 -0.0140 0.0000" size="0.1600 0.0090 0.3180" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="door_case_free" type="box" pos="0.1750 0.3140 0.0000" size="0.1600 0.0090 0.3180" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="door_case_top" type="box" pos="0.1750 0.1500 0.3090" size="0.1600 0.1550 0.0090" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom name="door_case_bottom" type="box" pos="0.1750 0.1500 -0.3090" size="0.1600 0.1550 0.0090" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the handle location when the door is closed. -->
       <site name="base_site" pos="-0.04 0.25 0.0" size="0.01" rgba="0 0 1 0.3"/>
 
-      <!-- Door panel with hinge -->
       <body name="handle" pos="0 0 0">
-        <joint
-          name="door_hinge"
-          type="hinge"
-          axis="0 0 1"
-          pos="0 -0.3 0"
-          range="0 90"
-          limited="true"
-          damping="0.1"/>
-
-        <!-- Door panel geom -->
-        <geom
-          type="box"
-          name="door_panel"
-          size="0.01 0.3 0.6"
-          pos="0 0 0"
-          condim="3"
-          friction="1 0.03 0.003"
-          rgba="0 1 0 0.2"
-          contype="2"
-          conaffinity="1"
-          solref="0.01 1"/>
-
-        <!-- Handle geom -->
-        <geom
-          type="box"
-          name="handle"
-          pos="-0.04 0.25 0"
-          size="0.01 0.01 0.08"
-          condim="3"
-          friction="1 0.03 0.003"
-          rgba="0 1 0 1"
-          contype="2"
-          conaffinity="1"
-          solref="0.01 1"/>
-
-        <!-- Object site for observations (manipulation point) -->
-        <site
-          name="object_site"
-          pos="-0.04 0.25 0"
-          size="0.01 0.01 0.01"
-          rgba="1 0 0 1"/>
+        <!-- Hinge on the leaf's y=0 edge; +theta swings the leaf toward the robot. -->
+        <joint name="door_hinge" type="hinge" axis="0 0 1" pos="0 0 0"
+               range="0 1.5708" limited="true" damping="0.05"/>
+      <geom name="door_leaf_visual" type="mesh" mesh="door_leaf" material="walnut" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="door_pull_visual" type="mesh" mesh="door_pull" material="steel" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="door_panel" type="box" pos="-0.0100 0.1500 0.0000" size="0.0100 0.1500 0.3000" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1" density="700.0"/>
+      <geom name="handle" type="box" pos="-0.0550 0.2500 0.0000" size="0.0100 0.0100 0.0800" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1" density="2700.0"/>
+        <site name="object_site" pos="-0.04 0.25 0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

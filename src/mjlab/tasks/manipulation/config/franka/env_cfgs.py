@@ -14,10 +14,13 @@ from mjlab.asset_zoo.objects.articulated.button import (
   get_mocap_target_cfg as get_button_mocap_target_cfg,
 )
 from mjlab.asset_zoo.objects.free.cube import (
+  CUBE_HALF_HEIGHT,
   get_cube_cfg,
   get_mocap_goal_cfg,
 )
 from mjlab.asset_zoo.objects.free.cuboid import (
+  CUBOID_HALF_EXTENTS,
+  CUBOID_HALF_HEIGHT,
   get_cuboid_cfg,
   get_mocap_goal_cfg as get_cuboid_mocap_goal_cfg,
 )
@@ -57,10 +60,45 @@ from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_
 from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg, ReachingCommandCfg, StackingCommandCfg
 from mjlab.tasks.manipulation.mdp.commands import (
   _ObjectSpawnRangeCfg,
+  CageDragCommandCfg,
+  EdgeGraspCommandCfg,
+  PivotLiftCommandCfg,
   PlaceInContainerCommandCfg,
   ReorientObjectCommandCfg,
   ToolPullCommandCfg,
 )
+from mjlab.asset_zoo.objects.articulated.flap import (
+  get_flap_cfg,
+  get_mocap_target_cfg as get_flap_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.plug import (
+  get_plug_cfg,
+  get_mocap_target_cfg as get_plug_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.free.block import (
+  BLOCK_HALF_EXTENTS,
+  BLOCK_HALF_HEIGHT,
+  get_block_cfg,
+  get_mocap_goal_cfg as get_block_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.plate import (
+  get_plate_cfg,
+  get_mocap_goal_cfg as get_plate_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.ledge import get_ledge_cfg
+from mjlab.asset_zoo.objects.free.board import (
+  get_board_cfg,
+  get_mocap_goal_cfg as get_board_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.wall import get_wall_cfg
+from mjlab.tasks.manipulation.drag_pull_env_cfg import make_drag_pull_env_cfg
+from mjlab.tasks.manipulation.strike_slide_env_cfg import make_strike_slide_env_cfg
+from mjlab.tasks.manipulation.cage_drag_env_cfg import make_cage_drag_env_cfg
+from mjlab.tasks.manipulation.topple_block_env_cfg import make_topple_block_env_cfg
+from mjlab.tasks.manipulation.push_flap_env_cfg import make_push_flap_env_cfg
+from mjlab.tasks.manipulation.axial_extract_env_cfg import make_axial_extract_env_cfg
+from mjlab.tasks.manipulation.edge_grasp_env_cfg import make_edge_grasp_env_cfg
+from mjlab.tasks.manipulation.pivot_lift_env_cfg import make_pivot_lift_env_cfg
 from mjlab.asset_zoo.objects.articulated.lever import (
   get_lever_cfg,
   get_mocap_target_cfg as get_lever_mocap_target_cfg,
@@ -151,18 +189,23 @@ def franka_lift_cube_env_cfg(
   assert isinstance(lift_command, LiftingCommandCfg)
 
   # Object spawn / lift goal live in the measured Class A grasp envelope
-  # (mjlab.tasks.manipulation.workspace). z is unchanged: the resting height is a
-  # property of the cube, not of the workspace.
+  # (mjlab.tasks.manipulation.workspace). z is a property of the cube, not of the
+  # workspace: the low end is the collision box's half-height (cube_constants.
+  # CUBE_HALF_HEIGHT = 0.0226 for the 46 mm mini 3x3), the high end is unchanged so
+  # the cube sometimes spawns a couple of cm up and drops.
   _obj_x, _obj_y = _grasp_box_corner_safe()
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
     x=_obj_x,
     y=_obj_y,
-    z=(0.02, 0.05),
+    z=(CUBE_HALF_HEIGHT, 0.05),
     yaw=(-3.14, 3.14),
   )
+  # goal_box(), not the raw GOAL_* ranges: their far corner escapes the ceiling
+  # (hypot(0.55, 0.28) = 0.617 > GOAL_RADIAL_MAX). See workspace.goal_box.
+  _goal_x, _goal_y = workspace.goal_box()
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=workspace.GOAL_X_RANGE,
-    y=workspace.GOAL_Y_RANGE,
+    x=_goal_x,
+    y=_goal_y,
     z=workspace.GOAL_Z_RANGE,
   )
 
@@ -248,12 +291,17 @@ def franka_lift_cylinder_env_cfg(
   lift_command.object_pose_range = LiftingCommandCfg.ObjectPoseRangeCfg(
     x=_obj_x,
     y=_obj_y,
-    z=(0.02, 0.05),
+    # The bottle stands upright here; its resting height is its half-length 0.0266
+    # (W1-b, cl_v2: the primitive 0.02-half-height cylinder became a real bottle).
+    z=(0.028, 0.05),
     yaw=(-3.14, 3.14),
   )
+  # goal_box(), not the raw GOAL_* ranges: their far corner escapes the ceiling
+  # (hypot(0.55, 0.28) = 0.617 > GOAL_RADIAL_MAX). See workspace.goal_box.
+  _goal_x, _goal_y = workspace.goal_box()
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=workspace.GOAL_X_RANGE,
-    y=workspace.GOAL_Y_RANGE,
+    x=_goal_x,
+    y=_goal_y,
     z=workspace.GOAL_Z_RANGE,
   )
 
@@ -346,8 +394,10 @@ def _franka_lift_object_env_cfg(
     x=_obj_x, y=_obj_y,
     z=(0.02, 0.05), yaw=(-3.14, 3.14),
   )
+  # goal_box(): the raw GOAL_* corner exceeds GOAL_RADIAL_MAX. See workspace.goal_box.
+  _goal_x, _goal_y = workspace.goal_box()
   lift_command.target_position_range = LiftingCommandCfg.TargetPositionRangeCfg(
-    x=workspace.GOAL_X_RANGE, y=workspace.GOAL_Y_RANGE, z=workspace.GOAL_Z_RANGE,
+    x=_goal_x, y=_goal_y, z=workspace.GOAL_Z_RANGE,
   )
 
   for term_name in (
@@ -431,12 +481,14 @@ def franka_stack_cube_env_cfg(
   assert isinstance(joint_pos_action, (JointPositionActionCfg, JointDeltaPositionActionCfg))
   joint_pos_action.scale = FRANKA_ACTION_SCALE
 
-  # cube half-height 0.02 + cuboid half-height 0.015 => stack offset 0.035.
+  # cube half-height 0.0226 + cuboid half-height 0.0150 => stack offset 0.0376.
+  # Both are read off the packaged collision boxes (cube_constants /
+  # cuboid_constants), not off the retired primitives.
   assert cfg.commands is not None
   stack_command = cfg.commands["stack_object"]
   assert isinstance(stack_command, StackingCommandCfg)
   stack_command.robot_asset_cfg.site_names = ("gripper",)
-  stack_command.stack_height = 0.035
+  stack_command.stack_height = CUBE_HALF_HEIGHT + CUBOID_HALF_HEIGHT
 
   # Two objects that must not overlap: split the shared GRASP_* box laterally, one
   # either side of y=0. Each half keeps the FULL |y| extent of GRASP_Y_RANGE (that is
@@ -447,13 +499,13 @@ def franka_stack_cube_env_cfg(
   stack_command.object_pose_range = StackingCommandCfg.ObjectPoseRangeCfg(
     x=_STACK_X,
     y=(workspace.GRASP_Y_RANGE[0], -0.04),  # cube: right half
-    z=(0.02, 0.02),  # cube half-height, resting on the ground plane
+    z=(CUBE_HALF_HEIGHT, CUBE_HALF_HEIGHT),  # resting on the ground plane
     yaw=(0.0, 0.0),
   )
   stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
     x=_STACK_X,
     y=(0.04, workspace.GRASP_Y_RANGE[1]),  # cuboid base: left half
-    z=(0.015, 0.015),  # cuboid half-height
+    z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),  # cuboid base half-height
     yaw=(0.0, 0.0),
   )
 
@@ -520,12 +572,22 @@ def franka_peg_insertion_env_cfg(
   stack_command = cfg.commands["stack_object"]
   assert isinstance(stack_command, StackingCommandCfg)
   stack_command.robot_asset_cfg.site_names = ("gripper",)
-  # Peg tip (object_site) should reach the hole opening (board top ~+0.03 above the
-  # board body origin at z=0.015 => opening ~0.015 above origin). Aim the peg site
-  # slightly INTO the hole for an inserted pose.
-  stack_command.stack_height = 0.01
-  stack_command.success_threshold = 0.015  # tight xy alignment for insertion
-  stack_command.height_threshold = 0.03
+  # RE-DERIVED for the CL-V2 shape-sorter geometry (W1-c). StackingCommand measures
+  # the peg's BODY ORIGIN against base_root + stack_height, so stack_height is the
+  # peg's INSERTED centre height above the board origin, not a site offset:
+  #   inserted peg centre z = ground + peg half-length = 0.050
+  #   board body origin z   = board half-thickness     = 0.015
+  #   => stack_height = 0.050 - 0.015 = 0.035
+  # (the old 0.01 aimed the goal 25 mm BELOW the peg's resting centre, which made the
+  # G5 oracle unreachable: the verifier's teleport had 25 mm still to fall and three
+  # steps is 0.06 s against a 0.071 s drop — measured oracle 0.000 on the primitives).
+  stack_command.stack_height = 0.035
+  # xy: 6x the physical 2.5 mm per-side clearance, so "physically in the bore" implies
+  # success and nothing else can be within 15 mm of the hole centre at that height.
+  stack_command.success_threshold = 0.015
+  # z: 0 when fully seated; 0.030 resting on the board top and 0.021 stuck on the
+  # chamfer, so 0.015 separates "inserted" from "sitting on the lid" by 2x.
+  stack_command.height_threshold = 0.015
 
   # Same lateral split as stack (see franka_stack_cube_env_cfg): peg on the right half
   # of the GRASP_* box, hole board on the left, neither overlapping and both under
@@ -612,6 +674,12 @@ def franka_reach_target_env_cfg(
   reach_command = cfg.commands["reach_target"]
   assert isinstance(reach_command, ReachingCommandCfg)
   reach_command.robot_asset_cfg.site_names = ("gripper",)
+  # The default target box (x 0.40-0.70, y +-0.25, z 0.15-0.50) CONTAINS the Franka's
+  # reset EE pose (0.677, 0.000, 0.382 at HOME_QPOS), so ~0.5% of resets were already
+  # at the goal (measured 5/1000, a G5 failure). 0.10 m = 2x success_threshold, so
+  # every episode starts with a real reach to make. The box itself is untouched: the
+  # reach band still spans the envelope, which is this task's whole purpose.
+  reach_command.min_gripper_clearance = 0.10
 
   cfg.viewer.body_name = "link0"
   cfg.scene.env_spacing = 1.5
@@ -937,16 +1005,30 @@ def franka_push_cuboid_env_cfg(
   # fingertips, so it obeys the same reachability bound as a graspable object.
   # Spawn takes the near half of the x band and the target the far half, so every
   # episode is a genuine forward push rather than a nudge; y keeps the full spread.
+  #
+  # SEPARATION BAND. The two halves used to MEET at _x_mid while both spanned the
+  # full y range, so a reset could draw the box and its goal within the 2 cm success
+  # radius of each other: measured 2/1000 success-at-reset, which fails G5. A 4 cm
+  # dead band makes the shortest possible push 0.04 m — twice the success window.
+  # (Pre-existing at 1127d12; nothing to do with the asset swap.)
+  #
+  # The whole dead band comes out of the GOAL side, none of it out of the object
+  # band. The object band is the one bound by top-down grasp density
+  # (audit_workspace's `sparse-reach` check reads the OBJECT positions); a goal only
+  # has to be reachable, which is a much looser bound. Splitting the band evenly
+  # costs object-placement diversity for nothing — it measurably tipped Drag-Pull
+  # into `sparse-reach` (3.7% -> 2.0% of comfortable top-down poses) before this.
+  _SEPARATION = 0.04
   _x_lo, _x_hi = workspace.GRASP_X_RANGE
   _x_mid = (_x_lo + _x_hi) / 2
   push_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
     x=(_x_lo, _x_mid),
     y=workspace.GRASP_Y_RANGE,
-    z=(0.015, 0.015),  # Cuboid half-height is 0.015 - spawn at ground level
+    z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),  # rest on the ground plane
     yaw=(0.0, 0.0),  # No rotation - keep upright
   )
   push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
-    x=(_x_mid, _x_hi),
+    x=(_x_mid + _SEPARATION, _x_hi),
     y=workspace.GRASP_Y_RANGE,
   )
 
@@ -1272,12 +1354,17 @@ def franka_open_lid_env_cfg(
   }
   _apply_franka_articulation_common(cfg, "lid", "open_lid")
 
-  # lid.xml: the grab lip (object_site) is at (-0.09, 0, +0.05) from lid_base — a deep
-  # -x protrusion, so the mount may sit further out than the others. The box is a
-  # mocap-mounted body (not floor-standing), but its z is what sets the lift arc, so
-  # the original height band is preserved; only x is pulled in.
+  # lid.xml (CL-V2): the lid now LIFTS (hinge axis 0 -1 0), so the grab batten travels
+  # from (-0.09, 0, +0.05) at rest to (+0.06, 0, +0.226) at the -75 deg target — i.e.
+  # it moves AWAY from the robot and upward. The mount band is pulled in accordingly so
+  # the batten stays inside workspace.MECHANISM_HANDLE_RADIAL_MAX (0.58) over the whole
+  # arc AND the WRIST stays reachable: the hand sits 0.07 further out than the knob
+  # along the approach axis, so at the -75 deg target it is 0.068 m beyond the knob in
+  # x. Closed radial 0.31-0.37, fully open 0.46-0.52, wrist <= 0.59. The swept drop fell
+  # 0.158 -> 0.070 m (nothing dips below the box any more), so _mech_z drops to 0.10
+  # and the chest sits on the floor like the real object it now is.
   cfg.events["reset_lid_position"].params["pose_range"] = {
-    "x": (0.52, 0.59),
+    "x": (0.40, 0.46),
     "y": (-0.08, 0.08),
     "z": _mech_z("lid"),
   }
@@ -1334,21 +1421,38 @@ def franka_place_in_container_env_cfg(
   # carry across the midline, both inside GRASP_RADIAL_MAX. x runs from
   # GRASP_RADIAL_MIN to 0.48, so the far corner sqrt(0.48^2 + 0.25^2) = 0.541 stays
   # under the 0.55 ceiling.
+  # CL-V2 (W1-b): the cube band's far edge moved from -0.04 to -0.07 so that the real
+  # basket (183 mm across in y, against the primitive's 140) can stay CLOSE to the
+  # robot's centreline instead of being pushed out to make room. Keeping the bin near
+  # y=0.10 rather than 0.13 is what preserves the arm's freedom to hold the cube above
+  # the bin's interior site, which is the pose the whole task turns on.
   _PLACE_X = (workspace.GRASP_RADIAL_MIN, 0.48)
   place_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=_PLACE_X, y=(workspace.GRASP_Y_RANGE[0], -0.04), z=(0.03, 0.03)
+    x=_PLACE_X, y=(workspace.GRASP_Y_RANGE[0], -0.07), z=(0.03, 0.03)
   )
   # The container is a static MOCAP body: nothing resets it, so the command must
   # write it per-env (see PlaceInContainerCommand._resample_command). Before this it
   # kept the MJCF world-frame pose, leaving the bin at the world origin for every env
-  # except env 0. The +y band leaves >=0.14 of clearance to the cube band, comfortably
-  # more than the bin's 0.078 half-width.
-  # The bin only has to be REACHED OVER, never grasped, so it uses a slightly wider x
-  # band than GRASP_X_RANGE (starting at 0.28) — that keeps its approach-freedom
-  # comfortably above the audit's 3% floor while its far corner,
-  # sqrt(0.48^2 + 0.24^2) = 0.537, still clears GRASP_RADIAL_MAX.
+  # except env 0. The bin only has to be REACHED OVER, never grasped, so it uses a
+  # slightly wider x band than GRASP_X_RANGE — that keeps its approach-freedom above
+  # the audit's 3% floor.
+  # CL-V2 (W1-b): the real basket has a 191 x 183 mm footprint, not the primitive's
+  # 140 x 140, so the bands are re-derived from its half-extents (0.0956 x, 0.0913 y):
+  #   * y starts at 0.10, so the basket's near wall (0.10 - 0.0913 = 0.009) clears the
+  #     cube band's far edge (-0.07 + 0.023 = -0.047) by 56 mm. At the old 0.07 against
+  #     a -0.04 cube band the two footprints OVERLAPPED by 4 mm and every reset would
+  #     have been a spawn collision.
+  #   * x keeps the primitive's 0.28-0.48: the basket's near wall
+  #     (0.28 - 0.0956 = 0.184) still stands well clear of the robot base, and the far
+  #     corner sqrt(0.48^2 + 0.24^2) = 0.537 respects the ceiling. Narrowing x to
+  #     0.30-0.46 was tried and measured WORSE on the audit's approach-freedom metric
+  #     (2.7% vs 3.3%, against the audit's 3% floor): the near-x cells are where the
+  #     comfortable top-down poses live.
+  #   * z = 0 because the basket's body origin is its UNDERSIDE: it sits ON the ground.
+  #     (The primitive's z = 0.02 with a floor slab centred on the origin left the old
+  #     bin floating 12 mm in the air.)
   place_command.container_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.28, 0.48), y=(0.07, 0.24), z=(0.02, 0.02), yaw=(0.0, 0.0)
+    x=(0.28, 0.48), y=(0.10, 0.24), z=(0.0, 0.0), yaw=(0.0, 0.0)
   )
 
   cfg.viewer.body_name = "link0"
@@ -1401,14 +1505,20 @@ def franka_reorient_object_env_cfg(
   # is a genuine reorientation rather than a no-op.
   reorient_command = cfg.commands["reorient_object"]
   assert isinstance(reorient_command, ReorientObjectCommandCfg)
-  # Inside the shared Class A grasp envelope. The cylinder lies on its side, so its
-  # body extends ~0.05 either side of the spawn point along a random yaw; inset x/y by
-  # that half-length so no part of it leaves the envelope regardless of yaw.
-  _pad = 0.05
+  # Inside the shared Class A grasp envelope. The bottle lies on its side, so at a
+  # random yaw its footprint half-diagonal is hypot(half_length, radius) =
+  # hypot(0.0266, 0.0150) = 0.0305 m; inset x/y by that so no part of it leaves the
+  # envelope regardless of yaw. (The 0.05 this replaces was never a derived value: its
+  # comment called 0.05 "the half-length" of a cylinder whose half-length was 0.02.)
+  # Corner radial of the resulting box, hypot(0.489, 0.219) = 0.536, is still inside
+  # workspace.GRASP_RADIAL_MAX (0.55).
+  _pad = 0.031
   reorient_command.object_spawn_range = _ObjectSpawnRangeCfg(
     x=(workspace.GRASP_X_RANGE[0] + _pad, workspace.GRASP_X_RANGE[1] - _pad),
     y=(workspace.GRASP_Y_RANGE[0] + _pad, workspace.GRASP_Y_RANGE[1] - _pad),
-    z=(0.025, 0.025),
+    # Lying down, the body origin sits on the bottle axis, so the resting height is the
+    # collision hull's max radius (0.01501 m); +1 mm so it is not born in contact.
+    z=(0.016, 0.016),
     roll=(1.5707963, 1.5707963),
     yaw=(-3.14159, 3.14159),
   )
@@ -1482,7 +1592,7 @@ def franka_tool_pull_env_cfg(
   # The puck sits on the +y side and the stick on the -y side so the stick's forward-
   # pointing hook (body +0.12 x, +0.035 y) can never spawn intersecting the puck.
   pull_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.62, 0.69), y=(0.05, 0.17), z=(0.012, 0.012), yaw=(0.0, 0.0)
+    x=(0.62, 0.69), y=(0.05, 0.17), z=(0.0127, 0.0127), yaw=(0.0, 0.0)
   )
   # STICK — must be grasped, so it obeys the shared GRASP_* envelope. Offset toward
   # -y so it never overlaps the puck (x bands are disjoint anyway) and stays clear of
@@ -1494,7 +1604,7 @@ def franka_tool_pull_env_cfg(
   pull_command.tool_spawn_range = _ObjectSpawnRangeCfg(
     x=(0.28 + 0.09, 0.48 + 0.09),
     y=(workspace.GRASP_Y_RANGE[0], -0.06),
-    z=(0.012, 0.012),
+    z=(0.012, 0.012),  # dowel radius 0.011 + 1 mm, so it is not born in contact
     yaw=(0.0, 0.0),
   )
   # Two-stage task (acquire tool, then drag): needs a longer episode.
@@ -1502,5 +1612,349 @@ def franka_tool_pull_env_cfg(
 
   cfg.viewer.body_name = "link0"
   cfg.scene.env_spacing = 2.0
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+##
+# Class A Wave-1 expansion (continual_distill/docs/benchmark/CATALOG_100_TASKS.md,
+# T17-T25). ``_apply_franka_articulation_common`` covers the per-robot wiring for
+# these tasks too (sites, fingertip geoms, sensor patterns, viewer): despite its
+# name it is task-agnostic, so it is reused rather than re-copied.
+##
+
+
+def franka_drag_pull_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka dragging a far cuboid back into the near zone (engagement-inverted push)."""
+  cfg = make_drag_pull_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cuboid": get_cuboid_cfg(),
+    "mocap_goal": get_cuboid_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "cuboid", "drag_pull")
+
+  drag_command = cfg.commands["drag_pull"]
+  assert isinstance(drag_command, PushingCommandCfg)
+  # Inverse of push-cuboid: object takes the FAR half of the corner-safe grasp box,
+  # the goal the NEAR half, so every episode is a genuine pull back toward the base.
+  #
+  # ENGAGEMENT INSET. Unlike push, drag engages the object's FAR face — the gripper
+  # has to get BEYOND the object before it can pull. The reachability constraint
+  # therefore applies to `object_x + cuboid_half_x`, not to the object centre. The
+  # corner-safe box is computed for the contact point and the object band is then
+  # inset by the same amount; without this the audit passes on the centre (radial
+  # 0.537) while the contact point sits at radial 0.571, outside GRASP_RADIAL_MAX.
+  _ENGAGE_INSET = CUBOID_HALF_EXTENTS[0]  # 0.0365, the cuboid's x half-extent
+  _x_lo_x_hi, _y = _grasp_box_corner_safe()
+  _x_lo, _x_hi = _x_lo_x_hi
+  _x_hi -= _ENGAGE_INSET
+  _x_mid = (_x_lo + _x_hi) / 2
+  # SEPARATION BAND, same defect and same fix as push-cuboid (measured 5/1000
+  # success-at-reset before this): the object half and the goal half met at _x_mid
+  # while both spanned the full y range. Drag-pull's success radius is 0.03, so the
+  # band is 0.05 — the shortest legal pull is then 0.05 m.
+  #
+  # It comes ENTIRELY out of the goal band. This one matters here more than on
+  # push-cuboid: drag-pull's object band is already the FAR half of an x range that
+  # `_ENGAGE_INSET` has also trimmed, so it sits where comfortable top-down poses are
+  # scarcest. Taking half the dead band off it measured 2.0% grasp-pose freedom and
+  # tripped audit_workspace's `sparse-reach` flag; taking none off it keeps the
+  # audited 3.7%, unchanged from before the fix.
+  _SEPARATION = 0.05
+  drag_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
+    x=(_x_mid, _x_hi),
+    y=_y,
+    z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),
+    yaw=(0.0, 0.0),
+  )
+  drag_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
+    x=(_x_lo, _x_mid - _SEPARATION),
+    y=_y,
+  )
+
+  cfg.scene.env_spacing = 1.5
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_strike_slide_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka striking a puck so it slides to a goal beyond the reach envelope."""
+  cfg = make_strike_slide_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "puck": get_puck_cfg(),
+    "mocap_goal": get_puck_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "puck", "strike_slide")
+
+  strike_command = cfg.commands["strike_slide"]
+  assert isinstance(strike_command, PushingCommandCfg)
+  # Puck spawns in the corner-safe grasp box (it must be STRUCK there); the goal
+  # band starts past the arm's ~0.85 m absolute stretch — DELIBERATELY outside
+  # every workspace envelope. Do not "fix" the goal to satisfy the audit: goals
+  # inside reach turn this back into a quasi-static push.
+  _x, _y = _grasp_box_corner_safe()
+  strike_command.object_pose_range = PushingCommandCfg.ObjectPoseRangeCfg(
+    x=(_x[0], _x[1] - 0.06),
+    y=(-0.15, 0.15),
+    z=(0.0127, 0.0127),  # puck half-thickness (regulation puck is 25.4 mm)
+    yaw=(0.0, 0.0),
+  )
+  strike_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
+    x=(0.88, 1.05),
+    y=(-0.18, 0.18),
+  )
+
+  cfg.scene.env_spacing = 2.5  # The slide corridor extends past 1 m
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_cage_drag_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka transporting a cube caged between open fingers (pinch voids the episode)."""
+  cfg = make_cage_drag_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cube": get_cube_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "cube", "cage_drag")
+
+  cage_command = cfg.commands["cage_drag"]
+  assert isinstance(cage_command, CageDragCommandCfg)
+  # Both spawn and goal live in the corner-safe grasp box: caging transport works
+  # in any direction, so unlike push/drag no half-split is imposed.
+  _x, _y = _grasp_box_corner_safe()
+  # aperture_min (0.055) is a bound on the FINGER JOINT SUM, not on the object: the
+  # gap between the pads at aperture 0.055 is ~0.070 m, so the 0.046 m cube cannot
+  # force the latch open-side; 24 mm of margin. Re-checked for the new asset.
+  cage_command.object_pose_range = CageDragCommandCfg.ObjectPoseRangeCfg(
+    x=_x,
+    y=(-0.18, 0.18),
+    z=(CUBE_HALF_HEIGHT, CUBE_HALF_HEIGHT),
+    yaw=(0.0, 0.0),
+  )
+  cage_command.target_position_range = CageDragCommandCfg.TargetPositionRangeCfg(
+    x=_x,
+    y=(-0.2, 0.2),
+  )
+
+  cfg.scene.env_spacing = 1.5
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_topple_block_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka toppling an ungraspable standing block onto a designated face pair."""
+  cfg = make_topple_block_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "block": get_block_cfg(),
+    "mocap_goal": get_block_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "block", "topple_block")
+
+  topple_command = cfg.commands["topple_block"]
+  assert isinstance(topple_command, ReorientObjectCommandCfg)
+  # Standing upright (half-height 0.09). The pad is ASYMMETRIC in x because a topple
+  # is asymmetric: the block is poked on its near face and falls AWAY from the robot.
+  #
+  #   near edge: inset by the yaw-swept horizontal half-extent (0.07) only, so the
+  #     poke contact at spawn_x - 0.07 stays clear of GRASP_RADIAL_MIN (0.28).
+  #   far edge:  inset by half-extent + the ~0.09 topple travel, so the fallen block
+  #     stays inside the out-of-bounds termination box.
+  #
+  # Symmetric 0.09 padding on both sides collapsed a 22 cm range to a 3.8 cm band
+  # (x 0.39-0.43), which is not placement diversity — every episode saw the block in
+  # essentially one spot. The near-side 0.09 was pure waste: nothing travels that way.
+  # NOTE the bounds below are NOT derived from GRASP_X_RANGE. Nothing in this task is
+  # grasped: the block is poked on its near face. The binding constraints are where
+  # that CONTACT POINT lands, not where a top-down pinch would.
+  _half = BLOCK_HALF_EXTENTS[1]  # 0.08: the larger horizontal half-extent (0.05 x 0.08)
+  _travel = BLOCK_HALF_HEIGHT  # 0.105: a topple carries the block ~one half-height
+  _poke_near = workspace.GRASP_RADIAL_MIN + _half  # 0.35: contact clear of the base
+  _poke_far = 0.44  # contact at 0.36; fallen block reaches 0.625, inside x_bounds
+  topple_command.object_spawn_range = _ObjectSpawnRangeCfg(
+    x=(_poke_near + 0.01, _poke_far),
+    y=(workspace.GRASP_Y_RANGE[0] + _half, workspace.GRASP_Y_RANGE[1] - _half),
+    z=(BLOCK_HALF_HEIGHT, BLOCK_HALF_HEIGHT),
+    yaw=(-3.14159, 3.14159),
+  )
+  assert _poke_far + _half + _travel < 1.0, "fallen block must stay in x_bounds"
+
+  cfg.scene.env_spacing = 1.5
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_push_flap_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka face-pushing a handle-less flap through its hinge arc."""
+  cfg = make_push_flap_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "flap": get_flap_cfg(),
+    "mocap_goal": get_flap_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "flap", "push_flap")
+
+  # flap.xml: the push point (object_site) sits 0.18 along +y from the mount, so
+  # the mount is shifted -y to centre the panel on the midline. The -70 deg swing
+  # carries the contact point ~0.17 further out in x (R(-70deg) @ (0, 0.18)), so
+  # the mount x band is pulled IN to (0.44, 0.50) to keep the END of the arc at
+  # radial ~0.61-0.68 — inside the side-approach envelope's p90 (0.727), unlike a
+  # window-style 0.50-0.56 band whose arc end would leave it entirely.
+  cfg.events["reset_flap_position"].params["pose_range"] = {
+    "x": (0.44, 0.50),
+    "y": (-0.22, -0.12),
+    "z": _mech_z("flap"),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_axial_extract_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka pulling a friction-fit plug vertically out of its socket."""
+  cfg = make_axial_extract_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg_neutral(),
+    "plug": get_plug_cfg(),
+    "mocap_goal": get_plug_mocap_target_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "plug", "axial_extract")
+
+  # plug.xml: the pinchable head (object_site) sits directly above the mount at
+  # +0.062, and extraction is a TOP-DOWN pinch-and-pull — so unlike the side-on
+  # mechanisms this placement obeys the GRASP envelope: head radial <= 0.49 at the
+  # box corner, under the 0.55 top-down ceiling. Mount z is floor-clearance
+  # dictated (_mech_z), putting the head at ~0.14 — inside the grasp height band.
+  cfg.events["reset_plug_position"].params["pose_range"] = {
+    "x": (0.40, 0.48),
+    "y": (-0.10, 0.10),
+    "z": _mech_z("plug"),
+  }
+
+  return _apply_play_test(cfg, play, test)
+
+
+def franka_edge_grasp_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka sliding a plate over the ledge edge and pinching it at the overhang."""
+  cfg = make_edge_grasp_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "plate": get_plate_cfg(),
+    "ledge": get_ledge_cfg(),
+    "mocap_goal": get_plate_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "plate", "edge_grasp")
+
+  # EdgeGraspCommand owns both the ledge placement (static mocap, written per-env)
+  # and the plate spawn on its top. Defaults put the ledge at x 0.44-0.50: the
+  # plate then lives at x ~0.42-0.54, z ~0.11 — a top-down pinch inside the grasp
+  # envelope (corner radial ~0.55 at the widest).
+  edge_command = cfg.commands["edge_grasp"]
+  assert isinstance(edge_command, EdgeGraspCommandCfg)
+
+  cfg.scene.env_spacing = 2.0
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_pivot_lift_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka pivoting a flat board against the wall, then grasping and lifting it."""
+  cfg = make_pivot_lift_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "board": get_board_cfg(),
+    "wall": get_wall_cfg(),
+    "mocap_goal": get_board_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "board", "pivot_lift")
+
+  # PivotLiftCommand owns the wall placement (static mocap, per-env at x=0.57):
+  # just beyond the board band (x 0.42-0.50), so pushing the board +x jams it
+  # against the wall and pivots it. Board and lift goal both sit inside the grasp
+  # envelope; the wall itself only has to be REACHED AGAINST, never grasped.
+  pivot_command = cfg.commands["pivot_lift"]
+  assert isinstance(pivot_command, PivotLiftCommandCfg)
+
+  cfg.scene.env_spacing = 2.0
+
+  return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def franka_throw_to_bin_env_cfg(
+  play: bool = False,
+  test: bool = False,
+) -> ManagerBasedRlEnvCfg:
+  """Franka tossing a cube into a bin placed beyond the reach envelope.
+
+  Reuses the place-in-container base (same containment + settle success shape);
+  the bin band beyond arm stretch is what turns placing into throwing.
+  """
+  cfg = make_place_in_container_env_cfg()
+
+  cfg.scene.entities = {
+    "robot": get_franka_robot_cfg(),
+    "cube": get_cube_cfg(),
+    "container": get_container_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
+  }
+  _apply_franka_articulation_common(cfg, "cube", "place_in_container")
+
+  throw_command = cfg.commands["place_in_container"]
+  assert isinstance(throw_command, PlaceInContainerCommandCfg)
+  # Cube in the corner-safe grasp box; bin DELIBERATELY beyond the arm's ~0.85 m
+  # stretch (radial >= 0.78, up to 0.90). Do not pull it inside the envelope: a
+  # reachable bin turns this back into place-in-container. The command's
+  # containment + settled predicate is exactly right for a toss — a cube bounced
+  # out does not count, a cube still in hand does not count.
+  _x, _y = _grasp_box_corner_safe()
+  throw_command.object_spawn_range = _ObjectSpawnRangeCfg(
+    x=_x, y=_y, z=(0.03, 0.03)
+  )
+  # z = 0: the basket's body origin is its underside, so it sits ON the ground.
+  throw_command.container_spawn_range = _ObjectSpawnRangeCfg(
+    x=(0.78, 0.90), y=(-0.15, 0.15), z=(0.0, 0.0), yaw=(0.0, 0.0)
+  )
+
+  # Room for the flight and for overshoot.
+  cfg.terminations["object_out_of_bounds"].params["x_bounds"] = (0.0, 1.4)
+  cfg.terminations["object_out_of_bounds"].params["y_bounds"] = (-0.7, 0.7)
+  cfg.episode_length_s = 5.0
+
+  cfg.scene.env_spacing = 2.5
 
   return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))

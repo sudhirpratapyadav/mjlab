@@ -11,6 +11,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -21,6 +22,15 @@ STICK_XML: Path = (
 )
 assert STICK_XML.exists(), f"XML not found: {STICK_XML}"
 
+STICK_ASSETS_DIR: Path = STICK_XML.parent / "assets"
+
+
+def get_assets() -> dict:
+  """Mesh + texture blobs keyed as the MJCF's ``meshdir``/``texturedir`` expect."""
+  assets: dict = {}
+  update_assets(assets, STICK_ASSETS_DIR, "assets")
+  return assets
+
 
 ##
 # Spec functions.
@@ -28,7 +38,9 @@ assert STICK_XML.exists(), f"XML not found: {STICK_XML}"
 
 def get_stick_spec() -> mujoco.MjSpec:
     """Load Stick MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(STICK_XML))
+    spec = mujoco.MjSpec.from_file(str(STICK_XML))
+    spec.assets = get_assets()
+    return spec
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:

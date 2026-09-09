@@ -1,0 +1,48 @@
+{
+ "name": "container",
+ "source": "GSO Spritz Easter Basket Plastic Teal",
+ "license": "CC-BY 4.0",
+ "visual_tris": 12630,
+ "extent_m": [
+  0.1913,
+  0.1826,
+  0.1289
+ ],
+ "bounds": [
+  [
+   -0.0956,
+   -0.0913,
+   0.0
+  ],
+  [
+   0.0956,
+   0.0913,
+   0.1289
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "container_tex.png",
+ "mass_kg": 0.25,
+ "volume_m3": 0.0032520973604988923,
+ "com": [
+  2e-05,
+  0.00094,
+  0.06669
+ ],
+ "diaginertia": [
+  0.0008282136097458107,
+  0.0008526997606283346,
+  0.0010231977001685286
+ ],
+ "asset_xml": "    <texture name=\"container_tex\" type=\"2d\" file=\"container_tex.png\"/>\n    <material name=\"container_mat\" texture=\"container_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"container_vis\" file=\"container_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"container_visual\" type=\"mesh\" mesh=\"container_vis\" material=\"container_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00002 0.00094 0.06669\" quat=\"0.994850 -0.018346 -0.006600 0.099463\" mass=\"0.25000\" diaginertia=\"8.282e-04 8.527e-04 1.023e-03\"/>",
+ "files": [
+  "container_tex.png",
+  "container_vis.mtl",
+  "container_vis.obj"
+ ],
+ "bytes": 1127263
+}

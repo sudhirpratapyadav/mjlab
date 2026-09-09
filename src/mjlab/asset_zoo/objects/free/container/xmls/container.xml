@@ -1,38 +1,78 @@
 <?xml version="1.0"?>
 <!--
-  Open-top container / bin (static receptacle for the place-in-container task).
+  Open-top container / bin: the static receptacle for place-in-container, and the
+  out-of-reach bin for throw-to-bin.
 
   Motion profile it serves: success requires CONTAINMENT (object inside the walls,
   below the rim) plus a release, rather than the stable-contact-on-top predicate used
-  by stack. The walls also make the approach non-monotonic — the gripper must clear
+  by stack. The walls also make the approach non-monotonic -- the gripper must clear
   the rim before descending, so a straight-line reach into the goal collides.
 
-  Static (mocap) body: the bin does not move; only the carried object does.
+  Static (mocap) body: the bin does not move; only the carried object does. Its pose is
+  written per-env by PlaceInContainerCommand._resample_command.
+
+  CL-V2 (W1-b): the five-box primitive is now a real product -- GSO
+  `Spritz_Easter_Basket_Plastic_Teal`, a moulded plastic basket, CC-BY 4.0, at its
+  SCANNED SCALE (191 x 183 x 129 mm; no rescaling). Measured cavity: the moulded floor
+  is 4 mm thick and the inner clear span runs from 163 mm at the floor out to 186 x 178
+  mm at the rim, whose scalloped edge dips to 113 mm and peaks at 129 mm.
+
+  MEASURED GEOMETRY THE TASK CONSTANTS COME FROM (all above the body origin, which is
+  the basket's UNDERSIDE, so the bin sits ON the ground at spawn z = 0):
+      inner floor surface      z = 0.004
+      inner clear half-span    0.0815 at the floor  (0.093 x / 0.089 y at the rim)
+      rim, lowest point        z = 0.113   <- this is what `rim_height` is derived from
+      rim, scallop peaks       z = 0.129
+      object_site              z = 0.020   (16 mm above the inner floor)
+  =>  PlaceInContainerCommandCfg.lateral_tolerance = 0.0815 - 0.0230 (cube half-width)
+                                                   = 0.0585
+      PlaceInContainerCommandCfg.rim_height        = 0.113 - 0.020 = 0.093
+      PlaceInContainerCommandCfg.floor_tolerance   = 0.020
+
+  COLLIDERS: floor + four walls as BOXES, keeping the primitive version's five geom
+  names and their contype/condim/friction/solref verbatim. Boxes rather than CoACD
+  because (a) a CoACD run on this shell merged the 4 mm floor with the wall flare into
+  an 18 mm slab, which would have left the cube visibly floating, and (b) five boxes are
+  the cheapest thing that can be on the GPU for a shape whose inside is the whole point.
+  The walls are VERTICAL at the floor's inner span (0.0815), i.e. up to 11 mm inside the
+  flared visual wall near the rim: conservative in the safe direction (the collider
+  cavity is never larger than the real one), and exact where the object actually rests.
 -->
 <mujoco model="container">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+  <asset>
+    <texture name="container_tex" type="2d" file="container_tex.png"/>
+    <material name="container_mat" texture="container_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="container_vis" file="container_vis.obj"/>
+  </asset>
   <worldbody>
-    <body name="container_base" pos="0.55 0.2 0.02" mocap="true">
-      <!-- Floor of the bin. -->
-      <geom type="box" name="container_floor" size="0.07 0.07 0.008" pos="0 0 0"
-            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 1"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <!-- Four walls (inner clear span ~12cm, rim 7cm above the floor). -->
-      <geom type="box" name="container_wall_px" size="0.008 0.07 0.035" pos="0.062 0 0.035"
-            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="container_wall_nx" size="0.008 0.07 0.035" pos="-0.062 0 0.035"
-            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="container_wall_py" size="0.07 0.008 0.035" pos="0 0.062 0.035"
-            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
-            contype="1" conaffinity="1" solref="0.01 1"/>
-      <geom type="box" name="container_wall_ny" size="0.07 0.008 0.035" pos="0 -0.062 0.035"
-            condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.6"
-            contype="1" conaffinity="1" solref="0.01 1"/>
+    <body name="container_base" pos="0.55 0.2 0.0" mocap="true">
+      <inertial pos="0.00002 0.00094 0.06669" quat="0.994850 -0.018346 -0.006600 0.099463"
+                mass="0.25000" diaginertia="8.282e-04 8.527e-04 1.023e-03"/>
+      <geom name="container_visual" type="mesh" mesh="container_vis" material="container_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Floor of the bin: 4 mm moulded base, top surface at z = 0.004. -->
+      <geom type="box" name="container_floor" size="0.0835 0.0835 0.002" pos="0 0 0.002"
+            group="3" condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.3"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <!-- Four walls: inner faces at +-0.0815, rim at z = 0.117. -->
+      <geom type="box" name="container_wall_px" size="0.002 0.0835 0.0565" pos="0.0835 0 0.0605"
+            group="3" condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.3"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <geom type="box" name="container_wall_nx" size="0.002 0.0835 0.0565" pos="-0.0835 0 0.0605"
+            group="3" condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.3"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <geom type="box" name="container_wall_py" size="0.0835 0.002 0.0565" pos="0 0.0835 0.0605"
+            group="3" condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.3"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <geom type="box" name="container_wall_ny" size="0.0835 0.002 0.0565" pos="0 -0.0835 0.0605"
+            group="3" condim="3" friction="1 0.03 0.003" rgba="0.35 0.35 0.7 0.3"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
       <!--
-        Containment reference site: centre of the interior volume, just above the
+        Containment reference site: centre of the interior volume, 16 mm above the inner
         floor. PlaceInContainerCommand measures the object against this site with
-        separate lateral / vertical tolerances (a box test, not a sphere test).
+        separate lateral / vertical tolerances (a box test, not a sphere test), and
+        reads this offset straight off the spec -- keep it.
       -->
       <site name="object_site" pos="0 0 0.02" size="0.01" rgba="1 0 0 1"/>
       <site name="base_site" pos="0 0 0.02" size="0.01" rgba="0 0 1 0.3"/>

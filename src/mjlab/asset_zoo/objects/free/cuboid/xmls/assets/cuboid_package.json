@@ -1,0 +1,48 @@
+{
+ "name": "cuboid",
+ "source": "YCB 009_gelatin_box (google_16k scan)",
+ "license": "CC-BY 4.0",
+ "visual_tris": 11999,
+ "extent_m": [
+  0.0729,
+  0.0892,
+  0.0301
+ ],
+ "bounds": [
+  [
+   -0.0365,
+   -0.0446,
+   -0.015
+  ],
+  [
+   0.0365,
+   0.0446,
+   0.015
+  ]
+ ],
+ "collider": "box",
+ "n_colliders": 1,
+ "collider_tris": [],
+ "texture": "cuboid_tex.png",
+ "mass_kg": 0.097,
+ "volume_m3": 0.00017920664165854317,
+ "com": [
+  -0.00034,
+  -0.00026,
+  -0.00049
+ ],
+ "diaginertia": [
+  4.81732412173663e-05,
+  6.738396533762043e-05,
+  0.00010279108707012894
+ ],
+ "asset_xml": "    <texture name=\"cuboid_tex\" type=\"2d\" file=\"cuboid_tex.png\"/>\n    <material name=\"cuboid_mat\" texture=\"cuboid_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"cuboid_vis\" file=\"cuboid_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"cuboid_visual\" type=\"mesh\" mesh=\"cuboid_vis\" material=\"cuboid_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>\n      <geom name=\"cuboid_col_00\" type=\"box\" pos=\"-0.0000 0.0000 0.0000\" size=\"0.0365 0.0446 0.0150\" group=\"3\" rgba=\"0.5 0.5 0.5 0.3\" condim=\"3\" friction=\"1 0.03 0.003\" contype=\"1\" conaffinity=\"1\" solref=\"0.01 1\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"-0.00034 -0.00026 -0.00049\" quat=\"0.708898 -0.003318 -0.000690 -0.705303\" mass=\"0.09700\" diaginertia=\"4.817e-05 6.738e-05 1.028e-04\"/>",
+ "files": [
+  "cuboid_tex.png",
+  "cuboid_vis.mtl",
+  "cuboid_vis.obj"
+ ],
+ "bytes": 1556969
+}

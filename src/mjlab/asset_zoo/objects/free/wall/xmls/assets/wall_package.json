@@ -1,0 +1,48 @@
+{
+ "name": "wall",
+ "source": "Poly Haven texture 'brick_wall_001' (CC0); 500 x 105 x 150 mm brick block (two courses of standard 215x102.5x65 mm bricks) built with trimesh",
+ "license": "CC0",
+ "visual_tris": 20,
+ "extent_m": [
+  0.105,
+  0.5,
+  0.15
+ ],
+ "bounds": [
+  [
+   -0.0525,
+   -0.25,
+   -0.075
+  ],
+  [
+   0.0525,
+   0.25,
+   0.075
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "wall_tex.png",
+ "mass_kg": 15.75,
+ "volume_m3": 0.007869591,
+ "com": [
+  0.0,
+  0.0,
+  -5e-05
+ ],
+ "diaginertia": [
+  0.043947043892786475,
+  0.34250492013255673,
+  0.3575423244587094
+ ],
+ "asset_xml": "    <texture name=\"wall_tex\" type=\"2d\" file=\"wall_tex.png\"/>\n    <material name=\"wall_mat\" texture=\"wall_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"wall_vis\" file=\"wall_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"wall_visual\" type=\"mesh\" mesh=\"wall_vis\" material=\"wall_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00000 0.00000 -0.00005\" quat=\"0.500000 -0.500000 0.500000 -0.500000\" mass=\"15.75000\" diaginertia=\"4.395e-02 3.425e-01 3.575e-01\"/>",
+ "files": [
+  "wall_tex.png",
+  "wall_vis.mtl",
+  "wall_vis.obj"
+ ],
+ "bytes": 1874956
+}

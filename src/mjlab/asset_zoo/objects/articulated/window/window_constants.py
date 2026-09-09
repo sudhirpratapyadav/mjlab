@@ -12,6 +12,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -27,9 +28,18 @@ assert WINDOW_XML.exists(), f"XML not found: {WINDOW_XML}"
 # Spec functions.
 ##
 
+def get_window_assets(meshdir: str) -> dict[str, bytes]:
+    """Load the mesh/texture assets next to the XML (Franka pattern, CODE_MAP §1)."""
+    assets: dict[str, bytes] = {}
+    update_assets(assets, WINDOW_XML.parent / "assets", meshdir)
+    return assets
+
+
 def get_window_spec() -> mujoco.MjSpec:
-    """Load Window MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(WINDOW_XML))
+    """Load Window MjSpec from XML, with its meshes and textures."""
+    spec = mujoco.MjSpec.from_file(str(WINDOW_XML))
+    spec.assets = get_window_assets(spec.meshdir)
+    return spec
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:

@@ -1,11 +1,25 @@
 """Scripted RotateValve teacher — spoke PINCH walked round the arc, with HANDOFF.
 
-MEASURED: 0.469 and 0.344 on two independent 32-episode runs, up from 0.031
-for the previous pad-push teacher. The two runs disagree by more than the
-sample error, so the LOWER figure (0.344) is the one to quote; the spread is
-itself a property of the task, which is very sensitive to the spawn pose
-(x in [0.50, 0.70], y in [-0.1, 0.1]). Mean peak rotation 253 deg against a
-270 deg target.
+MEASURED (2026-09-09, n=128, HEAD 1127d12): 0.523 baseline, 0.484 after adding
+SEAT_HARD_TIMEOUT (see below) -- not a clear improvement, within this task's
+own documented run-to-run noise. Earlier readings: 0.469 and 0.344 on two
+independent 32-episode runs, up from 0.031 for the previous pad-push teacher.
+The spread is itself a property of the task, which is very sensitive to the
+spawn pose (x in [0.50, 0.70], y in [-0.1, 0.1]). Mean peak swept angle
+218-255 deg against the ~258.5 deg actually needed (270 minus the 11.5 deg
+success threshold) in the most recent instrumented runs.
+
+SECOND MECHANISM (2026-09-09): phase 1 (DROP/seat)'s timeout is NOT actually
+unconditional -- unlike ALIGN_TIMEOUT (phase 0) and STALL_STEPS (phase 2,
+below), SEAT_TIMEOUT only fires when ALSO norm(raw) < 0.10, so an engagement
+whose DLS lateral bias never drops under 10cm can sit in DROP indefinitely.
+Instrumented: DROP consumes ~38-40% of the 400-step budget on average, MORE
+than the productive ARC_FOLLOW phase (~31-34%). Added SEAT_HARD_TIMEOUT, an
+unconditional cap mirroring ALIGN_TIMEOUT's pattern (see its definition
+below for the full writeup and why falling through with an imprecise seat is
+safe). Did not clearly move the aggregate SR -- kept anyway as a genuine
+correctness fix, not a tuned constant. See docs/cl25/phase_1/LOGS.md
+(2026-09-09, W2-b) for the full instrumented trail.
 
 WHAT CHANGED, AND WHY THE PAD PUSH FAILED
 -----------------------------------------
@@ -116,6 +130,20 @@ PINCH_LOST = 0.10  # site this far from the intended pinch point => re-seat
 # park the arm in an approach phase for the whole episode.
 ALIGN_TIMEOUT = 45
 SEAT_TIMEOUT = 35
+# SEAT_TIMEOUT above is NOT actually unconditional: it only fires when ALSO
+# norm(raw) < 0.10, so an engagement whose lateral bias never drops under 10cm
+# (INTEG_GAIN's clip at +-0.06 is not always enough to null it) can sit in
+# DROP indefinitely -- this is the same deadlock class as the ARC_FOLLOW stall
+# below, just missing its own unconditional escape. Instrumented: DROP eats
+# ~39-40% of the 400-step budget on average (more than ARC_FOLLOW's ~31-33%),
+# vs an intended ~35-step-per-engagement budget, and individual engagements
+# were traced sitting in DROP for 200+ steps. SEAT_HARD_TIMEOUT is the
+# unconditional cap ALIGN_TIMEOUT already has; falling through to PINCH_CLOSE
+# and then ARC_FOLLOW with a still-imprecise seat is safe because
+# ARC_FOLLOW's own PINCH_LOST check re-seats it immediately if the pinch was
+# not actually acquired -- it does not risk a bad physical action, only a
+# faster failure-and-retry instead of a silent multi-hundred-step stall.
+SEAT_HARD_TIMEOUT = 60
 # Hand off to the opposite spoke once the pushed spoke has gone this far round:
 # beyond here the pad would be driven behind the mount plate.
 # Hand off well BEFORE the arm becomes awkward. 2.6 rad (~150 deg) was too
@@ -277,8 +305,10 @@ class RotateValveClassicalPolicy(ClassicalPolicyBase):
         self._settle[i] += 1
       else:
         self._settle[i] = 0
-      if self._settle[i] >= SETTLE or (
-        self._phase_steps[i] > SEAT_TIMEOUT and np.linalg.norm(raw) < 0.10
+      if (
+        self._settle[i] >= SETTLE
+        or (self._phase_steps[i] > SEAT_TIMEOUT and np.linalg.norm(raw) < 0.10)
+        or self._phase_steps[i] > SEAT_HARD_TIMEOUT
       ):
         self._phase[i] = 3
         self._phase_steps[i] = 0

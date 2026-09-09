@@ -104,6 +104,11 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   carry_integ_gain = 0.18  # same, for the lateral carry/place (see _carry)
   carry_integ_clip = 0.06
   grasp_yaw = None  # None -> axis-only (yaw free); else a float in radians
+  # Gripper-closed action value used for P_CLOSE/P_LIFT/_carry/_place. DEFAULT is the
+  # original GRIPPER_CLOSED (-1.0, "fully closed") so every existing subclass
+  # (peg_insertion, reorient_object) is byte-for-byte unaffected unless it opts in by
+  # overriding this. See the P_CLOSE docstring for why a subclass might override it.
+  grip_close_action = GRIPPER_CLOSED
   # Vertical offset added to the grasp point. In a top-down pose the lowest robot
   # COLLISION geom (a fingertip pad) sits 1.4cm below the ``gripper`` site -- and the
   # hand capsule's bounding volume reaches ~3.1cm below it -- and
@@ -295,30 +300,29 @@ class GraspTransportPolicy(ClassicalPolicyBase):
     if ph == P_CLOSE:
       # Hold the pose exactly (zero position error) while the fingers squeeze.
       # Any residual command here drags the object out from between the pads.
+      #
+      # ``grip_close_action`` (default GRIPPER_CLOSED, i.e. "fully closed"): see the
+      # W2-c retention finding in P_LIFT below -- commanding fully-closed keeps the
+      # actuator driving hard against the object indefinitely, past first contact.
       if self._phase_steps[i] >= self.close_steps:
         self._phase[i] = P_LIFT
         self._phase_steps[i] = 0
-      return np.zeros(3), rot, GRIPPER_CLOSED
+      return np.zeros(3), rot, self.grip_close_action
 
     if ph == P_LIFT:
       # OPTIONAL lift ramp, DISABLED BY DEFAULT (``lift_ramp_frac = 0.0``), kept
       # only as a tunable because the diagnosis behind it is solid even though the
       # remedy did not pay.
       #
-      # The diagnosis: losing the object HERE is this spine's dominant failure.
-      # Instrumented over 32 episode-instances on both cube dependents, Stack lost
-      # the cube in 22/32 runs (13 of them inside this phase) and
-      # place-in-container in 19/32 (12 here); of the 10 Stack runs that never
-      # dropped it, 9 succeeded. So retention in P_LIFT, not placement accuracy,
-      # is what these tasks' success rates are mostly made of. The mechanism is
-      # plausible too: this phase commands ``up * lift_height`` (0.14-0.22 m) as a
-      # single constant error the instant the fingers close, which saturates the
-      # solver and jerks a pinch that is barely established -- and the pinch is
-      # marginal by construction, since the only colliding fingertip geom is one
-      # 1.75x1.5cm pad per finger with friction randomised as low as 0.3.
+      # The original diagnosis (right symptom, wrong cause -- see below): losing the
+      # object HERE is this spine's dominant failure. Instrumented over 32
+      # episode-instances on both cube dependents, Stack lost the cube in 22/32 runs
+      # (13 of them inside this phase) and place-in-container in 19/32 (12 here); of
+      # the 10 Stack runs that never dropped it, 9 succeeded. So retention, not
+      # placement precision, is what these tasks' success rates are mostly made of.
       #
-      # The remedy did NOT follow. Ramping the command (with a longer squeeze and
-      # a deeper grasp) was measured over 96 episode-instances against a matched
+      # THE REMEDY DID NOT FOLLOW: ramping the command (with a longer squeeze and a
+      # deeper grasp) was measured over 96 episode-instances against a matched
       # 96-instance baseline and made BOTH tasks worse: Stack 0.354 -> 0.292,
       # place-in-container 0.302 -> 0.188. It also silently broke peg-insertion
       # when the ramp was an absolute step count rather than a fraction (peg
@@ -327,14 +331,44 @@ class GraspTransportPolicy(ClassicalPolicyBase):
       # Hence the ramp is off and the fraction form is retained so that no
       # subclass can be starved if anyone re-enables it.
       #
-      # The retention problem is therefore REAL AND STILL OPEN -- it just is not
-      # solved by lifting more gently.
+      # W2-c (2026-09-09), instrumented gripper/aperture/force traces, not just phase
+      # counts: the ORIGINAL DIAGNOSIS NAMED THE RIGHT SYMPTOM AND THE WRONG PHASE.
+      # The lift jerk is not the trigger. Per-step traces (gripper-object xy offset,
+      # finger aperture, actuator8 force) across P_CLOSE through P_LIFT show that on
+      # a large fraction of runs the object is EJECTED SIDEWAYS DURING P_CLOSE
+      # ITSELF, before any lift command is ever issued -- aperture collapses
+      # monotonically from the object's true contact width (~0.04) all the way to
+      # ~0.00 (fully closed on nothing) while the gripper-object xy offset grows in
+      # lockstep over the SAME several steps, both while ``P_CLOSE`` is still
+      # commanding zero position error. Concretely (env 1 of one traced Stack-Cube
+      # rollout): xy offset grew 0.007m -> 0.084m while aperture collapsed
+      # 0.069 -> 0.005, entirely within P_CLOSE's fixed close_steps window; by the
+      # time the phase-timer transitions to P_LIFT the object is often already gone,
+      # and P_LIFT/P_CARRY only make the pre-existing loss OBSERVABLE (gripper-object
+      # distance finally crosses a detection threshold) -- they are not what causes
+      # it. This also explains, after the fact, why "longer squeeze" made things
+      # worse above: more steps inside the very phase whose action ejects the object
+      # is more exposure, not less; and why "ramped lift" made things worse: a slower
+      # ramp cannot fix a loss that already happened one phase earlier, and it
+      # prolongs the window in which a still-slipping grasp finishes escaping. The
+      # applied force during this ejection is NOT small (actuator8 typically shows
+      # 5-12N, decaying roughly with the aperture itself since it is a tendon-length
+      # P-servo, not an independently regulated grip force) -- both successful holds
+      # and ejections show comparable peak force, so the discriminator is whether the
+      # aperture STABILIZES against the object (success) or is driven straight
+      # through it to fully-closed (ejection), not how hard the actuator pushes.
+      #
+      # FIX ATTEMPTED: ``grip_close_action`` (see P_CLOSE) commands a PARTIAL close
+      # instead of fully-closed, so the actuator's steady-state target sits near the
+      # object's true contact width instead of continuing to drive past it once
+      # contact is made. See StackObjectClassicalPolicy / PlaceInContainerClassicalPolicy
+      # for the measured result and whether it was kept.
       ramp = max(1.0, self.lift_ramp_frac * self.lift_steps)
       frac = min(1.0, (self._phase_steps[i] + 1) / ramp)
       if self._phase_steps[i] >= self.lift_steps:
         self._phase[i] = P_CARRY
         self._phase_steps[i] = 0
-      return up * (self.lift_height * frac), rot, GRIPPER_CLOSED
+      return up * (self.lift_height * frac), rot, self.grip_close_action
 
     if ph == P_CARRY:
       return self._carry(i, obs_i, rot)
@@ -384,7 +418,7 @@ class GraspTransportPolicy(ClassicalPolicyBase):
       # The integrator is deliberately CARRIED OVER into the place phase: it is
       # holding out the same bias, and zeroing it lets the object drift straight back
       # off-target during the descent.
-    return err, rot, GRIPPER_CLOSED
+    return err, rot, self.grip_close_action
 
   def _place(self, i, obs_i, rot):
     """Lower until the object sits on the drop point, then release."""
@@ -398,7 +432,7 @@ class GraspTransportPolicy(ClassicalPolicyBase):
     if np.linalg.norm(d) < self.place_tol or self._phase_steps[i] > 70:
       self._phase[i] = P_RELEASE
       self._phase_steps[i] = 0
-    return d + self._integ[i], rot, GRIPPER_CLOSED
+    return d + self._integ[i], rot, self.grip_close_action
 
 
 class StackObjectClassicalPolicy(GraspTransportPolicy):
@@ -437,3 +471,12 @@ class StackObjectClassicalPolicy(GraspTransportPolicy):
   # See the note in P_LIFT: grip retention really is the dominant failure here,
   # but neither a deeper grasp nor a gentler lift is the fix.
   grasp_z_offset = 0.010
+  # W2-c: a partial-close ``grip_close_action`` (instead of fully-closed) was tried
+  # against the P_LIFT finding below and measured WORSE at both tested values
+  # (-0.4 -> 0.000/32, -0.85 -> 0.188/32, vs the fully-closed baseline ~0.33/128) --
+  # reverted. See LOGS.md for the negative result and why it likely trades one
+  # failure mode (ejection after contact) for a worse one (never reaching contact at
+  # all, since the actuator command-to-aperture mapping is not simply linear and a
+  # partial command may under-close relative to the object's true width in many
+  # envs). Left at the inherited default (fully closed) pending a better-targeted fix
+  # (e.g. contact-triggered stop rather than a blind partial command).

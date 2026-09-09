@@ -1,27 +1,43 @@
 <?xml version="1.0"?>
 <!--
-  Stick / hook tool (for the tool-pull task).
+  Wooden reach hook (the "stick") for the tool-pull task.
 
-  Motion profile it serves: TOOL USE. The stick is grasped near its handle end and
-  used to drag a puck that is beyond the arm's reach. Two-stage and tool-mediated —
-  the policy must first acquire the tool, then reason about contact at the tool's far
-  end rather than at its own fingertips.
+  Motion profile it serves: TOOL USE. The hook is grasped near its handle end and used
+  to drag a puck that is beyond the arm's reach. Two-stage and tool-mediated -- the
+  policy must first acquire the tool, then reason about contact at the tool's far end
+  rather than at its own fingertips.
 
-  Geometry: a long shaft with a short perpendicular hook at the far end, so the puck
-  can be caught and pulled back rather than only pushed further away.
+  Geometry: a 260 mm turned wooden dowel (22 mm diameter) whose far end curves through a
+  quarter arc into a 70 mm hook, so the puck can be CAUGHT and pulled back rather than
+  only pushed further away. Dimensions and the two site offsets are the primitive
+  version's, unchanged, so ToolPullCommand's spawn ranges and the teacher's constants
+  still describe this object. Albedo: ambientCG Wood051 (CC0).
+
+  Colliders are two cylinder PRIMITIVES on the same axes/extents as the boxes they
+  replace (a dowel is exactly a cylinder, and the pair is analytic against the ground
+  plane). Mass comes from the geoms at 600 kg/m^3 -- real hardwood -- so the body inertia
+  is MuJoCo's own L-shaped composite, not a convex-hull overestimate.
 -->
 <mujoco model="stick">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+  <asset>
+    <texture name="stick_tex" type="2d" file="stick_tex.png"/>
+    <material name="stick_mat" texture="stick_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="stick_vis" file="stick_vis.obj"/>
+  </asset>
   <worldbody>
     <body name="stick" pos="0.45 -0.15 0.32">
       <freejoint name="stick_joint"/>
+      <geom name="stick_visual" type="mesh" mesh="stick_vis" material="stick_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
       <!-- Shaft: long axis along world x, grasped near the near (-x) end. -->
-      <geom type="box" name="stick_shaft" size="0.13 0.011 0.011" pos="0.0 0 0"
-            mass="0.04" condim="3" friction="1 0.03 0.003" rgba="0.75 0.55 0.25 1"
-            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="cylinder" name="stick_shaft" size="0.011 0.13" pos="0 0 0"
+            zaxis="1 0 0" mass="0.059" condim="3" friction="1 0.03 0.003" group="3"
+            rgba="0.5 0.5 0.5 0.3" contype="1" conaffinity="1" solref="0.01 1"/>
       <!-- Hook at the far (+x) end, projecting along +y to catch the puck. -->
-      <geom type="box" name="stick_hook" size="0.011 0.035 0.011" pos="0.12 0.035 0"
-            mass="0.01" condim="3" friction="1 0.03 0.003" rgba="0.85 0.45 0.15 1"
-            contype="1" conaffinity="1" solref="0.01 1"/>
+      <geom type="cylinder" name="stick_hook" size="0.011 0.035" pos="0.12 0.035 0"
+            zaxis="0 1 0" mass="0.016" condim="3" friction="1 0.03 0.003" group="3"
+            rgba="0.5 0.5 0.5 0.3" contype="1" conaffinity="1" solref="0.01 1"/>
       <!-- Grasp point near the handle end. -->
       <site name="object_site" pos="-0.09 0 0" size="0.01" rgba="1 0 0 1"/>
       <!-- Working point at the hook (used for tool-tip shaping). -->

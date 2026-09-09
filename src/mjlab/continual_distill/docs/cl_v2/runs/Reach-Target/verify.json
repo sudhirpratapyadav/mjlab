@@ -1,0 +1,45 @@
+{
+ "task": "Mjlab-Reach-Target-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {},
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {},
+  "goal": {
+   "term": "reach_target",
+   "radial": [
+    0.40305957198143005,
+    0.7380195260047913
+   ],
+   "z": [
+    0.1503308266401291,
+    0.4999811351299286
+   ],
+   "bound": [
+    0.0,
+    0.75
+   ],
+   "rule": "the goal IS the reach probe \u2014 this task exists to span the envelope, and it carries nothing, so the carry ceiling does not apply. ONE-SIDED, unlike tool-pull and throw-to-bin, whose whole band is deliberately out of reach so a floor is meaningful for them; reach's band runs from the near envelope (radial 0.40) out to the far one, so only the ceiling constrains it. The floor was 0.60, copied from that two-sided pattern; audit_workspace only ever tested the MAX radial so it never fired, but verify_task tests every sampled goal and flagged it (2026-09-09, W1-a). CAVEAT: the far end (0.73) sits at the top-down p90 (0.726), i.e. in the sparse tail this module otherwise warns against. Left as-is deliberately because Reach has trained teachers; trimming it would invalidate them. Revisit if those are retrained.",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle": "n/a (asset-free task)",
+  "oracle_pass": true,
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {},
+ "G3_pass": true
+}

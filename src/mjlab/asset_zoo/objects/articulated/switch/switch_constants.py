@@ -12,6 +12,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -27,9 +28,24 @@ assert SWITCH_XML.exists(), f"XML not found: {SWITCH_XML}"
 # Spec functions.
 ##
 
+def get_switch_assets(meshdir: str) -> dict[str, bytes]:
+    """Load the Blender-built visual meshes and their textures (CL-V2 W2-a).
+
+    Mirrors ``franka_constants.get_assets``: ``meshdir`` and ``texturedir`` are both
+    "assets", so one sweep of that directory covers the OBJ meshes, their .mtl files
+    and the PNG albedos. Required for ``Entity.to_zip`` / ``Scene.to_zip`` and for any
+    path that ships the model away from this source tree.
+    """
+    assets: dict[str, bytes] = {}
+    update_assets(assets, SWITCH_XML.parent / "assets", meshdir)
+    return assets
+
+
 def get_switch_spec() -> mujoco.MjSpec:
-    """Load Switch MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(SWITCH_XML))
+    """Load Switch MjSpec from XML, with its mesh/texture assets."""
+    spec = mujoco.MjSpec.from_file(str(SWITCH_XML))
+    spec.assets = get_switch_assets(spec.meshdir)
+    return spec
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:

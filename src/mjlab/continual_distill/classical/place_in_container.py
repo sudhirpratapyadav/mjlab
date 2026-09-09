@@ -1,18 +1,22 @@
 """Scripted PlaceInContainer teacher policy.
 
-GEOMETRY (container.xml, measured)
-----------------------------------
-The bin is a STATIC mocap body: an 8mm-thick floor with four walls whose inner clear
-span is ~10.8cm and whose rim stands 7cm above the floor's centre. Its
-``object_site`` -- the reference every tolerance is measured against -- sits 2cm
-above the body origin, i.e. 1.2cm above the inner floor surface and 5cm below the
-rim. The carried object is the 4cm cube.
+GEOMETRY (container.xml, measured -- CL-V2, W1-b)
+-------------------------------------------------
+The bin is a STATIC mocap body, and is now a real moulded plastic basket (GSO
+`Spritz_Easter_Basket_Plastic_Teal`, 191 x 183 x 129 mm at scanned scale) rather than
+five boxes. Measured cavity: a 4mm floor, an inner clear span of 16.3cm at the floor
+flaring to 18.6 x 17.8cm, and a scalloped rim whose LOWEST point stands 11.3cm above
+the underside (peaks 12.9cm). Its ``object_site`` -- the reference every tolerance is
+measured against -- sits 2cm above the body origin, i.e. 1.6cm above the inner floor
+surface and 9.3cm below the rim. The carried object is the 4.6cm mini cube.
 
 SUCCESS (PlaceInContainerCommand) -- CONTAINMENT + RELEASE + SETTLING
 ---------------------------------------------------------------------
-    lateral(cube - site) < 0.055     inside the footprint
-    (cube - site).z      < 0.05      below the rim
-    (cube - site).z      > -0.04     not tunnelled through the floor
+    lateral(cube - site) < 0.0585    inside the footprint (0.0815 inner half-span
+                                     minus the cube's 0.0230 half-width, i.e. exactly
+                                     "a face touching the wall")
+    (cube - site).z      < 0.093     below the rim
+    (cube - site).z      > -0.020    not tunnelled through the floor
     |cube linear velocity| < 0.12    released and settled, NOT still carried
 The velocity term is the whole point: holding the cube perfectly inside the bin
 scores ZERO, because a carried object inherits the arm's motion. The teacher must
@@ -20,16 +24,16 @@ open the fingers and wait.
 
 WHY WE DROP RATHER THAN LOWER
 -----------------------------
-A cube resting on the bin floor sits 2.8cm above the site, well inside the +-5cm
-band, so the cube does not have to be placed gently -- it only has to end up inside.
-Meanwhile the walls make a lowering approach expensive: to put the cube 1cm below the
-rim the fingertips must go INSIDE a 10.8cm span while holding a 4cm cube, leaving
-~3cm of clearance per side for a gripper that is wider than that. Every lowering
-variant clipped a wall and either popped the cube out or jammed the arm.
+A cube resting on the bin floor sits 0.7cm above the site, well inside the band, so
+the cube does not have to be placed gently -- it only has to end up inside.
+Meanwhile the walls make a lowering approach expensive: the fingertips would have to
+go INSIDE the basket while holding the cube, and the rim is now 11.3cm tall. Every
+lowering variant clipped a wall and either popped the cube out or jammed the arm.
 So: centre the cube over the bin at a safe altitude ABOVE the rim, hold still until
-the swing has damped, open, and let it fall the last ~10cm. The fall is short enough
-that the lateral scatter stays far inside the 5.5cm footprint, and the cube settles
-under 0.12 m/s within ~20 steps.
+the swing has damped, open, and let it fall. The real basket makes this trade STRICTLY
+better than it was on the primitive: the fall grew from 9.2cm to 14.3cm, but the
+containment radius grew from an effective 3.4cm (0.054 inner half-span minus the old
+2cm cube half-width) to 5.85cm -- a 3x larger landing area.
 
 OBSERVATIONS: 60-D layout. [40:43] gripper_to_object (cube - gripper),
 [43:46] object_to_goal (bin interior site - cube).
@@ -48,10 +52,14 @@ from mjlab.continual_distill.classical.stack_object import (
   GraspTransportPolicy,
 )
 
-# Height ABOVE the bin's interior site at which the cube is released. The rim is 5cm
-# above the site, so this clears it by 5cm -- enough that the fingers (which hang
-# level with the cube's centre) never enter the bin.
-DROP_HEIGHT = 0.10
+# Height ABOVE the bin's interior site at which the cube is released.
+# RE-DERIVED for the real basket (W1-b). The binding constraint is the LATERAL CARRY,
+# not the release: the cube travels in over the wall, so its underside must clear the
+# rim's highest point. Scallop peaks are 0.129 above the bin's underside and the site
+# is at 0.020, i.e. 0.109 above the site; plus the cube's 0.0226 half-height that is
+# 0.132, and 0.15 leaves 18mm of servo margin. The fingers sit ~10mm above the cube's
+# centre, so they clear the rim by ~4cm and never enter the basket.
+DROP_HEIGHT = 0.15
 
 # Steps to hold the cube motionless over the bin before opening. The arm arrives with
 # residual swing; releasing into that swing throws the cube sideways past the wall.
@@ -71,7 +79,12 @@ class PlaceInContainerClassicalPolicy(GraspTransportPolicy):
   hover_height = 0.13
   align_tol = 0.022
   descend_tol = 0.012
-  lift_height = 0.22  # must clear the 9cm-tall bin on the way across
+  # Must clear the bin on the way across. RE-DERIVED (W1-b): the real basket's rim
+  # peaks 0.129 above the ground where the primitive's stood at 0.082, so the required
+  # RISE of the cube from its grasp height went from 0.082 to 0.129. This is a
+  # commanded displacement, not an altitude, and the DLS solve does not fully converge
+  # inside ``lift_steps``; keeping the same ~2x headroom over the requirement.
+  lift_height = 0.26
   lift_steps = 26
   carry_tol = 0.020
   max_dq = 0.09
@@ -85,8 +98,23 @@ class PlaceInContainerClassicalPolicy(GraspTransportPolicy):
   # Deepening the grasp to 0.004 (straddling the cube's centre of mass) and
   # ramping the lift were both tried against that diagnosis and measured WORSE
   # over 96 episode-instances: 0.302 baseline -> 0.188. This task has the tallest
-  # carry in the file (lift_height 0.22, to clear a 9cm bin), so the lower wrist
+  # carry in the file (lift_height 0.26, to clear a 12.9cm basket), so the lower wrist
   # pose costs more clearance than the firmer grip buys back. Kept at 1cm.
+  #
+  # W2-c (2026-09-09): the "LIFT is where it's lost" diagnosis above named the right
+  # symptom (P_LIFT is where the loss first becomes DETECTABLE) but not the true
+  # cause -- see the instrumented finding in ``stack_object.GraspTransportPolicy``'s
+  # P_LIFT docstring, confirmed to reproduce here too (traced 16 envs of this task:
+  # 14/17 established grasps dropped, 9 inside P_LIFT, and the CLOSE_ENTRY moment was
+  # well-centred in essentially every case -- xy offset 1-2cm, descend converging in
+  # 10-30 of the 60-step budget). The object is usually ejected sideways DURING
+  # P_CLOSE itself (aperture collapses monotonically from the cube's true ~4cm
+  # contact width to fully-closed while the gripper-cube xy offset grows in lockstep,
+  # over P_CLOSE's own fixed hold window, before P_LIFT's first command is ever
+  # issued). Two tested fixes (a partial ``grip_close_action`` instead of
+  # fully-closed, -0.4 and -0.85) were measured WORSE on Stack-Cube (0.000/32 and
+  # 0.188/32 vs baseline ~0.33) and NOT re-tried here since the mechanism -- and its
+  # failure -- is shared; see stack_object.py and LOGS.md for the full record.
   grasp_z_offset = 0.010
 
   def _carry(self, i, obs_i, rot):
@@ -97,7 +125,7 @@ class PlaceInContainerClassicalPolicy(GraspTransportPolicy):
     the per-env origin offsets cancel.
 
     Integral action on the lateral axes, for the same reason as Stack: the DLS solve
-    parks 2-3cm off laterally, and with a 5.5cm containment radius that bias plus the
+    parks 2-3cm off laterally, and with a 5.85cm containment radius that bias plus the
     drop's own scatter is most of the budget.
     """
     d = obs_i[self.o2g_slice]

@@ -1,0 +1,29 @@
+--- a/src/mjlab/scripts/record_task_videos.py
++++ b/src/mjlab/scripts/record_task_videos.py
+@@ -100,6 +100,13 @@
+   model = renderer._model
+   data = mujoco.MjData(model)
+   data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
++  # Mocap bodies carry NO qpos. Thirteen asset_zoo objects hang off mocap roots that the
++  # command terms write per-env (every articulated mechanism, plus container / ledge /
++  # wall), so without syncing them the box below is measured with all of them still at
++  # their MJCF pose. Same fix, same reason, as viewer/offscreen_renderer.py:68-71.
++  if model.nmocap:
++    data.mocap_pos[:] = env.sim.data.mocap_pos[0].cpu().numpy()
++    data.mocap_quat[:] = env.sim.data.mocap_quat[0].cpu().numpy()
+   mujoco.mj_forward(model, data)
+ 
+   # Frame the MANIPULATED SCENE, not the robot. Fitting the box to every geom lets the
+--- a/src/mjlab/continual_distill/classical/render_rollout.py
++++ b/src/mjlab/continual_distill/classical/render_rollout.py
+@@ -221,6 +221,10 @@
+   }
+   debug_dir = out_dir / "debug_frames"
+   try:
++    # Reset FIRST: a mocap asset only takes its sampled per-env pose when its command
++    # term resamples, i.e. on the first reset. Framing before that measures the MJCF
++    # pose -- Throw-To-Bin's bin is written to x 0.78-0.90 but sits at 0.55 in the XML.
++    env.reset()
+     _autoframe_camera(env, RecordConfig())
+     policy = CLASSICAL_POLICIES[task_id](num_envs=1)
+     episode_length = int(env.max_episode_length)

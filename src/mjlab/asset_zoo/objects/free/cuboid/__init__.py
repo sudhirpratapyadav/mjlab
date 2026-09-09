@@ -2,6 +2,8 @@
 
 from .cuboid_constants import (
     CUBOID_XML,
+        CUBOID_HALF_EXTENTS,
+    CUBOID_HALF_HEIGHT,
     get_cuboid_cfg,
     get_cuboid_spec,
     get_mocap_goal_cfg,
@@ -10,6 +12,8 @@ from .cuboid_constants import (
 
 __all__ = [
     "CUBOID_XML",
+    "CUBOID_HALF_EXTENTS",
+    "CUBOID_HALF_HEIGHT",
     "get_cuboid_cfg",
     "get_cuboid_spec",
     "get_mocap_goal_cfg",

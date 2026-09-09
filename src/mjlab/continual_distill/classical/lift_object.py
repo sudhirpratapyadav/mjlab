@@ -240,16 +240,22 @@ class LiftObjectClassicalPolicy(ClassicalPolicyBase):
 
 
 class LiftCubeClassicalPolicy(LiftObjectClassicalPolicy):
-  """Cube, 4cm side (centre rests at 0.020). Flat faces: easiest grasp."""
+  """Cube: a real 46 mm mini 3x3 (centre rests at 0.0226). Flat faces, easiest grasp.
 
-  OBJ_CENTER_Z = 0.020
+  GRASP_SITE_Z stays at the inherited 0.045 — it is the MEASURED ground-collision
+  floor for the site, not a function of the object, and the taller cube only helps:
+  the pads (bottoms ~0.031, centres ~0.035) now sit at 69-78% of the cube's height
+  instead of 78-88%, i.e. further from the top edge they used to risk sliding off.
+  """
+
+  OBJ_CENTER_Z = 0.0226
   CLOSE_STEPS = 15
 
 
 class LiftCylinderClassicalPolicy(LiftObjectClassicalPolicy):
-  """Cylinder r=0.02 h=0.04 upright (centre 0.020). Curved side, flat ends."""
+  """Amber packer bottle r=0.0150 h=0.0532 upright (centre 0.0266). Curved side, flat ends."""
 
-  OBJ_CENTER_Z = 0.020
+  OBJ_CENTER_Z = 0.0266
   CLOSE_STEPS = 18
 
 

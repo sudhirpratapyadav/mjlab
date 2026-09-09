@@ -1,9 +1,41 @@
 <?xml version="1.0"?>
+<!--
+  Lift/stack/place/cage cube: a real 46 mm "mini" 3x3 twisty puzzle.
+
+  Asset: YCB 077_rubiks_cube (google_16k scan, CC-BY 4.0), de-rotated 63 deg about z
+  and scaled 0.7797x from the scanned 57 mm standard cube to a 46 mm mini cube.
+  See PROVENANCE.md in this asset's directory.
+
+  Why 46 mm and not the scanned 57 mm: this XML is SHARED by Lift-Cube, Stack-Cube
+  (the stacked object), Place-In-Container, Throw-To-Bin and Cage-Drag. Cage-Drag
+  latches success on the finger aperture never dropping below 0.055 m, so a 57 mm
+  object would make that task unwinnable by construction; 46 mm is a real mini-cube
+  product size and leaves 9 mm of latch margin, while staying well inside the 60 mm
+  pinch limit the Franka's 80 mm gripper imposes.
+
+  Collision is a single box (0.0230 x 0.0226 x 0.0226 half-extents) — a cube collides
+  as a box, which is both exact and the cheapest primitive pair on the GPU. The body
+  frame is the bounding-box centre, so "half-extent" constants elsewhere (spawn
+  z = 0.023, stack_height, cage_drag HALF_WIDTH) read straight off this geom.
+
+  Mass 0.050 kg: the published 0.094 kg of the 57 mm cube carried across by volume
+  (density 508 kg/m^3).
+-->
 <mujoco model="cube">
+  <compiler meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="cube_tex" type="2d" file="cube_tex.png"/>
+    <material name="cube_mat" texture="cube_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="cube_vis" file="cube_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="cube" pos="0.4 0 0.3">
       <freejoint name="cube_joint"/>
-      <geom type="box" name="cube_geom" size="0.02 0.02 0.02" mass="0.05" rgba="0.8 0.2 0.2 1.0" condim="3" friction="1 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1"/>
+      <inertial pos="0.00005 -0.00004 -0.00004" quat="0.996575 -0.063327 -0.039454 0.035648" mass="0.05000" diaginertia="1.650e-05 1.663e-05 1.664e-05"/>
+      <geom name="cube_visual" type="mesh" mesh="cube_vis" material="cube_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="cube_geom" type="box" pos="0 0 0" size="0.0230 0.0226 0.0226" group="3" rgba="0.5 0.5 0.5 0.3" condim="3" friction="1 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
       <!-- Object site for observations (manipulation point) -->
       <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
     </body>

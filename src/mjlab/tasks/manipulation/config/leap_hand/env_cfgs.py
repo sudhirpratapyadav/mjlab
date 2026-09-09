@@ -162,4 +162,19 @@ def leap_stack_cube_env_cfg(play: bool = False, test: bool = False) -> ManagerBa
 
 def leap_peg_insertion_env_cfg(play: bool = False, test: bool = False) -> ManagerBasedRlEnvCfg:
   """Floating LEAP hand inserting a peg into a hole board (Class-C insertion)."""
-  return _leap_stack_like_env_cfg(get_peg_cfg, get_hole_board_cfg, 0.01, 0.015, play=play, test=test)
+  # stack_height 0.035 (not the old 0.01) for the SAME reason as the Franka variant:
+  # StackingCommand compares the peg's ROOT to base_root + stack_height, and an inserted
+  # peg's root sits at ground + half-length (0.050) while the board root is at 0.015.
+  # With 0.01 the goal was 25 mm below the peg's own resting height, which is more than
+  # the default 0.02 height_threshold -- i.e. the LEAP task would have become
+  # unsatisfiable when the peg/board assets were upgraded. (W1-c, CL-V2)
+  cfg = _leap_stack_like_env_cfg(get_peg_cfg, get_hole_board_cfg, 0.035, 0.015, play=play, test=test)
+  # The stack base's default spawn z (0.02) fits the cube's half-height, but the peg
+  # is 0.10 tall (half-height 0.05): at z=0.02 it spawns 30 mm INSIDE the floor and
+  # pops out on the first solver step. Rest the peg on the ground instead.
+  command = cfg.commands["stack_object"]
+  assert isinstance(command, StackingCommandCfg)
+  peg_range = StackingCommandCfg.ObjectPoseRangeCfg()
+  peg_range.z = (0.05, 0.05)
+  command.object_pose_range = peg_range
+  return cfg

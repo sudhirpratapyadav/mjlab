@@ -351,5 +351,14 @@ def make_open_lid_env_cfg() -> ManagerBasedRlEnvCfg:
       ),
     ),
     decimation=4,
-    episode_length_s=3.0,  # Matches mujoco_playground: 150 steps at 0.02 ctrl_dt
+    # CL-V2: 5.0 s = 250 steps, up from the 3.0 s copied from mujoco_playground.
+    # Under the cl25 asset the lid was a drop-down flap that free-fell to the target in
+    # 12 control steps, so the budget never mattered. It is now a real lift-up chest
+    # lid: the arm must cross ~1.0 m from the neutral pose, grasp a 28 mm knob and
+    # swing 1.309 rad against gravity. Measured at 3.0 s the scripted teacher reaches
+    # 0.8-1.0 rad of the 1.109 rad needed and simply runs out of steps. 5.0 s is in
+    # line with the other genuinely manipulative Class A tasks (Rotate-Valve 8.0 s,
+    # Tool-Pull 12.0 s, Edge-Grasp and Pivot-Lift 6.0 s); the success threshold is
+    # untouched.
+    episode_length_s=5.0,
   )

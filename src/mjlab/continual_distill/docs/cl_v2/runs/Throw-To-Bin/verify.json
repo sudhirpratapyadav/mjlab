@@ -1,0 +1,169 @@
+{
+ "task": "Mjlab-Throw-To-Bin-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "cube": {
+    "n": 1000,
+    "x": [
+     0.3000549077987671,
+     0.4791412353515625
+    ],
+    "y": [
+     -0.24992132186889648,
+     0.24998188018798828
+    ],
+    "z": [
+     0.028528498485684395,
+     0.028528498485684395
+    ],
+    "radial": [
+     0.30138111114501953,
+     0.539825439453125
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   },
+   "container": {
+    "n": 1000,
+    "x": [
+     0.7802424430847168,
+     0.8996038436889648
+    ],
+    "y": [
+     -0.14939594268798828,
+     0.14991354942321777
+    ],
+    "z": [
+     0.019999999552965164,
+     0.019999999552965164
+    ],
+    "radial": [
+     0.7806880474090576,
+     0.9106405377388
+    ],
+    "bound": [
+     0.75,
+     0.95
+    ],
+    "rule": "beyond the arm's stretch BY DESIGN; a bin inside reach degenerates the task to place-in-container. Bounded so the ballistic arc stays achievable.",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "cube": 0.0,
+   "container": 0.0
+  },
+  "goal": {
+   "term": "place_in_container",
+   "radial": [
+    0.7806880474090576,
+    0.9106405377388
+   ],
+   "z": [
+    0.019999999552965164,
+    0.019999999552965164
+   ],
+   "bound": [
+    0.75,
+    0.95
+   ],
+   "rule": "the bin is beyond reach BY DESIGN; the object must be released ballistically",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "lateral_tolerance": 0.0585,
+   "rim_height": 0.093,
+   "floor_tolerance": 0.02
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "cube": {
+   "xml": "src/mjlab/asset_zoo/objects/free/cube/xmls/cube.xml",
+   "mass_kg": 0.05,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 2.7955179956202392e-12,
+    "w_final": 1.7275284257580405e-12,
+    "z_drop_after_quarter_s": -1.0514523765547956e-07,
+    "tilt_deg": 0.0004276264042162581,
+    "lowest_point_z": -6.144136346178039e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -6.144136342938616e-05,
+    "v_final": 1.4527808858501823e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.046,
+    0.0452,
+    0.0452
+   ],
+   "grasp_axis_rule": "True",
+   "grasp_width_m": 0.0452,
+   "graspable_pass": true,
+   "step_time_us": 3.5589411854743958,
+   "step_time_baseline_us": 2.940349280834198,
+   "step_time_ratio": 1.2103804159159959,
+   "step_time_pass": true
+  },
+  "container": {
+   "xml": "src/mjlab/asset_zoo/objects/free/container/xmls/container.xml",
+   "mass_kg": 0.25,
+   "ngeom_collision": 5,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0,
+     0,
+     -9.81
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_us": 1.4251284301280975,
+   "step_time_baseline_us": 1.1244788765907288,
+   "step_time_ratio": 1.2673678979625642,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

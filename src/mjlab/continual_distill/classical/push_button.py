@@ -43,9 +43,18 @@ _AXIS_DOWN = np.array([0.20, 0.0, -0.980])
 _AXIS_DOWN = _AXIS_DOWN / np.linalg.norm(_AXIS_DOWN)
 
 HOVER_HEIGHT = 0.07  # m above the handle in phase 0
-HOVER_XY_TOL = 0.03  # xy alignment tolerance to start pressing
+# xy alignment tolerance to start pressing. RE-DERIVED for the CL-V2 asset (W2-a):
+# this constant is the cap's half-width, and the cap changed from a 60 x 60 mm square
+# face to a 45 mm ROUND one, so the half-width dropped 0.030 -> 0.0225 and the old
+# value would let the press commit with the pad entirely off the cap. 0.020 keeps the
+# commit inside the cap edge with 2.5 mm to spare. (Phase 1 stays xy-locked on the
+# handle, so this only decides WHEN to start descending, not where.)
+HOVER_XY_TOL = 0.020
 HOVER_Z_TOL = 0.04
-PRESS_DEPTH = 0.03  # target this far below the handle's current position
+# Target this far below the handle's CURRENT position, so the press keeps driving as
+# the cap slides down. Re-derived: it only has to exceed the per-step travel and stay
+# under the 0.05 m stroke; unchanged at 0.03.
+PRESS_DEPTH = 0.03
 GRIPPER_CLOSED = -1.0  # action -> finger target 0.0 (closed)
 
 

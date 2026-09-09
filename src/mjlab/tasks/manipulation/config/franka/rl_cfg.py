@@ -503,3 +503,297 @@ def franka_tool_pull_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
     num_steps_per_env=24,
     max_iterations=10_000,  # Total training iterations
   )
+
+
+##
+# Class A Wave-1 expansion (CATALOG_100_TASKS.md, T17-T25).
+##
+
+
+def franka_drag_pull_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka drag-pull task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_drag_pull",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_strike_slide_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka strike-to-slide task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_strike_slide",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_cage_drag_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka cage-drag task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_cage_drag",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_topple_block_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka topple-block task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_topple_block",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_push_flap_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka push-flap task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_push_flap",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_axial_extract_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka axial-extract task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_axial_extract",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_edge_grasp_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka edge-grasp task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_edge_grasp",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_pivot_lift_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka pivot-lift task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_pivot_lift",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )
+
+def franka_throw_to_bin_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
+  """PPO configuration for Franka throw-to-bin task."""
+  return RslRlOnPolicyRunnerCfg(
+    policy=RslRlPpoActorCriticCfg(
+      init_noise_std=1.0,
+      actor_obs_normalization=True,
+      critic_obs_normalization=True,
+      actor_hidden_dims=(512, 256, 128),
+      critic_hidden_dims=(512, 256, 128),
+      activation="elu",
+    ),
+    algorithm=RslRlPpoAlgorithmCfg(
+      value_loss_coef=1.0,
+      use_clipped_value_loss=True,
+      clip_param=0.2,
+      entropy_coef=0.005,
+      num_learning_epochs=5,
+      num_mini_batches=4,
+      learning_rate=1.0e-3,
+      schedule="adaptive",
+      gamma=0.99,
+      lam=0.95,
+      desired_kl=0.01,
+      max_grad_norm=1.0,
+    ),
+    experiment_name="franka_throw_to_bin",
+    wandb_project="continual_mjlab",
+    save_interval=100,  # Save checkpoint every N iterations
+    num_steps_per_env=24,
+    max_iterations=10_000,  # Total training iterations
+  )

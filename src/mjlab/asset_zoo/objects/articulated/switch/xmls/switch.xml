@@ -1,60 +1,70 @@
 <?xml version="1.0"?>
 <!--
-  Toggle switch asset.
+  Flip-Switch — heavy industrial toggle (bat + ball knob) on a metal-clad switch box.
+  CL-V2 W2-a asset replacement (was a primitive faceplate + two boxes).
 
-  Motion profile: a small hinge with a DETENT (a spring that pushes the toggle back
-  toward whichever side it is on). Success is a STATE FLIP past the detent, not a
-  displacement threshold — the policy must COMMIT with a ballistic stroke rather than
-  servo gently toward a goal. Gentle quasi-static pushing is actively punished by the
-  spring, which is exactly what distinguishes this from push-button (a compliant press
-  that succeeds at any sufficient displacement).
+  Motion profile UNCHANGED: a small hinge with a DETENT. Success is a STATE FLIP past
+  the over-centre point, not a displacement threshold, so the policy must COMMIT with
+  a ballistic stroke; gentle quasi-static pushing is actively punished.
 
-  The detent is modelled with a stiff spring whose rest length sits at the far end of
-  travel (springref beyond the range), so once the toggle passes centre it SNAPS over.
+  BISTABILITY comes from an OVER-CENTRE WEIGHTED LEVER, not a joint spring. A single
+  linear spring has exactly ONE rest pose, so it always drags the toggle back to the
+  same side and can never be bistable. Instead the lever carries its mass ABOVE the
+  pivot (an inverted pendulum): centre is an UNSTABLE equilibrium, so the toggle
+  accelerates toward whichever stop it leans to and the range limit holds it there.
+  Requires gravity, so this task runs with gravity ENABLED (see the env cfg).
 
-  Success: hinge angle past +30 deg (see FlipSwitchCommand), latched.
+  THAT MASS DISTRIBUTION IS THE MECHANISM, so it is carried over EXACTLY: `handle`
+  4 g at z = 0.026 and `switch_weight` 50 g at z = 0.062, both on the z axis. Every
+  visual mesh here is `mass="0"`, so the centre of mass stays directly above the
+  pivot — any x-offset would add a constant gravity torque and destroy bistability
+  (tests/test_class_a_expansion.py::test_flip_switch_detent_is_actually_bistable).
+
+  Frozen interface kept verbatim: bodies `switch_base` (mocap) / `handle`, joint
+  `switch_hinge`, collider geoms `switch_body` (the plate — the ee_switch_collision
+  sensor matches this name), `handle`, `switch_weight`, sites `base_site` and
+  `object_site` at (0, 0, 0.062).
+
+  Angles are RADIANS here (explicit compiler); +-0.7853982 rad == the old +-45.
 -->
 <mujoco model="switch">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="switch_plate_tex" type="2d" file="switch_plate_tex.png"/>
+    <material name="switch_plate_mat" texture="switch_plate_tex" specular="0.35" shininess="0.25"/>
+    <mesh name="switch_plate_vis" file="switch_plate_vis.obj"/>
+    <texture name="switch_toggle_tex" type="2d" file="switch_toggle_tex.png"/>
+    <material name="switch_toggle_mat" texture="switch_toggle_tex" specular="0.25" shininess="0.3"/>
+    <mesh name="switch_toggle_vis" file="switch_toggle_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="switch_base" pos="0.65 0 0.5" mocap="true">
-      <!-- Faceplate. -->
-      <geom type="box" name="switch_body" size="0.01 0.06 0.06" pos="0.02 0 0"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+      <!-- 120 x 120 x 20 mm metal-clad switch box, raised bezel, four screws. -->
+      <geom name="vis_plate" type="mesh" mesh="switch_plate_vis" material="switch_plate_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Faceplate collider (unchanged from the primitive asset). -->
+      <geom type="box" name="switch_body" size="0.01 0.06 0.06" pos="0.02 0 0" group="3"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
             contype="2" conaffinity="1" solref="0.01 1"/>
-      <!-- Base site at the toggle tip when joint = 0 (the OFF/centre pose). -->
-      <site name="base_site" pos="0.0 0.0 0.062" size="0.01" rgba="0 0 1 0.3"/>
+      <!-- Base site at the toggle tip when joint = 0 (the centre pose). -->
+      <site name="base_site" pos="0.0 0.0 0.062" size="0.004" rgba="0 0 1 0.3"/>
       <body name="handle">
-        <!--
-          Hinge about world y (toggle swings in the x-z plane, up/down).
-
-          BISTABILITY comes from an OVER-CENTRE WEIGHTED LEVER, not from a joint
-          spring. A single linear spring (stiffness + springref) has exactly ONE rest
-          pose, so it always drags the toggle back to the same side and can never be
-          bistable — the toggle would simply fall back to OFF when released past
-          centre, collapsing the task into "hold against a spring". Verified
-          empirically before this was replaced.
-
-          Instead the lever carries its mass ABOVE the pivot (an inverted pendulum).
-          That equilibrium at centre is UNSTABLE: gravity torque grows with tilt, so
-          the toggle accelerates toward whichever stop it is leaning to and is held
-          there by the range limit. Crossing centre is therefore a genuine commit
-          point, which is exactly the motion profile this task exists to test.
-
-          Requires gravity, so this task runs with gravity ENABLED (see the env cfg).
-        -->
         <joint name="switch_hinge" type="hinge" axis="0 1 0" pos="0 0 0"
-               range="-45 45" limited="true" damping="0.0015" armature="1e-5"/>
+               range="-0.7853982 0.7853982" limited="true" damping="0.0015" armature="1e-5"/>
+        <!-- Pivot boss + tapered bat + ball knob, one mesh, zero mass. -->
+        <geom name="vis_toggle" type="mesh" mesh="switch_toggle_vis" material="switch_toggle_mat" contype="0" conaffinity="0" group="2" mass="0"/>
         <!-- Toggle lever: light shaft... -->
-        <geom type="box" name="handle" pos="0.0 0.0 0.026" size="0.012 0.012 0.03"
+        <geom type="box" name="handle" pos="0.0 0.0 0.026" size="0.012 0.012 0.03" group="3"
               mass="0.004"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
         <!-- ...with a top weight well above the pivot -> over-centre bistability. -->
-        <geom type="box" name="switch_weight" pos="0.0 0.0 0.062"
+        <geom type="box" name="switch_weight" pos="0.0 0.0 0.062" group="3"
               size="0.013 0.013 0.013" mass="0.05"
-              condim="3" friction="1 0.03 0.003" rgba="0 0.7 0 1"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
-        <site name="object_site" pos="0.0 0.0 0.062" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+        <site name="object_site" pos="0.0 0.0 0.062" size="0.004" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

@@ -1,15 +1,45 @@
 <?xml version="1.0"?>
+<!--
+  Shape-sorter peg (CL-V2 asset upgrade, W1-c).
+
+  Real reference: the square post from a wooden shape-sorter / pound-a-peg toy.
+  25 x 25 mm beech section, 100 mm long, with a 2 mm 45 deg lead chamfer on the
+  insert end and a 1 mm break on the top edges.  Mass 44.8 g at beech density
+  720 kg/m^3.  Visual mesh is textured (Poly Haven 'oak_wood_planks', CC0); the
+  collider is a BOX at the peg's full 25 x 25 x 100 mm section. The mesh's own convex
+  hull is exact geometry, but MuJoCo's mesh-plane contact returns only THREE points on
+  a square base and the standing peg then micro-rocks forever (measured: |v| 2.8 mm/s,
+  |w| 0.060 rad/s after 2 s, never damping) — box-plane is analytic and gives four
+  stable points (|v| = |w| = 0.000). The 2 mm lead chamfer is therefore cosmetic on
+  the peg; the funnel that actually matters is the board's, and THAT one is physical.
+
+  Clearance against hole_board.xml: bore 30 mm square, peg 25 mm => 2.5 mm per side.
+  A 45 deg-rotated peg has a 35.4 mm diagonal and will NOT enter the 30 mm bore, so
+  the teacher's fixed yaw=0 grasp is still required.
+
+  object_site stays at 0 0 -0.05 (the peg TIP, the point that enters the hole) —
+  the observation and every teacher constant are derived from it.
+-->
 <mujoco model="peg">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="peg_tex" type="2d" file="peg_tex.png"/>
+    <material name="peg_mat" texture="peg_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="peg_vis" file="peg_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="peg" pos="0.5 0 0.3">
       <freejoint name="peg_joint"/>
-      <!-- A slender square peg, graspable by the parallel gripper. Half-extents
-           0.012 x 0.012 x 0.05 => 2.4cm across, 10cm tall. -->
-      <geom type="box" name="peg_geom" size="0.012 0.012 0.05" mass="0.05"
-            rgba="0.2 0.4 0.8 1.0" condim="3" friction="1 0.03 0.003"
+      <inertial pos="0 0 0.00011" quat="0.707107 0 0.707107 0" mass="0.04483"
+                diaginertia="4.655e-06 3.941e-05 3.941e-05"/>
+      <geom name="peg_visual" type="mesh" mesh="peg_vis" material="peg_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="peg_geom" type="box" size="0.0125 0.0125 0.05" group="3"
+            rgba="0.5 0.5 0.5 0.3" mass="0" condim="3" friction="1 0.03 0.003"
             contype="1" conaffinity="1" solref="0.01 1"/>
-      <!-- Object site for observations, at the peg TIP (the point that enters the
-           hole) so success/obs track the functional end. -->
+      <!-- Object site at the peg TIP (the functional end). -->
       <site name="object_site" pos="0 0 -0.05" size="0.01" rgba="1 0 0 1"/>
     </body>
   </worldbody>

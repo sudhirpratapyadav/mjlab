@@ -1,0 +1,165 @@
+{
+ "task": "Mjlab-Pivot-Lift-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "board": {
+    "n": 1000,
+    "x": [
+     0.3800104856491089,
+     0.40999937057495117
+    ],
+    "y": [
+     -0.11997652053833008,
+     0.11953306198120117
+    ],
+    "z": [
+     0.009781520813703537,
+     0.009781521745026112
+    ],
+    "radial": [
+     0.3801489770412445,
+     0.42643576860427856
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   },
+   "wall": {
+    "n": 1000,
+    "x": [
+     0.5605000257492065,
+     0.5605001449584961
+    ],
+    "y": [
+     0.0,
+     0.0
+    ],
+    "z": [
+     0.07500000298023224,
+     0.07500000298023224
+    ],
+    "radial": [
+     0.5605000257492065,
+     0.5605001449584961
+    ],
+    "bound": [
+     0.0,
+     0.6000000000000001
+    ],
+    "rule": "fixture",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "board": -0.0002026483768978616,
+   "wall": 0.0
+  },
+  "goal": {
+   "term": "pivot_lift",
+   "radial": [
+    0.32154712080955505,
+    0.5003791451454163
+   ],
+   "z": [
+    0.15008948743343353,
+    0.2997121214866638
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.05
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "board": {
+   "xml": "src/mjlab/asset_zoo/objects/free/board/xmls/board.xml",
+   "mass_kg": 0.17,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 2.8041384980390126e-12,
+    "w_final": 2.727734240794398e-11,
+    "z_drop_after_quarter_s": -1.0514524734391018e-07,
+    "tilt_deg": 9.849158834470801e-05,
+    "lowest_point_z": -6.13812445101735e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -6.138124474962953e-05,
+    "v_final": 2.1207324654463202e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.12,
+    0.2188,
+    0.02
+   ],
+   "grasp_axis_rule": "thin_axis",
+   "grasp_width_m": 0.02,
+   "graspable_pass": true,
+   "step_time_note": "no baseline: Command '['git', '-C', '/ihub/homedirs/svs_ald/sudhir/mjlab', 'show', '1127d12:src/mjlab/asset_zoo/objects/free/board/xm",
+   "step_time_us": 3.471698611974716,
+   "step_time_pass": true
+  },
+  "wall": {
+   "xml": "src/mjlab/asset_zoo/objects/free/wall/xmls/wall.xml",
+   "mass_kg": 7.875,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0,
+     0,
+     -9.81
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_note": "no baseline: Command '['git', '-C', '/ihub/homedirs/svs_ald/sudhir/mjlab', 'show', '1127d12:src/mjlab/asset_zoo/objects/free/wall/xml",
+   "step_time_us": 1.0962076485157013,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

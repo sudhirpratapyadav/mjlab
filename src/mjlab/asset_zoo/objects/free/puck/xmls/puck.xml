@@ -1,18 +1,37 @@
 <?xml version="1.0"?>
 <!--
-  Puck: the out-of-reach target object dragged by the stick in the tool-pull task.
+  Ice-hockey puck: the object the strike-slide task drives ballistically to an
+  out-of-reach goal, and the out-of-reach object the tool-pull task drags back.
 
   Deliberately low-profile and wide so it cannot be grasped directly by the Franka
-  fingers from a distance — the point is that the TOOL is required. Spawned beyond
-  the arm's comfortable reach; success = puck dragged back into the near zone.
+  fingers from a distance -- the point is that the TOOL (tool-pull) or an IMPULSE
+  (strike-slide) is required, not a quasi-static carry.
+
+  CL-V2 (W1-b): built to the real regulation article -- 76.2 mm diameter, 25.4 mm
+  thick, 160 g of vulcanised rubber, with the moulded edge bevel and the debossed face
+  ring. Albedo is ambientCG Rubber004 (CC0) driven down to rubber black. Geometry is a
+  lathe of the real profile (see ~/cl_v2_work/W1-b/build/build_puck.py); the collider is
+  a single cylinder PRIMITIVE, which is exact for this shape and analytic against the
+  ground plane.
 -->
 <mujoco model="puck">
+  <compiler meshdir="assets" texturedir="assets"/>
+  <asset>
+    <texture name="puck_tex" type="2d" file="puck_tex.png"/>
+    <material name="puck_mat" texture="puck_tex" specular="0.12" shininess="0.08"/>
+    <mesh name="puck_vis" file="puck_vis.obj"/>
+  </asset>
   <worldbody>
     <body name="puck" pos="0.75 0 0.31">
       <freejoint name="puck_joint"/>
-      <geom type="cylinder" name="puck_geom" size="0.035 0.012" mass="0.03"
-            condim="3" friction="0.4 0.03 0.003" rgba="0.2 0.5 0.8 1"
-            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- 160 g regulation puck; inertia of the solid cylinder at that mass. -->
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="0.16"
+                diaginertia="6.574e-05 6.574e-05 1.146e-04"/>
+      <geom name="puck_visual" type="mesh" mesh="puck_vis" material="puck_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom type="cylinder" name="puck_geom" size="0.0381 0.0127" group="3"
+            rgba="0.5 0.5 0.5 0.3" condim="3" friction="0.4 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
       <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
     </body>
   </worldbody>

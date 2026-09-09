@@ -1,9 +1,44 @@
 <?xml version="1.0"?>
+<!--
+  Small amber supplement bottle ("the cylinder"): the object the reorient task stands
+  upright, and the object Lift-Cylinder lifts.
+
+  Asset: Google Scanned Objects `CoQ10` (a Jarrow amber HDPE packer bottle), CC-BY 4.0,
+  scanned at 47.4 x 47.5 x 84.4 mm and scaled uniformly by 0.63 to 29.9 x 29.9 x 53.2 mm
+  -- a real 12 cc / 0.4 oz packer bottle. WHY SCALED: the reorient teacher grasps this
+  object END FACE TO END FACE (the finger-closing axis runs along the bottle's own axis,
+  which is what makes the wrist roll that stands it up a rigid-body move), so the Franka's
+  80 mm aperture has to span the object's LENGTH. Every bottle/jar/can in GSO and Poly
+  Haven is 84-110 mm tall at scanned scale, i.e. longer than the gripper opens.
+  See docs/cl_v2/logs/W1-b.md and PROVENANCE.md.
+
+  Body frame: bounding-box centre, ON the bottle axis, so the object_site (and therefore
+  the drift anchor) sits at mid-length and the spawn z when the bottle LIES DOWN is just
+  its radius.
+
+  Collider: one convex hull reduced to 96 support vertices (188 tris). A bottle is convex
+  apart from the cap shoulder, which the hull fills as a short cone -- physically the
+  right approximation and 10x cheaper than the raw 2132-tri hull.
+-->
 <mujoco model="cylinder">
+  <compiler meshdir="assets" texturedir="assets"/>
+  <asset>
+    <texture name="cylinder_tex" type="2d" file="cylinder_tex.png"/>
+    <material name="cylinder_mat" texture="cylinder_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="cylinder_vis" file="cylinder_vis.obj"/>
+    <mesh name="cylinder_col" file="cylinder_col_00.obj"/>
+  </asset>
   <worldbody>
     <body name="cylinder" pos="0.4 0 0.3">
       <freejoint name="cylinder_joint"/>
-      <geom type="cylinder" name="cylinder_geom" size="0.02 0.02" mass="0.05" rgba="0.2 0.8 0.2 1.0" condim="3" friction="1 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- Mass 25 g: a filled 12 cc amber HDPE packer bottle. Inertia from the hull. -->
+      <inertial pos="0.00004 -0.00002 -0.00092" quat="0.119179 -0.692608 0.118758 0.701418"
+                mass="0.02500" diaginertia="2.639e-06 6.782e-06 6.802e-06"/>
+      <geom name="cylinder_visual" type="mesh" mesh="cylinder_vis" material="cylinder_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="cylinder_geom" type="mesh" mesh="cylinder_col" group="3"
+            rgba="0.5 0.5 0.5 0.3" condim="3" friction="1 0.03 0.003"
+            contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
       <!-- Object site for observations (manipulation point) -->
       <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
     </body>

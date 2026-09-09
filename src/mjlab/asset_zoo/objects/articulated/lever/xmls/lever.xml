@@ -1,42 +1,66 @@
 <?xml version="1.0"?>
 <!--
-  Lever / door-handle asset.
+  Turn-Lever — wall-mounted steel lever handle on a bolted back plate.
+  CL-V2 W2-a asset replacement (was a primitive plate + bar + hub).
 
-  Motion profile: a hinge whose axis points ALONG THE APPROACH DIRECTION (world +x,
-  i.e. away from the robot). Turning it is therefore a WRIST ROTATION about the
-  approach axis, not a whole-arm pull like the door. That is what makes this a
-  distinct motion profile rather than a door variant.
+  Motion profile UNCHANGED: the hinge axis points ALONG THE APPROACH DIRECTION
+  (world +x, away from the robot), so turning it is a WRIST ROTATION about the
+  approach axis, not a whole-arm pull. The grasp/push point (object_site) sits at the
+  free end of the bar, so the gripper rides a circular arc in the y-z plane.
+  Success: hinge driven to -90 deg (TurnLeverCommand, threshold 0.15 rad, directional).
 
-  The lever arm is a horizontal bar offset from the hinge axis; the grasp point
-  (object_site) sits at the free end, so the gripper must ride a circular arc in the
-  y-z plane while the wrist rotates.
+  Frozen interface kept verbatim: bodies `lever_base` (mocap) / `handle`, joint
+  `lever_hinge`, collider geoms `lever_body` (the plate — the ee_lever_collision
+  contact sensor matches this name), `lever_hub`, `handle` (the bar), sites
+  `base_site` and `object_site` both at (-0.05, 0.12, 0).
 
-  Success: hinge rotated to the -90 deg target (see TurnLeverCommand).
+  Angles are RADIANS here (explicit `<compiler angle="radian"/>`); the primitive
+  version relied on MuJoCo's degree default. -1.5707963 rad == the old -90.
+
+  Colliders stay primitives with their original contact parameters: the bar really is
+  a 24 x 24 x 140 mm box and the rose really is a cylinder, so a mesh collider would
+  cost GJK for no fidelity. `contype="2" conaffinity="1"` keeps the mechanism from
+  self-colliding, so the rose may overlap the plate.
 -->
 <mujoco model="lever">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="lever_plate_tex" type="2d" file="lever_plate_tex.png"/>
+    <material name="lever_plate_mat" texture="lever_plate_tex" specular="0.35" shininess="0.25"/>
+    <mesh name="lever_plate_vis" file="lever_plate_vis.obj"/>
+    <texture name="lever_handle_tex" type="2d" file="lever_handle_tex.png"/>
+    <material name="lever_handle_mat" texture="lever_handle_tex" specular="0.5" shininess="0.45"/>
+    <mesh name="lever_handle_vis" file="lever_handle_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="lever_base" pos="0.65 0 0.5" mocap="true">
-      <!-- Wall plate the lever is mounted on. -->
-      <geom type="box" name="lever_body" size="0.01 0.15 0.15" pos="0.02 0 0"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+      <!-- 300 x 300 x 20 mm brushed-steel back plate with four proud bolts. -->
+      <geom name="vis_plate" type="mesh" mesh="lever_plate_vis" material="lever_plate_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Wall-plate collider (unchanged from the primitive asset). -->
+      <geom type="box" name="lever_body" size="0.01 0.15 0.15" pos="0.02 0 0" group="3"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
             contype="2" conaffinity="1" solref="0.01 1"/>
       <!-- Base site at the lever tip when joint = 0 (horizontal, pointing +y). -->
-      <site name="base_site" pos="-0.05 0.12 0.0" size="0.01" rgba="0 0 1 0.3"/>
+      <site name="base_site" pos="-0.05 0.12 0.0" size="0.004" rgba="0 0 1 0.3"/>
       <body name="handle">
-        <!-- Hinge about the approach axis (+x) -> wrist rotation. -->
+        <!-- Hinge about the approach axis (+x) -> wrist rotation. -90 deg in radians. -->
         <joint name="lever_hinge" type="hinge" axis="1 0 0" pos="0 0 0"
-               range="-90 0" limited="true" damping="0.05"/>
-        <!-- Hub. -->
+               range="-1.5707963 0" limited="true" damping="0.05"/>
+        <!-- Rose + L-shaped lever bar, one mesh (they move together). -->
+        <geom name="vis_handle" type="mesh" mesh="lever_handle_vis" material="lever_handle_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+        <!-- Rose collider. -->
         <geom type="cylinder" name="lever_hub" size="0.015 0.01"
-              pos="-0.02 0 0" quat="0.7071 0 0.7071 0"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.4"
+              pos="-0.02 0 0" quat="0.7071 0 0.7071 0" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
-        <!-- Lever arm: horizontal bar out along +y from the hinge axis. -->
-        <geom type="box" name="handle" pos="-0.05 0.07 0.0" size="0.012 0.07 0.012"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+        <!-- Lever bar collider: 24 x 140 x 24 mm out along +y from the hinge axis. -->
+        <geom type="box" name="handle" pos="-0.05 0.07 0.0" size="0.012 0.07 0.012" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
-        <!-- Grasp point at the free end of the lever arm. -->
-        <site name="object_site" pos="-0.05 0.12 0.0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+        <!-- Grasp/push point at the free end of the lever arm. -->
+        <site name="object_site" pos="-0.05 0.12 0.0" size="0.004" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

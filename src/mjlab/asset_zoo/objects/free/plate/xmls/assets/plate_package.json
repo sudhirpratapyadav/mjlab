@@ -1,0 +1,48 @@
+{
+ "name": "plate",
+ "source": "Google Scanned Objects 'Room_Essentials_Salad_Plate_Turquoise' (222 mm), uniformly scaled 0.676 to a 150 mm / 6 in side plate",
+ "license": "CC-BY 4.0",
+ "visual_tris": 2608,
+ "extent_m": [
+  0.15,
+  0.15,
+  0.0192
+ ],
+ "bounds": [
+  [
+   -0.075,
+   -0.075,
+   -0.0096
+  ],
+  [
+   0.075,
+   0.075,
+   0.0096
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "plate_tex.png",
+ "mass_kg": 0.18,
+ "volume_m3": 0.00022793724458743472,
+ "com": [
+  -6e-05,
+  -0.00019,
+  0.00118
+ ],
+ "diaginertia": [
+  0.0002001071808556236,
+  0.00020042396233295784,
+  0.00039185256274161095
+ ],
+ "asset_xml": "    <texture name=\"plate_tex\" type=\"2d\" file=\"plate_tex.png\"/>\n    <material name=\"plate_mat\" texture=\"plate_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"plate_vis\" file=\"plate_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"plate_visual\" type=\"mesh\" mesh=\"plate_vis\" material=\"plate_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"-0.00006 -0.00019 0.00118\" quat=\"0.897310 0.004082 -0.006277 -0.441338\" mass=\"0.18000\" diaginertia=\"2.001e-04 2.004e-04 3.919e-04\"/>",
+ "files": [
+  "plate_tex.png",
+  "plate_vis.mtl",
+  "plate_vis.obj"
+ ],
+ "bytes": 483450
+}

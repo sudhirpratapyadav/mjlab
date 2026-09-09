@@ -1,16 +1,75 @@
 <?xml version="1.0"?>
+<!--
+  Push-Button — industrial mushroom-head PLUNGER button on a steel control panel.
+  CL-V2 W2-a asset replacement (was three untextured primitive boxes).
+
+  Motion profile UNCHANGED: press the cap straight down along -z, 50 mm of travel,
+  success at >= 20 mm (PushButtonCommand). Frozen interface kept verbatim:
+  bodies `button_base` (mocap) / `handle`, joint `button_slide` (slide, -0.05..0),
+  collider geoms `button_body` (the panel — the ee_button_collision contact sensor
+  matches this name) and `handle` (the cap), sites `base_site` / `object_site` both
+  at (0, 0, 0.100).
+
+  THE ONE NON-REAL DIMENSION is the 50 mm stroke: a real mushroom head travels
+  5-10 mm. The task's motion profile is "press down 5 cm", so the stroke is kept and
+  the GEOMETRY is made honest about it — the red cap rides on a 65 mm bright-steel
+  plunger rod that retracts into a 40 mm black guide barrel (a palm/plunger button,
+  not a flush mushroom head). At full press the cap face still clears the yellow
+  collar by 7 mm, so nothing interpenetrates anywhere in the travel.
+
+  Visual meshes are Blender-built, ambientCG (CC0) textures; see PROVENANCE.md.
+  Colliders stay primitives: cheaper against the task's nconmax=60 budget and an
+  exact match for a flat panel and a round cap. Contact parameters are carried over
+  from the primitive asset verbatim. `contype="2" conaffinity="1"` means the
+  mechanism's own parts never self-collide, so the rod may sink into the barrel.
+-->
 <mujoco model="button">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="button_panel_tex" type="2d" file="button_panel_tex.png"/>
+    <material name="button_panel_mat" texture="button_panel_tex" specular="0.35" shininess="0.25"/>
+    <mesh name="button_panel_vis" file="button_panel_vis.obj"/>
+    <texture name="button_housing_tex" type="2d" file="button_housing_tex.png"/>
+    <material name="button_housing_mat" texture="button_housing_tex" specular="0.2" shininess="0.2"/>
+    <mesh name="button_housing_vis" file="button_housing_vis.obj"/>
+    <texture name="button_collar_tex" type="2d" file="button_collar_tex.png"/>
+    <material name="button_collar_mat" texture="button_collar_tex" specular="0.25" shininess="0.25"/>
+    <mesh name="button_collar_vis" file="button_collar_vis.obj"/>
+    <texture name="button_rod_tex" type="2d" file="button_rod_tex.png"/>
+    <material name="button_rod_mat" texture="button_rod_tex" specular="0.5" shininess="0.5"/>
+    <mesh name="button_rod_vis" file="button_rod_vis.obj"/>
+    <texture name="button_cap_tex" type="2d" file="button_cap_tex.png"/>
+    <material name="button_cap_mat" texture="button_cap_tex" specular="0.45" shininess="0.5"/>
+    <mesh name="button_cap_vis" file="button_cap_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="button_base" pos="0.65 0 0.5" mocap="true">
-      <geom type="box" name="button_body" size="0.1 0.1 0.01" pos="0 0 -0.02" condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5" contype="2" conaffinity="1" solref="0.01 1"/>
-      <!-- Base site positioned at handle location when joint = 0 -->
-      <site name="base_site" pos="0.0 0.0 0.1" size="0.01" rgba="0 0 1 0.3"/>
+      <!-- Visuals (static): 200x200x20 mm steel panel, black guide barrel, yellow collar. -->
+      <geom name="vis_panel" type="mesh" mesh="button_panel_vis" material="button_panel_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="vis_housing" type="mesh" mesh="button_housing_vis" material="button_housing_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="vis_collar" type="mesh" mesh="button_collar_vis" material="button_collar_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Panel collider (unchanged from the primitive asset, incl. contact params). -->
+      <geom type="box" name="button_body" size="0.1 0.1 0.01" pos="0 0 -0.02" group="3"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the cap centre when joint = 0. -->
+      <site name="base_site" pos="0.0 0.0 0.1" size="0.004" rgba="0 0 1 0.3"/>
       <body name="handle">
         <joint name="button_slide" type="slide" axis="0 0 1" range="-0.05 0.0" limited="true" damping="5" stiffness="1000"/>
-        <!-- <geom type="box" name="button_panel" size="0.05 0.05 0.01" pos="0 0 0" condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.2" contype="2" conaffinity="1" solref="0.01 1"/> -->
-        <geom type="box" name="handle" pos="0 0 0.1" size="0.03 0.03 0.005" condim="3" friction="1 0.03 0.003" rgba="0 1 0 1" contype="2" conaffinity="1" solref="0.01 1"/>
-        <!-- Object site for observations (manipulation point) -->
-        <site name="object_site" pos="0 0 0.1" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+        <!-- Visuals (moving): bright-steel plunger rod + red mushroom cap. -->
+        <geom name="vis_rod" type="mesh" mesh="button_rod_vis" material="button_rod_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+        <geom name="vis_cap" type="mesh" mesh="button_cap_vis" material="button_cap_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+        <!-- Cap collider: 45 mm dia, 18 mm tall, centred on object_site. 36 g is
+             the whole plunger assembly (steel rod + moulded cap) and is deliberately
+             the same moving mass the primitive box had, so the spring/damper
+             response of the press is unchanged. -->
+        <geom type="cylinder" name="handle" pos="0 0 0.1" size="0.0225 0.009" mass="0.036" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Object site for observations (manipulation point). -->
+        <site name="object_site" pos="0 0 0.1" size="0.004" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

@@ -1,0 +1,48 @@
+{
+ "name": "peg",
+ "source": "Poly Haven texture 'oak_wood_planks' (CC0); geometry built with trimesh",
+ "license": "CC0",
+ "visual_tris": 28,
+ "extent_m": [
+  0.025,
+  0.025,
+  0.1
+ ],
+ "bounds": [
+  [
+   -0.0125,
+   -0.0125,
+   -0.05
+  ],
+  [
+   0.0125,
+   0.0125,
+   0.05
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "peg_tex.png",
+ "mass_kg": 0.04482864,
+ "volume_m3": 6.226200000000001e-05,
+ "com": [
+  0.0,
+  -0.0,
+  0.00011
+ ],
+ "diaginertia": [
+  4.655004672e-06,
+  3.9408841477177874e-05,
+  3.9408841477177874e-05
+ ],
+ "asset_xml": "    <texture name=\"peg_tex\" type=\"2d\" file=\"peg_tex.png\"/>\n    <material name=\"peg_mat\" texture=\"peg_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"peg_vis\" file=\"peg_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"peg_visual\" type=\"mesh\" mesh=\"peg_vis\" material=\"peg_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00000 -0.00000 0.00011\" quat=\"0.707107 -0.000000 0.707107 -0.000000\" mass=\"0.04483\" diaginertia=\"4.655e-06 3.941e-05 3.941e-05\"/>",
+ "files": [
+  "peg_tex.png",
+  "peg_vis.mtl",
+  "peg_vis.obj"
+ ],
+ "bytes": 406535
+}

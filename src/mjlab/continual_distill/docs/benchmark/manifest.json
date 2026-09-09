@@ -1,26 +1,63 @@
 {
-  "num_tasks": 28,
-  "num_distinct_skills": 6,
+  "num_tasks": 37,
+  "num_distinct_skills": 7,
   "counts_by_embodiment": {
-    "arm_gripper": 20,
+    "arm_gripper": 29,
     "arm_hand": 3,
     "floating_hand": 5
   },
   "counts_by_skill": {
-    "pick_place": 12,
-    "insertion": 2,
+    "pick_place": 15,
+    "insertion": 3,
     "reach": 3,
-    "articulation": 8,
-    "planar_push": 2,
-    "tool_use": 1
+    "articulation": 9,
+    "planar_push": 4,
+    "tool_use": 1,
+    "non_prehensile": 2
   },
   "counts_by_fragility": {
-    "precision_grasp": 12,
+    "precision_grasp": 17,
     "dexterous": 4,
     "planar": 4,
-    "mild_contact": 8
+    "mild_contact": 12
   },
   "tasks": {
+    "Mjlab-Axial-Extract-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "insertion",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "metaworld",
+      "contact_rich": true,
+      "notes": "Motion profile: FRICTION-BREAKAWAY EXTRACTION \u2014 pinch the plug head top-down, exceed the ~4 N static-friction breakaway, then guide the plug straight up out of the bore (metaworld peg-unplug / disassemble lineage). Inverse of the drawer's low-friction hooked glide. Tagged INSERTION, not ARTICULATION: the plug IS a joint, but the family tag names the manipulation SKILL (the inverse of peg-insertion), not the machinery the command term reuses. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Cage-Drag-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "non_prehensile",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: FORM-CLOSURE (CAGING) TRANSPORT \u2014 straddle the cube with OPEN fingers and translate; success carries the benchmark's first episode-long NEGATIVE constraint (min aperture over the episode must never dip below the cage threshold), so a pinch-and-drag solution scores zero. First NON_PREHENSILE task. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Drag-Pull-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "planar_push",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": false,
+      "notes": "Motion profile: PLANAR DRAG-PULL \u2014 engagement inverted vs push: the object spawns FAR and the goal sits NEAR, so the fingertips reach over and behind the object and the arm retracts while keeping far-face contact (metaworld pull/push-back lineage). Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Edge-Grasp-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: EXTRINSIC-DEXTERITY EDGE GRASP \u2014 the plate is unspannable and, flat, unpinchable; slide it over the ledge edge until it overhangs, then pinch the exposed 16 mm thickness and lift clear (edge-grasp literature, Chavan-Dafle lineage). Two-stage: a slide phase whose only purpose is to manufacture graspability. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Flip-Switch-Franka": {
       "embodiment": "arm_gripper",
       "skill": "articulation",
@@ -138,6 +175,15 @@
       "contact_rich": true,
       "notes": "Floating LEAP hand inserting a peg into a hole board."
     },
+    "Mjlab-Pivot-Lift-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: PIVOT-AGAINST-WALL GRASP \u2014 the flat board is ungraspable on open ground; push it INTO the wall to pivot it up onto an edge, then pinch the exposed thickness and carry it to an airborne goal (Zhou & Held extrinsic-dexterity lineage). The wall is a per-env static fixture owned by the command. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Place-In-Container-Franka": {
       "embodiment": "arm_gripper",
       "skill": "pick_place",
@@ -173,6 +219,15 @@
       "source": "native",
       "contact_rich": false,
       "notes": ""
+    },
+    "Mjlab-Push-Flap-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "articulation",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "metaworld",
+      "contact_rich": false,
+      "notes": "Motion profile: NON-PREHENSILE HINGE-ARC PUSH \u2014 same vertical hinge as Open-Door but the panel has NO handle: fingertips face-push and must re-orient along the arc as the contact normal rotates (metaworld faucet/door-close lineage, ~15 external tasks collapse onto this one profile). Structural (smoke) gate only; reward shaping not yet train-validated."
     },
     "Mjlab-Reach-Target-Franka": {
       "embodiment": "arm_gripper",
@@ -255,6 +310,24 @@
       "contact_rich": true,
       "notes": "Floating LEAP hand stacking a cube on a cuboid base."
     },
+    "Mjlab-Strike-Slide-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "planar_push",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "metaworld",
+      "contact_rich": false,
+      "notes": "Motion profile: IMPULSIVE STRIKE-TO-SLIDE \u2014 the goal band (x 0.88-1.05) sits beyond the arm's ~0.85 m stretch, so the puck must be struck and released; contact ends before arrival (FetchSlide lineage). Tier 3 by the instant-criticality criterion: no grasp is involved, but the impulse is all-or-nothing at release with no recovery. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Throw-To-Bin-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "pick_place",
+      "fragility": 3,
+      "fragility_name": "precision_grasp",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: THROW-TO-BIN \u2014 grasp the cube, accelerate, and RELEASE ON TIME so the ballistic arc lands in a bin beyond the arm's stretch (TossingBot lineage). Reuses the place-in-container base: same containment+settled predicate, and the bin band beyond reach (x 0.78-0.90) is what turns placing into throwing. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
     "Mjlab-Tool-Pull-Franka": {
       "embodiment": "arm_gripper",
       "skill": "tool_use",
@@ -263,6 +336,15 @@
       "source": "native",
       "contact_rich": true,
       "notes": "Motion profile: TWO-STAGE TOOL USE \u2014 grasp a stick, then drag a puck that spawns beyond direct reach back into the near zone. Contact that matters happens at the tool tip, not the fingertips. First TOOL_USE task in the benchmark. Structural (smoke) gate only; reward shaping not yet train-validated."
+    },
+    "Mjlab-Topple-Block-Franka": {
+      "embodiment": "arm_gripper",
+      "skill": "non_prehensile",
+      "fragility": 2,
+      "fragility_name": "mild_contact",
+      "source": "native",
+      "contact_rich": true,
+      "notes": "Motion profile: NON-PREHENSILE TOPPLE \u2014 every block face exceeds the 0.08 m aperture so force closure is impossible by construction; poke above the centre of mass to tip it over an edge until the body x-axis lands vertical (either sign: symmetric predicate). Orientation-scored like Reorient-Object but grasp-free and ballistic past the tipping point. Structural (smoke) gate only; reward shaping not yet train-validated."
     },
     "Mjlab-Turn-Lever-Franka": {
       "embodiment": "arm_gripper",

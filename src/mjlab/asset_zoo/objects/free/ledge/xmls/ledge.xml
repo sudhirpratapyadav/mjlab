@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+  Ledge: a plank-built wooden riser whose EDGE is the fixture for the overhang grasp.
+  CL-V2 asset upgrade, W1-c.
+
+  Class A scenes have no table -- free objects rest on the ground plane -- so the
+  edge-grasp task carries its own raised surface.  Static (mocap) body, written per-env
+  by EdgeGraspCommand (same convention as the place-in-container bin).
+
+  REAL REFERENCE: a solid oak storage box / shelf riser, 200 x 260 x 100 mm, with the
+  plank seams a real one has.  Modelled with trimesh (three 4 mm groove lines round the
+  shell, 1.5 mm break on the top edge) and textured with Poly Haven `oak_wood_planks`
+  (CC0).  It was BUILT rather than downloaded because every scanned wooden box in the
+  Poly Haven catalogue is the wrong shape for this task: `CheeseBox_01`, the closest, is
+  240 x 107 x 66 mm, and its 107 mm depth cannot hold a 150 mm plate at all.
+
+  Widened from the primitive's 180 mm to **200 mm** (half-extent 0.09 -> 0.10) so the
+  150 mm plate spawns fully supported with 25 mm of margin per side.  Top surface still
+  sits +0.10 above the body origin, so EdgeGraspCommandCfg.ledge_top_height is unchanged.
+  The robot faces the -x edge; the plate is slid toward -x until it overhangs there.
+
+  Collision is ONE box at the full 200 x 260 x 100 mm envelope: the top face must be
+  exactly flat and exactly at z = +0.10 or the plate does not rest predictably, and a
+  mesh/CoACD collider would put the plank grooves into the contact.
+-->
+<mujoco model="ledge">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="ledge_tex" type="2d" file="ledge_tex.png"/>
+    <material name="ledge_mat" texture="ledge_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="ledge_vis" file="ledge_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="ledge_base" pos="0.41 0 0.0" mocap="true">
+      <geom name="ledge_visual" type="mesh" mesh="ledge_vis" material="ledge_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom type="box" name="ledge_geom" size="0.10 0.13 0.05" pos="0 0 0.05"
+            condim="3" friction="0.6 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="1" conaffinity="1" solref="0.01 1"/>
+      <!-- Interior reference: centre of the top surface. -->
+      <site name="object_site" pos="0 0 0.10" size="0.01" rgba="1 0 0 1"/>
+      <site name="base_site" pos="0 0 0.10" size="0.01" rgba="0 0 1 0.3"/>
+    </body>
+  </worldbody>
+</mujoco>

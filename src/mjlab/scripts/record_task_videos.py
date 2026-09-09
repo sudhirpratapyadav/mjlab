@@ -100,12 +100,30 @@ def _autoframe_camera(env: ManagerBasedRlEnv, cfg: RecordConfig) -> tuple:
   model = renderer._model
   data = mujoco.MjData(model)
   data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
+  # Mocap bodies carry NO qpos. Thirteen asset_zoo objects hang off mocap roots that the
+  # command terms write per-env (every articulated mechanism, plus container / ledge /
+  # wall), so without syncing them the box below is measured with all of them still at
+  # their MJCF pose. Same fix, same reason, as viewer/offscreen_renderer.py:68-71.
+  if model.nmocap:
+    data.mocap_pos[:] = env.sim.data.mocap_pos[0].cpu().numpy()
+    data.mocap_quat[:] = env.sim.data.mocap_quat[0].cpu().numpy()
   mujoco.mj_forward(model, data)
 
-  # Ignore the ground plane: it is effectively infinite and would dominate the box.
+  # Frame the MANIPULATED SCENE, not the robot. Fitting the box to every geom lets the
+  # ~1 m tall Franka set the frame, and the object of interest (a 5 cm cube on the
+  # floor) ends up half-cropped at the bottom edge (W1-a, cl_v2). So: drop the ground
+  # plane (effectively infinite), drop every robot geom, and centre on what is left.
+  # The robot is still in shot because it works inside that box; the distance floor
+  # below keeps the wrist and forearm visible above a small object.
   keep = [
-    i for i in range(model.ngeom) if model.geom_type[i] != mujoco.mjtGeom.mjGEOM_PLANE
+    i for i in range(model.ngeom)
+    if model.geom_type[i] != mujoco.mjtGeom.mjGEOM_PLANE
+    and not (mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, i) or "").startswith("robot/")
   ]
+  if not keep:  # asset-free task (Reach-Target): fall back to the whole scene
+    keep = [
+      i for i in range(model.ngeom) if model.geom_type[i] != mujoco.mjtGeom.mjGEOM_PLANE
+    ]
   if not keep:
     return (tuple(renderer._cam.lookat), float(renderer._cam.distance))
 
@@ -116,12 +134,12 @@ def _autoframe_camera(env: ManagerBasedRlEnv, cfg: RecordConfig) -> tuple:
   center = (lo + hi) / 2.0
   extent = float(np.linalg.norm(hi - lo))
 
-  # 0.75 * diagonal puts the whole scene comfortably inside a 4:3 frame at MuJoCo's
-  # default ~45 deg fovy, with a little margin so nothing touches the edges.
-  # 1.0 * diagonal at ~30 deg elevation keeps the full arm AND the workspace inside
-  # the frame. Tighter values (0.75) crop the top of the Franka, which sits ~1.0m tall
-  # while the object of interest is near the floor.
-  distance = max(1.0, 1.0 * extent)
+  # Object-centred framing: a small free object gets a ~1.1 m shot that still shows
+  # the arm from the elbow down; a 0.8 m cabinet door gets ~1.7 m. Capped so a large
+  # mechanism never pushes the camera out of the room.
+  distance = float(min(2.0, max(0.75, 0.9 * extent + 0.30)))
+  # Look slightly above the object box so the gripper's approach is in frame.
+  center = center + np.array([0.0, 0.0, 0.06])
 
   cam = renderer._cam
   cam.lookat[:] = center

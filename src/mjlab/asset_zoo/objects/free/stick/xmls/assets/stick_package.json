@@ -1,0 +1,48 @@
+{
+ "name": "stick",
+ "source": "built (trimesh) + ambientCG Wood051 albedo",
+ "license": "CC0 (texture); geometry built for mjlab",
+ "visual_tris": 1016,
+ "extent_m": [
+  0.261,
+  0.081,
+  0.022
+ ],
+ "bounds": [
+  [
+   -0.13,
+   -0.011,
+   -0.011
+  ],
+  [
+   0.131,
+   0.07,
+   0.011
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "stick_tex.png",
+ "mass_kg": 0.1569965625303129,
+ "volume_m3": 0.0002616609375505215,
+ "com": [
+  0.02682,
+  0.01741,
+  -0.0
+ ],
+ "diaginertia": [
+  4.505740883286853e-05,
+  0.000770755837651227,
+  0.0008047535640622925
+ ],
+ "asset_xml": "    <texture name=\"stick_tex\" type=\"2d\" file=\"stick_tex.png\"/>\n    <material name=\"stick_mat\" texture=\"stick_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"stick_vis\" file=\"stick_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"stick_visual\" type=\"mesh\" mesh=\"stick_vis\" material=\"stick_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.02682 0.01741 -0.00000\" quat=\"0.057243 -0.000000 -0.000000 -0.998360\" mass=\"0.15700\" diaginertia=\"4.506e-05 7.708e-04 8.048e-04\"/>",
+ "files": [
+  "stick_tex.png",
+  "stick_vis.mtl",
+  "stick_vis.obj"
+ ],
+ "bytes": 346932
+}

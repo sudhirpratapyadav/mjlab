@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+  Push-Flap — postbox-red painted-steel mail-chute flap door on a steel jamb post.
+  CL-V2 W2-a asset replacement (was a primitive post + panel).
+
+  Motion profile UNCHANGED: NON-PREHENSILE HINGE-ARC PUSH. Vertical hinge axis, and
+  deliberately NO handle — the robot must push the panel's flat face and keep
+  re-orienting along the arc as the contact normal rotates with the panel. The door's
+  handle-pull strategy cannot apply to this asset by construction.
+
+  Sign convention: the panel extends +y from the hinge post and the robot approaches
+  from -x, so a face-push produces a NEGATIVE hinge rotation
+  (r x F = (0,L,0) x (F,0,0) = -z). The joint range and the PushFlapCommand target are
+  negative for that reason. Success: hinge within 0.15 rad of -70 deg (-1.2217305).
+
+  UNITS: this file now sets `<compiler angle="radian"/>` EXPLICITLY and the range is
+  written in radians. The primitive version carried a comment-heavy fix for the
+  opposite bug (`range="-1.4 0"` written as if radians into a DEGREE-interpreted
+  field, which compiled to -1.4 deg and made the task unsolvable); it was patched to
+  `-80.2` degrees. -1.3997541 rad is the same hard stop, now unambiguous.
+
+  The robot-facing (-x) face of the panel is DEAD FLAT at x = -0.012, exactly on the
+  collider face: every piece of relief (raised frame, pull lip, hinge straps) is on
+  the +x side, so the pad never meets visual geometry proud of the collision surface.
+
+  Frozen interface kept verbatim: bodies `flap_base` (mocap) / `handle`, joint
+  `flap_hinge`, collider geoms `flap_body` (the post — the ee_flap_collision sensor
+  matches this name) and `flap_panel`, sites `base_site` (-0.012, 0.12, 0) and
+  `object_site` (-0.012, 0.18, 0).
+-->
+<mujoco model="flap">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="flap_post_tex" type="2d" file="flap_post_tex.png"/>
+    <material name="flap_post_mat" texture="flap_post_tex" specular="0.3" shininess="0.25"/>
+    <mesh name="flap_post_vis" file="flap_post_vis.obj"/>
+    <texture name="flap_panel_tex" type="2d" file="flap_panel_tex.png"/>
+    <material name="flap_panel_mat" texture="flap_panel_tex" specular="0.4" shininess="0.3"/>
+    <mesh name="flap_panel_vis" file="flap_panel_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="flap_base" pos="0.55 0 0.3" mocap="true">
+      <!-- Jamb post, hinge pin and three static knuckles. -->
+      <geom name="vis_post" type="mesh" mesh="flap_post_vis" material="flap_post_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Hinge-post collider (unchanged from the primitive asset). -->
+      <geom type="box" name="flap_body" size="0.015 0.015 0.16" pos="0 -0.02 0" group="3"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the panel-face centre when joint = 0 (closed). -->
+      <site name="base_site" pos="-0.012 0.12 0" size="0.004" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <joint name="flap_hinge" type="hinge" axis="0 0 1" pos="0 0 0"
+               range="-1.3997541 0" limited="true" damping="0.2"/>
+        <!-- Painted-steel flap panel (postbox red) with its two moving knuckles, one mesh. -->
+        <geom name="vis_flap" type="mesh" mesh="flap_panel_vis" material="flap_panel_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+        <!-- Flat panel, no handle: the only affordance is the face itself. -->
+        <geom type="box" name="flap_panel" size="0.012 0.11 0.15" pos="0 0.12 0" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Push point near the outer edge (best lever arm), on the robot-facing face. -->
+        <site name="object_site" pos="-0.012 0.18 0" size="0.004" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

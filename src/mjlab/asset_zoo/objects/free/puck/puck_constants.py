@@ -11,6 +11,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -21,6 +22,15 @@ PUCK_XML: Path = (
 )
 assert PUCK_XML.exists(), f"XML not found: {PUCK_XML}"
 
+PUCK_ASSETS_DIR: Path = PUCK_XML.parent / "assets"
+
+
+def get_assets() -> dict:
+  """Mesh + texture blobs keyed as the MJCF's ``meshdir``/``texturedir`` expect."""
+  assets: dict = {}
+  update_assets(assets, PUCK_ASSETS_DIR, "assets")
+  return assets
+
 
 ##
 # Spec functions.
@@ -28,7 +38,9 @@ assert PUCK_XML.exists(), f"XML not found: {PUCK_XML}"
 
 def get_puck_spec() -> mujoco.MjSpec:
     """Load Puck MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(PUCK_XML))
+    spec = mujoco.MjSpec.from_file(str(PUCK_XML))
+    spec.assets = get_assets()
+    return spec
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
@@ -39,8 +51,9 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
     mocap_goal.pos = [0, 0, 0]
     mocap_goal.add_geom(
         name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_BOX,
-        size=[0.035, 0.035, 0.012],
+        type=mujoco.mjtGeom.mjGEOM_CYLINDER,
+        # Matches the regulation puck (radius 0.0381, half-thickness 0.0127).
+        size=[0.0381, 0.0127, 0.0],
         rgba=[1, 0.5, 0, 1],
         contype=0,
         conaffinity=0,

@@ -1,0 +1,116 @@
+{
+ "task": "Mjlab-Push-Flap-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "flap": {
+    "n": 1000,
+    "x": [
+     0.42806529998779297,
+     0.487917423248291
+    ],
+    "y": [
+     -0.03991532325744629,
+     0.0599522590637207
+    ],
+    "z": [
+     0.1899999976158142,
+     0.1899999976158142
+    ],
+    "radial": [
+     0.4283183217048645,
+     0.4913739264011383
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "flap": 0.0
+  },
+  "goal": {
+   "term": "push_flap",
+   "radial": [
+    0.5445762872695923,
+    0.6233524084091187
+   ],
+   "z": [
+    0.1899999976158142,
+    0.1899999976158142
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "target_value": -1.2217305,
+   "success_threshold": 0.15
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "flap": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/flap/xmls/flap.xml",
+   "mass_kg": 1.8719999999999999,
+   "ngeom_collision": 2,
+   "nmesh": 2,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "flap_hinge",
+     "type": "hinge",
+     "range": [
+      -1.3997541,
+      0.0
+     ],
+     "damping": 0.2,
+     "frictionloss": 0.0,
+     "armature": 0.0,
+     "target_value": -1.2217304706573486
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_note": "no baseline: Command '['git', '-C', '/ihub/homedirs/svs_ald/sudhir/mjlab', 'show', '1127d12:src/mjlab/asset_zoo/objects/articulated/f",
+   "step_time_us": 1.4513768255710602,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

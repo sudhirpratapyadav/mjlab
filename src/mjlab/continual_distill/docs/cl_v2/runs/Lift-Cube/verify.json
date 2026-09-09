@@ -1,0 +1,114 @@
+{
+ "task": "Mjlab-Lift-Cube-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "cube": {
+    "n": 1000,
+    "x": [
+     0.3001570701599121,
+     0.47972846031188965
+    ],
+    "y": [
+     -0.24968671798706055,
+     0.24980247020721436
+    ],
+    "z": [
+     0.021874364465475082,
+     0.048514388501644135
+    ],
+    "radial": [
+     0.30423271656036377,
+     0.5384974479675293
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "cube": -0.0009507436526410909
+  },
+  "goal": {
+   "term": "lift_object",
+   "radial": [
+    0.30005255341529846,
+    0.586270272731781
+   ],
+   "z": [
+    0.10001885145902634,
+    0.3494488000869751
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.05
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "cube": {
+   "xml": "src/mjlab/asset_zoo/objects/free/cube/xmls/cube.xml",
+   "mass_kg": 0.05,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 2.7955179956202392e-12,
+    "w_final": 1.7275284257580405e-12,
+    "z_drop_after_quarter_s": -1.0514523765547956e-07,
+    "tilt_deg": 0.0004276264042162581,
+    "lowest_point_z": -6.144136346178039e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -6.144136342938616e-05,
+    "v_final": 1.4527808858501823e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.046,
+    0.0452,
+    0.0452
+   ],
+   "grasp_width_m": 0.0452,
+   "graspable_pass": true,
+   "step_time_us": 3.704506903886795,
+   "step_time_baseline_us": 2.8675980865955353,
+   "step_time_ratio": 1.2918501100985367,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

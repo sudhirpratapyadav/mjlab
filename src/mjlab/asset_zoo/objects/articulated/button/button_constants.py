@@ -6,6 +6,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -25,9 +26,24 @@ MOCAP_TARGET_XML: Path = (
 # Spec functions.
 ##
 
+def get_button_assets(meshdir: str) -> dict[str, bytes]:
+    """Load the Blender-built visual meshes and their textures (CL-V2 W2-a).
+
+    Mirrors ``franka_constants.get_assets``: ``meshdir`` and ``texturedir`` are both
+    "assets", so one sweep of that directory covers the OBJ meshes, their .mtl files
+    and the PNG albedos. Required for ``Entity.to_zip`` / ``Scene.to_zip`` and for any
+    path that ships the model away from this source tree.
+    """
+    assets: dict[str, bytes] = {}
+    update_assets(assets, BUTTON_XML.parent / "assets", meshdir)
+    return assets
+
+
 def get_button_spec() -> mujoco.MjSpec:
-    """Load Button MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(BUTTON_XML))
+    """Load Button MjSpec from XML, with its mesh/texture assets."""
+    spec = mujoco.MjSpec.from_file(str(BUTTON_XML))
+    spec.assets = get_button_assets(spec.meshdir)
+    return spec
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:
@@ -40,8 +56,8 @@ def get_mocap_target_spec() -> mujoco.MjSpec:
         mocap_target.pos = [0, 0, 0]
         mocap_target.add_geom(
             name="mocap_target_geom",
-            type=mujoco.mjtGeom.mjGEOM_BOX,
-            size=[0.03, 0.03, 0.005],  # Matches button handle size
+            type=mujoco.mjtGeom.mjGEOM_CYLINDER,
+            size=[0.0225, 0.009, 0.0],  # Matches the 45 mm mushroom cap collider
             rgba=[1, 0.5, 0, 1],
             contype=0,
             conaffinity=0,

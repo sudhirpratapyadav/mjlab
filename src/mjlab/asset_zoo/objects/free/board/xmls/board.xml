@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+  Wooden chopping board (for the pivot-against-wall grasp).  CL-V2 asset upgrade, W1-c.
+
+  REAL ASSET: Poly Haven `wooden_cutting_board` (a scanned 450 x 247 x 41 mm carving
+  board, CC0), uniformly scaled 0.486 to **219 x 120 x 20 mm** -- a standard small
+  chopping / serving board -- and yawed 90 deg so its LONG axis lies along +y, ACROSS
+  the push direction.  That keeps the x half-extent at 0.060, exactly the primitive's,
+  so every teacher constant that names the pivot geometry (BOARD_HALF_X, BOARD_HALF_Z,
+  STANDOFF) is unchanged and the standing board is still 120 mm tall.  Mass 170 g
+  (paulownia, ~320 kg/m^3 -- the wood real lightweight Japanese boards are cut from).
+
+  Motion profile it serves: PIVOT-AGAINST-WALL GRASP (extrinsic dexterity).  Both widths
+  (120 mm x, 219 mm y) exceed the 80 mm aperture and the 20 mm thickness lies flush with
+  the ground, so on open ground the board is ungraspable.  Pushed into the wall it pivots
+  up onto its long edge, exposing its 20 mm thickness for a top-down pinch.
+
+  Collision is ONE box at the AABB: the pivot is an edge-on-edge contact against the
+  wall and the ground, and a rounded scanned edge would make the tipping point mushy.
+-->
+<mujoco model="board">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="board_tex" type="2d" file="board_tex.png"/>
+    <material name="board_mat" texture="board_tex" specular="0.15" shininess="0.15"/>
+    <mesh name="board_vis" file="board_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="board" pos="0.40 0 0.0101">
+      <freejoint name="board_joint"/>
+      <inertial pos="0.00009 0.00016 -0.00042" quat="0.705468 -0.000689 0.003909 -0.708731" mass="0.17000" diaginertia="1.978e-04 6.536e-04 8.423e-04"/>
+      <geom name="board_visual" type="mesh" mesh="board_vis" material="board_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="board_geom" type="box" pos="0.0000 0.0000 0.0000" size="0.0600 0.1094 0.0100" group="3" rgba="0.5 0.5 0.5 0.3" condim="3" friction="0.7 0.03 0.003" contype="1" conaffinity="1" solref="0.01 1" mass="0"/>
+      <site name="object_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+</mujoco>

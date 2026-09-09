@@ -3,12 +3,55 @@
 > Mutable snapshot of where we are. Updated as work progresses. See PLAN.md for the
 > roadmap and LOG.md for the dated decision journal.
 
-Last updated: 2026-07-30
+Last updated: 2026-09-08
 
-## Current phase: **Phase 4 — all 3 embodiment classes LIVE; 28 tasks**
+## Current phase: **Phase 5 (Wave 1) — all 3 embodiment classes LIVE; 37 tasks**
 
-**Suite: 28 tasks / 6 skills / 3 embodiment classes / all 4 fragility tiers.**
-ALL pass benchmark-smoke; 28 unit tests green (17 taxonomy/config + 11 Class-A expansion).
+**Suite: 37 tasks / 7 skills / 3 embodiment classes / all 4 fragility tiers.**
+43 unit tests green (9 task-config + 8 taxonomy + 13 Class-A expansion + 13 Wave-1).
+The placement pass added no tests; it corrected the pivot-lift one and re-counted —
+the previous "41" undercounted the expansion suite, which is 13, not 11.
+`audit_workspace` reports 0 placement problems across all 29 Class A tasks — entities
+and goals.
+
+**2026-09-08 — Taxonomy reconciled with the catalog; task videos re-recorded.**
+`Mjlab-Axial-Extract-Franka` was tagged ARTICULATION because its command term
+subclasses the articulation base; the family tag names the SKILL, and the skill is the
+inverse of peg-insertion, so it is now INSERTION (pinned by a new test). That leaves
+INSERTION a family of 2 instead of 1, and moves the task into the right bucket of every
+skill-diverse CL ordering. Three catalog fragility tiers were stale relative to the
+built tasks and now match the registry (strike-slide 2->3, cage-drag 1->2,
+throw-to-bin 2->3 — each is one-shot, so a mis-timed impulse/release/pinch is
+unrecoverable). Family counts for Class A (29 IDs): articulation 9, pick_place 10,
+planar_push 4, non_prehensile 2, insertion 2, reach 1, tool_use 1. All 37 task videos
+were re-recorded from post-audit HEAD and published at https://cl.untuai.com.
+44 tests green across the four task suites.
+
+**2026-08-04 — Renderer mocap desync fixed (videos lied; the sim never did).**
+Task videos showed mechanisms/fixtures "overlapping the robot base" in every
+mocap-mounted task (door/drawer/button/lever/valve/switch/window/lid + the new
+flap/plug/ledge/wall/bin). Root cause: `OffscreenRenderer.update()` synced only
+qpos/qvel — never `mocap_pos/quat` — so mocap bodies rendered at their compiled
+default (the env origin) while physics had them correctly placed. Verified by a
+full placement audit (4 resets x 37 tasks, plain-MuJoCo contact mirror): zero
+robot<->object penetrations anywhere; entity roots all in-envelope. One REAL
+placement bug found and fixed by the same audit: **Peg-Insertion-Leap spawned the
+peg 30 mm inside the floor** (stack-base default z=0.02 vs peg half-height 0.05);
+now rests at z=0.05. Videos re-recorded after both fixes.
+
+**2026-08-04 — Class A Wave-1 expansion: 16 -> 25 distinct profiles** (28 -> 37
+registered IDs). Added Drag-Pull, Strike-Slide, Cage-Drag, Topple-Block, Push-Flap,
+Axial-Extract, Edge-Grasp, Pivot-Lift, Throw-To-Bin — the nine S-cost Class-A items
+of CATALOG_100_TASKS.md Wave 1 (T17–T25). NON_PREHENSILE is a new skill family
+(7th). New machinery this wave: an episode-long NEGATIVE constraint latch
+(cage-drag min-aperture), deliberately-out-of-reach goals (strike, throw — exempt
+from the workspace audit BY DESIGN), extrinsic-dexterity fixtures written per-env
+(ledge, wall), and ungraspable-by-construction objects (block/plate/board wider
+than the 0.08 m aperture). Gates passed: 13 CPU success-predicate tests with
+negative controls (tests/test_class_a_wave1.py), reset+step finite-obs sanity on
+all nine, zero regressions in the existing suites. Outstanding: cluster A100
+`benchmark-smoke --isolate`, `benchmark_validate` learnability runs, teachers.
+See CLASS_A_WAVE1.md.
 
 **2026-07-30 — Class A motion-profile expansion: 8 -> 16 distinct profiles**
 (12 -> 20 registered IDs). Added Turn-Lever, Rotate-Valve, Flip-Switch, Slide-Window,

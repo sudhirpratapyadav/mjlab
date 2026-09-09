@@ -67,7 +67,14 @@ function card(id, a, r, has) {
   const done = a && a.gates && Object.values(a.gates).every(v => v === "ok");
   const still = has.still ? `<img class="still" src="${id}/still.png" alt="${name} asset"><span class="cliplabel">asset</span>` : `<div class="noclip">no still yet</div>`;
   const turn = has.turntable ? `<video src="${id}/turntable.mp4" muted loop autoplay playsinline></video><span class="cliplabel">turntable</span>` : `<div class="noclip">no turntable yet</div>`;
-  const teacher = has.teacher ? `<video src="${id}/teacher.mp4" controls muted loop playsinline preload="metadata" poster="${id}/thumb.jpg"></video><span class="cliplabel">teacher rollout</span>` : `<div class="noclip">no rollout yet</div>`;
+  // A characterised-failure teacher (SR 0.000) renders only failure.mp4, never
+  // teacher.mp4 — fall back to it and SAY it is the failure, rather than claiming
+  // there is no rollout. (W1-c)
+  const teacher = has.teacher
+    ? `<video src="${id}/teacher.mp4" controls muted loop playsinline preload="metadata" poster="${id}/thumb.jpg"></video><span class="cliplabel">teacher rollout</span>`
+    : (has.failure
+      ? `<video src="${id}/failure.mp4" controls muted loop playsinline preload="metadata" poster="${id}/thumb.jpg"></video><span class="cliplabel">teacher rollout (failure)</span>`
+      : `<div class="noclip">no rollout yet</div>`);
   const sr = r ? `<b>${pct(r.sr)}</b> (n=${r.n}, HEAD ${r.head})` : "not measured";
   const prior = a && a.sr_cl25 !== undefined ? `phase-1: ${pct(a.sr_cl25)}` : "";
   return `<div class="card ${done ? 'done' : (a ? '' : 'pending')}" data-name="${name.toLowerCase()}">
@@ -86,9 +93,10 @@ async function main() {
   let html = "";
   for (const [lane, ids] of Object.entries(TASKS)) {
     const cards = await Promise.all(ids.map(async id => {
-      const [a, r, still, turntable, teacher] = await Promise.all([
-        j(`${id}/asset.json`), j(`${id}/result.json`), head(`${id}/still.png`), head(`${id}/turntable.mp4`), head(`${id}/teacher.mp4`)]);
-      return card(id, a, r, {still, turntable, teacher});
+      const [a, r, still, turntable, teacher, failure] = await Promise.all([
+        j(`${id}/asset.json`), j(`${id}/result.json`), head(`${id}/still.png`), head(`${id}/turntable.mp4`),
+        head(`${id}/teacher.mp4`), head(`${id}/failure.mp4`)]);
+      return card(id, a, r, {still, turntable, teacher, failure});
     }));
     html += `<h2>${lane}<span class="count">${ids.length}</span></h2><div class="grid">${cards.join("")}</div>`;
   }

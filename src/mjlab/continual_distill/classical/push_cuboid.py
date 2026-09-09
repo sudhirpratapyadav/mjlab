@@ -32,7 +32,8 @@ _DOWN_AXIS = np.array([0.0, 0.0, -1.0])
 
 HOVER_HEIGHT = 0.15  # above the object while aligning
 # Site height above the cuboid CENTRE (centre is at z=0.015 on the ground; the
-# box is only 3cm tall, so its TOP is at z=0.03).
+# box is only 3cm tall, so its TOP is at z=0.03). Unchanged in CL-V2: the new
+# gelatin-box asset has the same 0.0150 half-height as the primitive.
 #
 # This is a tight window and both sides of it bite. The finger pads reach only
 # ~1.2cm below the gripper site in a top-down pose, so:
@@ -100,9 +101,19 @@ ADVANCE = 0.085
 MIN_BEHIND = 0.012
 
 # -- contact-point servo (see the strategy note in _target_error) -------------
-# Geometry, from cuboid.xml: box is 0.08 x 0.08 x 0.03, so half-width 0.04 along
-# whichever axis is being pushed. The fingertip pad adds ~0.01 of radius.
-HALF_WIDTH = 0.04
+# Geometry, from cuboid.xml: YCB 009_gelatin_box, collision box 0.073 x 0.089 x
+# 0.030, so the half-width along the pushed axis is no longer one number — it runs
+# from 0.0365 (pushed along x) to 0.0446 (along y), and 0.0574 on the diagonal.
+#
+# DECIDED: keep ONE scalar, the mean horizontal half-extent, rather than the exact
+# direction-dependent support width. The support width is the geometrically correct
+# distance to the contact plane, but plugging it in would also CHANGE the tuned
+# behaviour: the retired 0.08-square box had a 0.0566 diagonal support width and
+# this teacher deliberately used 0.04 for every direction, i.e. it over-penetrates
+# on diagonals on purpose, and 0.04 was tuned as that compromise. 0.0405 keeps the
+# same compromise on the new box (a 1.3% change) instead of silently re-tuning the
+# push force as a side effect of the asset swap.
+HALF_WIDTH = 0.0405
 PAD_RADIUS = 0.010
 # Clearance between the pad surface and the box face at zero advance. Small and
 # positive: the reference must sit OUTSIDE the box (which is the whole point of

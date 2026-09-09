@@ -1,0 +1,51 @@
+{
+ "name": "cylinder",
+ "source": "Google Scanned Objects: CoQ10 (Jarrow amber packer bottle)",
+ "license": "CC-BY 4.0",
+ "visual_tris": 10490,
+ "extent_m": [
+  0.0299,
+  0.0299,
+  0.0532
+ ],
+ "bounds": [
+  [
+   -0.0149,
+   -0.015,
+   -0.0266
+  ],
+  [
+   0.0149,
+   0.015,
+   0.0266
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 1,
+ "collider_tris": [
+  188
+ ],
+ "texture": "cylinder_tex.png",
+ "mass_kg": 0.025,
+ "volume_m3": 3.480815234493505e-05,
+ "com": [
+  4e-05,
+  -2e-05,
+  -0.00092
+ ],
+ "diaginertia": [
+  2.639169703992449e-06,
+  6.782064024277763e-06,
+  6.802179571818069e-06
+ ],
+ "asset_xml": "    <texture name=\"cylinder_tex\" type=\"2d\" file=\"cylinder_tex.png\"/>\n    <material name=\"cylinder_mat\" texture=\"cylinder_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"cylinder_vis\" file=\"cylinder_vis.obj\"/>\n    <mesh name=\"cylinder_col_00\" file=\"cylinder_col_00.obj\"/>",
+ "geom_xml": "      <geom name=\"cylinder_visual\" type=\"mesh\" mesh=\"cylinder_vis\" material=\"cylinder_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>\n      <geom name=\"cylinder_col_00\" type=\"mesh\" mesh=\"cylinder_col_00\" group=\"3\" rgba=\"0.5 0.5 0.5 0.3\" condim=\"3\" friction=\"1 0.03 0.003\" contype=\"1\" conaffinity=\"1\" solref=\"0.01 1\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00004 -0.00002 -0.00092\" quat=\"0.119179 -0.692608 0.118758 0.701418\" mass=\"0.02500\" diaginertia=\"2.639e-06 6.782e-06 6.802e-06\"/>",
+ "files": [
+  "cylinder_col_00.obj",
+  "cylinder_tex.png",
+  "cylinder_vis.mtl",
+  "cylinder_vis.obj"
+ ],
+ "bytes": 1392955
+}

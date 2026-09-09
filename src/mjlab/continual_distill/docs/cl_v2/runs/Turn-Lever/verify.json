@@ -1,0 +1,117 @@
+{
+ "task": "Mjlab-Turn-Lever-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "lever": {
+    "n": 1000,
+    "x": [
+     0.45009803771972656,
+     0.5099500417709351
+    ],
+    "y": [
+     -0.07977414131164551,
+     0.07993221282958984
+    ],
+    "z": [
+     0.18000000715255737,
+     0.18000000715255737
+    ],
+    "radial": [
+     0.45025601983070374,
+     0.5148389935493469
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "lever": 0.0
+  },
+  "goal": {
+   "term": "turn_lever",
+   "radial": [
+    0.45362621545791626,
+    0.5454248189926147
+   ],
+   "z": [
+    0.06000000983476639,
+    0.06000000983476639
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "target_value": -1.5707963,
+   "success_threshold": 0.15
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "lever": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/lever/xmls/lever.xml",
+   "mass_kg": 1.8947771669411542,
+   "ngeom_collision": 3,
+   "nmesh": 2,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "lever_hinge",
+     "type": "hinge",
+     "range": [
+      -1.5707963,
+      0.0
+     ],
+     "damping": 0.05,
+     "frictionloss": 0.0,
+     "armature": 0.0,
+     "target_value": -1.570796251296997
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "joint_drift_gravity_on": 1.355660627323501,
+    "pass": true
+   },
+   "step_time_us": 1.7166510224342346,
+   "step_time_baseline_us": 1.6369037330150604,
+   "step_time_ratio": 1.0487183747038595,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

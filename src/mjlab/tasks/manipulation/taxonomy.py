@@ -59,6 +59,12 @@ class SkillFamily(enum.Enum):
   TOOL_USE = "tool_use"
   """Use a grasped object as a tool (hammer, sweep-with-tool, scoop, reach-with-stick)."""
 
+  NON_PREHENSILE = "non_prehensile"
+  """Manipulate WITHOUT force closure (cage, topple, pivot, strike-to-slide). The
+  object is moved through geometry, impact, or environment contact rather than a
+  grasp — a distinct contact-strategy family from planar_push's quasi-static servo
+  pushing. Added in the Wave-1 expansion (CATALOG_100_TASKS.md)."""
+
   IN_HAND = "in_hand"
   """Reorient / regrasp an object within the hand (rotate block/pen/egg, in-hand
   repositioning). Dexterous-hand specific."""

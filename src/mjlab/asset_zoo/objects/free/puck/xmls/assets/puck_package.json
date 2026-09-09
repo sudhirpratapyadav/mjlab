@@ -1,0 +1,48 @@
+{
+ "name": "puck",
+ "source": "built (trimesh lathe) + ambientCG Rubber004 albedo",
+ "license": "CC0 (texture); geometry built for mjlab",
+ "visual_tris": 576,
+ "extent_m": [
+  0.0762,
+  0.0762,
+  0.0254
+ ],
+ "bounds": [
+  [
+   -0.0381,
+   -0.0381,
+   -0.0127
+  ],
+  [
+   0.0381,
+   0.0381,
+   0.0127
+  ]
+ ],
+ "collider": "none",
+ "n_colliders": 0,
+ "collider_tris": [],
+ "texture": "puck_tex.png",
+ "mass_kg": 0.16,
+ "volume_m3": 0.00011422476367836802,
+ "com": [
+  0.0,
+  -0.0,
+  -0.0
+ ],
+ "diaginertia": [
+  6.57352735143438e-05,
+  6.573527351434382e-05,
+  0.00011462371487449866
+ ],
+ "asset_xml": "    <texture name=\"puck_tex\" type=\"2d\" file=\"puck_tex.png\"/>\n    <material name=\"puck_mat\" texture=\"puck_tex\" specular=\"0.15\" shininess=\"0.15\"/>\n    <mesh name=\"puck_vis\" file=\"puck_vis.obj\"/>",
+ "geom_xml": "      <geom name=\"puck_visual\" type=\"mesh\" mesh=\"puck_vis\" material=\"puck_mat\" contype=\"0\" conaffinity=\"0\" group=\"2\" mass=\"0\"/>",
+ "inertial_xml": "      <inertial pos=\"0.00000 -0.00000 -0.00000\" quat=\"0.000000 0.000000 0.000000 1.000000\" mass=\"0.16000\" diaginertia=\"6.574e-05 6.574e-05 1.146e-04\"/>",
+ "files": [
+  "puck_tex.png",
+  "puck_vis.mtl",
+  "puck_vis.obj"
+ ],
+ "bytes": 404481
+}

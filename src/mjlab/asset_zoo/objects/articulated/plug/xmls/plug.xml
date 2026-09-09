@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+  Mains plug in a power-outlet box (axial extraction).  CL-V2 asset upgrade, W1-c.
+
+  REAL REFERENCE.  A CEE 7/4 "Schuko" plug (round moulding 50 mm across, 34 mm thick,
+  two 4.8 mm pins on a 19 mm pitch) seated in a surface-mount floor / desk power
+  outlet box (80 x 80 mm faceplate, 100 mm deep back box, 50 mm round recess 5 mm
+  deep, exactly as a Schuko socket is built).  The plug sits 5 mm into the recess and
+  stands 29 mm proud, which is what the gripper pinches.
+
+  MOTION PROFILE (unchanged): FRICTION-BREAKAWAY EXTRACTION.  The plug's slide joint
+  carries a large frictionloss, so nothing moves until the upward pull exceeds the
+  breakaway force; the plug must then be guided straight up out of the socket.
+  Contrast the drawer (low-friction horizontal glide behind a hooked fingertip): here
+  the grasp is a pinch on the plug moulding and the load is a static-friction
+  threshold.  Real pull-out force for a Schuko plug is 40-100 N; 4 N here keeps the
+  breakaway inside what the Franka's position servo can deliver, and it is the number
+  the task was calibrated on -- kept deliberately.
+
+  COLLISION.  Socket walls and plug shaft are contype=2 conaffinity=1 (the mechanism
+  convention), so they collide with the robot but NOT with each other -- the
+  extraction resistance is entirely the joint's frictionloss, which keeps the
+  breakaway force a single tunable number instead of an emergent contact artefact.
+  The socket's four collider boxes (plug_body, plug_wall_{nx,py,ny}) are UNCHANGED
+  from the primitive version: same 80 x 80 mm outer footprint, same 32 mm square bore,
+  same +-0.05 z extent, so MECHANISM_DROP_BELOW_MOUNT["plug"] stays 0.050 and the
+  ee_plug_collision sensor's `plug_body|plug_wall_.*` pattern still matches exactly
+  the static geoms.  `plug_shaft` was shrunk from a 100 mm barrel to the 19 mm pin
+  bundle it now visually is (r 12 mm around the two pins at +-9.5 mm); it lives inside
+  the bore and only ever collides with the robot, and the swept low point is still the
+  socket walls, so nothing downstream moves.
+
+  Success: slide joint pulled to within threshold of +0.10 m (see AxialExtractCommand).
+-->
+<mujoco model="plug">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="socket_tex" type="2d" file="socket_tex.png"/>
+    <material name="socket_mat" texture="socket_tex" specular="0.25" shininess="0.3"/>
+    <mesh name="socket_vis" file="socket_vis.obj"/>
+    <texture name="plug_tex" type="2d" file="plug_tex.png"/>
+    <material name="plug_mat" texture="plug_tex" specular="0.25" shininess="0.3"/>
+    <mesh name="plug_vis" file="plug_vis.obj"/>
+  </asset>
+
+  <worldbody>
+    <body name="plug_base" pos="0.45 0 0.08" mocap="true">
+      <!-- Faceplate + back box (visual). -->
+      <geom name="socket_visual" type="mesh" mesh="socket_vis" material="socket_mat"
+            contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Socket: four walls around a vertical bore (inner clear half-extent 0.016). -->
+      <geom type="box" name="plug_body" size="0.012 0.04 0.05" pos="0.028 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="plug_wall_nx" size="0.012 0.04 0.05" pos="-0.028 0 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="plug_wall_py" size="0.04 0.012 0.05" pos="0 0.028 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <geom type="box" name="plug_wall_ny" size="0.04 0.012 0.05" pos="0 -0.028 0"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+            contype="2" conaffinity="1" solref="0.01 1"/>
+      <!-- Base site at the plug moulding centre when joint = 0 (fully seated). -->
+      <site name="base_site" pos="0 0 0.062" size="0.01" rgba="0 0 1 0.3"/>
+      <body name="handle">
+        <!-- Vertical slide with a static-friction breakaway (~4 N). -->
+        <joint name="plug_slide" type="slide" axis="0 0 1"
+               range="0 0.12" limited="true" damping="1.0" frictionloss="4.0"/>
+        <!-- Plug moulding (visual) + the two brass pins. -->
+        <geom name="plug_visual" type="mesh" mesh="plug_vis" material="plug_mat"
+              contype="0" conaffinity="0" group="2" mass="0"/>
+        <geom name="plug_pin_a" type="cylinder" size="0.0024 0.0095" pos="0.0095 0 0.0355"
+              rgba="0.72 0.62 0.34 1" contype="0" conaffinity="0" group="2" mass="0"/>
+        <geom name="plug_pin_b" type="cylinder" size="0.0024 0.0095" pos="-0.0095 0 0.0355"
+              rgba="0.72 0.62 0.34 1" contype="0" conaffinity="0" group="2" mass="0"/>
+        <!-- Pin bundle inside the bore (collides with the robot only). -->
+        <geom type="cylinder" name="plug_shaft" size="0.012 0.0095" pos="0 0 0.0355"
+              mass="0.006" condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <!-- Pinchable moulding: 50 mm across, well under the 80 mm aperture, and
+             29 mm of it stands proud of the faceplate. -->
+        <geom type="cylinder" name="handle" size="0.025 0.017" pos="0 0 0.062"
+              mass="0.070" condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
+              contype="2" conaffinity="1" solref="0.01 1"/>
+        <site name="object_site" pos="0 0 0.062" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

@@ -6,6 +6,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -22,14 +23,25 @@ assert HOLE_BOARD_XML.exists(), f"XML not found: {HOLE_BOARD_XML}"
 # Spec functions.
 ##
 
+def _assets() -> dict:
+    """Mesh/texture bytes keyed the way MuJoCo resolves them (the Franka pattern)."""
+    assets: dict = {}
+    update_assets(assets, _BASE / "assets", "assets")
+    return assets
+
+
 def get_peg_spec() -> mujoco.MjSpec:
-    """Load the peg MjSpec from XML (a slender graspable square peg)."""
-    return mujoco.MjSpec.from_file(str(PEG_XML))
+    """Load the peg MjSpec from XML (a 25 mm square shape-sorter peg, chamfered)."""
+    spec = mujoco.MjSpec.from_file(str(PEG_XML))
+    spec.assets = _assets()
+    return spec
 
 
 def get_hole_board_spec() -> mujoco.MjSpec:
-    """Load the hole-board MjSpec from XML (a four-wall frame with a square hole)."""
-    return mujoco.MjSpec.from_file(str(HOLE_BOARD_XML))
+    """Load the hole-board MjSpec from XML (chamfered 30 mm square through-hole)."""
+    spec = mujoco.MjSpec.from_file(str(HOLE_BOARD_XML))
+    spec.assets = _assets()
+    return spec
 
 
 ##

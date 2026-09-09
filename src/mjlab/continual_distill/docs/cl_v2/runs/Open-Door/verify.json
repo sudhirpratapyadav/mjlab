@@ -1,0 +1,116 @@
+{
+ "task": "Mjlab-Open-Door-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "door": {
+    "n": 1000,
+    "x": [
+     0.44001150131225586,
+     0.4799790382385254
+    ],
+    "y": [
+     -0.049976348876953125,
+     0.049900054931640625
+    ],
+    "z": [
+     0.3479999899864197,
+     0.3479999899864197
+    ],
+    "radial": [
+     0.4400137960910797,
+     0.4816843271255493
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "door": 0.0
+  },
+  "goal": {
+   "term": "open_door",
+   "radial": [
+    0.3325639069080353,
+    0.4318418502807617
+   ],
+   "z": [
+    0.3479999899864197,
+    0.3479999899864197
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.1
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "door": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/door/xmls/door.xml",
+   "mass_kg": 15.45072,
+   "ngeom_collision": 7,
+   "nmesh": 3,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "door_hinge",
+     "type": "hinge",
+     "range": [
+      0.0,
+      1.5708
+     ],
+     "damping": 0.05,
+     "frictionloss": 0.0,
+     "armature": 0.0,
+     "target_value": 1.5707999467849731
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_us": 1.7271675169467926,
+   "step_time_baseline_us": 1.432526856660843,
+   "step_time_ratio": 1.205678978314406,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

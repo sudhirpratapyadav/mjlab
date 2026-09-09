@@ -1,0 +1,113 @@
+{
+ "task": "Mjlab-Strike-Slide-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "puck": {
+    "n": 1000,
+    "x": [
+     0.3001537322998047,
+     0.4198763370513916
+    ],
+    "y": [
+     -0.1495499610900879,
+     0.14991474151611328
+    ],
+    "z": [
+     0.01239989884197712,
+     0.01239989884197712
+    ],
+    "radial": [
+     0.30053281784057617,
+     0.4422476589679718
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "puck": -0.00027365885008038236
+  },
+  "goal": {
+   "term": "strike_slide",
+   "radial": [
+    0.8832682371139526,
+    1.0650107860565186
+   ],
+   "z": [
+    0.01269999984651804,
+    0.01269999984651804
+   ],
+   "bound": [
+    0.85,
+    1.1
+   ],
+   "rule": "past the arm's ~0.85 m stretch BY DESIGN; a reachable goal degenerates the task to a quasi-static push",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.08,
+   "goal_z_height": 0.0127
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "puck": {
+   "xml": "src/mjlab/asset_zoo/objects/free/puck/xmls/puck.xml",
+   "mass_kg": 0.16,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 1.9144959041478035e-12,
+    "w_final": 1.545090662289667e-16,
+    "z_drop_after_quarter_s": -9.111053552411652e-08,
+    "tilt_deg": 0.0,
+    "lowest_point_z": -8.131550618684785e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -8.131550621734603e-05,
+    "v_final": 2.675144795687158e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.0762,
+    0.0762,
+    0.0254
+   ],
+   "step_time_us": 2.769775688648224,
+   "step_time_baseline_us": 2.7016960084438324,
+   "step_time_ratio": 1.0251988676711281,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

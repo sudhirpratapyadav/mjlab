@@ -1,46 +1,76 @@
 <?xml version="1.0"?>
 <!--
-  Valve / wheel asset.
+  Rotate-Valve — cast-iron gate-valve cross handwheel on a bonneted bulkhead panel.
+  CL-V2 W2-a asset replacement (was a primitive plate + hub + two box spokes).
 
-  Motion profile: hinge about the approach axis like the lever, BUT the target is a
-  large rotation (270 deg) that exceeds the Franka wrist's usable range from any single
-  grasp. The policy must therefore turn, release, re-grasp, and turn again — the only
-  Class A task requiring a MULTI-CYCLE regrasp. That is its distinct profile.
+  Motion profile UNCHANGED: hinge about the approach axis like the lever, but the
+  target is 270 deg — more than the Franka wrist can do from any single grasp, so the
+  policy must engage, turn, release and RE-ENGAGE. Two OPPOSED spokes guarantee a
+  regrasp target 180 deg away. Success is on the JOINT ANGLE (RotateValveCommand,
+  target 4.712389 rad, threshold 0.2 rad), not a Cartesian goal.
 
-  Geometry: a hub with two opposed spokes, so a regrasp target is always available at
-  180 deg. The spoke ends (object_site on one of them) are the grasp points.
+  NO CONTINUOUS RIM, deliberately. The teacher PINCHES a spoke at 80% of its length
+  (radius 0.072 m) and the fingers close tangentially there; a rim at radius 0.09
+  would sit exactly in the closing path. A two-spoke cast "bar handle" is a real
+  gate-valve handle style at this size (212 mm across the knobs), so the task keeps
+  its name, and it costs 2 colliders instead of a ring of 8+ against nconmax=60.
 
-  Success: hinge angle reaches the target (see RotateValveCommand). Because the goal is
-  angular and multi-turn, success is measured on the JOINT ANGLE, not on a Cartesian
-  goal position (the site returns near its start every half turn).
+  Frozen interface kept verbatim: bodies `valve_base` (mocap) / `handle`, joint
+  `valve_hinge`, collider geoms `valve_body` (panel), `valve_hub`, `handle` (spoke A,
+  +y) and `valve_spoke_b` (spoke B, -y) — the teacher reads all three — plus sites
+  `base_site` and `object_site` at (-0.04, 0.09, 0), i.e. the spoke-A tip.
+
+  Angles are RADIANS here (explicit compiler); 6.2831853 rad == the old 360.
 -->
 <mujoco model="valve">
+  <compiler angle="radian" meshdir="assets" texturedir="assets"/>
+
+  <asset>
+    <texture name="valve_panel_tex" type="2d" file="valve_panel_tex.png"/>
+    <material name="valve_panel_mat" texture="valve_panel_tex" specular="0.35" shininess="0.25"/>
+    <mesh name="valve_panel_vis" file="valve_panel_vis.obj"/>
+    <texture name="valve_bonnet_tex" type="2d" file="valve_bonnet_tex.png"/>
+    <material name="valve_bonnet_mat" texture="valve_bonnet_tex" specular="0.2" shininess="0.2"/>
+    <mesh name="valve_bonnet_vis" file="valve_bonnet_vis.obj"/>
+    <texture name="valve_wheel_tex" type="2d" file="valve_wheel_tex.png"/>
+    <material name="valve_wheel_mat" texture="valve_wheel_tex" specular="0.2" shininess="0.2"/>
+    <mesh name="valve_wheel_vis" file="valve_wheel_vis.obj"/>
+  </asset>
+
   <worldbody>
     <body name="valve_base" pos="0.65 0 0.5" mocap="true">
-      <!-- Mounting plate. -->
-      <geom type="box" name="valve_body" size="0.01 0.15 0.15" pos="0.03 0 0"
-            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0 0.5"
+      <!-- Bulkhead panel + green cast bonnet (flange, neck, packing gland). -->
+      <geom name="vis_panel" type="mesh" mesh="valve_panel_vis" material="valve_panel_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <geom name="vis_bonnet" type="mesh" mesh="valve_bonnet_vis" material="valve_bonnet_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Mounting-plate collider (unchanged from the primitive asset). The bonnet is
+           visual only: it lives inside the radius the fingers ever reach (they pinch
+           at r = 0.072, the gland is r = 0.027) and the plate already backstops the
+           arm, so a collider there would only spend contacts. -->
+      <geom type="box" name="valve_body" size="0.01 0.15 0.15" pos="0.03 0 0" group="3"
+            condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
             contype="2" conaffinity="1" solref="0.01 1"/>
       <!-- Base site at the spoke tip when joint = 0 (spoke along +y). -->
-      <site name="base_site" pos="-0.04 0.09 0.0" size="0.01" rgba="0 0 1 0.3"/>
+      <site name="base_site" pos="-0.04 0.09 0.0" size="0.004" rgba="0 0 1 0.3"/>
       <body name="handle">
-        <!-- Hinge about the approach axis; wide range to allow multi-turn. -->
+        <!-- Hinge about the approach axis; full turn allowed for the multi-turn target. -->
         <joint name="valve_hinge" type="hinge" axis="1 0 0" pos="0 0 0"
-               range="0 360" limited="true" damping="0.08"/>
-        <!-- Central hub. -->
+               range="0 6.2831853" limited="true" damping="0.08"/>
+        <!-- Dished two-spoke handwheel with knobbed ends, one mesh. -->
+        <geom name="vis_wheel" type="mesh" mesh="valve_wheel_vis" material="valve_wheel_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+        <!-- Central hub collider. -->
         <geom type="cylinder" name="valve_hub" size="0.02 0.012"
-              pos="-0.01 0 0" quat="0.7071 0 0.7071 0"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 0.4"
+              pos="-0.01 0 0" quat="0.7071 0 0.7071 0" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
-        <!-- Spoke A (+y) — the primary grasp target. -->
-        <geom type="box" name="handle" pos="-0.04 0.055 0.0" size="0.012 0.055 0.012"
-              condim="3" friction="1 0.03 0.003" rgba="0 1 0 1"
+        <!-- Spoke A (+y) — the primary pinch target. -->
+        <geom type="box" name="handle" pos="-0.04 0.055 0.0" size="0.012 0.055 0.012" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
         <!-- Spoke B (-y) — the regrasp target at 180 deg. -->
-        <geom type="box" name="valve_spoke_b" pos="-0.04 -0.055 0.0" size="0.012 0.055 0.012"
-              condim="3" friction="1 0.03 0.003" rgba="0 0.8 0 1"
+        <geom type="box" name="valve_spoke_b" pos="-0.04 -0.055 0.0" size="0.012 0.055 0.012" group="3"
+              condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
               contype="2" conaffinity="1" solref="0.01 1"/>
-        <site name="object_site" pos="-0.04 0.09 0.0" size="0.01 0.01 0.01" rgba="1 0 0 1"/>
+        <site name="object_site" pos="-0.04 0.09 0.0" size="0.004" rgba="1 0 0 1"/>
       </body>
     </body>
   </worldbody>

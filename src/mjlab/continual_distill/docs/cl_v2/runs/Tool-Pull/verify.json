@@ -1,0 +1,174 @@
+{
+ "task": "Mjlab-Tool-Pull-Franka",
+ "head": "41b36cb",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "puck": {
+    "n": 1000,
+    "x": [
+     0.6200448274612427,
+     0.6899700164794922
+    ],
+    "y": [
+     0.050020694732666016,
+     0.16991019248962402
+    ],
+    "z": [
+     0.01239989884197712,
+     0.01239989884197712
+    ],
+    "radial": [
+     0.6231682896614075,
+     0.70884770154953
+    ],
+    "bound": [
+     0.58,
+     0.75
+    ],
+    "rule": "out of direct reach by design; must stay inside the stick's extension",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   },
+   "stick": {
+    "n": 1000,
+    "x": [
+     0.2801523208618164,
+     0.4799962043762207
+    ],
+    "y": [
+     -0.24956083297729492,
+     -0.06004929542541504
+    ],
+    "z": [
+     0.010528500191867352,
+     0.010528501123189926
+    ],
+    "radial": [
+     0.28754743933677673,
+     0.5387545228004456
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "puck": -0.00027365854281906875,
+   "stick": -0.0006648449968166756
+  },
+  "goal": {
+   "term": "tool_pull",
+   "radial": [
+    0.41999995708465576,
+    0.4200000762939453
+   ],
+   "z": [
+    0.01269999984651804,
+    0.01269999984651804
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.07,
+   "grasp_threshold": 0.06
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "puck": {
+   "xml": "src/mjlab/asset_zoo/objects/free/puck/xmls/puck.xml",
+   "mass_kg": 0.16,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 1.9144959041478035e-12,
+    "w_final": 1.545090662289667e-16,
+    "z_drop_after_quarter_s": -9.111053552411652e-08,
+    "tilt_deg": 0.0,
+    "lowest_point_z": -8.131550618684785e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -8.131550621734603e-05,
+    "v_final": 2.675144795687158e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.0762,
+    0.0762,
+    0.0254
+   ],
+   "step_time_us": 2.7809515595436096,
+   "step_time_baseline_us": 2.663739025592804,
+   "step_time_ratio": 1.0440030096134212,
+   "step_time_pass": true
+  },
+  "stick": {
+   "xml": "src/mjlab/asset_zoo/objects/free/stick/xmls/stick.xml",
+   "mass_kg": 0.075,
+   "ngeom_collision": 2,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 8.172973334530755e-13,
+    "w_final": 1.9171978806143113e-10,
+    "z_drop_after_quarter_s": -9.344427701063474e-08,
+    "tilt_deg": 0.030614069140016555,
+    "lowest_point_z": -9.999989682919069e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -9.999989689567397e-05,
+    "v_final": 1.0608193684505493e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.261,
+    0.081,
+    0.022
+   ],
+   "step_time_us": 3.591228276491165,
+   "step_time_baseline_us": 4.682544618844986,
+   "step_time_ratio": 0.7669394674934227,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

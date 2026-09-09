@@ -1,11 +1,18 @@
 """Scripted SlideWindow teacher — lateral FACE-PUSH on the vertical grab bar.
 
 Geometry (window.xml, verified live): a slide joint along world +y, range
-[0, 0.25], target 0.22 m (threshold 0.03 m, shortfall-only so overshoot counts).
-The handle is a VERTICAL bar (half-extents 0.012 x 0.012 x 0.07) on the pane's
-leading edge at body-local (-0.04, -0.10, 0). The mount has no yaw randomisation,
-so the slide axis is exactly world +y. Measured: handle site at z = 0.25, mount
-x in [0.50, 0.70], y in [-0.1, 0.1].
+[0, 0.24] in CL-V2 (was [0, 0.25]; 0.24 m is the real travel of a 240 mm sash in a
+480 mm opening), target 0.22 m (threshold 0.03 m, shortfall-only so overshoot counts).
+The handle is a VERTICAL bar (half-extents 0.012 x 0.012 x 0.07) on the sash's
+leading stile at body-local (-0.04, -0.10, 0) — reproduced exactly from cl25, which is
+why every constant below re-derives to its old value. The mount has no yaw
+randomisation, so the slide axis is exactly world +y. Measured: handle site at
+z = 0.25, mount x in [0.50, 0.56], y in [0.05, 0.15].
+
+CL-V2: the asset is now a real 560 x 440 mm aluminium horizontal slider with a fixed
+light and a glazed sliding sash (asset_zoo/objects/articulated/window/PROVENANCE.md).
+The handle collider, the frame's 0.22 m half-height and therefore the mount height are
+all unchanged, so the strategy below transfers as-is.
 
 Strategy — a PUSH, not a grasp. Domain randomisation drives fingertip friction to
 0.3, so nothing here may depend on grip. The bar is 14 cm tall, which makes it a
@@ -35,12 +42,20 @@ _DOWN_AXIS = np.array([0.0, 0.0, -1.0])
 
 GRIPPER_CLOSED = -1.0
 
-# Standoff from the bar centre along -y to the pad's pushing face: bar half-width
-# 0.012 plus the closed pad's half-thickness, plus a little clearance.
+# CL-V2 RE-DERIVATION (exact, from the compiled models): the bar's half-width is 0.012
+# and the CLOSED pad block is +-0.0152 about the gripper site along the closing axis
+# (two 0.0076-half pads meeting), so the site must sit 0.012 + 0.0152 = 0.0272 from the
+# bar centre for the pad face to land on the bar's -y face. The CL-V2 asset reproduces
+# the cl25 handle collider exactly, so this comes back to its old value.
 PUSH_STANDOFF = 0.028
 # Contact a bit BELOW the site: the site is the bar's mid-height, and biasing down
-# keeps the wrist clear of the pane's top edge while staying well inside the 14 cm bar.
+# keeps the wrist clear of the sash's top rail while staying well inside the 14 cm bar.
+# CL-V2 re-derivation: with the site 15 mm low, the hand capsule occupies z = -0.015 +
+# 0.03 .. +0.11 = 0.015..0.095, and the sash's top rail starts at 0.154 — 60 mm clear.
+# Unchanged.
 CONTACT_Z = -0.015
+# Approach standoff in -y. Must clear the sash's leading stile (which now protrudes to
+# y = -0.145 while the bar is at -0.10), i.e. > 0.045 + the pad. Unchanged at 0.10.
 HOVER_Y = 0.10  # stand off this much further in -y during the approach
 HOVER_Z = 0.06
 ALIGN_TOL = 0.045  # x-z alignment before closing the last of the -y gap

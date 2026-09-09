@@ -230,3 +230,23 @@ def reach_target_reward(
     torch.square(command.target_pos - gripper_pos_w), dim=-1
   )
   return torch.exp(-position_error / (std**2))
+
+
+def gripper_closure_penalty(
+  env: ManagerBasedRlEnv,
+  threshold: float,
+  robot_asset_cfg: SceneEntityCfg = _DEFAULT_ASSET_CFG,
+  finger_joint_names: tuple[str, str] = ("finger_joint1", "finger_joint2"),
+) -> torch.Tensor:
+  """1.0 while the combined finger opening is below ``threshold``.
+
+  Used with a NEGATIVE weight by the caging task: its success predicate voids the
+  episode the moment ``min_aperture`` dips under the cage threshold, which a sparse
+  predicate only reports after the fact — this is the per-step signal that steers
+  the policy away from closing at all.
+  """
+  robot: Entity = env.scene[robot_asset_cfg.name]
+  i0 = robot.joint_names.index(finger_joint_names[0])
+  i1 = robot.joint_names.index(finger_joint_names[1])
+  aperture = robot.data.joint_pos[:, i0] + robot.data.joint_pos[:, i1]
+  return (aperture < threshold).float()

@@ -11,6 +11,7 @@ import mujoco
 
 from mjlab import MJLAB_SRC_PATH
 from mjlab.entity import EntityCfg
+from mjlab.utils.os import update_assets
 
 ##
 # MJCF paths.
@@ -21,6 +22,15 @@ CONTAINER_XML: Path = (
 )
 assert CONTAINER_XML.exists(), f"XML not found: {CONTAINER_XML}"
 
+CONTAINER_ASSETS_DIR: Path = CONTAINER_XML.parent / "assets"
+
+
+def get_assets() -> dict:
+  """Mesh + texture blobs keyed as the MJCF's ``meshdir``/``texturedir`` expect."""
+  assets: dict = {}
+  update_assets(assets, CONTAINER_ASSETS_DIR, "assets")
+  return assets
+
 
 ##
 # Spec functions.
@@ -28,7 +38,9 @@ assert CONTAINER_XML.exists(), f"XML not found: {CONTAINER_XML}"
 
 def get_container_spec() -> mujoco.MjSpec:
     """Load Container MjSpec from XML."""
-    return mujoco.MjSpec.from_file(str(CONTAINER_XML))
+    spec = mujoco.MjSpec.from_file(str(CONTAINER_XML))
+    spec.assets = get_assets()
+    return spec
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
@@ -40,7 +52,8 @@ def get_mocap_goal_spec() -> mujoco.MjSpec:
     mocap_goal.add_geom(
         name="mocap_goal_geom",
         type=mujoco.mjtGeom.mjGEOM_BOX,
-        size=[0.07, 0.07, 0.008],
+        # Matches the basket's moulded floor slab (0.1670 x 0.1670 x 0.004).
+        size=[0.0835, 0.0835, 0.002],
         rgba=[1, 0.5, 0, 1],
         contype=0,
         conaffinity=0,

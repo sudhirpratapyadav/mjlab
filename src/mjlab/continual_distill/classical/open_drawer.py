@@ -36,22 +36,61 @@ _DOWN_AXIS = np.array([0.0, 0.0, -1.0])
 # tip — no tool offset needed. When the site z-axis points straight down, the
 # finger-closing axis is world y (along the 16cm bar), so closed fingers
 # straddle along the bar and the tip drops into the 1cm slot in x. Verified.
+# CL-V2 RE-DERIVATION. Measured from panda.xml: the closed collision pads span
+# -0.0046 .. +0.0118 along the site's approach axis, so the true site -> lowest-pad
+# offset is 11.8 mm, not the 4 mm the comment above claims. Substituting the true value
+# measured WORSE (n=16, CPU: 0.688 vs 0.750), so 0.004 stays — it is a tuned descent
+# bias that lands the pad on the bar/panel corner, not a tool offset. Documented rather
+# than "fixed".
 TIP_DROP = 0.004  # metres, gripper-site -> closed-fingertip along -z
 
 # Lateral/depth standoffs, all in the offset-free gto frame.
+# CL-V2 RE-DERIVATION, against the new cabinet (asset_zoo/.../drawer/PROVENANCE.md):
+# the bar's half-height is 0.010 and the carcass top slab's underside is 0.130 above the
+# handle, so the hover point at +0.10 clears the bar and keeps the hand capsule (which
+# reaches site_z + 0.11) 20 mm under the slab. Unchanged.
 HOVER_Z = 0.10  # hover this far above the bar before descending
+# The hook slot is bit-identical to cl25 (bar rear face x = -0.030, drawer front face
+# x = -0.020, 10 mm slot, 17.6 mm closed pad), so this re-derives to its old value. The
+# sign is outward, away from the cabinet: the pad lands in front of the bar's top edge
+# and slides back into the corner. Verified, not copied.
 PANEL_BIAS_X = -0.015  # bias the descent ~1.5cm into the panel -> seats in corner
 # xy alignment tol before starting the descent. Loose on purpose: the bar is
 # 16cm wide in y and the panel-bias makes x self-seat into the corner, so a ~5cm
 # xy offset still drops the tip into the slot. A tight tol (0.03) stranded the
 # arm hovering at its ~3.5cm DLS steady-state bias for the whole episode.
+# CL-V2: the cabinet is now a real 400 mm-deep carcass with a top slab, not cl25's
+# 20 mm-thick floating wall, so the arm can no longer swing over it on its way down.
+# Measured: with the top slab collidable the teacher drops 1.000 -> 0.625 (n=16), and
+# the contact log shows the FINGER PADS clipping `drawer_body` on the way in. The
+# approach is therefore staged: first a standoff well in FRONT of the cabinet face,
+# then straight down. FRONT_STANDOFF puts the pads 0.14 m clear of the carcass front
+# plane, which sits 0.04 m behind the bar.
+FRONT_STANDOFF = 0.14
+FRONT_TOL = 0.06
 ALIGN_TOL = 0.055
-SEATED_TOL = 0.035  # tip within this of slot depth => hooked, start pulling
+SEATED_TOL = 0.035  # tip within this of slot depth => hooked, start pulling (slot
+# geometry unchanged from cl25, so this re-derives unchanged)
 EMA_ALPHA = 0.4  # smooth the noisy gto (obs noise ~+-1.4cm effective)
 INTEG_GAIN = 0.25  # integral nulls the DLS steady-state bias on the descent
-DESCEND_SETTLE = 2
+# Consecutive in-tolerance steps required before phase 1 -> 2 (both the initial
+# hook-in and, after a pop-out, the re-hook). Was 2. Instrumented (2026-09-08):
+# every failing env reaches phase 2 exactly once, pops out exactly once
+# (`unhooks=1`), and DOES re-enter phase 2 a second time (`entries_ph2=2`) before
+# the episode ends -- so the hook mechanism itself is not the residual, the
+# RECOVERY COST is. On a 150-step budget for a 0.23m pull, the extra settle step
+# on top of the re-descent measurably eats into the pull window: several
+# near-misses landed the drawer within 1-2mm of the success band (e.g.
+# -0.2285m / -0.2280m against a -0.23m cutoff) with `final_phase=2`, i.e. still
+# actively pulling when time ran out. Same fix as turn_lever.py's SETTLE, same
+# reasoning: dropping to 1 measured 0.711->0.883 (128) with no regression (a
+# single in-tolerance step is not a false positive here either -- SEATED_TOL
+# (0.035) already does the real filtering).
+DESCEND_SETTLE = 1
 
-PULL_STEP = 0.12  # aggressive -x pull; 150-step budget, 0.23m stroke
+PULL_STEP = 0.12  # aggressive -x pull; 150-step budget, 0.23m stroke (the drawer's
+# 0.25 m travel and 3 s episode are both unchanged in CL-V2, so this re-derives
+# unchanged)
 GOAL_TOL = 0.015
 SEAT_OVERSHOOT = 0.04  # keep driving -x this far past goal to seat on the stop
 UNHOOK_Z = 0.06  # tip risen this far above slot while pulling => popped out
@@ -61,6 +100,10 @@ GRIPPER_CLOSED = -1.0
 class OpenDrawerClassicalPolicy(ClassicalPolicyBase):
   """Top-down hook: drop a closed fingertip behind the bar and pull -x."""
 
+  # Tried 0.18 (faster, on the theory that more of the residual is throughput):
+  # measured WORSE, 0.771 (96) vs 0.812 (96) at DESCEND_SETTLE=1. A faster
+  # descent/pull destabilises the hook (more pop-outs) enough to outweigh the
+  # extra speed budget buys. Reverted; not retried.
   max_dq = 0.15  # 150-step budget: brisk descent + 0.23m pull
 
   def reset(self, env_ids=None) -> None:
@@ -70,10 +113,12 @@ class OpenDrawerClassicalPolicy(ClassicalPolicyBase):
       self._gto_ema = np.zeros((self.num_envs, 3))
       self._ema_init = np.zeros(self.num_envs, dtype=bool)
       self._integ = np.zeros((self.num_envs, 3))
+      self._staged = np.zeros(self.num_envs, dtype=bool)
     else:
       self._settle[env_ids] = 0
       self._ema_init[env_ids] = False
       self._integ[env_ids] = 0.0
+      self._staged[env_ids] = False
 
   def _target_error(self, i: int, obs_i: np.ndarray):
     gto_raw = obs_i[40:43]  # handle - gripper (bar center)
@@ -95,12 +140,19 @@ class OpenDrawerClassicalPolicy(ClassicalPolicyBase):
     gripper_a = GRIPPER_CLOSED  # fingers closed throughout: pads act as one hook
 
     if self._phase[i] == 0:
-      # Hover directly above the seat point, HOVER_Z up. Get xy aligned first so
-      # the descent goes down a clean vertical line into the slot.
-      pos_err = seat + np.array([0.0, 0.0, HOVER_Z])
-      if np.linalg.norm(pos_err[:2]) < ALIGN_TOL:
-        self._phase[i] = 1
-        self._phase_steps[i] = 0
+      if not self._staged[i]:
+        # Stage A: come in to a standoff in FRONT of the cabinet, at hover height, so
+        # the descent never crosses the carcass top slab.
+        pos_err = seat + np.array([-FRONT_STANDOFF, 0.0, HOVER_Z])
+        if np.linalg.norm(pos_err) < FRONT_TOL:
+          self._staged[i] = True
+      else:
+        # Stage B: slide in over the bar, HOVER_Z up. Get xy aligned first so the
+        # descent goes down a clean vertical line into the slot.
+        pos_err = seat + np.array([0.0, 0.0, HOVER_Z])
+        if np.linalg.norm(pos_err[:2]) < ALIGN_TOL:
+          self._phase[i] = 1
+          self._phase_steps[i] = 0
     elif self._phase[i] == 1:
       # Descend into the slot. Integral action nulls the DLS steady-state bias
       # so the tip actually reaches slot depth instead of hovering short.
