@@ -66,7 +66,7 @@ function card(id, a, r, has) {
   const gates = a && a.gates ? Object.entries(a.gates).map(([g, v]) => `<span class="chip ${v === 'ok' ? 'ok' : (v === 'x' ? 'bad' : '')}">${g} ${v}</span>`).join("") : "";
   const done = a && a.gates && Object.values(a.gates).every(v => v === "ok");
   const still = has.still ? `<img class="still" src="${id}/still.png" alt="${name} asset"><span class="cliplabel">asset</span>` : `<div class="noclip">no still yet</div>`;
-  const turn = has.turntable ? `<video src="${id}/turntable.mp4" muted loop autoplay playsinline></video><span class="cliplabel">turntable</span>` : `<div class="noclip">no turntable yet</div>`;
+  const turn = has.turntable ? `<video src="${id}/turntable.mp4" muted loop autoplay playsinline></video><span class="cliplabel">turntable</span>` : (id === "Mjlab-Reach-Target-Franka" ? `<div class="noclip">scene only — no object in this task</div>` : `<div class="noclip">no turntable yet</div>`);
   // A characterised-failure teacher (SR 0.000) renders only failure.mp4, never
   // teacher.mp4 — fall back to it and SAY it is the failure, rather than claiming
   // there is no rollout. (W1-c)
