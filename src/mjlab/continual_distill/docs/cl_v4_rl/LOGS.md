@@ -327,3 +327,5 @@ Revalidated five full PPO processes onGPU1/2/4/6/7 andGPU0 at0MiB; holder expiry
 Strike refinement preflight49brwemr completed3 updates, all checkpoint tensors finite, Adam5e-5 confirmed; fullR3 launched original4998 onGPU3. Place full-Hessian ablation still fails. Eager solver audit identifies a small-T elliptic Hessian denominator defect; normalized outer-product form passes the original full-batch failure without clearing warmstart. Independent derivative/kernel tests and strict backend round-trip tests added.
 
 Place passed3-update preflight and100 full-size PPO updates; R7 launched original6300 with cone compatibility. Throw/Pivot completed and strict0/128 with actual clips reviewed. Lift completed, strict0/128 and actual near-goal hold reviewed. Preregistered Lift cone preflight and Throw release-exploration preflight based on recorded failure/intervention evidence. No certification added.
+
+Lift/Throw preflights passed and full retries launched. Peg3900 strict0/128 actual narrower aperture reviewed; R6 continues. Edge unchanged bounded R3 preregistered based on measured approach improvement; GPU1 evaluator has exited.

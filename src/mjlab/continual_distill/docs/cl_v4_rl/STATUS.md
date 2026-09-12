@@ -1,8 +1,8 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Latest strict results: Cage R7/final11096 **97/128 (75.8%)**, Place R6/model6300 **96/128 (75.0%)**, Edge R2/final4998 and Peg R5/model3400 **0/128**. None crosses the116/128 validation gate; no confirmation batches were run for these candidates. GPU0 remains unused.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Best current unfinished validations include Cage97/128, Place96/128 and Strike20/128. Latest completed LiftR9/final10496, ThrowR3/final7497 and PivotR2/final3499 each0/128; actual failure clips reviewed. No confirmation for failed validations. GPU0 remains unused.
 
-Current full PPO runs: Pivot R2 GPU1, Throw R3 GPU2, Lift R9 GPU4, Peg R6 GPU6 and Cage R8 GPU7. Edge/Cage completed their budgets and final evaluation. Place R6 stopped after iteration6329 with a captured nonfinite simulator state in lane995; latest retained6300 evaluated successfully. Preserve the failure trace and diagnose before resuming Place. Model6000 previously measured90/128. Peg R5 was deliberately stopped after the aperture fallback defect audit and a finite peg_v1 preflight; R6 restores original3098 with the preregistered gripper reset and inherited gyro compatibility. Lift R9 uses the preregistered gentler gripper initialization after matched-friction hold probes and finite PPO preflight.
+Current full PPO runs: StrikeR3 GPU3, PlaceR7 GPU5, PegR6 GPU6 and CageR8 GPU7. Lift cone-compatibility and Throw release-exploration preflights run onGPU4/GPU2; conditional full retries are preregistered. Peg3900 is evaluated onGPU1 while its sole full trainer continues onGPU6. Place6329/lane995 failure was traced to an incorrect small-denominator guard in the installed dense elliptic-contact Hessian. An opt-in normalized outer-product implementation passes the original2048-world warmstart replay,24 focused checks,64×3 PPO preflight and2048×100 stress. PlaceR7 restores original6300 with this recorded correction and inherited Adam5e-5. Native model, forces, predicates,60D/8D and integration settings remain fixed; every new compatibility lineage requires its own strict evaluation.
 
 ## Readiness
 
@@ -33,13 +33,13 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Retry diagnosis | 0/128 R2 final4998 | Side-wrist shaping still ends pressing on the supported plate; budget and evaluation complete. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | Training R9 | 0/128 R8 final8997 | Mean0/std0.05 gripper initialization after exact-friction hold probe; lift_v7/arm policy retained, GPU4. |
+| Lift-Cube | 20 | on | Cone preflight | 0/128 R9 final10496 | Near-goal holding remains unsettled; validated dense cone correction tested with retained policy onGPU4. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
 | Peg-Insertion | 20 | on | Training R6 | 0/128 R5 model3400 | Corrected missed-ray aperture estimate in peg_v1, finite preflight, original3098 mean-0.25/std0.15, GPU6. |
-| Pivot-Lift | 6 | on | Training R2 | 0/128 model1500 | Open-ramp/floor-safe pivot_v3 passed32 endpoint checks,66 focused tests and3 finite online PPO updates; own1500 ×2000 onGPU1. |
-| Place-In-Container | 20 | on | Numerical failure diagnosis | 96/128 R6 model6300 | Improved35→74→90→96; training failed after6329/lane995. Retained checkpoint and failure trace; no blind restart. |
+| Pivot-Lift | 6 | on | Retry diagnosis | 0/128 R2 final3499 | Open fingers contact low board; no opposing grasp or completed pivot. Actual frames reviewed. |
+| Place-In-Container | 20 | on | Training R7 | 96/128 R6 model6300 | Small-T Hessian defect reproduced/fixed; full-size100-update stress passed; resumed original6300 with recorded cone compatibility, GPU5. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
@@ -48,8 +48,8 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Retry diagnosis | 0/128 R6 final5198 | Final opposing grasp95.8%, height2.62cm; held beside base without released stack. |
-| Strike-Slide | 4 | on | Retry diagnosis | 20/128 R2 final4998 | Improved9→20; actual launches and close misses reviewed. Quantify launch coverage versus endpoint error before next retry. |
-| Throw-To-Bin | 5 | on | Training R3 | 0/128 R2 final5498 | Actual capture/lift,94.49% final opposing contacts; holds without release. Bounded unchanged continuation, GPU2. |
+| Strike-Slide | 4 | on | Training R3 | 20/128 R2 final4998 | Launches97/128; endpoint refinement with verified5e-5 LR, GPU3. |
+| Throw-To-Bin | 5 | on | Release preflight | 0/128 R3 final7497 | Reliable elevated capture, no release; gripper mean-0.4/std0.3 initialization preflight, GPU2. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
 
