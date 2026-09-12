@@ -182,3 +182,16 @@ Reorient R8 subsequently stopped at6589 with nonfinite reward lane35 after nativ
 | PREFLIGHT-GYRO-022 | Peg/Reorient | Validate optional native free-body correction in training | After2048-world regressions, Peg fresh completion_v6 and Reorient ownR8/6500 reorient_v7, each64 environments ×3 updates; then2048 ×100-update stress continuations | Prepared | --free-body-gyro; native model parameters, horizons, predicates and60D/8D unchanged. |
 | RL-020-R4 | Peg | Fresh opposed-grasp learner with corrected free-body integration | Fresh completion_v6,2048 ×3000 updates, seed20260912, GPU6 | Prepared | Discard failed-policy initialization after persistent topple/press; no pretrained/scripted policy. |
 | RL-005-R9 | Reorient | Continue own finite approach policy with corrected integration | ownR8/model6500, reorient_v7,2048 ×2000 additional updates, seed20260912, GPU7 | Prepared | Preserve policy output/std; correct only backend free-body integration. |
+
+| RL-002-R7 | Lift | Continue genuine grasp/lift/transport progress toward exact goal | lift_v6, ownR6/model5499,2048 ×2000 additional updates, seed20260912, GPU4 | Prepared | No output/std/reward/backend changes; R6 final0/128 but mean goal error0.26057→0.09496m and height0.02777→0.19646m. Actual video reviewed. |
+
+After successful100-update gyro stress runs, preserve their finite PPO work: Peg R4 continues the fresh stress lineage frommodel99 for3000 additional updates; Reorient R9 continues its stressmodel6599 for2000 additional updates. Both inherit the recorded optional integration correction. No borrowed or scripted teacher checkpoint is introduced.
+
+Wave15 launch update: all three contact/transport preflights passed. CageR5 and ThrowR2 are running; ReorientR8 stopped at6589 as recorded above. Both gyro PPO preflights and100-update stress checks passed; PegR4 fromstress99 and ReorientR9 fromstress6599 launched onGPUs6/7, inheriting the recorded correction. LiftR7 launched from5499 unchanged. PlaceR4 stopped only exactstep1808 after verified policy regression beyond3400; strict retained3400 evaluation active.
+
+### Place R5 — conservative optimizer continuation
+
+Place R4/model3400 strict0/128; reviewed actual frames show a grasped cube lifted beside the container without released containment. Later3500 policy lost grasp/approach while model and normalizer tensors remained finite. The cause is not established. Preregister a bounded continuation from own3400 with completion_v6 and Adam learning rate5e-5 (previous1e-4), preserving policy means/std, Adam moments, normalizers and legacy backend. First64 environments ×3 PPO updates must save the intended effective optimizer LR and finite state; then2048 ×2000 additional updates, seed20260912, GPU5. This changes step size only; native success and60D/8D remain fixed.
+
+| PREFLIGHT-PLACE-LR-023 | Place | Verify restored optimizer uses5e-5 | ownR4/model3400, completion_v6,64 ×3 updates | Prepared | Real Adam checkpoint-load regression tests passed; no moment reset. |
+| RL-019-R5 | Place | Preserve grasp progress while learning released containment | ownR4/model3400, completion_v6, LR5e-5,2048 ×2000 additional, GPU5 | Prepared | Full run conditional on finite PPO preflight with saved effective LR5e-5. |

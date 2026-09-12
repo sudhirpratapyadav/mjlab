@@ -44,9 +44,10 @@ def reset_gripper_output(policy, optimizer, mean):
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, capture_pre_step=False, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, capture_pre_step=False, learning_rate_override=None, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
+    self.learning_rate_override = learning_rate_override
     super().__init__(*args, **kwargs)
     original_step = self.env.step
     original_update = self.alg.update
@@ -154,6 +155,12 @@ class TeacherRunner(OnPolicyRunner):
 
   def load(self, path, load_optimizer=True, map_location=None):
     infos = super().load(path, load_optimizer=load_optimizer, map_location=map_location)
+    if self.learning_rate_override is not None:
+      for group in self.alg.optimizer.param_groups:
+        group['lr'] = self.learning_rate_override
+    # Adam's restored parameter groups override the constructor LR. Keep PPO's
+    # scheduler/logger aligned with the optimizer actually used for updates.
+    self.alg.learning_rate = self.alg.optimizer.param_groups[0]['lr']
     if self.resume_gripper_std is not None:
       reset_gripper_exploration(self.alg.policy, self.alg.optimizer, self.resume_gripper_std)
     if self.resume_gripper_mean is not None:

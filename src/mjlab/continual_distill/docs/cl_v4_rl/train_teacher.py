@@ -40,6 +40,7 @@ def main():
   parser.add_argument("--resume-gripper-mean", type=float, help="Reset only the gripper output row after loading a bounded actor")
   parser.add_argument("--capture-pre-step", action="store_true", help="Save preceding physics state if the numerical guard fails")
   parser.add_argument("--free-body-gyro", action="store_true", help="Opt in to CPU-compatible standalone free-body gyroscopic integration")
+  parser.add_argument("--learning-rate", type=float, help="Explicit optimizer LR override, including after checkpoint load")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -48,6 +49,8 @@ def main():
     parser.error("--run-id must be a single directory name")
   if args.num_envs < 1 or args.iterations < 1:
     parser.error("environment and iteration counts must be positive")
+  if args.learning_rate is not None and (not math.isfinite(args.learning_rate) or args.learning_rate <= 0):
+    parser.error("--learning-rate must be finite and positive")
   if args.resume_gripper_std is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_std) or args.resume_gripper_std <= 0):
     parser.error("--resume-gripper-std requires a resume checkpoint and a finite positive value")
   if args.resume_gripper_mean is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_mean) or not -1 < args.resume_gripper_mean < 1):
@@ -89,9 +92,13 @@ def main():
     apply_recipe(previous_train_cfg, previous_manifest.get("recipe", "baseline"))
     if previous_train_cfg.agent.policy.class_name != cfg.agent.policy.class_name:
       parser.error("Resume requires the same policy architecture; bounded-mean variants start fresh")
+    if args.learning_rate is None:
+      args.learning_rate = previous_manifest.get("learning_rate_override")
     cfg.agent.resume = True
     cfg.agent.load_run = "^" + re.escape(checkpoint.parent.name) + "$"
     cfg.agent.load_checkpoint = "^" + re.escape(checkpoint.name) + "$"
+  if args.learning_rate is not None:
+    cfg.agent.algorithm.learning_rate = args.learning_rate
   cfg.agent.run_name = args.run_id
   print(
     f"{args.task}: {args.num_envs} envs, {args.iterations} iterations, seed {args.seed}, GPU {visible}, output {run}"
@@ -110,6 +117,7 @@ def main():
       "interface": "franka_shared_60_v2", "gpu_uuid": visible,
       "recipe": args.recipe,
       "free_body_implicitfast_compat": cfg.env.sim.free_body_implicitfast_compat,
+      "learning_rate_override": args.learning_rate,
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,
       "resume_checkpoint": str(checkpoint) if checkpoint else None,
@@ -123,7 +131,8 @@ def main():
     (run / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     try:
       runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std,
-                       resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step)
+                       resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step,
+                       learning_rate_override=args.learning_rate)
       run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys

@@ -1,0 +1,31 @@
+{
+  "task": "Mjlab-Place-In-Container-Franka",
+  "checkpoint_sha256": "51dd3b7c882585caf682063ae697e49d6a9fb92b01842d24c234a48e9286acba",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual recorded frames show approach, grasp and lift of the cube beside the container. The cube remains held outside the container near its side; no released containment. Strict validation 0/128. Retain model3400 for a bounded lower-learning-rate continuation after later policy regression.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 125,
+    "grasped_fraction": 0.968000054359436,
+    "enclosed_fraction": 0.8240000605583191,
+    "enclosed_grasp_fraction": 0.8240000605583191,
+    "opposed_grasp_fraction": 0.9600000381469727,
+    "robot_object_contact_fraction": 0.984000027179718,
+    "aperture_mean": 0.045789457857608795,
+    "gripper_object_distance_mean": 0.013149069622159004,
+    "gripper_goal_distance_mean": 0.19415156543254852,
+    "gripper_down_alignment_mean": 0.9846024513244629,
+    "object_height_mean": 0.05540454015135765,
+    "gripper_action_mean": -0.9084389805793762,
+    "absolute_action_max": 0.9973592758178711,
+    "goal_error_mean": 0.194682776927948
+  },
+  "wandb_video_run": "1704h1e4"
+}

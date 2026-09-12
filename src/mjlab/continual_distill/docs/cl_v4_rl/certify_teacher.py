@@ -31,6 +31,11 @@ def main():
   review=json.loads(args.review.read_text())
   checkpoint=Path(validation["checkpoint"])
   checkpoint_sha=digest(checkpoint)
+  manifest_path=checkpoint.parent/"manifest.json"
+  manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+  gyro_compat=manifest.get("free_body_implicitfast_compat",False)
+  for result in (validation,confirmation,video_result):
+    assert result.get("free_body_implicitfast_compat",False)==gyro_compat, "Evaluation backend differs from training"
   for result in (validation,confirmation):
     assert result["episodes"]>=128 and result["successes"]/result["episodes"]>0.90
     assert result["successes"]==sum(row["success"] for row in result["records"])
@@ -71,6 +76,7 @@ def main():
     if (checkpoint.parent/name).exists():
       shutil.copy2(checkpoint.parent/name,destination/name)
   certificate={"task":task,"certified_utc":datetime.now(timezone.utc).isoformat(),
+               "free_body_implicitfast_compat":gyro_compat,
                "checkpoint":str(destination/"model.pt"),"checkpoint_sha256":checkpoint_sha,
                "normalizers":str(destination/"normalizers.pt"),"normalizers_sha256":digest(destination/"normalizers.pt"),
                "interface":"franka_shared_60_v2","validation":{"successes":validation["successes"],"episodes":validation["episodes"],"seed":validation["seed"],"path":str(args.validation.resolve())},

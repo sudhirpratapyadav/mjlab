@@ -2,11 +2,38 @@
 import importlib
 from dataclasses import asdict
 from pathlib import Path
+from types import SimpleNamespace
 import torch
 import copy
 import pytest
 from tensordict import TensorDict
 from mjlab.scripts.train import TrainConfig
+
+
+@pytest.mark.parametrize('override,expected', [(None,1e-4),(5e-5,5e-5)])
+def test_resume_learning_rate_survives_adam_restore(monkeypatch,override,expected):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  module=importlib.import_module('teacher_runner')
+  model=torch.nn.Linear(2,1)
+  original=torch.optim.Adam(model.parameters(),lr=1e-4)
+  model(torch.ones(1,2)).sum().backward();original.step()
+  saved=copy.deepcopy(original.state_dict())
+  restored=torch.optim.Adam(model.parameters(),lr=3e-4)
+  def parent_load(self,*args,**kwargs):
+    self.alg.optimizer.load_state_dict(saved)
+    return {'restored':True}
+  monkeypatch.setattr(module.OnPolicyRunner,'load',parent_load)
+  runner=module.TeacherRunner.__new__(module.TeacherRunner)
+  runner.alg=SimpleNamespace(optimizer=restored,learning_rate=3e-4)
+  runner.resume_gripper_std=runner.resume_gripper_mean=None
+  runner.learning_rate_override=override
+  assert runner.load('checkpoint')['restored']
+  assert restored.param_groups[0]['lr']==runner.alg.learning_rate==expected
+  # Changing step size must preserve accumulated Adam moments and step counts.
+  for key,state in saved['state'].items():
+    for name,value in state.items():
+      torch.testing.assert_close(restored.state_dict()['state'][key][name],value)
 
 
 def test_bounded_policy_initialization_and_roundtrip(monkeypatch):

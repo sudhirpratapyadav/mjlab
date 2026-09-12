@@ -34,6 +34,7 @@ def main():
   manifest = json.loads((args.failure.parent/'manifest.json').read_text())
   cfg = TrainConfig.from_task(manifest['task'])
   apply_recipe(cfg, manifest['recipe'])
+  cfg.env.sim.free_body_implicitfast_compat = manifest.get('free_body_implicitfast_compat', False)
   cfg.env.scene.num_envs = len(previous['qpos']) if args.all_lanes else 1
   cfg.env.seed = manifest['seed']
   env = ManagerBasedRlEnv(cfg.env, device='cuda:0')
@@ -84,6 +85,7 @@ def main():
               'failure_sha256':hashlib.sha256(args.failure.read_bytes()).hexdigest(),
               'source_lane':args.lane,'num_envs':env.num_envs,'zero_warmstart_ablation':args.zero_warmstart,
               'physics_changed':False,'initial_state_restored':list(previous),
+              'free_body_implicitfast_compat':cfg.env.sim.free_body_implicitfast_compat,
               'limitations':'Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.',
               'physics_timestep':env.physics_dt,'control_substeps':cfg.env.decimation,'samples':samples}
     args.output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
