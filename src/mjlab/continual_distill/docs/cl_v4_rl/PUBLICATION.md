@@ -24,3 +24,5 @@ The first publication was staged outside the web root, browser-checked and moved
 Detailed numerical results, experiment records and retained checkpoints continue to go to the scoped W&B project. The gallery is a point-in-time summary, not a live training monitor.
 
 Latest wave20 refresh:14 certified/10 in progress; all24 actual RL videos. Updated Cage11096 (97/128), Place6300 (96/128), Edge4998, Peg3400 and Lift8997. All newly selected clips reviewed before upload via untu_vps. Public checks pass newest home card/navigation,24-video playback, filters/search/mobile layout and50 HTTP200 SHA256 matches.
+
+Wave21 refresh includes reviewed Lift10496, Throw7497, Pivot3499 and Peg3900 clips. Still14 certified/10 in progress. Newest homepage-card navigation,24 video playback, search/filters/mobile layout and50 HTTP200 SHA256 matches passed.

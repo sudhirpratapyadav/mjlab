@@ -1,0 +1,24 @@
+{
+  "updated_utc": "2026-09-12T23:43:31.297245+00:00",
+  "source": "src/mjlab/sim/elliptic_hessian.py",
+  "default_enabled": false,
+  "supported_jacobian": "dense",
+  "native_reference": "https://github.com/google-deepmind/mujoco/blob/main/src/engine/engine_core_constraint.c",
+  "defect": "Independent floor of T^3 changes the middle-zone elliptic Hessian and makes the captured contact indefinite.",
+  "recorded_tangent_norm": 4.151463564368411e-06,
+  "recorded_tangent_cube": 7.15490203832971e-17,
+  "old_unscaled_cone_min_eigenvalue": -0.0780717193573548,
+  "fix": "Normalized residual outer-product evaluation of the native Hessian; scoped per-simulation dispatch; no shared package edits.",
+  "focused_checks": {
+    "passed": 24,
+    "log": "wave21_cone_tests.log",
+    "coverage": "Production kernel vs independent float64 energy Hessians for contact dimensions3/4/6 and tangent scales1e-10..100, middle-zone ratios, captured defect, dispatch restoration, strict first-episode loop/backend restoration, selective reset."
+  },
+  "replay": "place_r6_stable_cone_replay.json",
+  "preflights": [
+    "place_cone_preflight.json",
+    "place_cone_stress_preflight.json"
+  ],
+  "new_certification": false,
+  "limitations": "Old captured failure does not preserve original randomized friction or all derived solver caches; reproduction and corrected replay use the same reconstructed model. Full learning/certification remains to be measured."
+}

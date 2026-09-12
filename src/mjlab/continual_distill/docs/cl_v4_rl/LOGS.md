@@ -329,3 +329,7 @@ Strike refinement preflight49brwemr completed3 updates, all checkpoint tensors f
 Place passed3-update preflight and100 full-size PPO updates; R7 launched original6300 with cone compatibility. Throw/Pivot completed and strict0/128 with actual clips reviewed. Lift completed, strict0/128 and actual near-goal hold reviewed. Preregistered Lift cone preflight and Throw release-exploration preflight based on recorded failure/intervention evidence. No certification added.
 
 Lift/Throw preflights passed and full retries launched. Peg3900 strict0/128 actual narrower aperture reviewed; R6 continues. Edge unchanged bounded R3 preregistered based on measured approach improvement; GPU1 evaluator has exited.
+
+Wave21 placement verified: one full PPO process perGPU1–7, GPU0 at0MiB, no numerical failure artifacts in these seven current runs. training_wave21.json records source/manifests/PIDs and checkpoint labels. Cone compatibility enabled only for new PlaceR7/LiftR10 lineages; defaults and all14 certified configurations retain their saved backend. Holder expiry unchanged2026-09-28T08:58:54.
+
+Wave21 public refresh verified:24 actual videos play, newest home card/navigation, filters/search/mobile pass,50 public files match local hashes over verified TLS. Reviewed Lift/Throw/Pivot/Peg updates published. Goal remains14/24; seven PPO runs are active.
