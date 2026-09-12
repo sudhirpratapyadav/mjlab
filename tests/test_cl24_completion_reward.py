@@ -38,3 +38,14 @@ def test_peg_grasp_uses_upper_body_in_each_environment(monkeypatch):
   torch.testing.assert_close(target[:,:2],tip[:,:2])
   assert ((target[:,2]>.08)&(target[:,2]<.12)).all()
   torch.testing.assert_close(tip[:,2],torch.tensor([.01,.01]))
+
+
+def test_closure_path_has_no_approach_barrier(monkeypatch):
+  module = load_reward(monkeypatch)
+  distance = torch.linspace(.10,0.,1001)
+  for aperture in [.075,.060,.040]:
+    score = torch.exp(-distance/.12)*(1+module.smooth_closure_bonus(distance,torch.full_like(distance,aperture)))
+    assert torch.all(score[1:]>=score[:-1])
+  open_score = module.smooth_closure_bonus(torch.tensor(.01),torch.tensor(.075))
+  closed_score = module.smooth_closure_bonus(torch.tensor(.01),torch.tensor(.04))
+  assert closed_score > open_score

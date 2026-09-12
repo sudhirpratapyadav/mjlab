@@ -1,0 +1,1191 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-V3-reorient-bounded/model_1000.pt",
+  "checkpoint_sha256": "9b04f73f2242a107df3d5dd895ed531448c1b053df03545c7e1dd698b4c5731f",
+  "seed": 20260913,
+  "episodes": 16,
+  "successes": 0,
+  "success_rate": 0.0,
+  "deterministic": true,
+  "first_episode_only": true,
+  "records": [
+    {
+      "env_id": 0,
+      "success": false,
+      "steps": 1000,
+      "return": 27.93265724182129,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 1,
+      "success": false,
+      "steps": 1000,
+      "return": 27.697118759155273,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 2,
+      "success": false,
+      "steps": 1000,
+      "return": 28.013071060180664,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 3,
+      "success": false,
+      "steps": 1000,
+      "return": 28.077390670776367,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 4,
+      "success": false,
+      "steps": 1000,
+      "return": 27.251253128051758,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 5,
+      "success": false,
+      "steps": 1000,
+      "return": 27.66412353515625,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 6,
+      "success": false,
+      "steps": 1000,
+      "return": 27.551170349121094,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 7,
+      "success": false,
+      "steps": 1000,
+      "return": 27.67850685119629,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 8,
+      "success": false,
+      "steps": 1000,
+      "return": 28.158105850219727,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 9,
+      "success": false,
+      "steps": 1000,
+      "return": 27.689245223999023,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 10,
+      "success": false,
+      "steps": 1000,
+      "return": 27.044940948486328,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 11,
+      "success": false,
+      "steps": 1000,
+      "return": 27.712080001831055,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 12,
+      "success": false,
+      "steps": 1000,
+      "return": 28.097976684570312,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 13,
+      "success": false,
+      "steps": 1000,
+      "return": 27.791765213012695,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 14,
+      "success": false,
+      "steps": 1000,
+      "return": 27.9874267578125,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 15,
+      "success": false,
+      "steps": 1000,
+      "return": 27.714012145996094,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    }
+  ],
+  "protocol": "terminal_first_episode_v1",
+  "interface": "franka_shared_60_v2",
+  "recipe": "reorient_v2",
+  "episode_length_s": 20.0,
+  "gravity": [
+    0,
+    0,
+    -9.81
+  ],
+  "agent_config_sha256": "558aa94e1f44704c43942091592fcb7ded0800e7d5e5e705749dcd27a3496ead",
+  "termination_counts": {
+    "time_out": 16,
+    "ee_ground_collision": 0,
+    "object_out_of_bounds": 0
+  },
+  "trace_dir": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/diagnostics/Reorient-V3-m1000",
+  "diagnostic_samples": [
+    {
+      "control_step": 0,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07599999755620956,
+      "gripper_object_distance_mean": 0.46557721495628357,
+      "object_height_mean": 0.01600000075995922,
+      "gripper_action_mean": 0.9968583583831787,
+      "absolute_action_max": 0.9992501735687256
+    },
+    {
+      "control_step": 10,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07919825613498688,
+      "gripper_object_distance_mean": 0.11129216849803925,
+      "object_height_mean": 0.013809531927108765,
+      "gripper_action_mean": 0.9497803449630737,
+      "absolute_action_max": 0.9885488152503967
+    },
+    {
+      "control_step": 20,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07722015678882599,
+      "gripper_object_distance_mean": 0.04982982948422432,
+      "object_height_mean": 0.013467210344970226,
+      "gripper_action_mean": 0.9134749174118042,
+      "absolute_action_max": 0.9555826187133789
+    },
+    {
+      "control_step": 30,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07655850052833557,
+      "gripper_object_distance_mean": 0.04572353512048721,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.911322832107544,
+      "absolute_action_max": 0.943198561668396
+    },
+    {
+      "control_step": 40,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764549970626831,
+      "gripper_object_distance_mean": 0.045208584517240524,
+      "object_height_mean": 0.01347036100924015,
+      "gripper_action_mean": 0.9077867269515991,
+      "absolute_action_max": 0.9358872175216675
+    },
+    {
+      "control_step": 50,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641685009002686,
+      "gripper_object_distance_mean": 0.04468415305018425,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9123460054397583,
+      "absolute_action_max": 0.9394407272338867
+    },
+    {
+      "control_step": 60,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.076414093375206,
+      "gripper_object_distance_mean": 0.04583105444908142,
+      "object_height_mean": 0.013470359146595001,
+      "gripper_action_mean": 0.909450888633728,
+      "absolute_action_max": 0.9371736645698547
+    },
+    {
+      "control_step": 70,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640966773033142,
+      "gripper_object_distance_mean": 0.04563361406326294,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9094504117965698,
+      "absolute_action_max": 0.939249575138092
+    },
+    {
+      "control_step": 80,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642632722854614,
+      "gripper_object_distance_mean": 0.04525576904416084,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9075983166694641,
+      "absolute_action_max": 0.9398373365402222
+    },
+    {
+      "control_step": 90,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642044126987457,
+      "gripper_object_distance_mean": 0.045034751296043396,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9101793169975281,
+      "absolute_action_max": 0.9342010617256165
+    },
+    {
+      "control_step": 100,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642018049955368,
+      "gripper_object_distance_mean": 0.04515903443098068,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9122031927108765,
+      "absolute_action_max": 0.9367990493774414
+    },
+    {
+      "control_step": 110,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640897482633591,
+      "gripper_object_distance_mean": 0.04552239179611206,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9118044972419739,
+      "absolute_action_max": 0.939902126789093
+    },
+    {
+      "control_step": 120,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642081379890442,
+      "gripper_object_distance_mean": 0.04537934064865112,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9095617532730103,
+      "absolute_action_max": 0.9360193014144897
+    },
+    {
+      "control_step": 130,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641404122114182,
+      "gripper_object_distance_mean": 0.045534584671258926,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9119861721992493,
+      "absolute_action_max": 0.9395503401756287
+    },
+    {
+      "control_step": 140,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641957700252533,
+      "gripper_object_distance_mean": 0.045676276087760925,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9094432592391968,
+      "absolute_action_max": 0.9394850134849548
+    },
+    {
+      "control_step": 150,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764179453253746,
+      "gripper_object_distance_mean": 0.04537985473871231,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.909859836101532,
+      "absolute_action_max": 0.9373217225074768
+    },
+    {
+      "control_step": 160,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641202956438065,
+      "gripper_object_distance_mean": 0.04563593119382858,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9099657535552979,
+      "absolute_action_max": 0.9390038847923279
+    },
+    {
+      "control_step": 170,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640789449214935,
+      "gripper_object_distance_mean": 0.04542436823248863,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9092008471488953,
+      "absolute_action_max": 0.9357145428657532
+    },
+    {
+      "control_step": 180,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641412317752838,
+      "gripper_object_distance_mean": 0.04462670907378197,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9097359776496887,
+      "absolute_action_max": 0.9360737800598145
+    },
+    {
+      "control_step": 190,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639846950769424,
+      "gripper_object_distance_mean": 0.0457858145236969,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9117889404296875,
+      "absolute_action_max": 0.9412369132041931
+    },
+    {
+      "control_step": 200,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642585784196854,
+      "gripper_object_distance_mean": 0.04556437209248543,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9094271063804626,
+      "absolute_action_max": 0.9367153644561768
+    },
+    {
+      "control_step": 210,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641653716564178,
+      "gripper_object_distance_mean": 0.04562607780098915,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9096704125404358,
+      "absolute_action_max": 0.9415651559829712
+    },
+    {
+      "control_step": 220,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764208734035492,
+      "gripper_object_distance_mean": 0.045310381799936295,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9095802307128906,
+      "absolute_action_max": 0.9337676763534546
+    },
+    {
+      "control_step": 230,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641200721263885,
+      "gripper_object_distance_mean": 0.04597042500972748,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.910890519618988,
+      "absolute_action_max": 0.938575029373169
+    },
+    {
+      "control_step": 240,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640469074249268,
+      "gripper_object_distance_mean": 0.04553883895277977,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9126149415969849,
+      "absolute_action_max": 0.9374207854270935
+    },
+    {
+      "control_step": 250,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07643873989582062,
+      "gripper_object_distance_mean": 0.04580913484096527,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9068850874900818,
+      "absolute_action_max": 0.940091073513031
+    },
+    {
+      "control_step": 260,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642654329538345,
+      "gripper_object_distance_mean": 0.04542985558509827,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9107389450073242,
+      "absolute_action_max": 0.9357022047042847
+    },
+    {
+      "control_step": 270,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641930878162384,
+      "gripper_object_distance_mean": 0.04584202170372009,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.912254810333252,
+      "absolute_action_max": 0.9406061768531799
+    },
+    {
+      "control_step": 280,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07643185555934906,
+      "gripper_object_distance_mean": 0.04514087736606598,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9091278314590454,
+      "absolute_action_max": 0.939067006111145
+    },
+    {
+      "control_step": 290,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764235332608223,
+      "gripper_object_distance_mean": 0.045254237949848175,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9125686883926392,
+      "absolute_action_max": 0.9399689435958862
+    },
+    {
+      "control_step": 300,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642212510108948,
+      "gripper_object_distance_mean": 0.04554900527000427,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9095607995986938,
+      "absolute_action_max": 0.9360114336013794
+    },
+    {
+      "control_step": 310,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641765475273132,
+      "gripper_object_distance_mean": 0.04523439705371857,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9087066650390625,
+      "absolute_action_max": 0.9390920400619507
+    },
+    {
+      "control_step": 320,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640787959098816,
+      "gripper_object_distance_mean": 0.04629984125494957,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9120283722877502,
+      "absolute_action_max": 0.9396405220031738
+    },
+    {
+      "control_step": 330,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642176747322083,
+      "gripper_object_distance_mean": 0.045123208314180374,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.909247636795044,
+      "absolute_action_max": 0.9384582042694092
+    },
+    {
+      "control_step": 340,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.076417937874794,
+      "gripper_object_distance_mean": 0.045547135174274445,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9095176458358765,
+      "absolute_action_max": 0.940471351146698
+    },
+    {
+      "control_step": 350,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.076411172747612,
+      "gripper_object_distance_mean": 0.04495011270046234,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9107282161712646,
+      "absolute_action_max": 0.9428302049636841
+    },
+    {
+      "control_step": 360,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642190158367157,
+      "gripper_object_distance_mean": 0.045176539570093155,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9111514091491699,
+      "absolute_action_max": 0.9390901327133179
+    },
+    {
+      "control_step": 370,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641581445932388,
+      "gripper_object_distance_mean": 0.04543113708496094,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9121794104576111,
+      "absolute_action_max": 0.9410386085510254
+    },
+    {
+      "control_step": 380,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764104425907135,
+      "gripper_object_distance_mean": 0.04534069448709488,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9141533970832825,
+      "absolute_action_max": 0.9381043314933777
+    },
+    {
+      "control_step": 390,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07643967866897583,
+      "gripper_object_distance_mean": 0.04559621959924698,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9095765352249146,
+      "absolute_action_max": 0.9395543336868286
+    },
+    {
+      "control_step": 400,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764194056391716,
+      "gripper_object_distance_mean": 0.04489889368414879,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9093682169914246,
+      "absolute_action_max": 0.9387701749801636
+    },
+    {
+      "control_step": 410,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641233503818512,
+      "gripper_object_distance_mean": 0.04546922445297241,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9114654660224915,
+      "absolute_action_max": 0.9386985898017883
+    },
+    {
+      "control_step": 420,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642345130443573,
+      "gripper_object_distance_mean": 0.0454363152384758,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9106894135475159,
+      "absolute_action_max": 0.9389171600341797
+    },
+    {
+      "control_step": 430,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642193883657455,
+      "gripper_object_distance_mean": 0.04523208737373352,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9100865721702576,
+      "absolute_action_max": 0.93793123960495
+    },
+    {
+      "control_step": 440,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641194760799408,
+      "gripper_object_distance_mean": 0.045429106801748276,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.910331666469574,
+      "absolute_action_max": 0.9425026178359985
+    },
+    {
+      "control_step": 450,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642073929309845,
+      "gripper_object_distance_mean": 0.04621429368853569,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9109492301940918,
+      "absolute_action_max": 0.940105140209198
+    },
+    {
+      "control_step": 460,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640839368104935,
+      "gripper_object_distance_mean": 0.04489467293024063,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9104287028312683,
+      "absolute_action_max": 0.9380072355270386
+    },
+    {
+      "control_step": 470,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764034315943718,
+      "gripper_object_distance_mean": 0.04472731798887253,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9097314476966858,
+      "absolute_action_max": 0.9344956874847412
+    },
+    {
+      "control_step": 480,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764055848121643,
+      "gripper_object_distance_mean": 0.045899588614702225,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9119952917098999,
+      "absolute_action_max": 0.9389480352401733
+    },
+    {
+      "control_step": 490,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640980184078217,
+      "gripper_object_distance_mean": 0.045619264245033264,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9140200614929199,
+      "absolute_action_max": 0.9382457733154297
+    },
+    {
+      "control_step": 500,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641593366861343,
+      "gripper_object_distance_mean": 0.04552618786692619,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9138590097427368,
+      "absolute_action_max": 0.9407475590705872
+    },
+    {
+      "control_step": 510,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641784846782684,
+      "gripper_object_distance_mean": 0.04588319733738899,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.911617636680603,
+      "absolute_action_max": 0.9366483688354492
+    },
+    {
+      "control_step": 520,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641042023897171,
+      "gripper_object_distance_mean": 0.04559501260519028,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.910245418548584,
+      "absolute_action_max": 0.9382739663124084
+    },
+    {
+      "control_step": 530,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641530781984329,
+      "gripper_object_distance_mean": 0.04567278176546097,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.913399338722229,
+      "absolute_action_max": 0.9373975992202759
+    },
+    {
+      "control_step": 540,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764286071062088,
+      "gripper_object_distance_mean": 0.045071110129356384,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.91097092628479,
+      "absolute_action_max": 0.9361274242401123
+    },
+    {
+      "control_step": 550,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641243934631348,
+      "gripper_object_distance_mean": 0.04479072988033295,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9099785685539246,
+      "absolute_action_max": 0.93631511926651
+    },
+    {
+      "control_step": 560,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642404735088348,
+      "gripper_object_distance_mean": 0.04498351737856865,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9113262891769409,
+      "absolute_action_max": 0.936557948589325
+    },
+    {
+      "control_step": 570,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642394304275513,
+      "gripper_object_distance_mean": 0.04632245749235153,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9123659133911133,
+      "absolute_action_max": 0.9398152232170105
+    },
+    {
+      "control_step": 580,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642199099063873,
+      "gripper_object_distance_mean": 0.04557489603757858,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9086230993270874,
+      "absolute_action_max": 0.9373352527618408
+    },
+    {
+      "control_step": 590,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639975100755692,
+      "gripper_object_distance_mean": 0.04433266073465347,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9109545350074768,
+      "absolute_action_max": 0.9380766153335571
+    },
+    {
+      "control_step": 600,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641664147377014,
+      "gripper_object_distance_mean": 0.046054065227508545,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9079217314720154,
+      "absolute_action_max": 0.938126266002655
+    },
+    {
+      "control_step": 610,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640418410301208,
+      "gripper_object_distance_mean": 0.04523930326104164,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.910271167755127,
+      "absolute_action_max": 0.935885488986969
+    },
+    {
+      "control_step": 620,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639457285404205,
+      "gripper_object_distance_mean": 0.04551802948117256,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9091092348098755,
+      "absolute_action_max": 0.9444215893745422
+    },
+    {
+      "control_step": 630,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641778886318207,
+      "gripper_object_distance_mean": 0.04556659236550331,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.909177303314209,
+      "absolute_action_max": 0.9357163310050964
+    },
+    {
+      "control_step": 640,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642289251089096,
+      "gripper_object_distance_mean": 0.04540059715509415,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9083643555641174,
+      "absolute_action_max": 0.9397312998771667
+    },
+    {
+      "control_step": 650,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639659941196442,
+      "gripper_object_distance_mean": 0.044900067150592804,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9096009731292725,
+      "absolute_action_max": 0.9380754232406616
+    },
+    {
+      "control_step": 660,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640036940574646,
+      "gripper_object_distance_mean": 0.04531078785657883,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.910043478012085,
+      "absolute_action_max": 0.9373185634613037
+    },
+    {
+      "control_step": 670,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640676945447922,
+      "gripper_object_distance_mean": 0.04500830918550491,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9103981852531433,
+      "absolute_action_max": 0.9411860704421997
+    },
+    {
+      "control_step": 680,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640755921602249,
+      "gripper_object_distance_mean": 0.04544968158006668,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9105408191680908,
+      "absolute_action_max": 0.9402943253517151
+    },
+    {
+      "control_step": 690,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639710605144501,
+      "gripper_object_distance_mean": 0.04518193006515503,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9113324880599976,
+      "absolute_action_max": 0.93968665599823
+    },
+    {
+      "control_step": 700,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642027735710144,
+      "gripper_object_distance_mean": 0.044769324362277985,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9111273288726807,
+      "absolute_action_max": 0.9394319653511047
+    },
+    {
+      "control_step": 710,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764026790857315,
+      "gripper_object_distance_mean": 0.045159414410591125,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9103528261184692,
+      "absolute_action_max": 0.9390674829483032
+    },
+    {
+      "control_step": 720,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641997188329697,
+      "gripper_object_distance_mean": 0.04548264667391777,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9109407663345337,
+      "absolute_action_max": 0.9387312531471252
+    },
+    {
+      "control_step": 730,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641613483428955,
+      "gripper_object_distance_mean": 0.04505424574017525,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9109495282173157,
+      "absolute_action_max": 0.93592768907547
+    },
+    {
+      "control_step": 740,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642461359500885,
+      "gripper_object_distance_mean": 0.045662421733140945,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9103204607963562,
+      "absolute_action_max": 0.9378003478050232
+    },
+    {
+      "control_step": 750,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642466574907303,
+      "gripper_object_distance_mean": 0.04482204094529152,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9087963700294495,
+      "absolute_action_max": 0.9369943141937256
+    },
+    {
+      "control_step": 760,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642097771167755,
+      "gripper_object_distance_mean": 0.04567788541316986,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.909683346748352,
+      "absolute_action_max": 0.9381617903709412
+    },
+    {
+      "control_step": 770,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641155272722244,
+      "gripper_object_distance_mean": 0.04520399868488312,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9116522073745728,
+      "absolute_action_max": 0.9417832493782043
+    },
+    {
+      "control_step": 780,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641562074422836,
+      "gripper_object_distance_mean": 0.04565487802028656,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9102190732955933,
+      "absolute_action_max": 0.9380516409873962
+    },
+    {
+      "control_step": 790,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640589028596878,
+      "gripper_object_distance_mean": 0.04551694542169571,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9109174013137817,
+      "absolute_action_max": 0.9372337460517883
+    },
+    {
+      "control_step": 800,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640470564365387,
+      "gripper_object_distance_mean": 0.044904544949531555,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9105234146118164,
+      "absolute_action_max": 0.9444382786750793
+    },
+    {
+      "control_step": 810,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642150670289993,
+      "gripper_object_distance_mean": 0.04497610777616501,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9108196496963501,
+      "absolute_action_max": 0.9392025470733643
+    },
+    {
+      "control_step": 820,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641040533781052,
+      "gripper_object_distance_mean": 0.04562325403094292,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9145132303237915,
+      "absolute_action_max": 0.9425343871116638
+    },
+    {
+      "control_step": 830,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639922201633453,
+      "gripper_object_distance_mean": 0.04564930498600006,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9100335836410522,
+      "absolute_action_max": 0.9382725954055786
+    },
+    {
+      "control_step": 840,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642163336277008,
+      "gripper_object_distance_mean": 0.044809989631175995,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9091020226478577,
+      "absolute_action_max": 0.9388911128044128
+    },
+    {
+      "control_step": 850,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641512900590897,
+      "gripper_object_distance_mean": 0.044726282358169556,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9101907014846802,
+      "absolute_action_max": 0.9374222159385681
+    },
+    {
+      "control_step": 860,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642122358083725,
+      "gripper_object_distance_mean": 0.045286789536476135,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9109344482421875,
+      "absolute_action_max": 0.9391964673995972
+    },
+    {
+      "control_step": 870,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.076419897377491,
+      "gripper_object_distance_mean": 0.04539685323834419,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9094724655151367,
+      "absolute_action_max": 0.9401448965072632
+    },
+    {
+      "control_step": 880,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641242444515228,
+      "gripper_object_distance_mean": 0.044561855494976044,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.910659670829773,
+      "absolute_action_max": 0.9367474317550659
+    },
+    {
+      "control_step": 890,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641270756721497,
+      "gripper_object_distance_mean": 0.045555129647254944,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9096279144287109,
+      "absolute_action_max": 0.9397128820419312
+    },
+    {
+      "control_step": 900,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0764136016368866,
+      "gripper_object_distance_mean": 0.045174144208431244,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9114874005317688,
+      "absolute_action_max": 0.9390213489532471
+    },
+    {
+      "control_step": 910,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641512155532837,
+      "gripper_object_distance_mean": 0.04604550078511238,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9106608629226685,
+      "absolute_action_max": 0.9333055019378662
+    },
+    {
+      "control_step": 920,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642703503370285,
+      "gripper_object_distance_mean": 0.04618067294359207,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9069823622703552,
+      "absolute_action_max": 0.9400285482406616
+    },
+    {
+      "control_step": 930,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641039788722992,
+      "gripper_object_distance_mean": 0.044708527624607086,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9133154153823853,
+      "absolute_action_max": 0.939414381980896
+    },
+    {
+      "control_step": 940,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07642115652561188,
+      "gripper_object_distance_mean": 0.0454181544482708,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9117317795753479,
+      "absolute_action_max": 0.9358065128326416
+    },
+    {
+      "control_step": 950,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07641714811325073,
+      "gripper_object_distance_mean": 0.0454566590487957,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9093779921531677,
+      "absolute_action_max": 0.9365569949150085
+    },
+    {
+      "control_step": 960,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640570402145386,
+      "gripper_object_distance_mean": 0.04501332342624664,
+      "object_height_mean": 0.013470363803207874,
+      "gripper_action_mean": 0.9101712703704834,
+      "absolute_action_max": 0.9388542771339417
+    },
+    {
+      "control_step": 970,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07640057057142258,
+      "gripper_object_distance_mean": 0.045753344893455505,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9101183414459229,
+      "absolute_action_max": 0.9417873620986938
+    },
+    {
+      "control_step": 980,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.0763961523771286,
+      "gripper_object_distance_mean": 0.04467974975705147,
+      "object_height_mean": 0.013470364734530449,
+      "gripper_action_mean": 0.9067034721374512,
+      "absolute_action_max": 0.9386296272277832
+    },
+    {
+      "control_step": 990,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07639285922050476,
+      "gripper_object_distance_mean": 0.04472900927066803,
+      "object_height_mean": 0.0134703628718853,
+      "gripper_action_mean": 0.9102917909622192,
+      "absolute_action_max": 0.9363632202148438
+    }
+  ]
+}

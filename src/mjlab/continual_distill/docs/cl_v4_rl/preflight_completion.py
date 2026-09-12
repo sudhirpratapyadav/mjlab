@@ -12,14 +12,14 @@ from rl_recipes import apply_recipe
 from wandb_config import configure,ENTITY,PROJECT
 
 HERE=Path(__file__).resolve().parent
-output=HERE/'evidence/completion_preflight.json'
+output=HERE/'evidence/completion_preflight_v2.json'
 if output.exists():
   raise FileExistsError(output)
 rows=[]
 for short in ['Stack-Cube','Place-In-Container','Peg-Insertion']:
   task=f'Mjlab-{short}-Franka'
   cfg=TrainConfig.from_task(task)
-  apply_recipe(cfg,'completion_v1')
+  apply_recipe(cfg,'completion_v2')
   cfg.env.scene.num_envs=32
   cfg.env.seed=20260912
   env=ManagerBasedRlEnv(cfg.env,device='cuda:0')
@@ -38,7 +38,7 @@ for short in ['Stack-Cube','Place-In-Container','Peg-Insertion']:
       assert obs['policy'].shape==(32,60)
       assert all(torch.isfinite(v).all() for v in [obs['policy'],reward,env.sim.data.qpos,env.sim.data.qvel])
       total_reward+=float(reward.mean())
-    rows.append({'task':task,'recipe':'completion_v1','finite':True,'num_envs':32,'steps':100,'initial_grasp_height':grasp_height,'mean_return':total_reward,'interface':'franka_shared_60_v2'})
+    rows.append({'task':task,'recipe':'completion_v2','finite':True,'num_envs':32,'steps':100,'initial_grasp_height':grasp_height,'mean_return':total_reward,'interface':'franka_shared_60_v2'})
     print('PASS',rows[-1],flush=True)
   finally:
     wrapped.close()

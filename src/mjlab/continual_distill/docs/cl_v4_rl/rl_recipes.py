@@ -5,7 +5,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped,
 from mjlab.utils.lab_api.math import quat_apply
 import torch
 
-RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "cage_v1", "completion_v1")
+RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "reorient_v3", "cage_v1", "completion_v1", "completion_v2")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -74,7 +74,7 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards["no_object_collision"].weight = 0.0
     cfg.env.rewards["action_rate_l2"].weight = -0.005
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
-  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "reorient_v2"):
+  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "reorient_v3"):
     reach = cfg.env.rewards["reach_object"]
     expected = "lift_object" if recipe.startswith("lift_") else "reorient_object"
     if reach.params["command_name"] != expected:
@@ -82,10 +82,12 @@ def apply_recipe(cfg, recipe):
     reach.func = lift_grasp_reward if recipe.startswith("lift_") else reorient_grasp_reward
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("lift_v2", "reorient_v2", "cage_v1"):
+  if recipe in ("lift_v2", "reorient_v2", "reorient_v3", "cage_v1"):
     bounded_initialization(cfg)
-    if recipe == "reorient_v2":
+    if recipe in ("reorient_v2", "reorient_v3"):
       cfg.env.rewards["reach_object"].func = reorient_endface_reward
+      if recipe == "reorient_v3":
+        cfg.env.rewards["reach_object"].params["smooth_closure"] = True
     if recipe == "cage_v1":
       reach = cfg.env.rewards["reach_object"]
       if reach.params["command_name"] != "cage_drag":
@@ -93,7 +95,7 @@ def apply_recipe(cfg, recipe):
       reach.func = cage_approach_reward
       cfg.env.rewards["joint_vel_penalty"].weight = -0.001
       cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe == "completion_v1":
+  if recipe in ("completion_v1", "completion_v2"):
     from completion_reward import completion_reward
     if cfg.agent.experiment_name not in ("franka_stack_cube", "franka_peg_insertion", "franka_place_in_container"):
       raise ValueError("completion_v1 is restricted to Stack/Place/Peg")
@@ -102,6 +104,8 @@ def apply_recipe(cfg, recipe):
     cfg.agent.policy.initial_gripper_std = 0.1
     name = "stack" if "stack" in cfg.env.rewards else "reach_object"
     cfg.env.rewards[name].func = completion_reward
+    if recipe == "completion_v2":
+      cfg.env.rewards[name].params["smooth_closure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
 
@@ -123,7 +127,7 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', **kwargs):
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -140,6 +144,9 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', **kwa
   # Keep pads open during approach, then close on the bottle's end faces.
   desired = torch.where(distance>0.035,0.075,0.050)
   aperture_score = torch.exp(-((aperture-desired)/0.02).square())
+  if smooth_closure:
+    from completion_reward import smooth_closure_bonus
+    aperture_score = smooth_closure_bonus(distance,aperture)
   height = obj.data.root_link_pos_w[:,2]-env.scene.env_origins[:,2]
   lift = ((height-0.015)/0.10).clamp(0,1)*held
   aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)

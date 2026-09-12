@@ -97,3 +97,15 @@ Window model300 and Axial model200 each passed128/128 validation and128/128 inde
 Implemented completion_v1 for Stack/Place/Peg: broad approach plus actual grasp/lift/transport, then dominant native released/supported/settled completion bonus. Peg grasp target uses the upper collider body rather than insertion tip (measured initial target height0.070m). The exact native predicate supplies the terminal bonus, including full containment or square-bore fit; no predicate/physics/interface changes. Completion actors initialize gripper mean0.5/std0.1 to permit useful closure exploration.53 CPU tests passed, including incentive comparisons and geometry invariants; three32-env ×100-step physics preflights are finite and uploaded to W&B.
 
 Added optional evaluator diagnostics sampled only from still-active first episodes. Lift V3 model900 debug seed20260913 scored0/16; all16 lasted the full horizon. No two-pad grasp occurred, despite endpoint gripper/object distance0.00670m. Mean aperture0.06665m, gripper action0.6736: it reaches the object but has not closed enough. This is direct contact evidence, not a rate claim; continue its recorded budget while checking Reorient similarly.
+
+### Closure-reward discontinuity found before full completion pilots
+
+Reorient model1000 debug batch:0/16, no two-pad grasp, mean final aperture0.07639m and gripper distance0.04473m. Inspection found a hard preferred-aperture switch at distance0.035m. With an aligned hand and aperture0.075m, approaching from0.036m to0.034m drops the original approach reward from1.4816 to0.9112 (about38.5%). This is a plausible cause of hovering, not a claim that all learning failure is explained. The draft completion reward had the same issue.
+
+Preserved old recipe behavior and added reorient_v3/completion_v2 with a monotone proximity-weighted closure incentive. Added regression checks over the full approach path for multiple apertures. Previous physics/PPO preflights remain recorded under old source/recipe; repeat the changed reward's finite-state/PPO checks before full pilots. Planned a continuation of Reorient from its own finite checkpoint with only the reward recipe changed.
+
+### Smooth closure validated; first full completion pilots
+
+58 focused tests passed after preserving old recipe behavior and adding completion_v2/reorient_v3. The revised three-task physics preflight is finite; three guarded PPO updates succeeded for both the revised Stack recipe and Reorient recipe. New evidence remains separate from the earlier hard-switch preflight.
+
+Stopped only Reorient V3 step1675 after verifying finite model1500; its recorded mean policy has no grasps in the debug batch and the reward cliff makes continued training under that recipe unattractive. Prepared a1,500-additional-update continuation from its own model1500 with reorient_v3, preserving policy/optimizer/normalizers and the benchmark. Stack and Place full pilots use completion_v2. Cage and Lid finished their budgets with zero training success; final checkpoints will be evaluated and diagnosed without assuming certification.

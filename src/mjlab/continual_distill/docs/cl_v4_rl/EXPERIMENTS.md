@@ -51,9 +51,12 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 | RL-017 | Axial-Extract | Learn plug approach and extraction | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU3 | Certified | 128/128 validation and128/128 independent confirmation; actual recorded motion reviewed; checkpoint/normalizers/video retained. |
 
 | PREFLIGHT-COMPLETE-001 | Stack/Place/Peg | Check safe grasp geometry, release incentive and finite physics | 53 focused CPU tests;32 environments ×100 steps each;3 PPO updates | Physics passed; PPO next | 53 CPU tests passed; Stack/Place/Peg each32 environments ×100 steps finite. Peg initial grasp height0.070m (upper body). |
-| RL-018 | Stack-Cube | Learn grasp/transport/released supported completion | completion_v1,2,048 environments ×2,500 updates, seed20260912, GPU3 | Prepared | Fresh bounded policy, gripper mean0.5/std0.1; physical and PPO preflight before launch |
-| RL-019 | Place-In-Container | Learn grasp/transport/released contained completion | completion_v1,2,048 environments ×2,500 updates, seed20260912, GPU7 | Prepared | Strict completion uses native full-object containment, support contact and settling |
-| RL-020 | Peg-Insertion | Grasp upper peg body, align, seat and release | completion_v1,2,048 environments ×3,000 updates, seed20260912 | Prepared | Native upright square-bore fit and release/settling requirements remain; GPU assigned when available |
+| RL-018 | Stack-Cube | Learn grasp/transport/released supported completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU3 | Prepared | Fresh bounded policy, gripper mean0.5/std0.1; physical and PPO preflight before launch |
+| RL-019 | Place-In-Container | Learn grasp/transport/released contained completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU7 | Prepared | Strict completion uses native full-object containment, support contact and settling |
+| RL-020 | Peg-Insertion | Grasp upper peg body, align, seat and release | completion_v2,2,048 environments ×3,000 updates, seed20260912 | Prepared | Native upright square-bore fit and release/settling requirements remain; GPU assigned when available |
+
+| PREFLIGHT-CLOSURE-002 | Stack/Place/Peg/Reorient | Remove the hard35mm closure-reward discontinuity | Monotonicity test;32 environments ×100 steps;3 guarded PPO updates | Prepared | Old recipe names preserve previous behavior; new completion_v2/reorient_v3 use a continuous closure incentive |
+| RL-005-R4 | Reorient | Escape the verified approach/closure reward cliff | reorient_v3,2,048 environments ×1,500 additional updates, seed20260912, GPU2 | Prepared | Resume own finite V3 checkpoint after smooth-reward preflight; policy architecture and benchmark unchanged |
 
 ## Run record template
 

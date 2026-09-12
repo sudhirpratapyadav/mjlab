@@ -26,7 +26,12 @@ def completion_score(approach, aperture_match, held, lift, transport, released_n
           + 5*transport*held + 6*released_near_support*(1-held) + 15*strict)
 
 
-def completion_reward(env, command_name, object_asset_name='object', **kwargs):
+def smooth_closure_bonus(distance, aperture):
+  """Monotone approach/closure incentive without an open-to-close reward cliff."""
+  return torch.exp(-distance/0.04)*(1-aperture/0.08).clamp(0,1)
+
+
+def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -35,8 +40,11 @@ def completion_reward(env, command_name, object_asset_name='object', **kwargs):
   down = -quat_apply(quat,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))[:,2]
   approach = (0.7*torch.exp(-distance/0.25)+0.3*torch.exp(-distance/0.04))*(0.25+0.75*down.clamp(0,1))
   aperture = finger_aperture(robot)
-  desired = torch.where(distance>0.035,0.07,0.025)
-  aperture_match = torch.exp(-((aperture-desired)/0.025).square())
+  if smooth_closure:
+    aperture_match = smooth_closure_bonus(distance,aperture)
+  else:
+    desired = torch.where(distance>0.035,0.07,0.025)
+    aperture_match = torch.exp(-((aperture-desired)/0.025).square())
   held = grasped(command).float()
   pos = tracking_position(obj)
   height = pos[:,2]-env.scene.env_origins[:,2]-resting_site_height(obj)
