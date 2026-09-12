@@ -70,3 +70,28 @@ def test_bounded_policy_initialization_and_roundtrip(monkeypatch):
       runner_module.reset_gripper_exploration(policy, optimizer, invalid)
   for name, value in policy.state_dict().items():
     torch.testing.assert_close(value, after[name], rtol=0, atol=0)
+
+  before = copy.deepcopy(policy.state_dict())
+  moments = {p:copy.deepcopy(v) for p,v in optimizer.state.items()}
+  output_before = policy.act_inference(obs).detach().clone()
+  runner_module.reset_gripper_output(policy,optimizer,.5)
+  output_after = policy.act_inference(obs)
+  torch.testing.assert_close(output_after[:,:7],output_before[:,:7],rtol=0,atol=0)
+  torch.testing.assert_close(output_after[:,7],torch.full((64,),.5))
+  for name,value in policy.state_dict().items():
+    if name in ('actor.6.weight','actor.6.bias'):
+      torch.testing.assert_close(value[:-1],before[name][:-1],rtol=0,atol=0)
+    else:
+      torch.testing.assert_close(value,before[name],rtol=0,atol=0)
+  head = policy.actor[-2]
+  for parameter,old_state in moments.items():
+    for key,old in old_state.items():
+      new = optimizer.state[parameter][key]
+      if (parameter is head.weight or parameter is head.bias) and key in ('exp_avg','exp_avg_sq','max_exp_avg_sq'):
+        assert (new[-1]==0).all()
+        torch.testing.assert_close(new[:-1],old[:-1],rtol=0,atol=0)
+      else:
+        torch.testing.assert_close(new,old,rtol=0,atol=0)
+  for invalid in (-1.,1.,float('nan'),float('inf')):
+    with pytest.raises(ValueError):
+      runner_module.reset_gripper_output(policy,optimizer,invalid)

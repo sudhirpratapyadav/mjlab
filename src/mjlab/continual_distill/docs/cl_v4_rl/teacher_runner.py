@@ -23,9 +23,29 @@ def reset_gripper_exploration(policy, optimizer, std):
         moment[-1] = 0
 
 
+def reset_gripper_output(policy, optimizer, mean):
+  """Reopen a saturated gripper output while preserving the seven arm outputs."""
+  if not math.isfinite(mean) or not -1 < mean < 1:
+    raise ValueError("Gripper mean must be finite and strictly between -1 and 1")
+  if not isinstance(policy.actor[-1],torch.nn.Tanh):
+    raise ValueError("Gripper output reset requires a bounded-mean actor")
+  head = policy.actor[-2]
+  if not isinstance(head,torch.nn.Linear) or head.out_features != 8:
+    raise ValueError("Expected the approved eight-action output layer")
+  with torch.no_grad():
+    head.weight[-1].zero_()
+    head.bias[-1] = math.atanh(mean)
+    for parameter in (head.weight,head.bias):
+      for name in ("exp_avg", "exp_avg_sq", "max_exp_avg_sq"):
+        moment = optimizer.state.get(parameter,{}).get(name)
+        if moment is not None:
+          moment[-1].zero_()
+
+
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, capture_pre_step=False, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, capture_pre_step=False, **kwargs):
     self.resume_gripper_std = resume_gripper_std
+    self.resume_gripper_mean = resume_gripper_mean
     super().__init__(*args, **kwargs)
     original_step = self.env.step
     original_update = self.alg.update
@@ -123,4 +143,6 @@ class TeacherRunner(OnPolicyRunner):
     infos = super().load(path, load_optimizer=load_optimizer, map_location=map_location)
     if self.resume_gripper_std is not None:
       reset_gripper_exploration(self.alg.policy, self.alg.optimizer, self.resume_gripper_std)
+    if self.resume_gripper_mean is not None:
+      reset_gripper_output(self.alg.policy, self.alg.optimizer, self.resume_gripper_mean)
     return infos

@@ -54,7 +54,7 @@ def capture_aperture_bonus(command, distance):
   return aperture_fit_score(distance,gap,width)
 
 
-def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, **kwargs):
+def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -68,6 +68,8 @@ def completion_reward(env, command_name, object_asset_name='object', smooth_clos
   else:
     desired = torch.where(distance>0.035,0.07,0.025)
     aperture_match = torch.exp(-((aperture-desired)/0.025).square())
+  if geometry_aperture:
+    aperture_match = capture_aperture_bonus(command,distance)
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   pos = tracking_position(obj)
   height = pos[:,2]-env.scene.env_origins[:,2]-resting_site_height(obj)

@@ -167,3 +167,11 @@ Added geometry-aware grasp-width rewards: measured pad gap should match the obje
 A future resume of Reorient should reset its saturated gripper output row, preserving learned arm outputs, rather than only reset exploration std. That output reset is not implemented yet. Lift's prior numerical cause remains unresolved; finite replaymodel2028 is retained and pre-step failure capture is available.
 
 Throw's first full independent pilot uses throw_v3 onGPU2,2048 environments ×3000 updates, with pre-step capture enabled for any numerical failure. All24 active tasks have now received a full RL pilot once this launch is verified; this does not mean24 teachers are certified. Certification remains14/24. Lift/Reorient/Cage retries await slots while the other seven object tasks train.
+
+### Stack numerical stop; preserve approach and reset only gripper output
+
+Live process check found Stack V2 stopped atiteration777: one nonfinite simulator lane261, policy parameters finite, pre-step capture was disabled for that run. Retained finite model700. Debug16-episode evaluation0/16:100% final enclosure but no actual contact, aperture0.07669m and gripper mean0.90457. The top-press credit is gone; useful closure still has not been learned.
+
+Implemented --resume-gripper-mean for bounded actors. It zeroes only the eighth output row and initializes its bias to the requested bounded mean, clearing only those Adam moments. Tests verify exact preservation of seven deterministic arm outputs, other weights, critic, normalizers, std and unrelated optimizer state. This supersedes the earlier note that output reset was not implemented.
+
+Added completion_v4 capture-width shaping.88 focused tests pass. Resumed64-env3-update preflight from Stackmodel700 with gripper mean0.5/std0.15 succeeded; finite model702, final sampled robot-object contact15.625% (not a success claim), aperture0.06368m. Full Stack R3 resumes ownmodel700 for1800 additional updates onGPU3 with pre-step capture. The numerical cause remains unresolved; no physical settings or native success predicates changed.
