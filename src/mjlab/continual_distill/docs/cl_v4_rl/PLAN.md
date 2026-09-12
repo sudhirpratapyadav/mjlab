@@ -25,11 +25,11 @@ Run Reach first through the complete launcher/config-saving/checkpoint/evaluatio
 - Throw/Strike: tune velocity penalties and sequence shaping against the required fast motion. Evaluate compact-state limitations empirically.
 - Reorient/Topple: verify approach signal and settled completion incentive.
 
-Record each reward/config experiment before running it. Preserve strict success criteria; improved shaped return alone is not improvement. No reward/physics modifications were made in this setup pass.
+Record each reward/config experiment before running it. Preserve strict success criteria; improved shaped return alone is not improvement. Current recipe changes are recorded in rl_recipes.py and EXPERIMENTS.md; registered physics and success predicates are frozen.
 
 ## P3: train and certify all 24
 
-Run at most one initial large job per assigned GPU1–3, leaving memory headroom until throughput is measured. Maintain one independent policy per task; train additional seeds or targeted variants only as needed. Promote checkpoints using validation seeds, then confirm the retained teacher on fresh episodes per GOAL.md. Threshold: strictly >90% on each task, not a suite average. Archive one retained checkpoint/normalizer per task plus its verification and videos.
+Run at most one initial large job per authorized GPU1–7; GPU0 remains unused, leaving memory headroom until throughput is measured. Maintain one independent policy per task; train additional seeds or targeted variants only as needed. Promote checkpoints using validation seeds, then confirm the retained teacher on fresh episodes per GOAL.md. Threshold: strictly >90% on each task, not a suite average. Archive one retained checkpoint/normalizer per task plus its verification and videos.
 
 ## Launch template (not yet a completed full pilot)
 
@@ -44,4 +44,8 @@ srun --jobid=20277 --overlap -n1 --cpus-per-task=8 bash -c '
 '
 ```
 
-The launcher defaults to local TensorBoard, rejects non-active tasks and existing run directories, and preserves an already bound GPU. Its dry-run has been checked. No generic GPU selector is invoked because that selector rejects UUID strings. Recheck actual GPU process placement with nvidia-smi after launch. Never cancel the shared holder or another person's jobs.
+The launcher defaults to the verified experiment-scoped online W&B project, rejects non-active tasks and existing run directories, and preserves an already bound GPU. Its dry-run has been checked. No generic GPU selector is invoked because that selector rejects UUID strings. Recheck actual GPU process placement with nvidia-smi after launch. Never cancel the shared holder or another person's jobs.
+
+## Continuation checkpoint — 2026-09-12
+
+P0 evaluator edge cases, recipe interface invariants, numerical preflight and guarded PPO update tests are complete (44 focused tests). Button, Drawer, Reach and Topple are certified with W&B artifacts. P2 recipes are active in six runs listed in evidence/training_wave2.json. Evaluate Button/Drawer on GPU6, retain a checkpoint only after both independent batches and video review, then reuse freed training GPUs for further prepared tasks. Continue Lift/Reorient variants and Drag/Push budgets with diagnostics. Cage and completion/dynamic task readiness remains outstanding.

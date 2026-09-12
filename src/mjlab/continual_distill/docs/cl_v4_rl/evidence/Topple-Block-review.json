@@ -1,0 +1,11 @@
+{
+  "task": "Mjlab-Topple-Block-Franka",
+  "checkpoint_sha256": "8bb8531aa7b696d697b8c3b20c491f508378b36702d21f38c759a5c7cd3073ac",
+  "verdict": "pass",
+  "reviewer": "Codex",
+  "reviewed_frames": ["runs/verified/Topple-Block/success-0000.png", "runs/verified/Topple-Block/success-0099.png", "runs/verified/Topple-Block/failure-0099.png"],
+  "success_observation": "The initially upright box is physically toppled onto its side by the robot and is settled at timeout. Recorded terminal speeds: 0.001407 m/s linear, 0.009110 rad/s angular.",
+  "highest_return_failure": "The box is toppled but still moving under hand contact at timeout: 0.079538 m/s linear and 0.792594 rad/s angular. Both exceed the unchanged settling thresholds, so shaped return is correctly rejected as success.",
+  "reproduction_note": "A repeat of validation seed20260914 again measured123/128, but8 per-environment success outcomes changed. The saved video trace is its own measured batch, not asserted bitwise equivalent to the original validation rollout. No confirmation-seed tuning was performed.",
+  "evaluator_check": "44 focused tests pass, including actual-loop adversarial subset resets, terminal-success capture and retry exclusion."
+}

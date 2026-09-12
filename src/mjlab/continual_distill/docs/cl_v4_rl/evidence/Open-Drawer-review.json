@@ -1,0 +1,15 @@
+{
+  "task": "Mjlab-Open-Drawer-Franka",
+  "checkpoint_sha256": "db0347777fd6e7ed6cb215368b7464902b30211636019d5a4de1d744507cf583",
+  "verdict": "pass",
+  "reviewer": "Codex",
+  "reviewed_frames": [
+    "runs/verified/Open-Drawer-m1000/success-0000.png",
+    "runs/verified/Open-Drawer-m1000/success-0074.png"
+  ],
+  "success_observation": "The drawer moves from closed to visibly extended. The arm contacts the drawer interior at the terminal pose; the native task requires drawer displacement and does not require a handle-only grasp. Both independent first-episode batches measured128/128.",
+  "joint_initial_m": 0.0,
+  "joint_terminal_m": -0.2518886625766754,
+  "highest_return_failure": "None in either measured batch.",
+  "physics_note": "Registered zero-gravity mechanism physics retained; success and interface unchanged."
+}

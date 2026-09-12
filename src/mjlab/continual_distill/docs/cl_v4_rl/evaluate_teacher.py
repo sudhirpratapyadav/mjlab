@@ -8,6 +8,7 @@ from pathlib import Path
 
 import torch
 import yaml
+import numpy as np
 from rsl_rl.runners import OnPolicyRunner
 
 from mjlab.envs import ManagerBasedRlEnv
@@ -18,7 +19,7 @@ from mjlab.scripts.train import TrainConfig
 from rl_recipes import apply_recipe
 
 
-def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
+def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: Path | None = None) -> dict:
   training_cfg = TrainConfig.from_task(task)
   manifest_path = checkpoint.parent / "manifest.json"
   manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
@@ -50,10 +51,22 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
     # predicate after physics/reward computation, immediately before reset.
     original_reset = env._reset_idx
     terminal_success = torch.zeros(episodes, dtype=torch.bool, device=device)
+    fields = ("qpos", "qvel", "mocap_pos", "mocap_quat")
+    terminal_states = {}
+    if trace_dir is not None:
+      trace_dir.mkdir(parents=True, exist_ok=False)
+      terminal_states = {name: torch.zeros_like(getattr(env.sim.data,name)).cpu() for name in fields}
+
+    def snapshot():
+      return {name:getattr(env.sim.data,name).detach().cpu().clone() for name in fields}
 
     def capture_reset(env_ids):
       command._update_metrics()
       terminal_success[env_ids] = command.compute_success()[env_ids].bool()
+      if trace_dir is not None:
+        ids = env_ids.cpu()
+        for name in fields:
+          terminal_states[name][ids] = getattr(env.sim.data,name)[env_ids].detach().cpu()
       return original_reset(env_ids)
 
     env._reset_idx = capture_reset
@@ -68,6 +81,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
     returns = torch.zeros(episodes, device=device)
     reasons = [None] * episodes
     termination_terms = [[] for _ in range(episodes)]
+    trace = [snapshot()] if trace_dir is not None else []
     for _ in range(env.max_episode_length + 1):
       with torch.inference_mode():
         action = policy(obs)
@@ -78,6 +92,12 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       steps[active] += 1
       returns[active] += reward[active]
       newly_done = done.bool() & active
+      if trace_dir is not None:
+        state = snapshot()
+        ids = newly_done.nonzero().flatten().cpu()
+        for name in fields:
+          state[name][ids] = terminal_states[name][ids]
+        trace.append(state)
       successes[newly_done] = terminal_success[newly_done]
       for i in newly_done.nonzero(as_tuple=False).flatten().tolist():
         reasons[i] = "timeout" if bool(env.reset_time_outs[i]) else "terminated"
@@ -93,6 +113,9 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       for i in range(episodes)
     ]
     count = int(successes.sum())
+    if trace_dir is not None:
+      np.savez_compressed(trace_dir / "trace.npz", origins=env.scene.env_origins.cpu().numpy(),
+                          **{name:torch.stack([state[name] for state in trace]).numpy() for name in fields})
     return {
       "task": task, "checkpoint": str(checkpoint.resolve()),
       "checkpoint_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
@@ -104,6 +127,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       "gravity": list(cfg.sim.mujoco.gravity),
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
+      "trace_dir": str(trace_dir.resolve()) if trace_dir is not None else None,
     }
   finally:
     wrapped.close()
@@ -117,10 +141,11 @@ def main():
   parser.add_argument("--seed", type=int, required=True)
   parser.add_argument("--output", type=Path, required=True)
   parser.add_argument("--no-wandb", action="store_true")
+  parser.add_argument("--trace-dir", type=Path)
   args = parser.parse_args()
   if args.episodes < 1 or args.output.exists():
     parser.error("Episodes must be positive and output must not already exist")
-  result = evaluate(args.task, args.checkpoint, args.episodes, args.seed)
+  result = evaluate(args.task, args.checkpoint, args.episodes, args.seed, args.trace_dir)
   args.output.parent.mkdir(parents=True, exist_ok=True)
   args.output.write_text(json.dumps(result, indent=2) + "\n")
   print(f"{result['successes']}/{result['episodes']} = {result['success_rate']:.3f}")

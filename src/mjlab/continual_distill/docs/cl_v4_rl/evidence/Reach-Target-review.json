@@ -1,0 +1,13 @@
+{
+  "task": "Mjlab-Reach-Target-Franka",
+  "checkpoint_sha256": "4903bce34014ebba7da15882baac2d18789f905a85fd17c2624b8f476ab35e6b",
+  "verdict": "pass",
+  "reviewer": "Codex",
+  "reviewed_frames": [
+    "runs/verified/Reach-Target/success-0000.png",
+    "runs/verified/Reach-Target/success-0499.png"
+  ],
+  "success_observation": "The hand moves from an offset pose to center its grasp site on the orange reach target. At the recorded terminal state the target lies between the fingers. All 128 first episodes in the traced batch satisfy the unchanged terminal predicate.",
+  "highest_return_failure": "None: both held-out batches and the recorded video batch measured 128/128.",
+  "evaluator_check": "44 focused checks passed, including terminal capture before reset and exclusion of retries."
+}

@@ -44,10 +44,10 @@ Assigned UUIDs:
 
 Export the UUID **inside** the Slurm step; set `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1`. The generic `launch_training` GPU selector parses visible devices as integers and fails on UUIDs (`evidence/launcher_probe.json`). The stage-local `train_teacher.py` bypasses GPU reselection and calls `run_train` directly on the already pinned `cuda:0`. Its dry-run validates config/selection only; a full pilot is still needed to verify its end-to-end run/config-saving path.
 
-Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO smoke uses local TensorBoard logging, avoiding an external logging dependency. Stage-local runs also default to TensorBoard.
+Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO smoke uses local TensorBoard logging, avoiding an external logging dependency. Stage-local runs default to online W&B in the verified project.
 
 ## Current outcome and next action
 
-**0/24 fully certified RL teachers; Reach has passed the measured rate gate.** RL-001's fresh 500-update pilot achieved 128/128 first-episode terminal successes on both seeds 20260914 and 20260915. Targeted evaluator edge-case tests and video review remain required before full certification. Four further pilots have partial checkpoints, and Push-Cuboid failed at iteration 268 with invalid action standard deviation (its retained model_200 achieved 1/128). See the updated experiment ledger.
+**4/24 certified: Button, Drawer, Reach and Topple.** See `evidence/*-certificate.json` for retained checkpoints, normalizers, counts, videos and W&B artifacts. Strict evaluator adversarial tests passed. Baseline Lift/Reorient failed0/128; Drag reached100/128; Push failed numerically and its model200 measured1/128. Six follow-up runs are active (manifest inventory: `evidence/training_wave2.json`).
 
-Next: establish the strict checkpoint evaluator, freeze reward/physics decisions and pilot budgets, then run Reach followed by Lift. Resolve the mechanism approach signal and Cage initialization before their expensive runs. See PLAN/STATUS/EXPERIMENTS for all tasks and outstanding checks.
+Registered physics is explicitly frozen, including eight zero-gravity tasks. Reward recipes improve learning signal without changing success, geometry, observations or actions. Numerical guards and log-std PPO variants were validated before launch. Next: evaluate promising Button/Drawer checkpoints, then complete remaining pilots and task-specific readiness fixes. All24 remain in scope.

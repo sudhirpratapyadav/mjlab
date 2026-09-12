@@ -1,0 +1,65 @@
+{
+  "task": "Mjlab-Topple-Block-Franka",
+  "certified_utc": "2026-09-12T16:12:37.991846+00:00",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Topple-Block-Franka/model.pt",
+  "checkpoint_sha256": "8bb8531aa7b696d697b8c3b20c491f508378b36702d21f38c759a5c7cd3073ac",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Topple-Block-Franka/normalizers.pt",
+  "normalizers_sha256": "be32385de1b8302ea33a9623404954ac6b02a399d837721ce17545713e3a95e9",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 123,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-006-R1-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 118,
+    "episodes": 128,
+    "seed": 20260915,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-006-R1-confirm-20260915.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Topple-Block-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/Topple-Block/success.mp4",
+      "outcome": {
+        "env_id": 69,
+        "success": true,
+        "steps": 200,
+        "return": 11.300745010375977,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 100,
+      "fps": 25,
+      "simulation_seconds": 4.0,
+      "encoded_seconds": 4.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    },
+    "failure": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/Topple-Block/failure.mp4",
+      "outcome": {
+        "env_id": 117,
+        "success": false,
+        "steps": 200,
+        "return": 11.084864616394043,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 100,
+      "fps": 25,
+      "simulation_seconds": 4.0,
+      "encoded_seconds": 4.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/vuzzhy2s",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Topple-Block-Franka-teacher:v0"
+}
