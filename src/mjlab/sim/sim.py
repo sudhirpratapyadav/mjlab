@@ -96,6 +96,12 @@ class SimulationCfg:
   contact_sensor_maxmatch: int = 64
   mujoco: MujocoCfg = field(default_factory=MujocoCfg)
   nan_guard: NanGuardCfg = field(default_factory=NanGuardCfg)
+  free_body_implicitfast_compat: bool = False
+  """Opt in to native MuJoCo's standalone free-body gyroscopic correction.
+
+  Retain the legacy Warp path by default. Record this backend compatibility
+  choice with a run and restore it during evaluation.
+  """
 
 
 class Simulation:
@@ -136,6 +142,11 @@ class Simulation:
 
     self._model_bridge = WarpBridge(self._wp_model, nworld=self.num_envs)
     self._data_bridge = WarpBridge(self._wp_data)
+    self._stepper = mjwarp.step
+    if cfg.free_body_implicitfast_compat:
+      from mjlab.sim.free_body_implicitfast import FreeBodyImplicitFastStepper
+
+      self._stepper = FreeBodyImplicitFastStepper(self._mj_model, self.wp_device)
 
     self.use_cuda_graph = self.wp_device.is_cuda and wp.is_mempool_enabled(
       self.wp_device
@@ -150,7 +161,7 @@ class Simulation:
     if self.use_cuda_graph:
       with wp.ScopedDevice(self.wp_device):
         with wp.ScopedCapture() as capture:
-          mjwarp.step(self.wp_model, self.wp_data)
+          self._stepper(self.wp_model, self.wp_data)
         self.step_graph = capture.graph
         with wp.ScopedCapture() as capture:
           mjwarp.forward(self.wp_model, self.wp_data)
@@ -215,4 +226,4 @@ class Simulation:
         if self.use_cuda_graph and self.step_graph is not None:
           wp.capture_launch(self.step_graph)
         else:
-          mjwarp.step(self.wp_model, self.wp_data)
+          self._stepper(self.wp_model, self.wp_data)

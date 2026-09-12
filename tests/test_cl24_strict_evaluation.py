@@ -1,13 +1,16 @@
 """Exercise the evaluator's real rollout loop against adversarial auto-resets."""
 
 import importlib
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
 import torch
+import pytest
 
 
-def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_path):
+@pytest.mark.parametrize('gyro_compat', [False, True])
+def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_path, gyro_compat):
   stage = Path(__file__).resolve().parents[1] / "src/mjlab/continual_distill/docs/cl_v4_rl"
   monkeypatch.syspath_prepend(str(stage))
   evaluation = importlib.import_module("evaluate_teacher")
@@ -15,6 +18,7 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
 
   class Environment:
     def __init__(self, cfg, device):
+      assert cfg.sim.free_body_implicitfast_compat is gyro_compat
       self.num_envs = 4
       self.max_episode_length = 4
       self.cfg = cfg
@@ -80,7 +84,10 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
   monkeypatch.setattr(evaluation,"OnPolicyRunner",Runner)
   checkpoint = tmp_path / "fake.pt"
   checkpoint.write_bytes(b"fake-checkpoint")
+  (tmp_path/'manifest.json').write_text(json.dumps({'task':'Mjlab-Reach-Target-Franka',
+                                                  'free_body_implicitfast_compat':gyro_compat}))
   result = evaluation.evaluate("Mjlab-Reach-Target-Franka",checkpoint,4,123)
+  assert result['free_body_implicitfast_compat'] is gyro_compat
   assert result["successes"] == 2
   assert [row["success"] for row in result["records"]] == [False,True,False,True]
   assert [row["steps"] for row in result["records"]] == [1,3,4,2]

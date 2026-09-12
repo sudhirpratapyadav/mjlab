@@ -39,6 +39,7 @@ def main():
   parser.add_argument("--resume-gripper-std", type=float, help="Explicit gripper-only exploration reset after checkpoint load")
   parser.add_argument("--resume-gripper-mean", type=float, help="Reset only the gripper output row after loading a bounded actor")
   parser.add_argument("--capture-pre-step", action="store_true", help="Save preceding physics state if the numerical guard fails")
+  parser.add_argument("--free-body-gyro", action="store_true", help="Opt in to CPU-compatible standalone free-body gyroscopic integration")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -64,6 +65,7 @@ def main():
     parser.error(f"Run directory already exists: {run}")
   cfg = TrainConfig.from_task(args.task)
   apply_recipe(cfg, args.recipe)
+  cfg.env.sim.free_body_implicitfast_compat = args.free_body_gyro
   if args.resume_gripper_mean is not None and cfg.agent.policy.class_name != "BoundedActorCritic":
     parser.error("--resume-gripper-mean requires a bounded-mean policy")
   cfg.env.scene.num_envs = args.num_envs
@@ -82,6 +84,7 @@ def main():
     if previous_cfg["policy"]["noise_std_type"] != cfg.agent.policy.noise_std_type:
       parser.error("Resume requires the same policy std parameterization; use a matching recipe")
     previous_manifest = json.loads((checkpoint.parent / "manifest.json").read_text())
+    cfg.env.sim.free_body_implicitfast_compat |= previous_manifest.get("free_body_implicitfast_compat", False)
     previous_train_cfg = TrainConfig.from_task(args.task)
     apply_recipe(previous_train_cfg, previous_manifest.get("recipe", "baseline"))
     if previous_train_cfg.agent.policy.class_name != cfg.agent.policy.class_name:
@@ -106,6 +109,7 @@ def main():
       "seed": args.seed, "num_envs": args.num_envs, "requested_updates": args.iterations,
       "interface": "franka_shared_60_v2", "gpu_uuid": visible,
       "recipe": args.recipe,
+      "free_body_implicitfast_compat": cfg.env.sim.free_body_implicitfast_compat,
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,
       "resume_checkpoint": str(checkpoint) if checkpoint else None,

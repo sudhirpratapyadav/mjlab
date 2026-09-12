@@ -28,6 +28,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
   recipe = manifest.get("recipe", "baseline")
   apply_recipe(training_cfg, recipe)
   cfg = training_cfg.env
+  cfg.sim.free_body_implicitfast_compat = manifest.get("free_body_implicitfast_compat", False)
   cfg.scene.num_envs = episodes
   cfg.seed = seed
   agent_path = checkpoint.parent / "params/agent.yaml"
@@ -157,6 +158,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
       "first_episode_only": True, "records": records,
       "protocol": "terminal_first_episode_v1", "interface": "franka_shared_60_v2",
       "recipe": recipe, "episode_length_s": cfg.episode_length_s,
+      "free_body_implicitfast_compat": cfg.sim.free_body_implicitfast_compat,
       "gravity": list(cfg.sim.mujoco.gravity),
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
