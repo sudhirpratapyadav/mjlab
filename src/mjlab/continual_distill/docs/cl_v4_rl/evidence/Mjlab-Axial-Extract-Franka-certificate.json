@@ -1,0 +1,46 @@
+{
+  "task": "Mjlab-Axial-Extract-Franka",
+  "certified_utc": "2026-09-12T17:01:22.260097+00:00",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Axial-Extract-Franka/model.pt",
+  "checkpoint_sha256": "3702cb1a590b913b0c0414d50a70a2de2c6ef0e00df52b1266c7ba5ba4e03d7c",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Axial-Extract-Franka/normalizers.pt",
+  "normalizers_sha256": "8a84d48c64a200404b943e5c313d4bef20575767a206f0a3e99f3f50ea50f65f",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 128,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-017-m200-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 128,
+    "episodes": 128,
+    "seed": 20260915,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-017-m200-confirm-20260915.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Axial-Extract-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-017-m200/success.mp4",
+      "outcome": {
+        "env_id": 1,
+        "success": true,
+        "steps": 200,
+        "return": 10.118509292602539,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 100,
+      "fps": 25,
+      "simulation_seconds": 4.0,
+      "encoded_seconds": 4.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/oiodyhcr",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Axial-Extract-Franka-teacher:v0"
+}

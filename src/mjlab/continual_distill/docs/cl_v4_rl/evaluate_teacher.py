@@ -19,7 +19,7 @@ from mjlab.scripts.train import TrainConfig
 from rl_recipes import apply_recipe
 
 
-def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: Path | None = None) -> dict:
+def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: Path | None = None, diagnostics: bool = False) -> dict:
   training_cfg = TrainConfig.from_task(task)
   manifest_path = checkpoint.parent / "manifest.json"
   manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
@@ -82,11 +82,26 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
     reasons = [None] * episodes
     termination_terms = [[] for _ in range(episodes)]
     trace = [snapshot()] if trace_dir is not None else []
-    for _ in range(env.max_episode_length + 1):
+    diagnostic_samples = []
+    for control_step in range(env.max_episode_length + 1):
       with torch.inference_mode():
         action = policy(obs)
         if not torch.isfinite(action).all():
           raise RuntimeError("Nonfinite deterministic policy action")
+        if diagnostics and control_step % 10 == 0:
+          from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped, tracking_position
+          active = ~finished
+          grip = command.robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
+          pos = tracking_position(command.object)
+          diagnostic_samples.append({
+            "control_step": control_step, "active_episodes": int(active.sum()),
+            "grasped_fraction": float(grasped(command)[active].float().mean()),
+            "aperture_mean": float(finger_aperture(command.robot)[active].mean()),
+            "gripper_object_distance_mean": float(torch.linalg.vector_norm(grip-pos,dim=-1)[active].mean()),
+            "object_height_mean": float((pos[:,2]-env.scene.env_origins[:,2])[active].mean()),
+            "gripper_action_mean": float(action[active,-1].mean()),
+            "absolute_action_max": float(action[active].abs().max()),
+          })
         obs, reward, done, _ = wrapped.step(action)
       active = ~finished
       steps[active] += 1
@@ -128,6 +143,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
       "trace_dir": str(trace_dir.resolve()) if trace_dir is not None else None,
+      "diagnostic_samples": diagnostic_samples,
     }
   finally:
     wrapped.close()
@@ -142,10 +158,11 @@ def main():
   parser.add_argument("--output", type=Path, required=True)
   parser.add_argument("--no-wandb", action="store_true")
   parser.add_argument("--trace-dir", type=Path)
+  parser.add_argument("--diagnostics", action="store_true", help="Sample first-episode grasp/contact diagnostics for object tasks")
   args = parser.parse_args()
   if args.episodes < 1 or args.output.exists():
     parser.error("Episodes must be positive and output must not already exist")
-  result = evaluate(args.task, args.checkpoint, args.episodes, args.seed, args.trace_dir)
+  result = evaluate(args.task, args.checkpoint, args.episodes, args.seed, args.trace_dir, args.diagnostics)
   args.output.parent.mkdir(parents=True, exist_ok=True)
   args.output.write_text(json.dumps(result, indent=2) + "\n")
   print(f"{result['successes']}/{result['episodes']} = {result['success_rate']:.3f}")

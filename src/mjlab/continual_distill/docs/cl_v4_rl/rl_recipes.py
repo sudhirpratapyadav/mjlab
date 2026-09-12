@@ -5,7 +5,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped,
 from mjlab.utils.lab_api.math import quat_apply
 import torch
 
-RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "cage_v1")
+RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "cage_v1", "completion_v1")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -93,6 +93,17 @@ def apply_recipe(cfg, recipe):
       reach.func = cage_approach_reward
       cfg.env.rewards["joint_vel_penalty"].weight = -0.001
       cfg.env.rewards["action_rate_l2"].weight = -0.005
+  if recipe == "completion_v1":
+    from completion_reward import completion_reward
+    if cfg.agent.experiment_name not in ("franka_stack_cube", "franka_peg_insertion", "franka_place_in_container"):
+      raise ValueError("completion_v1 is restricted to Stack/Place/Peg")
+    bounded_initialization(cfg)
+    cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], 0.5)
+    cfg.agent.policy.initial_gripper_std = 0.1
+    name = "stack" if "stack" in cfg.env.rewards else "reach_object"
+    cfg.env.rewards[name].func = completion_reward
+    cfg.env.rewards["joint_vel_penalty"].weight = -0.001
+    cfg.env.rewards["action_rate_l2"].weight = -0.005
 
 
 def bounded_initialization(cfg):

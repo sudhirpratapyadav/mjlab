@@ -85,3 +85,15 @@ Push final model1998 measured126/128 validation and125/128 confirmation; Flap mo
 Started Window/Lid/Axial/Valve on GPUs7/4/3/6. Exact source/config/step manifests are in training_wave5.json. Together with bounded Lift/Reorient/Cage on GPUs1/2/5, all seven authorized GPUs have independent training. GPU0 was rechecked at0MiB. Lever's first evaluation invocation preceded creation of model1000 and correctly stopped before rollout; retried only after the checkpoint existed, preserving both logs.
 
 Early bounded-policy diagnostics around iteration400: Lift/Reorient approach within about0.04m and action saturation falls to0.006/0.001; Cage caged fraction about0.877 but negligible transport and zero strict training at_goal yet. This is progress toward contact, not a success claim. Remaining readiness review confirms seven tasks need targeted completion/precursor/dynamic shaping.
+
+## 2026-09-12 — Remaining readiness and early mechanism candidates
+
+Previous goal turn made progress: retained ten teachers and launched seven current runs. Revalidated all seven live Slurm steps, GPU placement and GPU0 at0MiB. Window and Axial training logs reached100%; verified finite saved model300 and model200 respectively. Pausing only their own training steps1681/1685 at these retained candidates to run strict evaluation on their assigned GPUs. If either fails the rate gate, continue from its own checkpoint or record a targeted retry; no certification inferred from training logs.
+
+### Twelve certificates; completion recipe ready for PPO
+
+Window model300 and Axial model200 each passed128/128 validation and128/128 independent confirmation. Reviewed physical panel translation and plug extraction from its socket. Checkpoints/normalizers/configs/videos uploaded as certified-teacher artifacts. **12/24 certified.** Their training steps were deliberately paused after checking finite saved candidates; neither needs further training after certification.
+
+Implemented completion_v1 for Stack/Place/Peg: broad approach plus actual grasp/lift/transport, then dominant native released/supported/settled completion bonus. Peg grasp target uses the upper collider body rather than insertion tip (measured initial target height0.070m). The exact native predicate supplies the terminal bonus, including full containment or square-bore fit; no predicate/physics/interface changes. Completion actors initialize gripper mean0.5/std0.1 to permit useful closure exploration.53 CPU tests passed, including incentive comparisons and geometry invariants; three32-env ×100-step physics preflights are finite and uploaded to W&B.
+
+Added optional evaluator diagnostics sampled only from still-active first episodes. Lift V3 model900 debug seed20260913 scored0/16; all16 lasted the full horizon. No two-pad grasp occurred, despite endpoint gripper/object distance0.00670m. Mean aperture0.06665m, gripper action0.6736: it reaches the object but has not closed enough. This is direct contact evidence, not a rate claim; continue its recorded budget while checking Reorient similarly.

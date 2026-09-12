@@ -45,10 +45,15 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 | RL-002-V3 | Lift | Test bounded-mean policy and gentler exploration | lift_v2, 2,048 environments × 2,000 updates, seed20260912, GPU1 | Running | Fresh lift_v2 on GPU1; same grasp reward as previous variant, bounded mean and gentler PPO. |
 | RL-013 | Cage-Drag | Keep initial exploration valid and reward actual open-cage transport | cage_v1, 1,024 environments × 1,500 updates, seed20260912, GPU5 | Running | Fresh cage_v1 on GPU5; normalizer/mean/std/config recorded in manifest. |
 
-| RL-014 | Slide-Window | Learn the remaining slide mechanism | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU7 | Running | Finite/invariant preflight passed; fresh policy after current evaluation frees GPU7 |
+| RL-014 | Slide-Window | Learn the remaining slide mechanism | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU7 | Certified | 128/128 validation and128/128 independent confirmation; actual recorded motion reviewed; checkpoint/normalizers/video retained. |
 | RL-015 | Open-Lid | Learn lid approach and rotation | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU4 | Running | Fresh policy after Flap certification; registered gravity preserved |
 | RL-016 | Rotate-Valve | Learn large-angle valve rotation | mechanism_v1, 1,024 environments × 2,000 updates, seed20260912, GPU6 | Running | Fresh policy after Lever certification;8-second horizon and zero gravity preserved |
-| RL-017 | Axial-Extract | Learn plug approach and extraction | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU3 | Running | Fresh policy after Push evaluation; geometry/strict axial predicate unchanged |
+| RL-017 | Axial-Extract | Learn plug approach and extraction | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU3 | Certified | 128/128 validation and128/128 independent confirmation; actual recorded motion reviewed; checkpoint/normalizers/video retained. |
+
+| PREFLIGHT-COMPLETE-001 | Stack/Place/Peg | Check safe grasp geometry, release incentive and finite physics | 53 focused CPU tests;32 environments ×100 steps each;3 PPO updates | Physics passed; PPO next | 53 CPU tests passed; Stack/Place/Peg each32 environments ×100 steps finite. Peg initial grasp height0.070m (upper body). |
+| RL-018 | Stack-Cube | Learn grasp/transport/released supported completion | completion_v1,2,048 environments ×2,500 updates, seed20260912, GPU3 | Prepared | Fresh bounded policy, gripper mean0.5/std0.1; physical and PPO preflight before launch |
+| RL-019 | Place-In-Container | Learn grasp/transport/released contained completion | completion_v1,2,048 environments ×2,500 updates, seed20260912, GPU7 | Prepared | Strict completion uses native full-object containment, support contact and settling |
+| RL-020 | Peg-Insertion | Grasp upper peg body, align, seat and release | completion_v1,2,048 environments ×3,000 updates, seed20260912 | Prepared | Native upright square-bore fit and release/settling requirements remain; GPU assigned when available |
 
 ## Run record template
 
