@@ -71,3 +71,17 @@ Previous goal turn made progress: retained the fifth teacher, started the next m
 Added a process-local BoundedActorCritic with tanh Gaussian means, small output initialization around each task's configured robot pose, log std and gripper std0.03. The native normalized8D action mapping is unchanged, including all learnable gripper outputs. New recipes use LR0.0001, zero entropy coefficient and gradient norm0.5. Lift V3 retains the V2 grasp reward to isolate PPO/policy changes. Reorient V3 adds end-face alignment and actual-grasp-gated lift/upright shaping. Cage receives a valid open prior and dense approach/caged-transport shaping without changing its episode-long no-pinch rule. All benchmark invariants are preserved;48 tests passed, including optimization/checkpoint reload and bounded means under extreme observations.
 
 Physical preflight:64 environments ×200 steps for Cage, Reorient and Lift, all finite. Cage's minimum aperture stayed above the registered threshold under initial stochastic exploration. Results uploaded to W&B; evidence/bounded_preflight.json. Small guarded PPO updates precede expensive launches.
+
+### Seven certificates and bounded-policy training wave
+
+Flip model800 and Door model900 each measured128/128 validation plus128/128 independent confirmation. Reviewed initial/final physical states; switch turns from -0.785398rad to0.787500rad, and the door visibly opens to its target. Uploaded retained teacher artifacts and stopped only own training steps1655/1656. **7/24 certified.**
+
+Bounded-policy guarded PPO and strict reload succeeded (0/16 from only3 updates is plumbing, not teacher performance). Launched fresh Cage onGPU5, Reorient V3 onGPU2 and Lift V3 onGPU1. Exact manifests are in training_wave4.json. Lift V2 final strict result was0/128 and remains rejected. Push continuation finished with model1998; its strict gate runs onGPU3. Flap model900 strict gate runs onGPU7. Prepared Window/Lid/Valve/Axial budgets before launch; Edge/Pivot/Stack/Place/Peg/Strike/Throw still require task-specific readiness.
+
+### Ten certificates; all seven allowed GPUs active
+
+Push final model1998 measured126/128 validation and125/128 confirmation; Flap model900 and Lever model1000 each measured128/128 twice. Reviewed actual success and failure states and retained all three artifacts. Push's endpoint is still moving, which is allowed by its unchanged position-only predicate; the highest-return failure ends0.023802m away, correctly outside the0.02m threshold. **10/24 certified.** Stopped only own Flap step1659 and Lever step1662 after artifacts were retained.
+
+Started Window/Lid/Axial/Valve on GPUs7/4/3/6. Exact source/config/step manifests are in training_wave5.json. Together with bounded Lift/Reorient/Cage on GPUs1/2/5, all seven authorized GPUs have independent training. GPU0 was rechecked at0MiB. Lever's first evaluation invocation preceded creation of model1000 and correctly stopped before rollout; retried only after the checkpoint existed, preserving both logs.
+
+Early bounded-policy diagnostics around iteration400: Lift/Reorient approach within about0.04m and action saturation falls to0.006/0.001; Cage caged fraction about0.877 but negligible transport and zero strict training at_goal yet. This is progress toward contact, not a success claim. Remaining readiness review confirms seven tasks need targeted completion/precursor/dynamic shaping.

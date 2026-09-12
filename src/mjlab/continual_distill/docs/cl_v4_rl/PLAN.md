@@ -1,53 +1,37 @@
-# Plan — one RL teacher per task
+# Plan — certify all24 independent RL teachers
 
-## P0: establish a reproducible baseline
+## Current state
 
-Completed: active 24-task list, 60D/8D contract verification, effective config/source-hash inventory, GPU/allocation check and a two-update PPO/checkpoint smoke.
+Ten teachers are certified; seven are training with pre-recorded budgets on GPUs1–7. Seven tasks still need first-pilot readiness. See STATUS.md and EXPERIMENTS.md for the authoritative per-task state. GPU0 must remain unused. The full24-task target is unchanged.
 
-Before a full pilot:
-- Implement or validate the RL checkpoint evaluator with deterministic actions and first-episode accounting. Exercise terminal success, timeout, auto-reset, subset resets and failed episodes; retain raw per-episode outcomes.
-- Archive the effective config, current code/patch/assets, seed and GPU UUID. Current worktree is dirty; HEAD alone is not a reproducibility record.
-- Select current physics as an explicit baseline or deliberately correct the eight zero-gravity presets and revalidate. Do not silently mix metrics from different physics.
-- Keep the approved 60D observations and identical 8D actions. Missing dynamic/history information is a documented limitation, not authorization to restore 143D.
+## Fixed evaluation and retention gate
 
-## P1: Reach and Lift pilots
+Use deterministic means under the approved60D observations and normalized8D absolute joint actions. Preserve registered geometry, initialization, physics, horizon and success predicates. Evaluate only each environment's first uninterrupted episode and capture its actual terminal predicate before automatic reset. Validation seed20260914 selects a checkpoint; independent confirmation seed20260915 is used only after validation passes. Both128-episode batches must exceed90% (at least116 successes each). Inspect success and highest-return failure videos, then retain the checkpoint, optimizer, normalizers, effective configs, provenance and results in W&B. Training success logs are not certification.
 
-Use one GPU per task and start with 1,024 environments, 500 PPO iterations and one fixed training seed. These are proposed pilot budgets, not launched jobs or a claim that they are sufficient. Default scene count is one, so always override it. Check GPU memory, control/observation finiteness, terminal reasons, action saturation, reward terms, gradient/loss behavior and actual success curves before increasing the budget or environment count. Scale to 2,048/4,096 environments only after measurement supports it.
+The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both batches conditionally and renders validation states; certification still requires an actual visual review. If only confirmation has failures, obtain a recorded failure clip before certification rather than silently omitting it.
 
-Run Reach first through the complete launcher/config-saving/checkpoint/evaluation path, then Lift. Train fresh networks under the normalized action contract. Do not infer RL success from classical-teacher rates.
+## Active training and next evaluations
 
-## P2: repair task-specific learning obstacles
+- GPU1: fresh bounded-policy Lift V3,2,048 environments ×2,000 updates.
+- GPU2: fresh bounded-policy Reorient V3,2,048 ×2,000, end-face/grasp/lift/orientation reward.
+- GPU3: Axial-Extract mechanism pilot,1,024 ×1,500.
+- GPU4: Open-Lid mechanism pilot,1,024 ×1,500.
+- GPU5: Cage-Drag first pilot,1,024 ×1,500, open-gripper initialization and caged-transport reward.
+- GPU6: Rotate-Valve mechanism pilot,1,024 ×2,000.
+- GPU7: Slide-Window mechanism pilot,1,024 ×1,500.
 
-- Ten articulation tasks: replace or calibrate the saturated approach signal. At audited reset distances 0.689–0.939 m, `1-tanh(30*d^4)` was effectively zero. Preserve the actual joint-space goal objective. Review constant non-collision bonuses and Door's zero regularizers.
-- Cage: retain the common action mapping. With finger target `.02 + .02*a`, preserving the approximately .06949 m aperture requires `a > .737` once tracking settles. A centered initial Gaussian tends to violate the irreversible no-pinch rule. Test an open-gripper initialization/prior or a documented training curriculum, without adding task-specific observation channels or secretly changing action semantics.
-- Stack/Place/Peg: final rewards must incentivize release and settled support/containment/seating. Peg's inserted goal reference is corrected, but its approach reward targets the bottom tip instead of a safe grasp point.
-- Edge/Pivot: provide useful shaping for the precursor contact sequence; inspect physical progress rather than only reward totals.
-- Throw/Strike: tune velocity penalties and sequence shaping against the required fast motion. Evaluate compact-state limitations empirically.
-- Reorient/Topple: verify approach signal and settled completion incentive.
+Inspect meaningful learning progress and numerical diagnostics; evaluate saved candidates when evidence warrants it. Check actual checkpoints and process state before invoking evaluation or reusing a GPU. Stop only this experiment's exact Slurm step after checkpoint retention, or when diagnosing a verified failure. Never cancel holder20277 or another person's jobs.
 
-Record each reward/config experiment before running it. Preserve strict success criteria; improved shaped return alone is not improvement. Current recipe changes are recorded in rl_recipes.py and EXPERIMENTS.md; registered physics and success predicates are frozen.
+## Remaining readiness work
 
-## P3: train and certify all 24
+- Stack/Place/Peg: existing dense goal return does not sufficiently favor release and settled support/containment/seating. Add a grasp/transport stage and native-completion incentive. Peg's approach must target a safe upper grasp point rather than its bottom insertion tip. Preserve the full square-bore fit and uprightness checks.
+- Edge/Pivot: provide useful shaping for edge exposure or actual wall-assisted pivot, followed by grasp/lift. Pivot's required contact/tilt history remains part of the true success rule.
+- Strike/Throw: tune velocity penalties for intentional fast motion and reward strike or launch/release progress, with final native success unchanged. Test compact-state limitations; do not add hidden observations or restore143D.
 
-Run at most one initial large job per authorized GPU1–7; GPU0 remains unused, leaving memory headroom until throughput is measured. Maintain one independent policy per task; train additional seeds or targeted variants only as needed. Promote checkpoints using validation seeds, then confirm the retained teacher on fresh episodes per GOAL.md. Threshold: strictly >90% on each task, not a suite average. Archive one retained checkpoint/normalizer per task plus its verification and videos.
+Record each new recipe and budget before launch. Check recipe invariants and short finite-state rollouts, then real PPO/checkpoint reload where architecture changes. All policy outputs remain eight learnable normalized action dimensions; Cage initialization is a prior, not a gripper action mask.
 
-## Launch template (not yet a completed full pilot)
+## Environment and launch
 
-From the repository root, after readiness items for the chosen task are addressed:
+Work only in /ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex, branch exp/rl-teachers-24-codex, based on4149157. Reuse the shared interpreter without reinstalling packages. Inside every Slurm step explicitly cd to this worktree, export PYTHONPATH="$PWD/src", export the assigned GPU UUID from allocation.py, and set OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 FORCE_CPU=0. Invoke /ihub/homedirs/svs_ald/sudhir/mjlab/.venv/bin/python. Verify imports resolve into this worktree.
 
-```bash
-srun --jobid=20277 --overlap -n1 --cpus-per-task=8 bash -c '
-  export FORCE_CPU=0
-  export CUDA_VISIBLE_DEVICES=GPU-23a5dcb4-5248-01aa-94a3-d0f998660161
-  export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
-  taskset -c 2,130 .venv/bin/python src/mjlab/continual_distill/docs/cl_v4_rl/train_teacher.py     --task Mjlab-Reach-Target-Franka --run-id RL-001-reach-s20260912     --num-envs 1024 --iterations 500 --seed 20260912
-'
-```
-
-The launcher defaults to the verified experiment-scoped online W&B project, rejects non-active tasks and existing run directories, and preserves an already bound GPU. Its dry-run has been checked. No generic GPU selector is invoked because that selector rejects UUID strings. Recheck actual GPU process placement with nvidia-smi after launch. Never cancel the shared holder or another person's jobs.
-
-## Continuation checkpoint — 2026-09-12
-
-P0 evaluator edge cases, recipe interface invariants, numerical preflight and guarded PPO update tests are complete (44 focused tests). Drag, Button, Drawer, Reach and Topple are certified with W&B artifacts. P2 recipes are active in six runs listed in evidence/training_wave2.json. Evaluate Button/Drawer on GPU6, retain a checkpoint only after both independent batches and video review, then reuse freed training GPUs for further prepared tasks. Continue Lift/Reorient variants and Drag/Push budgets with diagnostics. Cage and completion/dynamic task readiness remains outstanding.
-
-Latest checkpoint: five certified teachers; training_wave3.json lists active mechanism pilots and Push continuation. Diagnose Reorient's fully saturated mean policy before a fresh variant; do not hide its failure by changing action mapping. Lift remains under evaluation. Cage, staged completion and dynamic manipulation remain outstanding.
+The stage launcher uses the verified experiment-scoped W&B entity/project. Never print credentials or call global wandb login. Holder20277 expires2026-09-28T08:58:54 scheduler time; recheck holder, GPU process placement and disk before long runs. Runs are local to this worktree; committed JSON evidence and W&B artifacts carry reviewable results.

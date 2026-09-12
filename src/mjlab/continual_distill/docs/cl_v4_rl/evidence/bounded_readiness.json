@@ -1,0 +1,35 @@
+{
+  "physical_preflight": "evidence/bounded_preflight.json",
+  "ppo_updates": 3,
+  "ppo_diagnostics": [
+    {
+      "iteration": 0,
+      "Diagnostics/std_min": 0.03003712370991707,
+      "Diagnostics/std_max": 0.1001591756939888,
+      "Diagnostics/mean_abs_max": 0.9901773929595947,
+      "Diagnostics/action_saturation": 0.0458984375,
+      "Diagnostics/peak_gpu_memory_mib": 29.98486328125
+    },
+    {
+      "iteration": 1,
+      "Diagnostics/std_min": 0.030048755928874016,
+      "Diagnostics/std_max": 0.10017168521881104,
+      "Diagnostics/mean_abs_max": 0.9902869462966919,
+      "Diagnostics/action_saturation": 0.045654296875,
+      "Diagnostics/peak_gpu_memory_mib": 29.99755859375
+    },
+    {
+      "iteration": 2,
+      "Diagnostics/std_min": 0.0300404392182827,
+      "Diagnostics/std_max": 0.10018236935138702,
+      "Diagnostics/mean_abs_max": 0.9904042482376099,
+      "Diagnostics/action_saturation": 0.047526041666666664,
+      "Diagnostics/peak_gpu_memory_mib": 30.00244140625
+    }
+  ],
+  "checkpoint_reload": "evidence/bounded_ppo_reload.json",
+  "reload_successes": 0,
+  "reload_episodes": 16,
+  "note": "0/16 from three PPO updates is expected plumbing evidence, not a trained-teacher result.",
+  "tests_passed": 48
+}

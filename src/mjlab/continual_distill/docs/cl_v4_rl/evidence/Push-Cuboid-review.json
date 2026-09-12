@@ -1,0 +1,14 @@
+{
+  "task": "Mjlab-Push-Cuboid-Franka",
+  "checkpoint_sha256": "822d91fa233ff7e523f147ce62abc13b7127fa63b40d62f411b15cdd55e61dc6",
+  "verdict": "pass",
+  "reviewer": "Codex",
+  "reviewed_frames": [
+    "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-003-R3-m1998/success-0000.png",
+    "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-003-R3-m1998/success-0074.png",
+    "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-003-R3-m1998/failure-0074.png"
+  ],
+  "success_observation": "The robot physically slides the box into its target. The successful endpoint is0.005025m from the target. The box is still moving; the unchanged native predicate is position within0.02m and does not impose settling.",
+  "highest_return_failure": "The highest-return failure ends0.023802m from the target, outside the unchanged0.02m threshold despite visual overlap. This is correctly rejected.",
+  "interface": "franka_shared_60_v2"
+}

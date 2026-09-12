@@ -33,7 +33,7 @@ Worktree: `/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex`, branch `ex
 
 W&B is now verified under entity **`sudhirpratapyadav-indian-institute-of-technology-jodhpur`**, project **`mjlab-cl24-rl-teachers-20260912`**. The shorter profile name is not the team's entity namespace. `wandb_config.py` scopes credential/configuration to this experiment process. The private credential lives outside the repository at `~/.config/mjlab-cl24/wandb_api_key`. Never print it or call global `wandb login`. `evidence/wandb_destination.json` records a successful remote write/read and unchanged shared settings. Training was paused until this check passed; that W&B blocker is now resolved. Original pilot imports are recorded in `evidence/wandb_pilot_imports.json`.
 
-Follow `~/use_instructions/README.md`. Existing holder **20277**, name **hold_dgx_amit**, node **dgx1**. Assigned indices **1, 2, 3 only**; do not use other GPUs merely because they appear idle. Never cancel another user's holder or processes. Recheck actual process placement before each launch.
+Follow `~/use_instructions/README.md`. Existing holder **20277**, name **hold_dgx_amit**, node **dgx1**. Historical initial assignment was indices1–3; the current user authorization is indices1–7. Never cancel another user's holder or processes. Recheck actual process placement before each launch.
 
 At 2026-09-12 14:30 UTC, all eight A100-SXM4-80GB GPUs showed 0 MiB use and no compute processes. The holder had only its batch step. Slurm reports expiration **2026-09-28T08:58:54** (scheduler time). The filesystem had about **1.6 TB free, 95% used**; plan checkpoint/video retention.
 
@@ -42,12 +42,14 @@ Assigned UUIDs:
 - GPU2: `GPU-23a5dcb4-5248-01aa-94a3-d0f998660161`
 - GPU3: `GPU-fd08a1c1-caff-efc7-e4e6-e1117772f9fc`
 
-Export the UUID **inside** the Slurm step; set `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1`. The generic `launch_training` GPU selector parses visible devices as integers and fails on UUIDs (`evidence/launcher_probe.json`). The stage-local `train_teacher.py` bypasses GPU reselection and calls `run_train` directly on the already pinned `cuda:0`. Its dry-run validates config/selection only; a full pilot is still needed to verify its end-to-end run/config-saving path.
+Export the UUID **inside** the Slurm step; set `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1`. The generic `launch_training` GPU selector parses visible devices as integers and fails on UUIDs (`evidence/launcher_probe.json`). The stage-local `train_teacher.py` bypasses GPU reselection and calls `run_train` directly on the already pinned `cuda:0`. Its full training/checkpoint/config-saving path has been exercised by the retained teachers.
 
 Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO smoke uses local TensorBoard logging, avoiding an external logging dependency. Stage-local runs default to online W&B in the verified project.
 
 ## Current outcome and next action
 
-**5/24 certified: Reach, Topple, Button, Drawer and Drag.** The certificate JSONs and scoreboard in evidence contain counts, retained checkpoint/normalizer paths and W&B URLs. Push V2 achieved111/128 and is training further. Fresh Flip/Door/Flap/Lever teachers are running (training_wave3.json). Lift V2 continues; Reorient V2 finished with zero training success and full action saturation, so strict evaluation and physical diagnosis precede another variant. All24 remain in scope.
+**10/24 certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap and Lever. Inspect evidence/*-certificate.json for authoritative retained checkpoints, counts and W&B URLs. Push's latest policy achieved126/128 +125/128; the native position-only predicate allows moving endpoints, explicitly recorded in its review.
 
-Registered physics, strict predicates and approved60D/8D interface remain frozen. The eight remaining mechanisms passed numerical and invariant preflight. Next: finish the current strict evaluation, diagnose Lift/Reorient grasp and saturation failures, prepare Cage initialization and completion/dynamic-task rewards, evaluate current mechanisms and retain each only after both held-out batches and video review. A later Drag simulator failure is separately retained; its earlier finite checkpoint passed both strict batches and review.
+Seven active teachers use GPUs1–7 respectively: Lift V3, Reorient V3, Axial, Lid, Cage, Valve and Window. Manifests are in training_wave4/5.json. No GPU0 use. Lift/Reorient bounded policies now approach within about4cm with low action saturation; Cage initially reaches valid caging in most training environments. These are learning diagnostics, not certified success. Let the recorded budgets run while preparing the remaining tasks.
+
+Still requiring first-pilot readiness: Edge, Pivot, Stack, Place, Peg, Strike and Throw. Preserve actual release/support/settling and task-history predicates; improve only training reward/PPO unless a new benchmark is deliberately authorized. Full24-task goal is active. Physics, success and60D/8D interface remain fixed, with Tool-Pull deferred. Update records and W&B after each measured result.

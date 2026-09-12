@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-09-12T16:30:53.716666+00:00",
-  "certified_count": 5,
+  "updated_utc": "2026-09-12T16:54:07.735841+00:00",
+  "certified_count": 10,
   "active_tasks": 24,
   "interface": "franka_shared_60_v2",
   "criterion": "Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review",
@@ -14,7 +14,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "latest_training_run": "RL-017-axial-mechanism"
     },
     {
       "task": "Mjlab-Cage-Drag-Franka",
@@ -25,7 +25,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "latest_training_run": "RL-013-cage-bounded"
     },
     {
       "task": "Mjlab-Drag-Pull-Franka",
@@ -51,13 +51,13 @@
     },
     {
       "task": "Mjlab-Flip-Switch-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": null,
+      "certified": true,
+      "validation_successes": 128,
+      "validation_episodes": 128,
+      "confirmation_successes": 128,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/wkxzjnio",
+      "best_measured_validation_rate": 1.0,
       "latest_training_run": "RL-009-flip-mechanism"
     },
     {
@@ -69,17 +69,17 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-002-V2-lift-grasp"
+      "latest_training_run": "RL-002-V3-lift-bounded"
     },
     {
       "task": "Mjlab-Open-Door-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": null,
+      "certified": true,
+      "validation_successes": 128,
+      "validation_episodes": 128,
+      "confirmation_successes": 128,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/62gbghsn",
+      "best_measured_validation_rate": 1.0,
       "latest_training_run": "RL-010-door-mechanism"
     },
     {
@@ -102,7 +102,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "latest_training_run": "RL-015-lid-mechanism"
     },
     {
       "task": "Mjlab-Peg-Insertion-Franka",
@@ -150,24 +150,24 @@
     },
     {
       "task": "Mjlab-Push-Cuboid-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": 0.8671875,
+      "certified": true,
+      "validation_successes": 126,
+      "validation_episodes": 128,
+      "confirmation_successes": 125,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/c8lxgl0s",
+      "best_measured_validation_rate": 0.984375,
       "latest_training_run": "RL-003-R3-push-extend"
     },
     {
       "task": "Mjlab-Push-Flap-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": null,
+      "certified": true,
+      "validation_successes": 128,
+      "validation_episodes": 128,
+      "confirmation_successes": 128,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/d2w7ioh9",
+      "best_measured_validation_rate": 1.0,
       "latest_training_run": "RL-011-flap-mechanism"
     },
     {
@@ -190,7 +190,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-005-V2-reorient-grasp"
+      "latest_training_run": "RL-005-V3-reorient-bounded"
     },
     {
       "task": "Mjlab-Rotate-Valve-Franka",
@@ -201,7 +201,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "latest_training_run": "RL-016-valve-mechanism"
     },
     {
       "task": "Mjlab-Slide-Window-Franka",
@@ -212,7 +212,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "latest_training_run": "RL-014-window-mechanism"
     },
     {
       "task": "Mjlab-Stack-Cube-Franka",
@@ -260,14 +260,14 @@
     },
     {
       "task": "Mjlab-Turn-Lever-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": null,
-      "latest_training_run": null
+      "certified": true,
+      "validation_successes": 128,
+      "validation_episodes": 128,
+      "confirmation_successes": 128,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/8036vom0",
+      "best_measured_validation_rate": 1.0,
+      "latest_training_run": "RL-012-lever-mechanism"
     }
   ]
 }
