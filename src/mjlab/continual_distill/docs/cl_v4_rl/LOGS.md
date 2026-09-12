@@ -319,3 +319,7 @@ CageR8 launched from original11096 after evaluator exit, same2048×2000/cage_v4 
 Wave20 public refresh verified: newest homepage card opens /v4-rl/,24/24 actual video playback,14/10 filters, search and mobile layout pass. All50 public files match local SHA256 over verified TLS. Concise current-teacher summaries include Cage97/128 and Place96/128; full goal remains14/24.
 
 Wave20 scoreboard yx39wuwn finished and synced14/24. Remote W&B API verified150 experiment-record files including wave20 inventory, actual video reviews and public verification. Website request completed; all24-teacher goal remains active. Next: diagnose captured Place6329/lane995 failure before restart, quantify Edge final failure and Strike calibration, and evaluate current Pivot/Throw/Lift/Peg/Cage runs at their limits. Disk1.6TB free, GPU0 unused, holder expiry unchanged.
+
+### Wave21
+
+Revalidated five full PPO processes onGPU1/2/4/6/7 andGPU0 at0MiB; holder expiry unchanged. Place6329/lane995 reproduction fails at first substep; cold-cache diagnostic passes all4. Added process-local full-Hessian replay ablation to isolate installed incremental Newton optimization without changing shared dependencies. Strike conservative LR refinement preregistered after launch/endpoint audit.

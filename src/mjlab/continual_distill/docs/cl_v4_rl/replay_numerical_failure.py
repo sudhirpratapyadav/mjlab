@@ -26,9 +26,13 @@ def main():
   parser.add_argument('--lane', type=int, required=True)
   parser.add_argument('--all-lanes', action='store_true')
   parser.add_argument('--zero-warmstart', action='store_true', help='Diagnostic ablation only; no training configuration changes')
+  parser.add_argument('--full-hessian', action='store_true', help='Process-local diagnostic: rebuild the Newton Hessian instead of incremental updates')
   args = parser.parse_args()
   if args.output.exists():
     parser.error('Output already exists')
+  if args.full_hessian:
+    from mujoco_warp._src import solver
+    solver._use_incremental = lambda model: False
   saved = torch.load(args.failure, map_location='cpu', weights_only=False)
   previous = saved['previous_state']
   manifest = json.loads((args.failure.parent/'manifest.json').read_text())
@@ -84,6 +88,7 @@ def main():
     report = {'task':manifest['task'],'failure':str(args.failure.resolve()),
               'failure_sha256':hashlib.sha256(args.failure.read_bytes()).hexdigest(),
               'source_lane':args.lane,'num_envs':env.num_envs,'zero_warmstart_ablation':args.zero_warmstart,
+              'full_hessian_ablation':args.full_hessian,
               'physics_changed':False,'initial_state_restored':list(previous),
               'free_body_implicitfast_compat':cfg.env.sim.free_body_implicitfast_compat,
               'limitations':'Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.',

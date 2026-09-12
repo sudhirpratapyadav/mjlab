@@ -300,3 +300,9 @@ Wave20 final checks: Peg width preflight17npttwg passed; R5 exact step1898 stopp
 ### Cage R8 bounded continuation
 
 CageR7 improved37→97/128 with unchanged cage_v4 and2048 environments. Preregister RL-013-R8-cage-refine: originalR7/model11096, same reward/backend/Adam/normalizers and batch,2000 additional updates onGPU7 after evaluator exit. Strict evaluation at budget; no changes to native gate or60D/8D. This extends a stable improving PPO lineage, not a new recipe.
+
+### Wave21 — Place solver diagnosis and Strike refinement
+
+Previous wave made progress: Cage97/128 and Place96/128, actual-video reviews, Peg/Cage launches, refreshed public gallery and150 W&B records. PlaceR6 failure after6329/lane995 is reproduced on the first substep with2048 worlds; cold warmstart is finite for all4 substeps, maximum CPU/GPU qpos difference0.000492. State history shows an ongoing episode, not a reset. Test the installed incremental Newton Hessian optimization against full Hessian rebuilding with the same saved warmstart; diagnostic only, no shared environment modification.
+
+StrikeR2/model4998 acquired97 substantial launches but only20 native passes;85 undershoots exceed8cm. Preregister a conservative PPO refinement: keep strike_v2 reward,2048 worlds, inherited arm/gripper/Adam moments/normalizers/backend; override Adam LR to5e-5 (from1e-4). First PREFLIGHT-STRIKE-REFINE-032,64×3 from original4998, require finite checkpoint and recorded effective LR; then RL-023-R3-strike-refine,2000 additional updates from original4998 onGPU3. Strict evaluation at budget. No direct policy actions or demonstration targets.
