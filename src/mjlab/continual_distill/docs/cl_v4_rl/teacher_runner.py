@@ -134,6 +134,9 @@ class TeacherRunner(OnPolicyRunner):
           with torch.no_grad():
             contact = grasped(command)
             enclosure = between_fingers(command)
+            linear_speed = torch.linalg.vector_norm(command.object.data.root_link_lin_vel_w,dim=-1)
+            angular_speed = torch.linalg.vector_norm(command.object.data.root_link_ang_vel_w,dim=-1)
+            quiet = (linear_speed<.10)&(angular_speed<.5)
             metrics.update({
               "Diagnostics/two_pad_contact_fraction":float(contact.float().mean()),
               "Diagnostics/robot_object_contact_fraction":float(touching(command,command.robot,command.object).float().mean()),
@@ -142,6 +145,10 @@ class TeacherRunner(OnPolicyRunner):
               "Diagnostics/opposed_grasp_fraction":float(opposed_grasp(command).float().mean()),
               "Diagnostics/aperture_mean":float(finger_aperture(command.robot).mean()),
               "Diagnostics/object_height_mean":float((tracking_position(command.object)[:,2]-env.scene.env_origins[:,2]).mean()),
+              "Diagnostics/object_linear_speed_mean":float(linear_speed.mean()),
+              "Diagnostics/object_angular_speed_mean":float(angular_speed.mean()),
+              "Diagnostics/settled_at_lift_limits_fraction":float(quiet.float().mean()),
+              "Diagnostics/grasped_and_settled_at_lift_limits_fraction":float((contact&quiet).float().mean()),
             })
       self._saturation.clear()
       for name,value in metrics.items():
