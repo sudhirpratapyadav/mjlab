@@ -37,20 +37,10 @@ def get_board_spec() -> mujoco.MjSpec:
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
-    """Create the orange mocap goal marker (visual only, no collision)."""
-    spec = mujoco.MjSpec()
-    mocap_goal = spec.worldbody.add_body(name="mocap_goal")
-    mocap_goal.mocap = True
-    mocap_goal.pos = [0, 0, 0]
-    mocap_goal.add_geom(
-        name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_BOX,
-        size=[0.06, 0.1094, 0.01],  # 219 x 120 x 20 mm chopping board
-        rgba=[1, 0.5, 0, 1],
-        contype=0,
-        conaffinity=0,
-    )
-    return spec
+    """Translucent replica of the manipulated part at its target pose."""
+    from mjlab.asset_zoo.objects.goal import make_goal_spec
+
+    return make_goal_spec(get_board_spec())
 
 
 ##

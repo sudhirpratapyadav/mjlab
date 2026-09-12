@@ -251,7 +251,7 @@ def make_turn_lever_env_cfg() -> ManagerBasedRlEnvCfg:
   rewards = {
     # Phase 1: Reach object
     "reach_object": RewardTermCfg(
-      func=manipulation_mdp.staged_manipulation_reward,
+      func=manipulation_mdp.articulation_task_reward,
       weight=1.0,
       params={
         "command_name": "turn_lever",
@@ -263,7 +263,7 @@ def make_turn_lever_env_cfg() -> ManagerBasedRlEnvCfg:
     ),
     # Phase 2: Move object to goal
     "move_object_to_goal": RewardTermCfg(
-      func=manipulation_mdp.object_at_goal_reward,
+      func=manipulation_mdp.articulation_task_reward,
       weight=1.0,
       params={
         "command_name": "turn_lever",

@@ -1,0 +1,117 @@
+{
+ "task": "Mjlab-Open-Lid-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "lid": {
+    "n": 1000,
+    "x": [
+     0.3100109100341797,
+     0.37154388427734375
+    ],
+    "y": [
+     -0.10206151008605957,
+     0.09970474243164062
+    ],
+    "z": [
+     0.1494947075843811,
+     0.1794387251138687
+    ],
+    "radial": [
+     0.31115788221359253,
+     0.38064059615135193
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "lid": 0.0
+  },
+  "goal": {
+   "term": "open_lid",
+   "radial": [
+    0.4107453525066376,
+    0.47517722845077515
+   ],
+   "z": [
+    0.2700406610965729,
+    0.2999846637248993
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "target_value": -1.308997,
+   "success_threshold": 0.2
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "lid": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/lid/xmls/lid.xml",
+   "mass_kg": 3.0679551999999997,
+   "ngeom_collision": 8,
+   "nmesh": 4,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "lid_hinge",
+     "type": "hinge",
+     "range": [
+      -1.308997,
+      0.0
+     ],
+     "damping": 0.05,
+     "frictionloss": 0.0,
+     "armature": 0.0,
+     "target_value": -1.3089970350265503
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.001387475711238353,
+    "gravity": [
+     0.0,
+     0.0,
+     -9.81
+    ],
+    "joint_drift_gravity_on": 0.001387475711238353,
+    "pass": true
+   },
+   "step_time_us": 3.5676807165145874,
+   "step_time_baseline_us": 2.2933892905712128,
+   "step_time_ratio": 1.5556367735658119,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

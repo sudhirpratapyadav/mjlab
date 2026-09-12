@@ -11,9 +11,21 @@ from mjlab.managers.command_manager import CommandTerm
 from mjlab.managers.manager_term_config import CommandTermCfg
 from mjlab.managers.scene_entity_config import SceneEntityCfg
 from mjlab.utils.lab_api.math import (
+  quat_apply,
   quat_from_euler_xyz,
-  random_orientation,
+  quat_mul,
   sample_uniform,
+  yaw_quat,
+)
+
+from .task_geometry import (
+  between_fingers,
+  grasped,
+  object_corners,
+  released,
+  resting_site_height,
+  settled,
+  touching,
 )
 
 if TYPE_CHECKING:
@@ -56,6 +68,8 @@ class LiftingCommand(CommandTerm):
     object_height = object_pos_w[:, 2]
     goal_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
     at_goal = (goal_error < self.cfg.success_threshold).float()
+    if self.cfg.require_grasp:
+      at_goal *= (grasped(self) & settled(self.object, linear=.10, angular=.5)).float()
 
     # Latch episode_success to 1 once goal is reached
     self.episode_success = torch.maximum(self.episode_success, at_goal)
@@ -77,8 +91,7 @@ class LiftingCommand(CommandTerm):
     self.metrics["cube_height"] = object_height
 
   def compute_success(self) -> torch.Tensor:
-    goal_error = self.metrics["goal_error"]
-    return goal_error < self.cfg.success_threshold
+    return self.metrics["at_goal"] > .5
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
@@ -123,27 +136,25 @@ class LiftingCommand(CommandTerm):
       self.object.write_root_link_pose_to_sim(pose, env_ids=env_ids)
       self.object.write_root_link_velocity_to_sim(velocity, env_ids=env_ids)
 
-      # Sample goal orientation independently (yaw only, keep upright).
-      goal_yaw = sample_uniform(r.yaw[0], r.yaw[1], (n,), device=self.device)
-      target_quats = quat_from_euler_xyz(
-        torch.zeros(n, device=self.device),  # roll
-        torch.zeros(n, device=self.device),  # pitch
-        goal_yaw,
-      )
+      # Position-only task: do not invent an independently sampled yaw goal.
+      target_quats = quat
     else:
       # Default to identity quaternion if object pose not randomized
       target_quats = torch.zeros(n, 4, device=self.device)
       target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity)
 
     # Update mocap_goal visualization (for goal_orientation_diff observation)
-    # Goal has independently sampled orientation
+    # Orientation is unconstrained and follows the object.
     mocap_pos = self.target_pos[env_ids].clone()
 
     mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
     self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(torch.cat(
+        [self.target_pos, self.object.data.root_link_quat_w], dim=-1
+      ))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     # Visualize targets for all environments
@@ -163,6 +174,7 @@ class LiftingCommandCfg(CommandTermCfg):
   robot_asset_cfg: SceneEntityCfg = field(default_factory=lambda: SceneEntityCfg("robot", site_names=()))
   class_type: type[CommandTerm] = LiftingCommand
   success_threshold: float = 0.05
+  require_grasp: bool = False
   difficulty: Literal["fixed", "dynamic"] = "fixed"
 
   @dataclass
@@ -300,49 +312,8 @@ class OpenDoorCommand(CommandTerm):
     self.door.write_joint_position_to_sim(joint_pos, env_ids=env_ids)
     self.door.write_joint_velocity_to_sim(joint_vel, env_ids=env_ids)
 
-    # Get base_site position (positioned at handle location when joint=0)
-    # This reflects base randomization but not joint position
-    base_site_idx = self.door.site_names.index("base_site")
-    base_site_pos = self.door.data.site_pos_w[env_ids, base_site_idx]
-
-    # Calculate target: base_site is at handle's closed position.
-    # door.xml (CL-V2): the hinge is on the leaf's y=0 edge and the handle sits at
-    # (-0.04, 0.25, 0) in door_base frame, so the hinge relative to base_site is
-    # [0.04, -0.25, 0]. (cl25's 1.2m slab hinged at y=-0.30 gave 0.55 here; the real
-    # 300mm cabinet door has a 0.25m lever arm — see the door XML header.)
-    handle_to_hinge_dist = 0.25  # y distance from handle to hinge
-
-    for i, env_id in enumerate(env_ids):
-      # Hinge position = base_site + offset to hinge
-      hinge_pos = base_site_pos[i] + torch.tensor([0.04, -handle_to_hinge_dist, 0.0], device=self.device)
-
-      # Calculate target handle position by rotating around hinge
-      angle = self.target_angle[env_id]
-      cos_a = torch.cos(angle)
-      sin_a = torch.sin(angle)
-
-      # Vector from hinge to handle at target angle (rotating around Z axis)
-      # Initial vector is [-0.04, 0.25, 0.0] (handle relative to hinge when closed)
-      rotated_x = -0.04 * cos_a - handle_to_hinge_dist * sin_a
-      rotated_y = -0.04 * sin_a + handle_to_hinge_dist * cos_a
-
-      self.target_pos[env_id] = hinge_pos + torch.tensor(
-        [rotated_x, rotated_y, 0.0], device=self.device
-      )
-
-    if self.mocap_goal is not None:
-      target_quats = torch.zeros(n, 4, device=self.device)
-      for i, env_id in enumerate(env_ids):
-        angle = self.target_angle[env_id]
-        half_angle = angle / 2.0
-        target_quats[i] = torch.tensor(
-          [torch.cos(half_angle), 0.0, 0.0, torch.sin(half_angle)],
-          device=self.device
-        )
-      mocap_pos = self.target_pos[env_ids].clone()
-      mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
-
+    _write_joint_goal(self, self.door, "door_hinge",
+                      self.target_angle[env_ids], env_ids)
 
   def _update_command(self) -> None:
     pass
@@ -481,29 +452,8 @@ class OpenDrawerCommand(CommandTerm):
     self.drawer.write_joint_position_to_sim(joint_pos, env_ids=env_ids)
     self.drawer.write_joint_velocity_to_sim(joint_vel, env_ids=env_ids)
 
-    # Get base_site position (positioned at handle location when joint=0)
-    # This reflects base randomization but not joint position
-    base_site_idx = self.drawer.site_names.index("base_site")
-    base_site_pos = self.drawer.data.site_pos_w[env_ids, base_site_idx]
-
-    # Calculate target: base_site is at handle's closed position
-    # Target is at open position (joint = target_distance along X)
-    for i, env_id in enumerate(env_ids):
-      distance = self.target_distance[env_id]
-      # Target = base_site + slide distance along X
-      self.target_pos[env_id] = base_site_pos[i] + torch.tensor(
-        [distance, 0.0, 0.0], device=self.device
-      )
-
-    if self.mocap_goal is not None:
-      # For drawer, no rotation - just translation
-      target_quats = torch.zeros(n, 4, device=self.device)
-      target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity quaternion)
-
-      mocap_pos = self.target_pos[env_ids].clone()
-      mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
-
+    _write_joint_goal(self, self.drawer, "drawer_slide",
+                      self.target_distance[env_ids], env_ids)
 
   def _update_command(self) -> None:
     pass
@@ -642,29 +592,8 @@ class PushButtonCommand(CommandTerm):
     self.button.write_joint_position_to_sim(joint_pos, env_ids=env_ids)
     self.button.write_joint_velocity_to_sim(joint_vel, env_ids=env_ids)
 
-    # Get base_site position (positioned at handle location when joint=0)
-    # This reflects base randomization but not joint position
-    base_site_idx = self.button.site_names.index("base_site")
-    base_site_pos = self.button.data.site_pos_w[env_ids, base_site_idx]
-
-    # Calculate target: base_site is at handle's position when joint=0
-    # Target is at pressed position (joint = target_distance along Z)
-    for i, env_id in enumerate(env_ids):
-      distance = self.target_distance[env_id]
-      # Target = base_site + slide distance along Z
-      self.target_pos[env_id] = base_site_pos[i] + torch.tensor(
-        [0.0, 0.0, distance], device=self.device
-      )
-
-    if self.mocap_goal is not None:
-      # For button, no rotation - just translation
-      target_quats = torch.zeros(n, 4, device=self.device)
-      target_quats[:, 0] = 1.0  # w=1, x=y=z=0 (identity quaternion)
-
-      mocap_pos = self.target_pos[env_ids].clone()
-      mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
-      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
-
+    _write_joint_goal(self, self.button, "button_slide",
+                      self.target_distance[env_ids], env_ids)
 
   def _update_command(self) -> None:
     pass
@@ -816,13 +745,8 @@ class PushingCommand(CommandTerm):
       self.object.write_root_link_pose_to_sim(pose, env_ids=env_ids)
       self.object.write_root_link_velocity_to_sim(velocity, env_ids=env_ids)
 
-      # Sample goal orientation independently (yaw only, keep upright).
-      goal_yaw = sample_uniform(r.yaw[0], r.yaw[1], (n,), device=self.device)
-      target_quats = quat_from_euler_xyz(
-        torch.zeros(n, device=self.device),  # roll
-        torch.zeros(n, device=self.device),  # pitch
-        goal_yaw,
-      )
+      # Position-only task: do not invent an independently sampled yaw goal.
+      target_quats = quat
     else:
       # Default to identity quaternion if object pose not randomized
       target_quats = torch.zeros(n, 4, device=self.device)
@@ -863,14 +787,17 @@ class PushingCommand(CommandTerm):
         )
 
     # Update mocap_goal visualization (for goal_orientation_diff observation)
-    # Goal has independently sampled orientation
+    # Orientation is unconstrained and follows the object.
     mocap_pos = self.target_pos[env_ids].clone()
 
     mocap_pose = torch.cat([mocap_pos, target_quats], dim=-1)
     self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(torch.cat(
+        [self.target_pos, self.object.data.root_link_quat_w], dim=-1
+      ))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     # Visualize targets for all environments
@@ -1106,6 +1033,7 @@ class StackingCommand(CommandTerm):
 
     self.object: Entity = env.scene[cfg.asset_name]
     self.base: Entity = env.scene[cfg.base_asset_name]
+    self.mocap_goal = env.scene["mocap_goal"] if "mocap_goal" in env.cfg.scene.entities else None
     self.robot: Entity = env.scene[cfg.robot_asset_cfg.name]
     self.robot_cfg = cfg.robot_asset_cfg
 
@@ -1121,13 +1049,22 @@ class StackingCommand(CommandTerm):
 
   @property
   def command(self) -> torch.Tensor:
-    return self.target_pos
+    return self.target_site_pos
+
+  @property
+  def target_site_pos(self) -> torch.Tensor:
+    """Convert the desired root pose into the tracking-site convention."""
+    offset = torch.zeros(3, device=self.device)
+    if "object_site" in self.object.site_names:
+      idx = self.object.site_names.index("object_site")
+      offset = torch.as_tensor(self.object.spec.sites[idx].pos, device=self.device, dtype=torch.float32)
+    return self._stack_target() + quat_apply(
+      self.base.data.root_link_quat_w, offset.expand(self.num_envs, 3))
 
   def _stack_target(self) -> torch.Tensor:
     """Target = base object position, raised by the stacking height offset."""
-    base_pos = self.base.data.root_link_pos_w.clone()
-    base_pos[:, 2] = base_pos[:, 2] + self.cfg.stack_height
-    return base_pos
+    offset = torch.tensor([0.,0.,self.cfg.stack_height],device=self.device).expand(self.num_envs,3)
+    return self.base.data.root_link_pos_w + quat_apply(self.base.data.root_link_quat_w,offset)
 
   def _update_metrics(self) -> None:
     self.target_pos = self._stack_target()
@@ -1140,7 +1077,39 @@ class StackingCommand(CommandTerm):
     at_goal = (
       (xy_error < self.cfg.success_threshold)
       & (height_error < self.cfg.height_threshold)
+      & settled(self.object)
+      & released(self)
     ).float()
+    if self.cfg.insertion:
+      # A square peg must fit the bore and stand fully seated, not lie across it.
+      from mjlab.utils.lab_api.math import quat_apply_inverse
+      axis = quat_apply(self.object.data.root_link_quat_w,
+                        torch.tensor([0., 0., 1.], device=self.device).expand(self.num_envs,3))
+      base_axis = quat_apply(self.base.data.root_link_quat_w,
+                             torch.tensor([0.,0.,1.],device=self.device).expand(self.num_envs,3))
+      upright = (axis * base_axis).sum(-1) > math.cos(math.radians(5))
+      # Project the square cross section into the bore frame, accounting for yaw.
+      x_axis = quat_apply_inverse(self.base.data.root_link_quat_w, quat_apply(
+        self.object.data.root_link_quat_w,
+        torch.tensor([1.,0.,0.],device=self.device).expand(self.num_envs,3)))
+      y_axis = quat_apply_inverse(self.base.data.root_link_quat_w, quat_apply(
+        self.object.data.root_link_quat_w,
+        torch.tensor([0.,1.,0.],device=self.device).expand(self.num_envs,3)))
+      local_axis=quat_apply_inverse(self.base.data.root_link_quat_w,axis)
+      denominator=local_axis[:,2:3].clamp_min(.1)
+      slope=local_axis[:,:2]/denominator
+      # Cross sections of the tilted peg at both ends of the straight bore.
+      # Projecting only its center section misses a tilted tip hitting a wall.
+      extent=.0125*((x_axis[:,:2]-x_axis[:,2:3]*slope).abs()
+                     +(y_axis[:,:2]-y_axis[:,2:3]*slope).abs())
+      root_local=quat_apply_inverse(self.base.data.root_link_quat_w,
+                                    object_pos_w-self.base.data.root_link_pos_w)
+      bore_z=torch.tensor([-.015,.009],device=self.device)
+      sections=root_local[:,None,:2]+(bore_z[None,:,None]-root_local[:,None,2:3])*slope[:,None]
+      fits=(sections.abs()+extent[:,None] <= .0155).all(dim=(1,2))
+      at_goal *= (upright & fits).float()
+    else:
+      at_goal *= touching(self, self.object, self.base).float()
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
     gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
@@ -1183,10 +1152,24 @@ class StackingCommand(CommandTerm):
     self.base.write_root_link_pose_to_sim(base_pose, env_ids=env_ids)
     self.base.write_root_link_velocity_to_sim(vel, env_ids=env_ids)
 
-    self.target_pos[env_ids] = self._stack_target()[env_ids]
+    self.target_pos[env_ids] = base_pose[:, :3]
+    self.target_pos[env_ids, 2] += self.cfg.stack_height
+    if self.mocap_goal is not None:
+      offset = torch.zeros(3, device=self.device)
+      if "object_site" in self.object.site_names:
+        idx = self.object.site_names.index("object_site")
+        offset = torch.as_tensor(self.object.spec.sites[idx].pos, device=self.device, dtype=torch.float32)
+      goal_site = self.target_pos[env_ids] + quat_apply(base_pose[:,3:], offset.expand(n,3))
+      self.mocap_goal.write_mocap_pose_to_sim(
+        torch.cat([goal_site, base_pose[:, 3:]], -1), env_ids=env_ids
+      )
 
   def _update_command(self) -> None:
-    pass
+    self.target_pos = self._stack_target()
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(
+        torch.cat([self.target_site_pos, self.base.data.root_link_quat_w], -1)
+      )
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     for env_idx in range(self.num_envs):
@@ -1209,6 +1192,7 @@ class StackingCommandCfg(CommandTermCfg):
   success_threshold: float = 0.03  # xy tolerance (m)
   height_threshold: float = 0.02   # vertical tolerance (m)
   stack_height: float = 0.035      # base-top + moved-object-half-height (m)
+  insertion: bool = False
 
   @dataclass
   class ObjectPoseRangeCfg:
@@ -1242,14 +1226,44 @@ class StackingCommandCfg(CommandTermCfg):
 ##
 
 
+def _write_joint_goal(command, asset, joint_name, values, env_ids):
+  """Exact FK target, including joint pivot, moving-part offset and mount pose."""
+  from mjlab.asset_zoo.objects.goal import joint_goal_geometry
+
+  if not hasattr(command, "_goal_geometry"):
+    command._goal_geometry = joint_goal_geometry(asset.cfg.spec_fn(), joint_name)
+  kind, axis, pivot, site, body_quat = command._goal_geometry
+  def tensor(value):
+    return torch.as_tensor(value, dtype=values.dtype, device=values.device)
+  axis, pivot, site, body_quat = map(tensor, (axis, pivot, site, body_quat))
+  n = len(env_ids)
+  if kind == 3:  # mjJNT_HINGE
+    half = values * 0.5
+    rotation = torch.cat([torch.cos(half)[:, None],
+                          torch.sin(half)[:, None] * axis], dim=-1)
+    local_pos = pivot + quat_apply(rotation, (site - pivot).expand(n, 3))
+    local_quat = quat_mul(rotation, body_quat.expand(n, 4))
+  else:  # mjJNT_SLIDE
+    local_pos = site + values[:, None] * axis
+    local_quat = body_quat.expand(n, 4)
+  mount_quat = asset.data.root_link_quat_w[env_ids]
+  command.target_pos[env_ids] = asset.data.root_link_pos_w[env_ids] + quat_apply(
+    mount_quat, local_pos
+  )
+  if command.mocap_goal is not None:
+    pose = torch.cat([command.target_pos[env_ids],
+                      quat_mul(mount_quat, local_quat)], dim=-1)
+    command.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
+
+
 class _ArticulationJointCommand(CommandTerm):
   """Shared base for single-DoF articulation tasks (lever/valve/switch/window/lid).
 
   Generalizes the OpenDrawerCommand pattern: track ONE joint of an articulated asset
   toward a scalar target, latch success, and place a Cartesian mocap marker for viz.
 
-  Subclasses declare ``joint_name`` and the Cartesian offset used to place the goal
-  marker; everything else (metrics, latching, reached_object) is shared. Success is
+  Subclasses declare ``joint_name``; the marker pose comes from the asset joint
+  kinematics. Metrics, latching and reached_object are shared. Success is
   measured on the JOINT VALUE, not on a Cartesian distance — for rotary joints the
   grasp site can return near its start while the joint has moved a long way.
   """
@@ -1325,10 +1339,6 @@ class _ArticulationJointCommand(CommandTerm):
   def compute_success(self) -> torch.Tensor:
     return self.metrics["goal_error"] < self.cfg.success_threshold
 
-  def _goal_marker_offset(self) -> torch.Tensor:
-    """Cartesian offset from base_site to the goal marker. Viz only."""
-    return torch.tensor(self.cfg.goal_marker_offset, device=self.device)
-
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
     self.episode_success[env_ids] = 0.0
@@ -1342,15 +1352,8 @@ class _ArticulationJointCommand(CommandTerm):
     self.asset.write_joint_position_to_sim(joint_pos, env_ids=env_ids)
     self.asset.write_joint_velocity_to_sim(joint_vel, env_ids=env_ids)
 
-    base_site_idx = self.asset.site_names.index("base_site")
-    base_site_pos = self.asset.data.site_pos_w[env_ids, base_site_idx]
-    self.target_pos[env_ids] = base_site_pos + self._goal_marker_offset()
-
-    if self.mocap_goal is not None:
-      target_quats = torch.zeros(n, 4, device=self.device)
-      target_quats[:, 0] = 1.0
-      mocap_pose = torch.cat([self.target_pos[env_ids].clone(), target_quats], dim=-1)
-      self.mocap_goal.write_mocap_pose_to_sim(mocap_pose, env_ids=env_ids)
+    _write_joint_goal(self, self.asset, self.cfg.joint_name,
+                      self.target_value[env_ids], env_ids)
 
   def _update_command(self) -> None:
     pass
@@ -1373,6 +1376,7 @@ class _ArticulationJointCommandCfg(CommandTermCfg):
   success_threshold: float = 0.05
   directional: bool = True
   """If True, overshooting the target still counts as success (shortfall-only error)."""
+  # Legacy config field, ignored: goal poses now come from exact joint kinematics.
   goal_marker_offset: tuple[float, float, float] = (0.0, 0.0, 0.0)
 
   @dataclass
@@ -1510,10 +1514,13 @@ class _ObjectSpawnRangeCfg:
   yaw: tuple[float, float] = (-math.pi, math.pi)
 
 
-def _spawn_object(command, entity: Entity, rng, env_ids: torch.Tensor):
+def _spawn_object(
+  command, entity: Entity, rng, env_ids: torch.Tensor, return_quat: bool = False
+):
   """Write a uniformly-sampled root pose (and zero velocity) for ``entity``.
 
-  Returns the world-frame ROOT position just written, or None if ``rng`` is None.
+  Returns the world-frame ROOT position just written (with the quaternion too when
+  ``return_quat`` is set), or None if ``rng`` is None.
 
   Callers that need the spawned position MUST use this return value rather than
   reading it back from ``data.site_pos_w`` / ``root_link_pos_w``: forward kinematics
@@ -1538,7 +1545,28 @@ def _spawn_object(command, entity: Entity, rng, env_ids: torch.Tensor):
   entity.write_root_link_velocity_to_sim(
     torch.zeros(n, 6, device=device), env_ids=env_ids
   )
-  return pos
+  return (pos, quat) if return_quat else pos
+
+
+def _mount_yaw_quat(entity: Entity, env_ids: torch.Tensor) -> torch.Tensor:
+  """Yaw-only world orientation of a mocap-mounted fixture/mechanism, shape (n, 4).
+
+  CL-V3 init spec (PLAN.md section 3): mechanism mounts carry a yaw band, so every
+  Cartesian offset a command derives from the mount (goal markers, hinge positions,
+  slide directions) has to be expressed in the MOUNT frame, not the world frame.
+  Read AFTER the reset events have run and ``sim.forward()`` has refreshed the
+  kinematics (``ManagerBasedRlEnv._reset_idx`` does both before commands resample), so
+  ``root_link_quat_w`` is the pose the reset event just wrote.
+  """
+  return yaw_quat(entity.data.root_link_quat_w[env_ids])
+
+
+def _in_mount_frame(
+  quat: torch.Tensor, offset: tuple[float, float, float] | torch.Tensor, device
+) -> torch.Tensor:
+  """Rotate a mount-local offset into the world frame for each env: (n, 3)."""
+  off = torch.as_tensor(offset, device=device, dtype=torch.float)
+  return quat_apply(quat, off.expand(quat.shape[0], 3).contiguous())
 
 
 class PlaceInContainerCommand(CommandTerm):
@@ -1582,7 +1610,14 @@ class PlaceInContainerCommand(CommandTerm):
 
   @property
   def command(self) -> torch.Tensor:
-    return self.target_pos
+    return self.target_site_pos
+
+  @property
+  def target_site_pos(self) -> torch.Tensor:
+    target=self.target_pos.clone()
+    support=object_corners(self.object)-self._object_pos()[:,None]
+    target[:,2]=self.container.data.root_link_pos_w[:,2]+self.cfg.inner_floor_z-support[:,:,2].amin(1)
+    return target
 
   def _object_pos(self) -> torch.Tensor:
     if "object_site" in self.object.site_names:
@@ -1591,23 +1626,25 @@ class PlaceInContainerCommand(CommandTerm):
     return self.object.data.root_link_pos_w
 
   def _update_metrics(self) -> None:
+    self.target_pos=self.target_site_pos
     object_pos = self._object_pos()
     delta = object_pos - self.target_pos
 
-    lateral = torch.norm(delta[:, :2], dim=-1)
-    vertical = delta[:, 2]
-
-    # Containment: inside the footprint, below the rim, and above the floor.
-    inside_xy = lateral < self.cfg.lateral_tolerance
-    below_rim = vertical < self.cfg.rim_height
-    above_floor = vertical > -self.cfg.floor_tolerance
+    # Test the full object in the basket frame, not a center-radius proxy.
+    from mjlab.utils.lab_api.math import quat_apply_inverse
+    corners = object_corners(self.object)
+    n, count = corners.shape[:2]
+    local = quat_apply_inverse(
+      self.container.data.root_link_quat_w[:,None].expand(n,count,4).reshape(-1,4),
+      (corners-self.container.data.root_link_pos_w[:,None]).reshape(-1,3)).reshape(n,count,3)
+    inside_xy = (local[:,:,:2].abs() < self.cfg.inner_half_width + .001).all(dim=(1,2))
+    below_rim = local[:,:,2].amax(1) < self.cfg.inner_rim_z
+    above_floor = local[:,:,2].amin(1) > self.cfg.inner_floor_z-.002
     contained = inside_xy & below_rim & above_floor
 
     # Released and settled (not still being carried).
-    speed = torch.norm(self.object.data.root_link_lin_vel_w, dim=-1)
-    settled = speed < self.cfg.settle_speed
-
-    at_goal = (contained & settled).float()
+    at_goal = (contained & settled(self.object, linear=self.cfg.settle_speed)
+               & released(self) & touching(self,self.object,self.container)).float()
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
     gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
@@ -1646,8 +1683,11 @@ class PlaceInContainerCommand(CommandTerm):
       (n, 3),
       device=self.device,
     )
-    quats = torch.zeros(n, 4, device=self.device)
-    quats[:, 0] = 1.0
+    # CL-V3: the bin gets a yaw band (``container_spawn_range.yaw``); it used to be
+    # written with the identity quaternion whatever the cfg said.
+    zeros = torch.zeros(n, device=self.device)
+    container_yaw = sample_uniform(crng.yaw[0], crng.yaw[1], (n,), device=self.device)
+    quats = quat_from_euler_xyz(zeros, zeros, container_yaw)
     self.container.write_mocap_pose_to_sim(
       torch.cat([container_pos, quats], dim=-1), env_ids=env_ids
     )
@@ -1655,18 +1695,27 @@ class PlaceInContainerCommand(CommandTerm):
     # Goal = the container's interior reference site. Computed analytically from the
     # pose we just wrote rather than read back from ``site_pos_w``: forward kinematics
     # has not re-run yet this step, so the cached site position is still the old one.
+    # The site offset is rotated by the bin's yaw (a no-op for the basket's (0, 0, z)
+    # site, but correct for any asset whose site is off-axis).
     site_idx = self.container.site_names.index("object_site")
-    site_offset = torch.tensor(
-      self.container.spec.sites[site_idx].pos, device=self.device, dtype=torch.float
+    site_offset = tuple(float(v) for v in self.container.spec.sites[site_idx].pos)
+    self.target_pos[env_ids] = container_pos + _in_mount_frame(
+      quats, site_offset, self.device
     )
-    self.target_pos[env_ids] = container_pos + site_offset
+    # Goal replica/reward: resting cube center, not the interior reference site's
+    # 20 mm height (which placed 3 mm of a 46 mm cube through the floor).
+    self.target_pos[env_ids,2] = container_pos[:,2] + self.cfg.inner_floor_z + resting_site_height(self.object)
 
     if self.mocap_goal is not None:
       pose = torch.cat([self.target_pos[env_ids].clone(), quats], dim=-1)
       self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    self.target_pos=self.target_site_pos
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(torch.cat(
+        [self.target_pos, self.object.data.root_link_quat_w], dim=-1
+      ))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     pass
@@ -1700,7 +1749,10 @@ class PlaceInContainerCommandCfg(CommandTermCfg):
   RE-DERIVED: the site is 0.016 above the inner floor surface, so this allows 4 mm of
   contact penetration and nothing more. (The 0.04 it replaces allowed a centre 28 mm
   BELOW the old bin's floor.)"""
-  settle_speed: float = 0.12
+  inner_half_width: float = .0815
+  inner_floor_z: float = .004
+  inner_rim_z: float = .113
+  settle_speed: float = 0.03
   """Object must be moving slower than this — i.e. released, not carried."""
   container_spawn_range: _ObjectSpawnRangeCfg = field(
     default_factory=lambda: _ObjectSpawnRangeCfg(
@@ -1793,6 +1845,7 @@ class ReorientObjectCommand(CommandTerm):
 
     at_goal = (
       (angle_error < self.cfg.angle_threshold) & (drift < self.cfg.max_drift)
+      & settled(self.object)
     ).float()
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
@@ -1831,15 +1884,55 @@ class ReorientObjectCommand(CommandTerm):
     self.target_axis[env_ids] = axis / torch.norm(axis)
 
     if self.mocap_goal is not None:
-      quats = torch.zeros(n, 4, device=self.device)
-      quats[:, 0] = 1.0
+      from mjlab.asset_zoo.objects.goal import object_support_points
+      # Show a valid orientation with the requested body axis pointing along
+      # the target axis; other rotations are unconstrained by this task.
+      body_axis = torch.tensor(self.cfg.body_axis, device=self.device)
+      source_axis = body_axis / torch.linalg.norm(body_axis)
+      target_axis = self.target_axis[env_ids]
+      source_axis = source_axis.expand(n, 3)
+      cross = torch.linalg.cross(source_axis, target_axis)
+      dot = (source_axis * target_axis).sum(-1, keepdim=True)
+      quats = torch.cat([1 + dot, cross], dim=-1)
+      opposite = dot[:, 0] < -0.999999
+      if opposite.any():
+        basis = torch.eye(3, device=self.device)[source_axis.abs().argmin(-1)]
+        axis = torch.linalg.cross(source_axis, basis)
+        axis = axis / torch.linalg.norm(axis, dim=-1, keepdim=True)
+        quats[opposite] = torch.cat([torch.zeros(n, 1, device=self.device), axis], -1)[opposite]
+      quats = quats / torch.linalg.norm(quats, dim=-1, keepdim=True)
+      if not hasattr(self, "_support_points"):
+        self._support_points = torch.as_tensor(
+          object_support_points(self.object.cfg.spec_fn()),
+          device=self.device, dtype=quats.dtype,
+        )
+      points = self._support_points
+      rotated = quat_apply(quats[:, None, :].expand(n, len(points), 4).reshape(-1, 4),
+                           points[None, :, :].expand(n, -1, -1).reshape(-1, 3))
       pos = self.target_pos[env_ids].clone()
-      pos[:, 2] += self.cfg.marker_z_offset
+      pos[:, 2] = self._env.scene.env_origins[env_ids, 2] - rotated.reshape(n, -1, 3)[:, :, 2].min(-1).values
       pose = torch.cat([pos, quats], dim=-1)
       self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    if self.mocap_goal is None:
+      return
+    from .goal_orientation import nearest_axis_goal
+    quat = nearest_axis_goal(self.object.data.root_link_quat_w, self.body_axis,
+                             self.target_axis, self.cfg.symmetric_axis)
+    pos = self._object_pos().clone()
+    # XY is free only inside the original drift region. Keep the goal valid if
+    # the object leaves it; never move the success anchor along with the ghost.
+    delta = pos[:, :2] - self.target_pos[:, :2]
+    distance = torch.linalg.norm(delta, dim=-1, keepdim=True).clamp_min(1e-8)
+    pos[:, :2] = self.target_pos[:, :2] + delta * torch.clamp(
+      (self.cfg.max_drift - 1e-4) / distance, max=1.0)
+    points = self._support_points
+    n = self.num_envs
+    rotated = quat_apply(quat[:, None, :].expand(n, len(points), 4).reshape(-1, 4),
+                         points[None, :, :].expand(n, -1, -1).reshape(-1, 3))
+    pos[:, 2] = self._env.scene.env_origins[:, 2] - rotated.reshape(n, -1, 3)[:, :, 2].min(-1).values
+    self.mocap_goal.write_mocap_pose_to_sim(torch.cat([pos, quat], dim=-1))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     pass
@@ -1865,6 +1958,7 @@ class ReorientObjectCommandCfg(CommandTermCfg):
   both are the same physical outcome and both must count."""
   angle_threshold: float = 0.35  # rad (~20 deg)
   max_drift: float = 0.18  # m — object must stay near its start
+  # Legacy config field; marker height is now derived from the oriented collider.
   marker_z_offset: float = 0.12
   object_spawn_range: _ObjectSpawnRangeCfg | None = field(
     default_factory=_ObjectSpawnRangeCfg
@@ -1894,6 +1988,8 @@ class ToolPullCommand(CommandTerm):
     self.episode_success = torch.zeros(self.num_envs, device=self.device)
     self.reached_object = torch.zeros(self.num_envs, device=self.device)
     self.tool_grasped = torch.zeros(self.num_envs, device=self.device)
+    self.tool_used = torch.zeros(self.num_envs, device=self.device)
+    self.direct_contact = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
 
     # Scene has no .get(); mocap goal is optional so probe by key.
     try:
@@ -1928,14 +2024,16 @@ class ToolPullCommand(CommandTerm):
 
     # Stage 1: tool acquired (latched).
     gripper_tool_distance = torch.norm(tool_pos - gripper_pos_w, dim=-1)
-    self.tool_grasped = torch.maximum(
-      self.tool_grasped, (gripper_tool_distance < self.cfg.grasp_threshold).float()
-    )
+    held = grasped(self, self.tool)
+    self.tool_grasped = torch.maximum(self.tool_grasped, held.float())
+    self.tool_used = torch.maximum(self.tool_used, (held & touching(self, self.tool, self.object)).float())
+    self.direct_contact |= touching(self, self.robot, self.object)
 
     # Stage 2: puck dragged into the near zone.
     distance_error = torch.norm(puck_pos - self.target_pos, dim=-1)
-    at_goal = (distance_error < self.cfg.success_threshold).float()
-    self.episode_success = torch.maximum(self.episode_success, at_goal)
+    at_goal = ((distance_error < self.cfg.success_threshold) & (self.tool_used > 0)
+               & ~self.direct_contact).float()
+    self.episode_success = torch.maximum(self.episode_success, at_goal) * (~self.direct_contact).float()
 
     gripper_object_distance = torch.norm(puck_pos - gripper_pos_w, dim=-1)
     self.reached_object = torch.maximum(
@@ -1948,19 +2046,71 @@ class ToolPullCommand(CommandTerm):
     self.metrics["reached_object"] = self.reached_object
     self.metrics["gripper_object_distance"] = gripper_object_distance
     self.metrics["tool_grasped"] = self.tool_grasped
+    self.metrics["tool_used"] = self.tool_used
+    self.metrics["direct_contact"] = self.direct_contact.float()
     self.metrics["gripper_tool_distance"] = gripper_tool_distance
 
   def compute_success(self) -> torch.Tensor:
-    return self.metrics["goal_error"] < self.cfg.success_threshold
+    return self.metrics["at_goal"] > .5
+
+  # stick.xml collision geometry, body frame: shaft cylinder r 0.011 along x
+  # (half-length 0.13) and hook cylinder r 0.011 along y from (0.12, 0) to (0.12, 0.07).
+  _STICK_SEGMENTS = ((-0.13, 0.0, 0.13, 0.0), (0.12, 0.0, 0.12, 0.07))
+  _STICK_RADIUS = 0.011
+  _PUCK_RADIUS = 0.0381  # puck.xml
+  _SPAWN_MARGIN = 0.004
+
+  def _hook_hits_puck(
+    self, tool_pos: torch.Tensor, tool_quat: torch.Tensor, puck_pos: torch.Tensor
+  ) -> torch.Tensor:
+    """(n,) bool: would the stick's collision cylinders overlap the puck's footprint?
+
+    2-D point-to-segment distance in the ground plane, both objects resting on it."""
+    min_d = self._PUCK_RADIUS + self._STICK_RADIUS + self._SPAWN_MARGIN
+    hit = torch.zeros(tool_pos.shape[0], dtype=torch.bool, device=self.device)
+    for ax, ay, bx, by in self._STICK_SEGMENTS:
+      a = tool_pos + quat_apply(
+        tool_quat, torch.tensor([ax, ay, 0.0], device=self.device).expand_as(tool_pos).contiguous()
+      )
+      b = tool_pos + quat_apply(
+        tool_quat, torch.tensor([bx, by, 0.0], device=self.device).expand_as(tool_pos).contiguous()
+      )
+      ab = (b - a)[:, :2]
+      ap = (puck_pos - a)[:, :2]
+      t = ((ap * ab).sum(-1) / (ab * ab).sum(-1).clamp_min(1e-9)).clamp(0.0, 1.0)
+      closest = a[:, :2] + t.unsqueeze(-1) * ab
+      hit |= torch.norm(puck_pos[:, :2] - closest, dim=-1) < min_d
+    return hit
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     n = len(env_ids)
     self.episode_success[env_ids] = 0.0
     self.reached_object[env_ids] = 0.0
     self.tool_grasped[env_ids] = 0.0
+    self.tool_used[env_ids] = 0.0
+    self.direct_contact[env_ids] = False
 
-    _spawn_object(self, self.object, self.cfg.object_spawn_range, env_ids)
-    _spawn_object(self, self.tool, self.cfg.tool_spawn_range, env_ids)
+    puck_pos = _spawn_object(self, self.object, self.cfg.object_spawn_range, env_ids)
+    # CL-V3: the stick carries a yaw band. At yaw 0 the hook tip clears the puck's
+    # near edge by 2 mm BY DESIGN of the two xy bands (frozen), so any positive yaw
+    # opens a ~0.2 % corner where the hook would spawn inside the puck (measured
+    # 2/1000 by verify_task). Rather than halving the band, re-draw the stick for
+    # exactly those envs: the distribution is uniform on the band minus the
+    # physically impossible poses.
+    tool_pos, tool_quat = _spawn_object(
+      self, self.tool, self.cfg.tool_spawn_range, env_ids, return_quat=True
+    )
+    if puck_pos is not None and tool_pos is not None:
+      redraw = env_ids
+      for _ in range(16):
+        hit = self._hook_hits_puck(tool_pos, tool_quat, puck_pos)
+        if not bool(hit.any()):
+          break
+        redraw = redraw[hit]
+        tool_pos, tool_quat = _spawn_object(
+          self, self.tool, self.cfg.tool_spawn_range, redraw, return_quat=True
+        )
+        puck_pos = puck_pos[hit]
 
     # Goal is a fixed near-zone point in each env's local frame.
     origins = self._env.scene.env_origins[env_ids]
@@ -1974,7 +2124,10 @@ class ToolPullCommand(CommandTerm):
       self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(torch.cat(
+        [self.target_pos, self.object.data.root_link_quat_w], dim=-1
+      ))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     pass
@@ -2038,6 +2191,11 @@ class CageDragCommand(PushingCommand):
     self.min_aperture = torch.full((self.num_envs,), 1.0, device=self.device)
     self.metrics["min_aperture"] = torch.zeros(self.num_envs, device=self.device)
     self.metrics["caged"] = torch.zeros(self.num_envs, device=self.device)
+    self.caged_progress = torch.zeros(self.num_envs, device=self.device)
+    self.previous_error = torch.zeros(self.num_envs, device=self.device)
+    self.required_progress = torch.zeros(self.num_envs, device=self.device)
+    self.previous_caged = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
+    self.metrics["caged_progress"] = torch.zeros(self.num_envs, device=self.device)
 
   def _aperture(self) -> torch.Tensor:
     joint_pos = self.robot.data.joint_pos
@@ -2045,12 +2203,19 @@ class CageDragCommand(PushingCommand):
 
   def _update_metrics(self) -> None:
     self.min_aperture = torch.minimum(self.min_aperture, self._aperture())
-    caged = self.min_aperture > self.cfg.aperture_min
+    valid = self.min_aperture > self.cfg.aperture_min
+    caged = between_fingers(self) & valid
 
     object_pos_w = self.object.data.root_link_pos_w
     goal_error = torch.norm(self.target_pos - object_pos_w, dim=-1)
-    at_goal = ((goal_error < self.cfg.success_threshold) & caged).float()
-    self.episode_success = torch.maximum(self.episode_success, at_goal)
+    progress = (self.previous_error-goal_error).clamp_min(0)
+    self.caged_progress += progress * (self.previous_caged & caged).float()
+    self.previous_error.copy_(goal_error)
+    self.previous_caged.copy_(caged)
+    transported = self.caged_progress >= self.required_progress
+    at_goal = ((goal_error < self.cfg.success_threshold) & caged & transported).float()
+    # The no-pinch constraint is episode-long, including after an earlier success.
+    self.episode_success = torch.maximum(self.episode_success, at_goal) * valid.float()
 
     gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
     gripper_object_distance = torch.norm(object_pos_w - gripper_pos_w, dim=-1)
@@ -2066,15 +2231,19 @@ class CageDragCommand(PushingCommand):
     self.metrics["object_height"] = object_pos_w[:, 2]
     self.metrics["min_aperture"] = self.min_aperture
     self.metrics["caged"] = caged.float()
+    self.metrics["caged_progress"] = self.caged_progress
 
   def compute_success(self) -> torch.Tensor:
-    return (self.metrics["goal_error"] < self.cfg.success_threshold) & (
-      self.min_aperture > self.cfg.aperture_min
-    )
+    return self.metrics["at_goal"] > .5
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     super()._resample_command(env_ids)
     self.min_aperture[env_ids] = 1.0
+    # Pose writes precede forward kinematics; use the newly written qpos root.
+    self.caged_progress[env_ids] = 0
+    self.previous_error[env_ids] = 0
+    self.required_progress[env_ids] = .005
+    self.previous_caged[env_ids] = False
 
 
 @dataclass(kw_only=True)
@@ -2199,7 +2368,8 @@ class EdgeGraspCommand(CommandTerm):
     lift = plate_pos[:, 2] - ledge_top_z
     drift = torch.norm(plate_pos[:, :2] - self.ledge_center[:, :2], dim=-1)
 
-    at_goal = ((lift > self.cfg.lift_clearance) & (drift < self.cfg.max_drift)).float()
+    at_goal = ((lift > self.cfg.lift_clearance) & (drift < self.cfg.max_drift)
+               & grasped(self) & settled(self.object, linear=.10, angular=.5)).float()
     self.episode_success = torch.maximum(self.episode_success, at_goal)
 
     gripper_pos_w = self.robot.data.site_pos_w[:, self.robot_cfg.site_ids].squeeze(1)
@@ -2234,8 +2404,11 @@ class EdgeGraspCommand(CommandTerm):
       (n, 3),
       device=self.device,
     )
-    quats = torch.zeros(n, 4, device=self.device)
-    quats[:, 0] = 1.0
+    # CL-V3: the riser gets a yaw band (``ledge_spawn_range.yaw``); it used to be
+    # written with the identity quaternion whatever the cfg said.
+    zeros = torch.zeros(n, device=self.device)
+    ledge_yaw = sample_uniform(lrng.yaw[0], lrng.yaw[1], (n,), device=self.device)
+    quats = quat_from_euler_xyz(zeros, zeros, ledge_yaw)
     self.ledge.write_mocap_pose_to_sim(
       torch.cat([ledge_pos, quats], dim=-1), env_ids=env_ids
     )
@@ -2243,16 +2416,17 @@ class EdgeGraspCommand(CommandTerm):
 
     # Plate spawns ON the ledge top, inland of the near edge. Computed from the pose
     # just written, NOT read back through FK (the read-back returns the previous
-    # episode's pose — see _spawn_object's warning).
+    # episode's pose — see _spawn_object's warning). The (rel_x, rel_y) offset is a
+    # RISER-frame quantity (it keeps the plate on the riser top), so it is rotated by
+    # the riser's yaw before being applied.
     rel_x = sample_uniform(
       self.cfg.plate_rel_x[0], self.cfg.plate_rel_x[1], (n,), device=self.device
     )
     rel_y = sample_uniform(
       self.cfg.plate_rel_y[0], self.cfg.plate_rel_y[1], (n,), device=self.device
     )
-    plate_pos = ledge_pos.clone()
-    plate_pos[:, 0] += rel_x
-    plate_pos[:, 1] += rel_y
+    rel = quat_apply(quats, torch.stack([rel_x, rel_y, zeros], dim=-1))
+    plate_pos = ledge_pos + rel
     plate_pos[:, 2] += self.cfg.ledge_top_height + self.cfg.plate_rest_offset
     yaw = sample_uniform(
       self.cfg.plate_yaw[0], self.cfg.plate_yaw[1], (n,), device=self.device
@@ -2267,15 +2441,20 @@ class EdgeGraspCommand(CommandTerm):
       torch.zeros(n, 6, device=self.device), env_ids=env_ids
     )
 
-    offset = torch.tensor(self.cfg.goal_offset, device=self.device)
-    self.target_pos[env_ids] = ledge_pos + offset
+    # Goal ("above and beyond the NEAR edge") is riser-relative: rotate with the riser.
+    self.target_pos[env_ids] = ledge_pos + _in_mount_frame(
+      quats, self.cfg.goal_offset, self.device
+    )
 
     if self.mocap_goal is not None:
       pose = torch.cat([self.target_pos[env_ids].clone(), quats], dim=-1)
       self.mocap_goal.write_mocap_pose_to_sim(pose, env_ids=env_ids)
 
   def _update_command(self) -> None:
-    pass
+    if self.mocap_goal is not None:
+      self.mocap_goal.write_mocap_pose_to_sim(torch.cat(
+        [self.target_pos, self.object.data.root_link_quat_w], dim=-1
+      ))
 
   def _debug_vis_impl(self, visualizer: DebugVisualizer) -> None:
     pass
@@ -2284,6 +2463,7 @@ class EdgeGraspCommand(CommandTerm):
 @dataclass(kw_only=True)
 class EdgeGraspCommandCfg(CommandTermCfg):
   asset_name: str = "plate"
+  require_grasp: bool = True
   ledge_asset_name: str = "ledge"
   robot_asset_cfg: SceneEntityCfg = field(
     default_factory=lambda: SceneEntityCfg("robot", site_names=())
@@ -2354,9 +2534,25 @@ class PivotLiftCommand(LiftingCommand):
   def __init__(self, cfg: PivotLiftCommandCfg, env: ManagerBasedRlEnv):
     super().__init__(cfg, env)
     self.wall: Entity = env.scene[cfg.wall_asset_name]
+    self.pivoted = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
+
+  def _update_metrics(self) -> None:
+    axis = quat_apply(self.object.data.root_link_quat_w,
+                     torch.tensor([0.,0.,1.],device=self.device).expand(self.num_envs,3))
+    self.pivoted |= touching(self,self.object,self.wall) & (axis[:,2].abs() < math.cos(math.radians(20)))
+    previous = self.episode_success.clone()
+    super()._update_metrics()
+    self.metrics["at_goal"] *= self.pivoted.float()
+    self.episode_success = torch.maximum(previous,self.metrics["at_goal"])
+    self.metrics["episode_success"] = self.episode_success
+    self.metrics["pivoted"] = self.pivoted.float()
+
+  def compute_success(self) -> torch.Tensor:
+    return self.metrics["at_goal"] > .5
 
   def _resample_command(self, env_ids: torch.Tensor) -> None:
     super()._resample_command(env_ids)
+    self.pivoted[env_ids] = False
     n = len(env_ids)
     origins = self._env.scene.env_origins[env_ids]
     wrng = self.cfg.wall_spawn_range

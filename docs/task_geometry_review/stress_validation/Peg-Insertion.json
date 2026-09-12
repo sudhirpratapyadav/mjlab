@@ -1,0 +1,102 @@
+{
+ "task": "Mjlab-Peg-Insertion-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1024,
+  "entities": {
+   "object": {
+    "n": 1024,
+    "x": [
+     0.28001531958580017,
+     0.46964550018310547
+    ],
+    "y": [
+     -0.2496647834777832,
+     -0.04016542434692383
+    ],
+    "z": [
+     -0.00029323995113372803,
+     -2.2236257791519165e-05
+    ],
+    "radial": [
+     0.284866601228714,
+     0.5238768458366394
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   },
+   "base": {
+    "n": 1024,
+    "x": [
+     0.28012609481811523,
+     0.4698147773742676
+    ],
+    "y": [
+     0.04041016101837158,
+     0.2496834397315979
+    ],
+    "z": [
+     0.029722511768341064,
+     0.029722515493631363
+    ],
+    "radial": [
+     0.28435927629470825,
+     0.5247259736061096
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "object": -0.0002644017697542647,
+   "base": -0.0002432525524954359
+  },
+  "goal": {
+   "term": "stack_object",
+   "radial": [
+    0.28435927629470825,
+    0.5247259736061096
+   ],
+   "z": [
+    0.04972251504659653,
+    0.04972251504659653
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1024,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "oracle": "constructed contact/history state; not a policy rollout",
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true
+}

@@ -41,23 +41,10 @@ def get_door_spec() -> mujoco.MjSpec:
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:
-    """Load Mocap Target MjSpec from XML."""
-    if not MOCAP_TARGET_XML.exists():
-        # Fallback: create mocap target programmatically
-        spec = mujoco.MjSpec()
-        mocap_target = spec.worldbody.add_body(name="mocap_target")
-        mocap_target.mocap = True
-        mocap_target.pos = [0, 0, 0]
-        mocap_target.add_geom(
-            name="mocap_target_geom",
-            type=mujoco.mjtGeom.mjGEOM_BOX,
-            size=[0.01, 0.01, 0.08],
-            rgba=[1, 0.5, 0, 1],
-            contype=0,
-            conaffinity=0,
-        )
-        return spec
-    return mujoco.MjSpec.from_file(str(MOCAP_TARGET_XML))
+    """Translucent replica of the manipulated part at its target pose."""
+    from mjlab.asset_zoo.objects.goal import make_goal_spec
+
+    return make_goal_spec(get_door_spec())
 
 
 ##

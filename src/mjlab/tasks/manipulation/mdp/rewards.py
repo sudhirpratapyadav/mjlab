@@ -8,6 +8,45 @@ from mjlab.entity import Entity
 from mjlab.managers.scene_entity_config import SceneEntityCfg
 from mjlab.sensor import ContactSensor
 
+from .task_geometry import between_fingers, grasped, tracking_goal, tracking_position
+
+
+def _goal_orientation_factor(command):
+  """Square insertion needs uprightness and yaw agreement, modulo square symmetry."""
+  if not getattr(command.cfg, "insertion", False):
+    return 1.0
+  from mjlab.utils.lab_api.math import quat_apply, quat_apply_inverse
+
+  n = command.num_envs
+  x = quat_apply_inverse(
+    command.base.data.root_link_quat_w,
+    quat_apply(
+      command.object.data.root_link_quat_w,
+      torch.tensor([1.0, 0.0, 0.0], device=command.device).expand(n, 3),
+    ),
+  )
+  z = quat_apply_inverse(
+    command.base.data.root_link_quat_w,
+    quat_apply(
+      command.object.data.root_link_quat_w,
+      torch.tensor([0.0, 0.0, 1.0], device=command.device).expand(n, 3),
+    ),
+  )
+  yaw = torch.atan2(x[:, 1], x[:, 0])
+  yaw_error = torch.atan2(torch.sin(4 * yaw), torch.cos(4 * yaw)) / 4
+  tilt = torch.acos(z[:, 2].clamp(-1, 1))
+  return torch.exp(-((tilt / 0.2) ** 2) - (yaw_error / 0.15) ** 2)
+
+
+def _grasp_factor(command):
+  if not getattr(command.cfg, "require_grasp", False):
+    return 1.0
+  valid = grasped(command)
+  if hasattr(command, "pivoted"):
+    valid &= command.pivoted
+  return valid.float()
+
+
 if TYPE_CHECKING:
   from mjlab.envs import ManagerBasedRlEnv
 
@@ -54,12 +93,15 @@ def staged_manipulation_reward(
   # Compute distance and clip to minimum threshold
   reach_distance = torch.norm(gripper_pos_w - object_pos_w, dim=-1)
   reach_distance_clamped = torch.clamp(reach_distance, min=reaching_clip_dist)
-  reach_error = reach_distance_clamped ** 2
-  reaching = torch.exp(-reach_error / (reaching_std * reaching_max_dist)**2)
+  reach_error = reach_distance_clamped**2
+  reaching = torch.exp(-reach_error / (reaching_std * reaching_max_dist) ** 2)
 
   # Manipulation phase: object to goal
-  position_error = torch.sum(torch.square(command.target_pos - object_pos_w), dim=-1)
-  bringing = torch.exp(-position_error / (bringing_std * bringing_max_dist)**2)
+  position_error = torch.sum(
+    torch.square(tracking_goal(command) - object_pos_w), dim=-1
+  )
+  bringing = torch.exp(-position_error / (bringing_std * bringing_max_dist) ** 2)
+  bringing = bringing * _goal_orientation_factor(command) * _grasp_factor(command)
 
   return reaching * (1.0 + bringing)
 
@@ -86,9 +128,13 @@ def object_at_goal_reward(
     object_pos_w = obj.data.root_link_pos_w
 
   position_error = torch.sum(
-    torch.square(command.target_pos - object_pos_w), dim=-1
+    torch.square(tracking_goal(command) - object_pos_w), dim=-1
   )
-  return torch.exp(-position_error / (std * max_dist)**2)
+  return (
+    torch.exp(-position_error / (std * max_dist) ** 2)
+    * _goal_orientation_factor(command)
+    * _grasp_factor(command)
+  )
 
 
 def joint_velocity_penalty(
@@ -165,7 +211,7 @@ def move_object_to_goal_reward(
     object_pos_w = obj.data.root_link_pos_w
 
   # Compute object-to-goal distance reward
-  goal_pos = command.target_pos
+  goal_pos = tracking_goal(command)
   distance = torch.norm(goal_pos - object_pos_w, dim=-1)
   reward = 1.0 - torch.tanh(k * distance**4)
 
@@ -226,9 +272,7 @@ def reach_target_reward(
   robot: Entity = env.scene[robot_asset_cfg.name]
   command = env.command_manager.get_term(command_name)
   gripper_pos_w = robot.data.site_pos_w[:, robot_asset_cfg.site_ids].squeeze(1)
-  position_error = torch.sum(
-    torch.square(command.target_pos - gripper_pos_w), dim=-1
-  )
+  position_error = torch.sum(torch.square(command.target_pos - gripper_pos_w), dim=-1)
   return torch.exp(-position_error / (std**2))
 
 
@@ -249,4 +293,87 @@ def gripper_closure_penalty(
   i0 = robot.joint_names.index(finger_joint_names[0])
   i1 = robot.joint_names.index(finger_joint_names[1])
   aperture = robot.data.joint_pos[:, i0] + robot.data.joint_pos[:, i1]
-  return (aperture < threshold).float()
+  return (aperture <= threshold).float()
+
+
+def cage_transport_reward(env, command_name, object_asset_name="cube", **kwargs):
+  """Approach an open cage, then pay transport only while the cube is enclosed."""
+  command = env.command_manager.get_term(command_name)
+  valid = (
+    torch.minimum(command.min_aperture, command._aperture()) > command.cfg.aperture_min
+  )
+  cage = between_fingers(command).float()
+  precise = object_at_goal_reward(env, command_name, object_asset_name, max_dist=0.35)
+  if "robot_asset_cfg" not in kwargs:
+    return precise * cage * valid.float()
+  robot_cfg = kwargs["robot_asset_cfg"]
+  approach = reach_object_reward(env, object_asset_name, robot_cfg, k=30.0)
+  return (approach + cage * precise) * valid.float()
+
+
+def orientation_task_reward(env, command_name, object_asset_name="object", **kwargs):
+  """Reward the same body-axis orientation and positional drift as success."""
+  from mjlab.utils.lab_api.math import quat_apply
+
+  command = env.command_manager.get_term(command_name)
+  obj = env.scene[object_asset_name]
+  axis = quat_apply(
+    obj.data.root_link_quat_w, command.body_axis.expand(env.num_envs, 3)
+  )
+  alignment = (axis * command.target_axis).sum(-1).clamp(-1, 1)
+  if command.cfg.symmetric_axis:
+    alignment = alignment.abs()
+  angle = torch.acos(alignment)
+  drift = torch.linalg.vector_norm(
+    tracking_position(obj)[:, :2] - command.target_pos[:, :2], dim=-1
+  )
+  score = torch.exp(-((angle / 0.5) ** 2)) * (drift < command.cfg.max_drift).float()
+  if "robot_asset_cfg" in kwargs:
+    reaching = reach_object_reward(
+      env, object_asset_name, kwargs["robot_asset_cfg"], k=30.0
+    )
+    return reaching * (1 + score)
+  return score
+
+
+def tool_transport_reward(env, command_name, object_asset_name="puck", **kwargs):
+  """Reach the tool and reward puck transport only after tool-mediated contact."""
+  from .task_geometry import grasped, touching
+
+  command = env.command_manager.get_term(command_name)
+  held = grasped(command, command.tool)
+  used = (command.tool_used > 0) | (
+    held & touching(command, command.tool, command.object)
+  )
+  valid = ~(command.direct_contact | touching(command, command.robot, command.object))
+  bringing = object_at_goal_reward(env, command_name, object_asset_name, max_dist=0.35)
+  if "robot_asset_cfg" in kwargs:
+    approach = reach_object_reward(
+      env, command.cfg.tool_asset_name, kwargs["robot_asset_cfg"], k=30.0
+    )
+    return (approach + held.float() + used.float() * bringing) * valid.float()
+  return bringing * used.float() * valid.float()
+
+
+def articulation_task_reward(env, command_name, object_asset_name="object", **kwargs):
+  """Joint-space progress avoids periodic Cartesian shortcuts (e.g. a 270° valve)."""
+  command = env.command_manager.get_term(command_name)
+  if hasattr(command, "target_value"):
+    target, value = command.target_value, command._joint_value()
+  elif hasattr(command, "target_angle"):
+    target = command.target_angle
+    value = command.door.data.joint_pos[:, command.hinge_idx]
+  else:
+    target = command.target_distance
+    asset = command.drawer if hasattr(command, "drawer") else command.button
+    value = asset.data.joint_pos[:, command.slide_idx]
+  error = (target - value).abs()
+  if getattr(command.cfg, "directional", False):
+    error = ((target - value) * target.sign()).clamp_min(0)
+  if "robot_asset_cfg" in kwargs:
+    approach = reach_object_reward(
+      env, object_asset_name, kwargs["robot_asset_cfg"], k=30.0
+    )
+    progress = torch.exp(-error / (target.abs() * 0.5).clamp_min(0.01))
+    return approach * (1 + progress)
+  return torch.exp(-0.5 * (error / command.cfg.success_threshold) ** 2)

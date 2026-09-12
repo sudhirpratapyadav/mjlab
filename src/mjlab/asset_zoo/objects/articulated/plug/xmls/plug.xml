@@ -63,8 +63,9 @@
             condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3" group="3"
             contype="2" conaffinity="1" solref="0.01 1"/>
       <!-- Base site at the plug moulding centre when joint = 0 (fully seated). -->
-      <site name="base_site" pos="0 0 0.062" size="0.01" rgba="0 0 1 0.3"/>
-      <body name="handle">
+      <site name="base_site" pos="0.0 0.0 0.068" size="0.01" rgba="0 0 1 0.3"/>
+      <!-- Shoulder clears the socket lip by 1 mm at the seated stop. -->
+      <body name="handle" pos="0 0 0.006">
         <!-- Vertical slide with a static-friction breakaway (~4 N). -->
         <joint name="plug_slide" type="slide" axis="0 0 1"
                range="0 0.12" limited="true" damping="1.0" frictionloss="4.0"/>

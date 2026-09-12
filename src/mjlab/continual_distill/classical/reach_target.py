@@ -41,6 +41,7 @@ class ReachTargetClassicalPolicy(ClassicalPolicyBase):
   """Servo the gripper site onto the reach target."""
 
   DEFAULT_QPOS = HOME_QPOS  # reach env uses get_franka_robot_cfg (home)
+  legacy_layout = "reach"
   max_dq = 0.08
   # A pure position task: no orientation term at all, so the solver spends every
   # DOF on getting the site to the point.

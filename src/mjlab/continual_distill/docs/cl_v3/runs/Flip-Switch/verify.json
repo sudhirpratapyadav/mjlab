@@ -1,0 +1,117 @@
+{
+ "task": "Mjlab-Flip-Switch-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "switch": {
+    "n": 1000,
+    "x": [
+     0.4163461923599243,
+     0.4768838882446289
+    ],
+    "y": [
+     -0.08833718299865723,
+     0.09049034118652344
+    ],
+    "z": [
+     0.1336599588394165,
+     0.16364726424217224
+    ],
+    "radial": [
+     0.4166422188282013,
+     0.4827515780925751
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "switch": 0.0
+  },
+  "goal": {
+   "term": "flip_switch",
+   "radial": [
+    0.46017223596572876,
+    0.5245420336723328
+   ],
+   "z": [
+    0.19201123714447021,
+    0.22199854254722595
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "target_value": 0.5235988,
+   "success_threshold": 0.15
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "switch": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/switch/xmls/switch.xml",
+   "mass_kg": 0.34199999999999997,
+   "ngeom_collision": 3,
+   "nmesh": 2,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "switch_hinge",
+     "type": "hinge",
+     "range": [
+      -0.7853982,
+      0.7853982
+     ],
+     "damping": 0.0015,
+     "frictionloss": 0.0,
+     "armature": 1e-05,
+     "target_value": 0.5235987901687622
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0.0,
+     0.0,
+     -9.81
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_us": 1.5944503247737885,
+   "step_time_baseline_us": 2.2314898669719696,
+   "step_time_ratio": 0.7145227717020222,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

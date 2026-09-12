@@ -36,7 +36,12 @@ from __future__ import annotations
 
 import numpy as np
 
-from mjlab.continual_distill.classical.base import HOME_QPOS, ClassicalPolicyBase
+from mjlab.continual_distill.classical.base import (
+  HOME_QPOS,
+  ClassicalPolicyBase,
+  lowest_hand_z,
+)
+from mjlab.continual_distill.classical.staged_stack import StagedStackPolicy
 
 GRIPPER_OPEN = 1.0
 GRIPPER_CLOSED = -1.0
@@ -69,6 +74,23 @@ def down_frame(yaw: float) -> np.ndarray:
   ez = np.array([0.0, 0.0, -1.0])  # approach axis
   ey = np.cross(ez, ex)
   return np.column_stack([ex, ey, ez])
+
+
+def closing_frame(theta: float) -> np.ndarray:
+  """Full EE rotation: z-axis straight down, FINGER-CLOSING axis (the site's y-axis,
+  measured: the pads separate along site y, +-0.0476 at full open) at heading
+  ``theta`` in the world xy-plane. ``down_frame`` puts the site x-axis at the yaw;
+  this puts the closing axis there, which is what face alignment needs."""
+  c, s = np.cos(theta), np.sin(theta)
+  ey = np.array([c, s, 0.0])  # closing axis
+  ez = np.array([0.0, 0.0, -1.0])  # approach axis
+  ex = np.cross(ey, ez)
+  return np.column_stack([ex, ey, ez])
+
+
+def quat_yaw_wxyz(q: np.ndarray) -> float:
+  w, x, y, z = q
+  return float(np.arctan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z)))
 
 
 class GraspTransportPolicy(ClassicalPolicyBase):
@@ -117,6 +139,108 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   # of clearance, and the descent's overshoot eats it. Grasp slightly high instead.
   grasp_z_offset = 0.0
 
+  # -- CL-V3 opt-ins (W1-G, 2026-09-09). ALL default-off: subclasses that do not set
+  # them (reorient_object) behave byte-for-byte as before. -----------------------
+  #
+  # grasp_style = "lift": HOVER/DESCEND/CLOSE/LIFT are lift_object.py's phases
+  # (measured 1.000 on the same 46 mm cube): settle xy for ``lift_align_settle``
+  # consecutive steps at an ABSOLUTE site height before descending, descend
+  # vertically at a bounded rate to an ABSOLUTE grasp site height with a seat settle,
+  # keep servoing xy (half gain) and z while closing, climb straight up, then a
+  # held check that retries from HOVER. The diagnose trace of the old spine shows why
+  # this matters: every failing Stack env had the cube shoved 30-55 mm at 0.6-0.85
+  # m/s DURING DESCEND (the hand landed on it: fast descent, no settle, integrator
+  # wind-up, grasp 1 cm deeper than the collision floor) before the pads ever closed.
+  grasp_style = "spine"
+  lift_hover_site_z = 0.22
+  lift_grasp_site_z = 0.045  # lift_object.py's measured collision floor for the site
+  lift_align_tol = 0.020
+  lift_align_settle = 3
+  lift_align_timeout = 70
+  lift_seat_tol = 0.012
+  lift_seat_xy_tol = 0.025
+  lift_descent_rate = 0.02
+  lift_descend_timeout = 120
+  lift_close_steps = 15
+  # CL-V3 (W1-G2): ramp the finger command from open to closed over this many steps
+  # instead of slamming it (0 = the legacy instant close, the default for every existing
+  # subclass). The finger actuator is a kp-350 position servo on a 15 g finger, so a
+  # step command drives the pads in at ~0.4 m/s and the pad EDGE meets the object before
+  # the face does. A squat cube shrugs that off; a 10 cm standing peg is toppled by it.
+  lift_close_ramp = 0
+  # CL-V3 (W1-G2), opt-in (0 = off, the default for every existing subclass): do not enter
+  # CLOSE until the finger-closing axis is within this many radians of the latched target
+  # heading. MEASURED on Peg-Insertion (diagnose, n = 32): the aperture at LIFT entry --
+  # which is the width the pads actually stalled at -- runs 0.0249 to 0.0409 on a 25 mm
+  # square peg whose DIAGONAL is 0.0354, median 0.0289. Anything above ~0.026 means the
+  # pads met the peg on two EDGES rather than two faces, and two line contacts are a
+  # HINGE: the peg then rotates freely about them, which is why 13/28 pegs first tilt
+  # past 32 deg during LIFT and another 9 during CARRY, with the grip still closed.
+  close_orient_tol = 0.0
+  # Lateral gain while closing. The lift-style CLOSE keeps creeping the xy error at half
+  # gain so the arm does not sag; for a tall, tippy object that same creep walks the pads
+  # across the object and pushes it over, so it can be turned off per subclass.
+  lift_close_xy_gain = 0.5
+  lift_climb_steps = 30
+  lift_climb_err = 0.10
+  lift_held_tol = 0.06
+  lift_max_dq = 0.05  # unhurried near the floor, like lift_object.py
+  # Climb until the SITE reaches this absolute height (None = the legacy fixed step
+  # count, which sends the site to ~0.37 m and makes the carry a fast 0.18 m descent).
+  lift_climb_to = None
+  # max_dq while carrying/placing a held object (None = the class max_dq).
+  carry_max_dq = None
+  # Small lateral integrator on the lift-style hover/descent (the yaw-constrained
+  # frame below carries a 2-3 cm DLS bias that a proportional hover never closes).
+  lift_integ_gain = 0.0
+  lift_integ_clip = 0.04
+  lift_integ_near = 0.05  # integrate only near the target (wind-up on the approach made the hover orbit)
+  # yaw_align: point the finger-closing axis at the object's faces (nearest of the
+  # ``yaw_symmetry``-spaced candidates to the current closing heading, latched per
+  # attempt). Needs the object quaternion (w,x,y,z) at ``quat_slice``.
+  yaw_align = False
+  quat_slice = slice(21, 25)
+  yaw_symmetry = np.pi / 2  # cube / square peg: 4-fold
+  yaw_align_hysteresis = 0.6  # fraction of yaw_symmetry before re-latching
+  # reset_detect = "jump": detect a mid-episode auto-reset from a teleport of the
+  # arm (> reset_q_jump rad on any joint in one step) OR of the object (> reset_gto_jump
+  # m). The default "home" test (|joint_pos_rel| < 0.05) cannot fire under the CL-V3
+  # +-10 deg reset joint noise, so it silently stopped working on every task.
+  reset_detect = "home"
+  reset_q_jump = 0.25
+  reset_gto_jump = 0.15
+  # carry_timeout > 0: unconditional CARRY escape back to HOVER (phase-1 M3; Stack /
+  # Place had none -- 9/17 baseline failures sat in CARRY for ~900 steps holding air).
+  carry_timeout = 0
+  # retry_from_done: after RETREAT, if ``_placed_ok`` says the object is not at the
+  # goal, go back to HOVER and try again while the budget lasts (success is latched).
+  retry_from_done = False
+  max_attempts = 6
+  # cmd_lead_max (base.py): integrate the joint command from the previous COMMAND, up
+  # to this many rad ahead of the actual joints. MEASURED (CPU, Peg hover): with the
+  # default 0 the command is re-anchored to the sagging actual joints every step and a
+  # stretched arm SINKS ~1 cm/step while commanded up (site 0.28 -> 0.06 in 50 steps,
+  # old spine and new alike); 0.15 holds the hover at 0.20-0.22. Opt-in per subclass.
+  lead = 0.0
+
+  def _act_single(self, i, obs_i):
+    self.cmd_lead_max = self._lead_for(i)
+    return super()._act_single(i, obs_i)
+
+  def _lead_for(self, i: int) -> float:
+    """Command lead for THIS env this step (default: the class value).
+
+    A hook, not a constant, because the lead is a two-edged tool: it is what stops the
+    gravity-sag ratchet on a hover, and it is also what lets the command sit ~0.12 rad
+    (= ~6 cm at the site) BELOW the actual joints while the servo catches up. MEASURED
+    (Peg-Insertion diagnose, 16/31 failures): during the insert the peg jams on the
+    board rim, the teacher keeps commanding down, and the wrist sinks to site z 0.004 --
+    1.8 cm past the 0.022 floor guard, which clamps the TARGET but cannot clamp a
+    command that is already leading downward -- and ``ee_ground_collision`` fires.
+    Subclasses that press an object into something override this to drop the lead
+    during the pressing phase."""
+    return self.lead
+
   # -- observation hooks (subclass overrides) --------------------------------
   #: index slice of gripper_to_object in this task's observation layout
   gto_slice = slice(37, 40)
@@ -132,9 +256,38 @@ class GraspTransportPolicy(ClassicalPolicyBase):
     return obs_i[self.o2g_slice]
 
   def _approach_rot(self, i: int, obs_i: np.ndarray):
+    if self.yaw_align:
+      return closing_frame(self._closing_heading(i, obs_i))
     if self.grasp_yaw is None:
       return _DOWN_AXIS
     return down_frame(self.grasp_yaw)
+
+  def _object_yaw(self, i: int, obs_i: np.ndarray) -> float:
+    return quat_yaw_wxyz(obs_i[self.quat_slice])
+
+  def _closing_heading(self, i: int, obs_i: np.ndarray) -> float:
+    """Heading for the finger-closing axis: the object-face normal (object yaw plus a
+    multiple of ``yaw_symmetry``) nearest the CURRENT closing heading, latched per
+    attempt with hysteresis so obs noise cannot flip it between two candidates."""
+    psi = self._object_yaw(i, obs_i)
+    sym = self.yaw_symmetry
+    if np.isnan(self._yaw_target[i]):
+      _, r = self._fk(self.default_qpos + obs_i[0:9])
+      ref = float(np.arctan2(r[1, 1], r[0, 1]))  # current closing heading
+    else:
+      ref = float(self._yaw_target[i])
+    k = np.round((ref - psi) / sym)
+    cand = psi + k * sym
+    if np.isnan(self._yaw_target[i]):
+      self._yaw_target[i] = cand
+    else:
+      d = (cand - self._yaw_target[i] + np.pi) % (2 * np.pi) - np.pi
+      if abs(d) > self.yaw_align_hysteresis * sym:
+        self._yaw_target[i] = cand
+      else:
+        # Track the object's (noisy) yaw smoothly around the latched candidate.
+        self._yaw_target[i] += 0.3 * d
+    return float(self._yaw_target[i])
 
   # -- state -----------------------------------------------------------------
 
@@ -146,11 +299,32 @@ class GraspTransportPolicy(ClassicalPolicyBase):
       self._integ = np.zeros((self.num_envs, 3))
       self._anchor = np.zeros((self.num_envs, 3))
       self._started = np.zeros(self.num_envs, dtype=bool)
+      # CL-V3 opt-in state (harmless when the opt-ins are off).
+      self._settle = np.zeros(self.num_envs, dtype=np.int64)
+      self._attempts = np.zeros(self.num_envs, dtype=np.int64)
+      self._prev_q = np.zeros((self.num_envs, 7))
+      self._prev_gto = np.zeros((self.num_envs, 3))
+      self._have_prev = np.zeros(self.num_envs, dtype=bool)
+      self._yaw_target = np.full(self.num_envs, np.nan)
+      self._lift_integ = np.zeros((self.num_envs, 3))
+      self._mean_sum = np.zeros((self.num_envs, 3))
+      self._mean_n = np.zeros(self.num_envs, dtype=np.int64)
+      self._mean_held = np.zeros(self.num_envs, dtype=bool)
+      if not hasattr(self, "_base_max_dq"):
+        self._base_max_dq = self.max_dq
     else:
       self._ema_ok[env_ids] = False
       self._integ[env_ids] = 0.0
       self._anchor[env_ids] = 0.0
       self._started[env_ids] = False
+      self._settle[env_ids] = 0
+      self._attempts[env_ids] = 0
+      self._have_prev[env_ids] = False
+      self._yaw_target[env_ids] = np.nan
+      self._lift_integ[env_ids] = 0.0
+      self._mean_sum[env_ids] = 0.0
+      self._mean_n[env_ids] = 0
+      self._mean_held[env_ids] = False
 
   # -- auto-reset detection --------------------------------------------------
   #
@@ -178,7 +352,35 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   # at-home observation at the very start of an episode is not read as a reset.
   reset_qpos_tol = 0.05  # rad; obs noise on joint_pos_rel is only +-0.01
 
+  def _rewind(self, i: int) -> None:
+    """Back to HOVER for a fresh attempt (missed grasp, lost object, auto-reset)."""
+    self._phase[i] = P_HOVER
+    self._phase_steps[i] = 0
+    self._ema_ok[i] = False
+    self._integ[i] = 0.0
+    self._settle[i] = 0
+    self._yaw_target[i] = np.nan
+    self._lift_integ[i] = 0.0
+    self._mean_sum[i] = 0.0
+    self._mean_n[i] = 0
+    self._mean_held[i] = False
+    self._attempts[i] += 1
+
   def _detect_reset(self, i: int, obs_i: np.ndarray) -> None:
+    if self.reset_detect == "jump":
+      q = obs_i[0:7]
+      g = obs_i[self.gto_slice]
+      if self._have_prev[i]:
+        q_jump = float(np.max(np.abs(q - self._prev_q[i])))
+        g_jump = float(np.linalg.norm(g - self._prev_gto[i]))
+        if q_jump > self.reset_q_jump or g_jump > self.reset_gto_jump:
+          self._rewind(i)
+          self._attempts[i] = 0
+          self._on_reset(i)
+      self._prev_q[i] = q
+      self._prev_gto[i] = g
+      self._have_prev[i] = True
+      return
     at_home = np.max(np.abs(obs_i[0:7])) < self.reset_qpos_tol
     if at_home and self._started[i]:
       self._phase[i] = P_HOVER
@@ -228,24 +430,61 @@ class GraspTransportPolicy(ClassicalPolicyBase):
   # per-env scene-origin offset -- it is legal in a way that reading obs[25:28]
   # (absolute world gripper_pos) is not.
   floor_min_z = 0.030
+  # CL-V3 (W1-G2), opt-in and default-off: guard the TRUE lowest collidable point of the
+  # hand (pad corners + hand capsule, ``base.lowest_hand_z``) instead of the gripper site.
+  # The two agree only when the hand is exactly vertical; the pad centres sit 0.0476 off
+  # the site axis with the jaws open, so ~10 deg of wrist tilt drops the outer pad corner
+  # from 11.9 mm below the site to 21 mm below it -- more than the whole clearance budget
+  # of a floor-level grasp. Subclasses opt in with ``guard_mode = "hand"``.
+  guard_mode = "site"
+  hand_clearance = 0.006
 
   def _site_z(self, obs_i: np.ndarray) -> float:
     q_abs = self.default_qpos + obs_i[0:9]
     return float(self._fk(q_abs)[0][2])
 
   def _guard(self, err: np.ndarray, obs_i: np.ndarray) -> np.ndarray:
-    """Clamp a commanded displacement so the site never targets below the floor."""
-    z = self._site_z(obs_i)
-    lowest = z + err[2]
-    if lowest < self.floor_min_z:
+    """Clamp a commanded displacement so the hand never targets below the floor."""
+    q_abs = self.default_qpos + obs_i[0:9]
+    ee_pos, ee_rot = self._fk(q_abs)
+    z = float(ee_pos[2])
+    if self.guard_mode == "hand":
+      low = lowest_hand_z(ee_pos, ee_rot, float(q_abs[7]))
+      floor = self.hand_clearance + (z - low)  # equivalent site height for that clearance
+    else:
+      floor = self.floor_min_z
+    if z + err[2] < floor:
       err = err.copy()
-      err[2] = self.floor_min_z - z
+      err[2] = floor - z
     return err
+
+  # CL-V3 (W1-G2, additive, default "ema" = unchanged): a RUNNING MEAN beats an EMA on a
+  # static object by a large factor. ``gripper_to_object`` carries 10-13 mm of noise per
+  # axis (W1-D2's measurement); an EMA at alpha 0.45 averages ~3 samples and still leaves
+  # 6-7 mm of standard deviation, which is more than a 30 mm bore's whole clearance. But
+  # the target is static in a KNOWN frame in every phase: before contact it does not move
+  # in the WORLD, so averaging ``FK(q_obs) + gripper_to_object`` (the object's position in
+  # the robot base frame) over every approach step collapses the error as 1/sqrt(n); after
+  # the grasp it does not move in the HAND, so averaging ``gripper_to_object`` itself does
+  # the same. The accumulators are restarted at the CLOSE boundary and on every rewind.
+  gto_estimator = "ema"
 
   def _gto(self, i: int, obs_i: np.ndarray) -> np.ndarray:
     """Smoothed gripper_to_object. Raw obs carries +-1cm uniform noise per axis;
     unsmoothed it makes the descent chatter and the grasp miss."""
     raw = obs_i[self.gto_slice]
+    if self.gto_estimator == "mean":
+      held = self._phase[i] >= P_CLOSE
+      if held != bool(self._mean_held[i]):
+        self._mean_sum[i] = 0.0
+        self._mean_n[i] = 0
+        self._mean_held[i] = held
+      site = self._fk(self.default_qpos + obs_i[0:9])[0]
+      sample = raw if held else site + raw
+      self._mean_sum[i] += sample
+      self._mean_n[i] += 1
+      est = self._mean_sum[i] / self._mean_n[i]
+      return est if held else est - site
     if not self._ema_ok[i]:
       self._ema[i] = raw
       self._ema_ok[i] = True
@@ -269,6 +508,33 @@ class GraspTransportPolicy(ClassicalPolicyBase):
     rot = self._approach_rot(i, obs_i)
     ph = self._phase[i]
     up = np.array([0.0, 0.0, 1.0])
+
+    if self.grasp_style == "lift":
+      # Per-env, per-call speed switch (base.py solves env i right after this
+      # returns, so it never leaks into another env).
+      if ph <= P_LIFT:
+        self.max_dq = self.lift_max_dq
+      elif ph in (P_CARRY, P_PLACE) and self.carry_max_dq is not None:
+        self.max_dq = self.carry_max_dq
+      else:
+        self.max_dq = self._base_max_dq
+      if ph <= P_LIFT:
+        return self._plan_lift_grasp(i, obs_i, rot)
+
+    if ph == P_CARRY and self.carry_timeout and self._phase_steps[i] > self.carry_timeout:
+      # Unconditional escape (phase-1 M3): with nothing in hand ``object_to_goal``
+      # never changes and the carry exit can never fire.
+      self._rewind(i)
+      ph = self._phase[i]
+
+    if ph == P_DONE and self.retry_from_done:
+      if (
+        self._phase_steps[i] > 20
+        and self._attempts[i] < self.max_attempts
+        and not self._placed_ok(i, obs_i)
+      ):
+        self._rewind(i)
+        ph = self._phase[i]
 
     if ph == P_HOVER:
       g = self._gripper_to_grasp(i, obs_i)
@@ -390,6 +656,103 @@ class GraspTransportPolicy(ClassicalPolicyBase):
 
     return up * self.retreat_height, rot, GRIPPER_OPEN
 
+  # -- CL-V3 lift-style grasp (opt-in, see grasp_style) -----------------------
+
+  def _placed_ok(self, i: int, obs_i: np.ndarray) -> bool:
+    """Is the object at the goal? Default: 3-D object_to_goal within 3.5 cm."""
+    return bool(np.linalg.norm(obs_i[self.o2g_slice]) < 0.035)
+
+  def _plan_lift_grasp(self, i: int, obs_i: np.ndarray, rot):
+    """lift_object.py's HOVER/DESCEND/CLOSE/LIFT, on this spine's phase numbers.
+
+    Heights are ABSOLUTE site heights from FK on the arm's own joints (robot-base
+    frame, so offset-free); xy comes from the (smoothed) gripper_to_grasp vector.
+    """
+    ph = self._phase[i]
+    g = self._gripper_to_grasp(i, obs_i)
+    z = self._site_z(obs_i)
+
+    if (
+      ph in (P_HOVER, P_DESCEND)
+      and self.lift_integ_gain > 0.0
+      and np.linalg.norm(g[:2]) < self.lift_integ_near
+    ):
+      self._lift_integ[i] = np.clip(
+        self._lift_integ[i] + self.lift_integ_gain * np.array([g[0], g[1], 0.0]),
+        -self.lift_integ_clip,
+        self.lift_integ_clip,
+      )
+
+    if ph == P_HOVER:
+      err = np.array([g[0], g[1], self.lift_hover_site_z - z])
+      if np.linalg.norm(err[:2]) < self.lift_align_tol and abs(err[2]) < 0.05:
+        self._settle[i] += 1
+        if self._settle[i] >= self.lift_align_settle:
+          self._phase[i] = P_DESCEND
+          self._phase_steps[i] = 0
+          self._settle[i] = 0
+      else:
+        self._settle[i] = max(0, self._settle[i] - 1)
+      if self._phase_steps[i] > self.lift_align_timeout:
+        self._phase[i] = P_DESCEND
+        self._phase_steps[i] = 0
+        self._settle[i] = 0
+      return err + self._lift_integ[i], rot, GRIPPER_OPEN
+
+    if ph == P_DESCEND:
+      err = np.array([g[0], g[1], self.lift_grasp_site_z - z])
+      z_err = err[2]
+      err[2] = max(z_err, -self.lift_descent_rate)
+      seated = abs(z_err) < self.lift_seat_tol and np.linalg.norm(err[:2]) < self.lift_seat_xy_tol
+      if seated and self.close_orient_tol > 0.0 and self.yaw_align:
+        _, r_cur = self._fk(self.default_qpos + obs_i[0:9])
+        cur = float(np.arctan2(r_cur[1, 1], r_cur[0, 1]))
+        tgt = float(self._yaw_target[i]) if not np.isnan(self._yaw_target[i]) else cur
+        # The closing axis is a LINE, so the alignment error is mod pi.
+        d_ang = (cur - tgt + np.pi / 2) % np.pi - np.pi / 2
+        seated = abs(d_ang) < self.close_orient_tol
+      if seated:
+        self._settle[i] += 1
+        if self._settle[i] >= 3:
+          self._phase[i] = P_CLOSE
+          self._phase_steps[i] = 0
+          self._settle[i] = 0
+      else:
+        self._settle[i] = 0
+      if self._phase_steps[i] > self.lift_descend_timeout:
+        self._phase[i] = P_CLOSE
+        self._phase_steps[i] = 0
+        self._settle[i] = 0
+      return err + self._lift_integ[i], rot, GRIPPER_OPEN
+
+    if ph == P_CLOSE:
+      # Actively HOLD the grasp height and creep xy at half gain while squeezing
+      # (commanding zero error lets the arm sag under gravity).
+      k = self.lift_close_xy_gain
+      err = np.array([k * g[0], k * g[1], self.lift_grasp_site_z - z])
+      grip = self.grip_close_action
+      if self.lift_close_ramp > 0:
+        frac = min(1.0, (self._phase_steps[i] + 1) / float(self.lift_close_ramp))
+        grip = GRIPPER_OPEN + (self.grip_close_action - GRIPPER_OPEN) * frac
+      if self._phase_steps[i] >= self.lift_close_steps:
+        self._phase[i] = P_LIFT
+        self._phase_steps[i] = 0
+      return err + self._lift_integ[i], rot, grip
+
+    # P_LIFT: climb straight up, then check the object came along.
+    climbing = self._phase_steps[i] < self.lift_climb_steps and (
+      self.lift_climb_to is None or z < self.lift_climb_to
+    )
+    if climbing:
+      return np.array([0.0, 0.0, self.lift_climb_err]), rot, self.grip_close_action
+    if np.linalg.norm(g) > self.lift_held_tol:
+      self._rewind(i)
+      return np.array([g[0], g[1], self.lift_hover_site_z - z]), rot, GRIPPER_OPEN
+    self._phase[i] = P_CARRY
+    self._phase_steps[i] = 0
+    self._integ[i] = 0.0
+    return self._carry(i, obs_i, rot)
+
   # -- ending (subclasses specialise these two) ------------------------------
 
   def _carry(self, i, obs_i, rot):
@@ -435,48 +798,7 @@ class GraspTransportPolicy(ClassicalPolicyBase):
     return d + self._integ[i], rot, self.grip_close_action
 
 
-class StackObjectClassicalPolicy(GraspTransportPolicy):
-  """Grasp the cube top-down, carry it over the cuboid base, lower and release.
+class StackObjectClassicalPolicy(StagedStackPolicy):
+  """Grasp safely, transport above the base, then lower and release in place."""
 
-  The 4cm cube is grasped at its centre (site == grasp point, see module docstring)
-  and the drop target is ``object_to_goal``, which already points from the cube's
-  centre to base_pos + 0.035 — i.e. the pose the success test wants. The only
-  subtlety is the RELEASE: success needs |z| < 0.02 of that height while the object
-  is free, so the fingers must open and the arm must retreat, otherwise the cube is
-  held a finger-width high forever and the height test never fires.
-  """
-
-  gto_slice = slice(37, 40)
-  o2g_slice = slice(40, 43)
-
-  # The cube is 4cm; the base cuboid top is only 3cm above the ground. Keep the
-  # carry altitude modest so lowering onto a 3cm-tall target is a short move, but
-  # high enough to clear the base's 8x8cm footprint on the way in.
-  hover_height = 0.11
-  lift_height = 0.14
-  align_tol = 0.02
-  descend_tol = 0.010
-  carry_tol = 0.018
-  # Release slightly HIGH rather than pressing down: the cube's own weight seats it
-  # and pressing pushes the base out from under it (both objects are free bodies).
-  place_tol = 0.014
-  # Grasp 1cm above the cube's centre. The 4cm cube spans z 0.00-0.04 and the
-  # colliding fingertip pad is 1.65cm tall, so the pad spans 0.022-0.038 and bites
-  # the cube's upper half while keeping the wrist clear of the ground.
-  #
-  # Grasping DEEPER (0.004, straddling the cube's centre of mass at 0.020) was
-  # tried, on the theory that a top-45% pinch is torqued out of the pads by the
-  # lift. It helps on this task in isolation but was part of a change set that
-  # measured WORSE over 96 episode-instances (0.354 -> 0.292), so it is not kept.
-  # See the note in P_LIFT: grip retention really is the dominant failure here,
-  # but neither a deeper grasp nor a gentler lift is the fix.
-  grasp_z_offset = 0.010
-  # W2-c: a partial-close ``grip_close_action`` (instead of fully-closed) was tried
-  # against the P_LIFT finding below and measured WORSE at both tested values
-  # (-0.4 -> 0.000/32, -0.85 -> 0.188/32, vs the fully-closed baseline ~0.33/128) --
-  # reverted. See LOGS.md for the negative result and why it likely trades one
-  # failure mode (ejection after contact) for a worse one (never reaching contact at
-  # all, since the actuator command-to-aperture mapping is not simply linear and a
-  # partial command may under-close relative to the object's true width in many
-  # envs). Left at the inherited default (fully closed) pending a better-targeted fix
-  # (e.g. contact-triggered stop rather than a blind partial command).
+  legacy_layout = "stack"

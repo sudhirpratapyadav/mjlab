@@ -83,6 +83,10 @@ CLASSICAL_POLICIES = {
   "Mjlab-Throw-To-Bin-Franka": ThrowToBinClassicalPolicy,
 }
 
+from .shared_interface import shared_teacher
+
+CLASSICAL_POLICIES = {name: shared_teacher(cls) for name, cls in CLASSICAL_POLICIES.items()}
+
 __all__ = [
   "CLASSICAL_POLICIES",
   "AxialExtractClassicalPolicy",

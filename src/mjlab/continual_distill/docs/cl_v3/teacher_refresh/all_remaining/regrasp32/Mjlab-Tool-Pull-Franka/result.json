@@ -1,0 +1,624 @@
+{
+  "task_id": "Mjlab-Tool-Pull-Franka",
+  "n": 32,
+  "num_success": 0,
+  "sr": 0.0,
+  "stats_seed": 20260911,
+  "stats_batch_size": 32,
+  "source_sha256": "1c98c909e170ffee17b471f6b74ba730922e54256677a0cd68126bc0fdfcae38",
+  "evaluation_protocol": "single_episode_no_reset_retries",
+  "task_revision": "2026-09-11-corrected-semantics",
+  "device": "cuda:0",
+  "outcomes": [
+    {
+      "env": 0,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.30534443259239197,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.18604518473148346,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.18523910641670227,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 1,
+      "success": false,
+      "steps": 600,
+      "phase": 7,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.22757788002490997,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.09288526326417923,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.10252726823091507,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 2,
+      "success": false,
+      "steps": 600,
+      "phase": 8,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.22748354077339172,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.15065252780914307,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.12122433632612228,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 3,
+      "success": false,
+      "steps": 600,
+      "phase": 7,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.24624085426330566,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.1338212490081787,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.10368826240301132,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 4,
+      "success": false,
+      "steps": 600,
+      "phase": 0,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.24469371140003204,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.27809321880340576,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.14787906408309937,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 5,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2453245222568512,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.16604618728160858,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.14184018969535828,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 6,
+      "success": false,
+      "steps": 600,
+      "phase": 2,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.23168787360191345,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.2379380613565445,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11796779930591583,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 7,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.32579052448272705,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.17367352545261383,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.13942457735538483,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 8,
+      "success": false,
+      "steps": 525,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.27105191349983215,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.3819316327571869,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.20244228839874268,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 9,
+      "success": false,
+      "steps": 600,
+      "phase": 7,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.16219577193260193,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.10800808668136597,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.10131091624498367,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 10,
+      "success": false,
+      "steps": 502,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.2621099352836609,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.27816835045814514,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11826233565807343,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 11,
+      "success": false,
+      "steps": 600,
+      "phase": 6,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.27316415309906006,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.07167789340019226,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.1076536551117897,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 12,
+      "success": false,
+      "steps": 600,
+      "phase": 2,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.24551500380039215,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 0.0,
+        "gripper_object_distance": 0.3618890941143036,
+        "tool_grasped": 0.0,
+        "gripper_tool_distance": 0.11371786892414093,
+        "tool_used": 0.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 13,
+      "success": false,
+      "steps": 600,
+      "phase": 8,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.12377401441335678,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.14456188678741455,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.08062959462404251,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 14,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.1611977368593216,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.09636593610048294,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11643131822347641,
+        "tool_used": 1.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 15,
+      "success": false,
+      "steps": 490,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.23713397979736328,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.2488044798374176,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.12125549465417862,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 16,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.27949005365371704,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.16076788306236267,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.14503493905067444,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 17,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2586289048194885,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.17188435792922974,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.1429043859243393,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 18,
+      "success": false,
+      "steps": 97,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.2725045084953308,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 0.0,
+        "gripper_object_distance": 0.3889622390270233,
+        "tool_grasped": 0.0,
+        "gripper_tool_distance": 0.10707512497901917,
+        "tool_used": 0.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 19,
+      "success": false,
+      "steps": 93,
+      "phase": 2,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.24773617088794708,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 0.0,
+        "gripper_object_distance": 0.38920074701309204,
+        "tool_grasped": 0.0,
+        "gripper_tool_distance": 0.11145490407943726,
+        "tool_used": 0.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 20,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.28484034538269043,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.17175324261188507,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.13922876119613647,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 21,
+      "success": false,
+      "steps": 600,
+      "phase": 7,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2436743974685669,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.14060160517692566,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.10379249602556229,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 22,
+      "success": false,
+      "steps": 600,
+      "phase": 2,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.22981880605220795,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.12796898186206818,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11109600961208344,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 23,
+      "success": false,
+      "steps": 600,
+      "phase": 8,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.18626144528388977,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.18015192449092865,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.13066890835762024,
+        "tool_used": 1.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 24,
+      "success": false,
+      "steps": 92,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.26242056488990784,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 0.0,
+        "gripper_object_distance": 0.28008705377578735,
+        "tool_grasped": 0.0,
+        "gripper_tool_distance": 0.09821511059999466,
+        "tool_used": 0.0,
+        "direct_contact": 0.0
+      }
+    },
+    {
+      "env": 25,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.3173314034938812,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.11435238271951675,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.13250833749771118,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 26,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2816765010356903,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.18150770664215088,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.17079497873783112,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 27,
+      "success": false,
+      "steps": 510,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.23057225346565247,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.2606362998485565,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11298387497663498,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 28,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.24108535051345825,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.11662447452545166,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11305885761976242,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 29,
+      "success": false,
+      "steps": 600,
+      "phase": 6,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.30600854754447937,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.08628137409687042,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.12562249600887299,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 30,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2337713986635208,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.10460439324378967,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.11379708349704742,
+        "tool_used": 1.0,
+        "direct_contact": 1.0
+      }
+    },
+    {
+      "env": 31,
+      "success": false,
+      "steps": 600,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.27734965085983276,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "gripper_object_distance": 0.14247216284275055,
+        "tool_grasped": 1.0,
+        "gripper_tool_distance": 0.12629620730876923,
+        "tool_used": 0.0,
+        "direct_contact": 1.0
+      }
+    }
+  ],
+  "teacher_override": "src/mjlab/continual_distill/docs/cl_v3/teacher_refresh/all_remaining/tool_regrasp.py",
+  "teacher_override_sha256": "2ae19d34804939f5b8e52bcf8151ca3a3b21e6c47c73f06009f7e7966d476606"
+}

@@ -82,6 +82,10 @@ class OffscreenRenderer:
     # Add additional environments as geoms.
     nworld = data.qpos.shape[0]
     for i in range(min(nworld, _MAX_ENVS)):
+      # update_scene already added the selected environment. Duplicating it
+      # causes z-fighting and makes translucent goals appear more opaque.
+      if i == env_idx:
+        continue
       self._data.qpos[:] = data.qpos[i].cpu().numpy()
       self._data.qvel[:] = data.qvel[i].cpu().numpy()
       if self._model.nmocap:

@@ -4,7 +4,9 @@ from mjlab.tasks.manipulation.taxonomy import (
   SkillFamily,
   TaskTaxonomy,
 )
-from mjlab.tasks.registry import register_mjlab_task
+from mjlab.tasks.registry import register_mjlab_task as _register_mjlab_task
+from mjlab.tasks.manipulation.franka_interface import apply_shared_interface
+
 
 from .env_cfgs import (
   franka_turn_lever_env_cfg,
@@ -50,6 +52,15 @@ from .rl_cfg import (
   franka_pivot_lift_ppo_runner_cfg,
   franka_throw_to_bin_ppo_runner_cfg,
 )
+
+def register_mjlab_task(**kwargs):
+  """Finalize every Franka task/mode with the same versioned policy interface."""
+  for key in ("env_cfg", "play_env_cfg", "test_env_cfg"):
+    apply_shared_interface(kwargs[key])
+  kwargs["rl_cfg"].clip_actions = 1.0
+  kwargs["rl_cfg"].policy.init_noise_std = 0.2
+  _register_mjlab_task(**kwargs)
+
 
 register_mjlab_task(
   task_id="Mjlab-Lift-Cube-Franka",

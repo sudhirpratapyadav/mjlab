@@ -1,0 +1,74 @@
+{
+ "task": "Mjlab-Cage-Drag-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1024,
+  "entities": {
+   "cube": {
+    "n": 1024,
+    "x": [
+     0.30034446716308594,
+     0.47979727387428284
+    ],
+    "y": [
+     -0.17994177341461182,
+     0.17863237857818604
+    ],
+    "z": [
+     0.022306764498353004,
+     0.022577768191695213
+    ],
+    "radial": [
+     0.3014925420284271,
+     0.5109458565711975
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "cube": -0.0002645114981136183
+  },
+  "goal": {
+   "term": "cage_drag",
+   "radial": [
+    0.30294081568717957,
+    0.5158939957618713
+   ],
+   "z": [
+    0.022600000724196434,
+    0.022600000724196434
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1024,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "oracle": "constructed contact/history state; not a policy rollout",
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true
+}

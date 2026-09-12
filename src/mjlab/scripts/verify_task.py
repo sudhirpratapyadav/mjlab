@@ -534,6 +534,21 @@ def g4_g5(task_id: str, cfg, spec_info: dict, num_resets: int, num_envs: int, de
   if kind == "none":
     g5["oracle"] = "n/a (asset-free task)"
     g5["oracle_pass"] = True
+  elif (getattr(term.cfg,"require_grasp",False) or getattr(term.cfg,"insertion",False)
+        or type(term).__name__ in ("StackingCommand","CageDragCommand","ToolPullCommand",
+                                   "PlaceInContainerCommand")):
+    # Position teleportation alone is not a grasp, cage, tool interaction, or
+    # supported placement. Use an explicit contact-backed state witness.
+    from mjlab.scripts.task_state_probe import goal_oracle
+    env.reset()
+    try:
+      frac=float(goal_oracle(env,term).float().mean())
+      g5["oracle_success_fraction"]=frac
+      g5["oracle_pass"]=frac >= .99
+      g5["oracle"]="constructed contact/history state; not a policy rollout"
+    except RuntimeError as exc:
+      g5["oracle_pass"]=False
+      g5["oracle_error"]=str(exc)
   else:
     env.reset()
     env.step(zero)

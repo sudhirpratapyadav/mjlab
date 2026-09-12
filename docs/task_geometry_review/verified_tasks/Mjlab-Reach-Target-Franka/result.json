@@ -1,0 +1,91 @@
+{
+  "task": "Mjlab-Reach-Target-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "ReachingCommand",
+  "episode_seconds": 20.0,
+  "terminations": [
+    "time_out"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_target": {
+      "function": "reach_target_reward",
+      "weight": 1.0
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 16,
+    "success": true,
+    "terminated": false,
+    "timeout": false,
+    "simulation_seconds": 0.32
+  },
+  "final_metrics": {
+    "goal_error": 0.04206467047333717,
+    "at_goal": 1.0,
+    "episode_success": 1.0
+  },
+  "video": {
+    "fps": 10,
+    "frames": 3
+  }
+}

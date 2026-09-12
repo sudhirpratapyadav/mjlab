@@ -1,0 +1,116 @@
+{
+ "task": "Mjlab-Open-Drawer-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "drawer": {
+    "n": 1000,
+    "x": [
+     0.4202404022216797,
+     0.5205745697021484
+    ],
+    "y": [
+     -0.10660123825073242,
+     0.10744589567184448
+    ],
+    "z": [
+     0.3450113534927368,
+     0.37499597668647766
+    ],
+    "radial": [
+     0.4202405512332916,
+     0.5297253727912903
+    ],
+    "bound": [
+     0.0,
+     0.58
+    ],
+    "rule": "mechanism handle",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "drawer": 0.0
+  },
+  "goal": {
+   "term": "open_drawer",
+   "radial": [
+    0.17165009677410126,
+    0.31405749917030334
+   ],
+   "z": [
+    0.3450113534927368,
+    0.37499597668647766
+   ],
+   "bound": [
+    0.0,
+    0.7
+   ],
+   "rule": "mechanism goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.02
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "drawer": {
+   "xml": "src/mjlab/asset_zoo/objects/articulated/drawer/xmls/drawer.xml",
+   "mass_kg": 14.247439999999997,
+   "ngeom_collision": 7,
+   "nmesh": 4,
+   "ntex": 2,
+   "joints": [
+    {
+     "name": "drawer_slide",
+     "type": "slide",
+     "range": [
+      -0.25,
+      0.0
+     ],
+     "damping": 0.1,
+     "frictionloss": 0.0,
+     "armature": 0.0,
+     "target_value": -0.25
+    }
+   ],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "joint_drift_task_gravity": 0.0,
+    "gravity": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "joint_drift_gravity_on": 0.0,
+    "pass": true
+   },
+   "step_time_us": 1.8621385097503662,
+   "step_time_baseline_us": 1.642957329750061,
+   "step_time_ratio": 1.133406495732697,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

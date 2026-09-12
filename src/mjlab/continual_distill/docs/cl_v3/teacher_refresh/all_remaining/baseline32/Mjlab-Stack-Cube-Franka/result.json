@@ -1,0 +1,494 @@
+{
+  "task_id": "Mjlab-Stack-Cube-Franka",
+  "n": 32,
+  "num_success": 7,
+  "sr": 0.21875,
+  "stats_seed": 20260911,
+  "stats_batch_size": 32,
+  "source_sha256": "519b66e877e1113c1deda5da2cf086e75d741344b37d113b58fc0e32f6491eb1",
+  "evaluation_protocol": "single_episode_no_reset_retries",
+  "task_revision": "2026-09-11-corrected-semantics",
+  "device": "cuda:0",
+  "outcomes": [
+    {
+      "env": 0,
+      "success": false,
+      "steps": 225,
+      "phase": 6,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.05630037933588028,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.0005628354847431183
+      }
+    },
+    {
+      "env": 1,
+      "success": false,
+      "steps": 673,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.08468294143676758,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.02301866002380848
+      }
+    },
+    {
+      "env": 2,
+      "success": true,
+      "steps": 648,
+      "phase": 7,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.012343634851276875,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.0002734474837779999
+      }
+    },
+    {
+      "env": 3,
+      "success": false,
+      "steps": 356,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.12494157254695892,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.02133018523454666
+      }
+    },
+    {
+      "env": 4,
+      "success": false,
+      "steps": 1000,
+      "phase": 0,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.2760845720767975,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.029600007459521294
+      }
+    },
+    {
+      "env": 5,
+      "success": true,
+      "steps": 174,
+      "phase": 7,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.022440901026129723,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 6.128475069999695e-05
+      }
+    },
+    {
+      "env": 6,
+      "success": false,
+      "steps": 1000,
+      "phase": 8,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.12586012482643127,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.030000001192092896
+      }
+    },
+    {
+      "env": 7,
+      "success": true,
+      "steps": 692,
+      "phase": 7,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.008278566412627697,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 7.626041769981384e-05
+      }
+    },
+    {
+      "env": 8,
+      "success": false,
+      "steps": 351,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.14948350191116333,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.0291342381387949
+      }
+    },
+    {
+      "env": 9,
+      "success": false,
+      "steps": 1000,
+      "phase": 0,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.28882119059562683,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.030000001192092896
+      }
+    },
+    {
+      "env": 10,
+      "success": true,
+      "steps": 594,
+      "phase": 7,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.01861913874745369,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.00026391446590423584
+      }
+    },
+    {
+      "env": 11,
+      "success": false,
+      "steps": 1000,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.16405196487903595,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.029600003734230995
+      }
+    },
+    {
+      "env": 12,
+      "success": false,
+      "steps": 717,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.20357440412044525,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.03052995353937149
+      }
+    },
+    {
+      "env": 13,
+      "success": false,
+      "steps": 1000,
+      "phase": 4,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.09319613873958588,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.09243479371070862
+      }
+    },
+    {
+      "env": 14,
+      "success": false,
+      "steps": 216,
+      "phase": 6,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.0933852270245552,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.030000004917383194
+      }
+    },
+    {
+      "env": 15,
+      "success": true,
+      "steps": 372,
+      "phase": 7,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.0072951591573655605,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.00020872056484222412
+      }
+    },
+    {
+      "env": 16,
+      "success": true,
+      "steps": 534,
+      "phase": 6,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.017727240920066833,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.00021216273307800293
+      }
+    },
+    {
+      "env": 17,
+      "success": true,
+      "steps": 340,
+      "phase": 6,
+      "terminated": false,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.0022453651763498783,
+        "at_goal": 1.0,
+        "episode_success": 1.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.00013190507888793945
+      }
+    },
+    {
+      "env": 18,
+      "success": false,
+      "steps": 639,
+      "phase": 4,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.32468923926353455,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.02164640463888645
+      }
+    },
+    {
+      "env": 19,
+      "success": false,
+      "steps": 1000,
+      "phase": 2,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.1412779688835144,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.03221046179533005
+      }
+    },
+    {
+      "env": 20,
+      "success": false,
+      "steps": 1000,
+      "phase": 8,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.09445685148239136,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.029599996283650398
+      }
+    },
+    {
+      "env": 21,
+      "success": false,
+      "steps": 723,
+      "phase": 4,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.2886095941066742,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.026586363092064857
+      }
+    },
+    {
+      "env": 22,
+      "success": false,
+      "steps": 954,
+      "phase": 1,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.31616345047950745,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.028331810608506203
+      }
+    },
+    {
+      "env": 23,
+      "success": false,
+      "steps": 1000,
+      "phase": 1,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.1110890656709671,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.029600003734230995
+      }
+    },
+    {
+      "env": 24,
+      "success": false,
+      "steps": 1000,
+      "phase": 2,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.22991079092025757,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.032864026725292206
+      }
+    },
+    {
+      "env": 25,
+      "success": false,
+      "steps": 156,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.10387440770864487,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.09674910455942154
+      }
+    },
+    {
+      "env": 26,
+      "success": false,
+      "steps": 557,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.11807405203580856,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.029600003734230995
+      }
+    },
+    {
+      "env": 27,
+      "success": false,
+      "steps": 1000,
+      "phase": 6,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.020561937242746353,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.0006662346422672272
+      }
+    },
+    {
+      "env": 28,
+      "success": false,
+      "steps": 613,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.1990908533334732,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.02591302990913391
+      }
+    },
+    {
+      "env": 29,
+      "success": false,
+      "steps": 672,
+      "phase": 5,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.13108859956264496,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.030000001192092896
+      }
+    },
+    {
+      "env": 30,
+      "success": false,
+      "steps": 1000,
+      "phase": 7,
+      "terminated": false,
+      "timeout": true,
+      "metrics": {
+        "goal_error": 0.030705559998750687,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.0008814148604869843
+      }
+    },
+    {
+      "env": 31,
+      "success": false,
+      "steps": 244,
+      "phase": 6,
+      "terminated": true,
+      "timeout": false,
+      "metrics": {
+        "goal_error": 0.061513498425483704,
+        "at_goal": 0.0,
+        "episode_success": 0.0,
+        "reached_object": 1.0,
+        "stack_height_error": 0.007489141076803207
+      }
+    }
+  ]
+}

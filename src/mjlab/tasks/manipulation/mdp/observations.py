@@ -6,6 +6,7 @@ import torch
 
 from mjlab.entity import Entity
 from mjlab.managers.scene_entity_config import SceneEntityCfg
+from .task_geometry import tracking_goal
 
 if TYPE_CHECKING:
   from mjlab.envs import ManagerBasedRlEnv
@@ -61,7 +62,7 @@ def object_to_goal_vector(
     object_pos_w = obj.data.root_link_pos_w
 
   # Get goal position from command
-  goal_pos = command.target_pos
+  goal_pos = tracking_goal(command)
 
   return goal_pos - object_pos_w
 

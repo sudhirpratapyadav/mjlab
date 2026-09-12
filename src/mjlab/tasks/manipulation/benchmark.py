@@ -34,6 +34,28 @@ def all_benchmark_tasks() -> dict[str, TaskTaxonomy]:
   return list_taxonomy()
 
 
+# Current CL scope is distinct from the complete asset/task catalog. Keep deferred
+# tasks registered so they remain available for development and historical runs.
+DEFERRED_CL_TASKS = {
+  "Mjlab-Tool-Pull-Franka": (
+    "Deferred by the user: requires both stick and puck poses; the selected "
+    "60D observation describes only one object and its goal."
+  ),
+}
+_CL_OBJECT_VARIANTS = frozenset({
+  "Mjlab-Lift-Cylinder-Franka", "Mjlab-Lift-Sphere-Franka",
+  "Mjlab-Lift-Ellipsoid-Franka", "Mjlab-Push-Disc-Franka",
+})
+
+
+def active_cl_tasks() -> list[str]:
+  """The current 24-task Franka CL/RL suite, excluding variants and deferrals."""
+  return [
+    task for task in filter_tasks(embodiment=Embodiment.ARM_GRIPPER)
+    if task not in _CL_OBJECT_VARIANTS and task not in DEFERRED_CL_TASKS
+  ]
+
+
 def filter_tasks(
   *,
   embodiment: Embodiment | None = None,

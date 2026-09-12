@@ -1,0 +1,1479 @@
+{
+  "inventory": [
+    {
+      "task": "Mjlab-Axial-Extract-Franka",
+      "commands": {
+        "axial_extract": "AxialExtractCommandCfg"
+      },
+      "site_offsets": {
+        "plug": [
+          0.0,
+          0.0,
+          0.062
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Cage-Drag-Franka",
+      "commands": {
+        "cage_drag": "CageDragCommandCfg"
+      },
+      "site_offsets": {
+        "cube": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "keep_gripper_open": {
+          "func": "gripper_closure_penalty",
+          "weight": -0.5
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Drag-Pull-Franka",
+      "commands": {
+        "drag_pull": "PushingCommandCfg"
+      },
+      "site_offsets": {
+        "cuboid": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Edge-Grasp-Franka",
+      "commands": {
+        "edge_grasp": "EdgeGraspCommandCfg"
+      },
+      "site_offsets": {
+        "plate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ledge": [
+          0.0,
+          0.0,
+          0.1
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Flip-Switch-Franka",
+      "commands": {
+        "flip_switch": "FlipSwitchCommandCfg"
+      },
+      "site_offsets": {
+        "switch": [
+          0.0,
+          0.0,
+          0.062
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Lift-Cube-Franka",
+      "commands": {
+        "lift_object": "LiftingCommandCfg"
+      },
+      "site_offsets": {
+        "cube": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Door-Franka",
+      "commands": {
+        "open_door": "OpenDoorCommandCfg"
+      },
+      "site_offsets": {
+        "door": [
+          -0.04,
+          0.25,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": 0.0
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": 0.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": 0.0
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Drawer-Franka",
+      "commands": {
+        "open_drawer": "OpenDrawerCommandCfg"
+      },
+      "site_offsets": {
+        "drawer": [
+          -0.04,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Lid-Franka",
+      "commands": {
+        "open_lid": "OpenLidCommandCfg"
+      },
+      "site_offsets": {
+        "lid": [
+          -0.09,
+          0.0,
+          0.05
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Peg-Insertion-Franka",
+      "commands": {
+        "stack_object": "StackingCommandCfg"
+      },
+      "site_offsets": {
+        "object": [
+          0.0,
+          0.0,
+          -0.05
+        ],
+        "base": [
+          0.0,
+          0.0,
+          0.015
+        ]
+      },
+      "rewards": {
+        "stack": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "at_goal_bonus": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Pivot-Lift-Franka",
+      "commands": {
+        "pivot_lift": "PivotLiftCommandCfg"
+      },
+      "site_offsets": {
+        "board": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "wall": [
+          -0.0525,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Place-In-Container-Franka",
+      "commands": {
+        "place_in_container": "PlaceInContainerCommandCfg"
+      },
+      "site_offsets": {
+        "cube": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "container": [
+          0.0,
+          0.0,
+          0.02
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Button-Franka",
+      "commands": {
+        "push_button": "PushButtonCommandCfg"
+      },
+      "site_offsets": {
+        "button": [
+          0.0,
+          0.0,
+          0.1
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Cuboid-Franka",
+      "commands": {
+        "push_cuboid": "PushingCommandCfg"
+      },
+      "site_offsets": {
+        "cuboid": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Flap-Franka",
+      "commands": {
+        "push_flap": "PushFlapCommandCfg"
+      },
+      "site_offsets": {
+        "flap": [
+          -0.012,
+          0.18,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Reach-Target-Franka",
+      "commands": {
+        "reach_target": "ReachingCommandCfg"
+      },
+      "site_offsets": {},
+      "rewards": {
+        "reach_target": {
+          "func": "reach_target_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Reorient-Object-Franka",
+      "commands": {
+        "reorient_object": "ReorientObjectCommandCfg"
+      },
+      "site_offsets": {
+        "cylinder": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Rotate-Valve-Franka",
+      "commands": {
+        "rotate_valve": "RotateValveCommandCfg"
+      },
+      "site_offsets": {
+        "valve": [
+          -0.04,
+          0.09,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Slide-Window-Franka",
+      "commands": {
+        "slide_window": "SlideWindowCommandCfg"
+      },
+      "site_offsets": {
+        "window": [
+          -0.04,
+          -0.1,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Stack-Cube-Franka",
+      "commands": {
+        "stack_object": "StackingCommandCfg"
+      },
+      "site_offsets": {
+        "object": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "base": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "stack": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "at_goal_bonus": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Strike-Slide-Franka",
+      "commands": {
+        "strike_slide": "PushingCommandCfg"
+      },
+      "site_offsets": {
+        "puck": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Throw-To-Bin-Franka",
+      "commands": {
+        "place_in_container": "PlaceInContainerCommandCfg"
+      },
+      "site_offsets": {
+        "cube": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "container": [
+          0.0,
+          0.0,
+          0.02
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Tool-Pull-Franka",
+      "commands": {
+        "tool_pull": "ToolPullCommandCfg"
+      },
+      "site_offsets": {
+        "puck": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "stick": [
+          -0.09,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Topple-Block-Franka",
+      "commands": {
+        "topple_block": "ReorientObjectCommandCfg"
+      },
+      "site_offsets": {
+        "block": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Turn-Lever-Franka",
+      "commands": {
+        "turn_lever": "TurnLeverCommandCfg"
+      },
+      "site_offsets": {
+        "lever": [
+          -0.05,
+          0.12,
+          0.0
+        ]
+      },
+      "rewards": {
+        "reach_object": {
+          "func": "staged_manipulation_reward",
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "object_at_goal_reward",
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "no_object_body_collision_reward",
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "action_rate_l2",
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "joint_pos_limits",
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "joint_velocity_penalty",
+          "weight": -0.01
+        }
+      }
+    }
+  ],
+  "Peg-Insertion": {
+    "seated": {
+      "success": [
+        true,
+        true
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.05000000074505806
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.05000000074505806
+        ]
+      ],
+      "root": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.05000000074505806
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.05000000074505806
+        ]
+      ],
+      "site": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.0
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.0
+        ]
+      ],
+      "precise_reward": [
+        0.3530191481113434,
+        0.3530191481113434
+      ]
+    },
+    "marker_geom_local_positions": [
+      [
+        0.0,
+        2.657096070470151e-20,
+        0.05011116996391644
+      ]
+    ],
+    "source_geom_local_positions": [
+      [
+        0.0,
+        2.657096070470151e-20,
+        0.00011116996391643126
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "tip_at_goal_but_50mm_above_seated": {
+      "success": [
+        false,
+        false
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.05000000074505806
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.05000000074505806
+        ]
+      ],
+      "root": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.10000000149011612
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.10000000149011612
+        ]
+      ],
+      "site": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.05000000074505806
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.05000000074505806
+        ]
+      ],
+      "precise_reward": [
+        1.0,
+        1.0
+      ]
+    },
+    "14mm_unseated_moving_up_1mps": {
+      "success": [
+        true,
+        true
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.05000000074505806
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.05000000074505806
+        ]
+      ],
+      "root": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.06400000303983688
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.06400000303983688
+        ]
+      ],
+      "site": [
+        [
+          0.3192507028579712,
+          0.1279345601797104,
+          0.014000002294778824
+        ],
+        [
+          0.3609181344509125,
+          0.08785609900951385,
+          0.014000002294778824
+        ]
+      ],
+      "precise_reward": [
+        0.582879364490509,
+        0.582879364490509
+      ]
+    }
+  },
+  "Cage-Drag": {
+    "object_at_goal_without_gripper_caging": {
+      "success": [
+        true,
+        true
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "root": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "site": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "precise_reward": [
+        1.0,
+        1.0
+      ]
+    },
+    "gripper_distance": [
+      0.5269521474838257,
+      0.39041346311569214
+    ],
+    "closed_after_success": {
+      "success": [
+        false,
+        false
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "root": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "site": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "precise_reward": [
+        1.0,
+        1.0
+      ]
+    },
+    "reopened_after_violation": {
+      "success": [
+        false,
+        false
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "root": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "site": [
+        [
+          0.3346301317214966,
+          -0.119928739964962,
+          0.022600000724196434
+        ],
+        [
+          0.40097469091415405,
+          -0.09554515033960342,
+          0.022600000724196434
+        ]
+      ],
+      "precise_reward": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "Reorient-Object": {
+    "upright": {
+      "success": [
+        true,
+        true
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.01600000075995922
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.01600000075995922
+        ]
+      ],
+      "root": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.20000000298023224
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.20000000298023224
+        ]
+      ],
+      "site": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.20000000298023224
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.20000000298023224
+        ]
+      ],
+      "precise_reward": [
+        7.518027018704743e-07,
+        7.518027018704743e-07
+      ]
+    },
+    "rotated_90_degrees": {
+      "success": [
+        false,
+        false
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.01600000075995922
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.01600000075995922
+        ]
+      ],
+      "root": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.20000000298023224
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.20000000298023224
+        ]
+      ],
+      "site": [
+        [
+          0.4190189838409424,
+          0.21678821742534637,
+          0.20000000298023224
+        ],
+        [
+          0.3913843333721161,
+          -0.07801854610443115,
+          0.20000000298023224
+        ]
+      ],
+      "precise_reward": [
+        7.518027018704743e-07,
+        7.518027018704743e-07
+      ]
+    }
+  },
+  "Topple-Block": {
+    "upright": {
+      "success": [
+        false,
+        false
+      ],
+      "latched": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.10499999672174454
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.10499999672174454
+        ]
+      ],
+      "root": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.20000000298023224
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.20000000298023224
+        ]
+      ],
+      "site": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.20000000298023224
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.20000000298023224
+        ]
+      ],
+      "precise_reward": [
+        0.023310506716370583,
+        0.023310506716370583
+      ]
+    },
+    "rotated_90_degrees": {
+      "success": [
+        true,
+        true
+      ],
+      "latched": [
+        1.0,
+        1.0
+      ],
+      "goal": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.10499999672174454
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.10499999672174454
+        ]
+      ],
+      "root": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.20000000298023224
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.20000000298023224
+        ]
+      ],
+      "site": [
+        [
+          0.3861132860183716,
+          -0.041395485401153564,
+          0.20000000298023224
+        ],
+        [
+          0.39968231320381165,
+          -0.15698572993278503,
+          0.20000000298023224
+        ]
+      ],
+      "precise_reward": [
+        0.023310506716370583,
+        0.023310506716370583
+      ]
+    }
+  }
+}

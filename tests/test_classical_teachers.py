@@ -53,6 +53,13 @@ def test_teacher_produces_valid_actions(task_id: str) -> None:
     policy.reset()
     action_dim = int(env.action_manager.total_action_dim)
 
+    if task_id == "Mjlab-Tool-Pull-Franka":
+      # The requested common 60D state removes the independent stick pose.
+      # Reject this explicitly instead of inventing a pose for the old teacher.
+      with pytest.raises(ValueError, match="separate tool pose"):
+        policy(obs["policy"].detach().cpu().numpy())
+      return
+
     for _ in range(5):
       actions = policy(obs["policy"].detach().cpu().numpy())
       assert actions.shape == (num_envs, action_dim), (

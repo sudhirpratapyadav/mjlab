@@ -1,0 +1,99 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "StackingCommand",
+  "episode_seconds": 20.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision",
+    "object_out_of_bounds"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "stack": {
+      "function": "staged_manipulation_reward",
+      "weight": 1.0
+    },
+    "at_goal_bonus": {
+      "function": "object_at_goal_reward",
+      "weight": 1.0
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 245,
+    "success": true,
+    "terminated": false,
+    "timeout": false,
+    "simulation_seconds": 4.9
+  },
+  "final_metrics": {
+    "goal_error": 0.022193284705281258,
+    "at_goal": 1.0,
+    "episode_success": 1.0,
+    "reached_object": 1.0,
+    "stack_height_error": 0.0002424679696559906
+  },
+  "video": {
+    "fps": 10,
+    "frames": 49
+  }
+}

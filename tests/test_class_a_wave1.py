@@ -179,7 +179,8 @@ def test_cage_drag_pinching_voids_the_episode() -> None:
     env_ids = torch.arange(env.num_envs, device=env.device)
 
     # Fingers start OPEN (0.04 + 0.04): cube at goal must count.
-    _place(env, "cube", command.target_pos)
+    from mjlab.scripts.task_state_probe import cage_at_goal
+    cage_at_goal(env, command)
     assert _at_goal(env, command), "caged (open-finger) transport should count"
 
     # Now pinch ONCE: close the fingers, tick metrics, reopen.
@@ -204,10 +205,11 @@ def test_cage_drag_pinching_voids_the_episode() -> None:
       "a pinch mid-episode must permanently void cage-drag success"
     )
     assert float(command.metrics["min_aperture"].max()) < 0.055
+    assert not bool(command.episode_success.any()), "the episode latch must also be revoked"
 
     # A resample must clear the violation (fresh episode, fresh latch).
     command._resample_command(env_ids)
-    _place(env, "cube", command.target_pos)
+    cage_at_goal(env, command)
     assert _at_goal(env, command), "resample must reset the min-aperture latch"
   finally:
     env.close()
@@ -247,7 +249,7 @@ def test_edge_grasp_requires_lifting_above_the_ledge_top() -> None:
     ledge_top[:, 2] += command.cfg.ledge_top_height
 
     _place(env, "plate", ledge_top + torch.tensor([0.0, 0.0, 0.06]))
-    assert _at_goal(env, command), "plate lifted above the ledge top should count"
+    assert not _at_goal(env, command), "airborne plate without a grasp must not count"
 
     _place(env, "plate", ledge_top + torch.tensor([0.0, 0.0, 0.010]))
     assert not _at_goal(env, command), "plate resting ON the ledge must not count"
@@ -298,7 +300,7 @@ def test_pivot_lift_goal_is_airborne_and_wall_is_placed_per_env() -> None:
     )
 
     _place(env, "board", command.target_pos)
-    assert _at_goal(env, command), "board at the airborne goal should count"
+    assert not _at_goal(env, command), "airborne board without pivot/grasp must not count"
 
     grounded = command.target_pos.clone()
     grounded[:, 2] = 0.011
@@ -320,7 +322,8 @@ def test_throw_bin_is_beyond_reach_and_requires_containment() -> None:
       "bin inside the reach envelope: the task degenerates to place-in-container"
     )
 
-    _place(env, "cube", command.target_pos)
+    seated=command.target_pos.clone();seated[:,2] -= .0005
+    _place(env, "cube", seated)
     assert _at_goal(env, command), "cube settled in the bin should count"
 
     _place(env, "cube", command.target_pos + torch.tensor([0.0, 0.0, 0.25]))

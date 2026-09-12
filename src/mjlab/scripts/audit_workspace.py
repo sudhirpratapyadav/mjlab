@@ -268,6 +268,8 @@ def _floor_penetration(task_id: str) -> dict[str, float]:
     geom_xpos = env.sim.data.geom_xpos[0].cpu().numpy()
     data = mujoco.MjData(model)
     data.qpos[:] = env.sim.data.qpos[0].cpu().numpy()
+    data.mocap_pos[:] = env.sim.data.mocap_pos[0].cpu().numpy()
+    data.mocap_quat[:] = env.sim.data.mocap_quat[0].cpu().numpy()
     mujoco.mj_forward(model, data)
     out: dict[str, float] = {}
     for gid in range(model.ngeom):

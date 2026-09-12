@@ -39,8 +39,9 @@
       <geom name="lid_wall_left" type="box" pos="0.0000 0.1000 -0.0100" size="0.1100 0.0100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
       <geom name="lid_wall_right" type="box" pos="0.0000 -0.1000 -0.0100" size="0.1100 0.0100 0.0500" group="3" rgba="0.5 0.5 0.5 0.25" condim="3" friction="1 0.03 0.003" contype="2" conaffinity="1" solref="0.01 1"/>
       <!-- Base site at the lifting lip when the lid is closed. -->
-      <site name="base_site" pos="-0.09 0.0 0.05" size="0.01" rgba="0 0 1 0.3"/>
-      <body name="handle">
+      <site name="base_site" pos="-0.09 0.0 0.059000000000000004" size="0.01" rgba="0 0 1 0.3"/>
+      <!-- 1 mm clearance between the closed lid underside and the box rim. -->
+      <body name="handle" pos="0 0 0.009">
         <!-- AXIS SIGN: (0,-1,0), so the -1.309 rad target LIFTS the lid up and back
              over the hinge, as a real chest lid does.  cl25 used (0,1,0), which turned
              the same target into a DROP-DOWN flap and had two measured consequences:

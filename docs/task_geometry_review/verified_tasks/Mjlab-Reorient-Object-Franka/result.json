@@ -1,0 +1,100 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "ReorientObjectCommand",
+  "episode_seconds": 20.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision",
+    "object_out_of_bounds"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_object": {
+      "function": "orientation_task_reward",
+      "weight": 1.0
+    },
+    "move_object_to_goal": {
+      "function": "orientation_task_reward",
+      "weight": 1.0
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 1000,
+    "success": false,
+    "terminated": false,
+    "timeout": true,
+    "simulation_seconds": 20.0
+  },
+  "final_metrics": {
+    "goal_error": 0.03440387547016144,
+    "at_goal": 0.0,
+    "episode_success": 0.0,
+    "reached_object": 1.0,
+    "gripper_object_distance": 0.019845720380544662,
+    "axis_alignment": 0.9994082450866699
+  },
+  "video": {
+    "fps": 10,
+    "frames": 200
+  }
+}

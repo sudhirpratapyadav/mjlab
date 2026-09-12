@@ -1,0 +1,103 @@
+{
+  "task": "Mjlab-Tool-Pull-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "ToolPullCommand",
+  "episode_seconds": 12.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision",
+    "object_out_of_bounds"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_object": {
+      "function": "tool_transport_reward",
+      "weight": 1.0
+    },
+    "move_object_to_goal": {
+      "function": "tool_transport_reward",
+      "weight": 1.0
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 61,
+    "success": false,
+    "terminated": true,
+    "timeout": false,
+    "simulation_seconds": 1.22
+  },
+  "final_metrics": {
+    "goal_error": 0.28355106711387634,
+    "at_goal": 0.0,
+    "episode_success": 0.0,
+    "reached_object": 0.0,
+    "gripper_object_distance": 0.4303048551082611,
+    "tool_grasped": 0.0,
+    "gripper_tool_distance": 0.10163100063800812,
+    "tool_used": 0.0,
+    "direct_contact": 0.0
+  },
+  "video": {
+    "fps": 10,
+    "frames": 12
+  }
+}

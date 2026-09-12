@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CL-V3 — corrected-physics teacher review</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; font:14px/1.5 ui-sans-serif,system-ui,-apple-system,sans-serif;
+         background:#0b0f17; color:#e5e7eb; }
+  a { color:#7dd3fc; }
+  header { margin-bottom:20px; max-width:960px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .sub { color:#9ca3af; font-size:13px; }
+  h2 { font-size:15px; margin:28px 0 12px; text-transform:uppercase; letter-spacing:.06em; color:#9ca3af; font-weight:600; }
+  .count { background:#1f2937; color:#9ca3af; border-radius:10px; padding:1px 8px; font-size:12px; margin-left:6px; }
+  .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr)); }
+  .card { background:#111827; border:1px solid #1f2937; border-radius:10px; overflow:hidden; }
+  .card.pending { opacity:0.55; }
+  .card.done { border-color:#10b98166; }
+  .clips { display:grid; grid-template-columns:1fr 1fr; }
+  .clip { position:relative; min-width:0; }
+  video, .noclip { width:100%; display:block; background:#000; aspect-ratio:16/9; object-fit:contain; }
+  .noclip { display:flex; align-items:center; justify-content:center; color:#4b5563; font-size:12px; text-align:center; padding:8px; }
+  .cliplabel { font-size:10px; text-transform:uppercase; letter-spacing:.04em; padding:2px 6px; background:#00000099; color:#e5e7eb; position:absolute; top:4px; left:4px; pointer-events:none; }
+  .body { padding:10px 12px 12px; }
+  .title { font-weight:600; font-size:13px; margin-bottom:6px; }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px; }
+  .chip { font-size:11px; padding:1px 7px; border-radius:20px; background:#1f2937; border:1px solid #374151; color:#d1d5db; }
+  .chip.ok { background:#10b98122; color:#10b981; border-color:#10b98155; }
+  .chip.bad { background:#ef444422; color:#f87171; border-color:#ef444455; }
+  .meta { font-size:11px; color:#9ca3af; font-variant-numeric:tabular-nums; }
+  .meta b { color:#e5e7eb; font-weight:600; }
+  .sr { font-size:18px; font-weight:700; color:#10b981; }
+  .sr.low { color:#f59e0b; }
+  input { background:#111827; color:#e5e7eb; border:1px solid #374151; border-radius:6px; padding:5px 10px; font-size:12px; min-width:220px; }
+</style></head>
+<body>
+<header>
+  <h1>CL-V3 — teacher improvement review</h1>
+  <div class="sub"><a href="/">&larr; home</a> &nbsp;&middot;&nbsp; <a href="/v2/">CL-V2 realistic assets</a> &nbsp;&middot;&nbsp; <a href="/phase1/">phase-1 teachers</a></div>
+  <div class="sub" style="margin-top:8px">
+    Teachers are being remeasured after the September 11 task-definition audit,
+    including insertion geometry, actual grasp/contact checks and cage validity.
+    Updated cards show matched before/after measurements under those corrected rules.
+    Older cards are marked historical and await reevaluation.
+    Physics: 200 Hz (5 ms); control: 50 Hz (20 ms); four physics steps per action.
+    One video frame per control step makes playback real-time, independent of compute speed.
+    Each rate uses 128 independent single episodes on the randomized training distribution;
+    no automatic-reset retries are counted. Recovery within an episode is allowed.
+    Clips show one uninterrupted attempt at real-time speed.
+    Teachers below 90% are included for review and marked amber. Success clips are selected
+    examples, not a claim that every attempt succeeds. Nonzero, nonperfect teachers
+    have both outcomes; zero-success teachers have failure clips only.
+    <a href="/v3_before_hd_20260910/">Previous resolution</a> &middot;
+    <a href="/v3_before_physics_20260910/">Previous gallery (old physics)</a>.
+  </div>
+  <div style="margin-top:10px"><input id="filter" placeholder="filter by task name…"></div>
+</header>
+<div id="root"><div class="sub">Loading…</div></div>
+<script>
+const TASKS = {
+  "Free objects": [
+    "Mjlab-Lift-Cube-Franka","Mjlab-Stack-Cube-Franka","Mjlab-Push-Cuboid-Franka","Mjlab-Drag-Pull-Franka",
+    "Mjlab-Topple-Block-Franka","Mjlab-Place-In-Container-Franka","Mjlab-Throw-To-Bin-Franka",
+    "Mjlab-Reorient-Object-Franka","Mjlab-Cage-Drag-Franka","Mjlab-Strike-Slide-Franka","Mjlab-Tool-Pull-Franka",
+    "Mjlab-Peg-Insertion-Franka","Mjlab-Axial-Extract-Franka","Mjlab-Edge-Grasp-Franka","Mjlab-Pivot-Lift-Franka",
+    "Mjlab-Reach-Target-Franka"],
+  "Articulated": [
+    "Mjlab-Push-Button-Franka","Mjlab-Open-Drawer-Franka","Mjlab-Open-Door-Franka","Mjlab-Slide-Window-Franka",
+    "Mjlab-Open-Lid-Franka","Mjlab-Turn-Lever-Franka","Mjlab-Rotate-Valve-Franka","Mjlab-Flip-Switch-Franka",
+    "Mjlab-Push-Flap-Franka"],
+};
+const pct = x => (x === null || x === undefined) ? "—" : (x * 100).toFixed(1) + "%";
+async function j(url) { try { const r = await fetch(url, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch (e) { return null; } }
+async function head(url) { try { const r = await fetch(url, {method: "HEAD", cache: "no-store"}); return r.ok; } catch (e) { return false; } }
+function card(id, t, r, has) {
+  const name = id.replace(/^Mjlab-/, "").replace(/-Franka$/, "");
+  const gates = t && t.gates ? Object.entries(t.gates).map(([g, v]) => `<span class="chip ${v === 'ok' ? 'ok' : (v === 'x' ? 'bad' : '')}">${g} ${v}</span>`).join("") : "";
+  const fresh = r && r.task_revision === '2026-09-11-corrected-semantics';
+  const done = fresh && r.sr >= 0.9;
+  const version = r && r.source_sha256 ? r.source_sha256.slice(0, 12) : 'legacy';
+  const cacheKey = r ? `${r.date}-${version}` : 'pending';
+  const teacher = has.teacher
+    ? `<video src="${id}/teacher.mp4?v=${cacheKey}" controls muted loop playsinline preload="metadata" poster="${id}/thumb.jpg?v=${cacheKey}"></video><span class="cliplabel">success rollout</span>`
+    : `<div class="noclip">${r && r.missing_success_reason ? r.missing_success_reason : 'no successful clip captured'}</div>`;
+  const failure = has.failure
+    ? `<video src="${id}/failure.mp4?v=${cacheKey}" controls muted loop playsinline preload="metadata"></video><span class="cliplabel">residual failure</span>`
+    : `<div class="noclip">${r && r.missing_failure_reason ? r.missing_failure_reason : "no failure clip"}</div>`;
+  const sr = r ? `<span class="sr ${!fresh || r.sr < 0.9 ? 'low' : ''}">${pct(r.sr)}</span> <span class="meta">(${r.num_success}/${r.n} trials · ${r.date}${fresh ? '' : ' · historical'})</span>` : `<span class="meta">not measured</span>`;
+  const comparison = fresh && r.baseline ? `<div class="meta">Same task rules and seed: ${r.baseline.num_success}/${r.baseline.n} before → ${r.num_success}/${r.n} after.</div>` : '';
+  const prior = r && r.width === 1920 ? '1080p · 50 fps · real-time' : 'HD refresh pending';
+  return `<div class="card ${done ? 'done' : (t ? '' : 'pending')}" data-name="${name.toLowerCase()}">
+    <div class="clips"><div class="clip">${teacher}</div><div class="clip">${failure}</div></div>
+    <div class="body">
+      <div class="title">${name}</div>
+      <div>${sr} &nbsp; <span class="meta">${prior}</span></div>
+      ${comparison}
+      <div class="chips"><span class="chip ${done ? 'ok' : ''}">${!fresh ? 'historical · reevaluation pending' : done ? 'meets 90% bar' : 'needs improvement'}</span></div>
+      <div class="meta">Source ${version} · ${r && r.search_method === 'exact_measured_batch' ? 'clips from measured trials' : `${r ? r.render_episodes_used : '—'} outcome-search attempts`}</div>
+      ${t && t.init_spec ? `<div class="meta">Init: ${t.init_spec}</div>` : ""}
+      ${t && t.strategy ? `<div class="meta">Strategy: ${t.strategy}</div>` : ""}
+      ${t && t.notes ? `<div class="meta">${t.notes}</div>` : ""}
+    </div></div>`;
+}
+async function main() {
+  const root = document.getElementById("root");
+  let html = "";
+  for (const [lane, ids] of Object.entries(TASKS)) {
+    const cards = await Promise.all(ids.map(async id => {
+      const [t, r, teacher, failure] = await Promise.all([
+        j(`${id}/task.json`), j(`${id}/result.json`), head(`${id}/teacher.mp4`), head(`${id}/failure.mp4`)]);
+      return card(id, t, r, {
+        teacher: teacher && (!r || r.has_teacher_clip !== false),
+        failure: failure && (!r || r.has_failure_clip !== false)
+      });
+    }));
+    html += `<h2>${lane}<span class="count">${ids.length}</span></h2><div class="grid">${cards.join("")}</div>`;
+  }
+  root.innerHTML = html;
+  document.getElementById("filter").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(c => c.style.display = c.dataset.name.includes(q) ? "" : "none");
+  });
+}
+main();
+</script>
+</body></html>

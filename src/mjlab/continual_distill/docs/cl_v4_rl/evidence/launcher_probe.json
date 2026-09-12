@@ -1,0 +1,6 @@
+{
+  "status": "blocked",
+  "route": "scripts.train.launch_training -> select_gpus",
+  "reason": "invalid literal for int() with base 10: 'GPU-23a5dcb4-5248-01aa-94a3-d0f998660161'",
+  "workaround": "Bind GPU UUID inside srun; call run_train or OnPolicyRunner directly on cuda:0."
+}

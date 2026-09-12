@@ -123,7 +123,8 @@ def test_place_in_container_requires_actual_containment() -> None:
   try:
     env.reset()
     command = env.command_manager.get_term("place_in_container")
-    goal = command.target_pos
+    goal = command.target_pos.clone()
+    goal[:,2] -= .0005  # establish a finite solver contact with the bin floor
 
     _place(env, "cube", goal)
     assert _at_goal(env, command), "cube inside the bin should count"
@@ -246,7 +247,7 @@ def test_tool_pull_goal_is_physically_reachable() -> None:
     goal = command.target_pos
 
     _place(env, "puck", goal)
-    assert _at_goal(env, command), "puck at the goal should count"
+    assert not _at_goal(env, command), "puck at goal without tool interaction must not count"
 
     _place(env, "puck", goal + torch.tensor([0.35, 0.0, 0.0]))
     assert not _at_goal(env, command), "puck still far away must not count"

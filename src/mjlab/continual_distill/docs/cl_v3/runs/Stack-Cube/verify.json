@@ -1,0 +1,178 @@
+{
+ "task": "Mjlab-Stack-Cube-Franka",
+ "head": "b9b0563",
+ "baseline": "1127d12",
+ "num_resets": 1000,
+ "device": "cpu",
+ "G4": {
+  "num_resets": 1000,
+  "entities": {
+   "object": {
+    "n": 1000,
+    "x": [
+     0.28007936477661133,
+     0.46985435485839844
+    ],
+    "y": [
+     -0.24949932098388672,
+     -0.040062904357910156
+    ],
+    "z": [
+     0.022306764498353004,
+     0.022577768191695213
+    ],
+    "radial": [
+     0.28377482295036316,
+     0.5290197134017944
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   },
+   "base": {
+    "n": 1000,
+    "x": [
+     0.2801635265350342,
+     0.46970176696777344
+    ],
+    "y": [
+     0.04003334045410156,
+     0.2499232292175293
+    ],
+    "z": [
+     0.014706764370203018,
+     0.014977765269577503
+    ],
+    "radial": [
+     0.2844724953174591,
+     0.5305473208427429
+    ],
+    "bound": [
+     0.28,
+     0.55
+    ],
+    "rule": "grasp envelope",
+    "frac_in_envelope": 1.0,
+    "frac_dead_zone": 0.0,
+    "pass": true
+   }
+  },
+  "spawn_collision_resets": 0,
+  "overlaps_m": {},
+  "floor_min_z": {
+   "object": -0.0002645115356890784,
+   "base": -0.0002648253397796764
+  },
+  "goal": {
+   "term": "stack_object",
+   "radial": [
+    0.2844724953174591,
+    0.5305473208427429
+   ],
+   "z": [
+    0.05230676382780075,
+    0.05257776379585266
+   ],
+   "bound": [
+    0.0,
+    0.6
+   ],
+   "rule": "carry goal",
+   "frac_in_bound": 1.0,
+   "pass": true
+  },
+  "pass": true
+ },
+ "G5": {
+  "success_at_reset": 0,
+  "num_resets": 1000,
+  "success_at_reset_pass": true,
+  "oracle_success_fraction": 1.0,
+  "oracle_pass": true,
+  "thresholds": {
+   "success_threshold": 0.03,
+   "height_threshold": 0.02,
+   "stack_height": 0.037599999999999995
+  },
+  "pass": true
+ },
+ "G4_pass": true,
+ "G5_pass": true,
+ "G3": {
+  "object": {
+   "xml": "src/mjlab/asset_zoo/objects/free/cube/xmls/cube.xml",
+   "mass_kg": 0.05,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 2.7955179956202392e-12,
+    "w_final": 1.7275284257580405e-12,
+    "z_drop_after_quarter_s": -1.0514523765547956e-07,
+    "tilt_deg": 0.0004276264042162581,
+    "lowest_point_z": -6.144136346178039e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -6.144136342938616e-05,
+    "v_final": 1.4527808858501823e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.046,
+    0.0452,
+    0.0452
+   ],
+   "grasp_axis_rule": "True",
+   "grasp_width_m": 0.0452,
+   "graspable_pass": true,
+   "step_time_us": 6.286334246397018,
+   "step_time_baseline_us": 3.5620182752609253,
+   "step_time_ratio": 1.7648236928084067,
+   "step_time_pass": true
+  },
+  "base": {
+   "xml": "src/mjlab/asset_zoo/objects/free/cuboid/xmls/cuboid.xml",
+   "mass_kg": 0.097,
+   "ngeom_collision": 1,
+   "nmesh": 1,
+   "ntex": 1,
+   "joints": [],
+   "articulation_pass": true,
+   "settle": {
+    "nan": false,
+    "v_final": 2.7745289652498772e-12,
+    "w_final": 1.245663273848804e-10,
+    "z_drop_after_quarter_s": -1.0514496168699539e-07,
+    "tilt_deg": 0.000996910800602012,
+    "lowest_point_z": -6.212043996701826e-05,
+    "pass": true
+   },
+   "drop": {
+    "nan": false,
+    "lowest_point_z": -6.212044047089471e-05,
+    "v_final": 6.721329571694907e-12,
+    "pass": true
+   },
+   "collision_extent_m": [
+    0.073,
+    0.0892,
+    0.03
+   ],
+   "step_time_us": 9.809624403715134,
+   "step_time_baseline_us": 8.00297036767006,
+   "step_time_ratio": 1.2257479352095932,
+   "step_time_pass": true
+  }
+ },
+ "G3_pass": true
+}

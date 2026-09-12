@@ -1,19 +1,80 @@
-import mujoco
-from pathlib import Path
+import math
 
+from mjlab.asset_zoo.objects.articulated.button import (
+  get_button_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.button import (
+  get_mocap_target_cfg as get_button_mocap_target_cfg,
+)
 from mjlab.asset_zoo.objects.articulated.door import (
   get_door_cfg,
   get_mocap_target_cfg,
 )
 from mjlab.asset_zoo.objects.articulated.drawer import (
   get_drawer_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.drawer import (
   get_mocap_target_cfg as get_drawer_mocap_target_cfg,
 )
-from mjlab.asset_zoo.objects.articulated.button import (
-  get_button_cfg,
-  get_mocap_target_cfg as get_button_mocap_target_cfg,
+from mjlab.asset_zoo.objects.articulated.flap import (
+  get_flap_cfg,
 )
+from mjlab.asset_zoo.objects.articulated.flap import (
+  get_mocap_target_cfg as get_flap_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.lever import (
+  get_lever_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.lever import (
+  get_mocap_target_cfg as get_lever_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.lid import (
+  get_lid_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.lid import (
+  get_mocap_target_cfg as get_lid_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.plug import (
+  get_mocap_target_cfg as get_plug_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.plug import (
+  get_plug_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.switch import (
+  get_mocap_target_cfg as get_switch_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.switch import (
+  get_switch_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.valve import (
+  get_mocap_target_cfg as get_valve_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.valve import (
+  get_valve_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.window import (
+  get_mocap_target_cfg as get_window_mocap_target_cfg,
+)
+from mjlab.asset_zoo.objects.articulated.window import (
+  get_window_cfg,
+)
+from mjlab.asset_zoo.objects.free.block import (
+  BLOCK_HALF_EXTENTS,
+  BLOCK_HALF_HEIGHT,
+  get_block_cfg,
+)
+from mjlab.asset_zoo.objects.free.block import (
+  get_mocap_goal_cfg as get_block_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.board import (
+  get_board_cfg,
+)
+from mjlab.asset_zoo.objects.free.board import (
+  get_mocap_goal_cfg as get_board_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.container import get_container_cfg
 from mjlab.asset_zoo.objects.free.cube import (
+  CUBE_HALF_EXTENTS,
   CUBE_HALF_HEIGHT,
   get_cube_cfg,
   get_mocap_goal_cfg,
@@ -22,127 +83,112 @@ from mjlab.asset_zoo.objects.free.cuboid import (
   CUBOID_HALF_EXTENTS,
   CUBOID_HALF_HEIGHT,
   get_cuboid_cfg,
+)
+from mjlab.asset_zoo.objects.free.cuboid import (
   get_mocap_goal_cfg as get_cuboid_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.disc import (
-  get_disc_cfg,
-  get_mocap_goal_cfg as get_disc_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.peg_in_hole import (
-  get_peg_cfg,
-  get_hole_board_cfg,
-)
-from mjlab.asset_zoo.objects.free.sphere import (
-  get_sphere_cfg,
-  get_mocap_goal_cfg as get_sphere_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.ellipsoid import (
-  get_ellipsoid_cfg,
-  get_mocap_goal_cfg as get_ellipsoid_mocap_goal_cfg,
 )
 from mjlab.asset_zoo.objects.free.cylinder import (
   get_cylinder_cfg,
+)
+from mjlab.asset_zoo.objects.free.cylinder import (
   get_mocap_goal_cfg as get_cylinder_mocap_goal_cfg,
 )
+from mjlab.asset_zoo.objects.free.disc import (
+  get_disc_cfg,
+)
+from mjlab.asset_zoo.objects.free.disc import (
+  get_mocap_goal_cfg as get_disc_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.ellipsoid import (
+  get_ellipsoid_cfg,
+)
+from mjlab.asset_zoo.objects.free.ellipsoid import (
+  get_mocap_goal_cfg as get_ellipsoid_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.ledge import get_ledge_cfg
+from mjlab.asset_zoo.objects.free.peg_in_hole import (
+  get_hole_board_cfg,
+  get_peg_cfg,
+)
+from mjlab.asset_zoo.objects.free.plate import (
+  get_mocap_goal_cfg as get_plate_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.plate import (
+  get_plate_cfg,
+)
+from mjlab.asset_zoo.objects.free.puck import (
+  get_mocap_goal_cfg as get_puck_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.puck import (
+  get_puck_cfg,
+)
+from mjlab.asset_zoo.objects.free.sphere import (
+  get_mocap_goal_cfg as get_sphere_mocap_goal_cfg,
+)
+from mjlab.asset_zoo.objects.free.sphere import (
+  get_sphere_cfg,
+)
+from mjlab.asset_zoo.objects.free.stick import get_stick_cfg
+from mjlab.asset_zoo.objects.free.wall import get_wall_cfg
+from mjlab.asset_zoo.objects.goal import make_goal_spec, make_reach_goal_spec
 from mjlab.asset_zoo.robots import (
   FRANKA_ACTION_SCALE,
   get_franka_robot_cfg,
   get_franka_robot_cfg_neutral,
 )
 from mjlab.entity import EntityCfg
-from mjlab.envs import ManagerBasedRlEnvCfg
+from mjlab.envs import ManagerBasedRlEnvCfg, mdp
 from mjlab.envs.mdp.actions import JointDeltaPositionActionCfg, JointPositionActionCfg
+from mjlab.managers.manager_term_config import EventTermCfg
+from mjlab.managers.scene_entity_config import SceneEntityCfg
 from mjlab.sensor import ContactSensorCfg
 from mjlab.tasks.manipulation import workspace
+from mjlab.tasks.manipulation.axial_extract_env_cfg import make_axial_extract_env_cfg
+from mjlab.tasks.manipulation.cage_drag_env_cfg import make_cage_drag_env_cfg
+from mjlab.tasks.manipulation.drag_pull_env_cfg import make_drag_pull_env_cfg
+from mjlab.tasks.manipulation.edge_grasp_env_cfg import make_edge_grasp_env_cfg
+from mjlab.tasks.manipulation.flip_switch_env_cfg import make_flip_switch_env_cfg
 from mjlab.tasks.manipulation.lift_object_env_cfg import make_lift_object_env_cfg
-from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
-from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_cfg
-from mjlab.tasks.manipulation.mdp import LiftingCommandCfg, OpenDoorCommandCfg, OpenDrawerCommandCfg, PushButtonCommandCfg, PushingCommandCfg, ReachingCommandCfg, StackingCommandCfg
+from mjlab.tasks.manipulation.mdp import (
+  LiftingCommandCfg,
+  OpenDoorCommandCfg,
+  OpenDrawerCommandCfg,
+  PushButtonCommandCfg,
+  PushingCommandCfg,
+  ReachingCommandCfg,
+  StackingCommandCfg,
+)
 from mjlab.tasks.manipulation.mdp.commands import (
-  _ObjectSpawnRangeCfg,
   CageDragCommandCfg,
   EdgeGraspCommandCfg,
   PivotLiftCommandCfg,
   PlaceInContainerCommandCfg,
   ReorientObjectCommandCfg,
   ToolPullCommandCfg,
+  _ObjectSpawnRangeCfg,
 )
-from mjlab.asset_zoo.objects.articulated.flap import (
-  get_flap_cfg,
-  get_mocap_target_cfg as get_flap_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.articulated.plug import (
-  get_plug_cfg,
-  get_mocap_target_cfg as get_plug_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.free.block import (
-  BLOCK_HALF_EXTENTS,
-  BLOCK_HALF_HEIGHT,
-  get_block_cfg,
-  get_mocap_goal_cfg as get_block_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.plate import (
-  get_plate_cfg,
-  get_mocap_goal_cfg as get_plate_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.ledge import get_ledge_cfg
-from mjlab.asset_zoo.objects.free.board import (
-  get_board_cfg,
-  get_mocap_goal_cfg as get_board_mocap_goal_cfg,
-)
-from mjlab.asset_zoo.objects.free.wall import get_wall_cfg
-from mjlab.tasks.manipulation.drag_pull_env_cfg import make_drag_pull_env_cfg
-from mjlab.tasks.manipulation.strike_slide_env_cfg import make_strike_slide_env_cfg
-from mjlab.tasks.manipulation.cage_drag_env_cfg import make_cage_drag_env_cfg
-from mjlab.tasks.manipulation.topple_block_env_cfg import make_topple_block_env_cfg
-from mjlab.tasks.manipulation.push_flap_env_cfg import make_push_flap_env_cfg
-from mjlab.tasks.manipulation.axial_extract_env_cfg import make_axial_extract_env_cfg
-from mjlab.tasks.manipulation.edge_grasp_env_cfg import make_edge_grasp_env_cfg
-from mjlab.tasks.manipulation.pivot_lift_env_cfg import make_pivot_lift_env_cfg
-from mjlab.asset_zoo.objects.articulated.lever import (
-  get_lever_cfg,
-  get_mocap_target_cfg as get_lever_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.articulated.valve import (
-  get_valve_cfg,
-  get_mocap_target_cfg as get_valve_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.articulated.switch import (
-  get_switch_cfg,
-  get_mocap_target_cfg as get_switch_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.articulated.window import (
-  get_window_cfg,
-  get_mocap_target_cfg as get_window_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.articulated.lid import (
-  get_lid_cfg,
-  get_mocap_target_cfg as get_lid_mocap_target_cfg,
-)
-from mjlab.asset_zoo.objects.free.container import get_container_cfg
-from mjlab.asset_zoo.objects.free.stick import get_stick_cfg
-from mjlab.asset_zoo.objects.free.puck import (
-  get_puck_cfg,
-  get_mocap_goal_cfg as get_puck_mocap_goal_cfg,
-)
-from mjlab.tasks.manipulation.turn_lever_env_cfg import make_turn_lever_env_cfg
-from mjlab.tasks.manipulation.rotate_valve_env_cfg import make_rotate_valve_env_cfg
-from mjlab.tasks.manipulation.flip_switch_env_cfg import make_flip_switch_env_cfg
-from mjlab.tasks.manipulation.slide_window_env_cfg import make_slide_window_env_cfg
+from mjlab.tasks.manipulation.open_door_env_cfg import make_open_door_env_cfg
+from mjlab.tasks.manipulation.open_drawer_env_cfg import make_open_drawer_env_cfg
 from mjlab.tasks.manipulation.open_lid_env_cfg import make_open_lid_env_cfg
+from mjlab.tasks.manipulation.pivot_lift_env_cfg import make_pivot_lift_env_cfg
 from mjlab.tasks.manipulation.place_in_container_env_cfg import (
   make_place_in_container_env_cfg,
 )
-from mjlab.tasks.manipulation.reorient_object_env_cfg import (
-  make_reorient_object_env_cfg,
-)
-from mjlab.tasks.manipulation.tool_pull_env_cfg import make_tool_pull_env_cfg
-from mjlab.tasks.manipulation.open_door_env_cfg import make_open_door_env_cfg
-from mjlab.tasks.manipulation.open_drawer_env_cfg import make_open_drawer_env_cfg
 from mjlab.tasks.manipulation.push_button_env_cfg import make_push_button_env_cfg
 from mjlab.tasks.manipulation.push_cuboid_env_cfg import make_push_cuboid_env_cfg
 from mjlab.tasks.manipulation.push_disc_env_cfg import make_push_disc_env_cfg
-
+from mjlab.tasks.manipulation.push_flap_env_cfg import make_push_flap_env_cfg
+from mjlab.tasks.manipulation.reach_target_env_cfg import make_reach_target_env_cfg
+from mjlab.tasks.manipulation.reorient_object_env_cfg import (
+  make_reorient_object_env_cfg,
+)
+from mjlab.tasks.manipulation.rotate_valve_env_cfg import make_rotate_valve_env_cfg
+from mjlab.tasks.manipulation.slide_window_env_cfg import make_slide_window_env_cfg
+from mjlab.tasks.manipulation.stack_object_env_cfg import make_stack_object_env_cfg
+from mjlab.tasks.manipulation.strike_slide_env_cfg import make_strike_slide_env_cfg
+from mjlab.tasks.manipulation.tool_pull_env_cfg import make_tool_pull_env_cfg
+from mjlab.tasks.manipulation.topple_block_env_cfg import make_topple_block_env_cfg
+from mjlab.tasks.manipulation.turn_lever_env_cfg import make_turn_lever_env_cfg
 
 
 def _mech_z(asset: str) -> tuple[float, float]:
@@ -156,6 +202,80 @@ def _mech_z(asset: str) -> tuple[float, float]:
   """
   z = workspace.min_mechanism_mount_z(asset)
   return (z, z)
+
+
+# --- CL-V3 init-distribution spec (continual_distill/docs/cl_v3/PLAN.md section 3) ---
+#
+# Frozen per task BEFORE its teacher is measured; SR is only ever quoted on this spec.
+# Applied by ``_apply_v3_init_spec`` (all 25 Class-A tasks) plus the per-task yaw bands
+# set at each task's spawn cfg below and ``_mech_pose_range`` for the ten mechanisms.
+
+V3_ROBOT_JOINT_NOISE: tuple[float, float] = (-0.1745, 0.1745)
+"""+-10 deg of uniform noise on the SEVEN ARM joints at every reset (decision D2).
+The Franka's two finger joints are prismatic (0-0.04 m), so a radian band is
+meaningless there: the old ``joint_names=(".*",)`` on the mechanism tasks clamped the
+fingers to a random opening. Fingers start at their default (open) on every task."""
+
+V3_ARM_JOINTS: tuple[str, ...] = ("joint[1-7]",)
+
+V3_NO_MID_EPISODE_RESAMPLE: tuple[float, float] = (1.0e3, 1.0e3)
+"""Command ``resampling_time_range`` (decision D1): never re-randomize the scene
+mid-episode. 1000 s exceeds every episode budget (longest is 20 s) by a wide margin.
+It is deliberately NOT equal to the episode length: ``CommandTerm.compute`` resamples
+when ``time_left <= 0``, which at exact equality would fire on the time-out step and
+wipe ``episode_success`` before the terminal read."""
+
+V3_MECHANISM_YAW: tuple[float, float] = (-0.26, 0.26)
+"""+-15 deg of mount yaw about the facing-the-robot pose, for every mechanism. The
+reset event rotates the mocap MOUNT about its own origin, so the handle swings by
+(mount-to-handle distance) x yaw; verify_task's handle-radial check covers that."""
+
+V3_MECHANISM_Z_BAND: float = 0.03
+"""Mount height band: the old fixed z (which IS the floor-clearance minimum,
+``_mech_z``) +- 0.03 m, floored at ``workspace.min_mechanism_mount_z`` -> [z_min, z_min + 0.03]."""
+
+
+def _mech_z_band(asset: str) -> tuple[float, float]:
+  """CL-V3 mount-height band for a mechanism: old fixed z +- 0.03, floored at the
+  workspace minimum (see ``_mech_z`` for why the floor is where it is)."""
+  z_min = workspace.min_mechanism_mount_z(asset)
+  z_old = _mech_z(asset)[0]
+  return (max(z_old - V3_MECHANISM_Z_BAND, z_min), z_old + V3_MECHANISM_Z_BAND)
+
+
+def _mech_pose_range(
+  asset: str, x: tuple[float, float], y: tuple[float, float]
+) -> dict[str, tuple[float, float]]:
+  """``reset_<asset>_position`` pose_range under the CL-V3 spec: the audited xy band
+  unchanged, plus the mount z band and the mount yaw band. Keys are those of
+  ``mdp.reset_root_state_uniform`` (yaw in radians about the mount's z axis)."""
+  return {"x": x, "y": y, "z": _mech_z_band(asset), "yaw": V3_MECHANISM_YAW}
+
+
+def _apply_v3_init_spec(cfg: ManagerBasedRlEnvCfg) -> ManagerBasedRlEnvCfg:
+  """The task-independent half of the CL-V3 init spec: robot joint noise (D2) and no
+  mid-episode command resampling (D1). Call right after the base ``make_*`` cfg."""
+  joints = cfg.events["reset_robot_joints"]
+  joints.params["position_range"] = V3_ROBOT_JOINT_NOISE
+  joints.params["asset_cfg"] = SceneEntityCfg("robot", joint_names=V3_ARM_JOINTS)
+  # ``reset_joints_by_offset`` only writes the joints it selects, so the fingers need
+  # their own zero-noise reset or they would keep the previous episode's aperture
+  # (measured: qpos 0 = CLOSED at the first reset, opening only as ctrl catches up).
+  cfg.events["reset_robot_fingers"] = EventTermCfg(
+    func=mdp.reset_joints_by_offset,
+    mode="reset",
+    params={
+      "position_range": (0.0, 0.0),
+      "velocity_range": (0.0, 0.0),
+      "asset_cfg": SceneEntityCfg("robot", joint_names=("finger_joint.*",)),
+    },
+  )
+  assert cfg.commands is not None
+  for command in cfg.commands.values():
+    command.resampling_time_range = V3_NO_MID_EPISODE_RESAMPLE
+    if isinstance(command, LiftingCommandCfg):
+      command.require_grasp = True
+  return cfg
 
 
 def _grasp_box_corner_safe() -> tuple[tuple[float, float], tuple[float, float]]:
@@ -173,6 +293,7 @@ def franka_lift_cube_env_cfg(
   test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   cfg = make_lift_object_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -250,10 +371,7 @@ def franka_lift_cube_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
     # Set episode length to 150 steps (150 * 0.02 control_dt = 3.0s)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -352,9 +470,6 @@ def franka_lift_cylinder_env_cfg(
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -439,9 +554,6 @@ def _franka_lift_object_env_cfg(
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -470,11 +582,13 @@ def franka_stack_cube_env_cfg(
   base, so small errors miss or topple. Goal is dynamic (tracks the base object).
   """
   cfg = make_stack_object_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
     "object": get_cube_cfg(),
     "base": get_cuboid_cfg(),
+    "mocap_goal": get_mocap_goal_cfg(),
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
@@ -500,13 +614,15 @@ def franka_stack_cube_env_cfg(
     x=_STACK_X,
     y=(workspace.GRASP_Y_RANGE[0], -0.04),  # cube: right half
     z=(CUBE_HALF_HEIGHT, CUBE_HALF_HEIGHT),  # resting on the ground plane
-    yaw=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: any face may face the robot
   )
   stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
     x=_STACK_X,
     y=(0.04, workspace.GRASP_Y_RANGE[1]),  # cuboid base: left half
     z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),  # cuboid base half-height
-    yaw=(0.0, 0.0),
+    # CL-V3: the goal tracks the base's site, so the base yaw is free (the teacher
+    # never grasps the base and the predicate is xy + height, both yaw-invariant).
+    yaw=(-math.pi, math.pi),
   )
 
   # Franka uses the "gripper" site.
@@ -537,9 +653,6 @@ def franka_stack_cube_env_cfg(
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -557,11 +670,13 @@ def franka_peg_insertion_env_cfg(
   skill (the most fragile tier).
   """
   cfg = make_stack_object_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
     "object": get_peg_cfg(),
     "base": get_hole_board_cfg(),
+    "mocap_goal": EntityCfg(spec_fn=_peg_goal_spec),
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
@@ -582,12 +697,13 @@ def franka_peg_insertion_env_cfg(
   # G5 oracle unreachable: the verifier's teleport had 25 mm still to fall and three
   # steps is 0.06 s against a 0.071 s drop — measured oracle 0.000 on the primitives).
   stack_command.stack_height = 0.035
+  stack_command.insertion = True
   # xy: 6x the physical 2.5 mm per-side clearance, so "physically in the bore" implies
   # success and nothing else can be within 15 mm of the hole centre at that height.
   stack_command.success_threshold = 0.015
   # z: 0 when fully seated; 0.030 resting on the board top and 0.021 stuck on the
   # chamfer, so 0.015 separates "inserted" from "sitting on the lid" by 2x.
-  stack_command.height_threshold = 0.015
+  stack_command.height_threshold = 0.003
 
   # Same lateral split as stack (see franka_stack_cube_env_cfg): peg on the right half
   # of the GRASP_* box, hole board on the left, neither overlapping and both under
@@ -600,12 +716,20 @@ def franka_peg_insertion_env_cfg(
     # a half-length above the floor. The old 0.02 buried its lower half in the ground
     # plane — invisible to smoke and to the reach audit, but a real 3cm penetration.
     z=(0.05, 0.05),
-    yaw=(0.0, 0.0),
+    # CL-V3: +-30 deg of peg yaw; orientation matching is part of insertion (the peg's
+    # own yaw is in the obs as object_quat / object_rot6d).
+    yaw=(-math.pi / 6, math.pi / 6),
   )
   stack_command.base_pose_range = StackingCommandCfg.BasePoseRangeCfg(
     x=_PEG_X,
     y=(0.04, workspace.GRASP_Y_RANGE[1]),  # hole board
     z=(0.015, 0.015),
+    # CL-V3 NARROWED (W0-a, spec asked +-pi/6): the hole's yaw is NOT observable — the
+    # 60-D obs carries the peg's orientation and the goal POSITION (object_to_goal) but
+    # no base orientation term, and a 25 mm square peg only enters the 30 mm square
+    # bore within ~11 deg of the hole's yaw (12.5*(cos t + sin t) <= 15). A yawed board
+    # would make the task unsolvable from the observation, not merely harder. Widen
+    # once a base-orientation term exists (needs an obs-layout decision by the lead).
     yaw=(0.0, 0.0),
   )
 
@@ -636,9 +760,6 @@ def franka_peg_insertion_env_cfg(
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -653,10 +774,11 @@ def franka_reach_target_env_cfg(
   the low-fragility (planar) end of the axis and adds the ``reach`` skill family.
   """
   cfg = make_reach_target_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
-    "mocap_goal": get_mocap_goal_cfg(),
+    "mocap_goal": EntityCfg(spec_fn=make_reach_goal_spec),
   }
 
   joint_pos_action = cfg.actions["robot_joint_pos"]
@@ -692,7 +814,6 @@ def franka_reach_target_env_cfg(
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -703,6 +824,7 @@ def franka_open_door_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific door opening configuration."""
   cfg = make_open_door_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -741,7 +863,8 @@ def franka_open_door_env_cfg(
   cfg.events["reset_door_position"].params["pose_range"] = {
     "x": (0.48, 0.52),
     "y": (-0.30, -0.20),
-    "z": _mech_z("door"),
+    "z": _mech_z_band("door"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   # Franka uses "gripper" site for end-effector
@@ -789,7 +912,6 @@ def franka_open_door_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
 
   return cfg
 
@@ -800,6 +922,7 @@ def franka_open_drawer_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific drawer opening configuration."""
   cfg = make_open_drawer_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -834,7 +957,8 @@ def franka_open_drawer_env_cfg(
   cfg.events["reset_drawer_position"].params["pose_range"] = {
     "x": (0.46, 0.56),
     "y": (-0.10, 0.10),
-    "z": _mech_z("drawer"),
+    "z": _mech_z_band("drawer"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   # Franka uses "gripper" site for end-effector
@@ -882,7 +1006,6 @@ def franka_open_drawer_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
 
   return cfg
 
@@ -893,6 +1016,7 @@ def franka_push_button_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific button pushing configuration."""
   cfg = make_push_button_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -927,7 +1051,8 @@ def franka_push_button_env_cfg(
   cfg.events["reset_button_position"].params["pose_range"] = {
     "x": (0.44, 0.48),
     "y": (-0.10, 0.10),
-    "z": _mech_z("button"),
+    "z": _mech_z_band("button"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   # Franka uses "gripper" site for end-effector
@@ -975,7 +1100,6 @@ def franka_push_button_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
 
   return cfg
 
@@ -986,6 +1110,7 @@ def franka_push_cuboid_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka-specific cuboid pushing configuration."""
   cfg = make_push_cuboid_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1025,7 +1150,7 @@ def franka_push_cuboid_env_cfg(
     x=(_x_lo, _x_mid),
     y=workspace.GRASP_Y_RANGE,
     z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),  # rest on the ground plane
-    yaw=(0.0, 0.0),  # No rotation - keep upright
+    yaw=(-math.pi, math.pi),  # CL-V3: any face may face the robot; push the one behind the goal line
   )
   push_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
     x=(_x_mid + _SEPARATION, _x_hi),
@@ -1073,8 +1198,6 @@ def franka_push_cuboid_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
 
   return cfg
 
@@ -1156,10 +1279,7 @@ def franka_push_disc_env_cfg(
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
     # Disable early termination - only terminate on timeout
-    cfg.terminations.pop("ee_ground_collision", None)
-    cfg.terminations.pop("object_out_of_bounds", None)
     # Set episode length to 150 steps (150 * 0.02 control_dt = 3.0s)
-    cfg.episode_length_s = 5.0
 
   return cfg
 
@@ -1214,7 +1334,7 @@ def _apply_franka_articulation_common(cfg, asset_name: str, command_name: str):
 
 
 def _apply_play_test(cfg, play: bool, test: bool, extra_terminations=()):
-  """Shared play/test overrides (verbatim semantics from the existing tasks)."""
+  """Test mode preserves the task's budget and failure conditions."""
   if play:
     cfg.episode_length_s = int(1e9)
     cfg.observations["policy"].enable_corruption = False
@@ -1223,9 +1343,6 @@ def _apply_play_test(cfg, play: bool, test: bool, extra_terminations=()):
   if test:
     cfg.observations["policy"].enable_corruption = False
     cfg.events.pop("push_robot", None)
-    cfg.terminations.pop("ee_ground_collision", None)
-    for t in extra_terminations:
-      cfg.terminations.pop(t, None)
   return cfg
 
 
@@ -1235,6 +1352,7 @@ def franka_turn_lever_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka turning a lever about the approach axis (wrist-rotation profile)."""
   cfg = make_turn_lever_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1250,7 +1368,8 @@ def franka_turn_lever_env_cfg(
   cfg.events["reset_lever_position"].params["pose_range"] = {
     "x": (0.50, 0.56),
     "y": (-0.20, -0.04),
-    "z": _mech_z("lever"),
+    "z": _mech_z_band("lever"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1262,6 +1381,7 @@ def franka_rotate_valve_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka rotating a valve 270 deg (multi-cycle regrasp profile)."""
   cfg = make_rotate_valve_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1276,7 +1396,8 @@ def franka_rotate_valve_env_cfg(
   cfg.events["reset_valve_position"].params["pose_range"] = {
     "x": (0.49, 0.55),
     "y": (-0.17, -0.01),
-    "z": _mech_z("valve"),
+    "z": _mech_z_band("valve"),
+    "yaw": V3_MECHANISM_YAW,
   }
   # Multi-turn task: needs a longer episode than a single-stroke articulation.
   cfg.episode_length_s = 8.0
@@ -1290,6 +1411,7 @@ def franka_flip_switch_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka flipping a detented toggle switch (ballistic-commit profile)."""
   cfg = make_flip_switch_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1304,7 +1426,8 @@ def franka_flip_switch_env_cfg(
   cfg.events["reset_switch_position"].params["pose_range"] = {
     "x": (0.46, 0.52),
     "y": (-0.08, 0.08),
-    "z": _mech_z("switch"),
+    "z": _mech_z_band("switch"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1316,6 +1439,7 @@ def franka_slide_window_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka sliding a window pane laterally (lateral face-push profile)."""
   cfg = make_slide_window_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1330,7 +1454,8 @@ def franka_slide_window_env_cfg(
   cfg.events["reset_window_position"].params["pose_range"] = {
     "x": (0.50, 0.56),
     "y": (0.05, 0.15),
-    "z": _mech_z("window"),
+    "z": _mech_z_band("window"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1346,6 +1471,7 @@ def franka_open_lid_env_cfg(
   shut when released is the whole point of the task.
   """
   cfg = make_open_lid_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1366,7 +1492,8 @@ def franka_open_lid_env_cfg(
   cfg.events["reset_lid_position"].params["pose_range"] = {
     "x": (0.40, 0.46),
     "y": (-0.08, 0.08),
-    "z": _mech_z("lid"),
+    "z": _mech_z_band("lid"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1378,6 +1505,7 @@ def franka_place_in_container_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka placing a cube inside an open-top bin (containment success shape)."""
   cfg = make_place_in_container_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1452,7 +1580,8 @@ def franka_place_in_container_env_cfg(
   #     (The primitive's z = 0.02 with a floor slab centred on the origin left the old
   #     bin floating 12 mm in the air.)
   place_command.container_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.28, 0.48), y=(0.10, 0.24), z=(0.0, 0.0), yaw=(0.0, 0.0)
+    x=(0.28, 0.48), y=(0.10, 0.24), z=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: bin yaw free; goal = bin interior site
   )
 
   cfg.viewer.body_name = "link0"
@@ -1467,6 +1596,7 @@ def franka_reorient_object_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka standing a lying cylinder upright (orientation success shape)."""
   cfg = make_reorient_object_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1535,6 +1665,7 @@ def franka_tool_pull_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka dragging an out-of-reach puck into the near zone with a stick (tool use)."""
   cfg = make_tool_pull_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1592,7 +1723,8 @@ def franka_tool_pull_env_cfg(
   # The puck sits on the +y side and the stick on the -y side so the stick's forward-
   # pointing hook (body +0.12 x, +0.035 y) can never spawn intersecting the puck.
   pull_command.object_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.62, 0.69), y=(0.05, 0.17), z=(0.0127, 0.0127), yaw=(0.0, 0.0)
+    x=(0.62, 0.69), y=(0.05, 0.17), z=(0.0127, 0.0127),
+    yaw=(-math.pi, math.pi),  # CL-V3: symmetric puck, set for uniformity
   )
   # STICK — must be grasped, so it obeys the shared GRASP_* envelope. Offset toward
   # -y so it never overlaps the puck (x bands are disjoint anyway) and stays clear of
@@ -1605,7 +1737,9 @@ def franka_tool_pull_env_cfg(
     x=(0.28 + 0.09, 0.48 + 0.09),
     y=(workspace.GRASP_Y_RANGE[0], -0.06),
     z=(0.012, 0.012),  # dowel radius 0.011 + 1 mm, so it is not born in contact
-    yaw=(0.0, 0.0),
+    # CL-V3: +-20 deg about the shaft's +x heading, so the hook still points roughly at
+    # the puck (its far-y band edge stays clear of the puck's near edge at +20 deg).
+    yaw=(-0.35, 0.35),
   )
   # Two-stage task (acquire tool, then drag): needs a longer episode.
   cfg.episode_length_s = 12.0
@@ -1630,6 +1764,7 @@ def franka_drag_pull_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka dragging a far cuboid back into the near zone (engagement-inverted push)."""
   cfg = make_drag_pull_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1670,7 +1805,7 @@ def franka_drag_pull_env_cfg(
     x=(_x_mid, _x_hi),
     y=_y,
     z=(CUBOID_HALF_HEIGHT, CUBOID_HALF_HEIGHT),
-    yaw=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: same carton, same rule as push-cuboid
   )
   drag_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
     x=(_x_lo, _x_mid - _SEPARATION),
@@ -1682,16 +1817,57 @@ def franka_drag_pull_env_cfg(
   return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
 
 
+# CL-V3 decision D5 (W1-D measured, W1-D2 re-measured and applied): Strike-Slide was
+# impossible as specified.  puck.xml documents the puck's sliding friction as 0.4, but
+# MuJoCo combines a contact pair's friction by MAX unless one geom has the higher
+# ``priority``, and the terrain plane carries MuJoCo's default 1.0 -- so the puck-floor
+# pair actually ran at mu_eff = 1.02-1.07 (measured twice: launch the puck at 0.5/1.0/1.5/
+# 2.0/2.5/3.0 m/s and read the slide -> mu = v^2/(2 g d) = 1.072/1.045/1.034/1.023/1.017/
+# 1.026).  The goal band then needs a 2.9-4.2 m/s puck launch while the arm's best flat
+# end-effector speed anywhere is 1.8 m/s (bang-bang joint sweeps, site velocity from the
+# sim) and a real strike launches the puck at 1.0-1.56 m/s.  The fix is on the contact, not
+# on the goal band (moving the goal inside reach would turn the task into a push, which
+# this cfg explicitly forbids): the puck geom gets ``priority = 1`` so its OWN friction
+# wins the pair, at a rubber-puck-on-ice value (real pucks run 0.05-0.10).  The number is
+# pinned by a second measurement -- the launch speed a real strike can deliver.  W1-D2's
+# contact launch (accelerate the puck in contact along the goal line, then let go)
+# delivers 0.7-1.0 m/s repeatably at the puck's spawn radius, where the folded arm's
+# radial Jacobian (0.77 m/s peak measured at the spawn radius, 0.93 m/s at the far end of
+# the push), not its joint-rate ceiling, is the limit.  mu = 0.04 puts the whole goal band
+# inside that with margin: v = sqrt(2 mu g d) = 0.57 m/s at 0.42 m and 0.84 m/s at 0.90 m.
+# (0.04 is squarely inside the real rubber-on-ice range; a struck puck runs 0.02-0.05.)  Tool-Pull's puck is untouched -- this override is local to the
+# Strike-Slide scene.
+STRIKE_PUCK_MU = 0.04
+
+
+def _slick_puck_cfg() -> EntityCfg:
+  """Puck whose geom carries priority 1 and an ice-like sliding friction (D5)."""
+  cfg = get_puck_cfg()
+  base_spec_fn = cfg.spec_fn
+
+  def _spec():
+    spec = base_spec_fn()
+    for geom in spec.geoms:
+      if geom.name == "puck_geom":
+        geom.priority = 1
+        geom.friction = [STRIKE_PUCK_MU, 0.03, 0.003]
+    return spec
+
+  cfg.spec_fn = _spec
+  return cfg
+
+
 def franka_strike_slide_env_cfg(
   play: bool = False,
   test: bool = False,
 ) -> ManagerBasedRlEnvCfg:
   """Franka striking a puck so it slides to a goal beyond the reach envelope."""
   cfg = make_strike_slide_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
-    "puck": get_puck_cfg(),
+    "puck": _slick_puck_cfg(),  # D5: priority-1 ice-like contact, see above
     "mocap_goal": get_puck_mocap_goal_cfg(),
   }
   _apply_franka_articulation_common(cfg, "puck", "strike_slide")
@@ -1707,7 +1883,7 @@ def franka_strike_slide_env_cfg(
     x=(_x[0], _x[1] - 0.06),
     y=(-0.15, 0.15),
     z=(0.0127, 0.0127),  # puck half-thickness (regulation puck is 25.4 mm)
-    yaw=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: symmetric puck, a no-op, set for uniformity
   )
   strike_command.target_position_range = PushingCommandCfg.TargetPositionRangeCfg(
     x=(0.88, 1.05),
@@ -1725,6 +1901,7 @@ def franka_cage_drag_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka transporting a cube caged between open fingers (pinch voids the episode)."""
   cfg = make_cage_drag_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1735,6 +1912,11 @@ def franka_cage_drag_env_cfg(
 
   cage_command = cfg.commands["cage_drag"]
   assert isinstance(cage_command, CageDragCommandCfg)
+  cage_command.goal_z_height = CUBE_HALF_HEIGHT
+  # Any yaw is sampled: a 45-degree cube spans ~64.5 mm, so the old 55 mm
+  # threshold allowed a real pinch. Keep 5 mm clearance beyond the widest span.
+  cage_command.aperture_min = math.hypot(2*CUBE_HALF_EXTENTS[0], 2*CUBE_HALF_EXTENTS[1]) + .005
+  cfg.rewards["keep_gripper_open"].params["threshold"] = cage_command.aperture_min
   # Both spawn and goal live in the corner-safe grasp box: caging transport works
   # in any direction, so unlike push/drag no half-split is imposed.
   _x, _y = _grasp_box_corner_safe()
@@ -1745,7 +1927,7 @@ def franka_cage_drag_env_cfg(
     x=_x,
     y=(-0.18, 0.18),
     z=(CUBE_HALF_HEIGHT, CUBE_HALF_HEIGHT),
-    yaw=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: 46 mm cube, any face toward the fingers
   )
   cage_command.target_position_range = CageDragCommandCfg.TargetPositionRangeCfg(
     x=_x,
@@ -1763,6 +1945,7 @@ def franka_topple_block_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka toppling an ungraspable standing block onto a designated face pair."""
   cfg = make_topple_block_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1810,6 +1993,7 @@ def franka_push_flap_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka face-pushing a handle-less flap through its hinge arc."""
   cfg = make_push_flap_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1827,7 +2011,8 @@ def franka_push_flap_env_cfg(
   cfg.events["reset_flap_position"].params["pose_range"] = {
     "x": (0.44, 0.50),
     "y": (-0.22, -0.12),
-    "z": _mech_z("flap"),
+    "z": _mech_z_band("flap"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1839,6 +2024,7 @@ def franka_axial_extract_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka pulling a friction-fit plug vertically out of its socket."""
   cfg = make_axial_extract_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg_neutral(),
@@ -1855,7 +2041,8 @@ def franka_axial_extract_env_cfg(
   cfg.events["reset_plug_position"].params["pose_range"] = {
     "x": (0.40, 0.48),
     "y": (-0.10, 0.10),
-    "z": _mech_z("plug"),
+    "z": _mech_z_band("plug"),
+    "yaw": V3_MECHANISM_YAW,
   }
 
   return _apply_play_test(cfg, play, test)
@@ -1867,6 +2054,7 @@ def franka_edge_grasp_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka sliding a plate over the ledge edge and pinching it at the overhang."""
   cfg = make_edge_grasp_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1882,6 +2070,13 @@ def franka_edge_grasp_env_cfg(
   # envelope (corner radial ~0.55 at the widest).
   edge_command = cfg.commands["edge_grasp"]
   assert isinstance(edge_command, EdgeGraspCommandCfg)
+  # CL-V3: riser yaw +-15 deg (the plate's on-riser offset and the goal rotate with
+  # it — see EdgeGraspCommand._resample_command) and plate yaw free. The predicate
+  # (plate lifted above the riser top, bounded drift) is yaw-invariant; at the worst
+  # 45 deg plate yaw the plate's swept half-extent (0.085) plus rel_x (0.02) overhangs
+  # the 0.10 riser half-width by 5 mm — its centre of mass stays far inside the top.
+  edge_command.ledge_spawn_range.yaw = (-0.26, 0.26)
+  edge_command.plate_yaw = (-math.pi, math.pi)
 
   cfg.scene.env_spacing = 2.0
 
@@ -1894,6 +2089,7 @@ def franka_pivot_lift_env_cfg(
 ) -> ManagerBasedRlEnvCfg:
   """Franka pivoting a flat board against the wall, then grasping and lifting it."""
   cfg = make_pivot_lift_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1925,6 +2121,7 @@ def franka_throw_to_bin_env_cfg(
   the bin band beyond arm stretch is what turns placing into throwing.
   """
   cfg = make_place_in_container_env_cfg()
+  _apply_v3_init_spec(cfg)  # CL-V3: robot joint noise (D2) + no mid-episode resample (D1)
 
   cfg.scene.entities = {
     "robot": get_franka_robot_cfg(),
@@ -1947,7 +2144,8 @@ def franka_throw_to_bin_env_cfg(
   )
   # z = 0: the basket's body origin is its underside, so it sits ON the ground.
   throw_command.container_spawn_range = _ObjectSpawnRangeCfg(
-    x=(0.78, 0.90), y=(-0.15, 0.15), z=(0.0, 0.0), yaw=(0.0, 0.0)
+    x=(0.78, 0.90), y=(-0.15, 0.15), z=(0.0, 0.0),
+    yaw=(-math.pi, math.pi),  # CL-V3: bin yaw free (distance: see D3)
   )
 
   # Room for the flight and for overshoot.
@@ -1958,3 +2156,7 @@ def franka_throw_to_bin_env_cfg(
   cfg.scene.env_spacing = 2.5
 
   return _apply_play_test(cfg, play, test, extra_terminations=("object_out_of_bounds",))
+
+
+def _peg_goal_spec():
+  return make_goal_spec(get_peg_cfg().spec_fn())

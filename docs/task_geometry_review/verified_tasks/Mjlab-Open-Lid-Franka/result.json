@@ -1,0 +1,103 @@
+{
+  "task": "Mjlab-Open-Lid-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "OpenLidCommand",
+  "episode_seconds": 5.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_object": {
+      "function": "articulation_task_reward",
+      "weight": 1.0
+    },
+    "move_object_to_goal": {
+      "function": "articulation_task_reward",
+      "weight": 1.0
+    },
+    "no_object_collision": {
+      "function": "no_object_body_collision_reward",
+      "weight": 0.25
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 107,
+    "success": true,
+    "terminated": false,
+    "timeout": false,
+    "simulation_seconds": 2.14
+  },
+  "final_metrics": {
+    "goal_error": 0.19170904159545898,
+    "at_goal": 1.0,
+    "episode_success": 1.0,
+    "reached_object": 1.0,
+    "gripper_object_distance": 0.02861139178276062,
+    "joint_value": -1.1172879934310913
+  },
+  "video": {
+    "fps": 10,
+    "frames": 21
+  }
+}

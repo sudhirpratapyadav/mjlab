@@ -1,0 +1,180 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>25-task verification</title>
+<style>body{font:16px/1.5 system-ui;max-width:1300px;margin:32px auto;padding:0 20px;background:#f5f5f3;color:#202020}section{background:white;padding:24px;margin:24px 0;border:1px solid #ddd;border-radius:8px}.images{display:flex;flex-wrap:wrap}figure{flex:1;min-width:280px;margin:8px}img,video{width:100%;max-width:640px}summary{cursor:pointer}a{color:#145d98}figcaption{color:#555}</style>
+<h1>25-task definition verification</h1><p>September 11, 2026. Code, reset states, MuJoCo contacts, goal probes and actual rollouts reviewed individually.</p>
+<p><b>Goal probes are constructed states. One diagnostic rollout per task is not a teacher success-rate estimate.</b></p>
+<section id="Mjlab-Axial-Extract-Franka"><h2>Axial-Extract</h2>
+<p>Joint-progress reward; extraction target and plug/mount contacts checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Axial-Extract-Franka/goal_detail.png" alt="Axial-Extract constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Axial-Extract-Franka/final.png" alt="Axial-Extract final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Axial-Extract-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Axial-Extract-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Axial-Extract-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Axial-Extract-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Axial-Extract-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Cage-Drag-Franka"><h2>Cage-Drag</h2>
+<p>Geometric cage + transport; yaw-safe aperture; violations revoke success and reward.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Cage-Drag-Franka/goal_detail.png" alt="Cage-Drag constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Cage-Drag-Franka/final.png" alt="Cage-Drag final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Cage-Drag-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Cage-Drag-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Cage-Drag-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Cage-Drag-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Cage-Drag-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Drag-Pull-Franka"><h2>Drag-Pull</h2>
+<p>Ground-level point goal, spawn separation, transport direction and termination rules checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Drag-Pull-Franka/goal_detail.png" alt="Drag-Pull constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Drag-Pull-Franka/final.png" alt="Drag-Pull final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Drag-Pull-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Drag-Pull-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Drag-Pull-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Drag-Pull-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Drag-Pull-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Edge-Grasp-Franka"><h2>Edge-Grasp</h2>
+<p>Actual bilateral pad contact and low velocity required; transient flicks rejected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Edge-Grasp-Franka/goal_detail.png" alt="Edge-Grasp constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Edge-Grasp-Franka/final.png" alt="Edge-Grasp final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Edge-Grasp-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Edge-Grasp-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Edge-Grasp-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Edge-Grasp-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Edge-Grasp-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Flip-Switch-Franka"><h2>Flip-Switch</h2>
+<p>Joint-progress reward; switch target, detent motion and housing clearance checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Flip-Switch-Franka/goal_detail.png" alt="Flip-Switch constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Flip-Switch-Franka/final.png" alt="Flip-Switch final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Flip-Switch-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Flip-Switch-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Flip-Switch-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Flip-Switch-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Flip-Switch-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Lift-Cube-Franka"><h2>Lift-Cube</h2>
+<p>Goal requires a slow actual two-pad grasp; free-flight proximity rejected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Lift-Cube-Franka/goal_detail.png" alt="Lift-Cube constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Lift-Cube-Franka/final.png" alt="Lift-Cube final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Lift-Cube-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Lift-Cube-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Lift-Cube-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Lift-Cube-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Lift-Cube-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Open-Door-Franka"><h2>Open-Door</h2>
+<p>Joint-progress reward; hinge target and rendered door pose checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Open-Door-Franka/goal_detail.png" alt="Open-Door constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Open-Door-Franka/final.png" alt="Open-Door final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Open-Door-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Open-Door-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Open-Door-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Open-Door-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Open-Door-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Open-Drawer-Franka"><h2>Open-Drawer</h2>
+<p>Joint-progress reward; slide target and drawer/handle geometry checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Open-Drawer-Franka/goal_detail.png" alt="Open-Drawer constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Open-Drawer-Franka/final.png" alt="Open-Drawer final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Open-Drawer-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Open-Drawer-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Open-Drawer-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Open-Drawer-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Open-Drawer-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Open-Lid-Franka"><h2>Open-Lid</h2>
+<p>Joint-progress reward; hinge target, lid and handle goal geometry checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Open-Lid-Franka/goal_detail.png" alt="Open-Lid constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Open-Lid-Franka/final.png" alt="Open-Lid final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Open-Lid-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Open-Lid-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Open-Lid-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Open-Lid-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Open-Lid-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Peg-Insertion-Franka"><h2>Peg-Insertion</h2>
+<p>Tip/center frames reconciled; goal lowered 50 mm; seated square-bore fit, release and speed checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Peg-Insertion-Franka/goal_detail.png" alt="Peg-Insertion constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Peg-Insertion-Franka/final.png" alt="Peg-Insertion final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Peg-Insertion-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Peg-Insertion-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Peg-Insertion-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Peg-Insertion-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Peg-Insertion-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Pivot-Lift-Franka"><h2>Pivot-Lift</h2>
+<p>Recorded wall-pivot contact plus actual slow grasp required for the airborne goal.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Pivot-Lift-Franka/goal_detail.png" alt="Pivot-Lift constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Pivot-Lift-Franka/final.png" alt="Pivot-Lift final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Pivot-Lift-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Pivot-Lift-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Pivot-Lift-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Pivot-Lift-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Pivot-Lift-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Place-In-Container-Franka"><h2>Place-In-Container</h2>
+<p>Full cube/basket-frame containment, support, release and low speed; resting goal geometry corrected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Place-In-Container-Franka/goal_detail.png" alt="Place-In-Container constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Place-In-Container-Franka/final.png" alt="Place-In-Container final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Place-In-Container-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Place-In-Container-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Place-In-Container-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Place-In-Container-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Place-In-Container-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Push-Button-Franka"><h2>Push-Button</h2>
+<p>Joint-progress reward; pressed target and spring-return behavior checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Push-Button-Franka/goal_detail.png" alt="Push-Button constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Push-Button-Franka/final.png" alt="Push-Button final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Push-Button-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Push-Button-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Push-Button-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Push-Button-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Push-Button-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Push-Cuboid-Franka"><h2>Push-Cuboid</h2>
+<p>Ground-level point goal, spawn separation, object dimensions and termination rules checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Push-Cuboid-Franka/goal_detail.png" alt="Push-Cuboid constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Push-Cuboid-Franka/final.png" alt="Push-Cuboid final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Push-Cuboid-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Push-Cuboid-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Push-Cuboid-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Push-Cuboid-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Push-Cuboid-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Push-Flap-Franka"><h2>Push-Flap</h2>
+<p>Joint-progress reward; negative hinge target, panel and housing clearance checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Push-Flap-Franka/goal_detail.png" alt="Push-Flap constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Push-Flap-Franka/final.png" alt="Push-Flap final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Push-Flap-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Push-Flap-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Push-Flap-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Push-Flap-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Push-Flap-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Reach-Target-Franka"><h2>Reach-Target</h2>
+<p>Position-only wrist goal, target reachability and matching reward checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Reach-Target-Franka/goal_detail.png" alt="Reach-Target constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Reach-Target-Franka/final.png" alt="Reach-Target final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Reach-Target-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Reach-Target-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Reach-Target-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Reach-Target-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Reach-Target-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Reorient-Object-Franka"><h2>Reorient-Object</h2>
+<p>Axis-based reward matches success; fast orientation crossings rejected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Reorient-Object-Franka/goal_detail.png" alt="Reorient-Object constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Reorient-Object-Franka/final.png" alt="Reorient-Object final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Reorient-Object-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Reorient-Object-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Reorient-Object-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Reorient-Object-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Reorient-Object-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Rotate-Valve-Franka"><h2>Rotate-Valve</h2>
+<p>Monotonic joint reward removes 270-degree Cartesian shortcut; wheel/hub geometry checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Rotate-Valve-Franka/goal_detail.png" alt="Rotate-Valve constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Rotate-Valve-Franka/final.png" alt="Rotate-Valve final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Rotate-Valve-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Rotate-Valve-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Rotate-Valve-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Rotate-Valve-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Rotate-Valve-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Slide-Window-Franka"><h2>Slide-Window</h2>
+<p>Joint-progress reward; slide target and sash/frame clearance checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Slide-Window-Franka/goal_detail.png" alt="Slide-Window constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Slide-Window-Franka/final.png" alt="Slide-Window final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Slide-Window-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Slide-Window-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Slide-Window-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Slide-Window-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Slide-Window-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Stack-Cube-Franka"><h2>Stack-Cube</h2>
+<p>Slow released placement in actual contact with the base; hovering rejected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Stack-Cube-Franka/goal_detail.png" alt="Stack-Cube constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Stack-Cube-Franka/final.png" alt="Stack-Cube final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Stack-Cube-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Stack-Cube-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Stack-Cube-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Stack-Cube-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Stack-Cube-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Strike-Slide-Franka"><h2>Strike-Slide</h2>
+<p>Beyond-reach ground goal, puck dimensions/contact configuration and point success checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Strike-Slide-Franka/goal_detail.png" alt="Strike-Slide constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Strike-Slide-Franka/final.png" alt="Strike-Slide final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Strike-Slide-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Strike-Slide-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Strike-Slide-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Strike-Slide-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Strike-Slide-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Throw-To-Bin-Franka"><h2>Throw-To-Bin</h2>
+<p>Beyond-reach bin retained; full containment, support, release and low speed required.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>timeout</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Throw-To-Bin-Franka/goal_detail.png" alt="Throw-To-Bin constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Throw-To-Bin-Franka/final.png" alt="Throw-To-Bin final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Throw-To-Bin-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Throw-To-Bin-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Throw-To-Bin-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Throw-To-Bin-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Throw-To-Bin-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Tool-Pull-Franka"><h2>Tool-Pull</h2>
+<p>Actual pad/tool then tool/puck contacts required; direct robot/puck contact invalidates success.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>terminated</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Tool-Pull-Franka/goal_detail.png" alt="Tool-Pull constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Tool-Pull-Franka/final.png" alt="Tool-Pull final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Tool-Pull-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Tool-Pull-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Tool-Pull-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Tool-Pull-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Tool-Pull-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Topple-Block-Franka"><h2>Topple-Block</h2>
+<p>Symmetric axis reward matches the two accepted faces; fast transient crossings rejected.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>terminated</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Topple-Block-Franka/goal_detail.png" alt="Topple-Block constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Topple-Block-Franka/final.png" alt="Topple-Block final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Topple-Block-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Topple-Block-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Topple-Block-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Topple-Block-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Topple-Block-Franka/review.jpg">Reset / middle / final</a></p></details></section>
+<section id="Mjlab-Turn-Lever-Franka"><h2>Turn-Lever</h2>
+<p>Joint-progress reward; lever target, mount and housing clearance checked.</p>
+<p>Goal probe: <b>pass</b> · Resets: <b>8 clear</b> · Diagnostic: <b>success</b></p>
+<div class="images"><figure><img loading="lazy" src="Mjlab-Turn-Lever-Franka/goal_detail.png" alt="Turn-Lever constructed goal state"><figcaption>Constructed goal/contact state</figcaption></figure>
+<figure><img loading="lazy" src="Mjlab-Turn-Lever-Franka/final.png" alt="Turn-Lever final rollout state"><figcaption>Actual final rollout state</figcaption></figure></div>
+<details><summary>Rollout and raw evidence</summary><video controls preload="none" src="Mjlab-Turn-Lever-Franka/rollout.mp4"></video>
+<p><a href="Mjlab-Turn-Lever-Franka/result.json">Checks and metrics</a> · <a href="Mjlab-Turn-Lever-Franka/trajectory.npz">Recorded trajectory</a> · <a href="Mjlab-Turn-Lever-Franka/goal_state.npz">Goal-state qpos/qvel</a> · <a href="Mjlab-Turn-Lever-Franka/review.jpg">Reset / middle / final</a></p></details></section></html>

@@ -42,9 +42,10 @@
   <worldbody>
     <body name="switch_base" pos="0.65 0 0.5" mocap="true">
       <!-- 120 x 120 x 20 mm metal-clad switch box, raised bezel, four screws. -->
-      <geom name="vis_plate" type="mesh" mesh="switch_plate_vis" material="switch_plate_mat" contype="0" conaffinity="0" group="2" mass="0"/>
-      <!-- Faceplate collider (unchanged from the primitive asset). -->
-      <geom type="box" name="switch_body" size="0.01 0.06 0.06" pos="0.02 0 0" group="3"
+      <geom name="vis_plate" pos="0 0 -0.014" quat="0.7071067812 0 0.7071067812 0" type="mesh" mesh="switch_plate_vis" material="switch_plate_mat" contype="0" conaffinity="0" group="2" mass="0"/>
+      <!-- Horizontal housing below the pivot: both toggle stops clear its top.
+           The old vertical plate occupied the positive-angle sweep. -->
+      <geom type="box" name="switch_body" size="0.06 0.06 0.01" pos="0 0 -0.034" group="3"
             condim="3" friction="1 0.03 0.003" rgba="0.5 0.5 0.5 0.3"
             contype="2" conaffinity="1" solref="0.01 1"/>
       <!-- Base site at the toggle tip when joint = 0 (the centre pose). -->

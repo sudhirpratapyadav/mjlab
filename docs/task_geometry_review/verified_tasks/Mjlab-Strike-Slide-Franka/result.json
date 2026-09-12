@@ -1,0 +1,100 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "PushingCommand",
+  "episode_seconds": 4.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision",
+    "object_out_of_bounds"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_object": {
+      "function": "staged_manipulation_reward",
+      "weight": 1.0
+    },
+    "move_object_to_goal": {
+      "function": "object_at_goal_reward",
+      "weight": 1.0
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 138,
+    "success": true,
+    "terminated": false,
+    "timeout": false,
+    "simulation_seconds": 2.7600000000000002
+  },
+  "final_metrics": {
+    "goal_error": 0.07624858617782593,
+    "at_goal": 1.0,
+    "episode_success": 1.0,
+    "reached_object": 1.0,
+    "gripper_object_distance": 0.7313350439071655,
+    "object_height": 0.012724149972200394
+  },
+  "video": {
+    "fps": 10,
+    "frames": 28
+  }
+}

@@ -1,0 +1,5981 @@
+{
+  "checked_utc": "2026-09-12T14:31:39.937649+00:00",
+  "active_count": 24,
+  "deferred": {
+    "Mjlab-Tool-Pull-Franka": "Deferred by the user: requires both stick and puck poses; the selected 60D observation describes only one object and its goal."
+  },
+  "git_head": "b9b0563bd7b1b9cdcf9a369668c3b0c163e2fd72",
+  "git_status": [
+    " M src/mjlab/asset_zoo/objects/articulated/button/button_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/door/door_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/drawer/drawer_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/flap/flap_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/flap/xmls/assets/flap_post_vis.obj",
+    " M src/mjlab/asset_zoo/objects/articulated/flap/xmls/flap.xml",
+    " M src/mjlab/asset_zoo/objects/articulated/lever/lever_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/lid/lid_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/lid/xmls/lid.xml",
+    " M src/mjlab/asset_zoo/objects/articulated/plug/plug_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/plug/xmls/plug.xml",
+    " M src/mjlab/asset_zoo/objects/articulated/switch/switch_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/switch/xmls/switch.xml",
+    " M src/mjlab/asset_zoo/objects/articulated/valve/valve_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/window/window_constants.py",
+    " M src/mjlab/asset_zoo/objects/articulated/window/xmls/window.xml",
+    " M src/mjlab/asset_zoo/objects/free/block/block_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/board/board_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/container/container_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/cube/cube_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/cuboid/cuboid_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/cylinder/cylinder_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/disc/disc_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/ellipsoid/ellipsoid_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/plate/plate_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/puck/puck_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/sphere/sphere_constants.py",
+    " M src/mjlab/asset_zoo/objects/free/stick/stick_constants.py",
+    " M src/mjlab/asset_zoo/robots/franka_emika_panda/xmls/panda.xml",
+    " M src/mjlab/continual_distill/classical/__init__.py",
+    " M src/mjlab/continual_distill/classical/base.py",
+    " M src/mjlab/continual_distill/classical/cage_drag.py",
+    " M src/mjlab/continual_distill/classical/drag_pull.py",
+    " M src/mjlab/continual_distill/classical/edge_grasp.py",
+    " M src/mjlab/continual_distill/classical/flip_switch.py",
+    " M src/mjlab/continual_distill/classical/lift_object.py",
+    " M src/mjlab/continual_distill/classical/open_door.py",
+    " M src/mjlab/continual_distill/classical/open_drawer.py",
+    " M src/mjlab/continual_distill/classical/open_lid.py",
+    " M src/mjlab/continual_distill/classical/peg_insertion.py",
+    " M src/mjlab/continual_distill/classical/pivot_lift.py",
+    " M src/mjlab/continual_distill/classical/place_in_container.py",
+    " M src/mjlab/continual_distill/classical/push_button.py",
+    " M src/mjlab/continual_distill/classical/push_cuboid.py",
+    " M src/mjlab/continual_distill/classical/push_flap.py",
+    " M src/mjlab/continual_distill/classical/reach_target.py",
+    " M src/mjlab/continual_distill/classical/render_rollout.py",
+    " M src/mjlab/continual_distill/classical/reorient_object.py",
+    " M src/mjlab/continual_distill/classical/rotate_valve.py",
+    " M src/mjlab/continual_distill/classical/slide_window.py",
+    " M src/mjlab/continual_distill/classical/stack_object.py",
+    " M src/mjlab/continual_distill/classical/strike_slide.py",
+    " M src/mjlab/continual_distill/classical/test_classical.py",
+    " M src/mjlab/continual_distill/classical/throw_to_bin.py",
+    " M src/mjlab/continual_distill/classical/tool_pull.py",
+    " M src/mjlab/continual_distill/classical/topple_block.py",
+    " M src/mjlab/continual_distill/classical/turn_lever.py",
+    " M src/mjlab/entity/data.py",
+    " M src/mjlab/scripts/audit_workspace.py",
+    " M src/mjlab/scripts/verify_task.py",
+    " M src/mjlab/tasks/manipulation/axial_extract_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/benchmark.py",
+    " M src/mjlab/tasks/manipulation/cage_drag_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/config/franka/__init__.py",
+    " M src/mjlab/tasks/manipulation/config/franka/env_cfgs.py",
+    " M src/mjlab/tasks/manipulation/flip_switch_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/mdp/commands.py",
+    " M src/mjlab/tasks/manipulation/mdp/observations.py",
+    " M src/mjlab/tasks/manipulation/mdp/rewards.py",
+    " M src/mjlab/tasks/manipulation/open_door_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/open_drawer_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/open_lid_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/push_button_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/push_flap_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/reorient_object_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/rotate_valve_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/slide_window_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/tool_pull_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/topple_block_env_cfg.py",
+    " M src/mjlab/tasks/manipulation/turn_lever_env_cfg.py",
+    " M src/mjlab/viewer/offscreen_renderer.py",
+    " M tests/test_class_a_expansion.py",
+    " M tests/test_class_a_wave1.py",
+    " M tests/test_classical_teachers.py",
+    "?? docs/task_geometry_review/",
+    "?? parse_sweep24.py",
+    "?? portal_logs/",
+    "?? slurm/run_24seq_sweep.sh",
+    "?? slurm/run_mix.sh",
+    "?? slurm/run_task_portal.sh",
+    "?? src/mjlab/asset_zoo/objects/collision.py",
+    "?? src/mjlab/asset_zoo/objects/goal.py",
+    "?? src/mjlab/continual_distill/classical/diagnose.py",
+    "?? src/mjlab/continual_distill/classical/episode_evaluation.py",
+    "?? src/mjlab/continual_distill/classical/front_pinch_slider.py",
+    "?? src/mjlab/continual_distill/classical/mechanism_geometry.py",
+    "?? src/mjlab/continual_distill/classical/record_measured_batch.py",
+    "?? src/mjlab/continual_distill/classical/record_outcomes.py",
+    "?? src/mjlab/continual_distill/classical/shared_interface.py",
+    "?? src/mjlab/continual_distill/classical/staged_stack.py",
+    "?? src/mjlab/continual_distill/config/tasks_2t_lift_opendoor.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_2t_lift_opendrawer.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_2t_lift_pushbutton.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_2t_lift_pushcuboid.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_4task.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_5task_200.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_1bc.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_1cl.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_2bc.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_2cl.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_crossA.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_mix_crossB.yaml",
+    "?? src/mjlab/continual_distill/config/tasks_smoke.yaml",
+    "?? src/mjlab/continual_distill/config_cluster_bak/",
+    "?? src/mjlab/continual_distill/docs/cl_v3/",
+    "?? src/mjlab/continual_distill/docs/cl_v4_rl/",
+    "?? src/mjlab/portal/",
+    "?? src/mjlab/scripts/task_state_probe.py",
+    "?? src/mjlab/tasks/manipulation/franka_interface.py",
+    "?? src/mjlab/tasks/manipulation/mdp/goal_orientation.py",
+    "?? src/mjlab/tasks/manipulation/mdp/task_geometry.py",
+    "?? tests/test_axis_goal_visualization.py",
+    "?? tests/test_franka_shared_interface.py",
+    "?? tests/test_manipulation_geometry.py",
+    "?? tests/test_manipulation_timing.py",
+    "?? tests/test_task_semantics.py",
+    "?? tests/test_teacher_episode_evaluation.py",
+    "?? tests/test_teacher_mechanism_geometry.py",
+    "?? tests/test_teacher_transitions.py",
+    "?? tests/test_teacher_waypoints.py",
+    "?? tests/test_video_recording.py"
+  ],
+  "package_versions": {
+    "torch": "2.9.0+cu128",
+    "mujoco": "3.11.1.dev955869713",
+    "mujoco-warp": "3.11.0",
+    "warp-lang": "1.15.0",
+    "rsl-rl-lib": "3.2.0",
+    "tensordict": "0.10.0",
+    "tensorboard": "2.20.0"
+  },
+  "source_sha256": {
+    "src/mjlab/tasks/manipulation/push_flap_env_cfg.py": "4a2b539d382606062b0b908b1962f8784a3fda8bbc33c6f413310807ed974f31",
+    "src/mjlab/tasks/manipulation/rotate_valve_env_cfg.py": "6113119948ebdf51412a385abd248b1b3b3f9476be55a8749b1f4c3653c874bf",
+    "src/mjlab/tasks/manipulation/flip_switch_env_cfg.py": "09a0a92c26bfd28d7e629231eee0db6ed2868453158f2f049f63394841add1f9",
+    "src/mjlab/tasks/manipulation/open_door_env_cfg.py": "9d1fa59c20823ff3cbdcdb62c820b089512e6cb59af0749cfc6a069f54ffa8e0",
+    "src/mjlab/tasks/manipulation/axial_extract_env_cfg.py": "cbda3ad399248161da54b3a834c72727ff87f5860469472c44f8a5108503ec17",
+    "src/mjlab/tasks/manipulation/pivot_lift_env_cfg.py": "084452eedd7d7c2e39be23605bde7798879974a4635a830e822482219f5d1f71",
+    "src/mjlab/tasks/manipulation/strike_slide_env_cfg.py": "0c00cf2f81ec9caf82c77da3516192d73876dfc9095318e5299d67e465620d91",
+    "src/mjlab/tasks/manipulation/push_cube_env_cfg.py": "28b379bb74c1e909ffd7bb2c0f45dfba46cb07eca3eae11ad1df701a0d9132a5",
+    "src/mjlab/tasks/manipulation/lift_object_env_cfg.py": "ec9522a1e79396f974f001b4a042bd3c00168e6f3c77d2e257dae147c2a3c97d",
+    "src/mjlab/tasks/manipulation/open_lid_env_cfg.py": "b35eb05adf0cf2d9873e3dff8153dce80ffb9f8be3f401a8b61683e047fe399f",
+    "src/mjlab/tasks/manipulation/tool_pull_env_cfg.py": "04b59e1786cd6c2e62535491d9789d7e8ef39a2d2755df50de1df88062f174bb",
+    "src/mjlab/tasks/manipulation/push_cuboid_env_cfg.py": "38bae4e56fb9682814063a10700317ca90cdfdfcdf0813265ae3300e2db2adc5",
+    "src/mjlab/tasks/manipulation/turn_lever_env_cfg.py": "892f8600719e23bf7f5c538662ab44c655a706e008ee5edfb2612d0292ecd205",
+    "src/mjlab/tasks/manipulation/push_button_env_cfg.py": "c9122cd92e5bc905f61da51869185aad607ebe1ea58310cc4025acb7d40c42a7",
+    "src/mjlab/tasks/manipulation/workspace.py": "ed6e2c06551aa2780097371ba7a716869402c957cca2eb8f1537f26e15b53e62",
+    "src/mjlab/tasks/manipulation/taxonomy.py": "dc3f447bad8093b298c90f4d88139a53bf37ccccfbca79ebc8d95336af0b647a",
+    "src/mjlab/tasks/manipulation/slide_window_env_cfg.py": "3569998dde24e81b757b9d50d78a5c17e98e35b59b693e462a028877d286eba5",
+    "src/mjlab/tasks/manipulation/drag_pull_env_cfg.py": "a275e16e6d1f6cf7ded7427ea65d0586c03d4822397b84d11c001419e6fe5644",
+    "src/mjlab/tasks/manipulation/topple_block_env_cfg.py": "2bbb8c1339e1884c7844f9d3d22a4152e81c226543e6313a8fb84d675582fb26",
+    "src/mjlab/tasks/manipulation/stack_object_env_cfg.py": "6f72f1251b1d9c5e03f4c960869f16a30e98aac587b07899b13c38cb2529c33f",
+    "src/mjlab/tasks/manipulation/cage_drag_env_cfg.py": "b4bebfc304bae0c656d17d4784f9a6004014d23ceb4fae1f12d78d31b369050e",
+    "src/mjlab/tasks/manipulation/open_drawer_env_cfg.py": "6e5d9e0720bd51c3673a7e10d7f93bf08878f074c827c1c3b3c7eec4645bbb0f",
+    "src/mjlab/tasks/manipulation/place_in_container_env_cfg.py": "f84ec6168886a806be9f37883aa2afc048714ad4128b66a2625f8acc2059174f",
+    "src/mjlab/tasks/manipulation/studio.py": "0d990c48f609fbb3561ffe3ba90bb81451d515f364d4e6e541a2fda70a140c46",
+    "src/mjlab/tasks/manipulation/franka_interface.py": "0b574f8eb88009e315e3726977d67e2ece057e08805ccdac4ae48daff63404d2",
+    "src/mjlab/tasks/manipulation/edge_grasp_env_cfg.py": "1d3a018c072c9c6d4fe74b0f91c58a3564b8011ae84b4ea0c23a413df300c3db",
+    "src/mjlab/tasks/manipulation/benchmark.py": "59f18db9effe141201f4788cac6b4320326ca50acaa3c4b8b8e5e6a37d5003b8",
+    "src/mjlab/tasks/manipulation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/mjlab/tasks/manipulation/reorient_object_env_cfg.py": "22d4d1291b1a1536b77c96fe926940ce857e8c47a50b8fd341ef91404b804031",
+    "src/mjlab/tasks/manipulation/push_disc_env_cfg.py": "4cf9e6e137698410f61c236bfa141830a461a08f90c0004d0ccb0bdd7c15ec21",
+    "src/mjlab/tasks/manipulation/reach_target_env_cfg.py": "be4beb78df86c6e8a388986b44040fddf76ab9f188e79afa6cd535d93e0068ef",
+    "src/mjlab/tasks/manipulation/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/mjlab/tasks/manipulation/mdp/task_geometry.py": "fb750732e7cad9b04d07c61a4f0a89cc28779a7331c7e851a1a8e4a6c51943b8",
+    "src/mjlab/tasks/manipulation/mdp/commands.py": "12404260ca28af260fc4900aeff656263006bf73ea3bb2582fefed1cef4c91aa",
+    "src/mjlab/tasks/manipulation/mdp/curriculums.py": "8ac5745736e75555ceae970dece1f8c57d38a959fd1df07a51e1765bd6440489",
+    "src/mjlab/tasks/manipulation/mdp/rewards.py": "1ec33ad4b32a6b30e2f8e00465f12119aa43bdd41990742191b2ee71ac24b7b9",
+    "src/mjlab/tasks/manipulation/mdp/__init__.py": "c9a7b582c239b509f578591e6f7f84b11a44ced1ab5926009f69a16ede009f55",
+    "src/mjlab/tasks/manipulation/mdp/terminations.py": "897cc47e30e486bec991a04168b6491c1690e0f03a74b4be6891f2cb2a17d335",
+    "src/mjlab/tasks/manipulation/mdp/observations.py": "8d0bc144de1b6f46dd3d867895303883dd6711f8cb9f38850a08f9f666eea81b",
+    "src/mjlab/tasks/manipulation/mdp/goal_orientation.py": "c540d2d0e9dc132055c2b0c7658616c4327fc0a77a127ee180a2bf3eaf1b57db",
+    "src/mjlab/tasks/manipulation/config/leap_hand/env_cfgs.py": "9bb152f395796ae7e832aca8072fa02c9b2f997aed5488f570226bb626b335a8",
+    "src/mjlab/tasks/manipulation/config/leap_hand/rl_cfg.py": "40e219225ae30a369d3e2b2e55e79f5017c1c97e1887dcbacaf48429e3c98ca3",
+    "src/mjlab/tasks/manipulation/config/leap_hand/__init__.py": "7cb848e98d7ef02e2a6461e7793b64d1d03c5a8ee6b7fd4dc4fa544dede9dafd",
+    "src/mjlab/tasks/manipulation/config/franka_leap/env_cfgs.py": "7f3fd4d283a587fff5b87f398f54b3cfb2186efe08f02beec5cba7e3fa781a53",
+    "src/mjlab/tasks/manipulation/config/franka_leap/rl_cfg.py": "e4ea53d1e741f72fc2222992de7f91376253f6d9ac6c8dc206983adfe785b72b",
+    "src/mjlab/tasks/manipulation/config/franka_leap/__init__.py": "e39b1360a84d00b4850c31c5c42dcdddb29201418af5904c0c3041d905be55eb",
+    "src/mjlab/tasks/manipulation/config/yam/env_cfgs.py": "4ecfc44271dda1d99ba14907100b777f3dc8ab1b86637d7646c9cf7877657caf",
+    "src/mjlab/tasks/manipulation/config/yam/rl_cfg.py": "9250f5f129e2f178857f9664869b67018da35e167a6bf1ad0329ea020c337685",
+    "src/mjlab/tasks/manipulation/config/yam/__init__.py": "4463d399eebc0f03dbfd75804df34fc8ab125715ee30a4bb94a65ce856e793be",
+    "src/mjlab/tasks/manipulation/config/franka/env_cfgs.py": "72f78797cdafb2c02841c5fde0b38048818c39f181b641cbfea6e7eff75b41e5",
+    "src/mjlab/tasks/manipulation/config/franka/rl_cfg.py": "889f5040d9691492cad16d0716abc7fd243fe5dedc75e081ef6792dd976af7b7",
+    "src/mjlab/tasks/manipulation/config/franka/__init__.py": "21cc00bfb288c4e4865f2e734b956bd3c27aecb36e169e3340b727f8d474d299",
+    "src/mjlab/rl/exporter_utils.py": "9000951f7ea804fd6c04c2f64f26e05a5dd22959a5ebc8ff86fa82b9220b72b7",
+    "src/mjlab/rl/vecenv_wrapper.py": "bcd40d738f7156187ffc519d3276443a6ff52205b77f540e57c91c940103dc4c",
+    "src/mjlab/rl/config.py": "f6032b5e95ac2704876100e8de2633f415acb6cd42948bd0b4080234d1966cea",
+    "src/mjlab/rl/__init__.py": "285c0bd1e1d4c176dc300b674ff92a4a910578c78f4a20fad7246712e670cfc1",
+    "src/mjlab/scripts/train.py": "b9adb777c81e2c8f3b659a0527405df3fe7c7e2b58e849b8bf65a4e011346026",
+    "src/mjlab/utils/gpu.py": "4e4842cc9a0b1ffa8bbfd13622f7867f916db3718dadf09cc170e51eef2a7fb4"
+  },
+  "tasks": [
+    {
+      "task": "Mjlab-Axial-Extract-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 4.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "axial_extract",
+            "object_asset_name": "plug",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "axial_extract",
+            "object_asset_name": "plug",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_plug_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_axial_extract",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Cage-Drag-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 4.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.cage_transport_reward",
+          "params": {
+            "command_name": "cage_drag",
+            "object_asset_name": "cube",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.2,
+            "reaching_clip_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.cage_transport_reward",
+          "params": {
+            "command_name": "cage_drag",
+            "object_asset_name": "cube",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "keep_gripper_open": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.gripper_closure_penalty",
+          "params": {
+            "threshold": 0.06949061947291249,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.5
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cube",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_cage_drag",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Drag-Pull-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "drag_pull",
+            "object_asset_name": "cuboid",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.2,
+            "reaching_clip_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "drag_pull",
+            "object_asset_name": "cuboid",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cuboid",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_drag_pull",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Edge-Grasp-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 6.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "edge_grasp",
+            "object_asset_name": "plate",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.2,
+            "reaching_clip_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "edge_grasp",
+            "object_asset_name": "plate",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "plate",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_edge_grasp",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Flip-Switch-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "flip_switch",
+            "object_asset_name": "switch",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "flip_switch",
+            "object_asset_name": "switch",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_switch_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_flip_switch",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Lift-Cube-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "lift_object",
+            "object_asset_name": "cube",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "lift_object",
+            "object_asset_name": "cube",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cube",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 5000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_lift_cube",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Door-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_door",
+            "object_asset_name": "door",
+            "reaching_max_dist": 0.65,
+            "bringing_max_dist": 0.6,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_door",
+            "object_asset_name": "door",
+            "max_dist": 0.6
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_door_collision"
+          },
+          "weight": 0.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": 0.0
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 0.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 0.0
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_open_door",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Drawer-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_drawer",
+            "object_asset_name": "drawer",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_drawer",
+            "object_asset_name": "drawer",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_drawer_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_open_drawer",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Open-Lid-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 5.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_lid",
+            "object_asset_name": "lid",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "open_lid",
+            "object_asset_name": "lid",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_lid_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_open_lid",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Peg-Insertion-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "stack": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "stack_object",
+            "object_asset_name": "object",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "at_goal_bonus": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "stack_object",
+            "object_asset_name": "object",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": null,
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "object",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 5000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_peg_insertion",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Pivot-Lift-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 6.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "pivot_lift",
+            "object_asset_name": "board",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "pivot_lift",
+            "object_asset_name": "board",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "board",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_pivot_lift",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Place-In-Container-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "place_in_container",
+            "object_asset_name": "cube",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "place_in_container",
+            "object_asset_name": "cube",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cube",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_place_in_container",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Button-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "push_button",
+            "object_asset_name": "button",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "push_button",
+            "object_asset_name": "button",
+            "max_dist": 0.05
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_button_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_push_button",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Cuboid-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "push_cuboid",
+            "object_asset_name": "cuboid",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.2,
+            "reaching_clip_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "push_cuboid",
+            "object_asset_name": "cuboid",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cuboid",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 5000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_push_cuboid",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Push-Flap-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "push_flap",
+            "object_asset_name": "flap",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "push_flap",
+            "object_asset_name": "flap",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_flap_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_push_flap",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Reach-Target-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_target": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.reach_target_reward",
+          "params": {
+            "command_name": "reach_target",
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": null,
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 5000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_reach_target",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Reorient-Object-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.orientation_task_reward",
+          "params": {
+            "command_name": "reorient_object",
+            "object_asset_name": "cylinder",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.orientation_task_reward",
+          "params": {
+            "command_name": "reorient_object",
+            "object_asset_name": "cylinder",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cylinder",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_reorient_object",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Rotate-Valve-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 8.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "rotate_valve",
+            "object_asset_name": "valve",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "rotate_valve",
+            "object_asset_name": "valve",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_valve_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_rotate_valve",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Slide-Window-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "slide_window",
+            "object_asset_name": "window",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "slide_window",
+            "object_asset_name": "window",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_window_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_slide_window",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Stack-Cube-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 20.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "stack": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "stack_object",
+            "object_asset_name": "object",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "at_goal_bonus": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "stack_object",
+            "object_asset_name": "object",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": null,
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "object",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 5000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_stack_cube",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Strike-Slide-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 4.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "strike_slide",
+            "object_asset_name": "puck",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.8,
+            "reaching_clip_dist": 0.05,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "strike_slide",
+            "object_asset_name": "puck",
+            "max_dist": 0.8
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "puck",
+            "x_bounds": [
+              0.0,
+              1.4
+            ],
+            "y_bounds": [
+              -0.6,
+              0.6
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_strike_slide",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Throw-To-Bin-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 5.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.staged_manipulation_reward",
+          "params": {
+            "command_name": "place_in_container",
+            "object_asset_name": "cube",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.object_at_goal_reward",
+          "params": {
+            "command_name": "place_in_container",
+            "object_asset_name": "cube",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "cube",
+            "x_bounds": [
+              0.0,
+              1.4
+            ],
+            "y_bounds": [
+              -0.7,
+              0.7
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_throw_to_bin",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Topple-Block-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 4.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.orientation_task_reward",
+          "params": {
+            "command_name": "topple_block",
+            "object_asset_name": "block",
+            "reaching_max_dist": 0.35,
+            "bringing_max_dist": 0.35,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.orientation_task_reward",
+          "params": {
+            "command_name": "topple_block",
+            "object_asset_name": "block",
+            "max_dist": 0.35
+          },
+          "weight": 1.0
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        },
+        "object_out_of_bounds": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.object_out_of_bounds",
+          "params": {
+            "object_name": "block",
+            "x_bounds": [
+              0.0,
+              1.0
+            ],
+            "y_bounds": [
+              -0.5,
+              0.5
+            ]
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_topple_block",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    },
+    {
+      "task": "Mjlab-Turn-Lever-Franka",
+      "obs_dim": 60,
+      "interface": "franka_shared_60_v2",
+      "actions": {
+        "robot_joint_pos": {
+          "class_type": "mjlab.tasks.manipulation.franka_interface.NormalizedFrankaPositionAction",
+          "asset_name": "robot",
+          "clip": null,
+          "actuator_names": [
+            "joint1",
+            "joint2",
+            "joint3",
+            "joint4",
+            "joint5",
+            "joint6",
+            "joint7",
+            "finger_joint1"
+          ],
+          "scale": {
+            "joint1": 2.8973,
+            "joint2": 1.7628,
+            "joint3": 2.8973,
+            "joint4": 1.5010000000000001,
+            "joint5": 2.8973,
+            "joint6": 1.885,
+            "joint7": 2.8973,
+            "finger_joint1": 0.02
+          },
+          "offset": {
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": -1.5708,
+            "joint5": 0.0,
+            "joint6": 1.8675,
+            "joint7": 0.0,
+            "finger_joint1": 0.02
+          },
+          "preserve_order": false,
+          "use_default_offset": false
+        }
+      },
+      "episode_s": 3.0,
+      "dt": 0.02,
+      "num_envs": 1,
+      "gravity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rewards": {
+        "reach_object": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "turn_lever",
+            "object_asset_name": "lever",
+            "reaching_max_dist": 0.6,
+            "bringing_max_dist": 0.25,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": null,
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": [
+                "gripper"
+              ],
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": 1.0
+        },
+        "move_object_to_goal": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.articulation_task_reward",
+          "params": {
+            "command_name": "turn_lever",
+            "object_asset_name": "lever",
+            "max_dist": 0.25
+          },
+          "weight": 1.0
+        },
+        "no_object_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.no_object_body_collision_reward",
+          "params": {
+            "sensor_name": "ee_lever_collision"
+          },
+          "weight": 0.25
+        },
+        "action_rate_l2": {
+          "func": "mjlab.envs.mdp.rewards.action_rate_l2",
+          "params": {},
+          "weight": -0.01
+        },
+        "joint_pos_limits": {
+          "func": "mjlab.envs.mdp.rewards.joint_pos_limits",
+          "params": {
+            "asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -10.0
+        },
+        "joint_vel_penalty": {
+          "func": "mjlab.tasks.manipulation.mdp.rewards.joint_velocity_penalty",
+          "params": {
+            "max_vel": 0.5,
+            "robot_asset_cfg": {
+              "name": "robot",
+              "joint_names": [
+                ".*"
+              ],
+              "joint_ids": "slice(None, None, None)",
+              "body_names": null,
+              "body_ids": "slice(None, None, None)",
+              "geom_names": null,
+              "geom_ids": "slice(None, None, None)",
+              "site_names": null,
+              "site_ids": "slice(None, None, None)",
+              "actuator_names": null,
+              "actuator_ids": "slice(None, None, None)",
+              "preserve_order": false
+            }
+          },
+          "weight": -0.01
+        }
+      },
+      "curriculum": {
+        "joint_vel_penalty_weight": {
+          "func": "mjlab.tasks.manipulation.mdp.curriculums.reward_weight",
+          "params": {
+            "reward_name": "joint_vel_penalty",
+            "weight_stages": [
+              {
+                "step": 0,
+                "weight": -0.01
+              },
+              {
+                "step": 24000,
+                "weight": -0.1
+              },
+              {
+                "step": 36000,
+                "weight": -1.0
+              }
+            ]
+          }
+        }
+      },
+      "terminations": {
+        "time_out": {
+          "func": "mjlab.envs.mdp.terminations.time_out",
+          "params": {},
+          "time_out": true
+        },
+        "ee_ground_collision": {
+          "func": "mjlab.tasks.manipulation.mdp.terminations.illegal_contact",
+          "params": {
+            "sensor_name": "ee_ground_collision"
+          },
+          "time_out": false
+        }
+      },
+      "rl": {
+        "seed": 42,
+        "num_steps_per_env": 24,
+        "max_iterations": 10000,
+        "obs_groups": {
+          "policy": [
+            "policy"
+          ],
+          "critic": [
+            "critic"
+          ]
+        },
+        "save_interval": 100,
+        "experiment_name": "franka_turn_lever",
+        "run_name": "",
+        "logger": "wandb",
+        "wandb_project": "continual_mjlab",
+        "resume": false,
+        "load_run": ".*",
+        "load_checkpoint": "model_.*.pt",
+        "clip_actions": 1.0,
+        "class_name": "OnPolicyRunner",
+        "policy": {
+          "init_noise_std": 0.2,
+          "noise_std_type": "scalar",
+          "actor_obs_normalization": true,
+          "critic_obs_normalization": true,
+          "actor_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "critic_hidden_dims": [
+            512,
+            256,
+            128
+          ],
+          "activation": "elu",
+          "class_name": "ActorCritic"
+        },
+        "algorithm": {
+          "num_learning_epochs": 5,
+          "num_mini_batches": 4,
+          "learning_rate": 0.001,
+          "schedule": "adaptive",
+          "gamma": 0.99,
+          "lam": 0.95,
+          "entropy_coef": 0.005,
+          "desired_kl": 0.01,
+          "max_grad_norm": 1.0,
+          "value_loss_coef": 1.0,
+          "use_clipped_value_loss": true,
+          "clip_param": 0.2,
+          "normalize_advantage_per_mini_batch": false,
+          "class_name": "PPO"
+        }
+      }
+    }
+  ]
+}

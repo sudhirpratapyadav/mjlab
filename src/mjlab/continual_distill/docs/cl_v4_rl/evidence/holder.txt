@@ -1,0 +1,29 @@
+JobId=20277 JobName=hold_dgx_amit
+   UserId=svs_ald(3021) GroupId=1gpu(2001) MCS_label=N/A
+   Priority=4294891577 Nice=0 Account=root QOS=8gpu
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=4-11:01:04 TimeLimit=20-00:00:00 TimeMin=N/A
+   SubmitTime=2026-09-08T08:56:44 EligibleTime=2026-09-08T08:56:44
+   AccrueTime=2026-09-08T08:56:44
+   StartTime=2026-09-08T08:58:54 EndTime=2026-09-28T08:58:54 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-08T08:58:54 Scheduler=Main
+   Partition=1gpu AllocNode:Sid=login:369126
+   ReqNodeList=dgx1 ExcNodeList=(null)
+   NodeList=dgx1
+   BatchHost=dgx1
+   NumNodes=1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=8,node=1,billing=8,gres/gpu=8
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=0 MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/ihub/homedirs/svs_ald/use_instructions/hold_gpus.sh
+   WorkDir=/ihub/homedirs/svs_ald/aditya
+   StdErr=/ihub/homedirs/svs_ald/aditya/hold_dgx_amit_20277.log
+   StdIn=/dev/null
+   StdOut=/ihub/homedirs/svs_ald/aditya/hold_dgx_amit_20277.log
+   Power=
+   TresPerNode=gres:gpu:8
+   
+

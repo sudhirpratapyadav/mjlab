@@ -44,21 +44,10 @@ def get_container_spec() -> mujoco.MjSpec:
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
-    """Create the orange mocap goal marker (visual only, no collision)."""
-    spec = mujoco.MjSpec()
-    mocap_goal = spec.worldbody.add_body(name="mocap_goal")
-    mocap_goal.mocap = True
-    mocap_goal.pos = [0, 0, 0]
-    mocap_goal.add_geom(
-        name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_BOX,
-        # Matches the basket's moulded floor slab (0.1670 x 0.1670 x 0.004).
-        size=[0.0835, 0.0835, 0.002],
-        rgba=[1, 0.5, 0, 1],
-        contype=0,
-        conaffinity=0,
-    )
-    return spec
+    """Translucent replica of the manipulated part at its target pose."""
+    from mjlab.asset_zoo.objects.goal import make_goal_spec
+
+    return make_goal_spec(get_container_spec())
 
 
 ##

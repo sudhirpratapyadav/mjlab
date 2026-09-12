@@ -1,0 +1,2532 @@
+[
+  {
+    "task": "Mjlab-Axial-Extract-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "AxialExtractCommand",
+    "episode_seconds": 4.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 189,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 3.7800000000000002
+    },
+    "final_metrics": {
+      "goal_error": 0.018135420978069305,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.036267414689064026,
+      "joint_value": 0.08186458051204681
+    },
+    "video": {
+      "fps": 10,
+      "frames": 38
+    }
+  },
+  {
+    "task": "Mjlab-Cage-Drag-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "CageDragCommand",
+    "episode_seconds": 4.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "cage_transport_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "cage_transport_reward",
+        "weight": 1.0
+      },
+      "keep_gripper_open": {
+        "function": "gripper_closure_penalty",
+        "weight": -0.5
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 200,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 4.0
+    },
+    "final_metrics": {
+      "goal_error": 0.02375759184360504,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.16553901135921478,
+      "object_height": 0.022538796067237854,
+      "min_aperture": 0.023066725581884384,
+      "caged": 0.0,
+      "caged_progress": 0.024517245590686798
+    },
+    "video": {
+      "fps": 10,
+      "frames": 40
+    }
+  },
+  {
+    "task": "Mjlab-Drag-Pull-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PushingCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 33,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 0.66
+    },
+    "final_metrics": {
+      "goal_error": 0.025820231065154076,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.05951128527522087,
+      "object_height": 0.020983349531888962
+    },
+    "video": {
+      "fps": 10,
+      "frames": 7
+    }
+  },
+  {
+    "task": "Mjlab-Edge-Grasp-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "EdgeGraspCommand",
+    "episode_seconds": 6.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 300,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 6.0
+    },
+    "final_metrics": {
+      "goal_error": 0.18390707671642303,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.8992072939872742,
+      "plate_lift": 0.007959723472595215
+    },
+    "video": {
+      "fps": 10,
+      "frames": 60
+    }
+  },
+  {
+    "task": "Mjlab-Flip-Switch-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "FlipSwitchCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 64,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 1.28
+    },
+    "final_metrics": {
+      "goal_error": 0.12874239683151245,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.0329197533428669,
+      "joint_value": 0.39485639333724976
+    },
+    "video": {
+      "fps": 10,
+      "frames": 13
+    }
+  },
+  {
+    "task": "Mjlab-Lift-Cube-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "LiftingCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 142,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 2.84
+    },
+    "final_metrics": {
+      "goal_error": 0.015715377405285835,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.00609623035416007,
+      "cube_height": 0.1814681738615036
+    },
+    "video": {
+      "fps": 10,
+      "frames": 28
+    }
+  },
+  {
+    "task": "Mjlab-Open-Door-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "OpenDoorCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": 0.0
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": 0.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": 0.0
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 150,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 3.0
+    },
+    "final_metrics": {
+      "goal_error": 1.5899661779403687,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.04091108962893486,
+      "door_angle": -0.019166266545653343
+    },
+    "video": {
+      "fps": 10,
+      "frames": 30
+    }
+  },
+  {
+    "task": "Mjlab-Open-Drawer-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "OpenDrawerCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 150,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 3.0
+    },
+    "final_metrics": {
+      "goal_error": 0.06894910335540771,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.059953004121780396,
+      "drawer_distance": -0.18105089664459229
+    },
+    "video": {
+      "fps": 10,
+      "frames": 30
+    }
+  },
+  {
+    "task": "Mjlab-Open-Lid-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "OpenLidCommand",
+    "episode_seconds": 5.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 107,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 2.14
+    },
+    "final_metrics": {
+      "goal_error": 0.19170904159545898,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.02861139178276062,
+      "joint_value": -1.1172879934310913
+    },
+    "video": {
+      "fps": 10,
+      "frames": 21
+    }
+  },
+  {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "StackingCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "stack": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "at_goal_bonus": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 1000,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 20.0
+    },
+    "final_metrics": {
+      "goal_error": 0.0379362478852272,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "stack_height_error": 0.007774949073791504
+    },
+    "video": {
+      "fps": 10,
+      "frames": 200
+    }
+  },
+  {
+    "task": "Mjlab-Pivot-Lift-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PivotLiftCommand",
+    "episode_seconds": 6.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 300,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 6.0
+    },
+    "final_metrics": {
+      "goal_error": 0.2227761298418045,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.1366729438304901,
+      "cube_height": 0.009938746690750122,
+      "pivoted": 0.0
+    },
+    "video": {
+      "fps": 10,
+      "frames": 60
+    }
+  },
+  {
+    "task": "Mjlab-Place-In-Container-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PlaceInContainerCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 169,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 3.38
+    },
+    "final_metrics": {
+      "goal_error": 0.03184914588928223,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.5995272397994995,
+      "contained": 1.0
+    },
+    "video": {
+      "fps": 10,
+      "frames": 34
+    }
+  },
+  {
+    "task": "Mjlab-Push-Button-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PushButtonCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 44,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 0.88
+    },
+    "final_metrics": {
+      "goal_error": 0.017153635621070862,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.026959054172039032,
+      "button_distance": -0.0328463651239872
+    },
+    "video": {
+      "fps": 10,
+      "frames": 9
+    }
+  },
+  {
+    "task": "Mjlab-Push-Cuboid-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PushingCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 150,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 3.0
+    },
+    "final_metrics": {
+      "goal_error": 0.1766348034143448,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.03321356326341629,
+      "object_height": 0.01118525117635727
+    },
+    "video": {
+      "fps": 10,
+      "frames": 30
+    }
+  },
+  {
+    "task": "Mjlab-Push-Flap-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PushFlapCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 47,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 0.9400000000000001
+    },
+    "final_metrics": {
+      "goal_error": 0.12359273433685303,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 0.0,
+      "gripper_object_distance": 0.1039779931306839,
+      "joint_value": -1.0981377363204956
+    },
+    "video": {
+      "fps": 10,
+      "frames": 9
+    }
+  },
+  {
+    "task": "Mjlab-Reach-Target-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "ReachingCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_target": {
+        "function": "reach_target_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 16,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 0.32
+    },
+    "final_metrics": {
+      "goal_error": 0.04206467047333717,
+      "at_goal": 1.0,
+      "episode_success": 1.0
+    },
+    "video": {
+      "fps": 10,
+      "frames": 3
+    }
+  },
+  {
+    "task": "Mjlab-Reorient-Object-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "ReorientObjectCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "orientation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "orientation_task_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 1000,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 20.0
+    },
+    "final_metrics": {
+      "goal_error": 0.03440387547016144,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.019845720380544662,
+      "axis_alignment": 0.9994082450866699
+    },
+    "video": {
+      "fps": 10,
+      "frames": 200
+    }
+  },
+  {
+    "task": "Mjlab-Rotate-Valve-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "RotateValveCommand",
+    "episode_seconds": 8.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 400,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 8.0
+    },
+    "final_metrics": {
+      "goal_error": 5.363920211791992,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.02997817099094391,
+      "joint_value": -0.6515312194824219
+    },
+    "video": {
+      "fps": 10,
+      "frames": 80
+    }
+  },
+  {
+    "task": "Mjlab-Slide-Window-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "SlideWindowCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 103,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 2.06
+    },
+    "final_metrics": {
+      "goal_error": 0.024793177843093872,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.2220219373703003,
+      "joint_value": 0.19520682096481323
+    },
+    "video": {
+      "fps": 10,
+      "frames": 21
+    }
+  },
+  {
+    "task": "Mjlab-Stack-Cube-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "StackingCommand",
+    "episode_seconds": 20.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "stack": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "at_goal_bonus": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 245,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 4.9
+    },
+    "final_metrics": {
+      "goal_error": 0.022193284705281258,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "stack_height_error": 0.0002424679696559906
+    },
+    "video": {
+      "fps": 10,
+      "frames": 49
+    }
+  },
+  {
+    "task": "Mjlab-Strike-Slide-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PushingCommand",
+    "episode_seconds": 4.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 138,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 2.7600000000000002
+    },
+    "final_metrics": {
+      "goal_error": 0.07624858617782593,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.7313350439071655,
+      "object_height": 0.012724149972200394
+    },
+    "video": {
+      "fps": 10,
+      "frames": 28
+    }
+  },
+  {
+    "task": "Mjlab-Throw-To-Bin-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "PlaceInContainerCommand",
+    "episode_seconds": 5.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "staged_manipulation_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "object_at_goal_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 250,
+      "success": false,
+      "terminated": false,
+      "timeout": true,
+      "simulation_seconds": 5.0
+    },
+    "final_metrics": {
+      "goal_error": 0.02758019044995308,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.5448012948036194,
+      "contained": 1.0
+    },
+    "video": {
+      "fps": 10,
+      "frames": 50
+    }
+  },
+  {
+    "task": "Mjlab-Tool-Pull-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "ToolPullCommand",
+    "episode_seconds": 12.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "tool_transport_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "tool_transport_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 61,
+      "success": false,
+      "terminated": true,
+      "timeout": false,
+      "simulation_seconds": 1.22
+    },
+    "final_metrics": {
+      "goal_error": 0.28355106711387634,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 0.0,
+      "gripper_object_distance": 0.4303048551082611,
+      "tool_grasped": 0.0,
+      "gripper_tool_distance": 0.10163100063800812,
+      "tool_used": 0.0,
+      "direct_contact": 0.0
+    },
+    "video": {
+      "fps": 10,
+      "frames": 12
+    }
+  },
+  {
+    "task": "Mjlab-Topple-Block-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "ReorientObjectCommand",
+    "episode_seconds": 4.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision",
+      "object_out_of_bounds"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "orientation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "orientation_task_reward",
+        "weight": 1.0
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 129,
+      "success": false,
+      "terminated": true,
+      "timeout": false,
+      "simulation_seconds": 2.58
+    },
+    "final_metrics": {
+      "goal_error": 1.57077157497406,
+      "at_goal": 0.0,
+      "episode_success": 0.0,
+      "reached_object": 0.0,
+      "gripper_object_distance": 0.41473105549812317,
+      "axis_alignment": 2.476390181982424e-05
+    },
+    "video": {
+      "fps": 10,
+      "frames": 26
+    }
+  },
+  {
+    "task": "Mjlab-Turn-Lever-Franka",
+    "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+    "protocol": "one strict diagnostic episode; not a success-rate estimate",
+    "command": "TurnLeverCommand",
+    "episode_seconds": 3.0,
+    "terminations": [
+      "time_out",
+      "ee_ground_collision"
+    ],
+    "resets": [
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      },
+      {
+        "success": false,
+        "finite": true,
+        "deep_contacts": []
+      }
+    ],
+    "rewards": {
+      "reach_object": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "move_object_to_goal": {
+        "function": "articulation_task_reward",
+        "weight": 1.0
+      },
+      "no_object_collision": {
+        "function": "no_object_body_collision_reward",
+        "weight": 0.25
+      },
+      "action_rate_l2": {
+        "function": "action_rate_l2",
+        "weight": -0.01
+      },
+      "joint_pos_limits": {
+        "function": "joint_pos_limits",
+        "weight": -10.0
+      },
+      "joint_vel_penalty": {
+        "function": "joint_velocity_penalty",
+        "weight": -0.01
+      }
+    },
+    "oracle": {
+      "accepted": true,
+      "description": "constructed MuJoCo goal/contact state; not a rollout",
+      "deep_contacts": []
+    },
+    "rollout": {
+      "steps": 84,
+      "success": true,
+      "terminated": false,
+      "timeout": false,
+      "simulation_seconds": 1.68
+    },
+    "final_metrics": {
+      "goal_error": 0.0,
+      "at_goal": 1.0,
+      "episode_success": 1.0,
+      "reached_object": 1.0,
+      "gripper_object_distance": 0.06630925089120865,
+      "joint_value": -1.5984373092651367
+    },
+    "video": {
+      "fps": 10,
+      "frames": 17
+    }
+  }
+]

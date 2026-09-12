@@ -39,21 +39,10 @@ def get_cylinder_spec() -> mujoco.MjSpec:
 
 
 def get_mocap_goal_spec() -> mujoco.MjSpec:
-    """Create mocap goal (orange cylinder matching object) for visualization."""
-    spec = mujoco.MjSpec()
-    mocap_goal = spec.worldbody.add_body(name="mocap_goal")
-    mocap_goal.mocap = True
-    mocap_goal.pos = [0, 0, 0]
-    mocap_goal.add_geom(
-        name="mocap_goal_geom",
-        type=mujoco.mjtGeom.mjGEOM_CYLINDER,
-        # Matches the bottle's collision extent (radius 0.0150, half-length 0.0266).
-        size=[0.015, 0.0266, 0.0],
-        rgba=[1, 0.5, 0, 1],  # Orange (same as other mocap goals)
-        contype=0,
-        conaffinity=0,
-    )
-    return spec
+    """Translucent replica of the manipulated part at its target pose."""
+    from mjlab.asset_zoo.objects.goal import make_goal_spec
+
+    return make_goal_spec(get_cylinder_spec())
 
 
 ##

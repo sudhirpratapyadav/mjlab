@@ -1,0 +1,3 @@
+from mjlab.continual_distill.classical.front_pinch_slider import DrawerFrontPinchPolicy
+class OpenDrawerClassicalPolicy(DrawerFrontPinchPolicy):
+  pass

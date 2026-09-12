@@ -1,0 +1,107 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "source_sha256": "38399a62fccb260525495495cbf082a3702faa2da2bce19d61f7c5446ffd980e",
+  "protocol": "one strict diagnostic episode; not a success-rate estimate",
+  "command": "CageDragCommand",
+  "episode_seconds": 4.0,
+  "terminations": [
+    "time_out",
+    "ee_ground_collision",
+    "object_out_of_bounds"
+  ],
+  "resets": [
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    },
+    {
+      "success": false,
+      "finite": true,
+      "deep_contacts": []
+    }
+  ],
+  "rewards": {
+    "reach_object": {
+      "function": "cage_transport_reward",
+      "weight": 1.0
+    },
+    "move_object_to_goal": {
+      "function": "cage_transport_reward",
+      "weight": 1.0
+    },
+    "keep_gripper_open": {
+      "function": "gripper_closure_penalty",
+      "weight": -0.5
+    },
+    "action_rate_l2": {
+      "function": "action_rate_l2",
+      "weight": -0.01
+    },
+    "joint_pos_limits": {
+      "function": "joint_pos_limits",
+      "weight": -10.0
+    },
+    "joint_vel_penalty": {
+      "function": "joint_velocity_penalty",
+      "weight": -0.01
+    }
+  },
+  "oracle": {
+    "accepted": true,
+    "description": "constructed MuJoCo goal/contact state; not a rollout",
+    "deep_contacts": []
+  },
+  "rollout": {
+    "steps": 200,
+    "success": false,
+    "terminated": false,
+    "timeout": true,
+    "simulation_seconds": 4.0
+  },
+  "final_metrics": {
+    "goal_error": 0.02375759184360504,
+    "at_goal": 0.0,
+    "episode_success": 0.0,
+    "reached_object": 1.0,
+    "gripper_object_distance": 0.16553901135921478,
+    "object_height": 0.022538796067237854,
+    "min_aperture": 0.023066725581884384,
+    "caged": 0.0,
+    "caged_progress": 0.024517245590686798
+  },
+  "video": {
+    "fps": 10,
+    "frames": 40
+  }
+}

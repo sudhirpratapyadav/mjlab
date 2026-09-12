@@ -45,24 +45,27 @@ def get_valve_spec() -> mujoco.MjSpec:
     """Load Valve MjSpec from XML, with its mesh/texture assets."""
     spec = mujoco.MjSpec.from_file(str(VALVE_XML))
     spec.assets = get_valve_assets(spec.meshdir)
+    from mjlab.asset_zoo.objects.collision import add_collision_shell
+
+    base = spec.body("valve_base")
+    # The old bonnet had no collision at all and overlapped the wheel spokes.
+    # Keep its shaft bore open and put its front behind the rotating spokes.
+    spec.geom("vis_bonnet").pos = [0.014, 0, 0]
+    for name, lo, hi, radius in (
+        ("bonnet_flange", 0.020, 0.034, 0.056),
+        ("bonnet_neck", -0.006, 0.020, 0.0412),
+        ("bonnet_gland", -0.022, -0.006, 0.027),
+    ):
+        add_collision_shell(spec, base, name, axis=0, lo=lo, hi=hi,
+                            inner=0.021, outer=radius)
     return spec
 
 
 def get_mocap_target_spec() -> mujoco.MjSpec:
-    """Create the orange mocap goal marker (visual only, no collision)."""
-    spec = mujoco.MjSpec()
-    mocap_target = spec.worldbody.add_body(name="mocap_target")
-    mocap_target.mocap = True
-    mocap_target.pos = [0, 0, 0]
-    mocap_target.add_geom(
-        name="mocap_target_geom",
-        type=mujoco.mjtGeom.mjGEOM_BOX,
-        size=[0.012, 0.055, 0.012],
-        rgba=[1, 0.5, 0, 1],
-        contype=0,
-        conaffinity=0,
-    )
-    return spec
+    """Translucent replica of the manipulated part at its target pose."""
+    from mjlab.asset_zoo.objects.goal import make_goal_spec
+
+    return make_goal_spec(get_valve_spec())
 
 
 ##
