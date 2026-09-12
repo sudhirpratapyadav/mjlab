@@ -48,8 +48,8 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Current assignments: Cage R3 GPU1, Throw GPU2, Stack R3 GPU3, Lift R5 GPU4, Pivot GPU5, Edge GPU6 and Reorient R6 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; this is coverage, not certification.
+**14/24 independent PPO RL teachers certified.** Current assignments: Cage R4 GPU1, Throw GPU2, Stack R4 GPU3, Lift R5 GPU4, Place R3 GPU5, Edge GPU6 and Reorient R7 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
 
-Strike finished3000 updates: final2999 strict9/128, reviewed actual strike/slide trajectories. Place/Peg V2 model1500 each strict0/128: Place encloses without opposed contact, while Peg topples the shaft and presses it down. Their own steps were stopped and checkpoints retained; these three tasks await targeted retries. Cage contact-target retry and Lift/Reorient capture-width retries are now launched. The latter preserve learned arm outputs and reset only gripper mean0.5/std0.15. Preceding-state capture is enabled on all three and on Stack/Throw; numerical causes from earlier failures remain unresolved. Full24-teacher goal active.
+A captured Stack failure reproduced in1 and2048 GPU worlds and was fixed by clearing stale solver acceleration at episode reset. The production fix passed the captured transition and100 PPO updates; all24 tasks already start with zero cache, so fresh initialization is unchanged. Cage showed the same reset signature. Reorient has a distinct instability with extreme object velocities; its replay still fails after cache clearing. New captures retain8 preceding states and explicit nonfinite reward/observation lane IDs. Stack/Place use contact-closure shaping after measured open-enclosure failures. Strike/Peg/Pivot await targeted retries; full24-teacher goal active.
 
-See evidence/*-certificate.json, training_wave12.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.
+See evidence/*-certificate.json, training_wave13.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.

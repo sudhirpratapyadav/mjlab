@@ -2,9 +2,9 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** Current assignments: Cage R3 GPU1, Throw GPU2, Stack R3 GPU3, Lift R5 GPU4, Pivot GPU5, Edge GPU6 and Reorient R6 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; this is coverage, not certification.
+**14/24 independent PPO RL teachers certified.** Current assignments: Cage R4 GPU1, Throw GPU2, Stack R4 GPU3, Lift R5 GPU4, Place R3 GPU5, Edge GPU6 and Reorient R7 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
 
-Strike finished3000 updates: final2999 strict9/128, reviewed actual strike/slide trajectories. Place/Peg V2 model1500 each strict0/128: Place encloses without opposed contact, while Peg topples the shaft and presses it down. Their own steps were stopped and checkpoints retained; these three tasks await targeted retries. Cage contact-target retry and Lift/Reorient capture-width retries are now launched. The latter preserve learned arm outputs and reset only gripper mean0.5/std0.15. Preceding-state capture is enabled on all three and on Stack/Throw; numerical causes from earlier failures remain unresolved. Full24-teacher goal active.
+A captured Stack failure reproduced in1 and2048 GPU worlds and was fixed by clearing stale solver acceleration at episode reset. The production fix passed the captured transition and100 PPO updates; all24 tasks already start with zero cache, so fresh initialization is unchanged. Cage showed the same reset signature. Reorient has a distinct instability with extreme object velocities; its replay still fails after cache clearing. New captures retain8 preceding states and explicit nonfinite reward/observation lane IDs. Stack/Place use contact-closure shaping after measured open-enclosure failures. Strike/Peg/Pivot await targeted retries; full24-teacher goal active.
 
 ## Fixed evaluation and retention gate
 
@@ -14,21 +14,19 @@ The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both
 
 ## Active training and next evaluations
 
-- GPU1: Cage R3 cage_v3,1024 ×2000 additional updates from3498; pre-step capture.
-- GPU2: Throw throw_v3,2048 ×3000 updates; pre-step capture.
-- GPU3: Stack R3 completion_v4,2048 ×1800 additional from700; gripper mean0.5/std0.15; pre-step capture.
-- GPU4: Lift R5 lift_v5,2048 ×2000 additional from finite diagnosticreplay2028; gripper mean0.5/std0.15; pre-step capture.
-- GPU5: Pivot pivot_v2,2048 ×3000 updates.
-- GPU6: Edge edge_v2,2048 ×3000 updates.
-- GPU7: Reorient R6 reorient_v6,2048 ×2000 additional from3899; gripper mean0.5/std0.15; pre-step capture.
+- GPU1: Cage R4 cage_v3,1024 ×1000 additional updates from4600; reset fix and8-state capture.
+- GPU2: Throw throw_v3,2048 ×3000 updates; older process, pre-step capture.
+- GPU3: Stack R4 completion_v5,2048 ×1800 additional from1400, gripper std0.15; reset fix and8-state capture.
+- GPU4: Lift R5 lift_v5,2048 ×2000 additional from diagnosticreplay2028; older process, pre-step capture.
+- GPU5: Place R3 completion_v5,2048 ×2000 additional from1500, gripper std0.15; reset fix, one-state capture (launched before history extension).
+- GPU6: Edge edge_v2,2048 ×3000 updates; older process.
+- GPU7: Reorient R7 reorient_v6,2048 ×1500 additional from4600; reset fix and8-state capture, preserve output/std.
 
-Strike/Place/Peg need targeted retries after strict final/candidate failures. Strike achieved9/128 with110/128 undershooting the goal by more than5cm longitudinally; inspect missed contact and launch consistency before simply extending. Place is now geometrically enclosed without contact; width shaping is a candidate, but monitor Stack's ongoing learning first. Peg topples before capture; preserve native geometry/predicate and improve training grasp alignment/clearance. Do not mask invalid simulator state or silently change physics.
+Strike/Peg/Pivot need targeted retries. Strike final9/128 mostly undershoots; Peg/Pivot press objects down. Actual CPU contact-normal audit rejects the observed top pressing; no evidence yet warrants replacing the training grasp classifier. Inspect wrist/ramp alignment and precursor rewards before the next Pivot trial. Stack/Place now test contact closure: desired gap shifts from width+3mm to width-4mm at zero approach distance, with positive clearance retained far away. This is reward shaping; contact stiffness and native success remain fixed.
 
-Two resumed64-env3-update Lift/Reorient preflights passed and synced online (capture_resume_preflight.json). Width shaping and gripper-only resets preserve the seven learned arm outputs. Current runs remain subject to strict deterministic first-episode validation and actual-state video review.
+The stale reset acceleration issue is reproduced and fixed. All24 fresh environments have zero initial cache. Existing long-running processes keep their loaded old source; use current reset fix when they next resume. Reorient's captured lane853 already has extreme object velocities and fails even with zero warm start;8-state history is enabled to locate the earlier onset. Do not label that distinct instability resolved, discard invalid lanes, or change physics silently.
 
-Stack V2 debug confirms open enclosure without contact; numerical failure at777 affected one lane and left policy parameters finite. R3 retains approach while improving capture.88 focused tests passed, with a finite resumed PPO preflight and verified preservation of arm outputs and unrelated state.
-
-Inspect meaningful learning progress and numerical diagnostics; evaluate saved candidates when evidence warrants it. Check actual checkpoints and process state before invoking evaluation or reusing a GPU. Stop only this experiment's exact Slurm step after checkpoint retention, or when diagnosing a verified failure. Never cancel holder20277 or another person's jobs.
+Strict candidate evaluations this wave: Pivot1500 and StackR3/1400 each0/128, actual failure videos reviewed. The latter has100% final enclosure but0% contact. Captured-transition regression and100 PPO updates validate reset bookkeeping, not teacher success.
 
 ## Remaining readiness work
 

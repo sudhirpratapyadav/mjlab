@@ -1,0 +1,27 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "f7e6f71da5891ea727481583f9f93582563b8847bf9464b34636a111c6803211",
+  "outcome": "rejected0/128",
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0075.png",
+    "failure-0149.png"
+  ],
+  "observations": "The hand presses the board flat near the wall and does not pivot or lift. Final sampled two-pad contact96.875%, enclosure0%. CPU terminal contact-normal audit:124/128 two-pad contacts but0/128 opposing inward normals; geometric enclosure correctly rejects these top presses. No change to the training grasp classifier based on this audit.",
+  "last_diagnostics": {
+    "control_step": 290,
+    "active_episodes": 128,
+    "grasped_fraction": 0.96875,
+    "enclosed_fraction": 0.0,
+    "enclosed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.9921875,
+    "aperture_mean": 0.02986336499452591,
+    "gripper_object_distance_mean": 0.04104598984122276,
+    "gripper_goal_distance_mean": 0.2435351461172104,
+    "gripper_down_alignment_mean": 0.9648154377937317,
+    "object_height_mean": 0.002879193052649498,
+    "gripper_action_mean": -0.19640901684761047,
+    "absolute_action_max": 0.9997231364250183,
+    "goal_error_mean": 0.26171785593032837
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "resolved_issue": "Stale qacc_warmstart from prior episode seeds newly reset pose and can cause nonfinite GPU dynamics.",
+  "production_change": "Selective acceleration-cache clearing at start of native episode reset, before pose-reset forward dynamics.",
+  "core_commit": "0f1c412",
+  "history_commit": "1990076",
+  "unchanged": [
+    "physical timestep",
+    "control decimation",
+    "solver parameters",
+    "task geometry",
+    "initialization distribution",
+    "native success predicates",
+    "60D observations",
+    "normalized8D actions"
+  ],
+  "regressions": {
+    "Stack_native_cache": [
+      "Stack-R3-state-replay.json",
+      "Stack-R3-one-lane-replay.json"
+    ],
+    "Stack_cleared_cache": [
+      "Stack-R3-zero-warmstart-replay.json",
+      "Stack-R3-production-reset-replay.json"
+    ],
+    "Cage_native_cache": "Cage-R3-state-replay.json",
+    "Cage_cleared_cache": "Cage-R3-zero-warmstart-replay.json",
+    "cold_initialization_all24": "cold_solver_reset.json",
+    "guarded_ppo_100_updates": "stack_reset_preflight.json"
+  },
+  "remaining_issue": {
+    "task": "Reorient",
+    "source_run": "RL-005-R6-reorient-capture",
+    "last_completed_iteration": 4609,
+    "replayed_nonfinite_lane": 853,
+    "first_nonfinite_substep": 4,
+    "still_fails_with_zero_cache": true,
+    "files": [
+      "Reorient-R6-state-replay.json",
+      "Reorient-R6-zero-warmstart-replay.json"
+    ],
+    "note": "Extreme object linear/angular velocity already exists before captured transition. CPU remains finite but also has extreme velocity. R7 captures8 preceding states to locate earlier onset."
+  },
+  "tests": [
+    {
+      "checks": "reset/closure/recipe/strict/interface",
+      "passed": 91
+    },
+    {
+      "checks": "additional completion_v5 benchmark invariants",
+      "passed": 3
+    },
+    {
+      "checks": "failure-history/reset/bounded-policy focused set (overlaps earlier reset tests)",
+      "passed": 7
+    }
+  ],
+  "cold_probe_limit": "One fresh world per active task, initial warm cache already zero. Not a replacement for strict teacher evaluation."
+}

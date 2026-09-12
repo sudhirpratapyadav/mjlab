@@ -82,7 +82,7 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 
 | PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Complete | 70 CPU tests; four real-physics cases finite; evidence/remaining_preflight_v1.json and W&B5g2qp9h4. |
 | RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v2,2048 environments ×3000 updates, seed20260912, GPU6 | Running | Fresh edge_v2 onGPU6 after Lid certification; enclosed grasp credit, native benchmark unchanged. |
-| RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v2,2048 environments ×3000 updates, seed20260912, GPU5 | Running | Fresh pivot_v2 onGPU5; training_wave10.json. Native wall/tilt history preserved. |
+| RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v2,2048 environments ×3000 updates, seed20260912, GPU5 | Stopped; rejected | Finite1500 strict0/128; actual board pressing reviewed; no pivot/lift. |
 | RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Complete; rejected | Final2999 strict9/128; actual strike/slide reviewed, mostly undershoot. |
 | RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v3,2048 environments ×3000 updates, seed20260912, GPU2 | Running | Fresh throw_v3 GPU2; pre-step capture enabled; training_wave11.json. |
 
@@ -98,14 +98,14 @@ RL-023 first full Strike pilot assignedGPU1 after remaining-task PPO preflight. 
 | PREFLIGHT-REMAINING-ENCLOSURE-011 | Edge/Pivot/Throw | Exclude top pressing before first full pilots | edge_v2/pivot_v2/throw_v2, each64 environments ×3 updates sequential onGPU6, seed20260912 | Complete | 79 tests; Edge/Pivot/Throw each3 finite PPO updates/checkpoint; remaining_enclosure_preflight.json. |
 
 | PREFLIGHT-CAGE-CONTACT-012 | Cage | Verify contact-point target after0/128 hover failure | cage_v3, resume ownR2/model3498,64 environments ×3 updates, GPU5 | Complete | 81 tests;3 resumed PPO updates and finite model3500. cage_contact_preflight.json. |
-| RL-013-R3 | Cage | Learn open-finger contact transport from valid caging policy | cage_v3, ownR2/model3498,1024 environments ×2000 additional updates, seed20260912 | Running | GPU1; own3498, capture enabled; native no-pinch/transport unchanged. |
+| RL-013-R3 | Cage | Learn open-finger contact transport from valid caging policy | cage_v3, ownR2/model3498,1024 environments ×2000 additional updates, seed20260912 | Stopped by numerical guard |4649, lane447; recorded reset-cache failure reproduced, finite4600 retained. |
 
 | PREFLIGHT-CAPTURE-WIDTH-013 | Throw/Lift/Reorient | Avoid closing empty fingers before object capture | throw_v3/lift_v5/reorient_v6, fresh64 environments ×3 updates each, sequential GPU2, seed20260912 | Complete | Three3-update PPO cases and checkpoints finite; capture_width_preflight.json. |
 
 Reorient R5 finalmodel3899 strict0/128. Recorded failure shows closed-finger hovering; final mean action-0.999663, aperture0.0000375m, no contact/enclosure. The gripper-only output reset is now implemented and tested; use explicit --resume-gripper-mean and --resume-gripper-std when supported by measured saturation. Seven arm outputs are preserved. Fresh geometry-aware variants use a half-open initial gripper.
 
 | PREFLIGHT-GRIPPER-OUTPUT-014 | Stack | Validate gripper-output reset preserving learned arm approach | completion_v4, ownV2/model700, gripper mean0.5/std0.15,64 environments ×3 updates, GPU3 | Complete | 88 tests;3 resumed PPO updates and finite702; isolated gripper reset verified. |
-| RL-018-R3 | Stack | Learn width-matched capture while preserving valid approach policy | completion_v4, ownV2/model700, mean0.5/std0.15,2048 environments ×1800 additional updates, seed20260912, GPU3 | Running | GPU3, completion_v4 from700; gripper mean0.5/std0.15; pre-step capture enabled. |
+| RL-018-R3 | Stack | Learn width-matched capture while preserving valid approach policy | completion_v4, ownV2/model700, mean0.5/std0.15,2048 environments ×1800 additional updates, seed20260912, GPU3 | Stopped by numerical guard |1478, lane1322; reproduced reset-cache failure. Finite1400 strict0/128, open enclosure. |
 
 ### Wave12 scheduling — 2026-09-13
 
@@ -115,4 +115,27 @@ Place/Peg V2 paused exactsteps1738/1739 after verifying task/PID identity and fi
 
 | PREFLIGHT-CAPTURE-RESUME-015 | Lift/Reorient | Check width-shaped rewards with explicit gripper-only output/exploration reset from own finite policies | lift_v5 from diagnosticreplay2028 onGPU4; reorient_v6 fromR5/3899 onGPU7; each64 environments ×3 updates, mean0.5/std0.15, capture enabled | Complete | Both3 updates/checkpoints finite; online sync verified; capture_resume_preflight.json. |
 | RL-002-R5 | Lift | Learn actual capture from own finite approach policy | lift_v5, ownPREFLIGHT-LIFT-FAILURE-REPLAY/model2028, mean0.5/std0.15,2048 environments ×2000 additional updates, seed20260912, GPU4 | Running | Preserve learned arm; preceding-state capture enabled. |
-| RL-005-R6 | Reorient | Escape verified closed empty-finger policy with width-shaped capture | reorient_v6, ownR5/model3899, mean0.5/std0.15,2048 environments ×2000 additional updates, seed20260912, GPU7 | Running | Preserve learned arm; preceding-state capture enabled. |
+| RL-005-R6 | Reorient | Escape verified closed empty-finger policy with width-shaped capture | reorient_v6, ownR5/model3899, mean0.5/std0.15,2048 environments ×2000 additional updates, seed20260912, GPU7 | Stopped by numerical guard |4609; replay finds exploding lane853. Finite4600 retained; distinct from reset-cache issue. |
+
+### Captured Stack failure and reset-cache readiness fix
+
+Stack R3 guard stopped at1478 onlane1322, policy finite. Captured pre-step qpos/qvel show a freshly reset episode, while qacc_warmstart still contains the previous episode's acceleration. Replaying those physical states/actions reproduces first-substep failure in both1 and2048 worlds; CPU MuJoCo is finite with no warnings. Clearing only qacc_warmstart makes all4 substeps finite. Added selective solver-cache reset to the actual environment reset path; no solver parameters, geometry, success or60D/8D changes.85 focused tests passed before the additional reward variant below.
+
+| PREFLIGHT-RESET-PPO-016 | Stack | Exercise the reset-cache fix under real PPO after captured-state regression | completion_v4, ownR3/model1400,2048 environments ×100 additional updates, seed20260912, GPU3, capture enabled | Complete |100 updates/model1499 finite and online; stack_reset_preflight.json. |
+| RL-018-R4 | Stack | Learn contact closure with stale solver acceleration removed at reset | completion_v5, ownR3/model1400, gripper std0.15,2048 environments ×1800 additional updates, seed20260912, GPU3, capture enabled | Running | Strict R3 model1400 is0/128,100% enclosure but0% contact. Use contact-closure shaping after reset and task-specific PPO preflights. |
+| PREFLIGHT-SQUEEZE-017 | Place | Validate width-aware contact pressure after open-cage failure | completion_v5, ownV2/model1500, gripper std0.15,64 environments ×3 updates, GPU5 | Complete |3updates/model1502 finite and online; new reward target clearance shifts from+3mm to-4mm at zero distance, smoothly retaining positive clearance far away; actual object width prevents empty closure. Physics/contact stiffness unchanged. |
+| RL-019-R3 | Place | Learn bilateral contact from successful geometric enclosure | completion_v5, ownV2/model1500, gripper std0.15,2048 environments ×2000 additional updates, seed20260912, GPU5, capture enabled | Running | Preserve learned arm and gripper means; reward-only squeeze target plus solver-cache reset fix. |
+
+Pivot model1500 strict0/128; actual failure presses board flat. CPU contact-normal audit found124/128 two-pad terminal contacts but0 opposing inward-normal pairs. Peg likewise18/128 two-pad contacts but0 opposed. Original GPU contact buffers were not saved, so these are recomputed CPU geometry checks on exact recorded states. The current whole-object enclosure gate correctly rejects the observed presses; the possible corner-grasp limitation remains an unproven hypothesis and no classifier change is made.
+
+Fresh-start probe across all24 registered tasks found qacc_warmstart already zero before the first reset; the new clearing operation is a no-op there (cold_solver_reset.json). It prevents stale cross-episode acceleration during ongoing training. Stack R3 model1400 strict0/128, actual frames reviewed:100% final enclosure but0% contact, aperture0.06151m. Its next full retry therefore also uses completion_v5 after a3-update task-specific preflight, with gripper std0.15 and preserved mean. The100-update reset regression remains completion_v4 to isolate the numerical fix.
+
+| PREFLIGHT-STACK-SQUEEZE-018 | Stack | Check contact-closure shaping after finite reset regression | completion_v5, ownR3/model1400, gripper std0.15,64 environments ×3 updates, GPU3 | Complete |3updates/model1402 finite and online; stack_squeeze_preflight.json. |
+
+Reorient R6 stopped at4609 after a nonfinite rollout result; its post-reset qpos/qvel were finite, so the old guard did not identify a lane. Captured-state physics replay finds lane853 nonfinite on substep4, even when warm starts are cleared. Before that transition, object linear speed~78m/s and angular speed~9100rad/s are already extreme. This is distinct from the resolved Stack reset-cache failure. Finite4600 retained. Future capture keeps8 preceding control states and reports nonfinite reward/observation lane IDs, including failures whose native resets already replaced qpos/qvel. No invalid-lane recovery or physics changes.
+
+| RL-005-R7 | Reorient | Continue finite capture policy while preserving enough history to locate the remaining instability | reorient_v6, ownR6/model4600,2048 environments ×1500 additional updates, seed20260912, GPU7; no output/std reset | Running | Reset-cache fix applied;8-state history and explicit nonfinite reward/observation lane IDs. Numerical cause remains unresolved for this case. |
+
+Cage R3 stopped at4649 onlane447 with finite policy and a freshly reset qpos/qvel. Its captured previous qvel is zero but warm-start acceleration is nonzero. The recorded-state GPU replay reproduces first-substep failure; CPU is finite. Test zero-cache replay before launching the remaining-budget continuation.
+
+| RL-013-R4 | Cage | Finish contact-target budget with correct episode cache reset | cage_v3, ownR3/model4600,1024 environments ×1000 additional updates, seed20260912, GPU1,8-state capture; no output/std reset | Running | All1024 lanes finite for4substeps with cold cache; no physics/reward changes. |

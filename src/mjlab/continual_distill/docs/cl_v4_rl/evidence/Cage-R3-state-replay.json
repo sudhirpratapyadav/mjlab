@@ -1,0 +1,88 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "failure": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-013-R3-cage-contact/numerical_failure.pt",
+  "failure_sha256": "e358cf30ed9f09e48b67f65abd5eb0f11c67344950ce337546cff0f62655aacd",
+  "source_lane": 447,
+  "num_envs": 1024,
+  "zero_warmstart_ablation": false,
+  "physics_changed": false,
+  "initial_state_restored": [
+    "qpos",
+    "qvel",
+    "ctrl",
+    "qacc_warmstart",
+    "mocap_pos",
+    "mocap_quat",
+    "actions"
+  ],
+  "limitations": "Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.",
+  "physics_timestep": 0.005,
+  "control_substeps": 4,
+  "samples": [
+    {
+      "substep": 1,
+      "gpu_finite": false,
+      "nonfinite_lanes": [
+        447
+      ],
+      "cpu_finite": true,
+      "cpu_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "gpu_qpos": null,
+      "gpu_qvel": null,
+      "cpu_qpos": [
+        -0.049263841845421825,
+        0.4341021113433888,
+        0.09341046047851558,
+        -1.6838278302079315,
+        0.021742453619462466,
+        2.0058379778555446,
+        -0.8548945418713505,
+        0.03803779399377676,
+        0.038056811090219925,
+        4.165696144104004,
+        23.31055450439453,
+        0.022354750724196435,
+        0.9963660011575542,
+        0.0,
+        0.0,
+        0.08517506523217086
+      ],
+      "cpu_qvel": [
+        -0.5728109554109644,
+        0.09468660431008047,
+        0.8716669333877455,
+        -0.38846986543883805,
+        -0.4871059567486814,
+        0.021088307925312577,
+        0.5415870404637978,
+        0.007559043134395704,
+        0.011362462423028035,
+        0.0,
+        0.0,
+        -0.04905,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "applied_ctrl": [
+        -0.04251786321401596,
+        1.4153406620025635,
+        0.5956737399101257,
+        -3.0717999935150146,
+        -0.06730721890926361,
+        0.43110358715057373,
+        1.105530858039856,
+        0.03999999910593033
+      ],
+      "maximum_qpos_difference": null
+    }
+  ]
+}

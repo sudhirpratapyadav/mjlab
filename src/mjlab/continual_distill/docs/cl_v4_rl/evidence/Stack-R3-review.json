@@ -1,0 +1,27 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "998340bad7f5b087dfb577556ecfbd477d2edd3ff791d343ea4dbd48a2ac1714",
+  "outcome": "rejected0/128",
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual frames show the hand enclosing the cube but leaving it on the ground. No transport/stacking. Saved policy remains finite; later failure came from stale solver warm start after an episode reset.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 1.0,
+    "enclosed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 0.06150563806295395,
+    "gripper_object_distance_mean": 0.007640248164534569,
+    "gripper_goal_distance_mean": 0.2656274437904358,
+    "gripper_down_alignment_mean": 0.9969873428344727,
+    "object_height_mean": 0.02253814786672592,
+    "gripper_action_mean": 0.5274739265441895,
+    "absolute_action_max": 0.965334951877594,
+    "goal_error_mean": 0.26478826999664307
+  }
+}

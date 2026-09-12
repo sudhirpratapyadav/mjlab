@@ -1,0 +1,43 @@
+{
+  "finite_updates": 3,
+  "manifest": {
+    "task": "Mjlab-Place-In-Container-Franka",
+    "run_id": "PREFLIGHT-PLACE-SQUEEZE",
+    "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+    "source_head": "0f1c412437f498c34874b2febe74b7c4b5426a58",
+    "source_patch_sha256": "70b7c5a8e120715c65ada6d5c63ad937404838787037967f27965b0e8bbd616c",
+    "started_utc": "2026-09-12T19:18:47.183244+00:00",
+    "seed": 20260912,
+    "num_envs": 64,
+    "requested_updates": 3,
+    "interface": "franka_shared_60_v2",
+    "gpu_uuid": "GPU-7d5c3740-990d-15b7-5c54-6dc6270633fa",
+    "recipe": "completion_v5",
+    "slurm_job_id": "20277",
+    "slurm_step_id": "1779",
+    "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+    "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+    "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-019-V2-place-enclosed/model_1500.pt",
+    "resume_gripper_std": 0.15,
+    "resume_gripper_mean": null,
+    "capture_pre_step": true,
+    "resume_sha256": "1b369d8446b1a7697fb41a78bfc2092bce34154f33c0d7b10f42076d58abc927",
+    "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration."
+  },
+  "last_diagnostics": {
+    "iteration": 1502,
+    "Diagnostics/std_min": 0.0217795018106699,
+    "Diagnostics/std_max": 0.14905430376529694,
+    "Diagnostics/gripper_std": 0.14905430376529694,
+    "Diagnostics/gripper_action_mean": 0.43123292922973633,
+    "Diagnostics/mean_abs_max": 0.9717682003974915,
+    "Diagnostics/action_saturation": 0.00048828125,
+    "Diagnostics/peak_gpu_memory_mib": 30.00146484375,
+    "Diagnostics/two_pad_contact_fraction": 0.0,
+    "Diagnostics/robot_object_contact_fraction": 0.046875,
+    "Diagnostics/enclosed_fraction": 0.921875,
+    "Diagnostics/enclosed_grasp_fraction": 0.0,
+    "Diagnostics/aperture_mean": 0.059034015983343124,
+    "Diagnostics/object_height_mean": 0.02342095598578453
+  }
+}
