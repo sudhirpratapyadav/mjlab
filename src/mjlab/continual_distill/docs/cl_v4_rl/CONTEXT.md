@@ -27,6 +27,12 @@ No extra tool/fixture/contact/history/velocity channels. Reach uses a virtual ob
 
 ## Compute and tooling
 
+### Current continuation overrides (2026-09-12)
+
+Worktree: `/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex`, branch `exp/rl-teachers-24-codex`, base `4149157`. User expanded the allocation to GPU indices **1–7**, leaving GPU0 unused. The older GPUs1–3 snapshot below is historical. Continue to check actual placement and use holder20277 only.
+
+W&B is now verified under entity **`sudhirpratapyadav-indian-institute-of-technology-jodhpur`**, project **`mjlab-cl24-rl-teachers-20260912`**. The shorter profile name is not the team's entity namespace. `wandb_config.py` scopes credential/configuration to this experiment process. The private credential lives outside the repository at `~/.config/mjlab-cl24/wandb_api_key`. Never print it or call global `wandb login`. `evidence/wandb_destination.json` records a successful remote write/read and unchanged shared settings. Training was paused until this check passed; that W&B blocker is now resolved. Original pilot imports are recorded in `evidence/wandb_pilot_imports.json`.
+
 Follow `~/use_instructions/README.md`. Existing holder **20277**, name **hold_dgx_amit**, node **dgx1**. Assigned indices **1, 2, 3 only**; do not use other GPUs merely because they appear idle. Never cancel another user's holder or processes. Recheck actual process placement before each launch.
 
 At 2026-09-12 14:30 UTC, all eight A100-SXM4-80GB GPUs showed 0 MiB use and no compute processes. The holder had only its batch step. Slurm reports expiration **2026-09-28T08:58:54** (scheduler time). The filesystem had about **1.6 TB free, 95% used**; plan checkpoint/video retention.
@@ -42,6 +48,6 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**0/24 certified RL teachers.** PPO construction, rollout, optimization, finite losses, checkpoint save, inference-equivalent reload and optimizer restore passed on Reach (64 envs, two updates, 3,072 transitions). No task success rate was measured in that smoke.
+**0/24 fully certified RL teachers; Reach has passed the measured rate gate.** RL-001's fresh 500-update pilot achieved 128/128 first-episode terminal successes on both seeds20260914 and20260915. Targeted evaluator edge-case tests and video review remain required before full certification. Four further pilots have partial checkpoints, and Push-Cuboid failed at iteration268 with invalid action standard deviation (its retained model_200 achieved 1/128). See the updated experiment ledger.
 
 Next: establish the strict checkpoint evaluator, freeze reward/physics decisions and pilot budgets, then run Reach followed by Lift. Resolve the mechanism approach signal and Cage initialization before their expensive runs. See PLAN/STATUS/EXPERIMENTS for all tasks and outstanding checks.
