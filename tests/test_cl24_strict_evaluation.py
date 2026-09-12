@@ -9,6 +9,27 @@ import torch
 import pytest
 
 
+def test_model_draw_snapshot_survives_later_resets(monkeypatch):
+  import numpy as np
+  from mjlab.scripts.train import TrainConfig
+  from mjlab.tasks.manipulation.benchmark import active_cl_tasks
+  stage = Path(__file__).resolve().parents[1] / 'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  evaluation = importlib.import_module('evaluate_teacher')
+  for task in active_cl_tasks():
+    cfg = TrainConfig.from_task(task).env
+    events = [event for event in cfg.events.values() if event.domain_randomization]
+    # Initial model draws describe the entire first episode only when no
+    # interval event changes model parameters during that episode.
+    assert all(event.mode != 'interval' for event in events)
+    assert {event.params['field'] for event in events} <= {'geom_friction'}
+    friction = torch.arange(18,dtype=torch.float32).reshape(2,3,3)
+    saved = evaluation.snapshot_randomized_model(cfg,SimpleNamespace(geom_friction=friction))
+    friction.fill_(99)
+    if events:
+      np.testing.assert_array_equal(saved['initial_model_geom_friction'],np.arange(18).reshape(2,3,3))
+
+
 @pytest.mark.parametrize('gyro_compat', [False, True])
 def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_path, gyro_compat):
   stage = Path(__file__).resolve().parents[1] / "src/mjlab/continual_distill/docs/cl_v4_rl"

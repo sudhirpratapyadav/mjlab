@@ -289,3 +289,9 @@ Wave18 refreshed actual placement: one full training process perGPU1–7 (Strike
 Wave18 public refresh verified: home newest-card navigation,24/24 actual video playback,14/10 status filters, search and390px mobile layout pass. All50 public HTML/JSON/video/poster files returnHTTP200 and match local SHA256s with TLS verification enabled. Gallery remains a concise point-in-time RL summary; full teacher goal14/24 remains active.
 
 Wave18 scoreboard aoitgz9v finished and synced14/24. Remote API verified126 experiment-record files, including all new reviews, Lift/Cage preflights, settling audits, seven-run inventory and the50-file/24-video public verification. Source/records committed9315d68; full24-teacher goal remains active with seven PPO runs.
+
+### Wave19
+
+Previous goal turn made progress: reviewed strict results, launched finite-preflighted Cage/Lift plus bounded Throw continuation, verified current public videos and126 W&B records. Revalidated seven live PPO processes and GPU0 at0MiB. New Pivot FK audit covers128 recorded first episodes; median closest reward-target miss6.94mm, closing alignment0.948, approach alignment0.938, full wrist error22.42degrees; no sampled trajectory exceeds20degree board tilt. Endpoint IK at35mm/finger passes24/32; eight fail due to3.18–4.36mm finger/floor penetration. This weakens the hypothesis of a grossly reversed wrist and identifies target/floor clearance and actual tipping as next checks. No Pivot reward or physics change yet.
+
+New evaluation traces capture initial randomized model arrays separately from post-reset trajectories. All24 registered configurations randomize only geom_friction without interval model events;3 tests verify immutable copies and the real strict loop under adversarial subset resets for both backend settings. Old traces cannot recover their original friction; new fields affect evidence only. PlaceR5 completed its full budget normally; final5399 strict evaluation is next onGPU5.

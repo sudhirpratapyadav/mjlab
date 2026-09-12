@@ -19,6 +19,14 @@ from mjlab.scripts.train import TrainConfig
 from rl_recipes import apply_recipe
 
 
+def snapshot_randomized_model(cfg, model):
+  """Retain initial model draws separately from trajectories with later resets."""
+  fields = sorted({event.params['field'] for event in cfg.events.values()
+                   if event.domain_randomization})
+  return {f'initial_model_{name}':getattr(model,name).detach().cpu().clone().numpy()
+          for name in fields}
+
+
 def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: Path | None = None, diagnostics: bool = False) -> dict:
   training_cfg = TrainConfig.from_task(task)
   manifest_path = checkpoint.parent / "manifest.json"
@@ -76,6 +84,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
     policy = runner.get_inference_policy()
     obs = wrapped.get_observations()
     assert obs["policy"].shape == (episodes, 60) and wrapped.num_actions == 8
+    model_snapshot = snapshot_randomized_model(cfg,env.sim.model) if trace_dir is not None else {}
     finished = torch.zeros(episodes, dtype=torch.bool, device=device)
     successes = torch.zeros_like(finished)
     steps = torch.zeros(episodes, dtype=torch.int32, device=device)
@@ -149,6 +158,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
     count = int(successes.sum())
     if trace_dir is not None:
       np.savez_compressed(trace_dir / "trace.npz", origins=env.scene.env_origins.cpu().numpy(),
+                          **model_snapshot,
                           **{name:torch.stack([state[name] for state in trace]).numpy() for name in fields})
     return {
       "task": task, "checkpoint": str(checkpoint.resolve()),
@@ -163,6 +173,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
       "trace_dir": str(trace_dir.resolve()) if trace_dir is not None else None,
+      "trace_initial_model_fields": sorted(model_snapshot),
       "diagnostic_samples": diagnostic_samples,
     }
   finally:
