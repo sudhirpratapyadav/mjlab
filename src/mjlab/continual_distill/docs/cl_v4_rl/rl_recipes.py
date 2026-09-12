@@ -11,9 +11,10 @@ RECIPES += ("edge_v2", "pivot_v2", "throw_v2", "lift_v4", "reorient_v5")
 RECIPES += ("cage_v3",)
 RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
 RECIPES += ("completion_v4", "completion_v5")
+RECIPES += ("completion_v6", "lift_v6")
 
 
-def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, **kwargs):
+def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot = command.robot
   obj = env.scene[object_asset_name]
@@ -28,12 +29,15 @@ def grasp_components(env, command_name, object_asset_name="object", require_encl
   closing = torch.exp(-distance/0.025) * (1-aperture/0.08).clamp(0,1)
   if geometry_aperture:
     from completion_reward import capture_aperture_bonus
-    closing = capture_aperture_bonus(command,distance)
+    closing = capture_aperture_bonus(command,distance,squeeze=contact_geometry,centerline=contact_geometry)
   if require_enclosure:
     from completion_reward import enclosed_grasp
     held = enclosed_grasp(command).float()
   else:
     held = grasped(command).float()
+  if contact_geometry:
+    from contact_grasp import opposed_grasp
+    held = opposed_grasp(command).float()
   return command, obj, approach, closing, held
 
 
@@ -62,6 +66,11 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe in ("completion_v6", "lift_v6"):
+    apply_recipe(cfg, "completion_v5" if recipe == "completion_v6" else "lift_v5")
+    name = "stack" if "stack" in cfg.env.rewards else "reach_object"
+    cfg.env.rewards[name].params["contact_geometry"] = True
     return
   if recipe == "completion_v5":
     apply_recipe(cfg, "completion_v4")

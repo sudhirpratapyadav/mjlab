@@ -90,6 +90,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
           raise RuntimeError("Nonfinite deterministic policy action")
         if diagnostics and control_step % 10 == 0:
           from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers, finger_aperture, grasped, touching, tracking_goal, tracking_position
+          from contact_grasp import opposed_grasp
           from mjlab.utils.lab_api.math import quat_apply
           active = ~finished
           grip = command.robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -101,6 +102,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
             "grasped_fraction": float(grasped(command)[active].float().mean()),
             "enclosed_fraction": float(between_fingers(command)[active].float().mean()),
             "enclosed_grasp_fraction": float((grasped(command)&between_fingers(command))[active].float().mean()),
+            "opposed_grasp_fraction": float(opposed_grasp(command)[active].float().mean()),
             "robot_object_contact_fraction": float(touching(command,command.robot,command.object)[active].float().mean()),
             "aperture_mean": float(finger_aperture(command.robot)[active].mean()),
             "gripper_object_distance_mean": float(torch.linalg.vector_norm(grip-pos,dim=-1)[active].mean()),

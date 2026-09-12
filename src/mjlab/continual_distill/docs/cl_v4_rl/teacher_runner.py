@@ -129,6 +129,7 @@ class TeacherRunner(OnPolicyRunner):
         command = env.command_manager.get_term(names[0])
         if hasattr(command, "object"):
           from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers, finger_aperture, grasped, touching, tracking_position
+          from contact_grasp import opposed_grasp
           with torch.no_grad():
             contact = grasped(command)
             enclosure = between_fingers(command)
@@ -137,6 +138,7 @@ class TeacherRunner(OnPolicyRunner):
               "Diagnostics/robot_object_contact_fraction":float(touching(command,command.robot,command.object).float().mean()),
               "Diagnostics/enclosed_fraction":float(enclosure.float().mean()),
               "Diagnostics/enclosed_grasp_fraction":float((contact&enclosure).float().mean()),
+              "Diagnostics/opposed_grasp_fraction":float(opposed_grasp(command).float().mean()),
               "Diagnostics/aperture_mean":float(finger_aperture(command.robot).mean()),
               "Diagnostics/object_height_mean":float((tracking_position(command.object)[:,2]-env.scene.env_origins[:,2]).mean()),
             })
