@@ -129,3 +129,33 @@ def test_cage_target_places_trailing_pad_on_rear_face_for_both_directions(monkey
   torch.testing.assert_close(driven-target,.011*direction)
   for source, saved in zip((positions,corners,pads,grip,direction),before):
     torch.testing.assert_close(source,saved)
+def test_lift_settling_bonus_distinguishes_tight_grip_translation_and_spin(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  recipes=importlib.import_module('rl_recipes')
+  # Same captured near-goal pose; independently vary closure load and motion.
+  distance=torch.full((5,),.025)
+  linear=torch.tensor([0.,0.,.27,0.,0.])
+  angular=torch.tensor([0.,0.,0.,1.87,0.])
+  actual=torch.full((5,),.023)
+  target=torch.tensor([.021,.001,.021,.021,.021])
+  held=torch.tensor([1.,1.,1.,1.,0.])
+  score=recipes.lift_settling_bonus(distance,linear,angular,actual,target,held)
+  assert (score[0]>score[1:4]).all() and score[4]==0
+  # Settling far from the goal must not receive the near-goal quiet bonus.
+  distant=recipes.lift_settling_bonus(torch.full((5,),.3),linear,angular,actual,target,held)
+  assert score[0]>distant[0]+2
+
+
+def test_lift_settling_recipe_preserves_native_environment_and_agent(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_v6');recipes.apply_recipe(new,'lift_v7')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('settle_grip')
+  assert repr(old.env.rewards)==repr(new.env.rewards)

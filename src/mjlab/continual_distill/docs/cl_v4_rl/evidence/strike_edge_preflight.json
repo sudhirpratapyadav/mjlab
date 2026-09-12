@@ -1,0 +1,79 @@
+{
+  "updated_utc": "2026-09-12T21:54:18.939103+00:00",
+  "cases": [
+    {
+      "run": "PREFLIGHT-STRIKE-CONTACT-024",
+      "manifest": {
+        "task": "Mjlab-Strike-Slide-Franka",
+        "run_id": "PREFLIGHT-STRIKE-CONTACT-024",
+        "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+        "source_head": "9d19250f9e46c908127368e5976b5fb80904e23f",
+        "source_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "started_utc": "2026-09-12T21:49:05.415507+00:00",
+        "seed": 20260912,
+        "num_envs": 64,
+        "requested_updates": 3,
+        "interface": "franka_shared_60_v2",
+        "gpu_uuid": "GPU-2496e2db-e138-0dec-41fc-27d2535b6e86",
+        "recipe": "strike_v2",
+        "free_body_implicitfast_compat": false,
+        "learning_rate_override": null,
+        "slurm_job_id": "20277",
+        "slurm_step_id": "1866",
+        "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+        "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+        "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-023-strike-dynamics/model_2999.pt",
+        "resume_gripper_std": null,
+        "resume_gripper_mean": null,
+        "capture_pre_step": true,
+        "capture_history_steps": 8,
+        "resume_sha256": "f6959dcb9209a13901dac230f49dfbe31d42be5223e8421d6f48ee78f89ce4ca",
+        "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration."
+      },
+      "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/PREFLIGHT-STRIKE-CONTACT-024/model_3001.pt",
+      "all_checkpoint_tensors_finite": true,
+      "updates": 3,
+      "effective_lr": [
+        0.0001
+      ],
+      "wandb_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/aptzcu71"
+    },
+    {
+      "run": "PREFLIGHT-EDGE-WRIST-025",
+      "manifest": {
+        "task": "Mjlab-Edge-Grasp-Franka",
+        "run_id": "PREFLIGHT-EDGE-WRIST-025",
+        "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+        "source_head": "9d19250f9e46c908127368e5976b5fb80904e23f",
+        "source_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "started_utc": "2026-09-12T21:50:47.404304+00:00",
+        "seed": 20260912,
+        "num_envs": 64,
+        "requested_updates": 3,
+        "interface": "franka_shared_60_v2",
+        "gpu_uuid": "GPU-fd08a1c1-caff-efc7-e4e6-e1117772f9fc",
+        "recipe": "edge_v3",
+        "free_body_implicitfast_compat": false,
+        "learning_rate_override": null,
+        "slurm_job_id": "20277",
+        "slurm_step_id": "1869",
+        "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+        "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+        "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-021-edge-enclosed/model_2999.pt",
+        "resume_gripper_std": null,
+        "resume_gripper_mean": null,
+        "capture_pre_step": true,
+        "capture_history_steps": 8,
+        "resume_sha256": "7ae2c499ee028d3d2c03e6292680288909aa1fb76d3186cad9a6f5cb36969312",
+        "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration."
+      },
+      "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/PREFLIGHT-EDGE-WRIST-025/model_3001.pt",
+      "all_checkpoint_tensors_finite": true,
+      "updates": 3,
+      "effective_lr": [
+        0.0001
+      ],
+      "wandb_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/q4mb9cbo"
+    }
+  ]
+}

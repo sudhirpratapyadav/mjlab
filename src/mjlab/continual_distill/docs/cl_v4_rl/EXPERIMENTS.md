@@ -224,3 +224,12 @@ edge_v3 scores the full side-wrist frame against those three orientations, targe
 
 | PREFLIGHT-EDGE-WRIST-025 | Edge | Verify full side-wrist/capture shaping in PPO | edge_v3, ownRL-021/model2999,64 ×3 updates, seed20260912, next suitable freed GPU after Strike preflight/full-run placement | Prepared | No policy/std/optimizer/normalizer reset; finite online preflight required. |
 | RL-021-R2 | Edge | Learn side pinch and settled lift after exposing plate | edge_v3, ownRL-021/model2999,2048 ×2000 additional updates, seed20260912 | Prepared | No scripted trajectories, endpoint-IK supervision or borrowed checkpoints. |
+
+### Lift R8 — settled grasp control
+
+LiftR7/model7100 strict0/128 despite110 terminal objects inside the native5cm positional threshold. No episode passes the native settling limits; median terminal speed0.2663m/s and angular speed1.866rad/s. Native grasp/contact diagnostics remain high. Final7498 also0/128. Constant-control interventions on31 recorded timeout states compare GPU with CPU under matched freshly sampled fingertip friction. Strong saved closure with frozen policy or current-arm targets drops all31 objects on both backends. Current-arm targets plus only2mm commanded finger closure retain12 GPU grasps and14 CPU grasps; refreshed GPU endpoint predicate passes8/31. These are interventions under resampled registered friction, not policy episodes or RL success. The preliminary unmatched CPU-friction report is explicitly limited; matched complete results are lift_hold_complete_audit.json.
+
+lift_v7 retains lift_v6 and adds held-object credit for mild loaded finger closure around2mm plus quiet motion near the goal:2*exp(-abs((finger_q-ctrl)-.002)/.01) and5*exp(-goal_error/.05)/(1+linear_speed/.10+angular_speed/.5), both gated by actual opposing grasp. No action override, actuator/friction/model/backend change, or success relaxation.64 focused tests pass, including grip-load/motion discrimination and unchanged native configuration/agent.
+
+| PREFLIGHT-LIFT-SETTLE-026 | Lift | Verify gentle loaded grasp/settling shaping on own policy | lift_v7, ownR7/model7498,64 ×3 updates, GPU4, seed20260912 | Prepared | Finite online PPO checkpoint required before full continuation. |
+| RL-002-R8 | Lift | Learn settled grasp inside the native goal | lift_v7, ownR7/model7498,2048 ×1500 additional updates, GPU4, seed20260912 | Prepared | Preserve learned means/std, optimizer/normalizers and legacy backend. |

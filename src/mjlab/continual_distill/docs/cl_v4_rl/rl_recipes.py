@@ -15,6 +15,7 @@ RECIPES += ("completion_v6", "lift_v6")
 RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
 RECIPES += ("strike_v2",)
 RECIPES += ("edge_v3",)
+RECIPES += ("lift_v7",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -44,7 +45,19 @@ def grasp_components(env, command_name, object_asset_name="object", require_encl
   return command, obj, approach, closing, held
 
 
-def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, **kwargs):
+def lift_settling_bonus(goal_error, linear_speed, angular_speed, finger_position, finger_target, held):
+  """Credit a mild loaded grasp and quiet object near the native goal.
+
+  This scores the existing position actuator command; it never changes it.
+  Broad tails retain learning signal from the measured noisy, overclosed grasp.
+  """
+  loaded_closure = finger_position-finger_target
+  gentle = torch.exp(-(loaded_closure-.002).abs()/.01)
+  quiet = 1/(1+linear_speed/.10+angular_speed/.5)
+  return held*(2*gentle+5*torch.exp(-goal_error/.05)*quiet)
+
+
+def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, **kwargs):
   command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name,**kwargs)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
@@ -52,7 +65,15 @@ def lift_grasp_reward(env, command_name, object_asset_name="object", closure_wei
   goal_error = torch.linalg.vector_norm(tracking_goal(command)-tracking_position(obj),dim=-1)
   goal = torch.exp(-goal_error/0.12)*held
   grasp_bonus = 4 if kwargs.get('geometry_aperture',False) else 2
-  return approach + closure_weight*closing + grasp_bonus*held + 3*lift + 5*goal
+  reward = approach + closure_weight*closing + grasp_bonus*held + 3*lift + 5*goal
+  if settle_grip:
+    finger = command.robot.joint_names.index('finger_joint1')
+    actuator = env.sim.mj_model.actuator(f'{command.robot_cfg.name}/actuator8').id
+    reward += lift_settling_bonus(goal_error,
+                                  torch.linalg.vector_norm(obj.data.root_link_lin_vel_w,dim=-1),
+                                  torch.linalg.vector_norm(obj.data.root_link_ang_vel_w,dim=-1),
+                                  command.robot.data.joint_pos[:,finger],env.sim.data.ctrl[:,actuator],held)
+  return reward
 
 
 def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwargs):
@@ -69,6 +90,10 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "lift_v7":
+    apply_recipe(cfg, "lift_v6")
+    cfg.env.rewards["reach_object"].params['settle_grip'] = True
     return
   if recipe == "edge_v3":
     apply_recipe(cfg, "edge_v2")
