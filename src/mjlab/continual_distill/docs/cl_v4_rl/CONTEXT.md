@@ -48,7 +48,7 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Peg R4 GPU6 and Cage R7 GPU7. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Cage R7 GPU7. Peg R4 completed its budget; strict final3098 evaluation is running onGPU6. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Latest strict validation: Cage R6/final9097 improved16→37/128; Lift R7/final7498, Stack R6/final5198, Reorient R9/final8598 and Throw R2/final5498 each0/128. All completed budgets normally and their actual videos were reviewed. Lift places111 terminal objects inside5cm but none both inside and settled; lift_v7 adds mild loaded-grip/settling credit after a finite PPO preflight. Throw now captures/lifts (94.49% final opposing contacts) but holds without release; its bounded unchanged continuation targets launch. Stack remains low beside the base; Reorient remains near the floor.
 

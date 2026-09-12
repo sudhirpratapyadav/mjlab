@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Peg R4 GPU6 and Cage R7 GPU7. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Cage R7 GPU7. Peg R4 completed its budget; strict final3098 evaluation is running onGPU6. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Latest strict validation: Cage R6/final9097 improved16→37/128; Lift R7/final7498, Stack R6/final5198, Reorient R9/final8598 and Throw R2/final5498 each0/128. All completed budgets normally and their actual videos were reviewed. Lift places111 terminal objects inside5cm but none both inside and settled; lift_v7 adds mild loaded-grip/settling credit after a finite PPO preflight. Throw now captures/lifts (94.49% final opposing contacts) but holds without release; its bounded unchanged continuation targets launch. Stack remains low beside the base; Reorient remains near the floor.
 
@@ -39,7 +39,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
-| Peg-Insertion | 20 | on | Training R4 | 0/128 R3 model2300 | Fresh completion_v6 stress lineage from99; gyro correction passed100 full-size PPO updates, GPU6. |
+| Peg-Insertion | 20 | on | Evaluating R4 final3098 | 0/128 R3 model2300 | Fresh completion_v6 stress lineage from99; gyro correction passed100 full-size PPO updates, GPU6. |
 | Pivot-Lift | 6 | on | Training R2 | 0/128 model1500 | Open-ramp/floor-safe pivot_v3 passed32 endpoint checks,66 focused tests and3 finite online PPO updates; own1500 ×2000 onGPU1. |
 | Place-In-Container | 20 | on | Training R6 | 35/128 R5 final5399 | Actual transport/lowering into container; unchanged completion_v6 continuation from5399 with inherited LR5e-5, GPU5. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |

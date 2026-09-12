@@ -2,7 +2,7 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Peg R4 GPU6 and Cage R7 GPU7. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Current training: Pivot R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R6 GPU5, Cage R7 GPU7. Peg R4 completed its budget; strict final3098 evaluation is running onGPU6. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Latest strict validation: Cage R6/final9097 improved16→37/128; Lift R7/final7498, Stack R6/final5198, Reorient R9/final8598 and Throw R2/final5498 each0/128. All completed budgets normally and their actual videos were reviewed. Lift places111 terminal objects inside5cm but none both inside and settled; lift_v7 adds mild loaded-grip/settling credit after a finite PPO preflight. Throw now captures/lifts (94.49% final opposing contacts) but holds without release; its bounded unchanged continuation targets launch. Stack remains low beside the base; Reorient remains near the floor.
 
@@ -19,7 +19,7 @@ Deterministic policy means,60D observations and normalized8D absolute joint targ
 - GPU3: Edge R2 edge_v3,2048 ×2000 from2999 after finite3-update preflight. Learn side pinch and settled lift after exposure.
 - GPU4: Lift R8 lift_v7,2048 ×1500 from7498 after finite3-update preflight. Learn gentle loaded grip and native settling; monitor new actual-speed diagnostics.
 - GPU5: Place R6 completion_v6 from5399,2048 ×2000, inherited Adam LR5e-5. Improve native released containment from35/128.
-- GPU6: Peg R4 completion_v6 from fresh stress99 ×3000; recorded optional gyro correction. Evaluate its fresh PPO lineage at budget.
+- GPU6: Peg R4 completed3000 additional updates normally at3098; strict evaluation is running with its recorded optional gyro correction.
 - GPU7: Cage R7 cage_v4 from9097,2048 ×2000 after finite10-update full-batch preflight. Improve37/128 without changing native no-pinch history.
 
 Stack, Reorient and Strike remain targeted retries. Stack has acquired opposing capture but stays low beside its base. Reorient remains near the floor after its gyro-enabled budget. Strike improved9→20/128; quantify remaining launch coverage and speed/direction error before its next retry. Pivot ramp geometry preparation and PPO preflight passed; the retry is now live. Use actual trajectory evidence before changing shaping; do not loosen predicates or import scripted actions.
