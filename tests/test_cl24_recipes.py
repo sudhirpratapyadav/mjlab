@@ -26,9 +26,11 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
   ("Mjlab-Reorient-Object-Franka","reorient_v5"),
   ("Mjlab-Reorient-Object-Franka","reorient_v6"),
+  ("Mjlab-Reorient-Object-Franka","reorient_v7"),
   ("Mjlab-Cage-Drag-Franka","cage_v1"),
   ("Mjlab-Cage-Drag-Franka","cage_v2"),
   ("Mjlab-Cage-Drag-Franka","cage_v3"),
+  ("Mjlab-Cage-Drag-Franka","cage_v4"),
   ("Mjlab-Open-Lid-Franka","lid_v1"),
   ("Mjlab-Open-Lid-Franka","lid_v2"),
   ("Mjlab-Edge-Grasp-Franka","edge_v1"),
@@ -39,6 +41,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Pivot-Lift-Franka","pivot_v2"),
   ("Mjlab-Throw-To-Bin-Franka","throw_v2"),
   ("Mjlab-Throw-To-Bin-Franka","throw_v3"),
+  ("Mjlab-Throw-To-Bin-Franka","throw_v4"),
   ("Mjlab-Stack-Cube-Franka","completion_v1"),
   ("Mjlab-Place-In-Container-Franka","completion_v1"),
   ("Mjlab-Peg-Insertion-Franka","completion_v1"),
@@ -119,3 +122,10 @@ def test_cage_target_places_trailing_pad_on_rear_face_for_both_directions(monkey
   torch.testing.assert_close(resulting_pads[0,0,0]+.0076,positions[0,0]-.023+.001)
   torch.testing.assert_close(resulting_pads[1,1,0]-.0076,positions[1,0]+.023-.001)
   torch.testing.assert_close(resulting_pads.mean(1)[:,2],positions[:,2])
+  # The transport target must encourage forward motion in either direction,
+  # without shifting vertical/lateral placement or mutating physical state.
+  before = [t.clone() for t in (positions,corners,pads,grip,direction)]
+  driven = recipes.cage_contact_target(positions,corners,pads,grip,direction,contact_drive=.012)
+  torch.testing.assert_close(driven-target,.011*direction)
+  for source, saved in zip((positions,corners,pads,grip,direction),before):
+    torch.testing.assert_close(source,saved)

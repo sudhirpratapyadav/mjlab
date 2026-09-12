@@ -62,7 +62,7 @@ def strike_reward(env, command_name, **kwargs):
   return approach+4*torch.exp(-prediction_error/.25)+3*torch.exp(-actual_error/.20)+20*native_success(command)
 
 
-def throw_reward(env, command_name, require_enclosure=False, geometry_aperture=False, **kwargs):
+def throw_reward(env, command_name, require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   grip, axes, aperture = hand_geometry(env,command)
@@ -71,8 +71,11 @@ def throw_reward(env, command_name, require_enclosure=False, geometry_aperture=F
   approach = torch.exp(-distance/.20)*(.25+.75*(-axes[2][:,2]).clamp(0,1))
   closure = smooth_closure_bonus(distance,aperture)
   if geometry_aperture:
-    closure = capture_aperture_bonus(command,distance)
+    closure = capture_aperture_bonus(command,distance,squeeze=contact_geometry,centerline=contact_geometry)
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
+  if contact_geometry:
+    from contact_grasp import opposed_grasp
+    held = opposed_grasp(command).float()
   height = (pos[:,2]-env.scene.env_origins[:,2]-.023).clamp_min(0)
   lift = (height/.25).clamp(0,1)
   # Predict the rim crossing, not a trajectory through a bin wall below the rim.

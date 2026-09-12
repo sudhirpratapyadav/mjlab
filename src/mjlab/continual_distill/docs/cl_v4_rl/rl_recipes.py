@@ -12,6 +12,7 @@ RECIPES += ("cage_v3",)
 RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
 RECIPES += ("completion_v4", "completion_v5")
 RECIPES += ("completion_v6", "lift_v6")
+RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -66,6 +67,14 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "cage_v4":
+    apply_recipe(cfg, "cage_v3")
+    cfg.env.rewards["reach_object"].params["contact_drive"] = .012
+    return
+  if recipe in ("reorient_v7", "throw_v4"):
+    apply_recipe(cfg, "reorient_v6" if recipe == "reorient_v7" else "throw_v3")
+    cfg.env.rewards["reach_object"].params["contact_geometry"] = True
     return
   if recipe in ("completion_v6", "lift_v6"):
     apply_recipe(cfg, "completion_v5" if recipe == "completion_v6" else "lift_v5")
@@ -201,8 +210,8 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, **kwargs):
-  command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure)
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
+  command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure,contact_geometry=contact_geometry)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
   quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -223,7 +232,7 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
     aperture_score = smooth_closure_bonus(distance,aperture)
   if geometry_aperture:
     from completion_reward import capture_aperture_bonus
-    aperture_score = capture_aperture_bonus(command,distance)
+    aperture_score = capture_aperture_bonus(command,distance,squeeze=contact_geometry,centerline=contact_geometry)
   height = obj.data.root_link_pos_w[:,2]-env.scene.env_origins[:,2]
   lift = ((height-0.015)/0.10).clamp(0,1)*held
   aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)
@@ -272,17 +281,18 @@ def lid_grasp_progress_reward(env, command_name, object_asset_name='object', **k
   return base+2*closure+3*held+6*progress
 
 
-def cage_contact_target(position, corners, pads, grip, direction):
+def cage_contact_target(position, corners, pads, grip, direction, contact_drive=.001):
   """Put the trailing inner pad at the cube's rear face, keeping an open cage."""
   projected = ((corners-position[:,None])*direction[:,None]).sum(-1)
   half_width = .5*(projected.amax(1)-projected.amin(1))
   half_gap = .5*torch.linalg.vector_norm(pads[:,0]-pads[:,1],dim=-1)-.0076
-  # One millimetre of contact drive fits the native two-millimetre cage tolerance.
-  shift = (half_gap-half_width).clamp(0,.06)+.001
+  # A reward target ahead of contact encourages continued hand motion; collision
+  # response still determines the actual pad/object positions. No pose is written.
+  shift = (half_gap-half_width).clamp(0,.06)+contact_drive
   return position+shift[:,None]*direction-(pads.mean(1)-grip)
 
 
-def cage_contact_reward(env, command_name, **kwargs):
+def cage_contact_reward(env, command_name, contact_drive=.001, **kwargs):
   from mjlab.tasks.manipulation.mdp.task_geometry import object_corners, touching
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
@@ -295,7 +305,7 @@ def cage_contact_reward(env, command_name, **kwargs):
   direction = direction.clone(); direction[:,2] = 0
   error = torch.linalg.vector_norm(direction,dim=-1)
   direction = direction/error[:,None].clamp_min(.001)
-  target = cage_contact_target(pos,object_corners(obj),pads,grip,direction)
+  target = cage_contact_target(pos,object_corners(obj),pads,grip,direction,contact_drive)
   distance = torch.linalg.vector_norm(grip-target,dim=-1)
   down_axis = quat_apply(quat,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))
   close_axis = quat_apply(quat,torch.tensor([0.,1.,0.],device=env.device).expand(env.num_envs,3))
