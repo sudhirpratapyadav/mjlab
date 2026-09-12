@@ -339,3 +339,5 @@ CageR8 reached12600 with improving training metrics; launched one128-world stric
 CageR8/model12600 strict90/128, all timeouts, actual success/failure frames reviewed. Below prior97/128; no confirmation, full bounded run continues. LiftR9 exact terminal audit:107 inside5cm,5 settled overall,0 inside and settled; median speeds0.2848m/s and2.0058rad/s. Initial wave21 scoreboard kn3ebe2m finished, remote API verified170 records. Final refresh adds these two late audits/reviews.
 
 Final wave21 gallery includes late Cage12600 clip/rate;24-playback, navigation/filter/search/mobile checks and50 HTTPS SHA256 matches pass after the change. Final W&B rollup includes Cage review and Lift settling audit.
+
+Final wave21 scoreboard1o4fgggg finished; remote API verified172 experiment-record files including cone diagnostics/preflights, late Cage review, Lift settling audit and public checks. Seven Slurm training steps still live at handoff; next completed Cage/Peg budgets require strict evaluation. This goal turn made concrete progress through solver correction, recorded evaluations and finite-preflighted retries; full goal remains14/24, not complete.
