@@ -10,7 +10,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import (
   tracking_goal, tracking_position,
 )
 from mjlab.utils.lab_api.math import quat_apply
-from completion_reward import enclosed_grasp, safe_grasp_target, smooth_closure_bonus
+from completion_reward import capture_aperture_bonus, enclosed_grasp, safe_grasp_target, smooth_closure_bonus
 
 
 def sliding_endpoint(position, velocity, friction, gravity=9.81):
@@ -62,7 +62,7 @@ def strike_reward(env, command_name, **kwargs):
   return approach+4*torch.exp(-prediction_error/.25)+3*torch.exp(-actual_error/.20)+20*native_success(command)
 
 
-def throw_reward(env, command_name, require_enclosure=False, **kwargs):
+def throw_reward(env, command_name, require_enclosure=False, geometry_aperture=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   grip, axes, aperture = hand_geometry(env,command)
@@ -70,6 +70,8 @@ def throw_reward(env, command_name, require_enclosure=False, **kwargs):
   distance = torch.linalg.vector_norm(grip-safe_grasp_target(command),dim=-1)
   approach = torch.exp(-distance/.20)*(.25+.75*(-axes[2][:,2]).clamp(0,1))
   closure = smooth_closure_bonus(distance,aperture)
+  if geometry_aperture:
+    closure = capture_aperture_bonus(command,distance)
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   height = (pos[:,2]-env.scene.env_origins[:,2]-.023).clamp_min(0)
   lift = (height/.25).clamp(0,1)

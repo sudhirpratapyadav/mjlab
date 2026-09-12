@@ -9,9 +9,10 @@ RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "
 RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "completion_v3")
 RECIPES += ("edge_v2", "pivot_v2", "throw_v2", "lift_v4", "reorient_v5")
 RECIPES += ("cage_v3",)
+RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
 
 
-def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, **kwargs):
+def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot = command.robot
   obj = env.scene[object_asset_name]
@@ -24,6 +25,9 @@ def grasp_components(env, command_name, object_asset_name="object", require_encl
   approach = torch.exp(-distance/0.10) * (0.5 + 0.5 * down.clamp(0,1))
   aperture = finger_aperture(robot)
   closing = torch.exp(-distance/0.025) * (1-aperture/0.08).clamp(0,1)
+  if geometry_aperture:
+    from completion_reward import capture_aperture_bonus
+    closing = capture_aperture_bonus(command,distance)
   if require_enclosure:
     from completion_reward import enclosed_grasp
     held = enclosed_grasp(command).float()
@@ -39,7 +43,8 @@ def lift_grasp_reward(env, command_name, object_asset_name="object", closure_wei
   lift = ((height-0.02)/0.10).clamp(0,1)*held
   goal_error = torch.linalg.vector_norm(tracking_goal(command)-tracking_position(obj),dim=-1)
   goal = torch.exp(-goal_error/0.12)*held
-  return approach + closure_weight*closing + 2*held + 3*lift + 5*goal
+  grasp_bonus = 4 if kwargs.get('geometry_aperture',False) else 2
+  return approach + closure_weight*closing + grasp_bonus*held + 3*lift + 5*goal
 
 
 def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwargs):
@@ -56,6 +61,13 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  parent = {"lift_v5":"lift_v4", "reorient_v6":"reorient_v5", "throw_v3":"throw_v2"}.get(recipe)
+  if parent:
+    apply_recipe(cfg,parent)
+    cfg.env.rewards["reach_object"].params["geometry_aperture"] = True
+    cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], .5)
+    cfg.agent.policy.initial_gripper_std = .15
     return
   if recipe not in RECIPES:
     raise ValueError(recipe)
@@ -173,7 +185,7 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, **kwargs):
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -193,13 +205,17 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
   if smooth_closure:
     from completion_reward import smooth_closure_bonus
     aperture_score = smooth_closure_bonus(distance,aperture)
+  if geometry_aperture:
+    from completion_reward import capture_aperture_bonus
+    aperture_score = capture_aperture_bonus(command,distance)
   height = obj.data.root_link_pos_w[:,2]-env.scene.env_origins[:,2]
   lift = ((height-0.015)/0.10).clamp(0,1)*held
   aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)
   valid = torch.linalg.vector_norm(tracking_position(obj)[:,:2]-command.target_pos[:,:2],dim=-1)<command.cfg.max_drift
   orientation = aligned.square()*held*valid.float()
   # Actual contact must still dominate the maximum noncontact closure score.
-  return approach*(1-held)*(1+closure_weight*aperture_score) + max(2.,1+closure_weight)*held + 3*lift + 6*orientation
+  grasp_bonus = max(2.,1+closure_weight)+(2 if geometry_aperture else 0)
+  return approach*(1-held)*(1+closure_weight*aperture_score) + grasp_bonus*held + 3*lift + 6*orientation
 
 
 def cage_approach_reward(env, command_name, object_asset_name='cube', transport_guidance=False, **kwargs):

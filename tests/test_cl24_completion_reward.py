@@ -67,3 +67,19 @@ def test_enclosed_grasp_rejects_closed_pads_pressing_cube_top(monkeypatch):
   command = SimpleNamespace(robot=robot,object=object(),robot_cfg=SimpleNamespace(site_ids=[0]),num_envs=3,device='cpu')
   monkeypatch.setattr(module,'grasped',lambda _:torch.tensor([True,True,False]))
   assert module.enclosed_grasp(command).tolist()==[False,True,False]
+
+
+def test_capture_aperture_prefers_object_width_over_empty_closure(monkeypatch):
+  module = load_reward(monkeypatch)
+  width=torch.tensor([.046,.070])
+  distance=torch.full((2,),.03)
+  closed=module.aperture_fit_score(distance,torch.full((2,),.015),width)
+  fitting=module.aperture_fit_score(distance,width+.012,width)
+  assert torch.all(fitting>closed+.5)
+  # At contact, zero clearance still receives nearly maximum fit credit.
+  contact=module.aperture_fit_score(torch.zeros(2),width,width)
+  assert torch.all(contact>.98)
+  # No hard open/close switch at the old35mm boundary.
+  path=torch.linspace(.10,0.,1001)
+  score=module.aperture_fit_score(path,torch.full_like(path,.058),torch.full_like(path,.046))
+  assert (score[1:]-score[:-1]).abs().max()<.003

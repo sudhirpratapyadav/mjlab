@@ -1,8 +1,8 @@
 # Status — RL teachers
 
-Checked2026-09-12. **14/24 independent PPO RL teachers certified.** Seven task runs are active: Strike GPU1, Reorient R5 GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Cage R2 GPU5, Edge first pilot GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
+Checked2026-09-12. **14/24 independent PPO RL teachers certified.** Current GPU assignments: Strike GPU1, Reorient final evaluation GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Pivot first pilot GPU5, Edge first pilot GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
 
-Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw enclosure-gated revisions passed PPO preflight. Edge now trains onGPU6; Pivot and Throw await slots. The full24-task goal remains active.
+Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw enclosure-gated revisions passed PPO preflight. Edge trains onGPU6 and Pivot onGPU5; Throw takesGPU2 after Reorient evaluation. The full24-task goal remains active.
 
 ## Readiness
 
@@ -28,7 +28,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | Training retry | 0/128 first pilot | cage_v2 resumes1499 onGPU5; guide valid-cage transport. |
+| Cage-Drag | 4 | on | Contact retry ready; awaiting slot | 0/128 R2 | All final states valid open cages but no contact. cage_v3 passed3 resumed PPO updates; exact native no-pinch/transport preserved. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Training first pilot | Not measured | edge_v2,2048 ×3000 onGPU6; enclosed grasp credit after exposure. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
@@ -37,13 +37,13 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
 | Peg-Insertion | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU4; upper-body grasp, actual enclosure/contact; native seating unchanged. |
-| Pivot-Lift | 6 | on | Preflights complete; pilot pending | Not measured | pivot_v2 finite physics and3 PPO updates; actual wall/tilt history unchanged. |
+| Pivot-Lift | 6 | on | Training first pilot | Not measured | pivot_v2,2048 ×3000 onGPU5; actual wall/tilt history unchanged. |
 | Place-In-Container | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU7; prior nearly closed top-contact policy replaced. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Training R5 closure retry | 0/16 R4 debug | reorient_v4/std reset0.25 from ownmodel1900; capture unchanged interface and physics. |
+| Reorient-Object | 20 | on | Final R5 evaluation | Pending | Finite model3899 after full budget; final gripper std0.0644; strict gate onGPU2. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU3: contact plus enclosure rejects verified top pressing; actual release/support success unchanged. |

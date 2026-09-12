@@ -1,0 +1,11 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "e4f4738037e706fdcb60c7c765f6cac763145c3aa5ca9036694f1da211759f2a",
+  "outcome": "rejected0/128",
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Robot approaches and holds closed fingers above the unmoved bottle. No sampled actual contact or enclosed grasp. Final mean aperture0.0000375m and gripper action-0.999663; gripper std0.06444 in checkpoint. Thus the exploration reset did not teach capture: early closure is rewarded, then the bounded mean saturates closed. Next geometry-aware reward favors a gap matching the projected object span with smooth approach clearance. Native success is unchanged."
+}
