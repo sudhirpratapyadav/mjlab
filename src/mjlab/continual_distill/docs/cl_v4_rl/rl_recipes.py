@@ -6,7 +6,7 @@ from mjlab.utils.lab_api.math import quat_apply
 import torch
 
 RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lid_v2", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
-RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1")
+RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "completion_v3")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -110,7 +110,7 @@ def apply_recipe(cfg, recipe):
         reach.params["transport_guidance"] = True
       cfg.env.rewards["joint_vel_penalty"].weight = -0.001
       cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("completion_v1", "completion_v2"):
+  if recipe in ("completion_v1", "completion_v2", "completion_v3"):
     from completion_reward import completion_reward
     if cfg.agent.experiment_name not in ("franka_stack_cube", "franka_peg_insertion", "franka_place_in_container"):
       raise ValueError("completion_v1 is restricted to Stack/Place/Peg")
@@ -119,8 +119,10 @@ def apply_recipe(cfg, recipe):
     cfg.agent.policy.initial_gripper_std = 0.1
     name = "stack" if "stack" in cfg.env.rewards else "reach_object"
     cfg.env.rewards[name].func = completion_reward
-    if recipe == "completion_v2":
+    if recipe in ("completion_v2", "completion_v3"):
       cfg.env.rewards[name].params["smooth_closure"] = True
+    if recipe == "completion_v3":
+      cfg.env.rewards[name].params["require_enclosure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
   if recipe in ("edge_v1", "pivot_v1", "strike_v1", "throw_v1"):

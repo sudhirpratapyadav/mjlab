@@ -45,9 +45,8 @@ def main():
     artifact.add_file(str(path))
     run.log_artifact(artifact)
     # Keep the full simulator failure diagnostic with the experiment results.
-    failure = HERE / 'runs/RL-004-R2-drag-extend/numerical_failure.pt'
-    if failure.exists():
-      diagnostic = wandb.Artifact('RL-004-R2-numerical-failure', type='diagnostics')
+    for failure in sorted((HERE/'runs').glob('*/numerical_failure.pt')):
+      diagnostic = wandb.Artifact(failure.parent.name+'-numerical-failure', type='diagnostics')
       diagnostic.add_file(str(failure))
       diagnostic.add_file(str(failure.with_suffix('.json')))
       run.log_artifact(diagnostic)

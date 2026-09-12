@@ -49,3 +49,21 @@ def test_closure_path_has_no_approach_barrier(monkeypatch):
   open_score = module.smooth_closure_bonus(torch.tensor(.01),torch.tensor(.075))
   closed_score = module.smooth_closure_bonus(torch.tensor(.01),torch.tensor(.04))
   assert closed_score > open_score
+
+
+def test_enclosed_grasp_rejects_closed_pads_pressing_cube_top(monkeypatch):
+  module = load_reward(monkeypatch)
+  geometry = importlib.import_module('mjlab.tasks.manipulation.mdp.task_geometry')
+  corners = torch.cartesian_prod(*[torch.tensor([-.023,.023])]*3).unsqueeze(0).expand(3,-1,-1)
+  monkeypatch.setattr(geometry,'object_corners',lambda _:corners)
+  # First pair presses the cube with a gap too narrow to enclose it. Second
+  # encloses it with real bilateral contact. Third encloses it without contact.
+  pads = torch.tensor([[[0.,-.0168,.025],[0.,.0168,.025]],
+                       [[0.,-.031,0.],[0.,.031,0.]],
+                       [[0.,-.031,0.],[0.,.031,0.]]])
+  robot = SimpleNamespace(geom_names=['left_finger_pad','right_finger_pad'],
+                         data=SimpleNamespace(site_pos_w=torch.zeros(3,1,3),
+                           site_quat_w=torch.tensor([[[1.,0.,0.,0.]]]).expand(3,-1,-1),geom_pos_w=pads))
+  command = SimpleNamespace(robot=robot,object=object(),robot_cfg=SimpleNamespace(site_ids=[0]),num_envs=3,device='cpu')
+  monkeypatch.setattr(module,'grasped',lambda _:torch.tensor([True,True,False]))
+  assert module.enclosed_grasp(command).tolist()==[False,True,False]

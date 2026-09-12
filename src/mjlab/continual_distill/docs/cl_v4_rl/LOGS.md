@@ -119,3 +119,13 @@ Lift V3 final strict0/128; no sampled two-pad grasp. Final aperture0.055137m, di
 Cage first pilot strict0/128,97.7% final caging but negligible transport. Lid first pilot strict0/128, alltimeouts. Both revisions passed3 resumed guarded PPO updates and61 CPU tests. Launched Cage cage_v2 GPU5 step1716 and Lid lid_v1 GPU6 step1717. Exact new manifests in training_wave6.json.
 
 Reorient R4 stopped automatically at1970: nonfinite qpos12 entries/qvel15 only in environment64, policy parameters finite. Last saved model1900 under16-episode debug evaluation seed20260913 onGPU2. Numerical diagnostic archived; no benchmark physics changes. Stack/Place/Peg remain live; GPU0 unused.
+
+### Gripper exploration, saturation and remaining-task readiness
+
+Added explicit --resume-gripper-std to the stage runner, with positive/finite validation and manifest provenance. It changes only gripper exploration and its Adam moments after loading; tests verify exact preservation of deterministic actions, all other weights/normalizers/std and optimizer state. Lift closure weight0.5→2; Reorient smooth closure weight1→3 and true-contact base bonus2→4 so actual grasp dominates noncontact closure. Both resumed3-update preflights passed; finite checkpoint stds verified.
+
+Lift R4 onGPU1 failed at2009 with finite policy parameters. Added opt-in --capture-pre-step to save qpos/qvel/ctrl/warmstart/mocap/actions immediately before a numerical failure. A same-seed/config2048-env30-update replay completed without reproducing the failure; finite model2028 retained. The underlying numerical cause is unresolved; no resets masking invalid state or solver/physics changes introduced. Reorient R5 remains active onGPU2.
+
+Lid R2 showed unbounded mean12644 and100% action saturation with zero training success. Stopped only ownstep1717; source evidence/Lid-R2-saturation.json. Fresh bounded lid_v2 with gripper mean0.5/std0.15 passed3 PPO updates and starts2000-update2048-env pilot onGPU6.
+
+Implemented edge_v1/pivot_v1/strike_v1/throw_v1 training recipes. Edge shapes near-rim exposure then side pinch/lift; Pivot shapes ramp/wall-contact tilt and native completion history; Strike uses approximate sliding endpoint with registered mu0.04; Throw uses descending rim-plane crossing and actual release. Native predicates remain authoritative.70 focused CPU tests passed, including undershoot/overshoot/sideways and unreachable-rim prediction cases. Four32-env100-step physical preflights finite; uploaded W&B run5g2qp9h4. Short PPO preflights now run onGPU1. First full Strike pilot takesGPU1 after completion-task debug checks; Lift/Edge/Pivot/Throw use slots as current pilots complete.

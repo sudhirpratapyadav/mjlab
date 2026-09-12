@@ -60,7 +60,7 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 
 | PREFLIGHT-TRANSPORT-003 | Cage/Lid | Verify targeted transport and hinge-progress retries | Three resumed guarded PPO updates on64 environments each | Complete | 61 tests; both resumed64-env PPO preflights3 finite updates. |
 | RL-013-R2 | Cage-Drag | Escape stationary valid caging | cage_v2,1,024 environments ×2,000 additional updates, seed20260912, GPU5 | Running | GPU5 step1716; own model1499. |
-| RL-015-R2 | Open-Lid | Learn a grasp and useful opening before the narrow goal reward | lid_v1,1,024 environments ×1,500 additional updates, seed20260912 | Running | GPU6 step1717; own model1499. |
+| RL-015-R2 | Open-Lid | Learn a grasp and useful opening before the narrow goal reward | lid_v1,1,024 environments ×1,500 additional updates, seed20260912 | Stopped after verified full saturation | Stopped exactstep1717; mean12644, saturation1.0, no training success. Evidence/Lid-R2-saturation.json. |
 
 ## Run record template
 
@@ -70,18 +70,27 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 - Strict successes/trials, evaluation seeds, deterministic/stochastic policy mode, episode budget, first-episode accounting, videos.
 - Decision: retain/reject/continue, why, and next experiment. A teacher is certified only by the GOAL.md criterion.
 
-| PREFLIGHT-LIFT-CLOSURE-004 | Lift | Validate stronger closure and gripper-only exploration reset | lift_v3, resume ownV3/model1999, gripper std0.2,64 environments ×3 updates, GPU1 | Prepared |62 tests passed; arm policy/critic/normalizers/other std and optimizer moments preserved by targeted reset test |
-| RL-002-R4 | Lift | Learn actual contact from successful approach | lift_v3, ownV3/model1999, gripper std0.2,2048 environments ×2000 additional updates, seed20260912, GPU1 | Prepared | Closure weight0.5→2; explicit std reset widens closure exploration; native success/physics/60D/8D unchanged |
+| PREFLIGHT-LIFT-CLOSURE-004 | Lift | Validate stronger closure and gripper-only exploration reset | lift_v3, resume ownV3/model1999, gripper std0.2,64 environments ×3 updates, GPU1 | Complete | 3 finite PPO updates; isolated std/momentum reset checks passed. |
+| RL-002-R4 | Lift | Learn actual contact from successful approach | lift_v3, ownV3/model1999, gripper std0.2,2048 environments ×2000 additional updates, seed20260912, GPU1 | Stopped by numerical guard | Nonfinite simulator state at2009; policy parameters finite.30-update diagnostic replay did not reproduce. |
 
-| PREFLIGHT-REORIENT-CLOSURE-005 | Reorient | Check stronger smooth closure and gripper std reset | reorient_v4, ownR4/model1900, gripper std0.25,64 environments ×3 updates, GPU2 | Prepared | Debug model1900 scored0/16, no actual grasp; contact bonus also increased so grasp dominates noncontact closure |
-| RL-005-R5 | Reorient | Learn end-face closure from finite own approach policy | reorient_v4, ownR4/model1900, gripper std0.25,2048 environments ×2000 additional updates, seed20260912, GPU2 | Prepared | Archive previous numerical failure; stronger monotone closure and true grasp, same physics/interface |
+| PREFLIGHT-REORIENT-CLOSURE-005 | Reorient | Check stronger smooth closure and gripper std reset | reorient_v4, ownR4/model1900, gripper std0.25,64 environments ×3 updates, GPU2 | Complete | 3 finite PPO updates and checkpoint; std0.25 verified. |
+| RL-005-R5 | Reorient | Learn end-face closure from finite own approach policy | reorient_v4, ownR4/model1900, gripper std0.25,2048 environments ×2000 additional updates, seed20260912, GPU2 | Running | GPU2; own model1900, stronger closure/grasp and std0.25. |
 
-| PREFLIGHT-LIFT-FAILURE-006 | Lift | Capture preceding physics state for numerical failure diagnosis | Same ownV3/model1999, lift_v3/std0.2,2048 environments ×30 updates, GPU1 | Prepared | R4 failed at2009 with finite policy; diagnostic replay only, unchanged benchmark |
-| PREFLIGHT-LID-BOUNDED-007 | Lid | Check fresh bounded policy after verified R2 saturation | lid_v2,64 environments ×3 updates, GPU6 | Prepared | R2 mean12644/action saturation1.0; stopped exact step1717; fresh architecture, gripper mean0.5/std0.15 |
-| RL-015-V3 | Lid | Learn hinge progress with bounded action means | lid_v2,2048 environments ×2000 updates, seed20260912, GPU6 | Prepared | Fresh policy; preserve native gravity/horizon/60D/8D and success |
+| PREFLIGHT-LIFT-FAILURE-006 | Lift | Capture preceding physics state for numerical failure diagnosis | Same ownV3/model1999, lift_v3/std0.2,2048 environments ×30 updates, GPU1 | Complete; no recurrence | 30 updates finite; model2028 retained. Capture preceding state on next full continuation. |
+| PREFLIGHT-LID-BOUNDED-007 | Lid | Check fresh bounded policy after verified R2 saturation | lid_v2,64 environments ×3 updates, GPU6 | Complete | 3 finite PPO updates and checkpoint verified. |
+| RL-015-V3 | Lid | Learn hinge progress with bounded action means | lid_v2,2048 environments ×2000 updates, seed20260912, GPU6 | Running | Fresh bounded lid_v2 onGPU6; source4efa3e3. |
 
-| PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Prepared | Edge near-rim exposure/side pinch; Pivot ramp/wall-contact tilt; Strike sliding endpoint; Throw descending rim-plane crossing; no action scripting or benchmark changes |
+| PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Complete | 70 CPU tests; four real-physics cases finite; evidence/remaining_preflight_v1.json and W&B5g2qp9h4. |
 | RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual grasp/height/settling required; assign GPU after readiness |
 | RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual contact/tilt history retained; assign GPU after readiness |
 | RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Registered puck friction0.04 unchanged; prediction is shaping only |
 | RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native full-object containment/release/support/settling retained; prediction does not certify success |
+
+| PREFLIGHT-REMAINING-PPO-009 | Edge/Pivot/Strike/Throw | Check real guarded PPO updates before full pilots | Each64 environments ×3 updates, seed20260912, sequential onGPU1 | Running | Sequential short PPO checks onGPU1 before first full pilots. |
+
+RL-023 first full Strike pilot assignedGPU1 after remaining-task PPO preflight. Lift R4 numerical failure did not recur in the30-update diagnostic replay; retained finite checkpoint2028. Its continuation waits for a free slot while remaining tasks receive first pilots; preceding-state capture is prepared for a recurrence. No finite-state recovery or altered solver/physics has been introduced.
+
+| PREFLIGHT-ENCLOSURE-010 | Stack/Place/Peg | Reject top pressing as a training grasp while preserving native success | completion_v3, fresh64 environments ×3 updates each, GPUs3/7/4 | Prepared |74 CPU tests; real Stack trace0/16 with93.3% final two-pad contact but0% enclosure, nearly closed fingers pressing cube against floor |
+| RL-018-V2 | Stack | Learn opposed grasp and released stacking | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU3 | Prepared | Previous contact reward admits floor pressing; new training-only enclosure gate; native benchmark unchanged |
+| RL-019-V2 | Place | Learn opposed grasp and released containment | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU7 | Prepared | Previous debug0/16 with closed-pad contact and no lift; fresh policy avoids entrenched top-press behavior |
+| RL-020-V2 | Peg | Learn opposed upper-body grasp and released seating | completion_v3, fresh2048 environments ×3000 updates, seed20260912, GPU4 | Prepared | Previous debug0/16; contact credit now requires object fitting between fingers |

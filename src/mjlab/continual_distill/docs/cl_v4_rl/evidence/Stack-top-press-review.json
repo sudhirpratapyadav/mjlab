@@ -1,0 +1,12 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "result": "Training-reward loophole confirmed; not certified",
+  "source_checkpoint": "RL-018-stack-completion/model_1500.pt",
+  "video_run": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/a6s1vxqf",
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Fingers approach then remain closed on the top of the cube, pressing it into the floor; the cube never lifts onto the base. Final sampled two-pad contact93.3%, enclosure0%, mean aperture0.001164m and cube height0.014724m. This qualifies for the old training grasp bonus but fails unchanged native success. New completion_v3 gates training contact credit on both physical contact and existing between_fingers geometry."
+}

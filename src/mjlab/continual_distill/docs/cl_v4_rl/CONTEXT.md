@@ -48,6 +48,6 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**13/24 independent PPO RL teachers certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window, Axial and Valve. Valve model1999 measured127/128 validation +128/128 confirmation; actual rotation and its ground-collision failure were reviewed; retained artifact uploaded.
+**13/24 independent PPO RL teachers certified.** Stack GPU3, Peg GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, Place GPU7 and Reorient R5 GPU2 are training. GPU1 handles remaining-task PPO preflights/diagnostics before the first Strike pilot. Lift R4 stopped on a simulator numerical failure; a30-update replay completed without reproducing it and retained model2028. Lift continuation awaits a slot with preceding-state capture enabled. Edge/Pivot/Throw passed physical readiness and await full pilots. GPU0 remains unused.
 
-Active: Stack GPU3 step1704, Peg GPU4 step1714, Cage retry GPU5 step1716, Lid retry GPU6 step1717, Place GPU7 step1705. Reorient R4 stopped on nonfinite simulator state at iteration1970; policy parameters finite, model1900 under diagnostic evaluation onGPU2. Lift final V3 strict0/128 with no sampled two-pad grasp; closure/exploration retry is next. Edge/Pivot/Strike/Throw still need first-pilot readiness. GPU0 remains unused. Full24-task goal is active.
+See STATUS.md, EXPERIMENTS.md and evidence/*-certificate.json for authoritative outcomes. The full24-task goal remains active; native physics/success,60D/8D and Tool-Pull deferral are unchanged. All results publish in the verified project.

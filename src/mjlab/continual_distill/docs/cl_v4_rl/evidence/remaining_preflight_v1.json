@@ -1,0 +1,80 @@
+{
+  "cases": [
+    {
+      "task": "Edge-Grasp",
+      "recipe": "edge_v1",
+      "finite": true,
+      "environments": 32,
+      "steps": 100,
+      "mean_return": 0.7412861445918679,
+      "benchmark_invariants": [
+        "observations",
+        "actions",
+        "commands",
+        "terminations",
+        "events",
+        "scene",
+        "sim",
+        "episode_length_s"
+      ]
+    },
+    {
+      "task": "Pivot-Lift",
+      "recipe": "pivot_v1",
+      "finite": true,
+      "environments": 32,
+      "steps": 100,
+      "mean_return": 2.369630414992571,
+      "benchmark_invariants": [
+        "observations",
+        "actions",
+        "commands",
+        "terminations",
+        "events",
+        "scene",
+        "sim",
+        "episode_length_s"
+      ]
+    },
+    {
+      "task": "Strike-Slide",
+      "recipe": "strike_v1",
+      "finite": true,
+      "environments": 32,
+      "steps": 100,
+      "mean_return": 1.0412637200206518,
+      "benchmark_invariants": [
+        "observations",
+        "actions",
+        "commands",
+        "terminations",
+        "events",
+        "scene",
+        "sim",
+        "episode_length_s"
+      ]
+    },
+    {
+      "task": "Throw-To-Bin",
+      "recipe": "throw_v1",
+      "finite": true,
+      "environments": 32,
+      "steps": 100,
+      "mean_return": 0.2744029696332291,
+      "benchmark_invariants": [
+        "observations",
+        "actions",
+        "commands",
+        "terminations",
+        "events",
+        "scene",
+        "sim",
+        "episode_length_s"
+      ]
+    }
+  ],
+  "source_head": "4efa3e30bba44e4e387e769314f316f749658b7e",
+  "source_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "interface": "franka_shared_60_v2",
+  "seed": 20260912
+}

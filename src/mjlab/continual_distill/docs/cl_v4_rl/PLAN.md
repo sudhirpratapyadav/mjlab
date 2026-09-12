@@ -2,9 +2,7 @@
 
 ## Current state
 
-**13/24 independent PPO RL teachers certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window, Axial and Valve. Valve model1999 measured127/128 validation +128/128 confirmation; actual rotation and its ground-collision failure were reviewed; retained artifact uploaded.
-
-Active: Stack GPU3 step1704, Peg GPU4 step1714, Cage retry GPU5 step1716, Lid retry GPU6 step1717, Place GPU7 step1705. Reorient R4 stopped on nonfinite simulator state at iteration1970; policy parameters finite, model1900 under diagnostic evaluation onGPU2. Lift final V3 strict0/128 with no sampled two-pad grasp; closure/exploration retry is next. Edge/Pivot/Strike/Throw still need first-pilot readiness. GPU0 remains unused. Full24-task goal is active.
+**13/24 independent PPO RL teachers certified.** Stack GPU3, Peg GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, Place GPU7 and Reorient R5 GPU2 are training. GPU1 handles remaining-task PPO preflights/diagnostics before the first Strike pilot. Lift R4 stopped on a simulator numerical failure; a30-update replay completed without reproducing it and retained model2028. Lift continuation awaits a slot with preceding-state capture enabled. Edge/Pivot/Throw passed physical readiness and await full pilots. GPU0 remains unused.
 
 ## Fixed evaluation and retention gate
 
@@ -14,21 +12,23 @@ The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both
 
 ## Active training and next evaluations
 
-- GPU1: prepare Lift closure/exploration retry after final V3 strict0/128.
-- GPU2: diagnose finite Reorient model1900 following simulator numerical failure.
-- GPU3: Stack completion_v2,2048 environments ×2500 updates.
+- GPU1: finish remaining-task PPO checks, inspect Stack/Place/Peg debug checkpoints, launch Strike first pilot.
+- GPU2: Reorient R5, reorient_v4,2048 ×2000 additional updates from1900, gripper std0.25.
+- GPU3: Stack completion_v2,2048 ×2500 updates.
 - GPU4: Peg completion_v2,2048 ×3000 updates.
-- GPU5: Cage cage_v2,1024 ×2000 additional updates from own1499.
-- GPU6: Lid lid_v1,1024 ×1500 additional updates from own1499.
+- GPU5: Cage cage_v2,1024 ×2000 additional updates from1499.
+- GPU6: fresh Lid lid_v2,2048 ×2000 updates. Prior unbounded R2 stopped after verified full saturation.
 - GPU7: Place completion_v2,2048 ×2500 updates.
+
+Lift R4 numerical failure did not recur in a30-update diagnostic replay. Preserve finite replaymodel2028; continue with pre-step capture when a slot is free. Do not mask invalid simulator state or change native physics silently.
 
 Inspect meaningful learning progress and numerical diagnostics; evaluate saved candidates when evidence warrants it. Check actual checkpoints and process state before invoking evaluation or reusing a GPU. Stop only this experiment's exact Slurm step after checkpoint retention, or when diagnosing a verified failure. Never cancel holder20277 or another person's jobs.
 
 ## Remaining readiness work
 
-- Stack/Place/Peg: existing dense goal return does not sufficiently favor release and settled support/containment/seating. Add a grasp/transport stage and native-completion incentive. Peg's approach must target a safe upper grasp point rather than its bottom insertion tip. Preserve the full square-bore fit and uprightness checks.
-- Edge/Pivot: provide useful shaping for edge exposure or actual wall-assisted pivot, followed by grasp/lift. Pivot's required contact/tilt history remains part of the true success rule.
-- Strike/Throw: tune velocity penalties for intentional fast motion and reward strike or launch/release progress, with final native success unchanged. Test compact-state limitations; do not add hidden observations or restore143D.
+Edge/Pivot/Strike/Throw now have explicit recipes;70 CPU tests and all four32-env ×100-step physical preflights passed. Complete short guarded PPO preflights before full pilots. Edge shapes near-rim exposure then side grasp; Pivot shapes ramp approach and genuine wall-contact tilt; Strike predicts sliding endpoint using registered friction; Throw predicts the descending rim-plane crossing. These are training rewards only: native predicates, geometry, initialization, horizons and60D/8D stay fixed.
+
+Monitor actual grasp/contact diagnostics for the completion tasks. Reward or return increases alone do not demonstrate released/settled completion. Finite source checks do not prove learnability; use pilots and strict saved-checkpoint evaluation.
 
 Record each new recipe and budget before launch. Check recipe invariants and short finite-state rollouts, then real PPO/checkpoint reload where architecture changes. All policy outputs remain eight learnable normalized action dimensions; Cage initialization is a prior, not a gripper action mask.
 

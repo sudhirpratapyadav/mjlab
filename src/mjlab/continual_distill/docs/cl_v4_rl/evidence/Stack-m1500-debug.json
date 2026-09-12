@@ -1,0 +1,1291 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-018-stack-completion/model_1500.pt",
+  "checkpoint_sha256": "bf8002a635f2546e68b297988a7a0262764d455345385977047a334966cf70bb",
+  "seed": 20260913,
+  "episodes": 16,
+  "successes": 0,
+  "success_rate": 0.0,
+  "deterministic": true,
+  "first_episode_only": true,
+  "records": [
+    {
+      "env_id": 0,
+      "success": false,
+      "steps": 1000,
+      "return": 64.31901550292969,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 1,
+      "success": false,
+      "steps": 1000,
+      "return": 65.86186218261719,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 2,
+      "success": false,
+      "steps": 1000,
+      "return": 70.50042724609375,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 3,
+      "success": false,
+      "steps": 1000,
+      "return": 68.95328521728516,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 4,
+      "success": false,
+      "steps": 1000,
+      "return": 90.6319580078125,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 5,
+      "success": false,
+      "steps": 1000,
+      "return": 70.38756561279297,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 6,
+      "success": false,
+      "steps": 1000,
+      "return": 73.20148468017578,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 7,
+      "success": false,
+      "steps": 1000,
+      "return": 68.41572570800781,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 8,
+      "success": false,
+      "steps": 1000,
+      "return": 67.06280517578125,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 9,
+      "success": false,
+      "steps": 1000,
+      "return": 80.26763916015625,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 10,
+      "success": false,
+      "steps": 1000,
+      "return": 89.68750762939453,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 11,
+      "success": false,
+      "steps": 1000,
+      "return": 84.7010498046875,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 12,
+      "success": false,
+      "steps": 1000,
+      "return": 71.21340942382812,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 13,
+      "success": false,
+      "steps": 1000,
+      "return": 72.37335968017578,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 14,
+      "success": false,
+      "steps": 1000,
+      "return": 75.72093200683594,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 15,
+      "success": false,
+      "steps": 1000,
+      "return": 70.02246856689453,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    }
+  ],
+  "protocol": "terminal_first_episode_v1",
+  "interface": "franka_shared_60_v2",
+  "recipe": "completion_v2",
+  "episode_length_s": 20.0,
+  "gravity": [
+    0,
+    0,
+    -9.81
+  ],
+  "agent_config_sha256": "11a81b461eaaba65725cd77d5a3f131308a44919c0179b47ae98e411bd7cf2fa",
+  "termination_counts": {
+    "time_out": 16,
+    "ee_ground_collision": 0,
+    "object_out_of_bounds": 0
+  },
+  "trace_dir": null,
+  "diagnostic_samples": [
+    {
+      "control_step": 0,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.07599999755620956,
+      "gripper_object_distance_mean": 0.5018200874328613,
+      "object_height_mean": 0.022600000724196434,
+      "gripper_action_mean": 0.3168690800666809,
+      "absolute_action_max": 0.9735816717147827,
+      "goal_error_mean": 0.0
+    },
+    {
+      "control_step": 10,
+      "active_episodes": 16,
+      "grasped_fraction": 0.0,
+      "aperture_mean": 0.02883889526128769,
+      "gripper_object_distance_mean": 0.23202969133853912,
+      "object_height_mean": 0.022538622841238976,
+      "gripper_action_mean": -0.4507406949996948,
+      "absolute_action_max": 0.9340929388999939,
+      "goal_error_mean": 0.29435792565345764
+    },
+    {
+      "control_step": 20,
+      "active_episodes": 16,
+      "grasped_fraction": 0.375,
+      "aperture_mean": 0.008129211142659187,
+      "gripper_object_distance_mean": 0.05182011052966118,
+      "object_height_mean": 0.02083352580666542,
+      "gripper_action_mean": -0.4618082642555237,
+      "absolute_action_max": 0.9490587115287781,
+      "goal_error_mean": 0.2950321435928345
+    },
+    {
+      "control_step": 30,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0023012887686491013,
+      "gripper_object_distance_mean": 0.0381515733897686,
+      "object_height_mean": 0.016805682331323624,
+      "gripper_action_mean": -0.30920174717903137,
+      "absolute_action_max": 0.9308597445487976,
+      "goal_error_mean": 0.29701149463653564
+    },
+    {
+      "control_step": 40,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0022685497533529997,
+      "gripper_object_distance_mean": 0.03731638938188553,
+      "object_height_mean": 0.01529325544834137,
+      "gripper_action_mean": -0.340579092502594,
+      "absolute_action_max": 0.927934467792511,
+      "goal_error_mean": 0.2975497245788574
+    },
+    {
+      "control_step": 50,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0021195162553340197,
+      "gripper_object_distance_mean": 0.036451537162065506,
+      "object_height_mean": 0.01456217747181654,
+      "gripper_action_mean": -0.2752987742424011,
+      "absolute_action_max": 0.9268865585327148,
+      "goal_error_mean": 0.2972326874732971
+    },
+    {
+      "control_step": 60,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0021904041059315205,
+      "gripper_object_distance_mean": 0.03587953746318817,
+      "object_height_mean": 0.014280200004577637,
+      "gripper_action_mean": -0.2122812420129776,
+      "absolute_action_max": 0.9273820519447327,
+      "goal_error_mean": 0.2966602146625519
+    },
+    {
+      "control_step": 70,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002107135485857725,
+      "gripper_object_distance_mean": 0.03569033741950989,
+      "object_height_mean": 0.0139271579682827,
+      "gripper_action_mean": -0.22148117423057556,
+      "absolute_action_max": 0.92950439453125,
+      "goal_error_mean": 0.29602688550949097
+    },
+    {
+      "control_step": 80,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0022488171234726906,
+      "gripper_object_distance_mean": 0.03544851392507553,
+      "object_height_mean": 0.014070399105548859,
+      "gripper_action_mean": -0.25937318801879883,
+      "absolute_action_max": 0.9269555807113647,
+      "goal_error_mean": 0.2952510118484497
+    },
+    {
+      "control_step": 90,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0018875482492148876,
+      "gripper_object_distance_mean": 0.0355079360306263,
+      "object_height_mean": 0.01430080458521843,
+      "gripper_action_mean": -0.20820526778697968,
+      "absolute_action_max": 0.9335303902626038,
+      "goal_error_mean": 0.2942522466182709
+    },
+    {
+      "control_step": 100,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001905423472635448,
+      "gripper_object_distance_mean": 0.035194266587495804,
+      "object_height_mean": 0.01404312252998352,
+      "gripper_action_mean": -0.23996929824352264,
+      "absolute_action_max": 0.9315431118011475,
+      "goal_error_mean": 0.2935214936733246
+    },
+    {
+      "control_step": 110,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002020996529608965,
+      "gripper_object_distance_mean": 0.035143572837114334,
+      "object_height_mean": 0.013815008103847504,
+      "gripper_action_mean": -0.23035266995429993,
+      "absolute_action_max": 0.9289183020591736,
+      "goal_error_mean": 0.29272305965423584
+    },
+    {
+      "control_step": 120,
+      "active_episodes": 16,
+      "grasped_fraction": 0.875,
+      "aperture_mean": 0.0017313744174316525,
+      "gripper_object_distance_mean": 0.035381752997636795,
+      "object_height_mean": 0.014412454329431057,
+      "gripper_action_mean": -0.25307875871658325,
+      "absolute_action_max": 0.9676053524017334,
+      "goal_error_mean": 0.2917700409889221
+    },
+    {
+      "control_step": 130,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0011811275035142899,
+      "gripper_object_distance_mean": 0.03494793176651001,
+      "object_height_mean": 0.013833506032824516,
+      "gripper_action_mean": -0.25373145937919617,
+      "absolute_action_max": 0.9333076477050781,
+      "goal_error_mean": 0.29085808992385864
+    },
+    {
+      "control_step": 140,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0013927563559263945,
+      "gripper_object_distance_mean": 0.034907788038253784,
+      "object_height_mean": 0.013892965391278267,
+      "gripper_action_mean": -0.27895817160606384,
+      "absolute_action_max": 0.9320162534713745,
+      "goal_error_mean": 0.29024890065193176
+    },
+    {
+      "control_step": 150,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0015344491694122553,
+      "gripper_object_distance_mean": 0.03480330482125282,
+      "object_height_mean": 0.01372561790049076,
+      "gripper_action_mean": -0.24708616733551025,
+      "absolute_action_max": 0.9370975494384766,
+      "goal_error_mean": 0.2894413471221924
+    },
+    {
+      "control_step": 160,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0016233664937317371,
+      "gripper_object_distance_mean": 0.03497287258505821,
+      "object_height_mean": 0.014044392853975296,
+      "gripper_action_mean": -0.279884397983551,
+      "absolute_action_max": 0.9401412606239319,
+      "goal_error_mean": 0.28862327337265015
+    },
+    {
+      "control_step": 170,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0016130136791616678,
+      "gripper_object_distance_mean": 0.035146549344062805,
+      "object_height_mean": 0.014178335666656494,
+      "gripper_action_mean": -0.2981477379798889,
+      "absolute_action_max": 0.9411389231681824,
+      "goal_error_mean": 0.28777503967285156
+    },
+    {
+      "control_step": 180,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0018077227286994457,
+      "gripper_object_distance_mean": 0.03516107797622681,
+      "object_height_mean": 0.014220472425222397,
+      "gripper_action_mean": -0.3235083818435669,
+      "absolute_action_max": 0.9368770718574524,
+      "goal_error_mean": 0.286791056394577
+    },
+    {
+      "control_step": 190,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.00178437284193933,
+      "gripper_object_distance_mean": 0.03533142805099487,
+      "object_height_mean": 0.014533169567584991,
+      "gripper_action_mean": -0.32631856203079224,
+      "absolute_action_max": 0.9389225244522095,
+      "goal_error_mean": 0.28580695390701294
+    },
+    {
+      "control_step": 200,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0019630284514278173,
+      "gripper_object_distance_mean": 0.03509670868515968,
+      "object_height_mean": 0.014757532626390457,
+      "gripper_action_mean": -0.35066139698028564,
+      "absolute_action_max": 0.942103922367096,
+      "goal_error_mean": 0.28463998436927795
+    },
+    {
+      "control_step": 210,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0021231574937701225,
+      "gripper_object_distance_mean": 0.035291291773319244,
+      "object_height_mean": 0.014561542309820652,
+      "gripper_action_mean": -0.3527843952178955,
+      "absolute_action_max": 0.9421844482421875,
+      "goal_error_mean": 0.28407546877861023
+    },
+    {
+      "control_step": 220,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0022771183867007494,
+      "gripper_object_distance_mean": 0.035421743988990784,
+      "object_height_mean": 0.014653565362095833,
+      "gripper_action_mean": -0.3408554196357727,
+      "absolute_action_max": 0.9411104917526245,
+      "goal_error_mean": 0.28308188915252686
+    },
+    {
+      "control_step": 230,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001863946788944304,
+      "gripper_object_distance_mean": 0.035489775240421295,
+      "object_height_mean": 0.014690445736050606,
+      "gripper_action_mean": -0.3105248212814331,
+      "absolute_action_max": 0.9426643252372742,
+      "goal_error_mean": 0.2820236086845398
+    },
+    {
+      "control_step": 240,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0022121404763311148,
+      "gripper_object_distance_mean": 0.035371750593185425,
+      "object_height_mean": 0.014519933611154556,
+      "gripper_action_mean": -0.3210422992706299,
+      "absolute_action_max": 0.9487817287445068,
+      "goal_error_mean": 0.2812451720237732
+    },
+    {
+      "control_step": 250,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002378706354647875,
+      "gripper_object_distance_mean": 0.03534959256649017,
+      "object_height_mean": 0.014959011226892471,
+      "gripper_action_mean": -0.3898031711578369,
+      "absolute_action_max": 0.9383527636528015,
+      "goal_error_mean": 0.2806049883365631
+    },
+    {
+      "control_step": 260,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002591946395114064,
+      "gripper_object_distance_mean": 0.03550834208726883,
+      "object_height_mean": 0.014960557222366333,
+      "gripper_action_mean": -0.3692662715911865,
+      "absolute_action_max": 0.9655548930168152,
+      "goal_error_mean": 0.2796672582626343
+    },
+    {
+      "control_step": 270,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002883723471313715,
+      "gripper_object_distance_mean": 0.03543185070157051,
+      "object_height_mean": 0.014896154403686523,
+      "gripper_action_mean": -0.34386444091796875,
+      "absolute_action_max": 0.9535638689994812,
+      "goal_error_mean": 0.27905094623565674
+    },
+    {
+      "control_step": 280,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00288970023393631,
+      "gripper_object_distance_mean": 0.03546689450740814,
+      "object_height_mean": 0.015066681429743767,
+      "gripper_action_mean": -0.3753410577774048,
+      "absolute_action_max": 0.9644518494606018,
+      "goal_error_mean": 0.27828672528266907
+    },
+    {
+      "control_step": 290,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0030376361683011055,
+      "gripper_object_distance_mean": 0.03572181612253189,
+      "object_height_mean": 0.015153607353568077,
+      "gripper_action_mean": -0.3592268228530884,
+      "absolute_action_max": 0.9524937272071838,
+      "goal_error_mean": 0.2774089574813843
+    },
+    {
+      "control_step": 300,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0009948357474058867,
+      "gripper_object_distance_mean": 0.03546317666769028,
+      "object_height_mean": 0.01468429621309042,
+      "gripper_action_mean": -0.3033820390701294,
+      "absolute_action_max": 0.960477352142334,
+      "goal_error_mean": 0.2767457962036133
+    },
+    {
+      "control_step": 310,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001163451699540019,
+      "gripper_object_distance_mean": 0.035242319107055664,
+      "object_height_mean": 0.014498097822070122,
+      "gripper_action_mean": -0.31930750608444214,
+      "absolute_action_max": 0.9463177919387817,
+      "goal_error_mean": 0.27618181705474854
+    },
+    {
+      "control_step": 320,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012768355663865805,
+      "gripper_object_distance_mean": 0.035088829696178436,
+      "object_height_mean": 0.01423952542245388,
+      "gripper_action_mean": -0.30422529578208923,
+      "absolute_action_max": 0.9513981938362122,
+      "goal_error_mean": 0.2756490111351013
+    },
+    {
+      "control_step": 330,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0014024730771780014,
+      "gripper_object_distance_mean": 0.03515917807817459,
+      "object_height_mean": 0.014283094555139542,
+      "gripper_action_mean": -0.3031355142593384,
+      "absolute_action_max": 0.9483978152275085,
+      "goal_error_mean": 0.2749469578266144
+    },
+    {
+      "control_step": 340,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0014840422663837671,
+      "gripper_object_distance_mean": 0.03513381630182266,
+      "object_height_mean": 0.014353068545460701,
+      "gripper_action_mean": -0.2796874940395355,
+      "absolute_action_max": 0.9439225792884827,
+      "goal_error_mean": 0.27419230341911316
+    },
+    {
+      "control_step": 350,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0015491489320993423,
+      "gripper_object_distance_mean": 0.03514312580227852,
+      "object_height_mean": 0.014290347695350647,
+      "gripper_action_mean": -0.25779229402542114,
+      "absolute_action_max": 0.9433005452156067,
+      "goal_error_mean": 0.2735557556152344
+    },
+    {
+      "control_step": 360,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0015659057535231113,
+      "gripper_object_distance_mean": 0.035113923251628876,
+      "object_height_mean": 0.014250881969928741,
+      "gripper_action_mean": -0.2804504334926605,
+      "absolute_action_max": 0.9437814354896545,
+      "goal_error_mean": 0.2729972004890442
+    },
+    {
+      "control_step": 370,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0015973430126905441,
+      "gripper_object_distance_mean": 0.03507749363780022,
+      "object_height_mean": 0.0143785635009408,
+      "gripper_action_mean": -0.3174310028553009,
+      "absolute_action_max": 0.9486828446388245,
+      "goal_error_mean": 0.2724199891090393
+    },
+    {
+      "control_step": 380,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0016228107269853354,
+      "gripper_object_distance_mean": 0.0350918248295784,
+      "object_height_mean": 0.014477069489657879,
+      "gripper_action_mean": -0.284243643283844,
+      "absolute_action_max": 0.9478288292884827,
+      "goal_error_mean": 0.2718197703361511
+    },
+    {
+      "control_step": 390,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0017151187639683485,
+      "gripper_object_distance_mean": 0.03507896512746811,
+      "object_height_mean": 0.01429144199937582,
+      "gripper_action_mean": -0.291633665561676,
+      "absolute_action_max": 0.9495767951011658,
+      "goal_error_mean": 0.2711344361305237
+    },
+    {
+      "control_step": 400,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0017879023216664791,
+      "gripper_object_distance_mean": 0.03521518409252167,
+      "object_height_mean": 0.01435043103992939,
+      "gripper_action_mean": -0.24639257788658142,
+      "absolute_action_max": 0.947335958480835,
+      "goal_error_mean": 0.27026963233947754
+    },
+    {
+      "control_step": 410,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0017981183482334018,
+      "gripper_object_distance_mean": 0.03509464114904404,
+      "object_height_mean": 0.014380760490894318,
+      "gripper_action_mean": -0.3007904589176178,
+      "absolute_action_max": 0.9489278197288513,
+      "goal_error_mean": 0.26976972818374634
+    },
+    {
+      "control_step": 420,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0018172375857830048,
+      "gripper_object_distance_mean": 0.03495195508003235,
+      "object_height_mean": 0.014476138167083263,
+      "gripper_action_mean": -0.3090662956237793,
+      "absolute_action_max": 0.9440765380859375,
+      "goal_error_mean": 0.2691453993320465
+    },
+    {
+      "control_step": 430,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001917059300467372,
+      "gripper_object_distance_mean": 0.03508481755852699,
+      "object_height_mean": 0.014460112899541855,
+      "gripper_action_mean": -0.28911593556404114,
+      "absolute_action_max": 0.9470782279968262,
+      "goal_error_mean": 0.26833027601242065
+    },
+    {
+      "control_step": 440,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001969947712495923,
+      "gripper_object_distance_mean": 0.03517239913344383,
+      "object_height_mean": 0.014579592272639275,
+      "gripper_action_mean": -0.31622764468193054,
+      "absolute_action_max": 0.9593120813369751,
+      "goal_error_mean": 0.26778531074523926
+    },
+    {
+      "control_step": 450,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.002036235062405467,
+      "gripper_object_distance_mean": 0.03506747633218765,
+      "object_height_mean": 0.014515732415020466,
+      "gripper_action_mean": -0.27221858501434326,
+      "absolute_action_max": 0.9623439908027649,
+      "goal_error_mean": 0.26709967851638794
+    },
+    {
+      "control_step": 460,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0022218977101147175,
+      "gripper_object_distance_mean": 0.035169169306755066,
+      "object_height_mean": 0.014578796923160553,
+      "gripper_action_mean": -0.2941132187843323,
+      "absolute_action_max": 0.9483210444450378,
+      "goal_error_mean": 0.26630333065986633
+    },
+    {
+      "control_step": 470,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.00275895232334733,
+      "gripper_object_distance_mean": 0.035529591143131256,
+      "object_height_mean": 0.014973955228924751,
+      "gripper_action_mean": -0.3198961019515991,
+      "absolute_action_max": 0.9851088523864746,
+      "goal_error_mean": 0.26528650522232056
+    },
+    {
+      "control_step": 480,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.001668825512751937,
+      "gripper_object_distance_mean": 0.036251507699489594,
+      "object_height_mean": 0.015010948292911053,
+      "gripper_action_mean": -0.31055158376693726,
+      "absolute_action_max": 0.9818450808525085,
+      "goal_error_mean": 0.26473498344421387
+    },
+    {
+      "control_step": 490,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012666495749726892,
+      "gripper_object_distance_mean": 0.03553975746035576,
+      "object_height_mean": 0.015104133635759354,
+      "gripper_action_mean": -0.3334965109825134,
+      "absolute_action_max": 0.9481776356697083,
+      "goal_error_mean": 0.26418423652648926
+    },
+    {
+      "control_step": 500,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012604529038071632,
+      "gripper_object_distance_mean": 0.03531179577112198,
+      "object_height_mean": 0.014505737461149693,
+      "gripper_action_mean": -0.29448801279067993,
+      "absolute_action_max": 0.9462044835090637,
+      "goal_error_mean": 0.26337674260139465
+    },
+    {
+      "control_step": 510,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012977803125977516,
+      "gripper_object_distance_mean": 0.0351623110473156,
+      "object_height_mean": 0.014706806279718876,
+      "gripper_action_mean": -0.3100704848766327,
+      "absolute_action_max": 0.9473293423652649,
+      "goal_error_mean": 0.2627490162849426
+    },
+    {
+      "control_step": 520,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012727132998406887,
+      "gripper_object_distance_mean": 0.03514498472213745,
+      "object_height_mean": 0.014462945982813835,
+      "gripper_action_mean": -0.305653840303421,
+      "absolute_action_max": 0.9503464102745056,
+      "goal_error_mean": 0.26213181018829346
+    },
+    {
+      "control_step": 530,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012667805422097445,
+      "gripper_object_distance_mean": 0.035094842314720154,
+      "object_height_mean": 0.014256013557314873,
+      "gripper_action_mean": -0.3143322765827179,
+      "absolute_action_max": 0.9406650066375732,
+      "goal_error_mean": 0.2614879608154297
+    },
+    {
+      "control_step": 540,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0012626855168491602,
+      "gripper_object_distance_mean": 0.03495926409959793,
+      "object_height_mean": 0.01443240325897932,
+      "gripper_action_mean": -0.29238587617874146,
+      "absolute_action_max": 0.9468861222267151,
+      "goal_error_mean": 0.26090291142463684
+    },
+    {
+      "control_step": 550,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0013154407497495413,
+      "gripper_object_distance_mean": 0.034860704094171524,
+      "object_height_mean": 0.01417163573205471,
+      "gripper_action_mean": -0.2856909930706024,
+      "absolute_action_max": 0.9480291604995728,
+      "goal_error_mean": 0.26022204756736755
+    },
+    {
+      "control_step": 560,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0013438316527754068,
+      "gripper_object_distance_mean": 0.03497331216931343,
+      "object_height_mean": 0.014352045021951199,
+      "gripper_action_mean": -0.31366389989852905,
+      "absolute_action_max": 0.9493757486343384,
+      "goal_error_mean": 0.25959059596061707
+    },
+    {
+      "control_step": 570,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0013731536455452442,
+      "gripper_object_distance_mean": 0.035095393657684326,
+      "object_height_mean": 0.014568711631000042,
+      "gripper_action_mean": -0.28737974166870117,
+      "absolute_action_max": 0.9472110867500305,
+      "goal_error_mean": 0.25918424129486084
+    },
+    {
+      "control_step": 580,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0013901602942496538,
+      "gripper_object_distance_mean": 0.03514287620782852,
+      "object_height_mean": 0.014712289907038212,
+      "gripper_action_mean": -0.33326154947280884,
+      "absolute_action_max": 0.9513161182403564,
+      "goal_error_mean": 0.2587438225746155
+    },
+    {
+      "control_step": 590,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00136281899176538,
+      "gripper_object_distance_mean": 0.034934379160404205,
+      "object_height_mean": 0.01437845267355442,
+      "gripper_action_mean": -0.2876831889152527,
+      "absolute_action_max": 0.9396871328353882,
+      "goal_error_mean": 0.25820788741111755
+    },
+    {
+      "control_step": 600,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0014238753356039524,
+      "gripper_object_distance_mean": 0.03491608798503876,
+      "object_height_mean": 0.014478560537099838,
+      "gripper_action_mean": -0.34979695081710815,
+      "absolute_action_max": 0.9469799399375916,
+      "goal_error_mean": 0.25758129358291626
+    },
+    {
+      "control_step": 610,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.001499735750257969,
+      "gripper_object_distance_mean": 0.034948259592056274,
+      "object_height_mean": 0.014405420050024986,
+      "gripper_action_mean": -0.3374664783477783,
+      "absolute_action_max": 0.9496878981590271,
+      "goal_error_mean": 0.257155179977417
+    },
+    {
+      "control_step": 620,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0015989241655915976,
+      "gripper_object_distance_mean": 0.0348316915333271,
+      "object_height_mean": 0.014472760260105133,
+      "gripper_action_mean": -0.3390583395957947,
+      "absolute_action_max": 0.9471766948699951,
+      "goal_error_mean": 0.25663334131240845
+    },
+    {
+      "control_step": 630,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.002146913204342127,
+      "gripper_object_distance_mean": 0.035152867436409,
+      "object_height_mean": 0.014733396470546722,
+      "gripper_action_mean": -0.35308384895324707,
+      "absolute_action_max": 0.9500864744186401,
+      "goal_error_mean": 0.256121426820755
+    },
+    {
+      "control_step": 640,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": -0.00018640165217220783,
+      "gripper_object_distance_mean": 0.03530792146921158,
+      "object_height_mean": 0.014229534193873405,
+      "gripper_action_mean": -0.23551681637763977,
+      "absolute_action_max": 0.9482066035270691,
+      "goal_error_mean": 0.2551127076148987
+    },
+    {
+      "control_step": 650,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0001612589694559574,
+      "gripper_object_distance_mean": 0.035303015261888504,
+      "object_height_mean": 0.014364328235387802,
+      "gripper_action_mean": -0.29839909076690674,
+      "absolute_action_max": 0.9491683840751648,
+      "goal_error_mean": 0.25470486283302307
+    },
+    {
+      "control_step": 660,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0002925699227489531,
+      "gripper_object_distance_mean": 0.03523173928260803,
+      "object_height_mean": 0.014534637331962585,
+      "gripper_action_mean": -0.3105052411556244,
+      "absolute_action_max": 0.9499849677085876,
+      "goal_error_mean": 0.2541501522064209
+    },
+    {
+      "control_step": 670,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00038520205998793244,
+      "gripper_object_distance_mean": 0.0353347584605217,
+      "object_height_mean": 0.014471370726823807,
+      "gripper_action_mean": -0.306233286857605,
+      "absolute_action_max": 0.9445645213127136,
+      "goal_error_mean": 0.2538757026195526
+    },
+    {
+      "control_step": 680,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005072808708064258,
+      "gripper_object_distance_mean": 0.035382382571697235,
+      "object_height_mean": 0.014599064365029335,
+      "gripper_action_mean": -0.29447296261787415,
+      "absolute_action_max": 0.9456037282943726,
+      "goal_error_mean": 0.2533262372016907
+    },
+    {
+      "control_step": 690,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": -0.0001697499246802181,
+      "gripper_object_distance_mean": 0.03541254997253418,
+      "object_height_mean": 0.014537332579493523,
+      "gripper_action_mean": -0.280914306640625,
+      "absolute_action_max": 0.9521542191505432,
+      "goal_error_mean": 0.2529170513153076
+    },
+    {
+      "control_step": 700,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": -0.00013440760085359216,
+      "gripper_object_distance_mean": 0.03546269237995148,
+      "object_height_mean": 0.014369905926287174,
+      "gripper_action_mean": -0.25545546412467957,
+      "absolute_action_max": 0.9410978555679321,
+      "goal_error_mean": 0.25267550349235535
+    },
+    {
+      "control_step": 710,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": -8.685674401931465e-05,
+      "gripper_object_distance_mean": 0.035214513540267944,
+      "object_height_mean": 0.01418752409517765,
+      "gripper_action_mean": -0.2689194083213806,
+      "absolute_action_max": 0.9495071172714233,
+      "goal_error_mean": 0.2524294853210449
+    },
+    {
+      "control_step": 720,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": -1.4180288417264819e-05,
+      "gripper_object_distance_mean": 0.03515828028321266,
+      "object_height_mean": 0.014247793704271317,
+      "gripper_action_mean": -0.2618696093559265,
+      "absolute_action_max": 0.9509277939796448,
+      "goal_error_mean": 0.25203201174736023
+    },
+    {
+      "control_step": 730,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 5.200676969252527e-05,
+      "gripper_object_distance_mean": 0.03508094698190689,
+      "object_height_mean": 0.014246813952922821,
+      "gripper_action_mean": -0.2506045997142792,
+      "absolute_action_max": 0.9461427330970764,
+      "goal_error_mean": 0.2516580820083618
+    },
+    {
+      "control_step": 740,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 9.590660920366645e-05,
+      "gripper_object_distance_mean": 0.03523167222738266,
+      "object_height_mean": 0.014223160222172737,
+      "gripper_action_mean": -0.283684641122818,
+      "absolute_action_max": 0.9494845867156982,
+      "goal_error_mean": 0.2512831389904022
+    },
+    {
+      "control_step": 750,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0001519357319921255,
+      "gripper_object_distance_mean": 0.03519551455974579,
+      "object_height_mean": 0.014333071187138557,
+      "gripper_action_mean": -0.2500973343849182,
+      "absolute_action_max": 0.9505330920219421,
+      "goal_error_mean": 0.2509254813194275
+    },
+    {
+      "control_step": 760,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00021003825531806797,
+      "gripper_object_distance_mean": 0.03522362560033798,
+      "object_height_mean": 0.01420759316533804,
+      "gripper_action_mean": -0.27469581365585327,
+      "absolute_action_max": 0.9517850875854492,
+      "goal_error_mean": 0.25055304169654846
+    },
+    {
+      "control_step": 770,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00028859038138762116,
+      "gripper_object_distance_mean": 0.03513189032673836,
+      "object_height_mean": 0.014142906293272972,
+      "gripper_action_mean": -0.26661035418510437,
+      "absolute_action_max": 0.9386547207832336,
+      "goal_error_mean": 0.2502165138721466
+    },
+    {
+      "control_step": 780,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00040055287536233664,
+      "gripper_object_distance_mean": 0.03526382893323898,
+      "object_height_mean": 0.014349604956805706,
+      "gripper_action_mean": -0.3003861606121063,
+      "absolute_action_max": 0.9512819051742554,
+      "goal_error_mean": 0.2500852346420288
+    },
+    {
+      "control_step": 790,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.00039349767030216753,
+      "gripper_object_distance_mean": 0.0351342111825943,
+      "object_height_mean": 0.01423900667577982,
+      "gripper_action_mean": -0.29067835211753845,
+      "absolute_action_max": 0.9529263973236084,
+      "goal_error_mean": 0.24968117475509644
+    },
+    {
+      "control_step": 800,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0004399000317789614,
+      "gripper_object_distance_mean": 0.03521626815199852,
+      "object_height_mean": 0.014191387221217155,
+      "gripper_action_mean": -0.29451224207878113,
+      "absolute_action_max": 0.9523930549621582,
+      "goal_error_mean": 0.24940748512744904
+    },
+    {
+      "control_step": 810,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0004851386183872819,
+      "gripper_object_distance_mean": 0.03513825684785843,
+      "object_height_mean": 0.01416500099003315,
+      "gripper_action_mean": -0.2956213653087616,
+      "absolute_action_max": 0.9519839286804199,
+      "goal_error_mean": 0.2491985559463501
+    },
+    {
+      "control_step": 820,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005461073596961796,
+      "gripper_object_distance_mean": 0.03513152152299881,
+      "object_height_mean": 0.0142823476344347,
+      "gripper_action_mean": -0.28651219606399536,
+      "absolute_action_max": 0.9468743801116943,
+      "goal_error_mean": 0.24886856973171234
+    },
+    {
+      "control_step": 830,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005688491510227323,
+      "gripper_object_distance_mean": 0.03521575778722763,
+      "object_height_mean": 0.01421394757926464,
+      "gripper_action_mean": -0.2767113447189331,
+      "absolute_action_max": 0.9515451192855835,
+      "goal_error_mean": 0.24851316213607788
+    },
+    {
+      "control_step": 840,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005859738448634744,
+      "gripper_object_distance_mean": 0.03504125773906708,
+      "object_height_mean": 0.014192666858434677,
+      "gripper_action_mean": -0.3111869692802429,
+      "absolute_action_max": 0.9524250626564026,
+      "goal_error_mean": 0.248386412858963
+    },
+    {
+      "control_step": 850,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005992082878947258,
+      "gripper_object_distance_mean": 0.03504002094268799,
+      "object_height_mean": 0.013999677263200283,
+      "gripper_action_mean": -0.28519028425216675,
+      "absolute_action_max": 0.9538998603820801,
+      "goal_error_mean": 0.24831163883209229
+    },
+    {
+      "control_step": 860,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.000580073450691998,
+      "gripper_object_distance_mean": 0.035098299384117126,
+      "object_height_mean": 0.014249235391616821,
+      "gripper_action_mean": -0.29623907804489136,
+      "absolute_action_max": 0.9507966041564941,
+      "goal_error_mean": 0.24808794260025024
+    },
+    {
+      "control_step": 870,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005914801731705666,
+      "gripper_object_distance_mean": 0.03503822162747383,
+      "object_height_mean": 0.013849465176463127,
+      "gripper_action_mean": -0.27869972586631775,
+      "absolute_action_max": 0.9415900111198425,
+      "goal_error_mean": 0.2478320598602295
+    },
+    {
+      "control_step": 880,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0006078379228711128,
+      "gripper_object_distance_mean": 0.03502746298909187,
+      "object_height_mean": 0.013787347823381424,
+      "gripper_action_mean": -0.27509742975234985,
+      "absolute_action_max": 0.9517263770103455,
+      "goal_error_mean": 0.24752438068389893
+    },
+    {
+      "control_step": 890,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0005839073564857244,
+      "gripper_object_distance_mean": 0.03694140911102295,
+      "object_height_mean": 0.014806890860199928,
+      "gripper_action_mean": -0.29307329654693604,
+      "absolute_action_max": 0.9515029191970825,
+      "goal_error_mean": 0.24598544836044312
+    },
+    {
+      "control_step": 900,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0014979596016928554,
+      "gripper_object_distance_mean": 0.035212256014347076,
+      "object_height_mean": 0.014456644654273987,
+      "gripper_action_mean": -0.29914727807044983,
+      "absolute_action_max": 0.955569863319397,
+      "goal_error_mean": 0.24760478734970093
+    },
+    {
+      "control_step": 910,
+      "active_episodes": 16,
+      "grasped_fraction": 0.9375,
+      "aperture_mean": 0.0010484660742804408,
+      "gripper_object_distance_mean": 0.03586435690522194,
+      "object_height_mean": 0.014661239460110664,
+      "gripper_action_mean": -0.2852276563644409,
+      "absolute_action_max": 0.9436137676239014,
+      "goal_error_mean": 0.24659442901611328
+    },
+    {
+      "control_step": 920,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0005526834283955395,
+      "gripper_object_distance_mean": 0.03533415496349335,
+      "object_height_mean": 0.014476943761110306,
+      "gripper_action_mean": -0.31950342655181885,
+      "absolute_action_max": 0.953201949596405,
+      "goal_error_mean": 0.24662458896636963
+    },
+    {
+      "control_step": 930,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0006121927872300148,
+      "gripper_object_distance_mean": 0.03518407791852951,
+      "object_height_mean": 0.014259773306548595,
+      "gripper_action_mean": -0.30221426486968994,
+      "absolute_action_max": 0.9427242875099182,
+      "goal_error_mean": 0.24627092480659485
+    },
+    {
+      "control_step": 940,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0006952349795028567,
+      "gripper_object_distance_mean": 0.035200536251068115,
+      "object_height_mean": 0.014249213971197605,
+      "gripper_action_mean": -0.2812180817127228,
+      "absolute_action_max": 0.9496004581451416,
+      "goal_error_mean": 0.24606217443943024
+    },
+    {
+      "control_step": 950,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0007324176258407533,
+      "gripper_object_distance_mean": 0.03509356826543808,
+      "object_height_mean": 0.014400243759155273,
+      "gripper_action_mean": -0.3033837676048279,
+      "absolute_action_max": 0.9553276300430298,
+      "goal_error_mean": 0.2458372414112091
+    },
+    {
+      "control_step": 960,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0007543538231402636,
+      "gripper_object_distance_mean": 0.03493230417370796,
+      "object_height_mean": 0.013995904475450516,
+      "gripper_action_mean": -0.29709404706954956,
+      "absolute_action_max": 0.9565383195877075,
+      "goal_error_mean": 0.24544019997119904
+    },
+    {
+      "control_step": 970,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.0007483753724955022,
+      "gripper_object_distance_mean": 0.03494416922330856,
+      "object_height_mean": 0.014025524258613586,
+      "gripper_action_mean": -0.3190755844116211,
+      "absolute_action_max": 0.956308126449585,
+      "goal_error_mean": 0.24549496173858643
+    },
+    {
+      "control_step": 980,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.000784622214268893,
+      "gripper_object_distance_mean": 0.03497893363237381,
+      "object_height_mean": 0.014074273407459259,
+      "gripper_action_mean": -0.3146931827068329,
+      "absolute_action_max": 0.9551689624786377,
+      "goal_error_mean": 0.24531666934490204
+    },
+    {
+      "control_step": 990,
+      "active_episodes": 16,
+      "grasped_fraction": 1.0,
+      "aperture_mean": 0.000839104934129864,
+      "gripper_object_distance_mean": 0.03474365174770355,
+      "object_height_mean": 0.014078065752983093,
+      "gripper_action_mean": -0.28624123334884644,
+      "absolute_action_max": 0.9579702019691467,
+      "goal_error_mean": 0.24533985555171967
+    }
+  ]
+}
