@@ -4,6 +4,8 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
+from functools import partial
 import os
 from pathlib import Path
 import re
@@ -34,6 +36,7 @@ def main():
     default=KEY_FILE,
   )
   parser.add_argument("--resume-checkpoint", type=Path)
+  parser.add_argument("--resume-gripper-std", type=float, help="Explicit gripper-only exploration reset after checkpoint load")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -42,6 +45,8 @@ def main():
     parser.error("--run-id must be a single directory name")
   if args.num_envs < 1 or args.iterations < 1:
     parser.error("environment and iteration counts must be positive")
+  if args.resume_gripper_std is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_std) or args.resume_gripper_std <= 0):
+    parser.error("--resume-gripper-std requires a resume checkpoint and a finite positive value")
   if not args.dry_run:
     try:
       configure(args.wandb_entity, args.wandb_project, args.wandb_api_key_file, args.wandb_offline)
@@ -98,12 +103,14 @@ def main():
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,
       "resume_checkpoint": str(checkpoint) if checkpoint else None,
+      "resume_gripper_std": args.resume_gripper_std,
       "resume_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest() if checkpoint else None,
       "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration." if checkpoint else "Fresh policy",
     }
     (run / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     try:
-      run_train(args.task, cfg, run, runner_cls_override=TeacherRunner)
+      runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std)
+      run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys
       import wandb

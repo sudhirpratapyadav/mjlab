@@ -48,8 +48,6 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**10/24 certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap and Lever. Inspect evidence/*-certificate.json for authoritative retained checkpoints, counts and W&B URLs. Push's latest policy achieved126/128 +125/128; the native position-only predicate allows moving endpoints, explicitly recorded in its review.
+**13/24 independent PPO RL teachers certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window, Axial and Valve. Valve model1999 measured127/128 validation +128/128 confirmation; actual rotation and its ground-collision failure were reviewed; retained artifact uploaded.
 
-Seven active teachers use GPUs1–7 respectively: Lift V3, Reorient V3, Axial, Lid, Cage, Valve and Window. Manifests are in training_wave4/5.json. No GPU0 use. Lift/Reorient bounded policies now approach within about4cm with low action saturation; Cage initially reaches valid caging in most training environments. These are learning diagnostics, not certified success. Let the recorded budgets run while preparing the remaining tasks.
-
-Still requiring first-pilot readiness: Edge, Pivot, Stack, Place, Peg, Strike and Throw. Preserve actual release/support/settling and task-history predicates; improve only training reward/PPO unless a new benchmark is deliberately authorized. Full24-task goal is active. Physics, success and60D/8D interface remain fixed, with Tool-Pull deferred. Update records and W&B after each measured result.
+Active: Stack GPU3 step1704, Peg GPU4 step1714, Cage retry GPU5 step1716, Lid retry GPU6 step1717, Place GPU7 step1705. Reorient R4 stopped on nonfinite simulator state at iteration1970; policy parameters finite, model1900 under diagnostic evaluation onGPU2. Lift final V3 strict0/128 with no sampled two-pad grasp; closure/exploration retry is next. Edge/Pivot/Strike/Throw still need first-pilot readiness. GPU0 remains unused. Full24-task goal is active.

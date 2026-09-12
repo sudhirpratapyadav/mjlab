@@ -101,7 +101,14 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
             "object_height_mean": float((pos[:,2]-env.scene.env_origins[:,2])[active].mean()),
             "gripper_action_mean": float(action[active,-1].mean()),
             "absolute_action_max": float(action[active].abs().max()),
+            "goal_error_mean": float(command.metrics["goal_error"][active].mean()),
           })
+          if hasattr(command,"min_aperture"):
+            diagnostic_samples[-1].update({
+              "minimum_episode_aperture": float(command.min_aperture[active].min()),
+              "caged_fraction": float(command.metrics["caged"][active].mean()),
+              "caged_progress_mean": float(command.caged_progress[active].mean()),
+            })
         obs, reward, done, _ = wrapped.step(action)
       active = ~finished
       steps[active] += 1

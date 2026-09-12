@@ -41,22 +41,26 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 | RL-012 | Turn-Lever | Apply validated mechanism approach/goal recipe | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU6 | Certified | model1000 strict128/128 +128/128; physical downward lever rotation reviewed; stopped own step1662 after retention. |
 
 | PREFLIGHT-BOUNDED-001 | Cage/Lift/Reorient | Validate bounded Gaussian means and open-gripper initialization | 64 environments × 200 steps each; then 3 guarded PPO updates | Complete | 48 tests; three200-step physical cases finite; Cage min aperture0.076m >0.06949m; three guarded PPO updates and strict checkpoint reload passed. |
-| RL-005-V3 | Reorient | Recover from saturated, ground-colliding V2 policy | reorient_v2, 2,048 environments × 2,000 updates, seed20260912, GPU2 | Running | Fresh reorient_v2 on GPU2; actual grasp-gated end-face/lift/upright reward; fixed benchmark. |
-| RL-002-V3 | Lift | Test bounded-mean policy and gentler exploration | lift_v2, 2,048 environments × 2,000 updates, seed20260912, GPU1 | Running | Fresh lift_v2 on GPU1; same grasp reward as previous variant, bounded mean and gentler PPO. |
-| RL-013 | Cage-Drag | Keep initial exploration valid and reward actual open-cage transport | cage_v1, 1,024 environments × 1,500 updates, seed20260912, GPU5 | Running | Fresh cage_v1 on GPU5; normalizer/mean/std/config recorded in manifest. |
+| RL-005-V3 | Reorient | Recover from saturated, ground-colliding V2 policy | reorient_v2, 2,048 environments × 2,000 updates, seed20260912, GPU2 | Paused for revised reward | Stopped own step1675; model1500 resumed inR4. |
+| RL-002-V3 | Lift | Test bounded-mean policy and gentler exploration | lift_v2, 2,048 environments × 2,000 updates, seed20260912, GPU1 | Complete; rejected | model1999 strict0/128; no sampled two-pad grasp. |
+| RL-013 | Cage-Drag | Keep initial exploration valid and reward actual open-cage transport | cage_v1, 1,024 environments × 1,500 updates, seed20260912, GPU5 | Complete; rejected | model1499 strict0/128;97.7% final caging, negligible transport. |
 
 | RL-014 | Slide-Window | Learn the remaining slide mechanism | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU7 | Certified | 128/128 validation and128/128 independent confirmation; actual recorded motion reviewed; checkpoint/normalizers/video retained. |
-| RL-015 | Open-Lid | Learn lid approach and rotation | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU4 | Running | Fresh policy after Flap certification; registered gravity preserved |
-| RL-016 | Rotate-Valve | Learn large-angle valve rotation | mechanism_v1, 1,024 environments × 2,000 updates, seed20260912, GPU6 | Running | Fresh policy after Lever certification;8-second horizon and zero gravity preserved |
+| RL-015 | Open-Lid | Learn lid approach and rotation | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU4 | Complete; rejected | model1499 strict0/128, alltimeouts. |
+| RL-016 | Rotate-Valve | Learn large-angle valve rotation | mechanism_v1, 1,024 environments × 2,000 updates, seed20260912, GPU6 | Certified | model1999:127/128 +128/128; videos reviewed and artifact retained. |
 | RL-017 | Axial-Extract | Learn plug approach and extraction | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU3 | Certified | 128/128 validation and128/128 independent confirmation; actual recorded motion reviewed; checkpoint/normalizers/video retained. |
 
-| PREFLIGHT-COMPLETE-001 | Stack/Place/Peg | Check safe grasp geometry, release incentive and finite physics | 53 focused CPU tests;32 environments ×100 steps each;3 PPO updates | Physics passed; PPO next | 53 CPU tests passed; Stack/Place/Peg each32 environments ×100 steps finite. Peg initial grasp height0.070m (upper body). |
-| RL-018 | Stack-Cube | Learn grasp/transport/released supported completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU3 | Prepared | Fresh bounded policy, gripper mean0.5/std0.1; physical and PPO preflight before launch |
-| RL-019 | Place-In-Container | Learn grasp/transport/released contained completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU7 | Prepared | Strict completion uses native full-object containment, support contact and settling |
-| RL-020 | Peg-Insertion | Grasp upper peg body, align, seat and release | completion_v2,2,048 environments ×3,000 updates, seed20260912 | Prepared | Native upright square-bore fit and release/settling requirements remain; GPU assigned when available |
+| PREFLIGHT-COMPLETE-001 | Stack/Place/Peg | Check safe grasp geometry, release incentive and finite physics | 53 focused CPU tests;32 environments ×100 steps each;3 PPO updates | Complete | Physics/PPO passed; smooth closure revision separately checked before full pilots. |
+| RL-018 | Stack-Cube | Learn grasp/transport/released supported completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU3 | Running | completion_v2 GPU3 step1704. |
+| RL-019 | Place-In-Container | Learn grasp/transport/released contained completion | completion_v2,2,048 environments ×2,500 updates, seed20260912, GPU7 | Running | completion_v2 GPU7 step1705. |
+| RL-020 | Peg-Insertion | Grasp upper peg body, align, seat and release | completion_v2,2,048 environments ×3,000 updates, seed20260912, GPU4 | Running | completion_v2 GPU4 step1714. |
 
-| PREFLIGHT-CLOSURE-002 | Stack/Place/Peg/Reorient | Remove the hard35mm closure-reward discontinuity | Monotonicity test;32 environments ×100 steps;3 guarded PPO updates | Prepared | Old recipe names preserve previous behavior; new completion_v2/reorient_v3 use a continuous closure incentive |
-| RL-005-R4 | Reorient | Escape the verified approach/closure reward cliff | reorient_v3,2,048 environments ×1,500 additional updates, seed20260912, GPU2 | Prepared | Resume own finite V3 checkpoint after smooth-reward preflight; policy architecture and benchmark unchanged |
+| PREFLIGHT-CLOSURE-002 | Stack/Place/Peg/Reorient | Remove the hard35mm closure-reward discontinuity | Monotonicity test;32 environments ×100 steps;3 guarded PPO updates | Complete | 58 tests; revised physical and PPO preflights finite. |
+| RL-005-R4 | Reorient | Escape the verified approach/closure reward cliff | reorient_v3,2,048 environments ×1,500 additional updates, seed20260912, GPU2 | Stopped by numerical guard | One lane nonfinite qpos/qvel at1970; model1900 debug evaluation pending. |
+
+| PREFLIGHT-TRANSPORT-003 | Cage/Lid | Verify targeted transport and hinge-progress retries | Three resumed guarded PPO updates on64 environments each | Complete | 61 tests; both resumed64-env PPO preflights3 finite updates. |
+| RL-013-R2 | Cage-Drag | Escape stationary valid caging | cage_v2,1,024 environments ×2,000 additional updates, seed20260912, GPU5 | Running | GPU5 step1716; own model1499. |
+| RL-015-R2 | Open-Lid | Learn a grasp and useful opening before the narrow goal reward | lid_v1,1,024 environments ×1,500 additional updates, seed20260912 | Running | GPU6 step1717; own model1499. |
 
 ## Run record template
 
@@ -65,3 +69,9 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 - Checkpoint and normalizer path/hash, losses, reward components, action saturation, termination counts, throughput and measured GPU memory.
 - Strict successes/trials, evaluation seeds, deterministic/stochastic policy mode, episode budget, first-episode accounting, videos.
 - Decision: retain/reject/continue, why, and next experiment. A teacher is certified only by the GOAL.md criterion.
+
+| PREFLIGHT-LIFT-CLOSURE-004 | Lift | Validate stronger closure and gripper-only exploration reset | lift_v3, resume ownV3/model1999, gripper std0.2,64 environments ×3 updates, GPU1 | Prepared |62 tests passed; arm policy/critic/normalizers/other std and optimizer moments preserved by targeted reset test |
+| RL-002-R4 | Lift | Learn actual contact from successful approach | lift_v3, ownV3/model1999, gripper std0.2,2048 environments ×2000 additional updates, seed20260912, GPU1 | Prepared | Closure weight0.5→2; explicit std reset widens closure exploration; native success/physics/60D/8D unchanged |
+
+| PREFLIGHT-REORIENT-CLOSURE-005 | Reorient | Check stronger smooth closure and gripper std reset | reorient_v4, ownR4/model1900, gripper std0.25,64 environments ×3 updates, GPU2 | Prepared | Debug model1900 scored0/16, no actual grasp; contact bonus also increased so grasp dominates noncontact closure |
+| RL-005-R5 | Reorient | Learn end-face closure from finite own approach policy | reorient_v4, ownR4/model1900, gripper std0.25,2048 environments ×2000 additional updates, seed20260912, GPU2 | Prepared | Archive previous numerical failure; stronger monotone closure and true grasp, same physics/interface |

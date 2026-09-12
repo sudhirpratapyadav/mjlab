@@ -1,6 +1,8 @@
 # Status — RL teachers
 
-Checked 2026-09-12. **12/24 certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window and Axial. All have retained W&B artifacts and two passing held-out batches with video review. Lift/Reorient/Cage/Lid/Valve continue training. Stack/Place/Peg completion recipes passed53 CPU tests and three real-physics preflights; a short PPO test precedes full pilots. GPUs3/7 currently handle preflight/diagnostics; GPU0 remains unused.
+Checked2026-09-12. **13/24 independent PPO RL teachers certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window, Axial and Valve. Valve model1999 measured127/128 validation +128/128 confirmation; actual rotation and its ground-collision failure were reviewed; retained artifact uploaded.
+
+Active: Stack GPU3 step1704, Peg GPU4 step1714, Cage retry GPU5 step1716, Lid retry GPU6 step1717, Place GPU7 step1705. Reorient R4 stopped on nonfinite simulator state at iteration1970; policy parameters finite, model1900 under diagnostic evaluation onGPU2. Lift final V3 strict0/128 with no sampled two-pad grasp; closure/exploration retry is next. Edge/Pivot/Strike/Throw still need first-pilot readiness. GPU0 remains unused. Full24-task goal is active.
 
 ## Readiness
 
@@ -26,25 +28,25 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | Training first pilot | Not measured | Open-gripper prior verified above no-pinch threshold; all8 action dimensions learnable; GPU5. |
+| Cage-Drag | 4 | on | Training retry | 0/128 first pilot | cage_v2 resumes1499 onGPU5; guide valid-cage transport. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Needs preparation | Not measured | Reward useful edge exposure before grasp/lift. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | Training bounded-policy variant | 0/128 baseline and V2 | Fresh lift_v2 on GPU1; configured-pose initialization, lower LR/exploration. |
+| Lift-Cube | 20 | on | Preparing retry | 0/128 final V3 | No sampled two-pad grasp; final aperture0.05514m and distance0.00728m. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
-| Open-Lid | 5 | on | Training first pilot | Not measured | mechanism_v1, GPU4; registered gravity preserved. |
-| Peg-Insertion | 20 | on | PPO preflight | Not measured | Safe upper-body grasp target; native square-bore fit and released/settled completion preserved. |
+| Open-Lid | 5 | on | Training retry | 0/128 first pilot | lid_v1 resumes1499 onGPU6; closure/contact and hinge progress. |
+| Peg-Insertion | 20 | on | Training first pilot | Not measured | completion_v2 onGPU4; native square-bore fit unchanged. |
 | Pivot-Lift | 6 | on | Needs preparation | Not measured | Reward wall-assisted pivot/capture; hidden history is a compact-state risk. |
-| Place-In-Container | 20 | on | PPO preflight | Not measured | Native full-object containment and released support receive dominant completion incentive. |
+| Place-In-Container | 20 | on | Training first pilot | Not measured | completion_v2 onGPU7; native released/contained/settled completion. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Training bounded-policy variant | 0/128 baseline and V2 | V2 ground collision after8 steps diagnosed; fresh end-face reward/policy on GPU2. |
-| Rotate-Valve | 8 | off | Training first pilot | Not measured | mechanism_v1, GPU6;2,000 updates, registered8-second horizon. |
+| Reorient-Object | 20 | on | Diagnosing stopped R4 | 0/128 earlier variants | One simulator lane nonfinite at1970; finite model1900 under debug evaluation. |
+| Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
-| Stack-Cube | 20 | on | PPO preflight | Not measured | completion_v1 rewards actual release/support/settling; CPU and physics checks passed. |
+| Stack-Cube | 20 | on | Training first pilot | Not measured | completion_v2 onGPU3; smooth closure and native completion incentive. |
 | Strike-Slide | 4 | on | Needs preparation | Not measured | Dynamic task under compact state; tune speed penalties and horizon. |
 | Throw-To-Bin | 5 | on | Needs preparation | Not measured | Place-style shaping lacks launch/release stages; tune speed penalty. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |

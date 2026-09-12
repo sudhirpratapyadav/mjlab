@@ -1,14 +1,31 @@
 """PPO diagnostics that stop at the first nonfinite rollout or optimizer update."""
 
 import json
+import math
 from pathlib import Path
 
 import torch
 from rsl_rl.runners import OnPolicyRunner
 
 
+def reset_gripper_exploration(policy, optimizer, std):
+  """Change only the eighth action's exploration and its Adam moments."""
+  if not math.isfinite(std) or std <= 0:
+    raise ValueError("Gripper exploration std must be finite and positive")
+  parameter = policy.log_std if policy.noise_std_type == "log" else policy.std
+  if parameter.shape != (8,):
+    raise ValueError("Expected the approved eight-action policy")
+  with torch.no_grad():
+    parameter[-1] = math.log(std) if policy.noise_std_type == "log" else std
+    for name in ("exp_avg", "exp_avg_sq", "max_exp_avg_sq"):
+      moment = optimizer.state.get(parameter, {}).get(name)
+      if moment is not None:
+        moment[-1] = 0
+
+
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, **kwargs):
+    self.resume_gripper_std = resume_gripper_std
     super().__init__(*args, **kwargs)
     original_step = self.env.step
     original_update = self.alg.update
@@ -71,3 +88,9 @@ class TeacherRunner(OnPolicyRunner):
     self.env.step = checked_step
     self.alg.update = checked_update
     self.logger.log = log_with_diagnostics
+
+  def load(self, path, load_optimizer=True, map_location=None):
+    infos = super().load(path, load_optimizer=load_optimizer, map_location=map_location)
+    if self.resume_gripper_std is not None:
+      reset_gripper_exploration(self.alg.policy, self.alg.optimizer, self.resume_gripper_std)
+    return infos

@@ -109,3 +109,13 @@ Preserved old recipe behavior and added reorient_v3/completion_v2 with a monoton
 58 focused tests passed after preserving old recipe behavior and adding completion_v2/reorient_v3. The revised three-task physics preflight is finite; three guarded PPO updates succeeded for both the revised Stack recipe and Reorient recipe. New evidence remains separate from the earlier hard-switch preflight.
 
 Stopped only Reorient V3 step1675 after verifying finite model1500; its recorded mean policy has no grasps in the debug batch and the reward cliff makes continued training under that recipe unattractive. Prepared a1,500-additional-update continuation from its own model1500 with reorient_v3, preserving policy/optimizer/normalizers and the benchmark. Stack and Place full pilots use completion_v2. Cage and Lid finished their budgets with zero training success; final checkpoints will be evaluated and diagnosed without assuming certification.
+
+## 2026-09-12 — Thirteen RL teachers and diagnosed retries
+
+Previous goal turn verified live Stack/Place/Peg and W&B. Valve model1999 strict127/128 +128/128 certified after actual success/failure review: red handle rotates toward vertical marker and stays there through8s; sole validation failure ends with fingers on ground at2.74s, correctly rejected. Teacher/normalizers/configs/videos uploaded.13/24 independently trained PPO RL teachers certified.
+
+Lift V3 final strict0/128; no sampled two-pad grasp. Final aperture0.055137m, distance0.007280m, gripper action0.329568. Recorded failure reaches the cube but remains on floor through20s. Next intervention targets stronger closure and an explicitly recorded gripper-only exploration reset; not yet launched.
+
+Cage first pilot strict0/128,97.7% final caging but negligible transport. Lid first pilot strict0/128, alltimeouts. Both revisions passed3 resumed guarded PPO updates and61 CPU tests. Launched Cage cage_v2 GPU5 step1716 and Lid lid_v1 GPU6 step1717. Exact new manifests in training_wave6.json.
+
+Reorient R4 stopped automatically at1970: nonfinite qpos12 entries/qvel15 only in environment64, policy parameters finite. Last saved model1900 under16-episode debug evaluation seed20260913 onGPU2. Numerical diagnostic archived; no benchmark physics changes. Stack/Place/Peg remain live; GPU0 unused.

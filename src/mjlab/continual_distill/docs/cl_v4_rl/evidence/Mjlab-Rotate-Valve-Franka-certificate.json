@@ -1,0 +1,65 @@
+{
+  "task": "Mjlab-Rotate-Valve-Franka",
+  "certified_utc": "2026-09-12T17:33:37.775037+00:00",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Rotate-Valve-Franka/model.pt",
+  "checkpoint_sha256": "f0ead9a58462db1428768f7842c356ae8f60d58590fe42348306f745c5e0ebd4",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Rotate-Valve-Franka/normalizers.pt",
+  "normalizers_sha256": "00bd9cf4c90400f2895b5db0329b4dab27312e88888670cfbc21d967a0e05a35",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 127,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-016-m1999-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 128,
+    "episodes": 128,
+    "seed": 20260915,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-016-m1999-confirm-20260915.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Rotate-Valve-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-016-m1999/success.mp4",
+      "outcome": {
+        "env_id": 50,
+        "success": true,
+        "steps": 400,
+        "return": 21.253864288330078,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 200,
+      "fps": 25,
+      "simulation_seconds": 8.0,
+      "encoded_seconds": 8.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    },
+    "failure": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-016-m1999/failure.mp4",
+      "outcome": {
+        "env_id": 30,
+        "success": false,
+        "steps": 137,
+        "return": 2.6726455688476562,
+        "reason": "terminated",
+        "termination_terms": [
+          "ee_ground_collision"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 69,
+      "fps": 25,
+      "simulation_seconds": 2.74,
+      "encoded_seconds": 2.76,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/hiq79ssh",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Rotate-Valve-Franka-teacher:v0"
+}

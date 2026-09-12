@@ -2,7 +2,9 @@
 
 ## Current state
 
-Ten teachers are certified; seven are training with pre-recorded budgets on GPUs1–7. Seven tasks still need first-pilot readiness. See STATUS.md and EXPERIMENTS.md for the authoritative per-task state. GPU0 must remain unused. The full24-task target is unchanged.
+**13/24 independent PPO RL teachers certified:** Reach, Topple, Button, Drawer, Drag, Flip, Door, Push-Cuboid, Flap, Lever, Window, Axial and Valve. Valve model1999 measured127/128 validation +128/128 confirmation; actual rotation and its ground-collision failure were reviewed; retained artifact uploaded.
+
+Active: Stack GPU3 step1704, Peg GPU4 step1714, Cage retry GPU5 step1716, Lid retry GPU6 step1717, Place GPU7 step1705. Reorient R4 stopped on nonfinite simulator state at iteration1970; policy parameters finite, model1900 under diagnostic evaluation onGPU2. Lift final V3 strict0/128 with no sampled two-pad grasp; closure/exploration retry is next. Edge/Pivot/Strike/Throw still need first-pilot readiness. GPU0 remains unused. Full24-task goal is active.
 
 ## Fixed evaluation and retention gate
 
@@ -12,13 +14,13 @@ The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both
 
 ## Active training and next evaluations
 
-- GPU1: fresh bounded-policy Lift V3,2,048 environments ×2,000 updates.
-- GPU2: fresh bounded-policy Reorient V3,2,048 ×2,000, end-face/grasp/lift/orientation reward.
-- GPU3: Axial-Extract mechanism pilot,1,024 ×1,500.
-- GPU4: Open-Lid mechanism pilot,1,024 ×1,500.
-- GPU5: Cage-Drag first pilot,1,024 ×1,500, open-gripper initialization and caged-transport reward.
-- GPU6: Rotate-Valve mechanism pilot,1,024 ×2,000.
-- GPU7: Slide-Window mechanism pilot,1,024 ×1,500.
+- GPU1: prepare Lift closure/exploration retry after final V3 strict0/128.
+- GPU2: diagnose finite Reorient model1900 following simulator numerical failure.
+- GPU3: Stack completion_v2,2048 environments ×2500 updates.
+- GPU4: Peg completion_v2,2048 ×3000 updates.
+- GPU5: Cage cage_v2,1024 ×2000 additional updates from own1499.
+- GPU6: Lid lid_v1,1024 ×1500 additional updates from own1499.
+- GPU7: Place completion_v2,2048 ×2500 updates.
 
 Inspect meaningful learning progress and numerical diagnostics; evaluate saved candidates when evidence warrants it. Check actual checkpoints and process state before invoking evaluation or reusing a GPU. Stop only this experiment's exact Slurm step after checkpoint retention, or when diagnosing a verified failure. Never cancel holder20277 or another person's jobs.
 

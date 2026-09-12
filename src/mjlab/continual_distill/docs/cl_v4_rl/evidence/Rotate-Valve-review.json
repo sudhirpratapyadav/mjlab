@@ -1,0 +1,13 @@
+{
+  "verdict": "pass",
+  "task": "Mjlab-Rotate-Valve-Franka",
+  "checkpoint_sha256": "f0ead9a58462db1428768f7842c356ae8f60d58590fe42348306f745c5e0ebd4",
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0100.png",
+    "success-0199.png",
+    "failure-0000.png",
+    "failure-0068.png"
+  ],
+  "observations": "Actual recorded states show the red valve handle rotating from horizontal toward the vertical target marker and remaining there through the terminal frame. The sole validation failure ends with the fingers at the ground and an ee_ground_collision termination, correctly rejected. Clips represent first uninterrupted episodes; no resimulation. Validation 127/128; independent confirmation 128/128."
+}

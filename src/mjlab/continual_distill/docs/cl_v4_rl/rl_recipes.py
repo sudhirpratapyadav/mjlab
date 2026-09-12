@@ -5,7 +5,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped,
 from mjlab.utils.lab_api.math import quat_apply
 import torch
 
-RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "reorient_v3", "cage_v1", "completion_v1", "completion_v2")
+RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -25,14 +25,14 @@ def grasp_components(env, command_name, object_asset_name="object", **kwargs):
   return command, obj, approach, closing, held
 
 
-def lift_grasp_reward(env, command_name, object_asset_name="object", **kwargs):
+def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, **kwargs):
   command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
   lift = ((height-0.02)/0.10).clamp(0,1)*held
   goal_error = torch.linalg.vector_norm(tracking_goal(command)-tracking_position(obj),dim=-1)
   goal = torch.exp(-goal_error/0.12)*held
-  return approach + 0.5*closing + 2*held + 3*lift + 5*goal
+  return approach + closure_weight*closing + 2*held + 3*lift + 5*goal
 
 
 def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwargs):
@@ -64,7 +64,7 @@ def apply_recipe(cfg, recipe):
   cfg.agent.algorithm.gamma = 0.995
   # Freeze the initial regularization for learning beyond the old 1000/1500
   # update boundaries instead of abruptly increasing it by 10x and 100x.
-  if recipe == "mechanism_v1":
+  if recipe in ("mechanism_v1", "lid_v1"):
     reach = cfg.env.rewards["reach_object"]
     if reach.func is not articulation_task_reward:
       raise ValueError("mechanism_v1 requires an articulation task")
@@ -74,25 +74,35 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards["no_object_collision"].weight = 0.0
     cfg.env.rewards["action_rate_l2"].weight = -0.005
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
-  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "reorient_v3"):
+    if recipe == "lid_v1":
+      if reach.params["command_name"] != "open_lid":
+        raise ValueError("lid_v1 requires Open-Lid")
+      reach.func = lid_grasp_progress_reward
+  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4"):
     reach = cfg.env.rewards["reach_object"]
     expected = "lift_object" if recipe.startswith("lift_") else "reorient_object"
     if reach.params["command_name"] != expected:
       raise ValueError(f"{recipe} is restricted to {expected}")
     reach.func = lift_grasp_reward if recipe.startswith("lift_") else reorient_grasp_reward
+    if recipe == "lift_v3":
+      reach.params["closure_weight"] = 2.0
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("lift_v2", "reorient_v2", "reorient_v3", "cage_v1"):
+  if recipe in ("lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2"):
     bounded_initialization(cfg)
-    if recipe in ("reorient_v2", "reorient_v3"):
+    if recipe in ("reorient_v2", "reorient_v3", "reorient_v4"):
       cfg.env.rewards["reach_object"].func = reorient_endface_reward
-      if recipe == "reorient_v3":
+      if recipe in ("reorient_v3", "reorient_v4"):
         cfg.env.rewards["reach_object"].params["smooth_closure"] = True
-    if recipe == "cage_v1":
+      if recipe == "reorient_v4":
+        cfg.env.rewards["reach_object"].params["closure_weight"] = 3.0
+    if recipe in ("cage_v1", "cage_v2"):
       reach = cfg.env.rewards["reach_object"]
       if reach.params["command_name"] != "cage_drag":
         raise ValueError("cage_v1 requires the cage task")
       reach.func = cage_approach_reward
+      if recipe == "cage_v2":
+        reach.params["transport_guidance"] = True
       cfg.env.rewards["joint_vel_penalty"].weight = -0.001
       cfg.env.rewards["action_rate_l2"].weight = -0.005
   if recipe in ("completion_v1", "completion_v2"):
@@ -127,7 +137,7 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, **kwargs):
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -152,10 +162,11 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
   aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)
   valid = torch.linalg.vector_norm(tracking_position(obj)[:,:2]-command.target_pos[:,:2],dim=-1)<command.cfg.max_drift
   orientation = aligned.square()*held*valid.float()
-  return approach*(1-held)*(1+aperture_score) + 2*held + 3*lift + 6*orientation
+  # Actual contact must still dominate the maximum noncontact closure score.
+  return approach*(1-held)*(1+closure_weight*aperture_score) + max(2.,1+closure_weight)*held + 3*lift + 6*orientation
 
 
-def cage_approach_reward(env, command_name, object_asset_name='cube', **kwargs):
+def cage_approach_reward(env, command_name, object_asset_name='cube', transport_guidance=False, **kwargs):
   from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers
   command = env.command_manager.get_term(command_name)
   valid = torch.minimum(command.min_aperture,command._aperture())>command.cfg.aperture_min
@@ -170,4 +181,24 @@ def cage_approach_reward(env, command_name, object_asset_name='cube', **kwargs):
   caged = between_fingers(command).float()
   error = torch.linalg.vector_norm(tracking_position(command.object)-command.target_pos,dim=-1)
   transport = caged*(1+3*torch.exp(-error/0.10))
+  if transport_guidance:
+    grip_goal = command.target_pos.clone()
+    grip_goal[:,2] += 0.008
+    hand_error = torch.linalg.vector_norm(gripper-grip_goal,dim=-1)
+    progress = (command.caged_progress/command.required_progress.clamp_min(0.001)).clamp(0,1)
+    transport += caged*(2*torch.exp(-hand_error/0.15)+2*progress)
+    transport += 15*command.compute_success().float()
   return (approach+transport)*valid.float()
+
+
+def lid_grasp_progress_reward(env, command_name, object_asset_name='object', **kwargs):
+  from completion_reward import smooth_closure_bonus
+  command = env.command_manager.get_term(command_name)
+  base = articulation_task_reward(env,command_name,object_asset_name,**kwargs)
+  grip = command.robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
+  distance = torch.linalg.vector_norm(grip-tracking_position(command.asset),dim=-1)
+  closure = smooth_closure_bonus(distance,finger_aperture(command.robot))
+  held = grasped(command,command.asset).float()*torch.exp(-distance/0.05)
+  error = (command.target_value-command._joint_value()).abs()
+  progress = (1-error/command.target_value.abs().clamp_min(.01)).clamp(0,1)
+  return base+2*closure+3*held+6*progress

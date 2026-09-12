@@ -12,6 +12,7 @@ def main():
   parser.add_argument('--task',required=True)
   parser.add_argument('--checkpoint',type=Path,required=True)
   parser.add_argument('--label',required=True)
+  parser.add_argument('--diagnostics',action='store_true')
   args = parser.parse_args()
   if Path(args.label).name != args.label:
     parser.error('label must be a single path component')
@@ -24,6 +25,8 @@ def main():
     cmd = [sys.executable,str(HERE/'evaluate_teacher.py'),'--task',args.task,'--checkpoint',str(args.checkpoint.resolve()),'--seed',str(seed),'--episodes','128','--output',str(output)]
     if kind == 'val':
       cmd.extend(['--trace-dir',str(trace)])
+    if args.diagnostics:
+      cmd.append('--diagnostics')
     subprocess.run(cmd,check=True)
     result = json.loads(output.read_text())
     results.append(result)
