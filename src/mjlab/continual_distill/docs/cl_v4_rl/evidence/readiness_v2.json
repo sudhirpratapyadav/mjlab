@@ -1,0 +1,28 @@
+{
+  "tests": "44 passed: recipes, strict evaluator auto-reset regression, shared Franka interface",
+  "recipe_preflight_cases": 6,
+  "recipe_transitions": 3072,
+  "ppo_guard_smoke_updates": 3,
+  "ppo_guard_smoke_envs": 64,
+  "physics_decision": "Preserve registered baseline physics, including existing zero gravity on eight tasks. No success/interface changes.",
+  "diagnostics": [
+    {
+      "iteration": 0,
+      "Diagnostics/std_min": 0.10008049756288528,
+      "Diagnostics/action_saturation": 0.0,
+      "Diagnostics/peak_gpu_memory_mib": 29.9853515625
+    },
+    {
+      "iteration": 1,
+      "Diagnostics/std_min": 0.10030152648687363,
+      "Diagnostics/action_saturation": 0.0,
+      "Diagnostics/peak_gpu_memory_mib": 29.98828125
+    },
+    {
+      "iteration": 2,
+      "Diagnostics/std_min": 0.10040208697319031,
+      "Diagnostics/action_saturation": 0.0,
+      "Diagnostics/peak_gpu_memory_mib": 29.994140625
+    }
+  ]
+}

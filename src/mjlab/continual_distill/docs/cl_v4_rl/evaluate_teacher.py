@@ -7,23 +7,37 @@ from dataclasses import asdict
 from pathlib import Path
 
 import torch
+import yaml
 from rsl_rl.runners import OnPolicyRunner
 
 from mjlab.envs import ManagerBasedRlEnv
 from mjlab.rl import RslRlVecEnvWrapper
 from mjlab.tasks.manipulation.benchmark import active_cl_tasks
 from mjlab.tasks.registry import load_env_cfg, load_rl_cfg
+from mjlab.scripts.train import TrainConfig
+from rl_recipes import apply_recipe
 
 
 def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
-  cfg = load_env_cfg(task)
+  training_cfg = TrainConfig.from_task(task)
+  manifest_path = checkpoint.parent / "manifest.json"
+  manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+  if manifest and manifest["task"] != task:
+    raise ValueError("Checkpoint manifest belongs to another task")
+  recipe = manifest.get("recipe", "baseline")
+  apply_recipe(training_cfg, recipe)
+  cfg = training_cfg.env
   cfg.scene.num_envs = episodes
   cfg.seed = seed
-  agent = load_rl_cfg(task)
-  agent.seed = seed
+  agent_path = checkpoint.parent / "params/agent.yaml"
+  agent = yaml.load(agent_path.read_text(), Loader=yaml.FullLoader) if agent_path.exists() else asdict(training_cfg.agent)
+  # Installed RSL-RL pops class names before run_train writes agent.yaml.
+  agent["policy"].setdefault("class_name", training_cfg.agent.policy.class_name)
+  agent["algorithm"].setdefault("class_name", training_cfg.agent.algorithm.class_name)
+  agent["seed"] = seed
   device = "cuda:0" if torch.cuda.is_available() else "cpu"
   env = ManagerBasedRlEnv(cfg, device=device)
-  wrapped = RslRlVecEnvWrapper(env, clip_actions=agent.clip_actions)
+  wrapped = RslRlVecEnvWrapper(env, clip_actions=agent["clip_actions"])
   try:
     command_names = env.command_manager.active_terms
     if len(command_names) != 1:
@@ -43,18 +57,22 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       return original_reset(env_ids)
 
     env._reset_idx = capture_reset
-    runner = OnPolicyRunner(wrapped, asdict(agent), None, device=device)
+    runner = OnPolicyRunner(wrapped, agent, None, device=device)
     runner.load(str(checkpoint), load_optimizer=False, map_location=device)
     policy = runner.get_inference_policy()
     obs = wrapped.get_observations()
+    assert obs["policy"].shape == (episodes, 60) and wrapped.num_actions == 8
     finished = torch.zeros(episodes, dtype=torch.bool, device=device)
     successes = torch.zeros_like(finished)
     steps = torch.zeros(episodes, dtype=torch.int32, device=device)
     returns = torch.zeros(episodes, device=device)
     reasons = [None] * episodes
+    termination_terms = [[] for _ in range(episodes)]
     for _ in range(env.max_episode_length + 1):
       with torch.inference_mode():
         action = policy(obs)
+        if not torch.isfinite(action).all():
+          raise RuntimeError("Nonfinite deterministic policy action")
         obs, reward, done, _ = wrapped.step(action)
       active = ~finished
       steps[active] += 1
@@ -63,6 +81,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       successes[newly_done] = terminal_success[newly_done]
       for i in newly_done.nonzero(as_tuple=False).flatten().tolist():
         reasons[i] = "timeout" if bool(env.reset_time_outs[i]) else "terminated"
+        termination_terms[i] = [name for name in env.termination_manager.active_terms if bool(env.termination_manager.get_term(name)[i])]
       finished |= newly_done
       if bool(finished.all()):
         break
@@ -70,7 +89,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       raise RuntimeError(f"{int((~finished).sum())} first episodes did not finish")
     records = [
       {"env_id": i, "success": bool(successes[i]), "steps": int(steps[i]),
-       "return": float(returns[i]), "reason": reasons[i]}
+       "return": float(returns[i]), "reason": reasons[i], "termination_terms": termination_terms[i]}
       for i in range(episodes)
     ]
     count = int(successes.sum())
@@ -80,6 +99,11 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int) -> dict:
       "seed": seed, "episodes": episodes, "successes": count,
       "success_rate": count / episodes, "deterministic": True,
       "first_episode_only": True, "records": records,
+      "protocol": "terminal_first_episode_v1", "interface": "franka_shared_60_v2",
+      "recipe": recipe, "episode_length_s": cfg.episode_length_s,
+      "gravity": list(cfg.sim.mujoco.gravity),
+      "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
+      "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
     }
   finally:
     wrapped.close()
@@ -92,6 +116,7 @@ def main():
   parser.add_argument("--episodes", type=int, default=128)
   parser.add_argument("--seed", type=int, required=True)
   parser.add_argument("--output", type=Path, required=True)
+  parser.add_argument("--no-wandb", action="store_true")
   args = parser.parse_args()
   if args.episodes < 1 or args.output.exists():
     parser.error("Episodes must be positive and output must not already exist")
@@ -99,6 +124,9 @@ def main():
   args.output.parent.mkdir(parents=True, exist_ok=True)
   args.output.write_text(json.dumps(result, indent=2) + "\n")
   print(f"{result['successes']}/{result['episodes']} = {result['success_rate']:.3f}")
+  if not args.no_wandb:
+    from publish_evaluation import publish
+    publish(args.output)
 
 
 if __name__ == "__main__":

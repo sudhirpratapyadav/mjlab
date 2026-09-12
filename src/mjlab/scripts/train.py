@@ -42,7 +42,7 @@ class TrainConfig:
     return TrainConfig(env=env_cfg, agent=agent_cfg)
 
 
-def run_train(task_id: str, cfg: TrainConfig, log_dir: Path) -> None:
+def run_train(task_id: str, cfg: TrainConfig, log_dir: Path, runner_cls_override: type[OnPolicyRunner] | None = None) -> None:
   cuda_visible = os.environ.get("CUDA_VISIBLE_DEVICES", "")
   if cuda_visible == "":
     device = "cpu"
@@ -142,7 +142,7 @@ def run_train(task_id: str, cfg: TrainConfig, log_dir: Path) -> None:
   agent_cfg = asdict(cfg.agent)
   env_cfg = asdict(cfg.env)
 
-  runner_cls = load_runner_cls(task_id)
+  runner_cls = runner_cls_override or load_runner_cls(task_id)
   if runner_cls is None:
     runner_cls = OnPolicyRunner
 

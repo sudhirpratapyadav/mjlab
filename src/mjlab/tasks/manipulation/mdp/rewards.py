@@ -355,7 +355,7 @@ def tool_transport_reward(env, command_name, object_asset_name="puck", **kwargs)
   return bringing * used.float() * valid.float()
 
 
-def articulation_task_reward(env, command_name, object_asset_name="object", **kwargs):
+def articulation_task_reward(env, command_name, object_asset_name="object", approach_scale=None, **kwargs):
   """Joint-space progress avoids periodic Cartesian shortcuts (e.g. a 270° valve)."""
   command = env.command_manager.get_term(command_name)
   if hasattr(command, "target_value"):
@@ -371,9 +371,15 @@ def articulation_task_reward(env, command_name, object_asset_name="object", **kw
   if getattr(command.cfg, "directional", False):
     error = ((target - value) * target.sign()).clamp_min(0)
   if "robot_asset_cfg" in kwargs:
-    approach = reach_object_reward(
-      env, object_asset_name, kwargs["robot_asset_cfg"], k=30.0
-    )
+    if approach_scale is None:
+      approach = reach_object_reward(
+        env, object_asset_name, kwargs["robot_asset_cfg"], k=30.0
+      )
+    else:
+      robot_cfg = kwargs["robot_asset_cfg"]
+      gripper = env.scene[robot_cfg.name].data.site_pos_w[:, robot_cfg.site_ids].squeeze(1)
+      distance = torch.linalg.vector_norm(tracking_position(env.scene[object_asset_name]) - gripper, dim=-1)
+      approach = torch.exp(-distance / approach_scale)
     progress = torch.exp(-error / (target.abs() * 0.5).clamp_min(0.01))
     return approach * (1 + progress)
   return torch.exp(-0.5 * (error / command.cfg.success_threshold) ** 2)
