@@ -175,3 +175,7 @@ Live process check found Stack V2 stopped atiteration777: one nonfinite simulato
 Implemented --resume-gripper-mean for bounded actors. It zeroes only the eighth output row and initializes its bias to the requested bounded mean, clearing only those Adam moments. Tests verify exact preservation of seven deterministic arm outputs, other weights, critic, normalizers, std and unrelated optimizer state. This supersedes the earlier note that output reset was not implemented.
 
 Added completion_v4 capture-width shaping.88 focused tests pass. Resumed64-env3-update preflight from Stackmodel700 with gripper mean0.5/std0.15 succeeded; finite model702, final sampled robot-object contact15.625% (not a success claim), aperture0.06368m. Full Stack R3 resumes ownmodel700 for1800 additional updates onGPU3 with pre-step capture. The numerical cause remains unresolved; no physical settings or native success predicates changed.
+
+### Coverage audit
+
+All24 active tasks have RL training evidence. The strict launch-manifest filter covers22; early Reach/Topple pilots predate complete manifests, so their already-certified PPO checkpoints/configs establish the remaining two. Evidence/rl_training_coverage.json makes this distinction explicit. This coverage audit does not change certification:14/24 meet the full two-batch/video/artifact gate.

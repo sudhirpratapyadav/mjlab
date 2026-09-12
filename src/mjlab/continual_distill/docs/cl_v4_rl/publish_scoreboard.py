@@ -20,7 +20,8 @@ def main():
     certificate = json.loads(certificate_path.read_text()) if certificate_path.exists() else None
     validations = [value for value in evidence if value['task'] == task]
     best = max(validations, key=lambda value: value['success_rate']) if validations else None
-    training = sorted([value for value in manifests if value['task'] == task], key=lambda value: value['started_utc'])
+    training = sorted([value for value in manifests if value['task'] == task and value['run_id'].startswith('RL-')], key=lambda value: value['started_utc'])
+    preflight = sorted([value for value in manifests if value['task'] == task and value['run_id'].startswith('PREFLIGHT-')], key=lambda value: value['started_utc'])
     rows.append({'task': task, 'certified': certificate is not None,
                  'validation_successes': certificate['validation']['successes'] if certificate else None,
                  'validation_episodes': certificate['validation']['episodes'] if certificate else None,
@@ -28,7 +29,8 @@ def main():
                  'confirmation_episodes': certificate['confirmation']['episodes'] if certificate else None,
                  'retained_run_url': certificate.get('wandb_run_url') if certificate else None,
                  'best_measured_validation_rate': best['success_rate'] if best else None,
-                 'latest_training_run': training[-1]['run_id'] if training else None})
+                 'latest_training_run': training[-1]['run_id'] if training else (Path(best['checkpoint']).parent.name if best else None),
+                 'latest_preflight_run': preflight[-1]['run_id'] if preflight else None})
   report = {'updated_utc': datetime.now(timezone.utc).isoformat(), 'certified_count': sum(row['certified'] for row in rows),
             'active_tasks': len(rows), 'interface': 'franka_shared_60_v2',
             'criterion': 'Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review',

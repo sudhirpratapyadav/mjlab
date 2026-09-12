@@ -48,8 +48,8 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Current GPU assignments: Strike GPU1, Reorient final evaluation GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Pivot first pilot GPU5, Edge first pilot GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
+**14/24 independent PPO RL teachers certified.** Current assignments: Strike GPU1, Throw GPU2, Stack R3 GPU3, Peg V2 GPU4, Pivot GPU5, Edge GPU6 and Place V2 GPU7. GPU0 remains unused. All24 active tasks now have RL training evidence; this is coverage, not certification.
 
-Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw enclosure-gated revisions passed PPO preflight. Edge trains onGPU6 and Pivot onGPU5; Throw takesGPU2 after Reorient evaluation. Cage R2 failed0/128 with valid caging but no contact; cage_v3 preflight passed and awaits a slot. The full24-task goal remains active.
+Lift, Reorient and Cage need successful retries and await slots. Cage R2 final0/128: valid open enclosure without contact; cage_v3 contact-target preflight passed. Reorient R5 final0/128: saturated closed fingers without capture; width-matched rewards and gripper-output reset are available. Stack V2 stopped on a numerical failure in one lane; R3 retains finite arm control, resets only the gripper output/exploration and enables preceding-state capture. The numerical cause remains unresolved. Full24-teacher goal active.
 
-Inspect evidence/*-certificate.json for certification and training_wave8.json for exact source/config/Slurm provenance. Always recheck live processes; a manifest is not evidence of liveness.
+See evidence/*-certificate.json, training_wave11.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.
