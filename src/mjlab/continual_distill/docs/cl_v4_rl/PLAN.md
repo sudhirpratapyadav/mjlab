@@ -2,7 +2,9 @@
 
 ## Current state
 
-**13/24 independent PPO RL teachers certified.** Stack GPU3, Peg GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, Place GPU7 and Reorient R5 GPU2 are training. GPU1 handles remaining-task PPO preflights/diagnostics before the first Strike pilot. Lift R4 stopped on a simulator numerical failure; a30-update replay completed without reproducing it and retained model2028. Lift continuation awaits a slot with preceding-state capture enabled. Edge/Pivot/Throw passed physical readiness and await full pilots. GPU0 remains unused.
+**13/24 independent PPO RL teachers certified.** Seven task runs are active: Strike GPU1, Reorient R5 GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
+
+Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw completed physical and PPO preflights; full pilots still need slots and review of grasp-credit shaping in light of the observed top-press loophole. The full24-task goal remains active.
 
 ## Fixed evaluation and retention gate
 
@@ -12,15 +14,17 @@ The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both
 
 ## Active training and next evaluations
 
-- GPU1: finish remaining-task PPO checks, inspect Stack/Place/Peg debug checkpoints, launch Strike first pilot.
-- GPU2: Reorient R5, reorient_v4,2048 ×2000 additional updates from1900, gripper std0.25.
-- GPU3: Stack completion_v2,2048 ×2500 updates.
-- GPU4: Peg completion_v2,2048 ×3000 updates.
-- GPU5: Cage cage_v2,1024 ×2000 additional updates from1499.
-- GPU6: fresh Lid lid_v2,2048 ×2000 updates. Prior unbounded R2 stopped after verified full saturation.
-- GPU7: Place completion_v2,2048 ×2500 updates.
+- GPU1: Strike strike_v1,2048 ×3000 updates.
+- GPU2: Reorient R5 reorient_v4,2048 ×2000 additional updates from1900; gripper std reset0.25.
+- GPU3: fresh Stack V2 completion_v3,2048 ×2500 updates.
+- GPU4: fresh Peg V2 completion_v3,2048 ×3000 updates.
+- GPU5: Cage R2 cage_v2,1024 ×2000 additional updates from1499.
+- GPU6: fresh Lid V3 lid_v2,2048 ×2000 updates.
+- GPU7: fresh Place V2 completion_v3,2048 ×2500 updates.
 
-Lift R4 numerical failure did not recur in a30-update diagnostic replay. Preserve finite replaymodel2028; continue with pre-step capture when a slot is free. Do not mask invalid simulator state or change native physics silently.
+Prior Stack/Place/Peg pilots were stopped at exactsteps1704/1705/1714 after finite checkpoints were retained. Debug0/16 each; Stack recorded frames confirm top pressing with two-pad contact but zero enclosure.74 tests and all three3-update PPO preflights passed for completion_v3. Monitor enclosure/contact/lift progression, not just reward.
+
+Lift R4 failure did not recur in30-update replay; finite model2028 retained. Continue with pre-step capture when a slot opens. Edge/Pivot/Throw preflights complete; review their contact credit before first full pilots. Preserve native physics and success.
 
 Inspect meaningful learning progress and numerical diagnostics; evaluate saved candidates when evidence warrants it. Check actual checkpoints and process state before invoking evaluation or reusing a GPU. Stop only this experiment's exact Slurm step after checkpoint retention, or when diagnosing a verified failure. Never cancel holder20277 or another person's jobs.
 

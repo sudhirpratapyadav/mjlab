@@ -48,6 +48,8 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**13/24 independent PPO RL teachers certified.** Stack GPU3, Peg GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, Place GPU7 and Reorient R5 GPU2 are training. GPU1 handles remaining-task PPO preflights/diagnostics before the first Strike pilot. Lift R4 stopped on a simulator numerical failure; a30-update replay completed without reproducing it and retained model2028. Lift continuation awaits a slot with preceding-state capture enabled. Edge/Pivot/Throw passed physical readiness and await full pilots. GPU0 remains unused.
+**13/24 independent PPO RL teachers certified.** Seven task runs are active: Strike GPU1, Reorient R5 GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
 
-See STATUS.md, EXPERIMENTS.md and evidence/*-certificate.json for authoritative outcomes. The full24-task goal remains active; native physics/success,60D/8D and Tool-Pull deferral are unchanged. All results publish in the verified project.
+Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw completed physical and PPO preflights; full pilots still need slots and review of grasp-credit shaping in light of the observed top-press loophole. The full24-task goal remains active.
+
+Inspect evidence/*-certificate.json for certification and training_wave8.json for exact source/config/Slurm provenance. Always recheck live processes; a manifest is not evidence of liveness.
