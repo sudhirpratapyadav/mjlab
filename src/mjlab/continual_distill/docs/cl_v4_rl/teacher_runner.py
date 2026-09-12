@@ -2,6 +2,7 @@
 
 import json
 import math
+from collections import deque
 from pathlib import Path
 
 import torch
@@ -52,8 +53,9 @@ class TeacherRunner(OnPolicyRunner):
     original_log = self.logger.log
     self._saturation = []
     previous_state = {}
+    state_history = deque(maxlen=8)
 
-    def fail(stage):
+    def fail(stage, observations=None, rewards=None):
       directory = Path(self.logger.log_dir)
       policy = self.alg.policy
       details = {"stage": stage, "last_completed_iteration": self.current_learning_iteration,
@@ -62,11 +64,19 @@ class TeacherRunner(OnPolicyRunner):
       bad = (~torch.isfinite(data.qpos).all(-1)) | (~torch.isfinite(data.qvel).all(-1))
       details["nonfinite_simulator_env_ids"] = bad.nonzero().flatten().cpu().tolist()
       details["pre_step_captured"] = bool(previous_state)
+      details["captured_history_steps"] = len(state_history)
+      if observations is not None:
+        details["nonfinite_observation_env_ids"] = (~torch.isfinite(observations).all(-1)).nonzero().flatten().cpu().tolist()
+      if rewards is not None:
+        details["nonfinite_reward_env_ids"] = (~torch.isfinite(rewards)).nonzero().flatten().cpu().tolist()
       (directory / "numerical_failure.json").write_text(json.dumps(details, indent=2) + "\n")
       torch.save({"model_state_dict":policy.state_dict(), "optimizer_state_dict":self.alg.optimizer.state_dict(),
                   "qpos":self.env.unwrapped.sim.data.qpos.detach().cpu(),
                   "qvel":self.env.unwrapped.sim.data.qvel.detach().cpu(),
-                  "previous_state":{name:value.cpu() for name,value in previous_state.items()}}, directory / "numerical_failure.pt")
+                  "previous_state":{name:value.cpu() for name,value in previous_state.items()},
+                  "state_history":[{name:value.cpu() for name,value in state.items()} for state in state_history],
+                  "observations":observations.detach().cpu() if observations is not None else None,
+                  "rewards":rewards.detach().cpu() if rewards is not None else None}, directory / "numerical_failure.pt")
       raise RuntimeError(f"Numerical failure at {stage}; see {directory}/numerical_failure.json")
 
     def checked_step(actions):
@@ -77,12 +87,13 @@ class TeacherRunner(OnPolicyRunner):
         for name in ("qpos", "qvel", "ctrl", "qacc_warmstart", "mocap_pos", "mocap_quat"):
           previous_state[name] = getattr(data,name).detach().clone()
         previous_state["actions"] = actions.detach().clone()
+        state_history.append(dict(previous_state))
       result = original_step(actions)
       obs, rewards = result[:2]
       if not (torch.isfinite(obs["policy"]).all() & torch.isfinite(rewards).all()
               & torch.isfinite(self.env.unwrapped.sim.data.qpos).all()
               & torch.isfinite(self.env.unwrapped.sim.data.qvel).all()):
-        fail("rollout_state_or_reward")
+        fail("rollout_state_or_reward", obs["policy"], rewards)
       self._saturation.append(float((actions.abs() >= 1).float().mean()))
       return result
 

@@ -112,6 +112,7 @@ def main():
       "resume_gripper_std": args.resume_gripper_std,
       "resume_gripper_mean": args.resume_gripper_mean,
       "capture_pre_step": args.capture_pre_step,
+      "capture_history_steps": 8 if args.capture_pre_step else 0,
       "resume_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest() if checkpoint else None,
       "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration." if checkpoint else "Fresh policy",
     }

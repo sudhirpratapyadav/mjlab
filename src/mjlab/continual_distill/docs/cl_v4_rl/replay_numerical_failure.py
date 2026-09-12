@@ -87,7 +87,7 @@ def main():
               'limitations':'Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.',
               'physics_timestep':env.physics_dt,'control_substeps':cfg.env.decimation,'samples':samples}
     args.output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
-    print(json.dumps({'output':str(args.output),'samples':len(samples),'gpu_failure':any(not x['gpu_finite'] for x in samples),
+    print(json.dumps({'output':str(args.output),'samples':len(samples),'gpu_failure':any(x['nonfinite_lanes'] for x in samples),
                       'cpu_warnings':samples[-1]['cpu_warning_counts']}),flush=True)
   finally:
     env.close()

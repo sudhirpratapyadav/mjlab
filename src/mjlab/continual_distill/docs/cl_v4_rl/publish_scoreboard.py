@@ -49,7 +49,8 @@ def main():
     records = wandb.Artifact('CL24-experiment-records', type='experiment-records')
     for name in ('CONTEXT', 'GOAL', 'STATUS', 'PLAN', 'EXPERIMENTS', 'LOGS'):
       records.add_file(str(HERE / f'{name}.md'), name=f'{name}.md')
-    for pattern in ('*-review.json', 'training_wave*.json', '*preflight*.json', 'rl_training_coverage.json'):
+    for pattern in ('*-review.json', 'training_wave*.json', '*preflight*.json', '*replay.json', '*audit.json',
+                    'cold_solver_reset.json', 'rl_training_coverage.json'):
       for record in sorted((HERE / 'evidence').glob(pattern)):
         records.add_file(str(record), name=f'evidence/{record.name}')
     run.log_artifact(records)
