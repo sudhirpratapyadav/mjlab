@@ -263,3 +263,14 @@ PlaceR5 final5399 strict35/128, improved from0/128. Actual success/failure frame
 | RL-019-R6 | Place | Improve newly acquired native container completion | completion_v6, ownR5/model5399,2048 ×2000 additional, GPU5 | Prepared |35/128 prior; unchanged configuration and inherited LR5e-5. |
 
 Wave19 launch update: Pivot preflight map1pnz1 passed3 updates with finite1502 and Adam LR1e-4. PlaceR6 from5399 launched onGPU5 with inherited LR5e-5. StrikeR2 completed its budget normally; final4998 strict20/128, improved9/128, all timeouts, actual success/failure clips reviewed. PivotR2 now launched onGPU1 from original1500,2048 ×2000, source0b8a931, preserving all policy/optimizer/normalizer settings.
+
+### Wave20 — Peg capture exploration
+
+PegR4 final3098 completed3000 updates normally with recorded gyro compatibility. Strict0/128, all timeouts; actual frames show upright peg and hovering open hand, final aperture58.84mm and no robot/object contacts. Learned gripper action mean0.4879/std0.0328 in the final training sample. CPU closure sweep on128 terminal poses finds60 valid opposing-contact configurations after13–19mm closure per finger (median15.5mm); first-contact aperture23.19–32.68mm (median29.43mm). These pose modifications are geometric counterfactuals, not integrated grasps or RL success.
+
+Preregister gripper-only PPO initialization reset: own3098, completion_v6, reset output mean to-0.25 (normalized action corresponds to15mm/finger target) and exploration std0.15. Preserve all learned arm outputs, saved optimizer/normalizers and gyro setting; no scripted action sequence, geometry, success or60D/8D change. This changes training initialization only. First64 ×3 updates finite and online; then2048 ×2000 additional updates onGPU6 after Place5600 evaluation. The output row reset uses the existing explicit runner mechanism and must be logged in the manifest.
+
+| PREFLIGHT-PEG-CLOSURE-029 | Peg | Verify restored arm policy with capture-range gripper initialization | ownR4/model3098, completion_v6, mean-0.25/std0.15,64 ×3 updates, GPU6 | Prepared | Finite online checkpoint and inherited gyro compatibility required. |
+| RL-020-R5 | Peg | Acquire opposing capture from the stable upright approach | ownR4/model3098, same recorded gripper reset,2048 ×2000 additional, GPU6 | Prepared | Conditional on preflight; strict evaluation at budget. |
+
+StrikeR2 launch audit: substantial launches45→97/128, negligible58→21, weak25→10. All20 successes are substantial launches; median final error0.2341m versus0.5546m previously,85 undershoot by>8cm,15 overshoot by>8cm,10 lateral misses>8cm. Current reward improved acquisition; next retry should refine distance/direction while retaining contact. PlaceR6/model5600 strict74/128, improved35; full training continues unchanged.

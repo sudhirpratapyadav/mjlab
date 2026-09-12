@@ -303,3 +303,7 @@ StrikeR2 final4998 strict20/128 (all128timeouts), improved9/128. Actual success/
 Wave19 actual placement verified: one full PPO process perGPU1–7, GPU0 remains0MiB. Seven manifests/PIDs retained in training_wave19.json; no current numerical failures. Holder expiry remains2026-09-28T08:58:54. Public refresh passes24-video playback, home newest-card navigation, filters/search/mobile layout and50/50 HTTP200 SHA256 matches. Full goal remains14/24; Peg is approaching its final budget and is the next strict evaluation.
 
 Wave19 scoreboard ea54p9as finished,14/24; remote API verified133 experiment-record files, including new Pivot geometry/trace audits, preflight, Place/Strike reviews, inventory and public checks. Commit3613f6e retains the wave. PegR4 then completed its3000-update budget normally at3098 and its strict evaluation started onGPU6. Full24-teacher goal remains active.
+
+### Wave20
+
+Previous goal turn made progress: Place35/128 andStrike20/128, validated Pivot ramp retry, current public videos and133 W&B records. Revalidated six trainers plus running Peg evaluation; GPU0 remains0MiB. PegR4 final3098 strict0/128, upright no-contact hovering reviewed. Generalized closure audit CLI and materialized NPZ once;60/128 terminal geometries admit opposed contacts with13–19mm extra closure per finger. Preregistered own-policy gripper mean-0.25/std0.15 reset after finite PPO gate. Strike launch coverage improved45→97 substantial launches; endpoint calibration remains weak. Place5600 strict74/128; its full run continues.

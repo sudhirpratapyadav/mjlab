@@ -1,5 +1,6 @@
 """CPU geometry counterfactuals, never policy episodes or success measurements."""
 from pathlib import Path
+import argparse
 import json
 import mujoco
 import numpy as np
@@ -8,8 +9,12 @@ from mjlab.scene import Scene
 from mjlab.asset_zoo.objects.goal import object_support_points
 
 s = Path('src/mjlab/continual_distill/docs/cl_v4_rl')
-label = 'RL-018-R3-m1400'
-r = json.loads((s/'evidence'/f'{label}-val-20260914.json').read_text())
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evaluation',type=Path,default=s/'evidence/RL-018-R3-m1400-val-20260914.json')
+parser.add_argument('--output',type=Path,default=s/'evidence/cube_closure_audit.json')
+parser.add_argument('--max-closure',type=float,default=.015)
+args=parser.parse_args()
+r = json.loads(args.evaluation.read_text())
 cfg = load_env_cfg(r['task']); cfg.scene.num_envs=1
 model = Scene(cfg.scene,'cpu').compile(); cfg.sim.mujoco.apply(model)
 data = mujoco.MjData(model)
@@ -21,7 +26,8 @@ site = model.site(asset+'/object_site').id
 body = model.site_bodyid[site]
 support = object_support_points(cfg.scene.entities[asset].spec_fn())
 qids = [model.jnt_qposadr[model.joint('robot/'+name).id] for name in ['finger_joint1','finger_joint2']]
-trace = np.load(Path(r['trace_dir'])/'trace.npz')
+with np.load(Path(r['trace_dir'])/'trace.npz') as archive:
+  trace = {key:archive[key] for key in archive.files}
 rows=[]
 for outcome in r['records']:
   lane,steps=outcome['env_id'],outcome['steps']
@@ -33,7 +39,7 @@ for outcome in r['records']:
   data.mocap_pos[:] -= trace['origins'][lane]
   original = data.qpos[qids].copy()
   cases=[]
-  for closure in np.arange(0,.0151,.0005):
+  for closure in np.arange(0,args.max_closure+.0001,.0005):
     data.qpos[qids] = np.maximum(original-closure,0)
     mujoco.mj_forward(model,data)
     world = support@data.xmat[body].reshape(3,3).T+data.site_xpos[site]
@@ -61,11 +67,11 @@ for outcome in r['records']:
                     'inner_pad_gap_m':float(np.linalg.norm(data.geom_xpos[pads[0]]-data.geom_xpos[pads[1]])-.0152)})
   rows.append({'env_id':lane,'initial_aperture_m':float(original.sum()),'opposed_shallow_contact_cases':cases})
 report={'task':r['task'],'checkpoint_sha256':r['checkpoint_sha256'],
-        'method':'Exact recorded terminal poses, with finger closure swept0..15mm per finger in0.5mm increments. CPU forward collision geometry only, no integration or policy. Each pad must contact with inward normal cosine>0.5 and distance in[-3,+1]mm.',
+        'method':f'Exact recorded terminal poses, with finger closure swept0..{args.max_closure*1000:g}mm per finger in0.5mm increments. CPU forward collision geometry only, no integration or policy. Each pad must contact with inward normal cosine>0.5 and distance in[-3,+1]mm.',
         'counterfactual_not_success_evaluation':True,
         'poses_with_opposed_contact':sum(bool(row['opposed_shallow_contact_cases']) for row in rows),
         'poses_with_opposed_contact_rejected_by_enclosure':sum(any(not x['between_fingers'] for x in row['opposed_shallow_contact_cases']) for row in rows),
         'poses_with_first_opposed_contact_rejected_by_enclosure':sum(bool(row['opposed_shallow_contact_cases']) and not row['opposed_shallow_contact_cases'][0]['between_fingers'] for row in rows),
         'rows':rows}
-(s/'evidence/cube_closure_audit.json').write_text(json.dumps(report,indent=2)+'\n')
+args.output.write_text(json.dumps(report,indent=2)+'\n')
 print({k:v for k,v in report.items() if k!='rows'})

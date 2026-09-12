@@ -1,0 +1,1052 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "b5501b11a35ce1b3bcbb35608dad2149c9ab10f59480687ab48454b8b3459722",
+  "method": "Maximum puck translational speed and terminal position from recorded first-episode states, using verified nine-robot-DOF+puck-free-joint trace layout and goal mocap1. Speed is a launch proxy, not contact evidence or a success replacement.",
+  "groups": {
+    "negligible": {
+      "episodes": 21,
+      "successes": 0,
+      "median_final_error_m": 0.6601600646972656
+    },
+    "weak": {
+      "episodes": 10,
+      "successes": 0,
+      "median_final_error_m": 0.5599920749664307
+    },
+    "substantial": {
+      "episodes": 97,
+      "successes": 20,
+      "median_final_error_m": 0.15579870343208313
+    }
+  },
+  "median_final_error_m": 0.23410827666521072,
+  "undershot_more_than8cm": 85,
+  "overshot_more_than8cm": 15,
+  "lateral_error_more_than8cm": 10,
+  "rows": [
+    {
+      "env_id": 0,
+      "success": false,
+      "max_speed_m_s": 0.40221112966537476,
+      "final_error_m": 0.28487053513526917,
+      "signed_longitudinal_error_m": -0.28309938311576843,
+      "lateral_error_m": 0.031716831028461456
+    },
+    {
+      "env_id": 1,
+      "success": false,
+      "max_speed_m_s": 0.7352294325828552,
+      "final_error_m": 0.14411582052707672,
+      "signed_longitudinal_error_m": -0.002026737667620182,
+      "lateral_error_m": 0.1441015601158142
+    },
+    {
+      "env_id": 2,
+      "success": false,
+      "max_speed_m_s": 0.5144511461257935,
+      "final_error_m": 0.33631113171577454,
+      "signed_longitudinal_error_m": -0.3285314738750458,
+      "lateral_error_m": 0.07191836088895798
+    },
+    {
+      "env_id": 3,
+      "success": true,
+      "max_speed_m_s": 0.751593828201294,
+      "final_error_m": 0.034029990434646606,
+      "signed_longitudinal_error_m": 0.03341458737850189,
+      "lateral_error_m": 0.006442488636821508
+    },
+    {
+      "env_id": 4,
+      "success": false,
+      "max_speed_m_s": 0.7592785358428955,
+      "final_error_m": 0.16641849279403687,
+      "signed_longitudinal_error_m": 0.16311657428741455,
+      "lateral_error_m": 0.032986342906951904
+    },
+    {
+      "env_id": 5,
+      "success": false,
+      "max_speed_m_s": 0.005565891042351723,
+      "final_error_m": 0.6362322568893433,
+      "signed_longitudinal_error_m": -0.6362322568893433,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 6,
+      "success": false,
+      "max_speed_m_s": 0.5067880749702454,
+      "final_error_m": 0.24600005149841309,
+      "signed_longitudinal_error_m": -0.24599581956863403,
+      "lateral_error_m": 0.0014455714263021946
+    },
+    {
+      "env_id": 7,
+      "success": false,
+      "max_speed_m_s": 0.00556589150801301,
+      "final_error_m": 0.6083610653877258,
+      "signed_longitudinal_error_m": -0.608361005783081,
+      "lateral_error_m": 7.450580596923828e-09
+    },
+    {
+      "env_id": 8,
+      "success": false,
+      "max_speed_m_s": 0.005565891042351723,
+      "final_error_m": 0.6237074732780457,
+      "signed_longitudinal_error_m": -0.6237074732780457,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 9,
+      "success": false,
+      "max_speed_m_s": 0.5859785676002502,
+      "final_error_m": 0.12797631323337555,
+      "signed_longitudinal_error_m": -0.10635052621364594,
+      "lateral_error_m": 0.0711863711476326
+    },
+    {
+      "env_id": 10,
+      "success": false,
+      "max_speed_m_s": 0.00556589150801301,
+      "final_error_m": 0.5696740746498108,
+      "signed_longitudinal_error_m": -0.5696740746498108,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 11,
+      "success": false,
+      "max_speed_m_s": 0.08089280873537064,
+      "final_error_m": 0.6196017265319824,
+      "signed_longitudinal_error_m": -0.6196017861366272,
+      "lateral_error_m": 0.0001246631145477295
+    },
+    {
+      "env_id": 12,
+      "success": false,
+      "max_speed_m_s": 0.005565892439335585,
+      "final_error_m": 0.6054497957229614,
+      "signed_longitudinal_error_m": -0.6054497957229614,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 13,
+      "success": false,
+      "max_speed_m_s": 0.7187418937683105,
+      "final_error_m": 0.08067240566015244,
+      "signed_longitudinal_error_m": 0.014641063287854195,
+      "lateral_error_m": 0.07933269441127777
+    },
+    {
+      "env_id": 14,
+      "success": false,
+      "max_speed_m_s": 0.4967802166938782,
+      "final_error_m": 0.24302776157855988,
+      "signed_longitudinal_error_m": -0.2417616993188858,
+      "lateral_error_m": 0.024774307385087013
+    },
+    {
+      "env_id": 15,
+      "success": false,
+      "max_speed_m_s": 0.5588643550872803,
+      "final_error_m": 0.3865896165370941,
+      "signed_longitudinal_error_m": -0.38658297061920166,
+      "lateral_error_m": 0.002273082733154297
+    },
+    {
+      "env_id": 16,
+      "success": true,
+      "max_speed_m_s": 0.711754560470581,
+      "final_error_m": 0.04511631652712822,
+      "signed_longitudinal_error_m": 0.026771044358611107,
+      "lateral_error_m": 0.0363151878118515
+    },
+    {
+      "env_id": 17,
+      "success": false,
+      "max_speed_m_s": 0.5090795755386353,
+      "final_error_m": 0.37430042028427124,
+      "signed_longitudinal_error_m": -0.3100144863128662,
+      "lateral_error_m": 0.20974230766296387
+    },
+    {
+      "env_id": 18,
+      "success": false,
+      "max_speed_m_s": 0.6985887289047241,
+      "final_error_m": 0.09693830460309982,
+      "signed_longitudinal_error_m": -0.08059849590063095,
+      "lateral_error_m": 0.05386016517877579
+    },
+    {
+      "env_id": 19,
+      "success": false,
+      "max_speed_m_s": 0.5193365216255188,
+      "final_error_m": 0.2781826853752136,
+      "signed_longitudinal_error_m": -0.26965194940567017,
+      "lateral_error_m": 0.06836257874965668
+    },
+    {
+      "env_id": 20,
+      "success": false,
+      "max_speed_m_s": 0.00556589150801301,
+      "final_error_m": 0.7473236322402954,
+      "signed_longitudinal_error_m": -0.7473235726356506,
+      "lateral_error_m": 1.4901161193847656e-08
+    },
+    {
+      "env_id": 21,
+      "success": false,
+      "max_speed_m_s": 0.005565892439335585,
+      "final_error_m": 0.6905048489570618,
+      "signed_longitudinal_error_m": -0.6905049681663513,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 22,
+      "success": false,
+      "max_speed_m_s": 0.24600932002067566,
+      "final_error_m": 0.5640620589256287,
+      "signed_longitudinal_error_m": -0.5640620589256287,
+      "lateral_error_m": 0.00017042085528373718
+    },
+    {
+      "env_id": 23,
+      "success": false,
+      "max_speed_m_s": 0.636456310749054,
+      "final_error_m": 0.13953453302383423,
+      "signed_longitudinal_error_m": -0.04135237634181976,
+      "lateral_error_m": 0.1332661509513855
+    },
+    {
+      "env_id": 24,
+      "success": false,
+      "max_speed_m_s": 0.5430357456207275,
+      "final_error_m": 0.16134843230247498,
+      "signed_longitudinal_error_m": -0.14540846645832062,
+      "lateral_error_m": 0.06992635875940323
+    },
+    {
+      "env_id": 25,
+      "success": false,
+      "max_speed_m_s": 0.4822922945022583,
+      "final_error_m": 0.4203796088695526,
+      "signed_longitudinal_error_m": -0.4200153648853302,
+      "lateral_error_m": 0.017495397478342056
+    },
+    {
+      "env_id": 26,
+      "success": false,
+      "max_speed_m_s": 0.8846571445465088,
+      "final_error_m": 0.3708978295326233,
+      "signed_longitudinal_error_m": 0.37048259377479553,
+      "lateral_error_m": 0.017546381801366806
+    },
+    {
+      "env_id": 27,
+      "success": false,
+      "max_speed_m_s": 0.5563209056854248,
+      "final_error_m": 0.2151012271642685,
+      "signed_longitudinal_error_m": -0.21202529966831207,
+      "lateral_error_m": 0.03624645993113518
+    },
+    {
+      "env_id": 28,
+      "success": false,
+      "max_speed_m_s": 0.48174870014190674,
+      "final_error_m": 0.3234478533267975,
+      "signed_longitudinal_error_m": -0.3233976662158966,
+      "lateral_error_m": 0.005697500891983509
+    },
+    {
+      "env_id": 29,
+      "success": false,
+      "max_speed_m_s": 0.08075734972953796,
+      "final_error_m": 0.5891035795211792,
+      "signed_longitudinal_error_m": -0.5891035795211792,
+      "lateral_error_m": 7.61672854423523e-05
+    },
+    {
+      "env_id": 30,
+      "success": false,
+      "max_speed_m_s": 0.5536501407623291,
+      "final_error_m": 0.17140275239944458,
+      "signed_longitudinal_error_m": -0.16979466378688812,
+      "lateral_error_m": 0.02342386730015278
+    },
+    {
+      "env_id": 31,
+      "success": true,
+      "max_speed_m_s": 0.6666346788406372,
+      "final_error_m": 0.06852132827043533,
+      "signed_longitudinal_error_m": -0.06460188329219818,
+      "lateral_error_m": 0.0228422824293375
+    },
+    {
+      "env_id": 32,
+      "success": false,
+      "max_speed_m_s": 0.5567691326141357,
+      "final_error_m": 0.2817698121070862,
+      "signed_longitudinal_error_m": -0.281710147857666,
+      "lateral_error_m": 0.005797624588012695
+    },
+    {
+      "env_id": 33,
+      "success": true,
+      "max_speed_m_s": 0.7158220410346985,
+      "final_error_m": 0.07836481183767319,
+      "signed_longitudinal_error_m": 0.07609141618013382,
+      "lateral_error_m": 0.018738726153969765
+    },
+    {
+      "env_id": 34,
+      "success": true,
+      "max_speed_m_s": 0.6028366684913635,
+      "final_error_m": 0.05063530057668686,
+      "signed_longitudinal_error_m": -0.02886413037776947,
+      "lateral_error_m": 0.041602831333875656
+    },
+    {
+      "env_id": 35,
+      "success": true,
+      "max_speed_m_s": 0.6699489951133728,
+      "final_error_m": 0.061005838215351105,
+      "signed_longitudinal_error_m": -0.05252499878406525,
+      "lateral_error_m": 0.03102961741387844
+    },
+    {
+      "env_id": 36,
+      "success": false,
+      "max_speed_m_s": 0.4651564359664917,
+      "final_error_m": 0.39715075492858887,
+      "signed_longitudinal_error_m": -0.3841286301612854,
+      "lateral_error_m": 0.10086584091186523
+    },
+    {
+      "env_id": 37,
+      "success": true,
+      "max_speed_m_s": 0.6204227805137634,
+      "final_error_m": 0.07489753514528275,
+      "signed_longitudinal_error_m": -0.0748848244547844,
+      "lateral_error_m": 0.0013799492735415697
+    },
+    {
+      "env_id": 38,
+      "success": false,
+      "max_speed_m_s": 0.7945978045463562,
+      "final_error_m": 0.19792434573173523,
+      "signed_longitudinal_error_m": 0.19600392878055573,
+      "lateral_error_m": 0.02750462107360363
+    },
+    {
+      "env_id": 39,
+      "success": false,
+      "max_speed_m_s": 0.7684110999107361,
+      "final_error_m": 0.1116066724061966,
+      "signed_longitudinal_error_m": 0.0954287201166153,
+      "lateral_error_m": 0.05787407606840134
+    },
+    {
+      "env_id": 40,
+      "success": false,
+      "max_speed_m_s": 0.8173474073410034,
+      "final_error_m": 0.17419210076332092,
+      "signed_longitudinal_error_m": 0.17209911346435547,
+      "lateral_error_m": 0.026921790093183517
+    },
+    {
+      "env_id": 41,
+      "success": false,
+      "max_speed_m_s": 0.5062065720558167,
+      "final_error_m": 0.2655040919780731,
+      "signed_longitudinal_error_m": -0.26534485816955566,
+      "lateral_error_m": 0.00919333379715681
+    },
+    {
+      "env_id": 42,
+      "success": false,
+      "max_speed_m_s": 0.6182874441146851,
+      "final_error_m": 0.15408769249916077,
+      "signed_longitudinal_error_m": -0.15166199207305908,
+      "lateral_error_m": 0.027233395725488663
+    },
+    {
+      "env_id": 43,
+      "success": false,
+      "max_speed_m_s": 0.661943256855011,
+      "final_error_m": 0.11196590214967728,
+      "signed_longitudinal_error_m": -0.11084190756082535,
+      "lateral_error_m": 0.01582510955631733
+    },
+    {
+      "env_id": 44,
+      "success": false,
+      "max_speed_m_s": 0.45218899846076965,
+      "final_error_m": 0.3919298052787781,
+      "signed_longitudinal_error_m": -0.3919185698032379,
+      "lateral_error_m": 0.002970196306705475
+    },
+    {
+      "env_id": 45,
+      "success": true,
+      "max_speed_m_s": 0.6383233070373535,
+      "final_error_m": 0.0615401454269886,
+      "signed_longitudinal_error_m": -0.05885890871286392,
+      "lateral_error_m": 0.01796715334057808
+    },
+    {
+      "env_id": 46,
+      "success": false,
+      "max_speed_m_s": 0.7866713404655457,
+      "final_error_m": 0.13661842048168182,
+      "signed_longitudinal_error_m": 0.13620828092098236,
+      "lateral_error_m": 0.010578316636383533
+    },
+    {
+      "env_id": 47,
+      "success": false,
+      "max_speed_m_s": 0.7497454285621643,
+      "final_error_m": 0.111432284116745,
+      "signed_longitudinal_error_m": 0.0740283653140068,
+      "lateral_error_m": 0.08328838646411896
+    },
+    {
+      "env_id": 48,
+      "success": true,
+      "max_speed_m_s": 0.6678751111030579,
+      "final_error_m": 0.054013531655073166,
+      "signed_longitudinal_error_m": 0.01974930427968502,
+      "lateral_error_m": 0.05027351155877113
+    },
+    {
+      "env_id": 49,
+      "success": false,
+      "max_speed_m_s": 0.6249898672103882,
+      "final_error_m": 0.15268054604530334,
+      "signed_longitudinal_error_m": -0.15085752308368683,
+      "lateral_error_m": 0.023523494601249695
+    },
+    {
+      "env_id": 50,
+      "success": false,
+      "max_speed_m_s": 0.591021716594696,
+      "final_error_m": 0.2876226603984833,
+      "signed_longitudinal_error_m": -0.28761038184165955,
+      "lateral_error_m": 0.002658221870660782
+    },
+    {
+      "env_id": 51,
+      "success": false,
+      "max_speed_m_s": 0.7424969673156738,
+      "final_error_m": 0.30762237310409546,
+      "signed_longitudinal_error_m": 0.28457802534103394,
+      "lateral_error_m": 0.11681981384754181
+    },
+    {
+      "env_id": 52,
+      "success": false,
+      "max_speed_m_s": 0.23162153363227844,
+      "final_error_m": 0.5530062913894653,
+      "signed_longitudinal_error_m": -0.5529294610023499,
+      "lateral_error_m": 0.009213082492351532
+    },
+    {
+      "env_id": 53,
+      "success": false,
+      "max_speed_m_s": 0.4744437336921692,
+      "final_error_m": 0.4259292185306549,
+      "signed_longitudinal_error_m": -0.39162835478782654,
+      "lateral_error_m": 0.16746021807193756
+    },
+    {
+      "env_id": 54,
+      "success": false,
+      "max_speed_m_s": 0.4127158522605896,
+      "final_error_m": 0.2838476896286011,
+      "signed_longitudinal_error_m": -0.2827356457710266,
+      "lateral_error_m": 0.02510112151503563
+    },
+    {
+      "env_id": 55,
+      "success": false,
+      "max_speed_m_s": 0.5538493990898132,
+      "final_error_m": 0.21256063878536224,
+      "signed_longitudinal_error_m": -0.21067027747631073,
+      "lateral_error_m": 0.02828529104590416
+    },
+    {
+      "env_id": 56,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.7348035573959351,
+      "signed_longitudinal_error_m": -0.7348036170005798,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 57,
+      "success": false,
+      "max_speed_m_s": 0.7798857092857361,
+      "final_error_m": 0.09485718607902527,
+      "signed_longitudinal_error_m": 0.08335848897695541,
+      "lateral_error_m": 0.04526861011981964
+    },
+    {
+      "env_id": 58,
+      "success": true,
+      "max_speed_m_s": 0.6308528780937195,
+      "final_error_m": 0.039624374359846115,
+      "signed_longitudinal_error_m": -0.03382342681288719,
+      "lateral_error_m": 0.0206413846462965
+    },
+    {
+      "env_id": 59,
+      "success": false,
+      "max_speed_m_s": 0.7371963858604431,
+      "final_error_m": 0.23019887506961823,
+      "signed_longitudinal_error_m": 0.2301967591047287,
+      "lateral_error_m": 0.0009882748126983643
+    },
+    {
+      "env_id": 60,
+      "success": false,
+      "max_speed_m_s": 0.5177357196807861,
+      "final_error_m": 0.09036750346422195,
+      "signed_longitudinal_error_m": -0.0884421169757843,
+      "lateral_error_m": 0.01855471357703209
+    },
+    {
+      "env_id": 61,
+      "success": false,
+      "max_speed_m_s": 0.5537533164024353,
+      "final_error_m": 0.236322283744812,
+      "signed_longitudinal_error_m": -0.23618707060813904,
+      "lateral_error_m": 0.007993333041667938
+    },
+    {
+      "env_id": 62,
+      "success": false,
+      "max_speed_m_s": 0.005565892439335585,
+      "final_error_m": 0.7621495723724365,
+      "signed_longitudinal_error_m": -0.762149453163147,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 63,
+      "success": false,
+      "max_speed_m_s": 0.00556589150801301,
+      "final_error_m": 0.6451484560966492,
+      "signed_longitudinal_error_m": -0.6451484560966492,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 64,
+      "success": false,
+      "max_speed_m_s": 0.6389034390449524,
+      "final_error_m": 0.1761973351240158,
+      "signed_longitudinal_error_m": -0.1750064492225647,
+      "lateral_error_m": 0.020451076328754425
+    },
+    {
+      "env_id": 65,
+      "success": true,
+      "max_speed_m_s": 0.6458181738853455,
+      "final_error_m": 0.030023101717233658,
+      "signed_longitudinal_error_m": 0.009601885452866554,
+      "lateral_error_m": 0.028446272015571594
+    },
+    {
+      "env_id": 66,
+      "success": false,
+      "max_speed_m_s": 0.00556589150801301,
+      "final_error_m": 0.7296249270439148,
+      "signed_longitudinal_error_m": -0.7296249270439148,
+      "lateral_error_m": 1.4901161193847656e-08
+    },
+    {
+      "env_id": 67,
+      "success": false,
+      "max_speed_m_s": 0.6043282151222229,
+      "final_error_m": 0.08828411251306534,
+      "signed_longitudinal_error_m": -0.08806835860013962,
+      "lateral_error_m": 0.006168395280838013
+    },
+    {
+      "env_id": 68,
+      "success": false,
+      "max_speed_m_s": 0.7316617369651794,
+      "final_error_m": 0.0823143795132637,
+      "signed_longitudinal_error_m": 0.06312824040651321,
+      "lateral_error_m": 0.052825018763542175
+    },
+    {
+      "env_id": 69,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.6601600646972656,
+      "signed_longitudinal_error_m": -0.6601600646972656,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 70,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.5597520470619202,
+      "signed_longitudinal_error_m": -0.5597520470619202,
+      "lateral_error_m": 1.4901161193847656e-08
+    },
+    {
+      "env_id": 71,
+      "success": false,
+      "max_speed_m_s": 0.48610883951187134,
+      "final_error_m": 0.2365713268518448,
+      "signed_longitudinal_error_m": -0.23646143078804016,
+      "lateral_error_m": 0.007210085168480873
+    },
+    {
+      "env_id": 72,
+      "success": false,
+      "max_speed_m_s": 0.5260321497917175,
+      "final_error_m": 0.24661926925182343,
+      "signed_longitudinal_error_m": -0.2465287744998932,
+      "lateral_error_m": 0.006679914891719818
+    },
+    {
+      "env_id": 73,
+      "success": false,
+      "max_speed_m_s": 0.43960824608802795,
+      "final_error_m": 0.40944910049438477,
+      "signed_longitudinal_error_m": -0.4091240167617798,
+      "lateral_error_m": 0.016312677413225174
+    },
+    {
+      "env_id": 74,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.7770325541496277,
+      "signed_longitudinal_error_m": -0.7770325541496277,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 75,
+      "success": false,
+      "max_speed_m_s": 0.46310293674468994,
+      "final_error_m": 0.3480513095855713,
+      "signed_longitudinal_error_m": -0.34565386176109314,
+      "lateral_error_m": 0.04078109562397003
+    },
+    {
+      "env_id": 76,
+      "success": false,
+      "max_speed_m_s": 0.4051953852176666,
+      "final_error_m": 0.35441362857818604,
+      "signed_longitudinal_error_m": -0.3534262478351593,
+      "lateral_error_m": 0.026437027379870415
+    },
+    {
+      "env_id": 77,
+      "success": true,
+      "max_speed_m_s": 0.6838558912277222,
+      "final_error_m": 0.06154050678014755,
+      "signed_longitudinal_error_m": 0.04786258190870285,
+      "lateral_error_m": 0.038683414459228516
+    },
+    {
+      "env_id": 78,
+      "success": false,
+      "max_speed_m_s": 0.0007615514332428575,
+      "final_error_m": 0.7441768050193787,
+      "signed_longitudinal_error_m": -0.7441768646240234,
+      "lateral_error_m": 1.4901161193847656e-08
+    },
+    {
+      "env_id": 79,
+      "success": false,
+      "max_speed_m_s": 0.005565890576690435,
+      "final_error_m": 0.6382201313972473,
+      "signed_longitudinal_error_m": -0.6382201313972473,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 80,
+      "success": false,
+      "max_speed_m_s": 0.5609325170516968,
+      "final_error_m": 0.12809939682483673,
+      "signed_longitudinal_error_m": -0.11214763671159744,
+      "lateral_error_m": 0.06190607324242592
+    },
+    {
+      "env_id": 81,
+      "success": false,
+      "max_speed_m_s": 0.48003584146499634,
+      "final_error_m": 0.3384769856929779,
+      "signed_longitudinal_error_m": -0.33824440836906433,
+      "lateral_error_m": 0.01254555955529213
+    },
+    {
+      "env_id": 82,
+      "success": false,
+      "max_speed_m_s": 0.8002867698669434,
+      "final_error_m": 0.24358925223350525,
+      "signed_longitudinal_error_m": 0.23966805636882782,
+      "lateral_error_m": 0.04353102669119835
+    },
+    {
+      "env_id": 83,
+      "success": false,
+      "max_speed_m_s": 0.7783998847007751,
+      "final_error_m": 0.1744021326303482,
+      "signed_longitudinal_error_m": 0.1739492118358612,
+      "lateral_error_m": 0.012560767121613026
+    },
+    {
+      "env_id": 84,
+      "success": false,
+      "max_speed_m_s": 0.6615635752677917,
+      "final_error_m": 0.09065208584070206,
+      "signed_longitudinal_error_m": -0.09001512825489044,
+      "lateral_error_m": 0.01072743535041809
+    },
+    {
+      "env_id": 85,
+      "success": false,
+      "max_speed_m_s": 0.487266480922699,
+      "final_error_m": 0.3412225842475891,
+      "signed_longitudinal_error_m": -0.340738445520401,
+      "lateral_error_m": 0.018170461058616638
+    },
+    {
+      "env_id": 86,
+      "success": false,
+      "max_speed_m_s": 0.6040012836456299,
+      "final_error_m": 0.09350981563329697,
+      "signed_longitudinal_error_m": -0.0834294781088829,
+      "lateral_error_m": 0.04223277047276497
+    },
+    {
+      "env_id": 87,
+      "success": true,
+      "max_speed_m_s": 0.592138409614563,
+      "final_error_m": 0.07207431644201279,
+      "signed_longitudinal_error_m": -0.054013099521398544,
+      "lateral_error_m": 0.04772097244858742
+    },
+    {
+      "env_id": 88,
+      "success": false,
+      "max_speed_m_s": 0.5909928679466248,
+      "final_error_m": 0.23189426958560944,
+      "signed_longitudinal_error_m": -0.22183220088481903,
+      "lateral_error_m": 0.06756795942783356
+    },
+    {
+      "env_id": 89,
+      "success": true,
+      "max_speed_m_s": 0.6913878917694092,
+      "final_error_m": 0.05255218222737312,
+      "signed_longitudinal_error_m": 0.04048828035593033,
+      "lateral_error_m": 0.03350269794464111
+    },
+    {
+      "env_id": 90,
+      "success": true,
+      "max_speed_m_s": 0.6628850698471069,
+      "final_error_m": 0.03842685744166374,
+      "signed_longitudinal_error_m": 0.03300737962126732,
+      "lateral_error_m": 0.01967577636241913
+    },
+    {
+      "env_id": 91,
+      "success": true,
+      "max_speed_m_s": 0.7150824666023254,
+      "final_error_m": 0.0547369047999382,
+      "signed_longitudinal_error_m": -0.053498316556215286,
+      "lateral_error_m": 0.011578372679650784
+    },
+    {
+      "env_id": 92,
+      "success": false,
+      "max_speed_m_s": 0.005565890576690435,
+      "final_error_m": 0.6429383158683777,
+      "signed_longitudinal_error_m": -0.6429383158683777,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 93,
+      "success": true,
+      "max_speed_m_s": 0.6562493443489075,
+      "final_error_m": 0.051391515880823135,
+      "signed_longitudinal_error_m": -0.04907628148794174,
+      "lateral_error_m": 0.01525145210325718
+    },
+    {
+      "env_id": 94,
+      "success": false,
+      "max_speed_m_s": 0.8417125940322876,
+      "final_error_m": 0.4075753092765808,
+      "signed_longitudinal_error_m": 0.4073350429534912,
+      "lateral_error_m": 0.01399296522140503
+    },
+    {
+      "env_id": 95,
+      "success": false,
+      "max_speed_m_s": 0.5882192850112915,
+      "final_error_m": 0.15579870343208313,
+      "signed_longitudinal_error_m": -0.12280956655740738,
+      "lateral_error_m": 0.09586992859840393
+    },
+    {
+      "env_id": 96,
+      "success": false,
+      "max_speed_m_s": 0.397472083568573,
+      "final_error_m": 0.33994629979133606,
+      "signed_longitudinal_error_m": -0.3363238573074341,
+      "lateral_error_m": 0.049494847655296326
+    },
+    {
+      "env_id": 97,
+      "success": false,
+      "max_speed_m_s": 0.6745468974113464,
+      "final_error_m": 0.10130970925092697,
+      "signed_longitudinal_error_m": -0.0970512181520462,
+      "lateral_error_m": 0.029064036905765533
+    },
+    {
+      "env_id": 98,
+      "success": false,
+      "max_speed_m_s": 0.5556456446647644,
+      "final_error_m": 0.3058055639266968,
+      "signed_longitudinal_error_m": -0.2984657287597656,
+      "lateral_error_m": 0.06659770011901855
+    },
+    {
+      "env_id": 99,
+      "success": true,
+      "max_speed_m_s": 0.7602829933166504,
+      "final_error_m": 0.06621121615171432,
+      "signed_longitudinal_error_m": 0.04345247894525528,
+      "lateral_error_m": 0.04995805397629738
+    },
+    {
+      "env_id": 100,
+      "success": false,
+      "max_speed_m_s": 0.35618558526039124,
+      "final_error_m": 0.5008406043052673,
+      "signed_longitudinal_error_m": -0.5000253319740295,
+      "lateral_error_m": 0.028564676642417908
+    },
+    {
+      "env_id": 101,
+      "success": false,
+      "max_speed_m_s": 0.5792919397354126,
+      "final_error_m": 0.2035314440727234,
+      "signed_longitudinal_error_m": -0.19682951271533966,
+      "lateral_error_m": 0.051799505949020386
+    },
+    {
+      "env_id": 102,
+      "success": false,
+      "max_speed_m_s": 0.7141067385673523,
+      "final_error_m": 0.10798382014036179,
+      "signed_longitudinal_error_m": -0.08416686952114105,
+      "lateral_error_m": 0.06764940172433853
+    },
+    {
+      "env_id": 103,
+      "success": false,
+      "max_speed_m_s": 0.36354637145996094,
+      "final_error_m": 0.3801412582397461,
+      "signed_longitudinal_error_m": -0.37457290291786194,
+      "lateral_error_m": 0.06482689082622528
+    },
+    {
+      "env_id": 104,
+      "success": false,
+      "max_speed_m_s": 0.807062566280365,
+      "final_error_m": 0.2947025001049042,
+      "signed_longitudinal_error_m": 0.22685518860816956,
+      "lateral_error_m": 0.18811245262622833
+    },
+    {
+      "env_id": 105,
+      "success": false,
+      "max_speed_m_s": 0.005565891042351723,
+      "final_error_m": 0.7444495558738708,
+      "signed_longitudinal_error_m": -0.7444495558738708,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 106,
+      "success": false,
+      "max_speed_m_s": 0.49961480498313904,
+      "final_error_m": 0.35070082545280457,
+      "signed_longitudinal_error_m": -0.35041528940200806,
+      "lateral_error_m": 0.01414816826581955
+    },
+    {
+      "env_id": 107,
+      "success": true,
+      "max_speed_m_s": 0.6407276391983032,
+      "final_error_m": 0.046992164105176926,
+      "signed_longitudinal_error_m": -0.04008433222770691,
+      "lateral_error_m": 0.024525698274374008
+    },
+    {
+      "env_id": 108,
+      "success": false,
+      "max_speed_m_s": 0.6155454516410828,
+      "final_error_m": 0.10035518556833267,
+      "signed_longitudinal_error_m": -0.10032988339662552,
+      "lateral_error_m": 0.002253553830087185
+    },
+    {
+      "env_id": 109,
+      "success": false,
+      "max_speed_m_s": 0.32369962334632874,
+      "final_error_m": 0.7483030557632446,
+      "signed_longitudinal_error_m": -0.7483029961585999,
+      "lateral_error_m": 0.00031760334968566895
+    },
+    {
+      "env_id": 110,
+      "success": true,
+      "max_speed_m_s": 0.5880269408226013,
+      "final_error_m": 0.063471719622612,
+      "signed_longitudinal_error_m": -0.061493124812841415,
+      "lateral_error_m": 0.015724334865808487
+    },
+    {
+      "env_id": 111,
+      "success": false,
+      "max_speed_m_s": 0.11735939234495163,
+      "final_error_m": 0.6015547513961792,
+      "signed_longitudinal_error_m": -0.601554811000824,
+      "lateral_error_m": 4.15705144405365e-05
+    },
+    {
+      "env_id": 112,
+      "success": false,
+      "max_speed_m_s": 0.5479066371917725,
+      "final_error_m": 0.1949353814125061,
+      "signed_longitudinal_error_m": -0.18965846300125122,
+      "lateral_error_m": 0.04504964128136635
+    },
+    {
+      "env_id": 113,
+      "success": false,
+      "max_speed_m_s": 0.6340569853782654,
+      "final_error_m": 0.10441110283136368,
+      "signed_longitudinal_error_m": -0.097255177795887,
+      "lateral_error_m": 0.037988241761922836
+    },
+    {
+      "env_id": 114,
+      "success": false,
+      "max_speed_m_s": 0.647179126739502,
+      "final_error_m": 0.08109910786151886,
+      "signed_longitudinal_error_m": -0.07601697742938995,
+      "lateral_error_m": 0.02825745940208435
+    },
+    {
+      "env_id": 115,
+      "success": false,
+      "max_speed_m_s": 0.3234115540981293,
+      "final_error_m": 0.5559220910072327,
+      "signed_longitudinal_error_m": -0.5559220314025879,
+      "lateral_error_m": 0.0003519505262374878
+    },
+    {
+      "env_id": 116,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.5370522737503052,
+      "signed_longitudinal_error_m": -0.5370522737503052,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 117,
+      "success": false,
+      "max_speed_m_s": 0.5183733105659485,
+      "final_error_m": 0.3087974190711975,
+      "signed_longitudinal_error_m": -0.3087913691997528,
+      "lateral_error_m": 0.0019328556954860687
+    },
+    {
+      "env_id": 118,
+      "success": false,
+      "max_speed_m_s": 0.8419973850250244,
+      "final_error_m": 0.21015551686286926,
+      "signed_longitudinal_error_m": 0.20784392952919006,
+      "lateral_error_m": 0.03108450397849083
+    },
+    {
+      "env_id": 119,
+      "success": false,
+      "max_speed_m_s": 0.6841628551483154,
+      "final_error_m": 0.10635994374752045,
+      "signed_longitudinal_error_m": 0.0965975821018219,
+      "lateral_error_m": 0.044512320309877396
+    },
+    {
+      "env_id": 120,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.7507637143135071,
+      "signed_longitudinal_error_m": -0.7507637739181519,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 121,
+      "success": false,
+      "max_speed_m_s": 0.005565891973674297,
+      "final_error_m": 0.6950860619544983,
+      "signed_longitudinal_error_m": -0.6950860023498535,
+      "lateral_error_m": 0.0
+    },
+    {
+      "env_id": 122,
+      "success": false,
+      "max_speed_m_s": 0.5748106837272644,
+      "final_error_m": 0.1514568030834198,
+      "signed_longitudinal_error_m": -0.14842377603054047,
+      "lateral_error_m": 0.0301587525755167
+    },
+    {
+      "env_id": 123,
+      "success": false,
+      "max_speed_m_s": 0.505194365978241,
+      "final_error_m": 0.2586718797683716,
+      "signed_longitudinal_error_m": -0.25867170095443726,
+      "lateral_error_m": 0.00028106197714805603
+    },
+    {
+      "env_id": 124,
+      "success": false,
+      "max_speed_m_s": 0.5984356999397278,
+      "final_error_m": 0.09307941049337387,
+      "signed_longitudinal_error_m": -0.06987572461366653,
+      "lateral_error_m": 0.06149113178253174
+    },
+    {
+      "env_id": 125,
+      "success": false,
+      "max_speed_m_s": 0.5922504663467407,
+      "final_error_m": 0.13849776983261108,
+      "signed_longitudinal_error_m": -0.12739606201648712,
+      "lateral_error_m": 0.05433115363121033
+    },
+    {
+      "env_id": 126,
+      "success": false,
+      "max_speed_m_s": 0.6943976879119873,
+      "final_error_m": 0.1035100445151329,
+      "signed_longitudinal_error_m": -0.048069361597299576,
+      "lateral_error_m": 0.09167150408029556
+    },
+    {
+      "env_id": 127,
+      "success": false,
+      "max_speed_m_s": 0.610524594783783,
+      "final_error_m": 0.1773873269557953,
+      "signed_longitudinal_error_m": -0.17551851272583008,
+      "lateral_error_m": 0.025681007653474808
+    }
+  ]
+}

@@ -1,0 +1,4112 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "3662bea157997a1894580e3fde4c9f67557138ea2013be9b7e0f13bac6f24927",
+  "method": "Exact recorded terminal poses, with finger closure swept0..25mm per finger in0.5mm increments. CPU forward collision geometry only, no integration or policy. Each pad must contact with inward normal cosine>0.5 and distance in[-3,+1]mm.",
+  "counterfactual_not_success_evaluation": true,
+  "poses_with_opposed_contact": 60,
+  "poses_with_opposed_contact_rejected_by_enclosure": 60,
+  "poses_with_first_opposed_contact_rejected_by_enclosure": 60,
+  "rows": [
+    {
+      "env_id": 0,
+      "initial_aperture_m": 0.0577310211956501,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.0287310211956501,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003946096107504426
+            ],
+            [
+              -0.0023620086009821795,
+              -0.0018832684915476101
+            ]
+          ],
+          "projected_object_width_m": 0.05384704050616025,
+          "inner_pad_gap_m": 0.028691021195650077
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.027731021195650102,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003659155320561931,
+              -0.0008728689573400277
+            ],
+            [
+              -0.002840743910798586,
+              -0.002362320471560343
+            ]
+          ],
+          "projected_object_width_m": 0.05384704050616025,
+          "inner_pad_gap_m": 0.027691021195650083
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.0267310211956501,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008454442641237944,
+              -0.0013511283039296684
+            ],
+            [
+              -0.002841372451573071
+            ]
+          ],
+          "projected_object_width_m": 0.05384704050616025,
+          "inner_pad_gap_m": 0.026691021195650054
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.022731021195650097,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0027635591923939897
+            ],
+            [
+              -0.0004736625460608351
+            ]
+          ],
+          "projected_object_width_m": 0.05384704050616025,
+          "inner_pad_gap_m": 0.022691021195650043
+        }
+      ]
+    },
+    {
+      "env_id": 1,
+      "initial_aperture_m": 0.05713529326021671,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 2,
+      "initial_aperture_m": 0.06124409846961498,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.024244098469614984,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0020722557529109717,
+              -0.00241512404792436
+            ],
+            [
+              -0.0002557688459636165
+            ]
+          ],
+          "projected_object_width_m": 0.059069296947837246,
+          "inner_pad_gap_m": 0.02420409846961495
+        }
+      ]
+    },
+    {
+      "env_id": 3,
+      "initial_aperture_m": 0.06188673712313175,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 4,
+      "initial_aperture_m": 0.05782214365899563,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.029822143658995628,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008543689939417943,
+              -0.0012340889399946346
+            ],
+            [
+              -0.00023781321641138948
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.029782143658995563
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028822143658995627,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013342781634867538,
+              -0.0017133868257077278
+            ],
+            [
+              -0.0007173326932186139,
+              -0.0003479383198951015
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.028782143658995597
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02782214365899563,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0018141873330317648,
+              -0.002192684711420873
+            ],
+            [
+              -0.001196852170025834,
+              -0.0008276257182647371
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.027782143658995583
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02682214365899563,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0022940965025767313,
+              -0.002671982597133973
+            ],
+            [
+              -0.0016763716468330583,
+              -0.0013073131166343756
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.02678214365899561
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.025822143658995628,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0027740056721216907
+            ],
+            [
+              -0.002155891123640334,
+              -0.001787000515004069
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.025782143658995588
+        },
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.01982214365899563,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013755839780502446
+            ],
+            [
+              -0.0003589833039995745
+            ]
+          ],
+          "projected_object_width_m": 0.053038039616337906,
+          "inner_pad_gap_m": 0.019782143658995624
+        }
+      ]
+    },
+    {
+      "env_id": 5,
+      "initial_aperture_m": 0.059819359332323074,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 6,
+      "initial_aperture_m": 0.0631398893892765,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.031139889389276504,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -6.027466176685465e-05,
+              -0.0001619258705145253
+            ],
+            [
+              -0.0008005105968797805,
+              -0.0007080829560212854
+            ]
+          ],
+          "projected_object_width_m": 0.05628989131242941,
+          "inner_pad_gap_m": 0.031099889389276478
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.030139889389276503,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005337473031377894,
+              -0.000635244358247522
+            ],
+            [
+              -0.0012739113978060873,
+              -0.0011814732717076756
+            ]
+          ],
+          "projected_object_width_m": 0.05628989131242941,
+          "inner_pad_gap_m": 0.030099889389276456
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.029139889389276502,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010072199445087828,
+              -0.0011085628459805777
+            ],
+            [
+              -0.0017473121987323355,
+              -0.001654863587394005
+            ]
+          ],
+          "projected_object_width_m": 0.05628989131242941,
+          "inner_pad_gap_m": 0.029099889389276455
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.0281398893892765,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014806925858797209,
+              -0.0015818813337135779
+            ],
+            [
+              -0.002220712999658585,
+              -0.0021282539030803385
+            ]
+          ],
+          "projected_object_width_m": 0.05628989131242941,
+          "inner_pad_gap_m": 0.02809988938927649
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.0271398893892765,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001954165227250711,
+              -0.00205519982144663
+            ],
+            [
+              -0.00269411380058489,
+              -0.0026016442187667232
+            ]
+          ],
+          "projected_object_width_m": 0.05628989131242941,
+          "inner_pad_gap_m": 0.027099889389276433
+        }
+      ]
+    },
+    {
+      "env_id": 7,
+      "initial_aperture_m": 0.06015271693468094,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.027152716934680937,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -8.204549599183288e-05
+            ],
+            [
+              -0.00026017525911244355
+            ]
+          ],
+          "projected_object_width_m": 0.0612409813377008,
+          "inner_pad_gap_m": 0.027112716934680904
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "initial_aperture_m": 0.05591362714767456,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02491362714767456,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013182216199397897
+            ],
+            [
+              -0.00014693433693587898
+            ]
+          ],
+          "projected_object_width_m": 0.053665825995036234,
+          "inner_pad_gap_m": 0.0248736271476745
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02391362714767456,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001798642387962302
+            ],
+            [
+              -0.00020824178823602106,
+              -0.0006256310692495789
+            ]
+          ],
+          "projected_object_width_m": 0.053665825995036234,
+          "inner_pad_gap_m": 0.023873627147674485
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02291362714767456,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002279063155984827
+            ],
+            [
+              -0.0011043278015632485
+            ]
+          ],
+          "projected_object_width_m": 0.053665825995036234,
+          "inner_pad_gap_m": 0.02287362714767447
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.021913627147674558,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00275948392400731
+            ],
+            [
+              -0.001583024533876952
+            ]
+          ],
+          "projected_object_width_m": 0.053665825995036234,
+          "inner_pad_gap_m": 0.021873627147674483
+        }
+      ]
+    },
+    {
+      "env_id": 9,
+      "initial_aperture_m": 0.06025799363851547,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 10,
+      "initial_aperture_m": 0.062134874984622,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 11,
+      "initial_aperture_m": 0.05758756212890148,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 12,
+      "initial_aperture_m": 0.05564339645206928,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 13,
+      "initial_aperture_m": 0.06067510321736336,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.03267510321736336,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0001690466547061356
+            ],
+            [
+              -0.0008515248256614556,
+              -0.00010933516742525474
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.03263510321736327
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.03167510321736336,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006327328305119687
+            ],
+            [
+              -0.0013209348673756986,
+              -0.0005794570885036617
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.03163510321736332
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.03067510321736336,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010964190063178017
+            ],
+            [
+              -0.0017903449090899953,
+              -0.0010495790095821213
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.03063510321736331
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.029675103217363358,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0002622991600684337,
+              -0.0015601051821236833
+            ],
+            [
+              -0.002259754950804245,
+              -0.0015197009306605347
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.02963510321736331
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.028675103217363357,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007382243916125514,
+              -0.0020237913579295164
+            ],
+            [
+              -0.002729164992518538,
+              -0.0019898228517389936
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.02863510321736331
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.027675103217363356,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0012141496231567169,
+              -0.002487477533735398
+            ],
+            [
+              -0.0024599447728174025
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.02763510321736331
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.026675103217363355,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016900748547008409,
+              -0.0029511637095412345
+            ],
+            [
+              -0.0029300666938958638
+            ]
+          ],
+          "projected_object_width_m": 0.061274851887179405,
+          "inner_pad_gap_m": 0.0266351032173633
+        }
+      ]
+    },
+    {
+      "env_id": 14,
+      "initial_aperture_m": 0.05618850141763687,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02318850141763687,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003575333817252697
+            ],
+            [
+              -0.002528574454965433
+            ]
+          ],
+          "projected_object_width_m": 0.05222797092652311,
+          "inner_pad_gap_m": 0.023148501417636885
+        }
+      ]
+    },
+    {
+      "env_id": 15,
+      "initial_aperture_m": 0.05806654319167137,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 16,
+      "initial_aperture_m": 0.06218362785875797,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.030183627858757972,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -2.661306112618873e-05
+            ],
+            [
+              -0.002667720008506202
+            ]
+          ],
+          "projected_object_width_m": 0.06106461600865316,
+          "inner_pad_gap_m": 0.030143627858757925
+        },
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.024183627858757974,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019523209270686098,
+              -0.0028174708054514793
+            ],
+            [
+              -0.0003068839740734172
+            ]
+          ],
+          "projected_object_width_m": 0.06106461600865316,
+          "inner_pad_gap_m": 0.024143627858757913
+        }
+      ]
+    },
+    {
+      "env_id": 17,
+      "initial_aperture_m": 0.062332648783922195,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.031332648783922196,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -7.729030647248133e-05
+            ],
+            [
+              -0.00134760699173091,
+              -0.0010522462189582042
+            ]
+          ],
+          "projected_object_width_m": 0.05906311260251555,
+          "inner_pad_gap_m": 0.03129264878392212
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.030332648783922195,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.000115903993828626,
+              -0.0005465043243781018
+            ],
+            [
+              -0.001818346981529304,
+              -0.0015234953577319206
+            ]
+          ],
+          "projected_object_width_m": 0.05906311260251555,
+          "inner_pad_gap_m": 0.030292648783922113
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.029332648783922194,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.000588685723089449,
+              -0.0010157183422837258
+            ],
+            [
+              -0.0022890869713276924,
+              -0.001994744496505634
+            ]
+          ],
+          "projected_object_width_m": 0.05906311260251555,
+          "inner_pad_gap_m": 0.029292648783922105
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.028332648783922193,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010614674523502722,
+              -0.0014849323601893497
+            ],
+            [
+              -0.002759826961126077,
+              -0.0024659936352793435
+            ]
+          ],
+          "projected_object_width_m": 0.05906311260251555,
+          "inner_pad_gap_m": 0.028292648783922104
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.027332648783922192,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0015342491816110935,
+              -0.00195414637809497
+            ],
+            [
+              -0.0029372427740530587
+            ]
+          ],
+          "projected_object_width_m": 0.05906311260251555,
+          "inner_pad_gap_m": 0.027292648783922097
+        }
+      ]
+    },
+    {
+      "env_id": 18,
+      "initial_aperture_m": 0.059408873319625854,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 19,
+      "initial_aperture_m": 0.05982771888375282,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029827718883752824,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0002535701992948851
+            ],
+            [
+              -0.0026758962082363783,
+              -0.002074968171065308
+            ]
+          ],
+          "projected_object_width_m": 0.05841925090879731,
+          "inner_pad_gap_m": 0.029787718883752798
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028827718883752823,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007240456059490171
+            ],
+            [
+              -0.0025477175900896825
+            ]
+          ],
+          "projected_object_width_m": 0.05841925090879731,
+          "inner_pad_gap_m": 0.028787718883752797
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.02382771888375282,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00235274741260243
+            ],
+            [
+              -7.663350328665075e-05
+            ]
+          ],
+          "projected_object_width_m": 0.05841925090879731,
+          "inner_pad_gap_m": 0.023787718883752813
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "initial_aperture_m": 0.060481954365968704,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 21,
+      "initial_aperture_m": 0.05488339439034462,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 22,
+      "initial_aperture_m": 0.05849782004952431,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 23,
+      "initial_aperture_m": 0.055438924580812454,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 24,
+      "initial_aperture_m": 0.057174233719706535,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 25,
+      "initial_aperture_m": 0.05948010832071304,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.03248010832071305,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00024322458066855946
+            ],
+            [
+              -0.0004404627274098633
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.032440108320713056
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.031480108320713046,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007113335449847715
+            ],
+            [
+              -0.0009118917319677034,
+              -0.0002258023895518701
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.03144010832071302
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.030480108320713042,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00019438649198627068,
+              -0.0011794425093009315
+            ],
+            [
+              -0.0013833207365255443,
+              -0.0006980868322674817
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.03044010832071304
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029480108320713044,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006700205893226396,
+              -0.0016475514736170914
+            ],
+            [
+              -0.0018547497410833908,
+              -0.0011703712749830991
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.02944010832071306
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028480108320713043,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0011456546866590086,
+              -0.002115660437933248
+            ],
+            [
+              -0.0023261787456412895,
+              -0.0016426557176987685
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.028440108320713024
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.027480108320713043,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016212887839953775,
+              -0.002583769402249408
+            ],
+            [
+              -0.0027976077501991295,
+              -0.0021149401604143806
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.027440108320713044
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02648010832071304,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0020969228813317977
+            ],
+            [
+              -0.002587224603129994
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.026440108320713016
+        },
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.021480108320713044,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -2.249049010738264e-05
+            ],
+            [
+              -0.0001284675800389894
+            ]
+          ],
+          "projected_object_width_m": 0.05951116327883464,
+          "inner_pad_gap_m": 0.021440108320713053
+        }
+      ]
+    },
+    {
+      "env_id": 26,
+      "initial_aperture_m": 0.056719932705163956,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.029719932705163956,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0009202268170404404
+            ],
+            [
+              -0.00021490593149874813,
+              -0.00028723263596877775
+            ]
+          ],
+          "projected_object_width_m": 0.052930199269312236,
+          "inner_pad_gap_m": 0.029679932705163864
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.028719932705163955,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014001728080816924
+            ],
+            [
+              -0.0006948798894657633,
+              -0.000766965245838783
+            ]
+          ],
+          "projected_object_width_m": 0.052930199269312236,
+          "inner_pad_gap_m": 0.02867993270516389
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.027719932705163954,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001880118799123013
+            ],
+            [
+              -0.0011748538474327787,
+              -0.0012466978557087883
+            ]
+          ],
+          "projected_object_width_m": 0.052930199269312236,
+          "inner_pad_gap_m": 0.027679932705163862
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.026719932705163957,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0023600647901642685
+            ],
+            [
+              -0.0016548278053997905,
+              -0.00172643046557879
+            ]
+          ],
+          "projected_object_width_m": 0.052930199269312236,
+          "inner_pad_gap_m": 0.026679932705163903
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.025719932705163956,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002840010781205546
+            ],
+            [
+              -0.0021348017633668055,
+              -0.0022061630754487953
+            ]
+          ],
+          "projected_object_width_m": 0.052930199269312236,
+          "inner_pad_gap_m": 0.025679932705163916
+        }
+      ]
+    },
+    {
+      "env_id": 27,
+      "initial_aperture_m": 0.05933271907269955,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.03233271907269955,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005463570841493094
+            ],
+            [
+              -0.00036063772624524685
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.03229271907269947
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.03133271907269955,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00020036775527849406,
+              -0.0010129489315224244
+            ],
+            [
+              -0.000830349437150166,
+              -0.00028352490293258125
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.03129271907269951
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.030332719072699545,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006744319510221422,
+              -0.0014795407788955948
+            ],
+            [
+              -0.0013000611480551442,
+              -0.0007544403255847849
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.03029271907269946
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029332719072699548,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001148496146765736,
+              -0.0019461326262687098
+            ],
+            [
+              -0.0017697728589600623,
+              -0.0012253557482369297
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.029292719072699494
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028332719072699547,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016225603425093298,
+              -0.0024127244736418248
+            ],
+            [
+              -0.002239484569865033,
+              -0.0016962711708891276
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.02829271907269948
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.027332719072699546,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002096624538252978,
+              -0.0028793163210149952
+            ],
+            [
+              -0.0027091962807699577,
+              -0.0021671865935412754
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.027292719072699485
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.026332719072699545,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0025706887339965716
+            ],
+            [
+              -0.002638102016193419
+            ]
+          ],
+          "projected_object_width_m": 0.060298177515336004,
+          "inner_pad_gap_m": 0.02629271907269952
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "initial_aperture_m": 0.05922631733119488,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 29,
+      "initial_aperture_m": 0.05742388591170311,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 30,
+      "initial_aperture_m": 0.05896097980439663,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 31,
+      "initial_aperture_m": 0.05792478658258915,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 32,
+      "initial_aperture_m": 0.05820906721055508,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.030209067210555076,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0012912339994697168
+            ],
+            [
+              -0.00016109695431122716
+            ]
+          ],
+          "projected_object_width_m": 0.055937368218063374,
+          "inner_pad_gap_m": 0.030169067210555046
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.029209067210555075,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017706382005730423
+            ],
+            [
+              -0.0006341578982362391
+            ]
+          ],
+          "projected_object_width_m": 0.055937368218063374,
+          "inner_pad_gap_m": 0.029169067210555004
+        }
+      ]
+    },
+    {
+      "env_id": 33,
+      "initial_aperture_m": 0.05827401019632816,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 34,
+      "initial_aperture_m": 0.055275462567806244,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.024275462567806244,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016227657612726816,
+              -0.00173442626271767
+            ],
+            [
+              -0.00017486401698226897
+            ]
+          ],
+          "projected_object_width_m": 0.052873229628875154,
+          "inner_pad_gap_m": 0.024235462567806225
+        }
+      ]
+    },
+    {
+      "env_id": 35,
+      "initial_aperture_m": 0.05686067417263985,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.025860674172639847,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00019423919211559657
+            ],
+            [
+              -0.00010166052389339215
+            ]
+          ],
+          "projected_object_width_m": 0.05189602376392653,
+          "inner_pad_gap_m": 0.025820674172639786
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.024860674172639846,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006754942159915281
+            ],
+            [
+              -0.0004255233575674851,
+              -0.0005827018271308982
+            ]
+          ],
+          "projected_object_width_m": 0.05189602376392653,
+          "inner_pad_gap_m": 0.024820674172639813
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.023860674172639845,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0011567492398674559
+            ],
+            [
+              -0.0010637431303684147
+            ]
+          ],
+          "projected_object_width_m": 0.05189602376392653,
+          "inner_pad_gap_m": 0.02382067417263982
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.022860674172639844,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016380042637433479
+            ],
+            [
+              -0.0015447844336060178
+            ]
+          ],
+          "projected_object_width_m": 0.05189602376392653,
+          "inner_pad_gap_m": 0.022820674172639784
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "initial_aperture_m": 0.05818682722747326,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.029186827227473258,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00011851267662135777
+            ],
+            [
+              -0.0028046278091522756
+            ]
+          ],
+          "projected_object_width_m": 0.05837384935155573,
+          "inner_pad_gap_m": 0.02914682722747322
+        }
+      ]
+    },
+    {
+      "env_id": 37,
+      "initial_aperture_m": 0.05959101393818855,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 38,
+      "initial_aperture_m": 0.059379516169428825,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029379516169428826,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019086341674582593,
+              -0.0022566689785404573
+            ],
+            [
+              -0.0004431849035937712,
+              -0.0001423480688498996
+            ]
+          ],
+          "projected_object_width_m": 0.05635678466817087,
+          "inner_pad_gap_m": 0.029339516169428842
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028379516169428826,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0023835100971100927,
+              -0.0027305816610318193
+            ],
+            [
+              -0.000917582001920543,
+              -0.0006167390937227301
+            ]
+          ],
+          "projected_object_width_m": 0.05635678466817087,
+          "inner_pad_gap_m": 0.02833951616942877
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.027379516169428825,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0028583860267619304
+            ],
+            [
+              -0.0013919791002472031,
+              -0.0010911301185954493
+            ]
+          ],
+          "projected_object_width_m": 0.05635678466817087,
+          "inner_pad_gap_m": 0.02733951616942879
+        },
+        {
+          "closure_per_finger_m": 0.0205,
+          "aperture_m": 0.018379516169428824,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0022620973505822475
+            ],
+            [
+              -0.00044928753866294165
+            ]
+          ],
+          "projected_object_width_m": 0.05635678466817087,
+          "inner_pad_gap_m": 0.018339516169428846
+        }
+      ]
+    },
+    {
+      "env_id": 39,
+      "initial_aperture_m": 0.060367679223418236,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 40,
+      "initial_aperture_m": 0.059810783714056015,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.030810783714056014,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005249441815370037,
+              -0.0010280255031040147
+            ],
+            [
+              -0.0004541945978680788,
+              -6.315391008460998e-05
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.030770783714055998
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029810783714056016,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010010349554526116,
+              -0.0015005012510631434
+            ],
+            [
+              -0.0009281404815593452,
+              -0.000537767895019548
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.029770783714055962
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028810783714056015,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014771257293681667,
+              -0.00197297699902222
+            ],
+            [
+              -0.0014020863652505987,
+              -0.0010123818799544725
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.02877078371405597
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.027810783714056014,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019532165032837743,
+              -0.0024454527469813486
+            ],
+            [
+              -0.0018760322489418083,
+              -0.001486995864889351
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.027770783714055988
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.026810783714056013,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0024293072771993844,
+              -0.0029179284949404807
+            ],
+            [
+              -0.002349978132633073,
+              -0.0019616098498242873
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.026770783714055946
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.025810783714056013,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002905398051114937
+            ],
+            [
+              -0.002823924016324277,
+              -0.002436223834759162
+            ]
+          ],
+          "projected_object_width_m": 0.057349880159618005,
+          "inner_pad_gap_m": 0.025770783714056007
+        }
+      ]
+    },
+    {
+      "env_id": 41,
+      "initial_aperture_m": 0.06041305139660835,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 42,
+      "initial_aperture_m": 0.05785638093948364,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 43,
+      "initial_aperture_m": 0.058024629950523376,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.025024629950523375,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0009179020270797893
+            ],
+            [
+              -0.0002527309619800914,
+              -0.0004483302229772888
+            ]
+          ],
+          "projected_object_width_m": 0.0549470893849022,
+          "inner_pad_gap_m": 0.024984629950523328
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.024024629950523374,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001394645107813498
+            ],
+            [
+              -0.0009247122392101173
+            ]
+          ],
+          "projected_object_width_m": 0.0549470893849022,
+          "inner_pad_gap_m": 0.02398462995052334
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.023024629950523373,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001871388188547203
+            ],
+            [
+              -0.0014010942554429423
+            ]
+          ],
+          "projected_object_width_m": 0.0549470893849022,
+          "inner_pad_gap_m": 0.022984629950523347
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.022024629950523372,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0023481312692809043
+            ],
+            [
+              -0.0018774762716757742
+            ]
+          ],
+          "projected_object_width_m": 0.0549470893849022,
+          "inner_pad_gap_m": 0.021984629950523353
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.02102462995052338,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0028248743500146095
+            ],
+            [
+              -0.002353858287908599
+            ]
+          ],
+          "projected_object_width_m": 0.0549470893849022,
+          "inner_pad_gap_m": 0.02098462995052336
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "initial_aperture_m": 0.06228947266936302,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.03128947266936302,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010165991297274473
+            ],
+            [
+              -0.00038043240445674543
+            ]
+          ],
+          "projected_object_width_m": 0.05873085735587146,
+          "inner_pad_gap_m": 0.031249472669362927
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.03028947266936302,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001488370010893837
+            ],
+            [
+              -0.00031311965000554315,
+              -0.0008503085617960408
+            ]
+          ],
+          "projected_object_width_m": 0.05873085735587146,
+          "inner_pad_gap_m": 0.030249472669362933
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02928947266936302,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019601408920602234
+            ],
+            [
+              -0.0007872442430204603,
+              -0.0013201847191353362
+            ]
+          ],
+          "projected_object_width_m": 0.05873085735587146,
+          "inner_pad_gap_m": 0.02924947266936293
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.02828947266936302,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002431911773226615
+            ],
+            [
+              -0.001261368836035379,
+              -0.0017900608764746316
+            ]
+          ],
+          "projected_object_width_m": 0.05873085735587146,
+          "inner_pad_gap_m": 0.02824947266936293
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.02728947266936302,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0029036826543929993
+            ],
+            [
+              -0.0017354934290503,
+              -0.0022599370338139304
+            ]
+          ],
+          "projected_object_width_m": 0.05873085735587146,
+          "inner_pad_gap_m": 0.027249472669362937
+        }
+      ]
+    },
+    {
+      "env_id": 45,
+      "initial_aperture_m": 0.0593822430819273,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 46,
+      "initial_aperture_m": 0.05746641010046005,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 47,
+      "initial_aperture_m": 0.058014849200844765,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 48,
+      "initial_aperture_m": 0.05995955690741539,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02895955690741539,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0024490732214041597
+            ],
+            [
+              -0.0001230726021167754
+            ]
+          ],
+          "projected_object_width_m": 0.054720436909215825,
+          "inner_pad_gap_m": 0.02891955690741537
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02795955690741539,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0029263949349797105
+            ],
+            [
+              -0.000297966001260914,
+              -0.0005998874151184924
+            ]
+          ],
+          "projected_object_width_m": 0.054720436909215825,
+          "inner_pad_gap_m": 0.027919556907415363
+        }
+      ]
+    },
+    {
+      "env_id": 49,
+      "initial_aperture_m": 0.05864710360765457,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.02964710360765457,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00015231752557914825
+            ],
+            [
+              -0.0018334892758347387,
+              -0.001237105337322638
+            ]
+          ],
+          "projected_object_width_m": 0.05427672338413721,
+          "inner_pad_gap_m": 0.029607103607654492
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028647103607654573,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006300932570207289
+            ],
+            [
+              -0.0023124614617597602,
+              -0.0017164658905852186
+            ]
+          ],
+          "projected_object_width_m": 0.05427672338413721,
+          "inner_pad_gap_m": 0.028607103607654456
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.027647103607654572,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00041595961927764753,
+              -0.0011078689884623095
+            ],
+            [
+              -0.0027914336476847143,
+              -0.002195826443847734
+            ]
+          ],
+          "projected_object_width_m": 0.05427672338413721,
+          "inner_pad_gap_m": 0.02760710360765447
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02664710360765457,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008965205957625957,
+              -0.0015856447199038381
+            ],
+            [
+              -0.002675186997110306
+            ]
+          ],
+          "projected_object_width_m": 0.05427672338413721,
+          "inner_pad_gap_m": 0.02660710360765449
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.022647103607654567,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002818764501702545
+            ],
+            [
+              -0.00045155408547286246
+            ]
+          ],
+          "projected_object_width_m": 0.05427672338413721,
+          "inner_pad_gap_m": 0.022607103607654458
+        }
+      ]
+    },
+    {
+      "env_id": 50,
+      "initial_aperture_m": 0.06023770943284035,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 51,
+      "initial_aperture_m": 0.05872860364615917,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 52,
+      "initial_aperture_m": 0.05986853130161762,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029868531301617623,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019469594721787365
+            ],
+            [
+              -0.00014579497367013536,
+              -0.000227467258922252
+            ]
+          ],
+          "projected_object_width_m": 0.05658786791663027,
+          "inner_pad_gap_m": 0.029828531301617604
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028868531301617623,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002420184032425553
+            ],
+            [
+              -0.000619079192054754,
+              -0.0007005385159003976
+            ]
+          ],
+          "projected_object_width_m": 0.05658786791663027,
+          "inner_pad_gap_m": 0.02882853130161761
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02786853130161762,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002893408592672422
+            ],
+            [
+              -0.0010923634104393724,
+              -0.0011736097728785432
+            ]
+          ],
+          "projected_object_width_m": 0.05658786791663027,
+          "inner_pad_gap_m": 0.027828531301617575
+        }
+      ]
+    },
+    {
+      "env_id": 53,
+      "initial_aperture_m": 0.05667506903409958,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.024675069034099578,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0011540398697183934,
+              -0.001412724417226317
+            ],
+            [
+              -0.00024528241706226004
+            ]
+          ],
+          "projected_object_width_m": 0.05267922687521389,
+          "inner_pad_gap_m": 0.024635069034099538
+        }
+      ]
+    },
+    {
+      "env_id": 54,
+      "initial_aperture_m": 0.059016887098550797,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 55,
+      "initial_aperture_m": 0.06405410170555115,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 56,
+      "initial_aperture_m": 0.05630585178732872,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 57,
+      "initial_aperture_m": 0.06061617471277714,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.029616174712777138,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -4.4498363147724795e-05
+            ],
+            [
+              -0.002275795692818753,
+              -0.002790119548727968
+            ]
+          ],
+          "projected_object_width_m": 0.057530359757546376,
+          "inner_pad_gap_m": 0.029576174712777133
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.028616174712777137,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.000517548894234905
+            ],
+            [
+              -0.0027497124675178114
+            ]
+          ],
+          "projected_object_width_m": 0.057530359757546376,
+          "inner_pad_gap_m": 0.028576174712777153
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.02361617471277714,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0028828015496708613
+            ],
+            [
+              -0.0002749012776916849
+            ]
+          ],
+          "projected_object_width_m": 0.057530359757546376,
+          "inner_pad_gap_m": 0.023576174712777148
+        }
+      ]
+    },
+    {
+      "env_id": 58,
+      "initial_aperture_m": 0.05747487582266331,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.029474875822663307,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016383689971190905
+            ],
+            [
+              -1.8817975326245148e-05,
+              -9.722268660292393e-05
+            ]
+          ],
+          "projected_object_width_m": 0.05387309130281544,
+          "inner_pad_gap_m": 0.029434875822663256
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028474875822663306,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0021166134495838027
+            ],
+            [
+              -0.0004971172716085455,
+              -0.0005752604896568153
+            ]
+          ],
+          "projected_object_width_m": 0.05387309130281544,
+          "inner_pad_gap_m": 0.02843487582266324
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02747487582266331,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0025948579020485204
+            ],
+            [
+              -0.0009754165678908494,
+              -0.00105329829271071
+            ]
+          ],
+          "projected_object_width_m": 0.05387309130281544,
+          "inner_pad_gap_m": 0.027434875822663227
+        }
+      ]
+    },
+    {
+      "env_id": 59,
+      "initial_aperture_m": 0.058948878198862076,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 60,
+      "initial_aperture_m": 0.05787749961018562,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.025877499610185623,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00011494048864902461
+            ],
+            [
+              -0.00028507142271907396,
+              -0.0005115996520004776
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.02583749961018563
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02487749961018562,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005908218106079499
+            ],
+            [
+              -0.000987096211803271
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.024837499610185637
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.02387749961018562,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010667031325668841
+            ],
+            [
+              -0.0014625927716060538
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.02383749961018565
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.02287749961018562,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0015425844545258094
+            ],
+            [
+              -0.0019380893314088505
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.022837499610185656
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.02187749961018562,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0020184657764847416
+            ],
+            [
+              -0.002413585891211689
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.02183749961018562
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.020877499610185625,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002494347098443667
+            ],
+            [
+              -0.002889082451014475
+            ]
+          ],
+          "projected_object_width_m": 0.05545389061207652,
+          "inner_pad_gap_m": 0.020837499610185634
+        }
+      ]
+    },
+    {
+      "env_id": 61,
+      "initial_aperture_m": 0.05868132598698139,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.03068132598698139,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00013223371609575284
+            ],
+            [
+              -0.0010855690796064427,
+              -0.0008123787546528696
+            ]
+          ],
+          "projected_object_width_m": 0.05536483780481501,
+          "inner_pad_gap_m": 0.03064132598698136
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.02968132598698139,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003254363991407615,
+              -0.0006075804452235125
+            ],
+            [
+              -0.0015611091935392267,
+              -0.0012881062936395593
+            ]
+          ],
+          "projected_object_width_m": 0.05536483780481501,
+          "inner_pad_gap_m": 0.02964132598698134
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028681325986981393,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008013574778570108,
+              -0.001082927174351227
+            ],
+            [
+              -0.0020366493074720693,
+              -0.0017638338326263052
+            ]
+          ],
+          "projected_object_width_m": 0.05536483780481501,
+          "inner_pad_gap_m": 0.02864132598698131
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.027681325986981392,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0012772785565732486,
+              -0.0015582739034789312
+            ],
+            [
+              -0.002512189421404857,
+              -0.002239561371612999
+            ]
+          ],
+          "projected_object_width_m": 0.05536483780481501,
+          "inner_pad_gap_m": 0.027641325986981345
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02668132598698139,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017531996352894944,
+              -0.0020336206326066423
+            ],
+            [
+              -0.0029877295353376446,
+              -0.0027152889105996887
+            ]
+          ],
+          "projected_object_width_m": 0.05536483780481501,
+          "inner_pad_gap_m": 0.026641325986981365
+        }
+      ]
+    },
+    {
+      "env_id": 62,
+      "initial_aperture_m": 0.05856271646916866,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.030562716469168662,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00023259122731421523,
+              -0.0003245289920097349
+            ],
+            [
+              -0.0009735255599959683,
+              -0.0008375517254834402
+            ]
+          ],
+          "projected_object_width_m": 0.055215924456679846,
+          "inner_pad_gap_m": 0.030522716469168668
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.02956271646916866,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007073720721097678,
+              -0.0007993941924462787
+            ],
+            [
+              -0.0014481661091622717,
+              -0.0013125572879522597
+            ]
+          ],
+          "projected_object_width_m": 0.055215924456679846,
+          "inner_pad_gap_m": 0.029522716469168618
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028562716469168664,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001182152916905297,
+              -0.0012742593928827982
+            ],
+            [
+              -0.001922806658328538,
+              -0.0017875628504210427
+            ]
+          ],
+          "projected_object_width_m": 0.055215924456679846,
+          "inner_pad_gap_m": 0.02852271646916863
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.027562716469168663,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0016569337617007743,
+              -0.0017491245933192656
+            ],
+            [
+              -0.0023974472074948425,
+              -0.0022625684128898637
+            ]
+          ],
+          "projected_object_width_m": 0.055215924456679846,
+          "inner_pad_gap_m": 0.027522716469168665
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.026562716469168662,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0021317146064963187,
+              -0.0022239897937558015
+            ],
+            [
+              -0.002872087756661164,
+              -0.002737573975358702
+            ]
+          ],
+          "projected_object_width_m": 0.055215924456679846,
+          "inner_pad_gap_m": 0.02652271646916861
+        }
+      ]
+    },
+    {
+      "env_id": 63,
+      "initial_aperture_m": 0.057895466685295105,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 64,
+      "initial_aperture_m": 0.05867197923362255,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 65,
+      "initial_aperture_m": 0.0549657829105854,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 66,
+      "initial_aperture_m": 0.05687849782407284,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 67,
+      "initial_aperture_m": 0.05709363520145416,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 68,
+      "initial_aperture_m": 0.061558039858937263,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.023558039858937264,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00011153103672178639,
+              -4.448872684763723e-05
+            ],
+            [
+              -0.0026631878233800616,
+              -0.002734747411775194
+            ]
+          ],
+          "projected_object_width_m": 0.056763566162764456,
+          "inner_pad_gap_m": 0.02351803985893726
+        }
+      ]
+    },
+    {
+      "env_id": 69,
+      "initial_aperture_m": 0.053939834237098694,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 70,
+      "initial_aperture_m": 0.05789357051253319,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028893570512533186,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -4.335902585724319e-05
+            ],
+            [
+              -0.0020364267320612402,
+              -0.0018528301119680234
+            ]
+          ],
+          "projected_object_width_m": 0.05245287450498165,
+          "inner_pad_gap_m": 0.0288535705125332
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02789357051253319,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00034040897819452175,
+              -0.0005233393085017392
+            ],
+            [
+              -0.002516495941876,
+              -0.0023330435745946474
+            ]
+          ],
+          "projected_object_width_m": 0.05245287450498165,
+          "inner_pad_gap_m": 0.027853570512533184
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.026893570512533188,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008207114111933091,
+              -0.0010033195911461797
+            ],
+            [
+              -0.0029965651516908136,
+              -0.002813257037221325
+            ]
+          ],
+          "projected_object_width_m": 0.05245287450498165,
+          "inner_pad_gap_m": 0.02685357051253317
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.022893570512533185,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002741921143188531,
+              -0.002923240721724011
+            ],
+            [
+              -0.00030467980007562313
+            ]
+          ],
+          "projected_object_width_m": 0.05245287450498165,
+          "inner_pad_gap_m": 0.022853570512533207
+        }
+      ]
+    },
+    {
+      "env_id": 71,
+      "initial_aperture_m": 0.062174394726753235,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 72,
+      "initial_aperture_m": 0.062310924753546715,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 73,
+      "initial_aperture_m": 0.06079132668673992,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.029791326686739922,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0025299186355163027,
+              -0.002874029395548399
+            ],
+            [
+              -0.00016603412472479702
+            ]
+          ],
+          "projected_object_width_m": 0.05865478187374487,
+          "inner_pad_gap_m": 0.029751326686739903
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.023791326686739923,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -5.441041744319846e-05
+            ],
+            [
+              -0.002983673536463411,
+              -0.0026551148991932156
+            ]
+          ],
+          "projected_object_width_m": 0.05865478187374487,
+          "inner_pad_gap_m": 0.023751326686739918
+        }
+      ]
+    },
+    {
+      "env_id": 74,
+      "initial_aperture_m": 0.062085844576358795,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 75,
+      "initial_aperture_m": 0.06195905990898609,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02995905990898609,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002301499630698079,
+              -0.0023429873725779498
+            ],
+            [
+              -0.0004415610310756104,
+              -0.0003944362946739496
+            ]
+          ],
+          "projected_object_width_m": 0.058614158308439385,
+          "inner_pad_gap_m": 0.029919059908986037
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02895905990898609,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002769915198870834,
+              -0.0028114306445473055
+            ],
+            [
+              -0.0009099689291916386,
+              -0.0008628872372792676
+            ]
+          ],
+          "projected_object_width_m": 0.058614158308439385,
+          "inner_pad_gap_m": 0.028919059908986064
+        },
+        {
+          "closure_per_finger_m": 0.022,
+          "aperture_m": 0.017959059908986094,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00219612479161781
+            ],
+            [
+              -0.0002903755396261036
+            ]
+          ],
+          "projected_object_width_m": 0.058614158308439385,
+          "inner_pad_gap_m": 0.017919059908986047
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "initial_aperture_m": 0.05918192304670811,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 77,
+      "initial_aperture_m": 0.05771850049495697,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.02971850049495697,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00011626074734217929,
+              -0.00011987316787834745
+            ],
+            [
+              -0.001333501026215271,
+              -0.0013280100890003543
+            ]
+          ],
+          "projected_object_width_m": 0.05360272523711536,
+          "inner_pad_gap_m": 0.029678500494956954
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.02871850049495697,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005943695436156093,
+              -0.0005979928260150097
+            ],
+            [
+              -0.0018116095504878366,
+              -0.0018061300191442918
+            ]
+          ],
+          "projected_object_width_m": 0.05360272523711536,
+          "inner_pad_gap_m": 0.028678500494956925
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02771850049495697,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010724783398890218,
+              -0.0010761124841516547
+            ],
+            [
+              -0.0022897180747603655,
+              -0.002284249949288191
+            ]
+          ],
+          "projected_object_width_m": 0.05360272523711536,
+          "inner_pad_gap_m": 0.027678500494956945
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02671850049495697,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001550587136162497,
+              -0.001554232142288362
+            ],
+            [
+              -0.0027678265990328794,
+              -0.0027623698794320773
+            ]
+          ],
+          "projected_object_width_m": 0.05360272523711536,
+          "inner_pad_gap_m": 0.026678500494956923
+        }
+      ]
+    },
+    {
+      "env_id": 78,
+      "initial_aperture_m": 0.056700265035033226,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.028700265035033225,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00010796297380813834,
+              -0.00025557716431168394
+            ],
+            [
+              -0.002528585875803347,
+              -0.002309488959824047
+            ]
+          ],
+          "projected_object_width_m": 0.0540495118608991,
+          "inner_pad_gap_m": 0.028660265035033126
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.027700265035033225,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005850734168249183,
+              -0.0007325183431211944
+            ],
+            [
+              -0.0027868816022594044
+            ]
+          ],
+          "projected_object_width_m": 0.0540495118608991,
+          "inner_pad_gap_m": 0.027660265035033105
+        }
+      ]
+    },
+    {
+      "env_id": 79,
+      "initial_aperture_m": 0.058110155165195465,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.030110155165195465,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00017529298040802653
+            ],
+            [
+              -0.0021804401690345304,
+              -0.0012567512592181833
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.030070155165195463
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.029110155165195464,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006493398518665904
+            ],
+            [
+              -0.00265656702628056,
+              -0.0017336011700519994
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.029070155165195392
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028110155165195466,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -2.8185196497627213e-05,
+              -0.0011233867233250536
+            ],
+            [
+              -0.0022104510808857642
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.028070155165195475
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.027110155165195465,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005071273920758594,
+              -0.0015974335947836174
+            ],
+            [
+              -0.002687300991719533
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.027070155165195446
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.023110155165195462,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002422896174388599
+            ],
+            [
+              -0.0004757491861517708
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.02307015516519549
+        },
+        {
+          "closure_per_finger_m": 0.0195,
+          "aperture_m": 0.019110155165195465,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00045582585472596793
+            ],
+            [
+              -0.0023802566151357504
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.019070155165195446
+        },
+        {
+          "closure_per_finger_m": 0.02,
+          "aperture_m": 0.018110155165195464,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0009298727261845283
+            ],
+            [
+              -0.002856383472381732
+            ]
+          ],
+          "projected_object_width_m": 0.05645169453831711,
+          "inner_pad_gap_m": 0.018070155165195424
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "initial_aperture_m": 0.05285553075373173,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 81,
+      "initial_aperture_m": 0.0565008707344532,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 82,
+      "initial_aperture_m": 0.05696189031004906,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 83,
+      "initial_aperture_m": 0.05786007083952427,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 84,
+      "initial_aperture_m": 0.060412097722291946,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 85,
+      "initial_aperture_m": 0.0582308080047369,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.0252308080047369,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0010562191443863331
+            ],
+            [
+              -0.00030114005820174473
+            ]
+          ],
+          "projected_object_width_m": 0.05594008096175084,
+          "inner_pad_gap_m": 0.025190808004736893
+        }
+      ]
+    },
+    {
+      "env_id": 86,
+      "initial_aperture_m": 0.05818683281540871,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 87,
+      "initial_aperture_m": 0.06132940575480461,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.02932940575480461,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003489656362899293,
+              -0.0004030504325017452
+            ],
+            [
+              -0.00237433196916493,
+              -0.0023141390907668903
+            ]
+          ],
+          "projected_object_width_m": 0.056367409678093325,
+          "inner_pad_gap_m": 0.029289405754804633
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.02832940575480461,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008214490525317708,
+              -0.0008755400872170788
+            ],
+            [
+              -0.002846790082577892,
+              -0.0027866540500003116
+            ]
+          ],
+          "projected_object_width_m": 0.056367409678093325,
+          "inner_pad_gap_m": 0.028289405754804632
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "initial_aperture_m": 0.059728994965553284,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 89,
+      "initial_aperture_m": 0.06081976555287838,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 90,
+      "initial_aperture_m": 0.060575587674975395,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.02457558767497539,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014979832923156732,
+              -0.001972184625689832
+            ],
+            [
+              -0.00022012702971402955
+            ]
+          ],
+          "projected_object_width_m": 0.057313144893260975,
+          "inner_pad_gap_m": 0.024535587674975393
+        }
+      ]
+    },
+    {
+      "env_id": 91,
+      "initial_aperture_m": 0.06178334541618824,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.024783345416188242,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017026658495289937,
+              -0.002257837271155212
+            ],
+            [
+              -9.626391693036461e-05
+            ]
+          ],
+          "projected_object_width_m": 0.060160948626320127,
+          "inner_pad_gap_m": 0.024743345416188264
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "initial_aperture_m": 0.059058668091893196,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.025058668091893194,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013683259602798932
+            ],
+            [
+              -0.00018993969221967055
+            ]
+          ],
+          "projected_object_width_m": 0.05687410207249301,
+          "inner_pad_gap_m": 0.025018668091893112
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.024058668091893193,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0018416962396496297
+            ],
+            [
+              -0.00040219612501397114,
+              -0.0006628688748906986
+            ]
+          ],
+          "projected_object_width_m": 0.05687410207249301,
+          "inner_pad_gap_m": 0.024018668091893125
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.023058668091893192,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0023150665190193845
+            ],
+            [
+              -0.0011357980575617231
+            ]
+          ],
+          "projected_object_width_m": 0.05687410207249301,
+          "inner_pad_gap_m": 0.023018668091893124
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.022058668091893198,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0027884367983891266
+            ],
+            [
+              -0.0016087272402327624
+            ]
+          ],
+          "projected_object_width_m": 0.05687410207249301,
+          "inner_pad_gap_m": 0.02201866809189313
+        }
+      ]
+    },
+    {
+      "env_id": 93,
+      "initial_aperture_m": 0.06186082400381565,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 94,
+      "initial_aperture_m": 0.05650666728615761,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 95,
+      "initial_aperture_m": 0.055269841104745865,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.013000000000000001,
+          "aperture_m": 0.029269841104745863,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00036157498621864655,
+              -0.00044228837650166393
+            ],
+            [
+              -0.0014007794502139774,
+              -0.0012807621064241273
+            ]
+          ],
+          "projected_object_width_m": 0.05302815939858614,
+          "inner_pad_gap_m": 0.029229841104745857
+        },
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.028269841104745865,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008404230537016036,
+              -0.000921283757325574
+            ],
+            [
+              -0.0018795652611679225,
+              -0.0017598197710273315
+            ]
+          ],
+          "projected_object_width_m": 0.05302815939858614,
+          "inner_pad_gap_m": 0.02822984110474583
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.027269841104745864,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013192711211845185,
+              -0.0014002791381494423
+            ],
+            [
+              -0.0023583510721218656,
+              -0.0022388774356305327
+            ]
+          ],
+          "projected_object_width_m": 0.05302815939858614,
+          "inner_pad_gap_m": 0.02722984110474584
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.026269841104745863,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017981191886674163,
+              -0.0018792745189732934
+            ],
+            [
+              -0.0028371368830758495,
+              -0.002717935100233775
+            ]
+          ],
+          "projected_object_width_m": 0.05302815939858614,
+          "inner_pad_gap_m": 0.02622984110474582
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "initial_aperture_m": 0.05906747654080391,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 97,
+      "initial_aperture_m": 0.05800049751996994,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.03000049751996994,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014155145069229995,
+              -0.0015766303613861678
+            ],
+            [
+              -0.00024672436835062586,
+              -0.00010173046665838543
+            ]
+          ],
+          "projected_object_width_m": 0.05555767152862062,
+          "inner_pad_gap_m": 0.02996049751996993
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.02900049751996994,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0018908259122343797,
+              -0.002051559835530945
+            ],
+            [
+              -0.0007218322933726086,
+              -0.0005768633446652045
+            ]
+          ],
+          "projected_object_width_m": 0.05555767152862062,
+          "inner_pad_gap_m": 0.028960497519969937
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02800049751996994,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002366137317545757,
+              -0.0025264893096757193
+            ],
+            [
+              -0.0011969402183946004,
+              -0.0010519962226720324
+            ]
+          ],
+          "projected_object_width_m": 0.05555767152862062,
+          "inner_pad_gap_m": 0.027960497519969943
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02700049751996994,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0028414487228571347
+            ],
+            [
+              -0.001672048143416585,
+              -0.001527129100678852
+            ]
+          ],
+          "projected_object_width_m": 0.05555767152862062,
+          "inner_pad_gap_m": 0.02696049751996995
+        }
+      ]
+    },
+    {
+      "env_id": 98,
+      "initial_aperture_m": 0.059323035180568695,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.029323035180568696,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00010494243786866593,
+              -0.00045519955065595865
+            ],
+            [
+              -0.0027486587438928264,
+              -0.002372792137486399
+            ]
+          ],
+          "projected_object_width_m": 0.05820662615885708,
+          "inner_pad_gap_m": 0.029283035180568656
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.028323035180568695,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005778260951987152,
+              -0.0009257950189886202
+            ],
+            [
+              -0.0028452673393096063
+            ]
+          ],
+          "projected_object_width_m": 0.05820662615885708,
+          "inner_pad_gap_m": 0.028283035180568655
+        }
+      ]
+    },
+    {
+      "env_id": 99,
+      "initial_aperture_m": 0.056344300508499146,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.023344300508499144,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00021508066245260236
+            ],
+            [
+              -0.002584520027038582
+            ]
+          ],
+          "projected_object_width_m": 0.05201729421154079,
+          "inner_pad_gap_m": 0.023304300508499097
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "initial_aperture_m": 0.06737884879112244,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 101,
+      "initial_aperture_m": 0.05858836509287357,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 102,
+      "initial_aperture_m": 0.06183026731014252,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 103,
+      "initial_aperture_m": 0.05774868652224541,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 104,
+      "initial_aperture_m": 0.05784709006547928,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.03084709006547928,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003999392154691241
+            ],
+            [
+              -0.0006558597896757516,
+              -0.00026723336157590146
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.0308070900654792
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.029847090065479278,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0003699060885362801,
+              -0.0008752330279890416
+            ],
+            [
+              -0.0011324348343828654,
+              -0.0007440418413450823
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.029807090065479262
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028847090065479277,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0008479998835259399,
+              -0.0013505268405090182
+            ],
+            [
+              -0.0016090098790900375,
+              -0.0012208503211143182
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.0288070900654792
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02784709006547928,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0013260936785155428,
+              -0.0018258206530289392
+            ],
+            [
+              -0.002085584923797143,
+              -0.00169765880088349
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.02780709006547926
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02684709006547928,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001804187473505197,
+              -0.0023011144655489123
+            ],
+            [
+              -0.0025621599685043063,
+              -0.0021744672806527196
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.02680709006547921
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.025847090065479278,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002282281268494806,
+              -0.002776408278068837
+            ],
+            [
+              -0.002651275760421897
+            ]
+          ],
+          "projected_object_width_m": 0.055761038059570125,
+          "inner_pad_gap_m": 0.025807090065479252
+        }
+      ]
+    },
+    {
+      "env_id": 105,
+      "initial_aperture_m": 0.05671092867851257,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 106,
+      "initial_aperture_m": 0.05771615915000439,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028716159150004385,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -7.037621109358665e-05
+            ],
+            [
+              -0.002825786594256052,
+              -0.0026535963988589843
+            ]
+          ],
+          "projected_object_width_m": 0.05481143630603009,
+          "inner_pad_gap_m": 0.028676159150004307
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.023716159150004384,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0022864180746166142,
+              -0.0024503706234385502
+            ],
+            [
+              -0.00015982290022749997
+            ]
+          ],
+          "projected_object_width_m": 0.05481143630603009,
+          "inner_pad_gap_m": 0.023676159150004324
+        }
+      ]
+    },
+    {
+      "env_id": 107,
+      "initial_aperture_m": 0.05487821623682976,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 108,
+      "initial_aperture_m": 0.057524677366018295,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 109,
+      "initial_aperture_m": 0.05816665664315224,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 110,
+      "initial_aperture_m": 0.05828182399272919,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.030281823992729186,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00030480459355288576
+            ],
+            [
+              -0.0020458608994200133,
+              -0.0017336289148904625
+            ]
+          ],
+          "projected_object_width_m": 0.05821075671071995,
+          "inner_pad_gap_m": 0.03024182399272919
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.029281823992729186,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00043569998099036913,
+              -0.0007752618516734633
+            ],
+            [
+              -0.002516797089860008,
+              -0.0022050256488231916
+            ]
+          ],
+          "projected_object_width_m": 0.05821075671071995,
+          "inner_pad_gap_m": 0.029241823992729163
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028281823992729188,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0009075766036424693,
+              -0.001245719109794079
+            ],
+            [
+              -0.0029877332802999575,
+              -0.0026764223827558747
+            ]
+          ],
+          "projected_object_width_m": 0.05821075671071995,
+          "inner_pad_gap_m": 0.028241823992729148
+        }
+      ]
+    },
+    {
+      "env_id": 111,
+      "initial_aperture_m": 0.05945105105638504,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 112,
+      "initial_aperture_m": 0.05722232908010483,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 113,
+      "initial_aperture_m": 0.059203995391726494,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.02520399539172649,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0002843207009960836
+            ],
+            [
+              -0.0010346104950171159
+            ]
+          ],
+          "projected_object_width_m": 0.05668643631191106,
+          "inner_pad_gap_m": 0.025163995391726375
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.02420399539172649,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007565720611557733
+            ],
+            [
+              -0.0015068406210160578
+            ]
+          ],
+          "projected_object_width_m": 0.05668643631191106,
+          "inner_pad_gap_m": 0.024163995391726388
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.02320399539172649,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0012288234213154521
+            ],
+            [
+              -0.0019790707470149988
+            ]
+          ],
+          "projected_object_width_m": 0.05668643631191106,
+          "inner_pad_gap_m": 0.023163995391726415
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.022203995391726496,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017010747814751805
+            ],
+            [
+              -0.0024513008730139407
+            ]
+          ],
+          "projected_object_width_m": 0.05668643631191106,
+          "inner_pad_gap_m": 0.02216399539172638
+        },
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.021203995391726495,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002173326141634863
+            ],
+            [
+              -0.00292353099901288
+            ]
+          ],
+          "projected_object_width_m": 0.05668643631191106,
+          "inner_pad_gap_m": 0.021163995391726406
+        }
+      ]
+    },
+    {
+      "env_id": 114,
+      "initial_aperture_m": 0.06233408488333225,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 115,
+      "initial_aperture_m": 0.06278815120458603,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.03178815120458603,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00018054974104227264
+            ],
+            [
+              -7.436721655546474e-05,
+              -0.0010444260250342978
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.03174815120458594
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.03078815120458603,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006528836984478775
+            ],
+            [
+              -0.0005498696340275417,
+              -0.0015148665544210118
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.03074815120458594
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.029788151204586027,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0011252176558534787
+            ],
+            [
+              -0.0010253720514996154,
+              -0.0019853070838077224
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.02974815120458594
+        },
+        {
+          "closure_per_finger_m": 0.017,
+          "aperture_m": 0.028788151204586027,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0015975516132590872
+            ],
+            [
+              -0.0015008744689716956,
+              -0.00245574761319444
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.028748151204585917
+        },
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.027788151204586026,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002069885570664694
+            ],
+            [
+              -0.0019763768864437693,
+              -0.0029261881425811506
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.027748151204585916
+        },
+        {
+          "closure_per_finger_m": 0.018000000000000002,
+          "aperture_m": 0.026788151204586025,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0025422195280702382
+            ],
+            [
+              -0.0024518793039158453
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.026748151204585964
+        },
+        {
+          "closure_per_finger_m": 0.021500000000000002,
+          "aperture_m": 0.019788151204586026,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0004360911570159755
+            ],
+            [
+              -0.00033162282808753166,
+              -0.0014324774542008789
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.019748151204585958
+        },
+        {
+          "closure_per_finger_m": 0.022,
+          "aperture_m": 0.01878815120458603,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00020140880378520504
+            ],
+            [
+              -0.0019029179835875895
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.01874815120458595
+        },
+        {
+          "closure_per_finger_m": 0.0225,
+          "aperture_m": 0.01778815120458603,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0006750050919473406
+            ],
+            [
+              -0.0023733585129743036
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.01774815120458595
+        },
+        {
+          "closure_per_finger_m": 0.023,
+          "aperture_m": 0.01678815120458603,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.001148601380109473
+            ],
+            [
+              -0.002843799042361015
+            ]
+          ],
+          "projected_object_width_m": 0.05843402553016594,
+          "inner_pad_gap_m": 0.016748151204585934
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "initial_aperture_m": 0.06281029805541039,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.031810298055410385,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -9.298334405818173e-06
+            ],
+            [
+              -0.002083007355215962,
+              -0.0017349151180800746
+            ]
+          ],
+          "projected_object_width_m": 0.0632335341246993,
+          "inner_pad_gap_m": 0.03177029805541034
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.030810298055410384,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0004695165307971225
+            ],
+            [
+              -0.0025468042924175938,
+              -0.0022002960688039135
+            ]
+          ],
+          "projected_object_width_m": 0.0632335341246993,
+          "inner_pad_gap_m": 0.03077029805541035
+        }
+      ]
+    },
+    {
+      "env_id": 117,
+      "initial_aperture_m": 0.05958301015198231,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0175,
+          "aperture_m": 0.024583010151982304,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014198100905215179,
+              -0.002024316958062579
+            ],
+            [
+              -0.0002633814427704882
+            ]
+          ],
+          "projected_object_width_m": 0.05696181902254284,
+          "inner_pad_gap_m": 0.024543010151982306
+        }
+      ]
+    },
+    {
+      "env_id": 118,
+      "initial_aperture_m": 0.058421991765499115,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.030421991765499114,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0012454857247670517
+            ],
+            [
+              -6.233214733847954e-05
+            ]
+          ],
+          "projected_object_width_m": 0.05543000577870493,
+          "inner_pad_gap_m": 0.030381991765499043
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.029421991765499114,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017232702432457608
+            ],
+            [
+              -0.0005381545694935551
+            ]
+          ],
+          "projected_object_width_m": 0.05543000577870493,
+          "inner_pad_gap_m": 0.02938199176549905
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.028421991765499116,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0022010547617243954
+            ],
+            [
+              -0.000428260501299187,
+              -0.0010139769916486792
+            ]
+          ],
+          "projected_object_width_m": 0.05543000577870493,
+          "inner_pad_gap_m": 0.02838199176549907
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.027421991765499115,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0026788392802030974
+            ],
+            [
+              -0.0009082601320257951,
+              -0.0014897994138037512
+            ]
+          ],
+          "projected_object_width_m": 0.05543000577870493,
+          "inner_pad_gap_m": 0.027381991765499082
+        }
+      ]
+    },
+    {
+      "env_id": 119,
+      "initial_aperture_m": 0.055927665904164314,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.028927665904164315,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0018666859038768185
+            ],
+            [
+              -0.0003426084418644278,
+              -0.0004666880073955905
+            ]
+          ],
+          "projected_object_width_m": 0.054160578284093916,
+          "inner_pad_gap_m": 0.02888766590416427
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.027927665904164314,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002344737398308752
+            ],
+            [
+              -0.0008207788291675119,
+              -0.0009443928960030756
+            ]
+          ],
+          "projected_object_width_m": 0.054160578284093916,
+          "inner_pad_gap_m": 0.027887665904164305
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.026927665904164313,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.002822788892740739
+            ],
+            [
+              -0.0012989492164705815,
+              -0.0014220977846105469
+            ]
+          ],
+          "projected_object_width_m": 0.054160578284093916,
+          "inner_pad_gap_m": 0.02688766590416429
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "initial_aperture_m": 0.05541938543319702,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 121,
+      "initial_aperture_m": 0.05561921000480652,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 122,
+      "initial_aperture_m": 0.06054719351232052,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02954719351232052,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.00029045043029548223
+            ],
+            [
+              -0.002581933423078057,
+              -0.002042993690336893
+            ]
+          ],
+          "projected_object_width_m": 0.05695255748781157,
+          "inner_pad_gap_m": 0.0295071935123205
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.028547193512320518,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0002829203765034812,
+              -0.0007631694194125765
+            ],
+            [
+              -0.002517125806401245
+            ]
+          ],
+          "projected_object_width_m": 0.05695255748781157,
+          "inner_pad_gap_m": 0.028507193512320415
+        },
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.027547193512320517,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0007571353559836982,
+              -0.0012358884085296707
+            ],
+            [
+              -0.002991257922465488
+            ]
+          ],
+          "projected_object_width_m": 0.05695255748781157,
+          "inner_pad_gap_m": 0.027507193512320435
+        },
+        {
+          "closure_per_finger_m": 0.0185,
+          "aperture_m": 0.02354719351232052,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0026539952739044487
+            ],
+            [
+              -5.09259120779444e-05
+            ]
+          ],
+          "projected_object_width_m": 0.05695255748781157,
+          "inner_pad_gap_m": 0.02350719351232053
+        }
+      ]
+    },
+    {
+      "env_id": 123,
+      "initial_aperture_m": 0.05758662521839142,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0135,
+          "aperture_m": 0.03058662521839142,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0005008749401748701,
+              -0.0013174219172541
+            ],
+            [
+              -6.886345279441817e-05
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.030546625218391313
+        },
+        {
+          "closure_per_finger_m": 0.014,
+          "aperture_m": 0.029586625218391418,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0009810134381983376,
+              -0.0017930119281419476
+            ],
+            [
+              -0.0005465145147867113
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.02954662521839136
+        },
+        {
+          "closure_per_finger_m": 0.0145,
+          "aperture_m": 0.028586625218391417,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0014611519362218086,
+              -0.002268601939029796
+            ],
+            [
+              -0.0010241655767790645,
+              -0.00038898503489508157
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.028546625218391346
+        },
+        {
+          "closure_per_finger_m": 0.015,
+          "aperture_m": 0.02758662521839142,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0019412904342453376,
+              -0.0027441919499177026
+            ],
+            [
+              -0.0015018166387713576,
+              -0.0008670517485965163
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.027546625218391338
+        },
+        {
+          "closure_per_finger_m": 0.0155,
+          "aperture_m": 0.02658662521839142,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0024214289322688053
+            ],
+            [
+              -0.0019794677007636523,
+              -0.0013451184622979497
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.02654662521839138
+        },
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.025586625218391418,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0029015674302923337
+            ],
+            [
+              -0.0024571187627560075,
+              -0.0018231851759994441
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.025546625218391315
+        },
+        {
+          "closure_per_finger_m": 0.019,
+          "aperture_m": 0.01958662521839142,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0017403606668467
+            ],
+            [
+              -0.00044510906505289163
+            ]
+          ],
+          "projected_object_width_m": 0.05555698003833875,
+          "inner_pad_gap_m": 0.01954662521839136
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "initial_aperture_m": 0.05826752819120884,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 125,
+      "initial_aperture_m": 0.057185132056474686,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.0165,
+          "aperture_m": 0.024185132056474684,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -0.0015557069870770239,
+              -0.0015673692016614621
+            ],
+            [
+              -0.0004086375308464494
+            ]
+          ],
+          "projected_object_width_m": 0.05420486835070765,
+          "inner_pad_gap_m": 0.02414513205647463
+        }
+      ]
+    },
+    {
+      "env_id": 126,
+      "initial_aperture_m": 0.0613386332988739,
+      "opposed_shallow_contact_cases": []
+    },
+    {
+      "env_id": 127,
+      "initial_aperture_m": 0.0612435694783926,
+      "opposed_shallow_contact_cases": [
+        {
+          "closure_per_finger_m": 0.016,
+          "aperture_m": 0.0292435694783926,
+          "between_fingers": false,
+          "contact_distances": [
+            [
+              -2.2559324431336084e-05
+            ],
+            [
+              -0.0028588115334605055
+            ]
+          ],
+          "projected_object_width_m": 0.05814563610863279,
+          "inner_pad_gap_m": 0.02920356947839258
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "3662bea157997a1894580e3fde4c9f67557138ea2013be9b7e0f13bac6f24927",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual frames show the peg stays upright while the open hand approaches its upper section and then hovers without contact. Strict0/128, all timeouts. Final aperture58.84mm and no opposing or robot/object contacts. This differs from the old topple/press lineage but has not learned capture.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.359375,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 0.05883730947971344,
+    "gripper_object_distance_mean": 0.07679581642150879,
+    "gripper_goal_distance_mean": 0.31202417612075806,
+    "gripper_down_alignment_mean": 0.9506882429122925,
+    "object_height_mean": -6.12054718658328e-05,
+    "gripper_action_mean": 0.47424501180648804,
+    "absolute_action_max": 0.8171253204345703,
+    "goal_error_mean": 0.28791043162345886
+  },
+  "videos": {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "checkpoint_sha256": "3662bea157997a1894580e3fde4c9f67557138ea2013be9b7e0f13bac6f24927",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-020-R4-m3098/failure.mp4",
+        "outcome": {
+          "env_id": 4,
+          "success": false,
+          "steps": 1000,
+          "return": 23.58855628967285,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
