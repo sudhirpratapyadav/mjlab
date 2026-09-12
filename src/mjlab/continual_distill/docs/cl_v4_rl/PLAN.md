@@ -2,9 +2,9 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** Current assignments: Cage R4 GPU1, Throw GPU2, Stack R4 GPU3, Lift R5 GPU4, Place R3 GPU5, Edge GPU6 and Reorient R7 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Training: Throw GPU2, Stack R5 GPU3, Lift R6 GPU4, Place R4 GPU5 and Peg R3 GPU6. Cage R4 and Reorient R7 completed and were evaluated; GPUs1/7 are available after their evaluation steps exit. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
 
-A captured Stack failure reproduced in1 and2048 GPU worlds and was fixed by clearing stale solver acceleration at episode reset. The production fix passed the captured transition and100 PPO updates; all24 tasks already start with zero cache, so fresh initialization is unchanged. Cage showed the same reset signature. Reorient has a distinct instability with extreme object velocities; its replay still fails after cache clearing. New captures retain8 preceding states and explicit nonfinite reward/observation lane IDs. Stack/Place use contact-closure shaping after measured open-enclosure failures. Strike/Peg/Pivot await targeted retries; full24-teacher goal active.
+Edge final2999 and LiftR5/model3500 each scored0/128 with actual failure videos reviewed. A cube closure audit found64 opposing-contact cases rejected by whole-object enclosure; the production GPU query confirms64/64 opposing contacts and0/64 old enclosed grasps on those counterfactual states. New lift_v6/completion_v6 use opposing pad normals and a local centerline width for training; native success/physics/60D/8D stay unchanged. Lift/Peg/Stack/Place retries passed PPO preflights and are running. Other training recipes retain their versioned behavior. The reset-cache fix remains verified; Reorient's separate high-velocity instability remains unresolved, with8-state capture enabled. Strike/Edge/Pivot await targeted retries. Full24-teacher goal active.
 
 ## Fixed evaluation and retention gate
 
@@ -14,15 +14,17 @@ The evaluator has adversarial reset/retry tests. evaluate_candidate.py runs both
 
 ## Active training and next evaluations
 
-- GPU1: Cage R4 cage_v3,1024 ×1000 additional updates from4600; reset fix and8-state capture.
-- GPU2: Throw throw_v3,2048 ×3000 updates; older process, pre-step capture.
-- GPU3: Stack R4 completion_v5,2048 ×1800 additional from1400, gripper std0.15; reset fix and8-state capture.
-- GPU4: Lift R5 lift_v5,2048 ×2000 additional from diagnosticreplay2028; older process, pre-step capture.
-- GPU5: Place R3 completion_v5,2048 ×2000 additional from1500, gripper std0.15; reset fix, one-state capture (launched before history extension).
-- GPU6: Edge edge_v2,2048 ×3000 updates; older process.
-- GPU7: Reorient R7 reorient_v6,2048 ×1500 additional from4600; reset fix and8-state capture, preserve output/std.
+- GPU1: free after Cage/Lift/Throw strict evaluations; prepare a targeted Cage transport retry.
+- GPU2: Throw throw_v3,2048 ×3000; model2500 strict0/128, evaluate final after exit.
+- GPU3: Stack R5 completion_v6,2048 ×2000 additional from2200/std0.15;8-state capture.
+- GPU4: Lift R6 lift_v6,2048 ×2000 additional from3500/std0.15; real grasping acquired, model4100 strict0/128, monitor height/goal progress.
+- GPU5: Place R4 completion_v6,2048 ×2000 additional from2300/std0.15;8-state capture.
+- GPU6: Peg R3 completion_v6,2048 ×2500 additional from1500, mean0.5/std0.15;8-state capture.
+- GPU7: Reorient R7 final6099 strict0/128, reviewed; prepare opposing-contact/local-width retry after task-specific preflight.
 
-Strike/Peg/Pivot need targeted retries. Strike final9/128 mostly undershoots; Peg/Pivot press objects down. Actual CPU contact-normal audit rejects the observed top pressing; no evidence yet warrants replacing the training grasp classifier. Inspect wrist/ramp alignment and precursor rewards before the next Pivot trial. Stack/Place now test contact closure: desired gap shifts from width+3mm to width-4mm at zero approach distance, with positive clearance retained far away. This is reward shaping; contact stiffness and native success remain fixed.
+Strike/Edge/Pivot need targeted retries. Strike final9/128 mostly undershoots; Peg/Pivot press objects down. Actual CPU contact-normal audit rejects the observed top pressing. A separate closure counterfactual now proves that the full-box enclosure also rejects valid opposing contacts; Lift/Peg trials replace that training gate with real opposing pad normals. Inspect wrist/ramp alignment and precursor rewards before the next Pivot trial. Stack/Place now test contact closure: desired gap shifts from width+3mm to width-4mm at zero approach distance, with positive clearance retained far away. This is reward shaping; contact stiffness and native success remain fixed.
+
+New contact_geometry_witness_preflight.json confirms64/64 GPU opposing contacts and0/64 old enclosed grasps for the audited closure states. These are geometry witnesses, not successful RL episodes.95 tests plus Lift/Peg3-update PPO checks passed. Monitor actual opposed-contact and lift fractions before strict evaluation.
 
 The stale reset acceleration issue is reproduced and fixed. All24 fresh environments have zero initial cache. Existing long-running processes keep their loaded old source; use current reset fix when they next resume. Reorient's captured lane853 already has extreme object velocities and fails even with zero warm start;8-state history is enabled to locate the earlier onset. Do not label that distinct instability resolved, discard invalid lanes, or change physics silently.
 
@@ -41,3 +43,5 @@ Record each new recipe and budget before launch. Check recipe invariants and sho
 Work only in /ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex, branch exp/rl-teachers-24-codex, based on4149157. Reuse the shared interpreter without reinstalling packages. Inside every Slurm step explicitly cd to this worktree, export PYTHONPATH="$PWD/src", export the assigned GPU UUID from allocation.py, and set OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 FORCE_CPU=0. Invoke /ihub/homedirs/svs_ald/sudhir/mjlab/.venv/bin/python. Verify imports resolve into this worktree.
 
 The stage launcher uses the verified experiment-scoped W&B entity/project. Never print credentials or call global wandb login. Holder20277 expires2026-09-28T08:58:54 scheduler time; recheck holder, GPU process placement and disk before long runs. Runs are local to this worktree; committed JSON evidence and W&B artifacts carry reviewable results.
+
+Keep the public /v4-rl/ summary current after reviewed evaluations/certifications; use PUBLICATION.md. Do not publish a training diagnostic as a success rate.

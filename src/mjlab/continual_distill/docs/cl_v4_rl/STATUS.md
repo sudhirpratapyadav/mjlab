@@ -1,8 +1,8 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current assignments: Cage R4 GPU1, Throw GPU2, Stack R4 GPU3, Lift R5 GPU4, Place R3 GPU5, Edge GPU6 and Reorient R7 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Training: Throw GPU2, Stack R5 GPU3, Lift R6 GPU4, Place R4 GPU5 and Peg R3 GPU6. Cage R4 and Reorient R7 completed and were evaluated; GPUs1/7 are available after their evaluation steps exit. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
 
-A captured Stack failure reproduced in1 and2048 GPU worlds and was fixed by clearing stale solver acceleration at episode reset. The production fix passed the captured transition and100 PPO updates; all24 tasks already start with zero cache, so fresh initialization is unchanged. Cage showed the same reset signature. Reorient has a distinct instability with extreme object velocities; its replay still fails after cache clearing. New captures retain8 preceding states and explicit nonfinite reward/observation lane IDs. Stack/Place use contact-closure shaping after measured open-enclosure failures. Strike/Peg/Pivot await targeted retries; full24-teacher goal active.
+Edge final2999 and LiftR5/model3500 each scored0/128 with actual failure videos reviewed. A cube closure audit found64 opposing-contact cases rejected by whole-object enclosure; the production GPU query confirms64/64 opposing contacts and0/64 old enclosed grasps on those counterfactual states. New lift_v6/completion_v6 use opposing pad normals and a local centerline width for training; native success/physics/60D/8D stay unchanged. Lift/Peg/Stack/Place retries passed PPO preflights and are running. Other training recipes retain their versioned behavior. The reset-cache fix remains verified; Reorient's separate high-velocity instability remains unresolved, with8-state capture enabled. Strike/Edge/Pivot await targeted retries. Full24-teacher goal active.
 
 ## Readiness
 
@@ -29,30 +29,34 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | R4 continuation | 0/128 R2 | R3 stopped at4649, reset-cache failure reproduced; continue own4600 onGPU1 with selective cache reset. |
+| Cage-Drag | 4 | on | Retry needed | 2/128 R4 final5599 | Valid open-hand approach but almost no sustained contact transport; actual success/failure reviewed. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Training first pilot | Not measured | edge_v2,2048 ×3000 onGPU6; enclosed grasp credit after exposure. |
+| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang then hovers behind; no contact or pinch. Actual failure reviewed. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | Training R5 | 0/128 final V3 | lift_v5 from finite diagnosticreplay2028; gripper mean0.5/std0.15,2048 ×2000 additional onGPU4; pre-step capture. |
+| Lift-Cube | 20 | on | Training R6 | 0/128 R6 model4100 | lift_v6 from3500/std0.15 onGPU4; actual opposed contacts and local pad-center width;8-state capture. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
-| Peg-Insertion | 20 | on | Rejected V2; retry needed | 0/128 V2 model1500 | Actual video: knocks shaft down and presses it; no geometric enclosure. Finite checkpoint retained. |
+| Peg-Insertion | 20 | on | Training R3 | 0/128 V2 model1500 | completion_v6 from1500, gripper mean0.5/std0.15 onGPU6; native insertion unchanged. |
 | Pivot-Lift | 6 | on | Rejected; retry needed | 0/128 model1500 | Actual board top pressing. CPU terminal contact audit:124/128 two-pad contacts,0 opposing pairs. |
-| Place-In-Container | 20 | on | Training R3 | 0/128 V2 model1500 | completion_v5 contact-closure target, own1500/std0.15 onGPU5; geometry/native success unchanged. |
+| Place-In-Container | 20 | on | Training R4 | 0/128 V2 model1500 | completion_v6 from ownR3/2300/std0.15 onGPU5; opposing-contact training gate. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Training R7 | 0/128 R5 final | R6 stopped at4609; extreme object velocity failure persists with cold cache. Own4600 retained;8-state capture onGPU7. |
+| Reorient-Object | 20 | on | Retry needed | 0/128 R7 final6099 | Full budget completed finite, but deterministic policy hovers without contact. Earlier numerical instability remains a separate issue. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
-| Stack-Cube | 20 | on | Training R4 | 0/128 R3 model1400 | Reset-cache regression fixed; completion_v5 from1400/std0.15 onGPU3 after100+3 PPO checks. |
+| Stack-Cube | 20 | on | Training R5 | 0/128 R3 model1400 | completion_v6 from ownR4/2200/std0.15 onGPU3;3 resumed PPO checks passed. |
 | Strike-Slide | 4 | on | Finished pilot; retry needed | 9/128 final2999 | Strikes and retracts; most trials undershoot. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
-| Throw-To-Bin | 5 | on | Training first pilot | Not measured | throw_v3,2048 ×3000 onGPU2; capture width/ballistic shaping and pre-step capture. |
+| Throw-To-Bin | 5 | on | Training first pilot | 0/128 model2500 | Open-hand hover without lift or throw; actual failure reviewed. Full budget still running onGPU2. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
 
 ## Resource limits
 
 Seven A100 80GB GPUs authorized by the user (indices 1–7); never use GPU0. Holder expiry is September 28 per Slurm. Last filesystem snapshot: about 1.6 TB free. Pilot processes used about 1 GB (Reach) or 2.5 GB (contact tasks) per GPU at 1,024 environments. Recheck GPU use, free space and holder lifetime before a long run.
+
+## Public summary
+
+https://cl.sudhirpratapyadav.com/v4-rl/ — new current-experiment home-page card, concise24-task gallery, actual RL policy videos and clear certified/in-progress status. Detailed records remain in W&B.

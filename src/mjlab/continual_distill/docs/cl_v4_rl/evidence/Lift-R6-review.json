@@ -1,0 +1,31 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "6be88208b4caf69249260ef1cf642d069b01037d03e3ddd7dd8fa99fd8e4d0d8",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual pad closure and object rotation occur, but the reviewed failure does not carry the cube to the raised target. Contact acquisition is progress, not native lift success.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 125,
+    "grasped_fraction": 0.9760000705718994,
+    "enclosed_fraction": 0.8960000276565552,
+    "enclosed_grasp_fraction": 0.8720000386238098,
+    "opposed_grasp_fraction": 0.9760000705718994,
+    "robot_object_contact_fraction": 0.9920000433921814,
+    "aperture_mean": 0.04571717232465744,
+    "gripper_object_distance_mean": 0.014355028048157692,
+    "gripper_goal_distance_mean": 0.24962759017944336,
+    "gripper_down_alignment_mean": 0.9829292297363281,
+    "object_height_mean": 0.027769874781370163,
+    "gripper_action_mean": -0.9117912650108337,
+    "absolute_action_max": 0.9924381971359253,
+    "goal_error_mean": 0.26057490706443787
+  },
+  "wandb_video_run": "80xgufti"
+}

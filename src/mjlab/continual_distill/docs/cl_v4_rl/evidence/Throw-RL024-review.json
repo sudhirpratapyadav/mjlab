@@ -1,0 +1,57 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "checkpoint_sha256": "49c2c1cfa2f2de6d287e0723761195838a3a76a5a25107589761594f87279797",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "0000",
+    "0062",
+    "0124"
+  ],
+  "review": "Open hand approaches the cube, then remains around it on the floor. No lift, launch or release into the bin in the reviewed failure.",
+  "last_diagnostics": {
+    "control_step": 240,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.96875,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.015625,
+    "aperture_mean": 0.056410908699035645,
+    "gripper_object_distance_mean": 0.008309273980557919,
+    "gripper_goal_distance_mean": 0.4731932282447815,
+    "gripper_down_alignment_mean": 0.9766783118247986,
+    "object_height_mean": 0.02257181704044342,
+    "gripper_action_mean": 0.35415318608283997,
+    "absolute_action_max": 0.9864062666893005,
+    "goal_error_mean": 0.47395068407058716
+  },
+  "videos": {
+    "task": "Mjlab-Throw-To-Bin-Franka",
+    "checkpoint_sha256": "49c2c1cfa2f2de6d287e0723761195838a3a76a5a25107589761594f87279797",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-m2500/failure.mp4",
+        "outcome": {
+          "env_id": 3,
+          "success": false,
+          "steps": 250,
+          "return": 14.144525527954102,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 125,
+        "fps": 25,
+        "simulation_seconds": 5.0,
+        "encoded_seconds": 5.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  },
+  "wandb_video_run": "c9yrpulc"
+}

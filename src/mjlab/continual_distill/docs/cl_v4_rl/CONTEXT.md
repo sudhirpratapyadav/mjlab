@@ -48,8 +48,11 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Current assignments: Cage R4 GPU1, Throw GPU2, Stack R4 GPU3, Lift R5 GPU4, Place R3 GPU5, Edge GPU6 and Reorient R7 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Training: Throw GPU2, Stack R5 GPU3, Lift R6 GPU4, Place R4 GPU5 and Peg R3 GPU6. Cage R4 and Reorient R7 completed and were evaluated; GPUs1/7 are available after their evaluation steps exit. GPU0 remains unused. All24 active tasks have RL training evidence; coverage is not certification.
 
-A captured Stack failure reproduced in1 and2048 GPU worlds and was fixed by clearing stale solver acceleration at episode reset. The production fix passed the captured transition and100 PPO updates; all24 tasks already start with zero cache, so fresh initialization is unchanged. Cage showed the same reset signature. Reorient has a distinct instability with extreme object velocities; its replay still fails after cache clearing. New captures retain8 preceding states and explicit nonfinite reward/observation lane IDs. Stack/Place use contact-closure shaping after measured open-enclosure failures. Strike/Peg/Pivot await targeted retries; full24-teacher goal active.
+Edge final2999 and LiftR5/model3500 each scored0/128 with actual failure videos reviewed. A cube closure audit found64 opposing-contact cases rejected by whole-object enclosure; the production GPU query confirms64/64 opposing contacts and0/64 old enclosed grasps on those counterfactual states. New lift_v6/completion_v6 use opposing pad normals and a local centerline width for training; native success/physics/60D/8D stay unchanged. Lift/Peg/Stack/Place retries passed PPO preflights and are running. Other training recipes retain their versioned behavior. The reset-cache fix remains verified; Reorient's separate high-velocity instability remains unresolved, with8-state capture enabled. Strike/Edge/Pivot await targeted retries. Full24-teacher goal active.
 
-See evidence/*-certificate.json, training_wave13.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.
+
+Public summary: https://cl.sudhirpratapyadav.com/v4-rl/ (24 recorded policy videos; current home-page card). Keep this summary current using build_gallery.py; publication instructions in PUBLICATION.md.
+
+See evidence/*-certificate.json, training_wave14.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.

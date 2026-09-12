@@ -1,0 +1,31 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "0977fd0443d105157669401d934d0ff9545b3ab6d6f1010316653dedad40276c",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Open fingers surround the horizontal bottle and stop without actual contact, lift or reorientation. All128 terminal timeouts fail the unchanged native criterion.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 1.0,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 0.06295245885848999,
+    "gripper_object_distance_mean": 0.007344967685639858,
+    "gripper_goal_distance_mean": 0.007468962110579014,
+    "gripper_down_alignment_mean": 0.9969626665115356,
+    "object_height_mean": 0.013470357283949852,
+    "gripper_action_mean": 0.4978957176208496,
+    "absolute_action_max": 0.9904490113258362,
+    "goal_error_mean": 1.6150474548339844
+  },
+  "wandb_video_run": "0gl0gd8b"
+}
