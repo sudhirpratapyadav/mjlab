@@ -5,7 +5,8 @@ from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped,
 from mjlab.utils.lab_api.math import quat_apply
 import torch
 
-RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
+RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lid_v2", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
+RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -64,7 +65,7 @@ def apply_recipe(cfg, recipe):
   cfg.agent.algorithm.gamma = 0.995
   # Freeze the initial regularization for learning beyond the old 1000/1500
   # update boundaries instead of abruptly increasing it by 10x and 100x.
-  if recipe in ("mechanism_v1", "lid_v1"):
+  if recipe in ("mechanism_v1", "lid_v1", "lid_v2"):
     reach = cfg.env.rewards["reach_object"]
     if reach.func is not articulation_task_reward:
       raise ValueError("mechanism_v1 requires an articulation task")
@@ -74,10 +75,14 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards["no_object_collision"].weight = 0.0
     cfg.env.rewards["action_rate_l2"].weight = -0.005
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
-    if recipe == "lid_v1":
+    if recipe in ("lid_v1", "lid_v2"):
       if reach.params["command_name"] != "open_lid":
         raise ValueError("lid_v1 requires Open-Lid")
       reach.func = lid_grasp_progress_reward
+      if recipe == "lid_v2":
+        bounded_initialization(cfg)
+        cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], .5)
+        cfg.agent.policy.initial_gripper_std = .15
   if recipe in ("lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4"):
     reach = cfg.env.rewards["reach_object"]
     expected = "lift_object" if recipe.startswith("lift_") else "reorient_object"
@@ -118,6 +123,23 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards[name].params["smooth_closure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
+  if recipe in ("edge_v1", "pivot_v1", "strike_v1", "throw_v1"):
+    from remaining_reward import edge_reward, pivot_reward, strike_reward, throw_reward
+    choices = {
+      "edge_v1": ("franka_edge_grasp", edge_reward),
+      "pivot_v1": ("franka_pivot_lift", pivot_reward),
+      "strike_v1": ("franka_strike_slide", strike_reward),
+      "throw_v1": ("franka_throw_to_bin", throw_reward),
+    }
+    expected, reward = choices[recipe]
+    if cfg.agent.experiment_name != expected:
+      raise ValueError(f"{recipe} requires {expected}")
+    bounded_initialization(cfg)
+    cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], .5)
+    cfg.agent.policy.initial_gripper_std = .15
+    cfg.env.rewards["reach_object"].func = reward
+    cfg.env.rewards["joint_vel_penalty"].weight = -.0001 if recipe in ("strike_v1", "throw_v1") else -.001
+    cfg.env.rewards["action_rate_l2"].weight = -.002
 
 
 def bounded_initialization(cfg):

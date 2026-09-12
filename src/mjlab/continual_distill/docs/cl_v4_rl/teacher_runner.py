@@ -24,28 +24,39 @@ def reset_gripper_exploration(policy, optimizer, std):
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, capture_pre_step=False, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     super().__init__(*args, **kwargs)
     original_step = self.env.step
     original_update = self.alg.update
     original_log = self.logger.log
     self._saturation = []
+    previous_state = {}
 
     def fail(stage):
       directory = Path(self.logger.log_dir)
       policy = self.alg.policy
       details = {"stage": stage, "last_completed_iteration": self.current_learning_iteration,
                  "nonfinite_parameters": [name for name,p in policy.named_parameters() if not torch.isfinite(p).all()]}
+      data = self.env.unwrapped.sim.data
+      bad = (~torch.isfinite(data.qpos).all(-1)) | (~torch.isfinite(data.qvel).all(-1))
+      details["nonfinite_simulator_env_ids"] = bad.nonzero().flatten().cpu().tolist()
+      details["pre_step_captured"] = bool(previous_state)
       (directory / "numerical_failure.json").write_text(json.dumps(details, indent=2) + "\n")
       torch.save({"model_state_dict":policy.state_dict(), "optimizer_state_dict":self.alg.optimizer.state_dict(),
                   "qpos":self.env.unwrapped.sim.data.qpos.detach().cpu(),
-                  "qvel":self.env.unwrapped.sim.data.qvel.detach().cpu()}, directory / "numerical_failure.pt")
+                  "qvel":self.env.unwrapped.sim.data.qvel.detach().cpu(),
+                  "previous_state":{name:value.cpu() for name,value in previous_state.items()}}, directory / "numerical_failure.pt")
       raise RuntimeError(f"Numerical failure at {stage}; see {directory}/numerical_failure.json")
 
     def checked_step(actions):
       if not torch.isfinite(actions).all():
         fail("policy_action")
+      if capture_pre_step:
+        data = self.env.unwrapped.sim.data
+        for name in ("qpos", "qvel", "ctrl", "qacc_warmstart", "mocap_pos", "mocap_quat"):
+          previous_state[name] = getattr(data,name).detach().clone()
+        previous_state["actions"] = actions.detach().clone()
       result = original_step(actions)
       obs, rewards = result[:2]
       if not (torch.isfinite(obs["policy"]).all() & torch.isfinite(rewards).all()

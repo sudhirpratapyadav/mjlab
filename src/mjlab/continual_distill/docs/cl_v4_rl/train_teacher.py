@@ -37,6 +37,7 @@ def main():
   )
   parser.add_argument("--resume-checkpoint", type=Path)
   parser.add_argument("--resume-gripper-std", type=float, help="Explicit gripper-only exploration reset after checkpoint load")
+  parser.add_argument("--capture-pre-step", action="store_true", help="Save preceding physics state if the numerical guard fails")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -104,12 +105,13 @@ def main():
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,
       "resume_checkpoint": str(checkpoint) if checkpoint else None,
       "resume_gripper_std": args.resume_gripper_std,
+      "capture_pre_step": args.capture_pre_step,
       "resume_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest() if checkpoint else None,
       "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration." if checkpoint else "Fresh policy",
     }
     (run / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     try:
-      runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std)
+      runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std, capture_pre_step=args.capture_pre_step)
       run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys

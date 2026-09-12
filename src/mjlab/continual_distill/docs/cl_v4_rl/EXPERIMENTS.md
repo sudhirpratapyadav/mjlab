@@ -75,3 +75,13 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 
 | PREFLIGHT-REORIENT-CLOSURE-005 | Reorient | Check stronger smooth closure and gripper std reset | reorient_v4, ownR4/model1900, gripper std0.25,64 environments ×3 updates, GPU2 | Prepared | Debug model1900 scored0/16, no actual grasp; contact bonus also increased so grasp dominates noncontact closure |
 | RL-005-R5 | Reorient | Learn end-face closure from finite own approach policy | reorient_v4, ownR4/model1900, gripper std0.25,2048 environments ×2000 additional updates, seed20260912, GPU2 | Prepared | Archive previous numerical failure; stronger monotone closure and true grasp, same physics/interface |
+
+| PREFLIGHT-LIFT-FAILURE-006 | Lift | Capture preceding physics state for numerical failure diagnosis | Same ownV3/model1999, lift_v3/std0.2,2048 environments ×30 updates, GPU1 | Prepared | R4 failed at2009 with finite policy; diagnostic replay only, unchanged benchmark |
+| PREFLIGHT-LID-BOUNDED-007 | Lid | Check fresh bounded policy after verified R2 saturation | lid_v2,64 environments ×3 updates, GPU6 | Prepared | R2 mean12644/action saturation1.0; stopped exact step1717; fresh architecture, gripper mean0.5/std0.15 |
+| RL-015-V3 | Lid | Learn hinge progress with bounded action means | lid_v2,2048 environments ×2000 updates, seed20260912, GPU6 | Prepared | Fresh policy; preserve native gravity/horizon/60D/8D and success |
+
+| PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Prepared | Edge near-rim exposure/side pinch; Pivot ramp/wall-contact tilt; Strike sliding endpoint; Throw descending rim-plane crossing; no action scripting or benchmark changes |
+| RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual grasp/height/settling required; assign GPU after readiness |
+| RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual contact/tilt history retained; assign GPU after readiness |
+| RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Registered puck friction0.04 unchanged; prediction is shaping only |
+| RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native full-object containment/release/support/settling retained; prediction does not certify success |
