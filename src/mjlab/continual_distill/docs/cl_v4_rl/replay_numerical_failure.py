@@ -26,6 +26,7 @@ def main():
   parser.add_argument('--lane', type=int, required=True)
   parser.add_argument('--all-lanes', action='store_true')
   parser.add_argument('--zero-warmstart', action='store_true', help='Diagnostic ablation only; no training configuration changes')
+  parser.add_argument('--elliptic-hessian', action='store_true', help='Test stable native-equivalent dense cone Hessian')
   parser.add_argument('--full-hessian', action='store_true', help='Process-local diagnostic: rebuild the Newton Hessian instead of incremental updates')
   args = parser.parse_args()
   if args.output.exists():
@@ -38,6 +39,7 @@ def main():
   manifest = json.loads((args.failure.parent/'manifest.json').read_text())
   cfg = TrainConfig.from_task(manifest['task'])
   apply_recipe(cfg, manifest['recipe'])
+  cfg.env.sim.elliptic_hessian_compat = args.elliptic_hessian or manifest.get('elliptic_hessian_compat', False)
   cfg.env.sim.free_body_implicitfast_compat = manifest.get('free_body_implicitfast_compat', False)
   cfg.env.scene.num_envs = len(previous['qpos']) if args.all_lanes else 1
   cfg.env.seed = manifest['seed']
@@ -90,6 +92,7 @@ def main():
               'source_lane':args.lane,'num_envs':env.num_envs,'zero_warmstart_ablation':args.zero_warmstart,
               'full_hessian_ablation':args.full_hessian,
               'physics_changed':False,'initial_state_restored':list(previous),
+              'elliptic_hessian_compat':cfg.env.sim.elliptic_hessian_compat,
               'free_body_implicitfast_compat':cfg.env.sim.free_body_implicitfast_compat,
               'limitations':'Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.',
               'physics_timestep':env.physics_dt,'control_substeps':cfg.env.decimation,'samples':samples}

@@ -323,3 +323,5 @@ Wave20 scoreboard yx39wuwn finished and synced14/24. Remote W&B API verified150 
 ### Wave21
 
 Revalidated five full PPO processes onGPU1/2/4/6/7 andGPU0 at0MiB; holder expiry unchanged. Place6329/lane995 reproduction fails at first substep; cold-cache diagnostic passes all4. Added process-local full-Hessian replay ablation to isolate installed incremental Newton optimization without changing shared dependencies. Strike conservative LR refinement preregistered after launch/endpoint audit.
+
+Strike refinement preflight49brwemr completed3 updates, all checkpoint tensors finite, Adam5e-5 confirmed; fullR3 launched original4998 onGPU3. Place full-Hessian ablation still fails. Eager solver audit identifies a small-T elliptic Hessian denominator defect; normalized outer-product form passes the original full-batch failure without clearing warmstart. Independent derivative/kernel tests and strict backend round-trip tests added.

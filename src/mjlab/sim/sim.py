@@ -6,6 +6,7 @@ import mujoco_warp as mjwarp
 import warp as wp
 
 from mjlab.sim.randomization import expand_model_fields
+from mjlab.sim.elliptic_hessian import elliptic_hessian_scope
 from mjlab.sim.sim_data import WarpBridge
 from mjlab.utils.nan_guard import NanGuard, NanGuardCfg
 
@@ -102,6 +103,11 @@ class SimulationCfg:
   Retain the legacy Warp path by default. Record this backend compatibility
   choice with a run and restore it during evaluation.
   """
+  elliptic_hessian_compat: bool = False
+  """Use the native-equivalent stable cone Hessian for dense elliptic solves.
+
+  Explicit backend compatibility choice; persist and restore with checkpoints.
+  """
 
 
 class Simulation:
@@ -124,6 +130,8 @@ class Simulation:
     # MJWarp model and data.
     with wp.ScopedDevice(self.wp_device):
       self._wp_model = mjwarp.put_model(self._mj_model)
+      if cfg.elliptic_hessian_compat and self._wp_model.is_sparse:
+        raise ValueError("elliptic_hessian_compat currently requires a dense Jacobian")
       # ls_parallel was removed in MuJoCo Warp 3.9.1 (raises AttributeError on both
       # get and set). Setting it is best-effort so mjlab works across versions.
       try:
@@ -159,7 +167,7 @@ class Simulation:
     self.step_graph = None
     self.forward_graph = None
     if self.use_cuda_graph:
-      with wp.ScopedDevice(self.wp_device):
+      with elliptic_hessian_scope(self.cfg.elliptic_hessian_compat), wp.ScopedDevice(self.wp_device):
         with wp.ScopedCapture() as capture:
           self._stepper(self.wp_model, self.wp_data)
         self.step_graph = capture.graph
@@ -214,14 +222,14 @@ class Simulation:
     self._model_bridge.clear_cache()
 
   def forward(self) -> None:
-    with wp.ScopedDevice(self.wp_device):
+    with elliptic_hessian_scope(self.cfg.elliptic_hessian_compat), wp.ScopedDevice(self.wp_device):
       if self.use_cuda_graph and self.forward_graph is not None:
         wp.capture_launch(self.forward_graph)
       else:
         mjwarp.forward(self.wp_model, self.wp_data)
 
   def step(self) -> None:
-    with wp.ScopedDevice(self.wp_device):
+    with elliptic_hessian_scope(self.cfg.elliptic_hessian_compat), wp.ScopedDevice(self.wp_device):
       with self.nan_guard.watch(self.data):
         if self.use_cuda_graph and self.step_graph is not None:
           wp.capture_launch(self.step_graph)
