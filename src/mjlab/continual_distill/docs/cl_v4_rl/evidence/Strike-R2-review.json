@@ -1,0 +1,78 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "b5501b11a35ce1b3bcbb35608dad2149c9ab10f59480687ab48454b8b3459722",
+  "successes": 20,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "review": "Actual recorded success/failure frames show a strike followed by hand retraction and puck sliding toward the target. The selected failure is visually close but misses the unchanged native terminal gate. Strict20/128 improves from9/128; no confirmation. Quantitative launch/endpoint analysis should separate remaining acquisition failures from speed/direction errors.",
+  "last_diagnostics": {
+    "control_step": 190,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.0,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 0.0526522621512413,
+    "gripper_object_distance_mean": 0.4486946761608124,
+    "gripper_goal_distance_mean": 0.6747387051582336,
+    "gripper_down_alignment_mean": 0.6670669317245483,
+    "object_height_mean": 0.012662554159760475,
+    "gripper_action_mean": 0.3015269339084625,
+    "absolute_action_max": 0.9986804723739624,
+    "goal_error_mean": 0.2924807667732239
+  },
+  "videos": {
+    "task": "Mjlab-Strike-Slide-Franka",
+    "checkpoint_sha256": "b5501b11a35ce1b3bcbb35608dad2149c9ab10f59480687ab48454b8b3459722",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-023-R2-m4998/success.mp4",
+        "outcome": {
+          "env_id": 65,
+          "success": true,
+          "steps": 200,
+          "return": 69.6277847290039,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-023-R2-m4998/failure.mp4",
+        "outcome": {
+          "env_id": 68,
+          "success": false,
+          "steps": 200,
+          "return": 32.43290328979492,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

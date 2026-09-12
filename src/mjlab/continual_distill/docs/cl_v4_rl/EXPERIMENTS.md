@@ -261,3 +261,5 @@ pivot_v3 preserves pivot_v2 physics/native pivot-history+grasp+goal+settled pred
 PlaceR5 final5399 strict35/128, improved from0/128. Actual success/failure frames reviewed: capture/transport/lowering at container, incomplete release/settling in selected failure. Preregister unchanged completion_v6 continuation from own5399,2048 ×2000 additional, GPU5 after short Pivot preflight. Inherit saved Adam LR5e-5/moments/normalizers/means/std; strict evaluation at budget.
 
 | RL-019-R6 | Place | Improve newly acquired native container completion | completion_v6, ownR5/model5399,2048 ×2000 additional, GPU5 | Prepared |35/128 prior; unchanged configuration and inherited LR5e-5. |
+
+Wave19 launch update: Pivot preflight map1pnz1 passed3 updates with finite1502 and Adam LR1e-4. PlaceR6 from5399 launched onGPU5 with inherited LR5e-5. StrikeR2 completed its budget normally; final4998 strict20/128, improved9/128, all timeouts, actual success/failure clips reviewed. PivotR2 now launched onGPU1 from original1500,2048 ×2000, source0b8a931, preserving all policy/optimizer/normalizer settings.
