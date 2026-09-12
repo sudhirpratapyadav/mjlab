@@ -184,6 +184,15 @@ class Simulation:
 
   # Methods.
 
+  def reset_solver_state(self, env_ids=None) -> None:
+    """Discard acceleration estimates from a previous episode in reset worlds.
+
+    Warm starting a newly teleported configuration with the old episode's
+    acceleration can make the constraint solve nonfinite. Ongoing worlds keep
+    their warm starts; no positions, velocities, or solver settings change.
+    """
+    self.data.qacc_warmstart[slice(None) if env_ids is None else env_ids] = 0.0
+
   def expand_model_fields(self, fields: tuple[str, ...]) -> None:
     """Expand model fields to support per-environment parameters."""
     invalid_fields = [f for f in fields if not hasattr(self._mj_model, f)]

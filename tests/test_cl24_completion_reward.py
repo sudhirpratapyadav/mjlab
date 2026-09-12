@@ -83,3 +83,18 @@ def test_capture_aperture_prefers_object_width_over_empty_closure(monkeypatch):
   path=torch.linspace(.10,0.,1001)
   score=module.aperture_fit_score(path,torch.full_like(path,.058),torch.full_like(path,.046))
   assert (score[1:]-score[:-1]).abs().max()<.003
+
+
+def test_contact_capture_prefers_light_squeeze_over_stationary_open_cage(monkeypatch):
+  module = load_reward(monkeypatch)
+  width = torch.tensor([.046,.065])
+  distance = torch.full((2,),.006)
+  score = lambda gap: module.aperture_fit_score(distance,gap,width,squeeze=True)
+  # At a correctly approached cube, the old positive clearance pays more for
+  # hovering open. The new variant rewards closure into contact while retaining
+  # object width, so closing empty fingers remains strongly disfavored.
+  assert torch.all(score(width-.002)>score(width+.008))
+  assert torch.all(score(width-.002)>score(torch.zeros(2))+.8)
+  far = torch.full((2,),.20)
+  assert torch.all(module.aperture_fit_score(far,width+.016,width,squeeze=True)>
+                   module.aperture_fit_score(far,width-.004,width,squeeze=True))

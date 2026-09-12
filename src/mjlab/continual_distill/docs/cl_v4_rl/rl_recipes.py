@@ -10,7 +10,7 @@ RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "completion_v3")
 RECIPES += ("edge_v2", "pivot_v2", "throw_v2", "lift_v4", "reorient_v5")
 RECIPES += ("cage_v3",)
 RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
-RECIPES += ("completion_v4",)
+RECIPES += ("completion_v4", "completion_v5")
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, **kwargs):
@@ -62,6 +62,11 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "completion_v5":
+    apply_recipe(cfg, "completion_v4")
+    name = "stack" if "stack" in cfg.env.rewards else "reach_object"
+    cfg.env.rewards[name].params["squeeze_capture"] = True
     return
   parent = {"lift_v5":"lift_v4", "reorient_v6":"reorient_v5", "throw_v3":"throw_v2", "completion_v4":"completion_v3"}.get(recipe)
   if parent:

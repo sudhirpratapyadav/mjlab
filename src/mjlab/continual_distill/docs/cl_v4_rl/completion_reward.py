@@ -36,13 +36,13 @@ def enclosed_grasp(command):
   return grasped(command) & between_fingers(command)
 
 
-def aperture_fit_score(distance, gap, object_width):
+def aperture_fit_score(distance, gap, object_width, squeeze=False):
   """Smooth capture clearance; closing empty fingers should not win approach."""
-  clearance = .003+.020*(1-torch.exp(-distance/.05))
+  clearance = (-.004 if squeeze else .003)+.020*(1-torch.exp(-distance/.05))
   return torch.exp(-distance/.15)*torch.exp(-((gap-object_width-clearance)/.025).square())
 
 
-def capture_aperture_bonus(command, distance):
+def capture_aperture_bonus(command, distance, squeeze=False):
   robot, obj = command.robot, command.object
   quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
   closing_axis = quat_apply(quat,torch.tensor([0.,1.,0.],device=command.device).expand(command.num_envs,3))
@@ -51,10 +51,10 @@ def capture_aperture_bonus(command, distance):
   ids = [robot.geom_names.index(n) for n in ('left_finger_pad','right_finger_pad')]
   pads = robot.data.geom_pos_w[:,ids]
   gap = torch.linalg.vector_norm(pads[:,0]-pads[:,1],dim=-1)-.0152
-  return aperture_fit_score(distance,gap,width)
+  return aperture_fit_score(distance,gap,width,squeeze=squeeze)
 
 
-def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, **kwargs):
+def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, squeeze_capture=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -69,7 +69,7 @@ def completion_reward(env, command_name, object_asset_name='object', smooth_clos
     desired = torch.where(distance>0.035,0.07,0.025)
     aperture_match = torch.exp(-((aperture-desired)/0.025).square())
   if geometry_aperture:
-    aperture_match = capture_aperture_bonus(command,distance)
+    aperture_match = capture_aperture_bonus(command,distance,squeeze=squeeze_capture)
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   pos = tracking_position(obj)
   height = pos[:,2]-env.scene.env_origins[:,2]-resting_site_height(obj)
