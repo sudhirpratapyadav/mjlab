@@ -48,7 +48,7 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Training: Cage R5 GPU1, Throw R2 GPU2, Stack R5 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Training: Cage R6 GPU1, Throw R2 GPU2, Stack R6 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Lift R6 final5499 strict0/128, but actual grasp/lift/transport now occurs: mean final goal error9.50cm and height19.65cm, improved from26.06cm/2.78cm at4100. Continue its unchanged policy from5499. Throw final2999 and Peg R3/2300 each strict0/128; actual failure clips reviewed. Place learned grasps then regressed after3400 into open-hand joint-limit saturation; retained finite3400, strict0/128, reviewed grasp/lift beside the container. R5 continues3400 at half the learning rate after a finite3-update PPO check.
 
@@ -56,4 +56,4 @@ Captured Peg/Reorient spin failures identify a missing native MuJoCo free-body g
 
 Public summary: https://cl.sudhirpratapyadav.com/v4-rl/ — current RL card and24 actual policy videos. Keep reviewed results current with PUBLICATION.md.
 
-See evidence/*-certificate.json, training_wave15.json, gyro_compatibility_audit.json and rl_training_coverage.json. Verify Slurm/process state before GPU reuse.
+See evidence/*-certificate.json, training_wave16.json, gyro_compatibility_audit.json and rl_training_coverage.json. Verify Slurm/process state before GPU reuse.

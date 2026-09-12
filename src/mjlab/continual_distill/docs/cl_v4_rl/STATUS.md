@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Training: Cage R5 GPU1, Throw R2 GPU2, Stack R5 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Training: Cage R6 GPU1, Throw R2 GPU2, Stack R6 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Lift R6 final5499 strict0/128, but actual grasp/lift/transport now occurs: mean final goal error9.50cm and height19.65cm, improved from26.06cm/2.78cm at4100. Continue its unchanged policy from5499. Throw final2999 and Peg R3/2300 each strict0/128; actual failure clips reviewed. Place learned grasps then regressed after3400 into open-hand joint-limit saturation; retained finite3400, strict0/128, reviewed grasp/lift beside the container. R5 continues3400 at half the learning rate after a finite3-update PPO check.
 
@@ -31,7 +31,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | Training R5 | 2/128 R4 final5599 | cage_v4 from5599, reward contact drive12mm; native no-pinch preserved, GPU1. |
+| Cage-Drag | 4 | on | Training R6 | 16/128 R5 final7598 | Native caging improved from2/128; unchanged cage_v4 from7598 ×1500 additional, GPU1. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang then hovers behind; no contact or pinch. Actual failure reviewed. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
@@ -49,8 +49,8 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Reorient-Object | 20 | on | Training R9 | 0/128 R7 final6099 | R8 stopped6589 with spin failure; own stress6599 resumes with optional gyro correction onGPU7. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
-| Stack-Cube | 20 | on | Training R5 | 0/128 R3 model1400 | completion_v6 from ownR4/2200/std0.15 onGPU3;3 resumed PPO checks passed. |
-| Strike-Slide | 4 | on | Finished pilot; retry needed | 9/128 final2999 | Strikes and retracts; most trials undershoot. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
+| Stack-Cube | 20 | on | Training R6 | 0/128 R5 final4199 | Opposing grasps65.08% at final surviving-world sample; no stacking. Unchanged completion_v6 from4199 ×1000, GPU3. |
+| Strike-Slide | 4 | on | Finished pilot; retry needed | 9/128 final2999 | Strikes and retracts;58/128 negligible launches,25 weak launches,45 substantial launches with9 successes. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
 | Throw-To-Bin | 5 | on | Training R2 | 0/128 final2999 | throw_v4 from2999/std0.15, opposed contacts/local width;3-update PPO preflight passed, GPU2. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |

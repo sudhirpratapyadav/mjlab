@@ -257,3 +257,11 @@ Wave15 W&B scoreboard p7a1sv8z reports14/24. Remote API verified101 files in the
 ### Wave16
 
 Previous goal turn made progress: Place LR retry, reviewed four final policies, updated public media, verified50 served files/24 playable videos, synced101 W&B records and committeda46f8af. Revalidated liveSlurm; StackR5 exited normally and CageR5 reachedfinal7598 then synced/exited. Strict evaluations: Stack4199 0/128 (126timeouts,2bounds), final opposing grasp65.08%; Cage7598 16/128 (127timeouts,1ground), improved from2/128. Actual frames reviewed and evidence retained. Preregister bounded unchanged CageR6×1500 andStackR6×1000; no confirmation for failed gates. Full goal remains14/24.
+
+CageR6 andStackR6 launched as registered, sourceed4b8b3, exactsteps1852/1853 andPIDs2328726/2328742 verified onGPUs1/3. The other five training processes remain live, with no numerical_failure.json in any current run. Wave16 inventory records all seven manifests. Cage/Stack new strict results and reviewed policy videos now published to /v4-rl/; certification remains14/24.
+
+Wave16 public refresh verified:24 playable policy videos, home newest-card link,14/10 filters, task search and mobile overflow all pass;50/50 HTTPS files match local hashes.
+
+Strike recorded-state speed audit separates the110 longitudinal undershoots:58/128 episodes have maximum puck speed below0.05m/s,25 between0.05 and0.4m/s,45 at least0.4m/s; all9 successes are in the last group. Speed is a launch proxy, not proof of contact or a new success test. This changes the next diagnosis toward approach/contact coverage before launch-speed tuning; strike_launch_audit.json retained and separately published to W&B.
+
+Wave16 scoreboardrp1l6kwj completed and synced14/24; remote API verified104 experiment-record files, including new reviews, inventory and public verification (wave16_wandb_records.json). Strike launch audit separately synced as rund6da3q80/artifactCL24-strike-launch-audit. Final GPU check shows one training process on eachGPU1–7 and0MiB onGPU0. No additional certifications; goal remains active.

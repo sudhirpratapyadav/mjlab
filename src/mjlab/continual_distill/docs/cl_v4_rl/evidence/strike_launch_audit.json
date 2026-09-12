@@ -1,0 +1,30 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "f6959dcb9209a13901dac230f49dfbe31d42be5223e8421d6f48ee78f89ce4ca",
+  "source": "Strike-RL023-review.json: recorded first-episode maximum puck speed",
+  "groups": {
+    "negligible_launch_under_0.05m_s": {
+      "episodes": 58,
+      "successes": 0,
+      "median_final_error_m": 0.6194686889648438
+    },
+    "weak_launch_0.05_to_0.4m_s": {
+      "episodes": 25,
+      "successes": 0,
+      "median_final_error_m": 0.5989062190055847
+    },
+    "substantial_launch_at_least_0.4m_s": {
+      "episodes": 45,
+      "successes": 9,
+      "median_final_error_m": 0.180205300450325
+    }
+  },
+  "interpretation": "Separate negligible launch from distance calibration. Speed bins are diagnostics, not native success or proof of contact. Address approach/contact coverage before assuming all110 undershoots need a faster strike.",
+  "speed_quantiles": {
+    "0": 0.0007615513750351965,
+    "0.25": 0.0055658918572589755,
+    "0.5": 0.16302045434713364,
+    "0.75": 0.5494404882192612,
+    "1": 1.3119083642959595
+  }
+}

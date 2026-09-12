@@ -2,7 +2,7 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** Training: Cage R5 GPU1, Throw R2 GPU2, Stack R5 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Training: Cage R6 GPU1, Throw R2 GPU2, Stack R6 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
 Lift R6 final5499 strict0/128, but actual grasp/lift/transport now occurs: mean final goal error9.50cm and height19.65cm, improved from26.06cm/2.78cm at4100. Continue its unchanged policy from5499. Throw final2999 and Peg R3/2300 each strict0/128; actual failure clips reviewed. Place learned grasps then regressed after3400 into open-hand joint-limit saturation; retained finite3400, strict0/128, reviewed grasp/lift beside the container. R5 continues3400 at half the learning rate after a finite3-update PPO check.
 
@@ -14,15 +14,15 @@ Deterministic policy means,60D observations and normalized8D absolute joint targ
 
 ## Active work
 
-- GPU1: Cage R5 cage_v4,1024 ×2000 additional from5599, preserve means/std; evaluate on native open-hand caging.
+- GPU1: Cage R6 cage_v4,1024 ×1500 additional from7598, preserve all settings. Prior strict16/128 versus2/128; improve goal accuracy and native no-pinch history.
 - GPU2: Throw R2 throw_v4,2048 ×2500 from2999/std0.15; learn actual opposing capture then launch.
-- GPU3: Stack R5 completion_v6,2048 ×2000 from2200/std0.15; still weak grasp acquisition, evaluate at budget or justified plateau intervention.
+- GPU3: Stack R6 completion_v6,2048 ×1000 from4199, preserve all settings. Prior strict0/128, but65.08% final opposed contacts; evaluate lift/stack/release at budget.
 - GPU4: Lift R7 lift_v6,2048 ×2000 from5499, no reset/reward/backend changes. Goal error is improving; evaluate a retained checkpoint when native success rises or budget ends.
 - GPU5: Place R5 completion_v6 from own3400,2048 ×2000 additional, Adam LR5e-5. The3-update PPO preflight saved finite tensors and effective LR5e-5. Preserve means/std/moments/normalizers/backend; evaluate released containment at budget or a justified checkpoint.
 - GPU6: Peg R4 completion_v6 from fresh stressmodel99 ×3000 additional, optional gyro correction inherited. Previous resumed lineage toppled/pressed; this is fresh PPO, not distillation.
 - GPU7: Reorient R9 reorient_v7 from own stress6599 ×2000 additional, optional gyro correction inherited; output/std preserved.
 
-Edge/Pivot/Strike remain targeted retries, using the next suitable free slot. Edge exposes the plate then misses the pinch; Pivot presses the board flat; Strike9/128 mostly undershoots. Diagnose geometry/approach alignment and contact launch rather than blindly extending failed recipes.
+Edge/Pivot/Strike remain targeted retries, using the next suitable free slot. Edge exposes the plate then misses the pinch; Pivot presses the board flat; Strike9/128:58 negligible launches,25 weak,45 substantial with9 successes; approach/contact coverage needs diagnosis before speed calibration. Diagnose geometry/approach alignment and contact launch rather than blindly extending failed recipes.
 
 ## Numerical readiness
 

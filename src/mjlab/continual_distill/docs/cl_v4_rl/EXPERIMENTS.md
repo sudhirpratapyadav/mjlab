@@ -204,3 +204,5 @@ Cage R5 final7598 strict16/128 (previous2/128), actual success/failure reviewed;
 
 | RL-013-R6 | Cage | Continue improved native caging transport | cage_v4, ownR5/model7598,1024 ×1500 additional updates, GPU1 | Prepared |16/128 prior, unchanged settings; strict eval at budget. |
 | RL-018-R6 | Stack | Continue newly acquired opposing grasp toward lift/stack/release | completion_v6, ownR5/model4199,2048 ×1000 additional updates, GPU3 | Prepared |0/128; actual grasp precursor improved, unchanged settings; strict eval at budget. |
+
+Wave16 launch update: CageR6 runningstep1852/GPU1, StackR6 runningstep1853/GPU3, inherited saved actual Adam LR1e-4; no optimizer/output/std/normalizer/reward/backend resets. All current seven runs are finite at the placement check.
