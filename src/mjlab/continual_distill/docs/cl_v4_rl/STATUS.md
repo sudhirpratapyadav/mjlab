@@ -1,8 +1,8 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current assignments: Strike GPU1, Throw GPU2, Stack R3 GPU3, Peg V2 GPU4, Pivot GPU5, Edge GPU6 and Place V2 GPU7. GPU0 remains unused. All24 active tasks now have RL training evidence; this is coverage, not certification.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current assignments: Cage R3 GPU1, Throw GPU2, Stack R3 GPU3, Lift R5 GPU4, Pivot GPU5, Edge GPU6 and Reorient R6 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; this is coverage, not certification.
 
-Lift, Reorient and Cage need successful retries and await slots. Cage R2 final0/128: valid open enclosure without contact; cage_v3 contact-target preflight passed. Reorient R5 final0/128: saturated closed fingers without capture; width-matched rewards and gripper-output reset are available. Stack V2 stopped on a numerical failure in one lane; R3 retains finite arm control, resets only the gripper output/exploration and enables preceding-state capture. The numerical cause remains unresolved. Full24-teacher goal active.
+Strike finished3000 updates: final2999 strict9/128, reviewed actual strike/slide trajectories. Place/Peg V2 model1500 each strict0/128: Place encloses without opposed contact, while Peg topples the shaft and presses it down. Their own steps were stopped and checkpoints retained; these three tasks await targeted retries. Cage contact-target retry and Lift/Reorient capture-width retries are now launched. The latter preserve learned arm outputs and reset only gripper mean0.5/std0.15. Preceding-state capture is enabled on all three and on Stack/Throw; numerical causes from earlier failures remain unresolved. Full24-teacher goal active.
 
 ## Readiness
 
@@ -28,26 +28,26 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | Contact retry ready; awaiting slot | 0/128 R2 | All final states valid open cages but no contact. cage_v3 passed3 resumed PPO updates; exact native no-pinch/transport preserved. |
+| Cage-Drag | 4 | on | Training R3 | 0/128 R2 | cage_v3 from3498,1024 ×2000 additional onGPU1; actual trailing-pad contact target, pre-step capture. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Training first pilot | Not measured | edge_v2,2048 ×3000 onGPU6; enclosed grasp credit after exposure. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | Waiting for slot after diagnostic replay | 0/128 final V3 | R4 failed at2009; same30-update replay finite, model2028 retained. Capture preceding state on next continuation. |
+| Lift-Cube | 20 | on | Training R5 | 0/128 final V3 | lift_v5 from finite diagnosticreplay2028; gripper mean0.5/std0.15,2048 ×2000 additional onGPU4; pre-step capture. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
-| Peg-Insertion | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU4; upper-body grasp, actual enclosure/contact; native seating unchanged. |
+| Peg-Insertion | 20 | on | Rejected V2; retry needed | 0/128 V2 model1500 | Actual video: knocks shaft down and presses it; no geometric enclosure. Finite checkpoint retained. |
 | Pivot-Lift | 6 | on | Training first pilot | Not measured | pivot_v2,2048 ×3000 onGPU5; actual wall/tilt history unchanged. |
-| Place-In-Container | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU7; prior nearly closed top-contact policy replaced. |
+| Place-In-Container | 20 | on | Rejected V2; retry needed | 0/128 V2 model1500 | Actual video: open fingers around cube;97.66% final enclosure,0% opposed contact. Finite checkpoint retained. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Retry prepared; awaiting slot | 0/128 R5 final | Closed empty fingers/no contact. reorient_v6 width shaping and gripper-output reset ready. |
+| Reorient-Object | 20 | on | Training R6 | 0/128 R5 final | reorient_v6 from3899; gripper mean0.5/std0.15,2048 ×2000 additional onGPU7; pre-step capture. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training R3 | 0/16 V2 debug | completion_v4 from finite700, gripper mean0.5/std0.15; pre-step capture onGPU3. |
-| Strike-Slide | 4 | on | Training first pilot | Not measured | strike_v1 GPU1;3000 updates, native4-second horizon/friction/predicate unchanged. |
+| Strike-Slide | 4 | on | Finished pilot; retry needed | 9/128 final2999 | Strikes and retracts; most trials undershoot. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
 | Throw-To-Bin | 5 | on | Training first pilot | Not measured | throw_v3,2048 ×3000 onGPU2; capture width/ballistic shaping and pre-step capture. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |

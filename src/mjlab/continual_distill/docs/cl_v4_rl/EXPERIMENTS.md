@@ -83,7 +83,7 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 | PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Complete | 70 CPU tests; four real-physics cases finite; evidence/remaining_preflight_v1.json and W&B5g2qp9h4. |
 | RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v2,2048 environments ×3000 updates, seed20260912, GPU6 | Running | Fresh edge_v2 onGPU6 after Lid certification; enclosed grasp credit, native benchmark unchanged. |
 | RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v2,2048 environments ×3000 updates, seed20260912, GPU5 | Running | Fresh pivot_v2 onGPU5; training_wave10.json. Native wall/tilt history preserved. |
-| RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Running | GPU1; exact manifest in training_wave8.json. |
+| RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Complete; rejected | Final2999 strict9/128; actual strike/slide reviewed, mostly undershoot. |
 | RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v3,2048 environments ×3000 updates, seed20260912, GPU2 | Running | Fresh throw_v3 GPU2; pre-step capture enabled; training_wave11.json. |
 
 | PREFLIGHT-REMAINING-PPO-009 | Edge/Pivot/Strike/Throw | Check real guarded PPO updates before full pilots | Each64 environments ×3 updates, seed20260912, sequential onGPU1 | Complete | All four cases3 finite PPO updates and finite model2 checkpoints; remaining_ppo_preflight.json. |
@@ -92,13 +92,13 @@ RL-023 first full Strike pilot assignedGPU1 after remaining-task PPO preflight. 
 
 | PREFLIGHT-ENCLOSURE-010 | Stack/Place/Peg | Reject top pressing as a training grasp while preserving native success | completion_v3, fresh64 environments ×3 updates each, GPUs3/7/4 | Complete | 74 tests; three3-update PPO preflights/checkpoints finite; enclosed_grasp_preflight.json. |
 | RL-018-V2 | Stack | Learn opposed grasp and released stacking | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU3 | Stopped by numerical guard | Iteration777, nonfinite lane261; finite700 retained; debug0/16 open enclosure/no contact. |
-| RL-019-V2 | Place | Learn opposed grasp and released containment | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU7 | Running | Fresh enclosed-contact completion_v3 onGPU7; training_wave8.json. |
-| RL-020-V2 | Peg | Learn opposed upper-body grasp and released seating | completion_v3, fresh2048 environments ×3000 updates, seed20260912, GPU4 | Running | Fresh enclosed-contact completion_v3 onGPU4; training_wave8.json. |
+| RL-019-V2 | Place | Learn opposed grasp and released containment | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU7 | Stopped; rejected | Finite1500 strict0/128, open enclosure/no opposed contact; Place-V2-review.json. |
+| RL-020-V2 | Peg | Learn opposed upper-body grasp and released seating | completion_v3, fresh2048 environments ×3000 updates, seed20260912, GPU4 | Stopped; rejected | Finite1500 strict0/128, topples shaft then presses down; Peg-V2-review.json. |
 
 | PREFLIGHT-REMAINING-ENCLOSURE-011 | Edge/Pivot/Throw | Exclude top pressing before first full pilots | edge_v2/pivot_v2/throw_v2, each64 environments ×3 updates sequential onGPU6, seed20260912 | Complete | 79 tests; Edge/Pivot/Throw each3 finite PPO updates/checkpoint; remaining_enclosure_preflight.json. |
 
 | PREFLIGHT-CAGE-CONTACT-012 | Cage | Verify contact-point target after0/128 hover failure | cage_v3, resume ownR2/model3498,64 environments ×3 updates, GPU5 | Complete | 81 tests;3 resumed PPO updates and finite model3500. cage_contact_preflight.json. |
-| RL-013-R3 | Cage | Learn open-finger contact transport from valid caging policy | cage_v3, ownR2/model3498,1024 environments ×2000 additional updates, seed20260912 | Prepared | Remove binary cage gating from broad transport shaping; retain no-pinch mask and exact native completion; GPU assigned when available |
+| RL-013-R3 | Cage | Learn open-finger contact transport from valid caging policy | cage_v3, ownR2/model3498,1024 environments ×2000 additional updates, seed20260912 | Running | GPU1; own3498, capture enabled; native no-pinch/transport unchanged. |
 
 | PREFLIGHT-CAPTURE-WIDTH-013 | Throw/Lift/Reorient | Avoid closing empty fingers before object capture | throw_v3/lift_v5/reorient_v6, fresh64 environments ×3 updates each, sequential GPU2, seed20260912 | Complete | Three3-update PPO cases and checkpoints finite; capture_width_preflight.json. |
 
@@ -106,3 +106,13 @@ Reorient R5 finalmodel3899 strict0/128. Recorded failure shows closed-finger hov
 
 | PREFLIGHT-GRIPPER-OUTPUT-014 | Stack | Validate gripper-output reset preserving learned arm approach | completion_v4, ownV2/model700, gripper mean0.5/std0.15,64 environments ×3 updates, GPU3 | Complete | 88 tests;3 resumed PPO updates and finite702; isolated gripper reset verified. |
 | RL-018-R3 | Stack | Learn width-matched capture while preserving valid approach policy | completion_v4, ownV2/model700, mean0.5/std0.15,2048 environments ×1800 additional updates, seed20260912, GPU3 | Running | GPU3, completion_v4 from700; gripper mean0.5/std0.15; pre-step capture enabled. |
+
+### Wave12 scheduling — 2026-09-13
+
+Pre-launch decision (retained as recorded): after Strike completes3000 PPO updates and syncs finalmodel2999, run strict128-episode validation and actual-state video onGPU1 after process exit. Assign Cage R3 the same slot after that review: cage_v3, ownR2/model3498,1024 environments ×2000 additional updates, seed20260912, preceding-state capture enabled. Its contact-target PPO preflight already passed. No gripper reset is planned because Cage must preserve the successfully learned open/no-pinch behavior. All registered physics, success predicates and60D/8D interfaces stay fixed.
+
+Place/Peg V2 paused exactsteps1738/1739 after verifying task/PID identity and finite model1500. Strict validation0/128 each with actual failure videos reviewed. Place holds an open geometric cage without opposed contact; Peg knocks the upright shaft over and presses the horizontal peg. These are rejected candidates. Slots4/7 now serve prepared Lift/Reorient retries while completion-task interventions are reassessed.
+
+| PREFLIGHT-CAPTURE-RESUME-015 | Lift/Reorient | Check width-shaped rewards with explicit gripper-only output/exploration reset from own finite policies | lift_v5 from diagnosticreplay2028 onGPU4; reorient_v6 fromR5/3899 onGPU7; each64 environments ×3 updates, mean0.5/std0.15, capture enabled | Complete | Both3 updates/checkpoints finite; online sync verified; capture_resume_preflight.json. |
+| RL-002-R5 | Lift | Learn actual capture from own finite approach policy | lift_v5, ownPREFLIGHT-LIFT-FAILURE-REPLAY/model2028, mean0.5/std0.15,2048 environments ×2000 additional updates, seed20260912, GPU4 | Running | Preserve learned arm; preceding-state capture enabled. |
+| RL-005-R6 | Reorient | Escape verified closed empty-finger policy with width-shaped capture | reorient_v6, ownR5/model3899, mean0.5/std0.15,2048 environments ×2000 additional updates, seed20260912, GPU7 | Running | Preserve learned arm; preceding-state capture enabled. |

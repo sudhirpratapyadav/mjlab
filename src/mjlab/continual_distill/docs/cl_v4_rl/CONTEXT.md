@@ -48,8 +48,8 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**14/24 independent PPO RL teachers certified.** Current assignments: Strike GPU1, Throw GPU2, Stack R3 GPU3, Peg V2 GPU4, Pivot GPU5, Edge GPU6 and Place V2 GPU7. GPU0 remains unused. All24 active tasks now have RL training evidence; this is coverage, not certification.
+**14/24 independent PPO RL teachers certified.** Current assignments: Cage R3 GPU1, Throw GPU2, Stack R3 GPU3, Lift R5 GPU4, Pivot GPU5, Edge GPU6 and Reorient R6 GPU7. GPU0 remains unused. All24 active tasks have RL training evidence; this is coverage, not certification.
 
-Lift, Reorient and Cage need successful retries and await slots. Cage R2 final0/128: valid open enclosure without contact; cage_v3 contact-target preflight passed. Reorient R5 final0/128: saturated closed fingers without capture; width-matched rewards and gripper-output reset are available. Stack V2 stopped on a numerical failure in one lane; R3 retains finite arm control, resets only the gripper output/exploration and enables preceding-state capture. The numerical cause remains unresolved. Full24-teacher goal active.
+Strike finished3000 updates: final2999 strict9/128, reviewed actual strike/slide trajectories. Place/Peg V2 model1500 each strict0/128: Place encloses without opposed contact, while Peg topples the shaft and presses it down. Their own steps were stopped and checkpoints retained; these three tasks await targeted retries. Cage contact-target retry and Lift/Reorient capture-width retries are now launched. The latter preserve learned arm outputs and reset only gripper mean0.5/std0.15. Preceding-state capture is enabled on all three and on Stack/Throw; numerical causes from earlier failures remain unresolved. Full24-teacher goal active.
 
-See evidence/*-certificate.json, training_wave11.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.
+See evidence/*-certificate.json, training_wave12.json and rl_training_coverage.json. Verify live Slurm/process state before GPU reuse; manifests alone do not prove liveness.

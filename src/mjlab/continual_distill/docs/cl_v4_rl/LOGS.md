@@ -179,3 +179,17 @@ Added completion_v4 capture-width shaping.88 focused tests pass. Resumed64-env3-
 ### Coverage audit
 
 All24 active tasks have RL training evidence. The strict launch-manifest filter covers22; early Reach/Topple pilots predate complete manifests, so their already-certified PPO checkpoints/configs establish the remaining two. Evidence/rl_training_coverage.json makes this distinction explicit. This coverage audit does not change certification:14/24 meet the full two-batch/video/artifact gate.
+
+### Wave12 — strict rejection evidence and prepared retries launched
+
+Previous goal turn classified as progress: it changed authoritative training/evaluation state and provided contact-failure evidence. This continuation also made concrete progress. Verified holder20277 expires2026-09-28T08:58:54 (scheduler time), GPU0 at0MiB and one assigned process perGPU1–7 before scheduling; worktree import verified. Filesystem still about1.6TB free.
+
+Strike completed3000 updates and synced final2999. Strict validation9/128 (7.03125%); no confirmation run. Actual success/failure initial/mid/final frames reviewed. Selected success error0.03864m; selected failure0.08192m. Across128,110 undershot by>5cm longitudinally,8 overshot by>5cm and18 had>5cm lateral error (categories overlap). Median terminal error0.55464m. This teacher is rejected; source-state trajectory analysis retained in Strike-RL023-review.json, videos W&Bc7qxtmyc.
+
+Verified Place/Peg live PID/task identity and finite model1500, then stopped only steps1738/1739. Strict128-episode evaluations each0/128; actual failure videos reviewed. Place:97.66% final enclosure,0% two-pad contact, aperture0.05669m; static cube. Peg: shaft knocked horizontal then pressed,0% final enclosure,15.25% two-pad contact;118timeouts,7ground collisions,3out-of-bounds. Videos online in xxu543n9/lcjtk7nk; reviews retained. Their unchanged recipes are not being blindly extended.
+
+Cage R3 started onGPU1 from own3498 with the already-preflighted cage_v3 contact target,1024 ×2000 additional updates, capture enabled. Lift/Reorient resumed64-env3-update checks completed with finite models2030/3901 and online sync. Full Lift R5 onGPU4 from own diagnosticreplay2028 and Reorient R6 onGPU7 fromown3899 use width-shaped rewards, explicit gripper-only mean0.5/std0.15 resets,2048 ×2000 additional updates and preceding-state capture. Seven arm output rows, native success/physics and60D/8D unchanged.
+
+W&B scoreboard publishing now also retains the six experiment documents, review JSONs, training-wave manifests, preflight reports and coverage audit in an experiment-records artifact. Certification remains14/24; all24 have RL coverage, which does not meet the full teacher gate.
+
+Wave12 placement was reverified with nvidia-smi: one actual training process on eachGPU1–7, GPU0 at0MiB. Lift/Reorient passed100 additional updates without a numerical failure; this is a finite-training check, not success certification. W&B scoreboard runa240y562 synced14/24 plus the experiment-records artifact; a remote API read verified52 files including all three new reviews, wave12 inventory and capture-resume preflight (wave12_wandb_records.json).
