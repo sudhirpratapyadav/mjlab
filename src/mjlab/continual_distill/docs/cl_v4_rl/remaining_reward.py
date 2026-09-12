@@ -40,7 +40,19 @@ def native_success(command):
   return command.compute_success().float()
 
 
-def strike_reward(env, command_name, **kwargs):
+def strike_approach_target(position, direction, floor_height, contact_drive=0.):
+  """Reward waypoint measured from the pre-contact paddle seating position.
+
+  With the60mm wedge, the old35.3mm standoff stops about3mm before pad
+  contact. A positive drive advances only the reward target, never body poses.
+  """
+  target = position.clone()
+  target[:,:2] -= (.0353-contact_drive)*direction
+  target[:,2] = floor_height+.028
+  return target
+
+
+def strike_reward(env, command_name, contact_drive=0., precision_weight=0., **kwargs):
   from mjlab.tasks.manipulation.config.franka.env_cfgs import STRIKE_PUCK_MU
   command = env.command_manager.get_term(command_name)
   pos, goal = tracking_position(command.object), tracking_goal(command)
@@ -48,14 +60,15 @@ def strike_reward(env, command_name, **kwargs):
   direction = goal[:,:2]-pos[:,:2]
   direction = direction/torch.linalg.vector_norm(direction,dim=-1,keepdim=True).clamp_min(.001)
   grip, axes, aperture = hand_geometry(env,command)
-  target = pos.clone()
-  target[:,:2] -= .0353*direction  # Symmetric partially open paddle behind the rim.
-  target[:,2] = env.scene.env_origins[:,2]+.028
+  target = strike_approach_target(pos,direction,env.scene.env_origins[:,2],contact_drive)
   distance = torch.linalg.vector_norm(grip-target,dim=-1)
   down = (-axes[2][:,2]).clamp(0,1)
   square = (axes[0][:,:2]*direction).sum(-1).abs().clamp(0,1)
   wedge = torch.exp(-((aperture-.060)/.025).square())
-  approach = torch.exp(-distance/.20)*(.25+.75*down)*(.25+.75*square)*(1+.5*wedge)
+  # The recorded weak/nonlaunch policies stop6-8cm above the contact height.
+  # A near-target term increases the value of completing that last approach.
+  approach = (torch.exp(-distance/.20)+precision_weight*torch.exp(-distance/.05))
+  approach *= (.25+.75*down)*(.25+.75*square)*(1+.5*wedge)
   predicted = sliding_endpoint(pos[:,:2],velocity[:,:2],STRIKE_PUCK_MU)
   prediction_error = torch.linalg.vector_norm(predicted-goal[:,:2],dim=-1)
   actual_error = torch.linalg.vector_norm(pos-goal,dim=-1)

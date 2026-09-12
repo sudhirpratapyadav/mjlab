@@ -33,7 +33,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
 | Cage-Drag | 4 | on | Training R6 | 16/128 R5 final7598 | Native caging improved from2/128; unchanged cage_v4 from7598 ×1500 additional, GPU1. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang then hovers behind; no contact or pinch. Actual failure reviewed. |
+| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang; FK audit shows20.3cm closest pinch-target miss and0.40 vertical closing alignment. Side-approach/wrist retry needed. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
 | Lift-Cube | 20 | on | Training R7 | 0/128 R6 final5499 | lift_v6 from5499, unchanged reward/output/std/backend; genuine lift/transport, exact goal still missed. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
@@ -50,7 +50,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training R6 | 0/128 R5 final4199 | Opposing grasps65.08% at final surviving-world sample; no stacking. Unchanged completion_v6 from4199 ×1000, GPU3. |
-| Strike-Slide | 4 | on | Finished pilot; retry needed | 9/128 final2999 | Strikes and retracts;58/128 negligible launches,25 weak launches,45 substantial launches with9 successes. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
+| Strike-Slide | 4 | on | Contact retry prepared | 9/128 final2999 | Strikes and retracts;58/128 negligible launches,25 weak launches,45 substantial launches with9 successes. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
 | Throw-To-Bin | 5 | on | Training R2 | 0/128 final2999 | throw_v4 from2999/std0.15, opposed contacts/local width;3-update PPO preflight passed, GPU2. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |

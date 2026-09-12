@@ -206,3 +206,12 @@ Cage R5 final7598 strict16/128 (previous2/128), actual success/failure reviewed;
 | RL-018-R6 | Stack | Continue newly acquired opposing grasp toward lift/stack/release | completion_v6, ownR5/model4199,2048 ×1000 additional updates, GPU3 | Prepared |0/128; actual grasp precursor improved, unchanged settings; strict eval at budget. |
 
 Wave16 launch update: CageR6 runningstep1852/GPU1, StackR6 runningstep1853/GPU3, inherited saved actual Adam LR1e-4; no optimizer/output/std/normalizer/reward/backend resets. All current seven runs are finite at the placement check.
+
+### Wave17 — Strike approach/contact readiness
+
+Previous goal turn made progress: Cage16/128 andStack0/128 strict evaluations, unchanged bounded continuations, current public gallery/W&B and launch-speed diagnosis. The new128-episode CPU forward audit uses every saved20ms state with no integration. The58 negligible-launch episodes have0 sampled CPU contacts and median closest-target vertical error81.85mm;25 weak launches have61.19mm median vertical error,45 substantial launches24.00mm. Between-frame contacts may be missed, and recomputed CPU contacts do not replace original GPU evidence. Thus precise approach coverage is the main measured issue, not simply launch speed.
+
+The old35.3mm reward standoff is a seating waypoint about3mm outside the60mm wedge contact geometry. strike_v2 moves only the reward target12mm toward the puck and adds2*exp(-distance/0.05) to the existing exp(-distance/0.20) approach term. Existing orientation/aperture factors, sliding prediction, native success, gravity, friction,4s horizon,60D/8D, agent architecture and optimizer settings are unchanged.57 focused tests passed, including unchanged benchmark configuration and a geometry-based gap check. This is a hypothesis for RL contact acquisition; no policy or success improvement is claimed yet.
+
+| PREFLIGHT-STRIKE-CONTACT-024 | Strike | Check new precise approach/contact reward with retained policy | strike_v2, ownRL-023/model2999,64 ×3 PPO updates, seed20260912, next available GPU1 or3 after current final evaluation | Prepared | Must finish finite and online before full continuation. |
+| RL-023-R2 | Strike | Improve approach/contact coverage and subsequent native launch | strike_v2, ownRL-023/model2999,2048 ×2000 additional updates, seed20260912 | Prepared | Preserve means/std/optimizer/normalizers; no borrowed policy, no scripted actions; contingent on PPO preflight. |

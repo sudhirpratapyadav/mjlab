@@ -22,7 +22,7 @@ Deterministic policy means,60D observations and normalized8D absolute joint targ
 - GPU6: Peg R4 completion_v6 from fresh stressmodel99 ×3000 additional, optional gyro correction inherited. Previous resumed lineage toppled/pressed; this is fresh PPO, not distillation.
 - GPU7: Reorient R9 reorient_v7 from own stress6599 ×2000 additional, optional gyro correction inherited; output/std preserved.
 
-Edge/Pivot/Strike remain targeted retries, using the next suitable free slot. Edge exposes the plate then misses the pinch; Pivot presses the board flat; Strike9/128:58 negligible launches,25 weak,45 substantial with9 successes; approach/contact coverage needs diagnosis before speed calibration. Diagnose geometry/approach alignment and contact launch rather than blindly extending failed recipes.
+Edge/Pivot/Strike remain targeted retries, using the next suitable free slot. Edge exposes the plate then misses the pinch; Pivot presses the board flat; Strike9/128:58 negligible launches remain a median8.2cm above contact height. strike_v2 precision/drive reward is prepared and CPU-tested; next free GPU1/3 after current final evaluation runs a3-update PPO preflight before its2000-update retry. Diagnose geometry/approach alignment and contact launch rather than blindly extending failed recipes.
 
 ## Numerical readiness
 
@@ -31,3 +31,5 @@ Selective warm-start reset is retained. The separate captured high-spin failure 
 ## Records and resources
 
 Keep STATUS/EXPERIMENTS/LOGS, current training_wave inventory and scoped W&B records current. Publish reviewed policy summaries/videos to /v4-rl/ using PUBLICATION.md. GPU0 stays free; verify real placement, holder20277 expiry2026-09-28T08:58:54 and available disk before resource reuse. Stop only verified own steps. Full24-teacher goal remains active until every teacher is independently certified.
+
+Wave17 pending readiness: strike_v2 is implemented and57 focused tests pass; runPREFLIGHT-STRIKE-CONTACT-024 (own2999,64×3, online, no resets) on the first suitable freeGPU1/3 after evaluating its current final checkpoint, thenRL-023-R2 (2048×2000) only if finite. Edge FK evidence shows the exposed plate is still20.3cm from the closest pinch target with poor wrist alignment; prepare a reachable full side-approach orientation before its retry. Current seven runs remain on their loaded configurations; no new teacher certification.

@@ -13,6 +13,7 @@ RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
 RECIPES += ("completion_v4", "completion_v5")
 RECIPES += ("completion_v6", "lift_v6")
 RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
+RECIPES += ("strike_v2",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -67,6 +68,11 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "strike_v2":
+    apply_recipe(cfg, "strike_v1")
+    cfg.env.rewards["reach_object"].params["contact_drive"] = .012
+    cfg.env.rewards["reach_object"].params["precision_weight"] = 2.
     return
   if recipe == "cage_v4":
     apply_recipe(cfg, "cage_v3")
