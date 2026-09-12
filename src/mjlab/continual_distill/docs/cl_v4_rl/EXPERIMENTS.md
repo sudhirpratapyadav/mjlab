@@ -215,3 +215,12 @@ The old35.3mm reward standoff is a seating waypoint about3mm outside the60mm wed
 
 | PREFLIGHT-STRIKE-CONTACT-024 | Strike | Check new precise approach/contact reward with retained policy | strike_v2, ownRL-023/model2999,64 ×3 PPO updates, seed20260912, next available GPU1 or3 after current final evaluation | Prepared | Must finish finite and online before full continuation. |
 | RL-023-R2 | Strike | Improve approach/contact coverage and subsequent native launch | strike_v2, ownRL-023/model2999,2048 ×2000 additional updates, seed20260912 | Prepared | Preserve means/std/optimizer/normalizers; no borrowed policy, no scripted actions; contingent on PPO preflight. |
+
+### Wave18 — Edge side-wrist readiness
+
+Previous turn completed new Strike contact diagnosis and CPU-tested reward preparation; all seven full runs were revalidated live. Edge endpoint IK on32 evenly indexed recorded exposed-plate poses finds all32 pass for each heading0,+70,-70degrees at20degree downward pitch, with35mm/finger opening. Gate: position<2cm, orientation<15degrees, no recomputed robot/ledge/floor penetration deeper than3mm. This is endpoint geometry, not collision-free trajectories, stable pinches or RL success. Solver branch seeds are diagnostic only and never initialize/supervise/command the RL policy. Historical controller posture traps do not prove these endpoints unreachable.
+
+edge_v3 scores the full side-wrist frame against those three orientations, targets the existing near-rim pinch5mm higher, uses broader/fine approach terms and the established opposing-normal/local-ray-width capture credit. The previous reward scored only abs(vertical closing axis), which cannot distinguish a hand facing toward or away from the ledge. Maximum non-grasp precursor remains7, below the8-point grasp bonus. Native grasped+lift+settled success, ledge/plate geometry, initialization, physics,6s horizon and60D/8D stay fixed.62 focused tests passed, including wrong-heading/wrong-roll rejection and unchanged benchmark/agent configuration.
+
+| PREFLIGHT-EDGE-WRIST-025 | Edge | Verify full side-wrist/capture shaping in PPO | edge_v3, ownRL-021/model2999,64 ×3 updates, seed20260912, next suitable freed GPU after Strike preflight/full-run placement | Prepared | No policy/std/optimizer/normalizer reset; finite online preflight required. |
+| RL-021-R2 | Edge | Learn side pinch and settled lift after exposing plate | edge_v3, ownRL-021/model2999,2048 ×2000 additional updates, seed20260912 | Prepared | No scripted trajectories, endpoint-IK supervision or borrowed checkpoints. |

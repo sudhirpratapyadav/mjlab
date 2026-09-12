@@ -59,6 +59,41 @@ def test_strike_drive_recipe_preserves_benchmark_and_policy(monkeypatch):
   assert repr(old.env.rewards)==repr(new.env.rewards)
 
 
+def test_edge_side_alignment_rejects_wrong_heading_and_vertical_closing_sign(monkeypatch):
+  import math
+  reward = module(monkeypatch)
+  pitch = math.radians(20)
+  # Site x=-world y, closing axis mostly downward, approach mostly +world x.
+  rotation = torch.tensor([[0.,-math.sin(pitch),math.cos(pitch)],
+                           [-1.,0.,0.],[0.,-math.cos(pitch),-math.sin(pitch)]])
+  wrong_heading = torch.diag(torch.tensor([-1.,-1.,1.]))@rotation
+  wrong_roll = rotation@torch.diag(torch.tensor([-1.,-1.,1.]))
+  matrices = torch.stack([rotation,wrong_heading,wrong_roll])
+  axes = [matrices[:,:,i] for i in range(3)]
+  far = torch.tensor([[1.,0.,0.]]).expand(3,-1)
+  score = reward.edge_side_alignment(axes,far)
+  torch.testing.assert_close(score[0],torch.tensor(1.))
+  assert (score[1:]<.5).all()
+  # Heading distinction was missing from the old abs(vertical-closing) factor.
+  torch.testing.assert_close(matrices[0,2,1].abs(),matrices[1,2,1].abs())
+
+
+def test_edge_side_recipe_preserves_benchmark_and_agent(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes = importlib.import_module('rl_recipes')
+  old,new = (TrainConfig.from_task('Mjlab-Edge-Grasp-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'edge_v2')
+  recipes.apply_recipe(new,'edge_v3')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params = new.env.rewards['reach_object'].params
+  assert params.pop('side_wrist') and params.pop('contact_geometry')
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
 def test_ballistic_prediction_checks_rim_crossing_and_downward_branch(monkeypatch):
   reward = module(monkeypatch)
   position = torch.tensor([[.5,0.,.4],[.5,0.,.05],[.5,0.,.4]])

@@ -1,0 +1,1966 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "7ae2c499ee028d3d2c03e6292680288909aa1fb76d3186cad9a6f5cb36969312",
+  "method": "32 evenly indexed recorded exposed-plate poses. Bounded endpoint IK, three seeds per frame; headings0,+70,-70deg in ledge frame,20deg downward pitch,35mm/finger opening. Pass: position<2cm, orientation<15deg, no recomputed robot/ledge/floor penetration deeper than3mm. No integration, trajectory feasibility, demonstrations or RL success claim.",
+  "endpoint_pass_counts": {
+    "0.0": 32,
+    "70.0": 32,
+    "-70.0": 32,
+    "either_angled_heading": 32
+  },
+  "poses": 32,
+  "rows": [
+    {
+      "env_id": 0,
+      "target_m": [
+        0.2562148916621117,
+        -0.020637109524190508,
+        0.1128367829322815
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.073822678746333e-12,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.6395669588654713,
+            1.166957388497152,
+            1.0400917953143314,
+            -3.0713422379800726,
+            2.2732637457225744,
+            2.9170125964005402,
+            -1.9051508228926934
+          ],
+          "solver_evaluations": 29
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.2291453700889973e-14,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.47268347209098893,
+            0.1852780349839748,
+            -0.20913871002352705,
+            -2.7829091931011156,
+            0.9946872305951657,
+            1.7933136399651648,
+            -0.6498280848868064
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.0786467746059419e-10,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.8012617045673432,
+            0.24164234364034032,
+            1.342314030272186,
+            -3.03780965425579,
+            -1.5903296917365912,
+            1.685767869749775,
+            -0.8399338829959048
+          ],
+          "solver_evaluations": 13
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "target_m": [
+        0.28426807419259176,
+        -0.05883301292384828,
+        0.11419038206338883
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.462441481349904e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.7624281224351046,
+            1.5880512163547666,
+            -0.12276828875269946,
+            -3.071228881866846,
+            -2.3108580192179997,
+            2.601974485820665,
+            1.3076938083252647
+          ],
+          "solver_evaluations": 19
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 6.224922432648601e-11,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.2922523379827773,
+            0.24535383891370854,
+            -0.4492833058933498,
+            -2.6996432105236474,
+            1.0726572571178263,
+            1.7238001628111566,
+            -0.6355013886307036
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.6247264547114595e-11,
+          "orientation_error_deg": 3.6222548091772e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.16801669176320716,
+            0.07647490230059624,
+            0.2239904944039592,
+            -2.9742678870553294,
+            -1.5876977312571052,
+            1.9059726359113787,
+            -0.8844011460998203
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "target_m": [
+        0.2657651366956294,
+        0.06095882993716065,
+        0.11230378329753876
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.544461421939385e-11,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.599991421536319,
+            0.9817054101963673,
+            -1.2281248632846054,
+            -3.0717298544643574,
+            -2.128133638747008,
+            2.7737634837788407,
+            -0.06796274004637129
+          ],
+          "solver_evaluations": 29
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.827297572352732e-12,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.03562556684583263,
+            0.04603322037361396,
+            -0.3748910231977695,
+            -3.049863647681813,
+            1.6605648231293686,
+            1.9079034805563726,
+            -0.7319763189327421
+          ],
+          "solver_evaluations": 7
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 5.149479012571606e-11,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.30818748037574173,
+            0.2547032335665364,
+            0.4560189468492448,
+            -2.6947169175096475,
+            -0.9820668158698636,
+            1.7080453508603446,
+            -0.9097297457859411
+          ],
+          "solver_evaluations": 8
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "target_m": [
+        0.2851858032019089,
+        -0.07107655860130677,
+        0.11247641324996949
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.386946480026759e-12,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.6253123372958624,
+            1.1810032941565352,
+            0.9353953808246357,
+            -3.071303144505111,
+            2.5073849876620042,
+            2.579959026695835,
+            -2.0972759380637838
+          ],
+          "solver_evaluations": 24
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.7594753494235852e-13,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.47425409633891497,
+            0.1930313655853793,
+            -0.3379112207551401,
+            -2.7851322960566494,
+            1.2240683427289523,
+            1.8034953994175036,
+            -0.6348126919151855
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.3133589033483793e-10,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.24837430812225586,
+            0.13525471726396346,
+            0.09923735402449672,
+            -2.8754424032194463,
+            -1.3817526094391273,
+            1.8847190240656906,
+            -0.9202278367054448
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "target_m": [
+        0.258758291062478,
+        0.06625313090206898,
+        0.11344320058822632
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 7.987830506252669e-10,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.7027435700657074,
+            1.07691187916723,
+            -1.1473154930131977,
+            -3.0716619691674363,
+            -2.217485316014051,
+            2.8364205774288918,
+            0.13054255791688918
+          ],
+          "solver_evaluations": 24
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.0681280926301351e-12,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.4186912451204328,
+            0.04269378862021367,
+            0.0067457517746413636,
+            -3.0394700036133795,
+            1.5731294219412313,
+            1.9209331750758105,
+            -0.722150243953739
+          ],
+          "solver_evaluations": 10
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.1071024238169487e-09,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.2048628625797202,
+            0.24956354979551332,
+            0.6008078432223034,
+            -2.731198191928496,
+            -1.0310391496015345,
+            1.6962117382733652,
+            -0.8916314603729482
+          ],
+          "solver_evaluations": 8
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "target_m": [
+        0.2627334931460334,
+        -0.0007196729640073223,
+        0.11275923728942872
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 8.120140767429122e-14,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.7780906438013577,
+            1.3610383613821204,
+            0.5934810953446186,
+            -3.0717850134515237,
+            2.493995099159156,
+            2.8422776588215,
+            -2.583869846518367
+          ],
+          "solver_evaluations": 27
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.8518704544855865e-11,
+          "orientation_error_deg": 3.818191820832846e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.44624162377587995,
+            0.12838197730519815,
+            -0.2024766901758674,
+            -2.8890515954697444,
+            1.2173872065391105,
+            1.8537135169408476,
+            -0.6684424938940093
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 3.1769407567886814e-12,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.4452910549908978,
+            0.11724113040794554,
+            0.20480762465104865,
+            -2.9097664725366843,
+            -1.258224560283488,
+            1.8629586001145686,
+            -0.8960247048404802
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "target_m": [
+        0.3025656220170396,
+        -0.008758548721483041,
+        0.11499158769845963
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 9.915058945444785e-10,
+          "orientation_error_deg": 3.818191820832846e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.2245494574735507,
+            0.8707133719131379,
+            1.2140909631038885,
+            -3.071750250711859,
+            2.424469558315291,
+            2.4909158009966084,
+            -1.6032494404974258
+          ],
+          "solver_evaluations": 20
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.3991233623578622e-11,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.3698330299422222,
+            0.2199418963190608,
+            -0.19993890524422755,
+            -2.7076722983562482,
+            1.1076225205520078,
+            1.7875744518829677,
+            -0.599000506655154
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 9.212599476956332e-15,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.5153484371033225,
+            0.2007877887118275,
+            1.0240257921040137,
+            -2.9189691837633367,
+            -1.5962826210302294,
+            1.7531010261789912,
+            -0.9129349509520371
+          ],
+          "solver_evaluations": 11
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "target_m": [
+        0.28916769827393074,
+        -0.09398698502477049,
+        0.11361372202634812
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.99827140001809e-12,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.506170826621781,
+            1.7193428927785976,
+            0.0013990094077404862,
+            -3.0717670902939176,
+            -2.0849212385689864,
+            2.225305717989034,
+            1.1803634502404974
+          ],
+          "solver_evaluations": 17
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 5.746025992417638e-10,
+          "orientation_error_deg": 4.182619578303747e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.5373077997629665,
+            0.30039545844021476,
+            -0.258924531014013,
+            -2.572111272266725,
+            0.9129617008340727,
+            1.6922203072450388,
+            -0.6028108216067921
+          ],
+          "solver_evaluations": 5
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.1742402413587125e-09,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.24174143559632194,
+            0.04734145359635772,
+            -0.023521010114933853,
+            -3.02914714416446,
+            -1.8678528942593604,
+            1.9407124722244213,
+            -0.8513135570813285
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "target_m": [
+        0.2481545839293658,
+        0.057797698472039014,
+        0.1127977791428566
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 8.925100404031357e-12,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.7584431105300906,
+            1.1499257066225566,
+            -1.1719122400883801,
+            -3.071667536904348,
+            -2.0680118668663896,
+            2.9944726105837924,
+            0.03436483260532494
+          ],
+          "solver_evaluations": 35
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 0.002450520588229691,
+          "orientation_error_deg": 1.8155994492617742,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -1.3218046263414842,
+            0.08008661970570044,
+            0.8138009436410941,
+            -3.0717989999999995,
+            1.570797335609374,
+            1.958190641851438,
+            -0.7611563022798
+          ],
+          "solver_evaluations": 50
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 6.078580235432549e-11,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.5443809671432362,
+            0.21474376142151122,
+            0.2526512013356001,
+            -2.7316690759786693,
+            -0.9059806513928131,
+            1.7552453188125094,
+            -0.9184511880123765
+          ],
+          "solver_evaluations": 5
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "target_m": [
+        0.2796862442729192,
+        -0.013086355494848373,
+        0.11625467717647553
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.0848229827851841e-11,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.460738160443493,
+            1.2264654776627428,
+            -0.9070575768105933,
+            -3.0713463216925128,
+            -2.489186456359855,
+            2.728899192011578,
+            0.6144063345390907
+          ],
+          "solver_evaluations": 16
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 5.177951236170086e-12,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.39459164714872913,
+            0.09487256833251097,
+            -0.27438480312916086,
+            -2.9278978118202885,
+            1.3941573942888532,
+            1.8752798175865777,
+            -0.6620698980288141
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 5.867980078919851e-13,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.3987266070480949,
+            0.1592488530082585,
+            0.15081488805969526,
+            -2.8072392085878968,
+            -1.1459527405907186,
+            1.8286124482488035,
+            -0.9461993159192785
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "target_m": [
+        0.2683840672844504,
+        -0.032213665108861846,
+        0.11328033089637757
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.5225958779366864e-14,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.797741715214855,
+            1.461002918744674,
+            -0.341768879710265,
+            -3.0717892175460775,
+            -2.4664262825445173,
+            2.7883566448271524,
+            1.252152821063376
+          ],
+          "solver_evaluations": 21
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 4.239311734356443e-09,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.2606267587687783,
+            0.1748450681406445,
+            -0.4633320544437187,
+            -2.8272859064826417,
+            1.1748781126063226,
+            1.7889315394003602,
+            -0.6633899032766425
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 3.809699777442389e-14,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.00027954549698790815,
+            0.11405115117969629,
+            0.5165158514378674,
+            -2.9354758481520586,
+            -1.3772249220434956,
+            1.845429154965171,
+            -0.8852432616076803
+          ],
+          "solver_evaluations": 10
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "target_m": [
+        0.2906023803717327,
+        0.01926911120643899,
+        0.11522456735372544
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 4.2955082419140123e-11,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.5015667088410694,
+            1.221645014393724,
+            -0.907140773848267,
+            -3.07143674626556,
+            -2.5215040761673797,
+            2.625061347762196,
+            0.6024400726433291
+          ],
+          "solver_evaluations": 21
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.474340963338784e-13,
+          "orientation_error_deg": 1.2074182697257333e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.8855400584765717,
+            0.1260455978474831,
+            0.34200659310937814,
+            -2.886836102148946,
+            1.3451774339064102,
+            1.9344706154276963,
+            -0.6343477260124358
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 4.08577546177792e-12,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.06858023285047395,
+            0.2208534849389517,
+            0.6953292082428514,
+            -2.791109276941869,
+            -1.2569921882558386,
+            1.731967445237921,
+            -0.9188880070479121
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "target_m": [
+        0.2608314331459949,
+        -0.03284453721901744,
+        0.11259840160608292
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 7.203034631204474e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.5921828368710345,
+            1.3267619859014717,
+            -0.6804968046413393,
+            -3.07145095383145,
+            -2.4823387419390825,
+            2.841752148110492,
+            0.9041236801925414
+          ],
+          "solver_evaluations": 16
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 3.1087638861738325e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.50648756226986,
+            0.11005000455165338,
+            -0.274721561183506,
+            -2.9276768914899884,
+            1.300948933394972,
+            1.8638210059901357,
+            -0.6832046581631334
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 2.844506209511235e-10,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.32461992881274504,
+            0.13914466152028795,
+            0.18903316563395642,
+            -2.869597262397645,
+            -1.1806714934662954,
+            1.8463265240995443,
+            -0.9078684032332565
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "target_m": [
+        0.2802980028728544,
+        0.055538128954739384,
+        0.11278994858264924
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 3.956530307018542e-12,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.717711617529659,
+            1.5463036636478495,
+            0.22950081061385277,
+            -3.0717893406389867,
+            2.3845329240506272,
+            2.6460186592844517,
+            -2.8417423820531367
+          ],
+          "solver_evaluations": 26
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.1450856973988627e-15,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.16228267927358725,
+            0.11149083763078303,
+            -0.5668437690901079,
+            -2.9495390062099127,
+            1.5177823822587533,
+            1.8563251891894308,
+            -0.6849262210334148
+          ],
+          "solver_evaluations": 7
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.0349590729669916e-13,
+          "orientation_error_deg": 3.6222548091772e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.2831627444403726,
+            0.22766492408334355,
+            0.46899643993440504,
+            -2.74214616346283,
+            -1.123901943876424,
+            1.7449711172699045,
+            -0.924519787244002
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "target_m": [
+        0.2995811257377768,
+        -0.04543961800319457,
+        0.1127277734875679
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 2.7466536744697005e-14,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.355224012555732,
+            1.4095054248873822,
+            -0.6706293734282857,
+            -3.071206042532344,
+            -2.54485801608737,
+            2.4984730444370107,
+            0.890496808075964
+          ],
+          "solver_evaluations": 29
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.1801027260423587e-13,
+          "orientation_error_deg": 3.818191820832846e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.48480071719912343,
+            0.1890616810382176,
+            -0.225067067711803,
+            -2.7801932615096345,
+            1.2530595201019612,
+            1.8281647768552751,
+            -0.6207609273820274
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 7.759438479865401e-12,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.2240121829965145,
+            0.1548049896589213,
+            0.19491642237362805,
+            -2.8413798546513926,
+            -1.3736583287613626,
+            1.864615387145773,
+            -0.9338372182545118
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "target_m": [
+        0.26229978228857614,
+        0.0047214395747647644,
+        0.11329993337392807
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.878133615149693e-14,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.6518615478116936,
+            1.259374849540332,
+            -0.8309015355035941,
+            -3.071297173225533,
+            -2.441280192119999,
+            2.854243627162403,
+            0.6999244849345178
+          ],
+          "solver_evaluations": 23
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 6.466868690165023e-13,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.3465618802563464,
+            0.08690813749685154,
+            -0.30126677884833875,
+            -2.9653395933645172,
+            1.372715367479641,
+            1.8774770085368344,
+            -0.6935514515996056
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 5.67851796726841e-13,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.4542448562781855,
+            0.15443669179410907,
+            0.1893705613796108,
+            -2.8363344091319806,
+            -1.1129381412276562,
+            1.8282903430412252,
+            -0.918094544924603
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "target_m": [
+        0.27364337425877444,
+        0.004943753583900869,
+        0.11401585966348649
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.0878504753831e-09,
+          "orientation_error_deg": 4.353408482428142e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.4596832727685425,
+            1.1003882013182895,
+            -1.078217244312624,
+            -3.0711942061453676,
+            -2.3386341403948805,
+            2.7706216572511417,
+            0.2863887355150097
+          ],
+          "solver_evaluations": 21
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.2072157825784606e-10,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.2828980311477214,
+            0.0694246914386638,
+            -0.3385826200602053,
+            -2.992322490513693,
+            1.510633372287257,
+            1.892968055349997,
+            -0.6978979435734443
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 2.3485822572265378e-09,
+          "orientation_error_deg": 4.517745487845102e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.17077564567865763,
+            0.20887206664219457,
+            0.4199057854294526,
+            -2.757466580030997,
+            -1.0702312114296983,
+            1.75483709222776,
+            -0.9210159608349378
+          ],
+          "solver_evaluations": 8
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "target_m": [
+        0.277321823975504,
+        -0.09413359538406262,
+        0.11512096703052521
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.5362362472493954e-10,
+          "orientation_error_deg": 1.2074182697257333e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.604201190266084,
+            0.9472936546670361,
+            1.1833767746700568,
+            -3.0716788751628936,
+            2.3765326192887053,
+            2.5904567136042425,
+            -1.6680887179308137
+          ],
+          "solver_evaluations": 24
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 9.590675992492568e-15,
+          "orientation_error_deg": 0.0,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.5452856443084253,
+            0.22060358403571453,
+            -0.3293834607905087,
+            -2.7182846551467366,
+            1.0918035603783602,
+            1.7611071834130911,
+            -0.6190896111820494
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 4.944182475297383e-11,
+          "orientation_error_deg": 0.0,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.27136013239042456,
+            0.08334812694036718,
+            -0.0017982333140112664,
+            -2.95097882533338,
+            -1.5352046950184262,
+            1.918283331110971,
+            -0.8995103471530027
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "target_m": [
+        0.29113737342540613,
+        0.010565587970541423,
+        0.1140332493185997
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 6.693732622848196e-13,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.4521481376124066,
+            1.293962635525987,
+            0.8078774174498876,
+            -3.0717630678019576,
+            2.5337909254424327,
+            2.616288942443284,
+            -2.3071148146990894
+          ],
+          "solver_evaluations": 26
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 6.108970215540112e-12,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.39180519533703084,
+            0.16054599577440615,
+            -0.1575824604028105,
+            -2.819886352186937,
+            1.2470195711094978,
+            1.8474807220337386,
+            -0.629475785994744
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.9190986047737076e-12,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.4400179150629311,
+            0.13995992648524078,
+            0.18866626465804848,
+            -2.8590986937451937,
+            -1.3291191720148812,
+            1.862622754687428,
+            -0.928453558611353
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "target_m": [
+        0.2943302387216467,
+        -0.12008258681062255,
+        0.1137285578250885
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.4808166462356952e-13,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.6535653094399478,
+            0.04329810921754333,
+            -0.19639932470896876,
+            -3.037201287004254,
+            2.040833941855488,
+            1.9410320190350312,
+            -0.7225732321572947
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.207502414136008e-14,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.5581634667634269,
+            0.3498237119237735,
+            -0.27056659401110994,
+            -2.4822023415239833,
+            0.8526747777147927,
+            1.6415517600197544,
+            -0.5963841704932307
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.8729005324839902e-12,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.19157321626465906,
+            0.0410175026374876,
+            -0.11537140821262552,
+            -3.0400992552152286,
+            -2.0528932707816305,
+            1.9527265667191052,
+            -0.8403397459018219
+          ],
+          "solver_evaluations": 7
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "target_m": [
+        0.2813469179514199,
+        0.05273404286979373,
+        0.1138087484240532
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.5890650991870336e-10,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.6570800213789325,
+            1.2364584436677466,
+            -0.8778684316452009,
+            -3.0715843190145296,
+            -2.5031195029805846,
+            2.6584384088518935,
+            0.6320584587886318
+          ],
+          "solver_evaluations": 22
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 6.059931715894809e-12,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.4557941456645028,
+            0.11937415798672375,
+            0.02885097529727106,
+            -2.8945902336218987,
+            1.3578088031303832,
+            1.8990029636661119,
+            -0.6517881986839806
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 6.615746746196638e-09,
+          "orientation_error_deg": 8.18910913293408e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.3192583098314224,
+            0.3539921322881865,
+            1.0448844254021339,
+            -2.790433534628041,
+            -1.3227569735646514,
+            1.5838973021460114,
+            -0.8714733718876848
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "target_m": [
+        0.28250083046708113,
+        0.017338714616588844,
+        0.11281851410865784
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.044115345043402e-12,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.7215804600524347,
+            1.4006877672005946,
+            -0.6080285358206355,
+            -3.071742943001002,
+            -2.5160961387645093,
+            2.6800356942967536,
+            0.9799322788634369
+          ],
+          "solver_evaluations": 21
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.610168428391243e-14,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.3994032331969572,
+            0.15077924940372545,
+            -0.14321357948516372,
+            -2.8451495228853996,
+            1.2502803519393195,
+            1.85591502403612,
+            -0.6440319903338629
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 3.481457968912208e-13,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.45091364583823945,
+            0.14093896858809216,
+            0.2171953501805866,
+            -2.86686608691036,
+            -1.3006783662105408,
+            1.856503445622569,
+            -0.9172439649361934
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "target_m": [
+        0.27282033689381147,
+        -0.02075410635530247,
+        0.11399373143911362
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 3.980852562561863e-13,
+          "orientation_error_deg": 3.818191820832846e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.543183874828284,
+            1.30744121772772,
+            -0.7565739491989821,
+            -3.0717856073632066,
+            -2.499607511108042,
+            2.765538926703239,
+            0.8128124457318566
+          ],
+          "solver_evaluations": 17
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 3.011532643010884e-11,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.32821651640028376,
+            0.11751021929919674,
+            -0.37666638803533353,
+            -2.9112042571641306,
+            1.336252425769698,
+            1.8515328227172665,
+            -0.6709457239442672
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 5.455024326672415e-12,
+          "orientation_error_deg": 0.0,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.3857890405105213,
+            0.14696887157123267,
+            0.1548150245409381,
+            -2.844381838585278,
+            -1.1875484303253143,
+            1.844771420578266,
+            -0.9262588759123789
+          ],
+          "solver_evaluations": 6
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "target_m": [
+        0.25409548158209777,
+        0.043534243855964515,
+        0.11291797190904618
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 5.506279657968123e-12,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.7040402464565845,
+            1.1457686555187667,
+            -1.0905989405326029,
+            -3.0710852482991977,
+            -2.2221368602255143,
+            2.922017604735423,
+            0.234373472186745
+          ],
+          "solver_evaluations": 27
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 6.1061674968516664e-15,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.08542030199104406,
+            0.04590346509690873,
+            -0.5994862531307379,
+            -3.05346977189771,
+            1.5491431694037434,
+            1.893303489220313,
+            -0.7325850311439162
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 8.52509042630963e-11,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.34877105614093484,
+            0.208621597922842,
+            0.40288749327634776,
+            -2.761162882619988,
+            -0.9928233519512941,
+            1.7504151939882198,
+            -0.9045779343658605
+          ],
+          "solver_evaluations": 8
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "target_m": [
+        0.25173242954309605,
+        0.00107257203405335,
+        0.11376090824604035
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 1.6119773136324758e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.8299384506892595,
+            1.3345600730530662,
+            -0.6095624271780821,
+            -3.0711891368877526,
+            -2.4889029462701764,
+            2.9299551658577796,
+            1.0146098884620145
+          ],
+          "solver_evaluations": 20
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.2344339820615832e-12,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.19047905094865436,
+            0.10193797948154056,
+            -0.4839145798769703,
+            -2.9478886659778873,
+            1.276429785252618,
+            1.8456161907244049,
+            -0.6948920279783495
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 8.504641915099218e-12,
+          "orientation_error_deg": 1.7075472925031877e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.35951029863124506,
+            0.12299894025419433,
+            0.3074989934938194,
+            -2.8973112691803764,
+            -1.170165907864311,
+            1.8376794161490806,
+            -0.8942275744458739
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "target_m": [
+        0.2561163700802255,
+        -0.041362386977485434,
+        0.11289218544960022
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 6.707439790111805e-14,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.738132384250694,
+            1.1937499505101021,
+            0.9653524282763348,
+            -3.071777597966565,
+            2.349536687361458,
+            2.8837752986132643,
+            -2.0445049075335016
+          ],
+          "solver_evaluations": 19
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 3.515935020626067e-11,
+          "orientation_error_deg": 2.091309789151873e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.20182507225766985,
+            0.20360508715052672,
+            -0.5547443482351029,
+            -2.7974120972906658,
+            1.0820610468401652,
+            1.7466890573921074,
+            -0.6799477334672009
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 3.901767151639053e-13,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.15314171005354899,
+            0.06634084792628255,
+            0.3656305743372859,
+            -3.0082296577859844,
+            -1.4511327459975745,
+            1.8885803407375807,
+            -0.8577995576115837
+          ],
+          "solver_evaluations": 7
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "target_m": [
+        0.28022176326790427,
+        -0.015187682456101054,
+        0.11307496309280396
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 7.453656430633254e-11,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.572596312779733,
+            1.2542047849574502,
+            0.8463097604669779,
+            -3.071571405585166,
+            2.488911084472363,
+            2.7017889963104427,
+            -2.2430804561789217
+          ],
+          "solver_evaluations": 16
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.512444228924952e-12,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.45434461285456595,
+            0.16626989395721006,
+            -0.19724726636943354,
+            -2.81713647702136,
+            1.1861565234430402,
+            1.8320157369297518,
+            -0.6394427249564711
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.2432460957742073e-14,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.3607211807886217,
+            0.11855334041010664,
+            0.20375118708937598,
+            -2.905436025724868,
+            -1.3632578588286306,
+            1.8737663582566801,
+            -0.9050961593084715
+          ],
+          "solver_evaluations": 10
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "target_m": [
+        0.27694980657430784,
+        0.0371065053961449,
+        0.11354867845773697
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 9.807537021542719e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.4515945918305597,
+            1.3131510029461095,
+            0.7564943326528719,
+            -3.071672154822624,
+            2.509272447489106,
+            2.7153547868927608,
+            -2.3770603897264593
+          ],
+          "solver_evaluations": 24
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 1.4499490278793633e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.12343778205482824,
+            0.160025137236963,
+            -0.34420421966646997,
+            -2.8369996151833097,
+            1.2296852390413682,
+            1.8199450850880174,
+            -0.6507146059553396
+          ],
+          "solver_evaluations": 6
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 3.036175078223973e-13,
+          "orientation_error_deg": 3.1945284701301985e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.055144440131228614,
+            0.15970913359936184,
+            0.6801999730840832,
+            -2.8873298740921576,
+            -1.3566095262562794,
+            1.7957577360720594,
+            -0.8968005739983061
+          ],
+          "solver_evaluations": 11
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "target_m": [
+        0.277643399025406,
+        -0.049069345317389795,
+        0.11388826847076416
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 2.887828754281852e-10,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.666996768446019,
+            1.496527713927764,
+            -0.368450158883364,
+            -3.071532820681605,
+            -2.4733581330689205,
+            2.695517056286582,
+            1.2165004190957034
+          ],
+          "solver_evaluations": 24
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 4.294395876460097e-09,
+          "orientation_error_deg": 4.517745487845102e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.22459453239833288,
+            0.19909944603658478,
+            -0.5279567092472192,
+            -2.7943116118409903,
+            1.1913455592422577,
+            1.764188374919288,
+            -0.6533196442716707
+          ],
+          "solver_evaluations": 8
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 2.2611733437135666e-14,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.5623082992538182,
+            0.10542319230733907,
+            -0.11152995490469388,
+            -2.9210010276122564,
+            -1.3837718258771725,
+            1.9122793877434083,
+            -0.9088524312637059
+          ],
+          "solver_evaluations": 10
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "target_m": [
+        0.27000938052446544,
+        -0.01964188736460418,
+        0.11391524702310563
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 2.1865033892417352e-11,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.5605094124918866,
+            1.3032882188708168,
+            -0.7590608337920808,
+            -3.071254034900775,
+            -2.4927684985947036,
+            2.789546439784486,
+            0.8106905105312477
+          ],
+          "solver_evaluations": 17
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.4299193146430196e-12,
+          "orientation_error_deg": 2.9575586669421963e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.3060544217703518,
+            0.11295787637591378,
+            -0.4026942028386112,
+            -2.9216775421679304,
+            1.3407999551952638,
+            1.8520106122812703,
+            -0.676167377124318
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 1.987486572565306e-11,
+          "orientation_error_deg": 3.4150945850063763e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.27428075471807883,
+            0.15056417307757242,
+            0.2701063503690083,
+            -2.844674815378093,
+            -1.1829057078372078,
+            1.8276655879753372,
+            -0.9184651803186143
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "target_m": [
+        0.26885412164320355,
+        -0.055739663029438176,
+        0.11597916215658188
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 3.6934903458564624e-13,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -2.8288921745766022,
+            1.314001601584866,
+            0.7579618414294199,
+            -3.0716627499446667,
+            2.517737790041547,
+            2.7703987976529727,
+            -2.403991251829162
+          ],
+          "solver_evaluations": 26
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 4.274774936203558e-13,
+          "orientation_error_deg": 4.00455336570039e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.16418664373724104,
+            0.17531579884759094,
+            -0.6387868793769534,
+            -2.83887596739068,
+            1.226921645555815,
+            1.7688831380149204,
+            -0.6622120207619555
+          ],
+          "solver_evaluations": 9
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 2.6472578376477017e-10,
+          "orientation_error_deg": 2.4148365394514667e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.3124953369331822,
+            0.10061188332651089,
+            0.11779689858130227,
+            -2.9142884029582077,
+            -1.3217910216458886,
+            1.8794502136210909,
+            -0.9136690207696189
+          ],
+          "solver_evaluations": 9
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "target_m": [
+        0.2774614828657873,
+        0.026753601323990996,
+        0.11383023589849472
+      ],
+      "cases": [
+        {
+          "heading_deg": 0.0,
+          "position_error_m": 8.31061787348725e-09,
+          "orientation_error_deg": 5.122641877509565e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            2.4629769753409896,
+            1.00798384370587,
+            -1.168644305108056,
+            -3.0716325257073387,
+            -2.2785196522823083,
+            2.7188580298275715,
+            0.10178777059038221
+          ],
+          "solver_evaluations": 27
+        },
+        {
+          "heading_deg": 70.0,
+          "position_error_m": 2.262476542391997e-09,
+          "orientation_error_deg": 3.6222548091772e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            -0.12457529079211353,
+            0.06640079786467391,
+            -0.4024436441937394,
+            -3.002100234876987,
+            1.5757331517664308,
+            1.8953031754260148,
+            -0.7018658226693638
+          ],
+          "solver_evaluations": 10
+        },
+        {
+          "heading_deg": -70.0,
+          "position_error_m": 4.865731835154039e-09,
+          "orientation_error_deg": 2.699869328381916e-06,
+          "endpoint_robot_ledge_floor_penetrations": [],
+          "passes_endpoint_gate": true,
+          "qpos": [
+            0.4669727867071999,
+            0.21130748492985038,
+            0.19223224630038357,
+            -2.7283222908300253,
+            -1.015199629812686,
+            1.7802804480710142,
+            -0.9481812385367092
+          ],
+          "solver_evaluations": 5
+        }
+      ]
+    }
+  ]
+}

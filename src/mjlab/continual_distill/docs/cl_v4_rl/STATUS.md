@@ -33,7 +33,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
 | Cage-Drag | 4 | on | Training R6 | 16/128 R5 final7598 | Native caging improved from2/128; unchanged cage_v4 from7598 ×1500 additional, GPU1. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang; FK audit shows20.3cm closest pinch-target miss and0.40 vertical closing alignment. Side-approach/wrist retry needed. |
+| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang; FK audit shows20.3cm closest pinch-target miss and0.40 vertical closing alignment. edge_v3 full side-wrist/capture reward prepared;32 endpoint checks and62 focused tests pass; PPO preflight pending. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
 | Lift-Cube | 20 | on | Training R7 | 0/128 R6 final5499 | lift_v6 from5499, unchanged reward/output/std/backend; genuine lift/transport, exact goal still missed. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |

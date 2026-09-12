@@ -100,7 +100,24 @@ def throw_reward(env, command_name, require_enclosure=False, geometry_aperture=F
           +6*aim*held+12*aim*airborne+25*native_success(command))
 
 
-def edge_reward(env, command_name, require_enclosure=False, **kwargs):
+def edge_side_alignment(axes, far_axis):
+  """Best full wrist orientation among three checked side-approach headings."""
+  side_axis = torch.stack([-far_axis[:,1],far_axis[:,0],torch.zeros_like(far_axis[:,0])],dim=-1)
+  down = torch.zeros_like(far_axis)
+  down[:,2] = -1
+  pitch = math.radians(20)
+  scores = []
+  for angle in (0.,math.radians(70),-math.radians(70)):
+    heading = math.cos(angle)*far_axis+math.sin(angle)*side_axis
+    desired = (torch.cross(down,heading,dim=-1),
+               math.cos(pitch)*down-math.sin(pitch)*heading,
+               math.cos(pitch)*heading+math.sin(pitch)*down)
+    # (trace(R_expected^T R_actual)+1)/4 = cos(rotation_error/2)^2.
+    scores.append(((sum((actual*expected).sum(-1) for actual,expected in zip(axes,desired))+1)/4).clamp(0,1))
+  return torch.stack(scores).amax(0)
+
+
+def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -115,13 +132,25 @@ def edge_reward(env, command_name, require_enclosure=False, **kwargs):
   push_target = pos+.075*far_axis
   push_target[:,2] += .010
   pinch_target = pos-.065*far_axis
+  if side_wrist:
+    pinch_target[:,2] += .005
   push_distance = torch.linalg.vector_norm(grip-push_target,dim=-1)
   pinch_distance = torch.linalg.vector_norm(grip-pinch_target,dim=-1)
   push = torch.exp(-push_distance/.15)*(.25+.75*(-axes[2][:,2]).clamp(0,1))
   pinch = torch.exp(-pinch_distance/.10)*(.25+.75*axes[1][:,2].abs())
-  pinch *= 1+smooth_closure_bonus(pinch_distance,aperture)
+  if side_wrist:
+    alignment = edge_side_alignment(axes,far_axis)
+    pinch = (torch.exp(-pinch_distance/.15)*(.25+.75*alignment)
+             +.5*torch.exp(-pinch_distance/.04)*alignment)
+  closure = smooth_closure_bonus(pinch_distance,aperture)
+  if contact_geometry:
+    closure = capture_aperture_bonus(command,pinch_distance,squeeze=True,centerline=True)
+  pinch *= 1+closure
   precursor = ((1-exposure)*push+exposure*pinch+4*exposure)*at_ledge
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
+  if contact_geometry:
+    from contact_grasp import opposed_grasp
+    held = opposed_grasp(command).float()
   lift = ((pos[:,2]-top)/.10).clamp(0,1)
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.15)
   return precursor*(1-held)+8*held+6*lift*held+4*goal*held+25*native_success(command)
