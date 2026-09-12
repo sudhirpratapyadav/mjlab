@@ -294,3 +294,9 @@ peg_v1 inherits completion_v6 and changes only the missed-ray aperture estimate 
 | RL-020-R6 | Peg | Acquire capture with corrected width incentive | peg_v1, original3098, same mean-0.25/std0.15,2048 ×2000 additional, GPU6 | Prepared | After finite preflight, stop only verified R5 step, retain/evaluate latest saved R5 checkpoint, then replace with R6. |
 
 PlaceR6/model6000 strict evaluation launched onGPU5 alongside its sole full trainer after74/128 at5600. No policy/reward changes; confirmation only if validation exceeds90%.
+
+Wave20 final checks: Peg width preflight17npttwg passed; R5 exact step1898 stopped, retained3400 strict0/128 and actual failure frames reviewed. R6 launched originalR4/3098 with peg_v1 and recorded gripper reset onGPU6, W&B rec0k5q3. Initial command had an incorrect directory suffix and exited at argument validation before simulation; corrected to RL-020-R4-peg-gyro. CageR7 completed, strict97/128; EdgeR2 completed, strict0/128; actual clips reviewed. PlaceR6 failed after6329 in lane995; diagnostics retained, model6300 strict96/128. No new certification.
+
+### Cage R8 bounded continuation
+
+CageR7 improved37→97/128 with unchanged cage_v4 and2048 environments. Preregister RL-013-R8-cage-refine: originalR7/model11096, same reward/backend/Adam/normalizers and batch,2000 additional updates onGPU7 after evaluator exit. Strict evaluation at budget; no changes to native gate or60D/8D. This extends a stable improving PPO lineage, not a new recipe.

@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "50ac182b0c8f89a8cb5594be62759e6d4fe6ec2c8c77dd466dcf7ef5459d5912",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual frames show approach around the upright peg, then an open hand hovering near its top. No visible insertion; strict0/128. R5 stopped after width-fallback defect diagnosis and finite replacement preflight; retained3400 evaluated before replacement.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 127,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.08661417663097382,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 0.0533866286277771,
+    "gripper_object_distance_mean": 0.07732521742582321,
+    "gripper_goal_distance_mean": 0.3127233684062958,
+    "gripper_down_alignment_mean": 0.9546359777450562,
+    "object_height_mean": 0.00013566545385401696,
+    "gripper_action_mean": 0.32475659251213074,
+    "absolute_action_max": 0.9372743368148804,
+    "goal_error_mean": 0.28764504194259644
+  },
+  "videos": {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "checkpoint_sha256": "50ac182b0c8f89a8cb5594be62759e6d4fe6ec2c8c77dd466dcf7ef5459d5912",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-020-R5-m3400/failure.mp4",
+        "outcome": {
+          "env_id": 58,
+          "success": false,
+          "steps": 1000,
+          "return": 23.836936950683594,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

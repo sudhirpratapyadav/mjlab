@@ -1,0 +1,78 @@
+{
+  "task": "Mjlab-Place-In-Container-Franka",
+  "checkpoint_sha256": "b797197fb947527232ab2e6f75c8419a54194cbfbe09822a5d68e5ecf4723b68",
+  "successes": 96,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual start/midpoint/end frames show transport to the container in both clips. In the selected failure the hand remains above the rim; endpoint object state is partly occluded. Native first-episode predicate gives96/128, no confirmation. Checkpoint6300 predates the captured training failure after6329; evaluation completed normally.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 127,
+    "grasped_fraction": 0.04724409431219101,
+    "enclosed_fraction": 0.015748031437397003,
+    "enclosed_grasp_fraction": 0.015748031437397003,
+    "opposed_grasp_fraction": 0.03937007859349251,
+    "robot_object_contact_fraction": 0.05511811003088951,
+    "aperture_mean": 0.047856297343969345,
+    "gripper_object_distance_mean": 0.07362813502550125,
+    "gripper_goal_distance_mean": 0.11367997527122498,
+    "gripper_down_alignment_mean": 0.9636263847351074,
+    "object_height_mean": 0.02839638479053974,
+    "gripper_action_mean": -0.11119303107261658,
+    "absolute_action_max": 0.9999954700469971,
+    "goal_error_mean": 0.07306022197008133
+  },
+  "videos": {
+    "task": "Mjlab-Place-In-Container-Franka",
+    "checkpoint_sha256": "b797197fb947527232ab2e6f75c8419a54194cbfbe09822a5d68e5ecf4723b68",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-019-R6-m6300/success.mp4",
+        "outcome": {
+          "env_id": 76,
+          "success": true,
+          "steps": 1000,
+          "return": 370.4503173828125,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-019-R6-m6300/failure.mp4",
+        "outcome": {
+          "env_id": 17,
+          "success": false,
+          "steps": 1000,
+          "return": 321.2228088378906,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

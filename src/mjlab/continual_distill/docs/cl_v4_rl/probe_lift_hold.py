@@ -146,7 +146,7 @@ def main():
       summary['cpu']['grasped'] = sum(cpu_grasp)
       summary['cpu']['warnings']=[cpu.warning.number.tolist() for cpu in cpus]
       cases.append(dict(mode=mode,**summary))
-      print(mode,{name:{k:v for k,v in row.items() if k not in ['warnings','linear_speeds','angular_speeds']} for name,row in summary.items()},flush=True)
+      print(mode,{name:{k:v for k,v in row.items() if k not in ['warnings','linear_speeds','angular_speeds','positions_local_m','goal_errors_m']} for name,row in summary.items()},flush=True)
     report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
                 gyro_correction=args.gyro,episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
