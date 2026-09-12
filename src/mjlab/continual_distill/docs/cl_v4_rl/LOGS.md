@@ -63,3 +63,11 @@ Drag model1300 confirmation scored120/128 after validation122/128. Reviewed reco
 Launched fresh Flip (GPU2), Door (GPU7), Flap (GPU4), Lever (GPU6), and Push continuation (GPU3). Exact manifests/source/Slurm IDs are copied to evidence/training_wave3.json. Worktree sourcea5b5eee plus archived patch; Lever's patch includes its pre-recorded budget. Reorient V2 completed1,500 updates with zero training success and full action saturation; strict final-checkpoint evaluation with recorded physical trace is running on GPU5. Lift V2 is still training. GPU0 remains0MiB.
 
 Reorient V2 final model1499 strict validation completed: **0/128** on seed20260914. Uploaded measured result to W&B and retained full physical trace under runs/diagnostics/Reorient-V2-final. No confirmation batch warranted. Highest-return failure rendering is the next diagnostic.
+
+## 2026-09-12 — Bounded-policy and grasp-readiness repair
+
+Previous goal turn made progress: retained the fifth teacher, started the next mechanism pilots and measured Reorient V2 failure. Revalidated six live training steps and GPU0 at0MiB before further work. Reviewed Reorient V2's actual highest-return failure: floor collision in8 control steps. All policy dimensions had saturated; extending that checkpoint is not a learning strategy.
+
+Added a process-local BoundedActorCritic with tanh Gaussian means, small output initialization around each task's configured robot pose, log std and gripper std0.03. The native normalized8D action mapping is unchanged, including all learnable gripper outputs. New recipes use LR0.0001, zero entropy coefficient and gradient norm0.5. Lift V3 retains the V2 grasp reward to isolate PPO/policy changes. Reorient V3 adds end-face alignment and actual-grasp-gated lift/upright shaping. Cage receives a valid open prior and dense approach/caged-transport shaping without changing its episode-long no-pinch rule. All benchmark invariants are preserved;48 tests passed, including optimization/checkpoint reload and bounded means under extreme observations.
+
+Physical preflight:64 environments ×200 steps for Cage, Reorient and Lift, all finite. Cage's minimum aperture stayed above the registered threshold under initial stochastic exploration. Results uploaded to W&B; evidence/bounded_preflight.json. Small guarded PPO updates precede expensive launches.

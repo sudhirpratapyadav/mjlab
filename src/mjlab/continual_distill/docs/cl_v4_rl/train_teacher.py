@@ -70,6 +70,11 @@ def main():
       parser.error("Resume checkpoint belongs to another task")
     if previous_cfg["policy"]["noise_std_type"] != cfg.agent.policy.noise_std_type:
       parser.error("Resume requires the same policy std parameterization; use a matching recipe")
+    previous_manifest = json.loads((checkpoint.parent / "manifest.json").read_text())
+    previous_train_cfg = TrainConfig.from_task(args.task)
+    apply_recipe(previous_train_cfg, previous_manifest.get("recipe", "baseline"))
+    if previous_train_cfg.agent.policy.class_name != cfg.agent.policy.class_name:
+      parser.error("Resume requires the same policy architecture; bounded-mean variants start fresh")
     cfg.agent.resume = True
     cfg.agent.load_run = "^" + re.escape(checkpoint.parent.name) + "$"
     cfg.agent.load_checkpoint = "^" + re.escape(checkpoint.name) + "$"

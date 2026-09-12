@@ -47,7 +47,7 @@ class TeacherRunner(OnPolicyRunner):
       if not all(torch.isfinite(p).all() for p in policy.parameters()):
         fail("ppo_updated_parameters")
       std = policy.std if policy.noise_std_type == "scalar" else policy.log_std.exp()
-      if not (std > 0).all():
+      if not (torch.isfinite(std).all() and (std > 0).all()):
         fail("nonpositive_policy_std")
       if not all(torch.isfinite(torch.as_tensor(value)).all() for value in loss.values()):
         fail("ppo_loss")
@@ -58,6 +58,8 @@ class TeacherRunner(OnPolicyRunner):
       policy = self.alg.policy
       std = policy.std if policy.noise_std_type == "scalar" else policy.log_std.exp()
       metrics = {"Diagnostics/std_min":float(std.min().detach()),
+                 "Diagnostics/std_max":float(std.max().detach()),
+                 "Diagnostics/mean_abs_max":float(policy.action_mean.abs().max().detach()),
                  "Diagnostics/action_saturation":sum(self._saturation)/max(1,len(self._saturation)),
                  "Diagnostics/peak_gpu_memory_mib":torch.cuda.max_memory_allocated()/1024**2}
       self._saturation.clear()

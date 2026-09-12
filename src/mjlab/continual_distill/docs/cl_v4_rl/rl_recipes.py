@@ -5,7 +5,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import finger_aperture, grasped,
 from mjlab.utils.lab_api.math import quat_apply
 import torch
 
-RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1")
+RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lift_v1", "reorient_v1", "lift_v2", "reorient_v2", "cage_v1")
 
 
 def grasp_components(env, command_name, object_asset_name="object", **kwargs):
@@ -74,11 +74,82 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards["no_object_collision"].weight = 0.0
     cfg.env.rewards["action_rate_l2"].weight = -0.005
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
-  if recipe in ("lift_v1", "reorient_v1"):
+  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "reorient_v2"):
     reach = cfg.env.rewards["reach_object"]
-    expected = "lift_object" if recipe == "lift_v1" else "reorient_object"
+    expected = "lift_object" if recipe.startswith("lift_") else "reorient_object"
     if reach.params["command_name"] != expected:
       raise ValueError(f"{recipe} is restricted to {expected}")
-    reach.func = lift_grasp_reward if recipe == "lift_v1" else reorient_grasp_reward
+    reach.func = lift_grasp_reward if recipe.startswith("lift_") else reorient_grasp_reward
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
+  if recipe in ("lift_v2", "reorient_v2", "cage_v1"):
+    bounded_initialization(cfg)
+    if recipe == "reorient_v2":
+      cfg.env.rewards["reach_object"].func = reorient_endface_reward
+    if recipe == "cage_v1":
+      reach = cfg.env.rewards["reach_object"]
+      if reach.params["command_name"] != "cage_drag":
+        raise ValueError("cage_v1 requires the cage task")
+      reach.func = cage_approach_reward
+      cfg.env.rewards["joint_vel_penalty"].weight = -0.001
+      cfg.env.rewards["action_rate_l2"].weight = -0.005
+
+
+def bounded_initialization(cfg):
+  from dataclasses import asdict
+  from bounded_policy import BoundedPolicyCfg, register
+  register()
+  action = cfg.env.actions['robot_joint_pos']
+  joints = cfg.env.scene.entities['robot'].init_state.joint_pos
+  names = [f'joint{i}' for i in range(1,8)] + ['finger_joint1']
+  mean = tuple(max(-0.99,min(0.99,(joints[name]-action.offset[name])/action.scale[name])) for name in names)
+  values = asdict(cfg.agent.policy)
+  values['class_name'] = 'BoundedActorCritic'
+  cfg.agent.policy = BoundedPolicyCfg(**values, initial_mean=mean, initial_gripper_std=0.03)
+  cfg.agent.policy.init_noise_std = 0.10
+  cfg.agent.algorithm.learning_rate = 1e-4
+  cfg.agent.algorithm.entropy_coef = 0.0
+  cfg.agent.algorithm.max_grad_norm = 0.5
+
+
+def reorient_endface_reward(env, command_name, object_asset_name='object', **kwargs):
+  command, obj, _, _, held = grasp_components(env,command_name,object_asset_name)
+  robot = command.robot
+  gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
+  quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
+  target = tracking_position(obj).clone()
+  target[:,2] += 0.006
+  distance = torch.linalg.vector_norm(gripper-target,dim=-1)
+  down = -quat_apply(quat,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))[:,2]
+  closing_axis = quat_apply(quat,torch.tensor([0.,1.,0.],device=env.device).expand(env.num_envs,3))
+  object_axis = quat_apply(obj.data.root_link_quat_w,command.body_axis.expand(env.num_envs,3))
+  parallel = (closing_axis*object_axis).sum(-1).abs().clamp(0,1)
+  approach = torch.exp(-distance/0.12)*(0.2+0.8*down.clamp(0,1))*(0.2+0.8*parallel)
+  aperture = finger_aperture(robot)
+  # Keep pads open during approach, then close on the bottle's end faces.
+  desired = torch.where(distance>0.035,0.075,0.050)
+  aperture_score = torch.exp(-((aperture-desired)/0.02).square())
+  height = obj.data.root_link_pos_w[:,2]-env.scene.env_origins[:,2]
+  lift = ((height-0.015)/0.10).clamp(0,1)*held
+  aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)
+  valid = torch.linalg.vector_norm(tracking_position(obj)[:,:2]-command.target_pos[:,:2],dim=-1)<command.cfg.max_drift
+  orientation = aligned.square()*held*valid.float()
+  return approach*(1-held)*(1+aperture_score) + 2*held + 3*lift + 6*orientation
+
+
+def cage_approach_reward(env, command_name, object_asset_name='cube', **kwargs):
+  from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers
+  command = env.command_manager.get_term(command_name)
+  valid = torch.minimum(command.min_aperture,command._aperture())>command.cfg.aperture_min
+  robot = command.robot
+  gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
+  quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
+  target = tracking_position(command.object).clone()
+  target[:,2] += 0.008
+  distance = torch.linalg.vector_norm(gripper-target,dim=-1)
+  down = -quat_apply(quat,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))[:,2]
+  approach = torch.exp(-distance/0.15)*(0.25+0.75*down.clamp(0,1))
+  caged = between_fingers(command).float()
+  error = torch.linalg.vector_norm(tracking_position(command.object)-command.target_pos,dim=-1)
+  transport = caged*(1+3*torch.exp(-error/0.10))
+  return (approach+transport)*valid.float()

@@ -40,6 +40,11 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 
 | RL-012 | Turn-Lever | Apply validated mechanism approach/goal recipe | mechanism_v1, 1,024 environments × 1,500 updates, seed20260912, GPU6 | Running | Fresh policy; mechanism preflight passed; registered zero gravity and strict joint predicate preserved |
 
+| PREFLIGHT-BOUNDED-001 | Cage/Lift/Reorient | Validate bounded Gaussian means and open-gripper initialization | 64 environments × 200 steps each; then 3 guarded PPO updates | Prepared | 48 CPU tests pass, including state-dict round trip and recipe invariants; physical exploration check follows |
+| RL-005-V3 | Reorient | Recover from saturated, ground-colliding V2 policy | reorient_v2, 2,048 environments × 2,000 updates, seed20260912, GPU5 | Prepared | Fresh bounded-mean policy; end-face alignment, actual grasp/lift/orientation shaping; LR0.0001, zero entropy coefficient; strict benchmark unchanged |
+| RL-002-V3 | Lift | Test bounded-mean policy and gentler exploration | lift_v2, 2,048 environments × 2,000 updates, seed20260912, GPU1 | Prepared | Fresh policy, V2 grasp reward retained to isolate policy/PPO changes; V2 strict evaluation pending |
+| RL-013 | Cage-Drag | Keep initial exploration valid and reward actual open-cage transport | cage_v1, 1,024 environments × 1,500 updates, seed20260912 | Prepared | Fresh policy with gripper mean0.99/std0.03; all eight action dimensions remain learnable; no action masking; choose free authorized GPU after preflight |
+
 ## Run record template
 
 - ID, task, hypothesis, status, start/end UTC, Slurm step, GPU UUID.

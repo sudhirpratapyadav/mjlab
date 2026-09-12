@@ -16,6 +16,9 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Open-Drawer-Franka","mechanism_v1"),
   ("Mjlab-Lift-Cube-Franka","lift_v1"),
   ("Mjlab-Reorient-Object-Franka","reorient_v1"),
+  ("Mjlab-Lift-Cube-Franka","lift_v2"),
+  ("Mjlab-Reorient-Object-Franka","reorient_v2"),
+  ("Mjlab-Cage-Drag-Franka","cage_v1"),
 ])
 def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   stage=Path(__file__).resolve().parents[1]/"src/mjlab/continual_distill/docs/cl_v4_rl"
