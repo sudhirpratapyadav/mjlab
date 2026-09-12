@@ -248,3 +248,16 @@ Wave18 launch update: Lift settle preflight passed finite and online (zxswj059);
 Throw R2 final5498 completed normally, strict0/128 (127timeouts,1ground). Actual recorded frames now show cube capture and lift, followed by holding without release; final opposing contacts94.49%, height0.26976m, goal error0.4610m. This is a newly learned precursor compared with final2999 hovering. Preregister a bounded unchanged throw_v4 continuation from own5498,2048 ×2000 additional, seed20260912, GPU2. Preserve means/std, Adam state/LR, normalizers, physics and native5s success. Strict evaluation at budget; no further blind continuation if holding persists.
 
 | RL-024-R3 | Throw | Convert acquired grasp/lift into native release/launch | throw_v4, ownR2/model5498,2048 ×2000 additional, GPU2 | Prepared | Unchanged recipe/configuration; no additional PPO preflight required for an unchanged resume. |
+
+### Wave19 — Pivot ramp geometry and Place progress
+
+Pivot original1500 strict0/128;128 recorded-pose FK audit finds6.94mm median closest target error,22.42degree full wrist error,29.08mm aperture and board already against the wall. No sampled episode exceeds20degree tilt. Eight of32 nominal open-ramp endpoints require3.18–4.36mm finger/floor penetration. At40mm/finger with an XML-derived1mm floor margin,32/32 endpoints pass the unchanged IK/contact gate. These are endpoint diagnostics, not trajectories, demonstrations or RL successes.
+
+pivot_v3 preserves pivot_v2 physics/native pivot-history+grasp+goal+settled predicate and60D/8D. It adds floor-safe ramp reward waypoints, full wrist alignment and opening preference80→20mm as board tilt grows toward55degrees. Existing opposing-contact classifier replaces whole-box enclosure for actual grasp credit; same-face top pressing remains rejected. Non-held precursor is bounded7.5, below held bonus8. No scripted actions, pose writes, borrowed initialization or grasp-history shortcuts.66 focused recipe/geometry/strict-evaluation checks pass.
+
+| PREFLIGHT-PIVOT-RAMP-028 | Pivot | Verify ramp reward in PPO | pivot_v3, ownRL022/model1500,64 ×3 updates, GPU5 temporarily after Place evaluation | Prepared | Preserve means/std/optimizer/normalizers; finite online preflight before full retry. |
+| RL-022-R2 | Pivot | Learn open-ramp tipping then opposed capture and lift | pivot_v3, own1500,2048 ×2000 additional, next freeGPU1 after Strike final evaluation | Prepared | No output/std/backend changes; contingent on finite preflight. |
+
+PlaceR5 final5399 strict35/128, improved from0/128. Actual success/failure frames reviewed: capture/transport/lowering at container, incomplete release/settling in selected failure. Preregister unchanged completion_v6 continuation from own5399,2048 ×2000 additional, GPU5 after short Pivot preflight. Inherit saved Adam LR5e-5/moments/normalizers/means/std; strict evaluation at budget.
+
+| RL-019-R6 | Place | Improve newly acquired native container completion | completion_v6, ownR5/model5399,2048 ×2000 additional, GPU5 | Prepared |35/128 prior; unchanged configuration and inherited LR5e-5. |

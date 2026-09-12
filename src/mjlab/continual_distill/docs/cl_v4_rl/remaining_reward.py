@@ -156,7 +156,25 @@ def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, co
   return precursor*(1-held)+8*held+6*lift*held+4*goal*held+25*native_success(command)
 
 
-def pivot_reward(env, command_name, require_enclosure=False, **kwargs):
+def pivot_ramp_target(corner, aperture, closing, approach, floor):
+  """Reward waypoint with a1mm floor margin for the registered Panda pads."""
+  target = corner+.5*aperture[:,None]*closing-.005*approach
+  lowest = floor+.001+(.5*aperture+.0152)*closing[:,2].abs()+.0119*approach[:,2].abs()
+  target[:,2] = torch.maximum(target[:,2],lowest)
+  return target
+
+
+def pivot_approach_score(distance, axes, closing, approach, aperture, tilt):
+  lateral = torch.cross(closing,approach,dim=-1)
+  alignment = ((sum((actual*expected).sum(-1) for actual,expected in zip(axes,(lateral,closing,approach)))+1)/4).clamp(0,1)
+  # Wide jaws let the lower pad reach the end face while the upper clears the
+  # flat board. As the board rises toward55deg, reduce toward its20mm thickness.
+  desired = .080-.060*(tilt/.43).clamp(0,1)
+  opening = torch.exp(-((aperture-desired)/.025).square())
+  return (torch.exp(-distance/.15)+.5*torch.exp(-distance/.04))*(.25+.75*alignment)*(.5+.5*opening)
+
+
+def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False, contact_geometry=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -169,14 +187,21 @@ def pivot_reward(env, command_name, require_enclosure=False, **kwargs):
   expected_approach = torch.stack([psi.cos(),torch.zeros_like(psi),-psi.sin()],dim=-1)
   corner = pos-.05*board_x+.010*board_z
   ramp_target = corner+.5*aperture[:,None]*expected_closing-.005*expected_approach
+  if ramp_geometry:
+    ramp_target = pivot_ramp_target(corner,aperture,expected_closing,expected_approach,env.scene.env_origins[:,2])
   distance = torch.linalg.vector_norm(grip-ramp_target,dim=-1)
   alignment = (axes[1]*expected_closing).sum(-1).abs().clamp(0,1)
   approach = torch.exp(-distance/.15)*(.25+.75*alignment)
+  if ramp_geometry:
+    approach = pivot_approach_score(distance,axes,expected_closing,expected_approach,aperture,tilt)
   wall_face = command.wall.data.root_link_pos_w[:,0]-.0525
   board_far = object_corners(obj)[:,:,0].amax(1)
   wall_near = torch.exp(-(wall_face-board_far).clamp_min(0)/.08)
   contact = touching(command,obj,command.wall).float()
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
+  if contact_geometry:
+    from contact_grasp import opposed_grasp
+    held = opposed_grasp(command).float()
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.20)
   lift = ((pos[:,2]-env.scene.env_origins[:,2]-.01)/.12).clamp(0,1)
   precursor = approach+2*wall_near+4*tilt*contact

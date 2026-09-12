@@ -16,6 +16,7 @@ RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
 RECIPES += ("strike_v2",)
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
+RECIPES += ("pivot_v3",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -90,6 +91,10 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "pivot_v3":
+    apply_recipe(cfg, "pivot_v2")
+    cfg.env.rewards["reach_object"].params.update(ramp_geometry=True,contact_geometry=True)
     return
   if recipe == "lift_v7":
     apply_recipe(cfg, "lift_v6")

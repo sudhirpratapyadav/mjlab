@@ -1,0 +1,3734 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "f7e6f71da5891ea727481583f9f93582563b8847bf9464b34636a111c6803211",
+  "finger_position_m": 0.04,
+  "floor_clearance_m": 0.001,
+  "method": "CPU FK every tenth recorded20ms state plus terminal,128 first episodes.32 evenly indexed closest ramp poses additionally use bounded three-seed endpoint IK at the reported opening and optional floor guard. Endpoint gate position<2cm, orientation<15deg and no robot/floor/wall penetration>3mm. No integration, policy supervision, trajectory feasibility or RL success measurement.",
+  "summary": {
+    "distance_m": 0.006936644303588648,
+    "closing_alignment": 0.9481687933722116,
+    "approach_alignment": 0.9383579534016218,
+    "full_rotation_error_deg": 22.423534723051176,
+    "tilt_deg": 3.6776324720660845,
+    "wall_gap_m": -0.0011733964422489598,
+    "aperture_m": 0.02908188058063388,
+    "episodes": 128,
+    "sampled_tilt_over20_count": 0,
+    "endpoint_ik_cases": 32,
+    "endpoint_ik_passes": 32
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.011588542447617086,
+        "closing_alignment": 0.8368900807868841,
+        "approach_alignment": 0.8662006078611756,
+        "full_rotation_error_deg": 35.69969609847074,
+        "tilt_deg": 1.3818053649718594,
+        "wall_gap_m": 0.0023476968789525945,
+        "aperture_m": 0.008343696594238281
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012065557648939877,
+        "closing_alignment": 0.9574346160826632,
+        "approach_alignment": 0.9431771710128183,
+        "full_rotation_error_deg": 21.18175298647523,
+        "tilt_deg": 4.2247215162647365,
+        "wall_gap_m": -0.0006258203398503415,
+        "aperture_m": 0.028771446086466312
+      },
+      "max_sampled_tilt_deg": 4.228318455114126,
+      "endpoint_ik": {
+        "target_m": [
+          0.42978608243137423,
+          -0.01798416486796029,
+          0.0391173043287568
+        ],
+        "position_error_m": 2.560650728177633e-09,
+        "orientation_error_deg": 3.4150945850063763e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.4894916153502827,
+          0.4426440896132911,
+          -0.3279960064851472,
+          -2.4232285704330496,
+          2.1920065842939525,
+          3.0612566614636805,
+          -2.752473171355662
+        ]
+      }
+    },
+    {
+      "env_id": 1,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.010708532496486386,
+        "closing_alignment": 0.9112895790086062,
+        "approach_alignment": 0.8697550490878632,
+        "full_rotation_error_deg": 29.587286400654573,
+        "tilt_deg": 1.728372196726511,
+        "wall_gap_m": -0.0006230368490947324,
+        "aperture_m": 0.0004091555601917207
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014212448459243032,
+        "closing_alignment": 0.9567504037755338,
+        "approach_alignment": 0.9340121041848051,
+        "full_rotation_error_deg": 21.209425177269008,
+        "tilt_deg": 4.32843921089283,
+        "wall_gap_m": -0.001398918152030769,
+        "aperture_m": 0.0022933472646400332
+      },
+      "max_sampled_tilt_deg": 4.754656014237598
+    },
+    {
+      "env_id": 2,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.011614546245603595,
+        "closing_alignment": 0.8996426046390984,
+        "approach_alignment": 0.8434267060562862,
+        "full_rotation_error_deg": 32.51147798106317,
+        "tilt_deg": 1.4319595220362735,
+        "wall_gap_m": -0.0002509702083862142,
+        "aperture_m": -0.0023953073541633785
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013653409539209006,
+        "closing_alignment": 0.9501719954090416,
+        "approach_alignment": 0.9307886517802065,
+        "full_rotation_error_deg": 22.16046045614954,
+        "tilt_deg": 4.706282571750996,
+        "wall_gap_m": -0.0016953124348555795,
+        "aperture_m": 0.001763336535077542
+      },
+      "max_sampled_tilt_deg": 4.9644169101103435
+    },
+    {
+      "env_id": 3,
+      "closest": {
+        "step": 240,
+        "distance_m": 0.008630727071407667,
+        "closing_alignment": 0.9545029507475083,
+        "approach_alignment": 0.9368056035593596,
+        "full_rotation_error_deg": 21.45377202159576,
+        "tilt_deg": 3.7098677786512964,
+        "wall_gap_m": -0.001748012719391727,
+        "aperture_m": 0.013351821340620518
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00920449232635227,
+        "closing_alignment": 0.9589495066795998,
+        "approach_alignment": 0.942074389529638,
+        "full_rotation_error_deg": 20.576781253965578,
+        "tilt_deg": 4.38313348019799,
+        "wall_gap_m": -0.0020266757750917117,
+        "aperture_m": 0.013776309322565794
+      },
+      "max_sampled_tilt_deg": 5.025057186507583
+    },
+    {
+      "env_id": 4,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.013949154956979268,
+        "closing_alignment": 0.9499985102590506,
+        "approach_alignment": 0.9505770329644802,
+        "full_rotation_error_deg": 21.557017178164852,
+        "tilt_deg": 4.554383809070497,
+        "wall_gap_m": -0.0012068712747159496,
+        "aperture_m": 0.026857507415115833
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013949154956979268,
+        "closing_alignment": 0.9499985102590506,
+        "approach_alignment": 0.9505770329644802,
+        "full_rotation_error_deg": 21.557017178164852,
+        "tilt_deg": 4.554383809070497,
+        "wall_gap_m": -0.0012068712747159496,
+        "aperture_m": 0.026857507415115833
+      },
+      "max_sampled_tilt_deg": 5.0121541829940925,
+      "endpoint_ik": {
+        "target_m": [
+          0.43368902125671993,
+          0.07539385428843917,
+          0.03115369359954517
+        ],
+        "position_error_m": 1.9969565754063692e-11,
+        "orientation_error_deg": 2.9575586669421963e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.034451773137052936,
+          0.4972606091876635,
+          0.37455536014671725,
+          -2.6475578299306544,
+          0.7127564070774138,
+          3.5560864478048684,
+          -1.2335097287972938
+        ]
+      }
+    },
+    {
+      "env_id": 5,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.010606805310584437,
+        "closing_alignment": 0.9483450807140281,
+        "approach_alignment": 0.9574059919448393,
+        "full_rotation_error_deg": 21.257832872459705,
+        "tilt_deg": 4.88695601381776,
+        "wall_gap_m": -0.0009242586186792648,
+        "aperture_m": 0.019949630834162235
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010606805310584437,
+        "closing_alignment": 0.9483450807140281,
+        "approach_alignment": 0.9574059919448393,
+        "full_rotation_error_deg": 21.257832872459705,
+        "tilt_deg": 4.88695601381776,
+        "wall_gap_m": -0.0009242586186792648,
+        "aperture_m": 0.019949630834162235
+      },
+      "max_sampled_tilt_deg": 4.900388039216099
+    },
+    {
+      "env_id": 6,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.00760707127544393,
+        "closing_alignment": 0.9340177617461367,
+        "approach_alignment": 0.9452728866620261,
+        "full_rotation_error_deg": 24.323595967986485,
+        "tilt_deg": 3.7473171914479053,
+        "wall_gap_m": -0.0012696051250160947,
+        "aperture_m": 0.04006386920809746
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00760707127544393,
+        "closing_alignment": 0.9340177617461367,
+        "approach_alignment": 0.9452728866620261,
+        "full_rotation_error_deg": 24.323595967986485,
+        "tilt_deg": 3.7473171914479053,
+        "wall_gap_m": -0.0012696051250160947,
+        "aperture_m": 0.04006386920809746
+      },
+      "max_sampled_tilt_deg": 4.449009661808901
+    },
+    {
+      "env_id": 7,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.0013366579895745406,
+        "closing_alignment": 0.9762260301073484,
+        "approach_alignment": 0.9496280035845429,
+        "full_rotation_error_deg": 19.150118092032383,
+        "tilt_deg": 2.6530495806320413,
+        "wall_gap_m": -0.00073703385784641,
+        "aperture_m": 0.044761426746845245
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005794720483471096,
+        "closing_alignment": 0.9638203664132539,
+        "approach_alignment": 0.9482959869612184,
+        "full_rotation_error_deg": 20.75554300737083,
+        "tilt_deg": 3.7112059840265537,
+        "wall_gap_m": -0.001029843301671135,
+        "aperture_m": 0.04438232444226742
+      },
+      "max_sampled_tilt_deg": 4.433976459415716
+    },
+    {
+      "env_id": 8,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.008121141693837966,
+        "closing_alignment": 0.9449396881670511,
+        "approach_alignment": 0.9636443216519076,
+        "full_rotation_error_deg": 22.170846051972436,
+        "tilt_deg": 3.9443396322716198,
+        "wall_gap_m": -0.001684472580023029,
+        "aperture_m": 0.04744785651564598
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00929576129195683,
+        "closing_alignment": 0.9351997925848701,
+        "approach_alignment": 0.9463965158693057,
+        "full_rotation_error_deg": 25.010820835916142,
+        "tilt_deg": 3.4402461336602657,
+        "wall_gap_m": -0.0009601907683750854,
+        "aperture_m": 0.04826876521110535
+      },
+      "max_sampled_tilt_deg": 4.294339549111581,
+      "endpoint_ik": {
+        "target_m": [
+          0.43440854928033523,
+          -0.08240289160872817,
+          0.031130757677225247
+        ],
+        "position_error_m": 3.046003360459105e-13,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.07578278662201392,
+          0.5190746290214507,
+          -0.44997221116678243,
+          -2.6189895142280943,
+          -0.8284722545955991,
+          3.573604909148183,
+          -0.23365362768259682
+        ]
+      }
+    },
+    {
+      "env_id": 9,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.007538433382396304,
+        "closing_alignment": 0.9511588525352868,
+        "approach_alignment": 0.9301354438819351,
+        "full_rotation_error_deg": 22.21602381443828,
+        "tilt_deg": 4.330220941697022,
+        "wall_gap_m": -0.0014037505180906906,
+        "aperture_m": 0.014368786010891199
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007667448148737277,
+        "closing_alignment": 0.9500845084746923,
+        "approach_alignment": 0.9281173342524415,
+        "full_rotation_error_deg": 22.5608523320323,
+        "tilt_deg": 4.307091558515747,
+        "wall_gap_m": -0.00149040828481007,
+        "aperture_m": 0.014410467352718115
+      },
+      "max_sampled_tilt_deg": 4.426165462568487
+    },
+    {
+      "env_id": 10,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.006600719770153547,
+        "closing_alignment": 0.9668342924707375,
+        "approach_alignment": 0.9381834817920682,
+        "full_rotation_error_deg": 20.25272883386215,
+        "tilt_deg": 0.45486507833485645,
+        "wall_gap_m": 1.574476744740233e-05,
+        "aperture_m": 0.03529650717973709
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014136473284660885,
+        "closing_alignment": 0.9685122233091901,
+        "approach_alignment": 0.9394677128285741,
+        "full_rotation_error_deg": 21.077167732652125,
+        "tilt_deg": 3.7668367454419216,
+        "wall_gap_m": -0.0009343317785074287,
+        "aperture_m": 0.042870692908763885
+      },
+      "max_sampled_tilt_deg": 3.8258043869453737
+    },
+    {
+      "env_id": 11,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.0067359022949813096,
+        "closing_alignment": 0.9283149875014012,
+        "approach_alignment": 0.8978071082975698,
+        "full_rotation_error_deg": 26.203788944343113,
+        "tilt_deg": 0.6004222237908957,
+        "wall_gap_m": 0.0006696778949975835,
+        "aperture_m": 0.02264560852199793
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012991330746363092,
+        "closing_alignment": 0.965464629495449,
+        "approach_alignment": 0.9394879736641358,
+        "full_rotation_error_deg": 20.20064365242775,
+        "tilt_deg": 4.362407797571491,
+        "wall_gap_m": -0.001425511901646588,
+        "aperture_m": 0.030972445383667946
+      },
+      "max_sampled_tilt_deg": 4.66381299884595
+    },
+    {
+      "env_id": 12,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004061028907939276,
+        "closing_alignment": 0.9348403715258103,
+        "approach_alignment": 0.9101457473601033,
+        "full_rotation_error_deg": 24.52068310103225,
+        "tilt_deg": 1.3907801375147468,
+        "wall_gap_m": -0.00023323121549374132,
+        "aperture_m": 0.01979807484894991
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006250540151095389,
+        "closing_alignment": 0.9541792397885103,
+        "approach_alignment": 0.9295580091087619,
+        "full_rotation_error_deg": 22.043255998187757,
+        "tilt_deg": 3.4126791672386423,
+        "wall_gap_m": -0.0016469576644398826,
+        "aperture_m": 0.028538519516587257
+      },
+      "max_sampled_tilt_deg": 4.919113621975228,
+      "endpoint_ik": {
+        "target_m": [
+          0.4336209479186731,
+          0.0007940630525536865,
+          0.0331409988777783
+        ],
+        "position_error_m": 1.5820004787531761e-12,
+        "orientation_error_deg": 3.1945284701301985e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.40687539215887913,
+          0.46283262938160413,
+          0.22412006663276338,
+          -2.369441378396658,
+          -2.3259886412958735,
+          3.1090343280233097,
+          1.3139486252295014
+        ]
+      }
+    },
+    {
+      "env_id": 13,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.0016923084701804076,
+        "closing_alignment": 0.9710101894869154,
+        "approach_alignment": 0.9594926030441447,
+        "full_rotation_error_deg": 17.571065915986285,
+        "tilt_deg": 4.386758344483611,
+        "wall_gap_m": -0.0021175007159331335,
+        "aperture_m": 0.03541147708892822
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.003973150494700137,
+        "closing_alignment": 0.9546214473355242,
+        "approach_alignment": 0.9400373907623345,
+        "full_rotation_error_deg": 21.49232035005991,
+        "tilt_deg": 4.007371076064552,
+        "wall_gap_m": -0.001412976874734205,
+        "aperture_m": 0.037188032642006874
+      },
+      "max_sampled_tilt_deg": 4.442248255063736
+    },
+    {
+      "env_id": 14,
+      "closest": {
+        "step": 90,
+        "distance_m": 0.001619977325658922,
+        "closing_alignment": 0.9745704592379124,
+        "approach_alignment": 0.9672672673338303,
+        "full_rotation_error_deg": 16.76481188231979,
+        "tilt_deg": 4.078754706842962,
+        "wall_gap_m": -0.0025578173608367533,
+        "aperture_m": 0.03789633885025978
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005162015693836343,
+        "closing_alignment": 0.9594142511688274,
+        "approach_alignment": 0.9466165903255975,
+        "full_rotation_error_deg": 21.099085883798697,
+        "tilt_deg": 4.0305398086354804,
+        "wall_gap_m": -0.0011322376675831983,
+        "aperture_m": 0.042969321832060814
+      },
+      "max_sampled_tilt_deg": 4.384966439373095
+    },
+    {
+      "env_id": 15,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.01102487090811342,
+        "closing_alignment": 0.9516722408802121,
+        "approach_alignment": 0.9470341120703389,
+        "full_rotation_error_deg": 21.6614979295885,
+        "tilt_deg": 4.725740725795537,
+        "wall_gap_m": -0.0025344179660700197,
+        "aperture_m": 0.02839666698127985
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012267063951095678,
+        "closing_alignment": 0.9620787487376866,
+        "approach_alignment": 0.9496815621698367,
+        "full_rotation_error_deg": 20.161920819281985,
+        "tilt_deg": 4.5718931724017855,
+        "wall_gap_m": -0.0018047949010578726,
+        "aperture_m": 0.03569819591939449
+      },
+      "max_sampled_tilt_deg": 4.850079948382301
+    },
+    {
+      "env_id": 16,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.012689625846746627,
+        "closing_alignment": 0.9571820884090739,
+        "approach_alignment": 0.9475783425097504,
+        "full_rotation_error_deg": 20.587787282952938,
+        "tilt_deg": 4.790389844270246,
+        "wall_gap_m": -0.0010447364409214843,
+        "aperture_m": 0.015911071561276913
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012878286051354444,
+        "closing_alignment": 0.9595858626589975,
+        "approach_alignment": 0.9516772763243724,
+        "full_rotation_error_deg": 19.899347913700584,
+        "tilt_deg": 4.906903301017146,
+        "wall_gap_m": -0.0011004586337233016,
+        "aperture_m": 0.0161585733294487
+      },
+      "max_sampled_tilt_deg": 5.073608250641664,
+      "endpoint_ik": {
+        "target_m": [
+          0.4335557555249218,
+          0.10559310870169943,
+          0.031163446139590947
+        ],
+        "position_error_m": 9.201387290250875e-11,
+        "orientation_error_deg": 1.7075472925031877e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.148603805137503,
+          0.48996316075762714,
+          0.27449316753272784,
+          -2.6267218362446365,
+          0.7282391089965827,
+          3.526943217453283,
+          -1.1478705232331374
+        ]
+      }
+    },
+    {
+      "env_id": 17,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.0077753113264298415,
+        "closing_alignment": 0.9589671645895786,
+        "approach_alignment": 0.9328301403117341,
+        "full_rotation_error_deg": 21.453294579808475,
+        "tilt_deg": 3.9482620849974515,
+        "wall_gap_m": -0.001532910444438866,
+        "aperture_m": 0.029610210098326206
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007902253498822558,
+        "closing_alignment": 0.9587810678068064,
+        "approach_alignment": 0.9340614540577518,
+        "full_rotation_error_deg": 21.30784595254944,
+        "tilt_deg": 3.929028141765734,
+        "wall_gap_m": -0.0014855029704281542,
+        "aperture_m": 0.02978556789457798
+      },
+      "max_sampled_tilt_deg": 4.7529609925202
+    },
+    {
+      "env_id": 18,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.015002947482408746,
+        "closing_alignment": 0.9466753149215338,
+        "approach_alignment": 0.9477109202519228,
+        "full_rotation_error_deg": 22.28240491367338,
+        "tilt_deg": 4.292289334486528,
+        "wall_gap_m": -0.0010575048503486187,
+        "aperture_m": 0.02188175544142723
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.015719509522077953,
+        "closing_alignment": 0.9429873965881538,
+        "approach_alignment": 0.9437375596089925,
+        "full_rotation_error_deg": 23.04505399735229,
+        "tilt_deg": 4.110096654404838,
+        "wall_gap_m": -0.0011581901081177959,
+        "aperture_m": 0.02227376587688923
+      },
+      "max_sampled_tilt_deg": 4.95371876082615
+    },
+    {
+      "env_id": 19,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.011251014637003696,
+        "closing_alignment": 0.9345963505036935,
+        "approach_alignment": 0.9043192785339476,
+        "full_rotation_error_deg": 26.52204402805437,
+        "tilt_deg": 0.3295765998053119,
+        "wall_gap_m": 0.00026766491696190997,
+        "aperture_m": 0.0448794811964035
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.011251014637003696,
+        "closing_alignment": 0.9345963505036935,
+        "approach_alignment": 0.9043192785339476,
+        "full_rotation_error_deg": 26.52204402805437,
+        "tilt_deg": 0.3295765998053119,
+        "wall_gap_m": 0.00026766491696190997,
+        "aperture_m": 0.0448794811964035
+      },
+      "max_sampled_tilt_deg": 1.6547919211919788
+    },
+    {
+      "env_id": 20,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.006547785328790419,
+        "closing_alignment": 0.9677303069419828,
+        "approach_alignment": 0.9675816562919173,
+        "full_rotation_error_deg": 18.36539485644124,
+        "tilt_deg": 3.884553095807662,
+        "wall_gap_m": -0.0010885845646566375,
+        "aperture_m": 0.034888019785284996
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007616275561245106,
+        "closing_alignment": 0.9557588684834399,
+        "approach_alignment": 0.9613343077079014,
+        "full_rotation_error_deg": 20.794836568498344,
+        "tilt_deg": 4.528622772536393,
+        "wall_gap_m": -0.0009300715673218954,
+        "aperture_m": 0.029524157755076885
+      },
+      "max_sampled_tilt_deg": 4.846855596639137,
+      "endpoint_ik": {
+        "target_m": [
+          0.43382053938880044,
+          -0.10891342202834434,
+          0.031128686395993713
+        ],
+        "position_error_m": 6.740185437288537e-12,
+        "orientation_error_deg": 1.2074182697257333e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.13744064594043903,
+          0.4964064164133085,
+          -0.3012515738371137,
+          -2.613837884143407,
+          -0.7797706806726388,
+          3.5301517375666123,
+          -0.3795324346190138
+        ]
+      }
+    },
+    {
+      "env_id": 21,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.015825409190196146,
+        "closing_alignment": 0.9427506334746519,
+        "approach_alignment": 0.963354311048682,
+        "full_rotation_error_deg": 22.766438378678178,
+        "tilt_deg": 3.50996991496975,
+        "wall_gap_m": -0.0010906475706088936,
+        "aperture_m": 0.0498444028198719
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.016166733845725437,
+        "closing_alignment": 0.9307738833814295,
+        "approach_alignment": 0.9552872129525617,
+        "full_rotation_error_deg": 24.935173415158193,
+        "tilt_deg": 3.1440026932398957,
+        "wall_gap_m": -0.0007458928145440136,
+        "aperture_m": 0.04996058717370033
+      },
+      "max_sampled_tilt_deg": 3.9015385647328995
+    },
+    {
+      "env_id": 22,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.010924727827572072,
+        "closing_alignment": 0.9746119794724731,
+        "approach_alignment": 0.971317195377496,
+        "full_rotation_error_deg": 16.25518161154811,
+        "tilt_deg": 4.424768605035135,
+        "wall_gap_m": -0.0009158077466061565,
+        "aperture_m": 0.037562472745776176
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014756064717599725,
+        "closing_alignment": 0.9633833718987014,
+        "approach_alignment": 0.9701400061632633,
+        "full_rotation_error_deg": 18.22206327864561,
+        "tilt_deg": 4.523581736158099,
+        "wall_gap_m": -0.0009113471040494217,
+        "aperture_m": 0.016136758029460907
+      },
+      "max_sampled_tilt_deg": 4.666835497889226
+    },
+    {
+      "env_id": 23,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.006816256202119301,
+        "closing_alignment": 0.954668441555826,
+        "approach_alignment": 0.928601854657324,
+        "full_rotation_error_deg": 22.116145020468544,
+        "tilt_deg": 3.834586407016475,
+        "wall_gap_m": -0.0016101453275576341,
+        "aperture_m": 0.01668817177414894
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006895954170873137,
+        "closing_alignment": 0.956216090230866,
+        "approach_alignment": 0.9327651921844807,
+        "full_rotation_error_deg": 21.48880141302885,
+        "tilt_deg": 3.9387055142438117,
+        "wall_gap_m": -0.0016021546273411735,
+        "aperture_m": 0.016818085685372353
+      },
+      "max_sampled_tilt_deg": 4.26982846299954
+    },
+    {
+      "env_id": 24,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.006436152040431339,
+        "closing_alignment": 0.917707006729857,
+        "approach_alignment": 0.8673342061661677,
+        "full_rotation_error_deg": 29.887643660217464,
+        "tilt_deg": 1.7086682816435863,
+        "wall_gap_m": -0.000284292924232786,
+        "aperture_m": 0.013177454005926847
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010104889549721033,
+        "closing_alignment": 0.9589944749215973,
+        "approach_alignment": 0.9365203278789864,
+        "full_rotation_error_deg": 20.52528647100745,
+        "tilt_deg": 3.7875962779505477,
+        "wall_gap_m": -0.0012797184983136325,
+        "aperture_m": 0.015188043471425772
+      },
+      "max_sampled_tilt_deg": 4.35587002856139,
+      "endpoint_ik": {
+        "target_m": [
+          0.433523294498473,
+          0.12248216293125354,
+          0.03259111787552879
+        ],
+        "position_error_m": 1.953404650519057e-12,
+        "orientation_error_deg": 2.091309789151873e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.2841748558733313,
+          0.4781825186914907,
+          0.17939551641579363,
+          -2.6192683567757986,
+          0.7068052133392481,
+          3.493134414686241,
+          -1.067414532020344
+        ]
+      }
+    },
+    {
+      "env_id": 25,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.011374944070886753,
+        "closing_alignment": 0.8536471495017147,
+        "approach_alignment": 0.8291807844863037,
+        "full_rotation_error_deg": 34.3450147159673,
+        "tilt_deg": 2.603677598968226,
+        "wall_gap_m": -1.632276081598577e-05,
+        "aperture_m": 0.006880190689116716
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01609926974592826,
+        "closing_alignment": 0.960745237787194,
+        "approach_alignment": 0.9346966362316661,
+        "full_rotation_error_deg": 20.821153505617264,
+        "tilt_deg": 4.125733918041822,
+        "wall_gap_m": -0.0013232087775314275,
+        "aperture_m": 0.0022255225921981037
+      },
+      "max_sampled_tilt_deg": 4.638732466593883
+    },
+    {
+      "env_id": 26,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.0018036194811611615,
+        "closing_alignment": 0.9541380153417333,
+        "approach_alignment": 0.9264636353497904,
+        "full_rotation_error_deg": 22.872090450749855,
+        "tilt_deg": 3.1662922391108106,
+        "wall_gap_m": -0.0008681601154359106,
+        "aperture_m": 0.03208721615374088
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.001907907629247762,
+        "closing_alignment": 0.9542061411920266,
+        "approach_alignment": 0.9275567707594772,
+        "full_rotation_error_deg": 22.675253637476658,
+        "tilt_deg": 3.2788238457846552,
+        "wall_gap_m": -0.001147479447230454,
+        "aperture_m": 0.032083550468087196
+      },
+      "max_sampled_tilt_deg": 3.5483646397235202
+    },
+    {
+      "env_id": 27,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.011577320953755833,
+        "closing_alignment": 0.8851439923259226,
+        "approach_alignment": 0.8392771692675797,
+        "full_rotation_error_deg": 32.99117195810918,
+        "tilt_deg": 0.2746408383967691,
+        "wall_gap_m": 0.0015877834366875843,
+        "aperture_m": 0.02152591571211815
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01286573578722588,
+        "closing_alignment": 0.954300280039406,
+        "approach_alignment": 0.9320576118235536,
+        "full_rotation_error_deg": 21.542246814234982,
+        "tilt_deg": 3.655929871935647,
+        "wall_gap_m": -0.0012744041100244963,
+        "aperture_m": 0.014089260715991259
+      },
+      "max_sampled_tilt_deg": 4.850074712550293
+    },
+    {
+      "env_id": 28,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.006904335258770949,
+        "closing_alignment": 0.9473665112170209,
+        "approach_alignment": 0.912431239313627,
+        "full_rotation_error_deg": 24.19910437202917,
+        "tilt_deg": 1.365633552228702,
+        "wall_gap_m": 0.0021907638232372406,
+        "aperture_m": 0.03204779699444771
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008311517661913933,
+        "closing_alignment": 0.9586744954951276,
+        "approach_alignment": 0.929780108681501,
+        "full_rotation_error_deg": 22.07082086978866,
+        "tilt_deg": 3.8496949426623837,
+        "wall_gap_m": -0.001237341325519066,
+        "aperture_m": 0.03216277249157429
+      },
+      "max_sampled_tilt_deg": 4.7301422572667295,
+      "endpoint_ik": {
+        "target_m": [
+          0.43104377182636566,
+          -0.024341844710212803,
+          0.03257377401719698
+        ],
+        "position_error_m": 1.7376418189183794e-10,
+        "orientation_error_deg": 2.9575586669421963e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.6824574768788608,
+          0.6011511138892813,
+          0.7637233469704637,
+          -2.6407396204513147,
+          0.8699409537835199,
+          3.6367060364313857,
+          -1.7491077020612267
+        ]
+      }
+    },
+    {
+      "env_id": 29,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.002425617589406016,
+        "closing_alignment": 0.9597855280904377,
+        "approach_alignment": 0.9475494173027476,
+        "full_rotation_error_deg": 18.965063797427423,
+        "tilt_deg": 1.7824474261858612,
+        "wall_gap_m": -0.000526091340002588,
+        "aperture_m": 0.03503182716667652
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006499318278362257,
+        "closing_alignment": 0.9734488188630211,
+        "approach_alignment": 0.953734538682614,
+        "full_rotation_error_deg": 18.019735767857675,
+        "tilt_deg": 2.9957590178576328,
+        "wall_gap_m": -0.0002957761774662407,
+        "aperture_m": 0.04107049107551575
+      },
+      "max_sampled_tilt_deg": 4.251457739804205
+    },
+    {
+      "env_id": 30,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.000654804521007409,
+        "closing_alignment": 0.9672321818986354,
+        "approach_alignment": 0.9525523344739906,
+        "full_rotation_error_deg": 18.754357111255004,
+        "tilt_deg": 4.1795251125986015,
+        "wall_gap_m": -0.0019641371786574685,
+        "aperture_m": 0.0356382392346859
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0016656602764620664,
+        "closing_alignment": 0.9612841462209093,
+        "approach_alignment": 0.9454161096263056,
+        "full_rotation_error_deg": 20.297999075551026,
+        "tilt_deg": 4.084487686824084,
+        "wall_gap_m": -0.0010884409677022686,
+        "aperture_m": 0.03721223026514053
+      },
+      "max_sampled_tilt_deg": 4.548470814473228
+    },
+    {
+      "env_id": 31,
+      "closest": {
+        "step": 260,
+        "distance_m": 0.0019701126437769553,
+        "closing_alignment": 0.9445883215281236,
+        "approach_alignment": 0.9466330330514636,
+        "full_rotation_error_deg": 22.41147275451487,
+        "tilt_deg": 4.049333813816969,
+        "wall_gap_m": -0.0013172409155826764,
+        "aperture_m": 0.03708970919251442
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.003200719273330327,
+        "closing_alignment": 0.9420704754449505,
+        "approach_alignment": 0.9383282669968018,
+        "full_rotation_error_deg": 23.46465002674448,
+        "tilt_deg": 3.3453192501549527,
+        "wall_gap_m": -0.001377474667974228,
+        "aperture_m": 0.03726266883313656
+      },
+      "max_sampled_tilt_deg": 4.52797740508911
+    },
+    {
+      "env_id": 32,
+      "closest": {
+        "step": 230,
+        "distance_m": 0.002965684385286097,
+        "closing_alignment": 0.9516878492855487,
+        "approach_alignment": 0.9314062289962975,
+        "full_rotation_error_deg": 21.95914145801569,
+        "tilt_deg": 3.9891248794594296,
+        "wall_gap_m": -0.001984285423074196,
+        "aperture_m": 0.024547715671360493
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0030500752595045907,
+        "closing_alignment": 0.9454129159972556,
+        "approach_alignment": 0.9252711173896286,
+        "full_rotation_error_deg": 23.00346821492876,
+        "tilt_deg": 3.4611459673049585,
+        "wall_gap_m": -0.0015451980123787415,
+        "aperture_m": 0.025629453361034393
+      },
+      "max_sampled_tilt_deg": 4.059214365470619,
+      "endpoint_ik": {
+        "target_m": [
+          0.43468853601851426,
+          0.0804100464066326,
+          0.031132329898468154
+        ],
+        "position_error_m": 2.981210916404361e-12,
+        "orientation_error_deg": 0.0,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.01463782975665832,
+          0.49915171517878915,
+          0.37098790664494224,
+          -2.6380262543362503,
+          0.7349361884019697,
+          3.5521019194481114,
+          -1.2401255182884154
+        ]
+      }
+    },
+    {
+      "env_id": 33,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.018770830460188112,
+        "closing_alignment": 0.9251609543896108,
+        "approach_alignment": 0.9528056939459918,
+        "full_rotation_error_deg": 24.469303179154387,
+        "tilt_deg": 3.9132839878008023,
+        "wall_gap_m": -0.0011669675345999178,
+        "aperture_m": 0.018325950019061565
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.018960199113146305,
+        "closing_alignment": 0.9264855478915885,
+        "approach_alignment": 0.9514194744533016,
+        "full_rotation_error_deg": 24.397087411636193,
+        "tilt_deg": 3.9287000690406577,
+        "wall_gap_m": -0.001111581939475581,
+        "aperture_m": 0.018498222343623638
+      },
+      "max_sampled_tilt_deg": 4.821580692019101
+    },
+    {
+      "env_id": 34,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.0019195372705861097,
+        "closing_alignment": 0.9624393732175928,
+        "approach_alignment": 0.9420503402641925,
+        "full_rotation_error_deg": 19.69166365116673,
+        "tilt_deg": 2.4918923225109726,
+        "wall_gap_m": -0.0009593736689536975,
+        "aperture_m": 0.030208710581064224
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006248342536869606,
+        "closing_alignment": 0.9585689980591123,
+        "approach_alignment": 0.9361198562563495,
+        "full_rotation_error_deg": 21.345171914302266,
+        "tilt_deg": 3.9462931521807416,
+        "wall_gap_m": -0.0014544065306471635,
+        "aperture_m": 0.031331914477050304
+      },
+      "max_sampled_tilt_deg": 4.597140306058125
+    },
+    {
+      "env_id": 35,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.0058069494807706816,
+        "closing_alignment": 0.9321963474526094,
+        "approach_alignment": 0.9037252756058132,
+        "full_rotation_error_deg": 25.421619417107813,
+        "tilt_deg": 1.018449439306072,
+        "wall_gap_m": 0.00011531467527500783,
+        "aperture_m": 0.014137433841824532
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00983909767694013,
+        "closing_alignment": 0.9606781081358128,
+        "approach_alignment": 0.940268742006435,
+        "full_rotation_error_deg": 20.506638384671177,
+        "tilt_deg": 4.2152723105436065,
+        "wall_gap_m": -0.0014548305569782316,
+        "aperture_m": 0.019952517934143543
+      },
+      "max_sampled_tilt_deg": 5.025683408983981
+    },
+    {
+      "env_id": 36,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.005368955864635378,
+        "closing_alignment": 0.9318267075341415,
+        "approach_alignment": 0.8955749293760394,
+        "full_rotation_error_deg": 26.432843774954613,
+        "tilt_deg": 0.35954024489338055,
+        "wall_gap_m": 0.00023584938221799662,
+        "aperture_m": 0.03334243223071098
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0147153640750241,
+        "closing_alignment": 0.9478616108959522,
+        "approach_alignment": 0.9077708964676338,
+        "full_rotation_error_deg": 24.91824673696547,
+        "tilt_deg": 1.1452154366736258,
+        "wall_gap_m": -0.000651806450630385,
+        "aperture_m": 0.04539402574300766
+      },
+      "max_sampled_tilt_deg": 1.860899189422098,
+      "endpoint_ik": {
+        "target_m": [
+          0.43279108719384946,
+          0.01721803874760453,
+          0.036109707367708126
+        ],
+        "position_error_m": 1.521943841020296e-14,
+        "orientation_error_deg": 3.4150945850063763e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.45374866219844995,
+          0.5411862589753269,
+          0.651427636112896,
+          -2.649822641477446,
+          0.841292409180881,
+          3.6062109619579967,
+          -1.5659660911956625
+        ]
+      }
+    },
+    {
+      "env_id": 37,
+      "closest": {
+        "step": 280,
+        "distance_m": 0.008447300203285558,
+        "closing_alignment": 0.9445295965715962,
+        "approach_alignment": 0.9422019026116659,
+        "full_rotation_error_deg": 22.40725223971137,
+        "tilt_deg": 3.5912272300949404,
+        "wall_gap_m": -0.0014337587448999267,
+        "aperture_m": 0.01544265542179346
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.009375433142419608,
+        "closing_alignment": 0.950627400779846,
+        "approach_alignment": 0.948771822867817,
+        "full_rotation_error_deg": 21.43027582656584,
+        "tilt_deg": 4.54146301897266,
+        "wall_gap_m": -0.001876891707755908,
+        "aperture_m": 0.0155824925750494
+      },
+      "max_sampled_tilt_deg": 4.967515237234666
+    },
+    {
+      "env_id": 38,
+      "closest": {
+        "step": 260,
+        "distance_m": 0.01116967992848245,
+        "closing_alignment": 0.9534294181632879,
+        "approach_alignment": 0.9331419798442911,
+        "full_rotation_error_deg": 21.611351125217624,
+        "tilt_deg": 4.319389734953562,
+        "wall_gap_m": -0.001641639271151428,
+        "aperture_m": 0.007103093666955829
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.011244014065236316,
+        "closing_alignment": 0.9564860937818123,
+        "approach_alignment": 0.9375012110621876,
+        "full_rotation_error_deg": 20.943647052897738,
+        "tilt_deg": 4.402787270090709,
+        "wall_gap_m": -0.001873620838401431,
+        "aperture_m": 0.0076811101753264666
+      },
+      "max_sampled_tilt_deg": 4.440702429911066
+    },
+    {
+      "env_id": 39,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.016360444611243818,
+        "closing_alignment": 0.9461566689297403,
+        "approach_alignment": 0.9470720991767061,
+        "full_rotation_error_deg": 22.381475558170827,
+        "tilt_deg": 4.582012616430885,
+        "wall_gap_m": -0.0014726904484151856,
+        "aperture_m": 0.02096602227538824
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.018276487648249844,
+        "closing_alignment": 0.9469113603066952,
+        "approach_alignment": 0.9485943700350925,
+        "full_rotation_error_deg": 22.248563538047396,
+        "tilt_deg": 4.5261816850552234,
+        "wall_gap_m": -0.0012729923562392054,
+        "aperture_m": 0.021653680130839348
+      },
+      "max_sampled_tilt_deg": 5.068373663165706
+    },
+    {
+      "env_id": 40,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.006968953348406345,
+        "closing_alignment": 0.9451214994716504,
+        "approach_alignment": 0.937314771474453,
+        "full_rotation_error_deg": 22.62615914754993,
+        "tilt_deg": 4.288216131535102,
+        "wall_gap_m": -0.0016718664894858556,
+        "aperture_m": 0.019243884831666946
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006968953348406345,
+        "closing_alignment": 0.9451214994716504,
+        "approach_alignment": 0.937314771474453,
+        "full_rotation_error_deg": 22.62615914754993,
+        "tilt_deg": 4.288216131535102,
+        "wall_gap_m": -0.0016718664894858556,
+        "aperture_m": 0.019243884831666946
+      },
+      "max_sampled_tilt_deg": 4.803934012675998,
+      "endpoint_ik": {
+        "target_m": [
+          0.43425692122812576,
+          0.04845922821053304,
+          0.031143283153437624
+        ],
+        "position_error_m": 8.417729635493096e-14,
+        "orientation_error_deg": 3.4150945850063763e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.30381402833293314,
+          0.550255429528174,
+          0.5866778599209542,
+          -2.629319295516482,
+          0.8482261104613843,
+          3.6134653560804653,
+          -1.4806683934517582
+        ]
+      }
+    },
+    {
+      "env_id": 41,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.001144259798536141,
+        "closing_alignment": 0.9727115893423699,
+        "approach_alignment": 0.966041803164479,
+        "full_rotation_error_deg": 15.105241152504497,
+        "tilt_deg": 1.8378070132961486,
+        "wall_gap_m": -0.0012868556471185913,
+        "aperture_m": 0.035784004256129265
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010201413119489628,
+        "closing_alignment": 0.9655211115055415,
+        "approach_alignment": 0.9486928452001189,
+        "full_rotation_error_deg": 20.37107494547099,
+        "tilt_deg": 3.980034898402038,
+        "wall_gap_m": -0.0010508855057997854,
+        "aperture_m": 0.044383421540260315
+      },
+      "max_sampled_tilt_deg": 4.101163597200007
+    },
+    {
+      "env_id": 42,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.01588613148744434,
+        "closing_alignment": 0.9270561646669815,
+        "approach_alignment": 0.9587683620292213,
+        "full_rotation_error_deg": 24.566015573245394,
+        "tilt_deg": 4.117235974716114,
+        "wall_gap_m": -0.0012297340126061068,
+        "aperture_m": 0.03174837864935398
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01588613148744434,
+        "closing_alignment": 0.9270561646669815,
+        "approach_alignment": 0.9587683620292213,
+        "full_rotation_error_deg": 24.566015573245394,
+        "tilt_deg": 4.117235974716114,
+        "wall_gap_m": -0.0012297340126061068,
+        "aperture_m": 0.03174837864935398
+      },
+      "max_sampled_tilt_deg": 4.697005149199742
+    },
+    {
+      "env_id": 43,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.011759576305520573,
+        "closing_alignment": 0.8314115655663495,
+        "approach_alignment": 0.8023770871595093,
+        "full_rotation_error_deg": 37.04304813165875,
+        "tilt_deg": 7.910685754017782,
+        "wall_gap_m": -0.000399647049300747,
+        "aperture_m": -0.004143336438573897
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01642637080236607,
+        "closing_alignment": 0.9068817926523807,
+        "approach_alignment": 0.8627637871518096,
+        "full_rotation_error_deg": 30.528338923611663,
+        "tilt_deg": 3.6587033911617444,
+        "wall_gap_m": -0.0012391277001318132,
+        "aperture_m": -0.0029522713739424944
+      },
+      "max_sampled_tilt_deg": 7.910685754017782
+    },
+    {
+      "env_id": 44,
+      "closest": {
+        "step": 230,
+        "distance_m": 0.007141877483632498,
+        "closing_alignment": 0.9581770988688918,
+        "approach_alignment": 0.9351585044966209,
+        "full_rotation_error_deg": 20.80531827893194,
+        "tilt_deg": 3.812915578855917,
+        "wall_gap_m": -0.00206386123869004,
+        "aperture_m": 0.025354577228426933
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008876189682067347,
+        "closing_alignment": 0.958108182727306,
+        "approach_alignment": 0.9354729679447236,
+        "full_rotation_error_deg": 20.73263821168727,
+        "tilt_deg": 3.6833848404140475,
+        "wall_gap_m": -0.0017840529021638449,
+        "aperture_m": 0.026846114546060562
+      },
+      "max_sampled_tilt_deg": 4.046409453782417,
+      "endpoint_ik": {
+        "target_m": [
+          0.4347987251729405,
+          0.0777420073565078,
+          0.031126246069299434
+        ],
+        "position_error_m": 1.5495397227701894e-14,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.03667625112384582,
+          0.4573067420096787,
+          -0.005128749498900774,
+          -2.3418074845195793,
+          -2.288619511549079,
+          3.129800741336634,
+          1.534159386066878
+        ]
+      }
+    },
+    {
+      "env_id": 45,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.012628279056732302,
+        "closing_alignment": 0.9473480873380827,
+        "approach_alignment": 0.9480583121593573,
+        "full_rotation_error_deg": 21.717557057678093,
+        "tilt_deg": 4.3181626549738015,
+        "wall_gap_m": -0.0015190937360208268,
+        "aperture_m": 0.01200565556064248
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012922341985225003,
+        "closing_alignment": 0.9468065851232694,
+        "approach_alignment": 0.9466018612527812,
+        "full_rotation_error_deg": 21.91699938390942,
+        "tilt_deg": 4.206703822254948,
+        "wall_gap_m": -0.00151961843841672,
+        "aperture_m": 0.012107510585337877
+      },
+      "max_sampled_tilt_deg": 5.137186047501677
+    },
+    {
+      "env_id": 46,
+      "closest": {
+        "step": 240,
+        "distance_m": 0.006828014832973167,
+        "closing_alignment": 0.9546348936123317,
+        "approach_alignment": 0.9327479708390746,
+        "full_rotation_error_deg": 21.466918809242866,
+        "tilt_deg": 4.257237484215569,
+        "wall_gap_m": -0.0019215204324991367,
+        "aperture_m": 0.015586654655635357
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007697179031249385,
+        "closing_alignment": 0.9557590264516552,
+        "approach_alignment": 0.9351861303439941,
+        "full_rotation_error_deg": 21.076778319095766,
+        "tilt_deg": 4.012227628399673,
+        "wall_gap_m": -0.001497077872800713,
+        "aperture_m": 0.01665680017322302
+      },
+      "max_sampled_tilt_deg": 4.257237484215569
+    },
+    {
+      "env_id": 47,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.00151333429793341,
+        "closing_alignment": 0.9556101174633543,
+        "approach_alignment": 0.9252483425493292,
+        "full_rotation_error_deg": 22.37002157843926,
+        "tilt_deg": 3.453741946284134,
+        "wall_gap_m": -0.0020187352459835467,
+        "aperture_m": 0.03616011515259743
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0038960433731243293,
+        "closing_alignment": 0.9546490850497071,
+        "approach_alignment": 0.9221932845333585,
+        "full_rotation_error_deg": 22.800257125232243,
+        "tilt_deg": 3.0208606611652162,
+        "wall_gap_m": -0.0009300434555885723,
+        "aperture_m": 0.03764677047729492
+      },
+      "max_sampled_tilt_deg": 3.6908328977605485
+    },
+    {
+      "env_id": 48,
+      "closest": {
+        "step": 170,
+        "distance_m": 0.011295059633426476,
+        "closing_alignment": 0.9555128643922998,
+        "approach_alignment": 0.9257658384527445,
+        "full_rotation_error_deg": 22.216077256391312,
+        "tilt_deg": 3.6690444068054107,
+        "wall_gap_m": -0.0021277192048682475,
+        "aperture_m": 0.020096666179597378
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012032712120330077,
+        "closing_alignment": 0.9572659608479547,
+        "approach_alignment": 0.9264291404224998,
+        "full_rotation_error_deg": 22.115168530604844,
+        "tilt_deg": 3.507608403772682,
+        "wall_gap_m": -0.0018838368906088296,
+        "aperture_m": 0.024694597348570824
+      },
+      "max_sampled_tilt_deg": 3.979199567100579,
+      "endpoint_ik": {
+        "target_m": [
+          0.43492843999624675,
+          0.049512869127254625,
+          0.03112148189884598
+        ],
+        "position_error_m": 1.8802546071788954e-12,
+        "orientation_error_deg": 3.818191820832846e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.26585122446758835,
+          0.5371103102439554,
+          0.5478885705220927,
+          -2.6342163162522807,
+          0.8166117462133041,
+          3.598520705671766,
+          -1.4384224979328726
+        ]
+      }
+    },
+    {
+      "env_id": 49,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.013812186613390029,
+        "closing_alignment": 0.927935747527487,
+        "approach_alignment": 0.9544321826656447,
+        "full_rotation_error_deg": 24.943663910477184,
+        "tilt_deg": 3.4939521543786496,
+        "wall_gap_m": -0.0009983479323709687,
+        "aperture_m": 0.04734352417290211
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014701940055892636,
+        "closing_alignment": 0.9277736083120498,
+        "approach_alignment": 0.9520764695831399,
+        "full_rotation_error_deg": 25.087896732071783,
+        "tilt_deg": 3.5589096994233,
+        "wall_gap_m": -0.0009357487158133185,
+        "aperture_m": 0.04733460396528244
+      },
+      "max_sampled_tilt_deg": 4.327685077429599
+    },
+    {
+      "env_id": 50,
+      "closest": {
+        "step": 60,
+        "distance_m": 0.002868688732369885,
+        "closing_alignment": 0.9693957247599632,
+        "approach_alignment": 0.9431277860061573,
+        "full_rotation_error_deg": 19.416723187944637,
+        "tilt_deg": 3.553247838125499,
+        "wall_gap_m": -0.0015497828397403463,
+        "aperture_m": 0.03354347310960293
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006987158244045404,
+        "closing_alignment": 0.9600693041182281,
+        "approach_alignment": 0.9297945162951565,
+        "full_rotation_error_deg": 22.08547009820159,
+        "tilt_deg": 4.142104950048837,
+        "wall_gap_m": -0.001364372465165048,
+        "aperture_m": 0.036022789776325226
+      },
+      "max_sampled_tilt_deg": 4.357498024089926
+    },
+    {
+      "env_id": 51,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.003341450771894671,
+        "closing_alignment": 0.9519803090699273,
+        "approach_alignment": 0.9289174128127785,
+        "full_rotation_error_deg": 22.467285782965927,
+        "tilt_deg": 4.142589166565561,
+        "wall_gap_m": -0.0024306701909757936,
+        "aperture_m": 0.021711647510528564
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.003341450771894671,
+        "closing_alignment": 0.9519803090699273,
+        "approach_alignment": 0.9289174128127785,
+        "full_rotation_error_deg": 22.467285782965927,
+        "tilt_deg": 4.142589166565561,
+        "wall_gap_m": -0.0024306701909757936,
+        "aperture_m": 0.021711647510528564
+      },
+      "max_sampled_tilt_deg": 4.584228945724938
+    },
+    {
+      "env_id": 52,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.006724033414811815,
+        "closing_alignment": 0.9500343752178975,
+        "approach_alignment": 0.9388286084619671,
+        "full_rotation_error_deg": 21.817521184005045,
+        "tilt_deg": 3.985481891167011,
+        "wall_gap_m": -0.0012557866694558675,
+        "aperture_m": 0.018197493627667427
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006724033414811815,
+        "closing_alignment": 0.9500343752178975,
+        "approach_alignment": 0.9388286084619671,
+        "full_rotation_error_deg": 21.817521184005045,
+        "tilt_deg": 3.985481891167011,
+        "wall_gap_m": -0.0012557866694558675,
+        "aperture_m": 0.018197493627667427
+      },
+      "max_sampled_tilt_deg": 4.651820234200166,
+      "endpoint_ik": {
+        "target_m": [
+          0.4339697080571286,
+          0.07302966919793827,
+          0.031132201347570373
+        ],
+        "position_error_m": 6.207478985613649e-11,
+        "orientation_error_deg": 1.7075472925031877e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.12143674523730348,
+          0.5197955924101852,
+          0.4678067353393994,
+          -2.6292093454129173,
+          0.8084974667993096,
+          3.579416316912643,
+          -1.34727039719844
+        ]
+      }
+    },
+    {
+      "env_id": 53,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.007855638264728442,
+        "closing_alignment": 0.9207505738192276,
+        "approach_alignment": 0.8847961712868813,
+        "full_rotation_error_deg": 27.98005036899666,
+        "tilt_deg": 1.681425974272472,
+        "wall_gap_m": -0.0008340479792150399,
+        "aperture_m": 0.010157487355172634
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01004922092014118,
+        "closing_alignment": 0.9563030998426522,
+        "approach_alignment": 0.9425001627478433,
+        "full_rotation_error_deg": 20.928198571771873,
+        "tilt_deg": 4.175533143694004,
+        "wall_gap_m": -0.0016444695941326554,
+        "aperture_m": 0.012616687454283237
+      },
+      "max_sampled_tilt_deg": 5.45892482022327
+    },
+    {
+      "env_id": 54,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.0006286173699465227,
+        "closing_alignment": 0.9679348090495589,
+        "approach_alignment": 0.953737915246934,
+        "full_rotation_error_deg": 18.954269821409003,
+        "tilt_deg": 4.060038340475943,
+        "wall_gap_m": -0.0021308488460972455,
+        "aperture_m": 0.03664200007915497
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.003786926273312297,
+        "closing_alignment": 0.9570381719528193,
+        "approach_alignment": 0.9472778449104939,
+        "full_rotation_error_deg": 20.73496204143429,
+        "tilt_deg": 4.279899693869126,
+        "wall_gap_m": -0.0013759134368886011,
+        "aperture_m": 0.038253193721175194
+      },
+      "max_sampled_tilt_deg": 4.61725524860668
+    },
+    {
+      "env_id": 55,
+      "closest": {
+        "step": 250,
+        "distance_m": 0.010004272317715215,
+        "closing_alignment": 0.9609818336633528,
+        "approach_alignment": 0.9535625363173106,
+        "full_rotation_error_deg": 19.721836472833346,
+        "tilt_deg": 4.225012611697432,
+        "wall_gap_m": -0.0011798253498980019,
+        "aperture_m": 0.039673421531915665
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010706326352701334,
+        "closing_alignment": 0.9580735276588301,
+        "approach_alignment": 0.9471509299338867,
+        "full_rotation_error_deg": 20.557063828296506,
+        "tilt_deg": 3.8098101454868534,
+        "wall_gap_m": -0.0013155291339459751,
+        "aperture_m": 0.041286829859018326
+      },
+      "max_sampled_tilt_deg": 6.486861136144664
+    },
+    {
+      "env_id": 56,
+      "closest": {
+        "step": 280,
+        "distance_m": 0.0021421594171162957,
+        "closing_alignment": 0.9534220615914751,
+        "approach_alignment": 0.9346345708152423,
+        "full_rotation_error_deg": 22.437446932160626,
+        "tilt_deg": 3.9247441054900274,
+        "wall_gap_m": -0.0016937099441678358,
+        "aperture_m": 0.03318669833242893
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0033974660165251346,
+        "closing_alignment": 0.9535709781235802,
+        "approach_alignment": 0.9404548278775922,
+        "full_rotation_error_deg": 21.9418396725605,
+        "tilt_deg": 4.136613354367854,
+        "wall_gap_m": -0.0018007486424250069,
+        "aperture_m": 0.033476078882813454
+      },
+      "max_sampled_tilt_deg": 4.74376686274239,
+      "endpoint_ik": {
+        "target_m": [
+          0.4343890918643183,
+          -0.027611815727796685,
+          0.031130075324395018
+        ],
+        "position_error_m": 7.025085130832604e-10,
+        "orientation_error_deg": 2.9575586669421963e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.7082988104149504,
+          0.504005210018533,
+          0.42005608269355993,
+          -2.3987678044434326,
+          -2.205790929879615,
+          3.049367175387255,
+          1.0414767910752782
+        ]
+      }
+    },
+    {
+      "env_id": 57,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.010774424854683636,
+        "closing_alignment": 0.9452826212374097,
+        "approach_alignment": 0.9459113407600293,
+        "full_rotation_error_deg": 22.43559669158748,
+        "tilt_deg": 4.14296245783331,
+        "wall_gap_m": -0.0023067708626971772,
+        "aperture_m": 0.02976979874074459
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013169578311820184,
+        "closing_alignment": 0.9435257466536722,
+        "approach_alignment": 0.9437370295823524,
+        "full_rotation_error_deg": 22.879232087421787,
+        "tilt_deg": 4.124941267292076,
+        "wall_gap_m": -0.0019499155775012378,
+        "aperture_m": 0.033709343522787094
+      },
+      "max_sampled_tilt_deg": 4.585597026437267
+    },
+    {
+      "env_id": 58,
+      "closest": {
+        "step": 250,
+        "distance_m": 0.0038881011731097784,
+        "closing_alignment": 0.9676685144524382,
+        "approach_alignment": 0.9569051269982657,
+        "full_rotation_error_deg": 18.596041890367754,
+        "tilt_deg": 4.092461247787577,
+        "wall_gap_m": -0.0014467881743154415,
+        "aperture_m": 0.03963314928114414
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.004335355652687928,
+        "closing_alignment": 0.9662144746405686,
+        "approach_alignment": 0.9551937939417778,
+        "full_rotation_error_deg": 18.984871392700562,
+        "tilt_deg": 4.237952165553373,
+        "wall_gap_m": -0.0013931210940992464,
+        "aperture_m": 0.04004921019077301
+      },
+      "max_sampled_tilt_deg": 4.318343099907708
+    },
+    {
+      "env_id": 59,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.009839893661594844,
+        "closing_alignment": 0.8890350352478843,
+        "approach_alignment": 0.8644061096823495,
+        "full_rotation_error_deg": 31.09806009359579,
+        "tilt_deg": 0.11273481003933963,
+        "wall_gap_m": -0.0005162433901781463,
+        "aperture_m": 0.01774994097650051
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01427662817615849,
+        "closing_alignment": 0.9614147213573487,
+        "approach_alignment": 0.9306231065368633,
+        "full_rotation_error_deg": 21.46805364399869,
+        "tilt_deg": 4.251098931493114,
+        "wall_gap_m": -0.0020201861621461092,
+        "aperture_m": 0.027219869196414948
+      },
+      "max_sampled_tilt_deg": 4.97094650504764
+    },
+    {
+      "env_id": 60,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.0012680206525143805,
+        "closing_alignment": 0.9739367196641848,
+        "approach_alignment": 0.9636572317156901,
+        "full_rotation_error_deg": 15.511803840323093,
+        "tilt_deg": 1.9134443721294476,
+        "wall_gap_m": -0.00018848009905331198,
+        "aperture_m": 0.03774670697748661
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008974781265845992,
+        "closing_alignment": 0.9673382937419936,
+        "approach_alignment": 0.9389813580490108,
+        "full_rotation_error_deg": 20.765993085965842,
+        "tilt_deg": 3.7722121287400032,
+        "wall_gap_m": -0.0008444748871446958,
+        "aperture_m": 0.041960179805755615
+      },
+      "max_sampled_tilt_deg": 4.406057353177447,
+      "endpoint_ik": {
+        "target_m": [
+          0.43310369893055156,
+          -0.0610336889116194,
+          0.035000611504004187
+        ],
+        "position_error_m": 9.92939710230118e-12,
+        "orientation_error_deg": 2.091309789151873e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.773813509719686,
+          0.5791334687506806,
+          0.7543924883997478,
+          -2.636802320495934,
+          0.8375597986779437,
+          3.5841192114724265,
+          -1.8083478860074211
+        ]
+      }
+    },
+    {
+      "env_id": 61,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.018490686541233772,
+        "closing_alignment": 0.7968173081170176,
+        "approach_alignment": 0.764785739657303,
+        "full_rotation_error_deg": 40.36248509766942,
+        "tilt_deg": 4.786691917466607,
+        "wall_gap_m": -0.0006212173334622789,
+        "aperture_m": -0.004129122709855437
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.021234985970846203,
+        "closing_alignment": 0.9388845607732098,
+        "approach_alignment": 0.8939153145259543,
+        "full_rotation_error_deg": 27.047817773839657,
+        "tilt_deg": 2.91224640391419,
+        "wall_gap_m": -0.0007177190973161746,
+        "aperture_m": 0.022304337471723557
+      },
+      "max_sampled_tilt_deg": 4.786691917466607
+    },
+    {
+      "env_id": 62,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.005197464630232872,
+        "closing_alignment": 0.9493018970702624,
+        "approach_alignment": 0.9512714108612599,
+        "full_rotation_error_deg": 22.036311638103882,
+        "tilt_deg": 3.7137476559771425,
+        "wall_gap_m": -0.0007532727822805799,
+        "aperture_m": 0.045766234397888184
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005435716190612765,
+        "closing_alignment": 0.9483176846668487,
+        "approach_alignment": 0.9460830772347665,
+        "full_rotation_error_deg": 22.800306085147625,
+        "tilt_deg": 3.7313668170921286,
+        "wall_gap_m": -0.000796099928620557,
+        "aperture_m": 0.04580138251185417
+      },
+      "max_sampled_tilt_deg": 4.653568613365384
+    },
+    {
+      "env_id": 63,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.0008070209337184504,
+        "closing_alignment": 0.9424819151338246,
+        "approach_alignment": 0.9286114939489357,
+        "full_rotation_error_deg": 23.693598892149396,
+        "tilt_deg": 3.540393356503714,
+        "wall_gap_m": -0.001478354345240726,
+        "aperture_m": 0.028889721259474754
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0008070209337184504,
+        "closing_alignment": 0.9424819151338246,
+        "approach_alignment": 0.9286114939489357,
+        "full_rotation_error_deg": 23.693598892149396,
+        "tilt_deg": 3.540393356503714,
+        "wall_gap_m": -0.001478354345240726,
+        "aperture_m": 0.028889721259474754
+      },
+      "max_sampled_tilt_deg": 4.573771180575434
+    },
+    {
+      "env_id": 64,
+      "closest": {
+        "step": 280,
+        "distance_m": 0.013900188155363449,
+        "closing_alignment": 0.9626292923752066,
+        "approach_alignment": 0.9514685461223096,
+        "full_rotation_error_deg": 19.771714700480683,
+        "tilt_deg": 4.652755528902704,
+        "wall_gap_m": -0.0013054124357160593,
+        "aperture_m": 0.019776594825088978
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.015065994161896502,
+        "closing_alignment": 0.9652671830317359,
+        "approach_alignment": 0.9544120939913818,
+        "full_rotation_error_deg": 19.16562322820939,
+        "tilt_deg": 4.7631893035749595,
+        "wall_gap_m": -0.0013640814226521525,
+        "aperture_m": 0.01981256529688835
+      },
+      "max_sampled_tilt_deg": 5.100167131686053,
+      "endpoint_ik": {
+        "target_m": [
+          0.43383653225110713,
+          0.09430489271036037,
+          0.031157699052868693
+        ],
+        "position_error_m": 1.570404806786496e-10,
+        "orientation_error_deg": 2.091309789151873e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.030719044790462613,
+          0.5040524911083518,
+          0.37074667924274146,
+          -2.622004336930224,
+          0.7887985321171156,
+          3.552202567429762,
+          -1.2514764530211357
+        ]
+      }
+    },
+    {
+      "env_id": 65,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.004817924383205483,
+        "closing_alignment": 0.947992506030395,
+        "approach_alignment": 0.9375017825272854,
+        "full_rotation_error_deg": 22.359903359530033,
+        "tilt_deg": 3.3860773673748996,
+        "wall_gap_m": -0.0015115949237198278,
+        "aperture_m": 0.021664290688931942
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005538986881538504,
+        "closing_alignment": 0.9505347358310653,
+        "approach_alignment": 0.9455603441764626,
+        "full_rotation_error_deg": 21.45474260623677,
+        "tilt_deg": 3.8887787503967637,
+        "wall_gap_m": -0.001772726343548879,
+        "aperture_m": 0.02177496161311865
+      },
+      "max_sampled_tilt_deg": 5.1890947980552085
+    },
+    {
+      "env_id": 66,
+      "closest": {
+        "step": 60,
+        "distance_m": 0.0054402314064239884,
+        "closing_alignment": 0.9490304208619909,
+        "approach_alignment": 0.9235666915819902,
+        "full_rotation_error_deg": 22.67776546600495,
+        "tilt_deg": 2.1057188515948138,
+        "wall_gap_m": -0.0013155187748962946,
+        "aperture_m": 0.022570659406483173
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01280235430172395,
+        "closing_alignment": 0.9618558211820302,
+        "approach_alignment": 0.9329855924551564,
+        "full_rotation_error_deg": 21.658128569856256,
+        "tilt_deg": 3.735037895703957,
+        "wall_gap_m": -0.0011509134329043894,
+        "aperture_m": 0.03417089581489563
+      },
+      "max_sampled_tilt_deg": 6.48276719796192
+    },
+    {
+      "env_id": 67,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.00829791649483543,
+        "closing_alignment": 0.9402035040670129,
+        "approach_alignment": 0.9385324250111754,
+        "full_rotation_error_deg": 22.955231133191734,
+        "tilt_deg": 3.824219378260481,
+        "wall_gap_m": -0.0008323677456908013,
+        "aperture_m": 0.024549265392124653
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00829791649483543,
+        "closing_alignment": 0.9402035040670129,
+        "approach_alignment": 0.9385324250111754,
+        "full_rotation_error_deg": 22.955231133191734,
+        "tilt_deg": 3.824219378260481,
+        "wall_gap_m": -0.0008323677456908013,
+        "aperture_m": 0.024549265392124653
+      },
+      "max_sampled_tilt_deg": 3.824219378260481
+    },
+    {
+      "env_id": 68,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.007898815376554572,
+        "closing_alignment": 0.9384766991074839,
+        "approach_alignment": 0.9188231331301554,
+        "full_rotation_error_deg": 23.26555966985873,
+        "tilt_deg": 0.24036674793681734,
+        "wall_gap_m": -0.00020657044783196216,
+        "aperture_m": 0.037944747135043144
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013695282077223713,
+        "closing_alignment": 0.9633825679376123,
+        "approach_alignment": 0.9284295610077935,
+        "full_rotation_error_deg": 22.38070808043912,
+        "tilt_deg": 3.802808627781544,
+        "wall_gap_m": -0.0009208092535127888,
+        "aperture_m": 0.04153202287852764
+      },
+      "max_sampled_tilt_deg": 4.268207357568777,
+      "endpoint_ik": {
+        "target_m": [
+          0.4332324001412854,
+          -0.0790678143891775,
+          0.0363636390418127
+        ],
+        "position_error_m": 1.629583627025139e-13,
+        "orientation_error_deg": 2.091309789151873e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.14098970867981203,
+          0.43541060947798227,
+          -0.14895729517864095,
+          -2.3961259479739367,
+          2.126300689703014,
+          3.0746237666153533,
+          -2.885853357490495
+        ]
+      }
+    },
+    {
+      "env_id": 69,
+      "closest": {
+        "step": 240,
+        "distance_m": 0.016014703904187647,
+        "closing_alignment": 0.9338634707120805,
+        "approach_alignment": 0.9566523844775959,
+        "full_rotation_error_deg": 24.092457083205158,
+        "tilt_deg": 3.433278329321122,
+        "wall_gap_m": -0.0010062807733055706,
+        "aperture_m": 0.04827002063393593
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01717699807912929,
+        "closing_alignment": 0.927831529905754,
+        "approach_alignment": 0.9441400590900657,
+        "full_rotation_error_deg": 25.98126491236056,
+        "tilt_deg": 3.058718132459156,
+        "wall_gap_m": -0.0008053193254172683,
+        "aperture_m": 0.04854089021682739
+      },
+      "max_sampled_tilt_deg": 3.8082629691546135
+    },
+    {
+      "env_id": 70,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.003098141467605168,
+        "closing_alignment": 0.9554303160151453,
+        "approach_alignment": 0.9605831013140259,
+        "full_rotation_error_deg": 20.03321616587179,
+        "tilt_deg": 4.171726034574028,
+        "wall_gap_m": -0.0020704509770528012,
+        "aperture_m": 0.03750002197921276
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0038625305802329844,
+        "closing_alignment": 0.9460480476521832,
+        "approach_alignment": 0.9444679796106075,
+        "full_rotation_error_deg": 22.67288358587524,
+        "tilt_deg": 4.003554330155059,
+        "wall_gap_m": -0.001230366797481508,
+        "aperture_m": 0.03920891880989075
+      },
+      "max_sampled_tilt_deg": 4.550013077819624
+    },
+    {
+      "env_id": 71,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.009381438348978186,
+        "closing_alignment": 0.9592313732060207,
+        "approach_alignment": 0.9349481499932256,
+        "full_rotation_error_deg": 21.206200078377936,
+        "tilt_deg": 4.115558911388577,
+        "wall_gap_m": -0.001945873529057028,
+        "aperture_m": 0.029274039901793003
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.009381438348978186,
+        "closing_alignment": 0.9592313732060207,
+        "approach_alignment": 0.9349481499932256,
+        "full_rotation_error_deg": 21.206200078377936,
+        "tilt_deg": 4.115558911388577,
+        "wall_gap_m": -0.001945873529057028,
+        "aperture_m": 0.029274039901793003
+      },
+      "max_sampled_tilt_deg": 4.573239955227237
+    },
+    {
+      "env_id": 72,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004995028478870634,
+        "closing_alignment": 0.936175991122416,
+        "approach_alignment": 0.9078551363669808,
+        "full_rotation_error_deg": 24.883154028282398,
+        "tilt_deg": 2.3216582554600214,
+        "wall_gap_m": -0.0011620923398367733,
+        "aperture_m": 0.017663826700299978
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012205408522875253,
+        "closing_alignment": 0.9585478342695988,
+        "approach_alignment": 0.928795150327531,
+        "full_rotation_error_deg": 21.78049529542073,
+        "tilt_deg": 3.8702643671445824,
+        "wall_gap_m": -0.0018096512220753536,
+        "aperture_m": 0.02650547493249178
+      },
+      "max_sampled_tilt_deg": 4.473140484310797,
+      "endpoint_ik": {
+        "target_m": [
+          0.43430728934859264,
+          0.06739146526254103,
+          0.03108573939989699
+        ],
+        "position_error_m": 1.8259930043441382e-11,
+        "orientation_error_deg": 3.1945284701301985e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.20144415499740959,
+          0.5400235080248308,
+          0.5390010308935932,
+          -2.6179705028959463,
+          0.8656015318444464,
+          3.599837122677584,
+          -1.4330958580110051
+        ]
+      }
+    },
+    {
+      "env_id": 73,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.012483778747818374,
+        "closing_alignment": 0.9258993917666528,
+        "approach_alignment": 0.8831885341961038,
+        "full_rotation_error_deg": 27.990137064540658,
+        "tilt_deg": 0.3398029718253727,
+        "wall_gap_m": -2.1881182554334133e-06,
+        "aperture_m": 0.01705297641456127
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013064757785945423,
+        "closing_alignment": 0.9619402026903039,
+        "approach_alignment": 0.9364222677540297,
+        "full_rotation_error_deg": 20.61313148950522,
+        "tilt_deg": 3.906701820656411,
+        "wall_gap_m": -0.0008746801448333147,
+        "aperture_m": 0.01680778991430998
+      },
+      "max_sampled_tilt_deg": 4.057835145377918
+    },
+    {
+      "env_id": 74,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.012672546265534853,
+        "closing_alignment": 0.9397976802755341,
+        "approach_alignment": 0.9502779101409632,
+        "full_rotation_error_deg": 24.42990985188953,
+        "tilt_deg": 3.1982025399215406,
+        "wall_gap_m": -0.0009697506105450504,
+        "aperture_m": 0.048404036089777946
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013409948878215913,
+        "closing_alignment": 0.9400776508357466,
+        "approach_alignment": 0.9454678493652452,
+        "full_rotation_error_deg": 24.97093940527062,
+        "tilt_deg": 3.2015293472107893,
+        "wall_gap_m": -0.0008902205578540379,
+        "aperture_m": 0.04830595664680004
+      },
+      "max_sampled_tilt_deg": 3.77264585594666
+    },
+    {
+      "env_id": 75,
+      "closest": {
+        "step": 280,
+        "distance_m": 0.0008512294996465705,
+        "closing_alignment": 0.9487999262399178,
+        "approach_alignment": 0.9385492518801432,
+        "full_rotation_error_deg": 22.02815440191582,
+        "tilt_deg": 3.787717656366238,
+        "wall_gap_m": -0.001761714498861866,
+        "aperture_m": 0.02936153393238783
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0014105201599501397,
+        "closing_alignment": 0.9485072032545608,
+        "approach_alignment": 0.9395102672198221,
+        "full_rotation_error_deg": 21.92450568865759,
+        "tilt_deg": 3.7037008050940416,
+        "wall_gap_m": -0.001635521477887647,
+        "aperture_m": 0.029483905993402004
+      },
+      "max_sampled_tilt_deg": 6.488088375519087
+    },
+    {
+      "env_id": 76,
+      "closest": {
+        "step": 250,
+        "distance_m": 0.013188519992297603,
+        "closing_alignment": 0.9468547383751704,
+        "approach_alignment": 0.9526559689789232,
+        "full_rotation_error_deg": 22.179556953820953,
+        "tilt_deg": 3.984677119463465,
+        "wall_gap_m": -0.0015746395548316902,
+        "aperture_m": 0.038921747356653214
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014122074245650715,
+        "closing_alignment": 0.9432384928384132,
+        "approach_alignment": 0.9464085507332998,
+        "full_rotation_error_deg": 23.168733858482568,
+        "tilt_deg": 3.9386506585078274,
+        "wall_gap_m": -0.001212190863819497,
+        "aperture_m": 0.03932113014161587
+      },
+      "max_sampled_tilt_deg": 4.410930326297685,
+      "endpoint_ik": {
+        "target_m": [
+          0.43422179346328876,
+          -0.005732214308968118,
+          0.031132172965205006
+        ],
+        "position_error_m": 2.586609802723589e-12,
+        "orientation_error_deg": 3.1945284701301985e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.44010872671662793,
+          0.47094674311987506,
+          -0.26311177501161787,
+          -2.377828452371343,
+          2.28948710830094,
+          3.086331637006186,
+          -2.843412765061903
+        ]
+      }
+    },
+    {
+      "env_id": 77,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.005670779169203732,
+        "closing_alignment": 0.9669482829675706,
+        "approach_alignment": 0.9579344358687308,
+        "full_rotation_error_deg": 18.340936556389874,
+        "tilt_deg": 4.407650689517642,
+        "wall_gap_m": -0.001686199163935316,
+        "aperture_m": 0.038410086184740067
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.006210323944038613,
+        "closing_alignment": 0.96326549882412,
+        "approach_alignment": 0.9508881274903168,
+        "full_rotation_error_deg": 19.644042155179452,
+        "tilt_deg": 4.276766578286979,
+        "wall_gap_m": -0.0012929950670730259,
+        "aperture_m": 0.039932481944561005
+      },
+      "max_sampled_tilt_deg": 4.568762141636038
+    },
+    {
+      "env_id": 78,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.0012833845201215626,
+        "closing_alignment": 0.9605494673812657,
+        "approach_alignment": 0.9397403309497597,
+        "full_rotation_error_deg": 21.283465999655025,
+        "tilt_deg": 4.23955163059679,
+        "wall_gap_m": -0.0017386591736394605,
+        "aperture_m": 0.033770645037293434
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00353309730891774,
+        "closing_alignment": 0.9507420416108646,
+        "approach_alignment": 0.9294040489598763,
+        "full_rotation_error_deg": 23.259383644553626,
+        "tilt_deg": 3.2265759874476125,
+        "wall_gap_m": -0.0015743265019707922,
+        "aperture_m": 0.035175664350390434
+      },
+      "max_sampled_tilt_deg": 4.396230331981246
+    },
+    {
+      "env_id": 79,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004711929399782453,
+        "closing_alignment": 0.9567709909203896,
+        "approach_alignment": 0.9399318194081633,
+        "full_rotation_error_deg": 20.106894007222582,
+        "tilt_deg": 0.5542355553457348,
+        "wall_gap_m": 0.0028889101029459102,
+        "aperture_m": 0.036286722868680954
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01334597349918535,
+        "closing_alignment": 0.9693346929581605,
+        "approach_alignment": 0.9413779735655258,
+        "full_rotation_error_deg": 20.12556484555264,
+        "tilt_deg": 3.859839035760679,
+        "wall_gap_m": -0.0010469838392878836,
+        "aperture_m": 0.04176277853548527
+      },
+      "max_sampled_tilt_deg": 4.158460071364197
+    },
+    {
+      "env_id": 80,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.010575604083298341,
+        "closing_alignment": 0.9568666114164553,
+        "approach_alignment": 0.9391602624052809,
+        "full_rotation_error_deg": 20.101223825358968,
+        "tilt_deg": 2.0494036984864765,
+        "wall_gap_m": -8.127113288788207e-05,
+        "aperture_m": 0.022645236924290657
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.030969206581937882,
+        "closing_alignment": 0.9470313630157023,
+        "approach_alignment": 0.9020698931619758,
+        "full_rotation_error_deg": 27.074543075968375,
+        "tilt_deg": 0.00021457762452329262,
+        "wall_gap_m": 0.0007091962407579505,
+        "aperture_m": 0.04493105970323086
+      },
+      "max_sampled_tilt_deg": 4.149737557505527,
+      "endpoint_ik": {
+        "target_m": [
+          0.4326634902212733,
+          -0.09681317038134585,
+          0.03299498083072577
+        ],
+        "position_error_m": 5.312395831756264e-12,
+        "orientation_error_deg": 2.9575586669421963e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.046012739825056555,
+          0.5222060380970995,
+          -0.470427118278835,
+          -2.5995918412682193,
+          -0.9107411107491445,
+          3.5763878880761277,
+          -0.19385098393474393
+        ]
+      }
+    },
+    {
+      "env_id": 81,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.009118137798446927,
+        "closing_alignment": 0.9248095269934451,
+        "approach_alignment": 0.8875541816584687,
+        "full_rotation_error_deg": 27.542648738994885,
+        "tilt_deg": 1.5117968932758306,
+        "wall_gap_m": 0.004114313560123262,
+        "aperture_m": 0.0175017137080431
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.011316311324002376,
+        "closing_alignment": 0.9607150711712255,
+        "approach_alignment": 0.9349491819553668,
+        "full_rotation_error_deg": 20.807607388622074,
+        "tilt_deg": 4.322036418415701,
+        "wall_gap_m": -0.001146099091918297,
+        "aperture_m": 0.01845839899033308
+      },
+      "max_sampled_tilt_deg": 4.420150561358135
+    },
+    {
+      "env_id": 82,
+      "closest": {
+        "step": 240,
+        "distance_m": 0.003025717236667503,
+        "closing_alignment": 0.9602695508535355,
+        "approach_alignment": 0.9572405652399743,
+        "full_rotation_error_deg": 19.918256943843026,
+        "tilt_deg": 4.013937066732686,
+        "wall_gap_m": -0.0014096183694702266,
+        "aperture_m": 0.04117480292916298
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0034485348076635637,
+        "closing_alignment": 0.9557154866729591,
+        "approach_alignment": 0.9506039174034686,
+        "full_rotation_error_deg": 21.25445359245105,
+        "tilt_deg": 3.981687696075011,
+        "wall_gap_m": -0.0011779039899779895,
+        "aperture_m": 0.04166760295629501
+      },
+      "max_sampled_tilt_deg": 4.265162122187484
+    },
+    {
+      "env_id": 83,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.008313105506383183,
+        "closing_alignment": 0.9119870958381336,
+        "approach_alignment": 0.8720336128637723,
+        "full_rotation_error_deg": 29.47947696187534,
+        "tilt_deg": 0.20674138648108556,
+        "wall_gap_m": 0.0010016511499553599,
+        "aperture_m": 0.02414572611451149
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.012788461240699328,
+        "closing_alignment": 0.9572494899845513,
+        "approach_alignment": 0.9481762181875604,
+        "full_rotation_error_deg": 20.132756462873207,
+        "tilt_deg": 4.4795514955168905,
+        "wall_gap_m": -0.0007871113297274052,
+        "aperture_m": 0.018273656256496906
+      },
+      "max_sampled_tilt_deg": 4.4795514955168905
+    },
+    {
+      "env_id": 84,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.0059791721906086994,
+        "closing_alignment": 0.9555484801778243,
+        "approach_alignment": 0.9347028827010287,
+        "full_rotation_error_deg": 21.37464043636373,
+        "tilt_deg": 3.191862002961369,
+        "wall_gap_m": -0.0016477838377722057,
+        "aperture_m": 0.027465892024338245
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0069790203288426205,
+        "closing_alignment": 0.9569151056624416,
+        "approach_alignment": 0.9374120882590202,
+        "full_rotation_error_deg": 21.086306325959594,
+        "tilt_deg": 3.874401444279267,
+        "wall_gap_m": -0.0020489352402307745,
+        "aperture_m": 0.030413069762289524
+      },
+      "max_sampled_tilt_deg": 4.444670099312825,
+      "endpoint_ik": {
+        "target_m": [
+          0.43454575568695447,
+          0.02173622844438308,
+          0.031106988600951686
+        ],
+        "position_error_m": 9.217836043778858e-11,
+        "orientation_error_deg": 1.7075472925031877e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.21559329146008088,
+          0.48467404771077666,
+          0.37806026158897355,
+          -2.6908211745927937,
+          0.5322221427724355,
+          3.5526765454603106,
+          -1.2252747991042374
+        ]
+      }
+    },
+    {
+      "env_id": 85,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.013213665043254804,
+        "closing_alignment": 0.9448084487441992,
+        "approach_alignment": 0.9450167292260839,
+        "full_rotation_error_deg": 23.158457214656366,
+        "tilt_deg": 4.235052460457724,
+        "wall_gap_m": -0.0010315328730588491,
+        "aperture_m": 0.028864744119346142
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013213665043254804,
+        "closing_alignment": 0.9448084487441992,
+        "approach_alignment": 0.9450167292260839,
+        "full_rotation_error_deg": 23.158457214656366,
+        "tilt_deg": 4.235052460457724,
+        "wall_gap_m": -0.0010315328730588491,
+        "aperture_m": 0.028864744119346142
+      },
+      "max_sampled_tilt_deg": 4.826448038948598
+    },
+    {
+      "env_id": 86,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.007747417432267134,
+        "closing_alignment": 0.901315306999336,
+        "approach_alignment": 0.8560364629208197,
+        "full_rotation_error_deg": 31.143693969313954,
+        "tilt_deg": 0.40735346012487944,
+        "wall_gap_m": -0.00010537152204160433,
+        "aperture_m": 0.013136482797563076
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013223564807335813,
+        "closing_alignment": 0.9618503492942265,
+        "approach_alignment": 0.9490286771156938,
+        "full_rotation_error_deg": 19.180227118796182,
+        "tilt_deg": 4.43231190153788,
+        "wall_gap_m": -0.0018595351198784221,
+        "aperture_m": 0.009218778926879168
+      },
+      "max_sampled_tilt_deg": 5.130804568627128
+    },
+    {
+      "env_id": 87,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.024306524988606325,
+        "closing_alignment": 0.9328341227085014,
+        "approach_alignment": 0.9507949218203766,
+        "full_rotation_error_deg": 23.749148417068064,
+        "tilt_deg": 4.144699911758195,
+        "wall_gap_m": -0.0014703617815643444,
+        "aperture_m": 0.004932123469188809
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.02467946331621148,
+        "closing_alignment": 0.9336478326453678,
+        "approach_alignment": 0.9512464015002264,
+        "full_rotation_error_deg": 23.658316445858954,
+        "tilt_deg": 4.384312696535407,
+        "wall_gap_m": -0.0015693726555054896,
+        "aperture_m": 0.005028741667047143
+      },
+      "max_sampled_tilt_deg": 4.494421987432661
+    },
+    {
+      "env_id": 88,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.003145327786476764,
+        "closing_alignment": 0.9563422253975483,
+        "approach_alignment": 0.9194734216327335,
+        "full_rotation_error_deg": 23.34807255704898,
+        "tilt_deg": 3.244198273562918,
+        "wall_gap_m": -0.00228192802365388,
+        "aperture_m": 0.02435924392193556
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0054519868802902155,
+        "closing_alignment": 0.9551040615556945,
+        "approach_alignment": 0.9163616014636938,
+        "full_rotation_error_deg": 23.63388898008056,
+        "tilt_deg": 3.083830770050145,
+        "wall_gap_m": -0.0014821290860456832,
+        "aperture_m": 0.025579004548490047
+      },
+      "max_sampled_tilt_deg": 3.722477139844387,
+      "endpoint_ik": {
+        "target_m": [
+          0.43518353861144965,
+          0.12974477380729144,
+          0.03110847999986538
+        ],
+        "position_error_m": 8.844174715421226e-12,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.23856264614212194,
+          0.5017717431593469,
+          0.2614229472717681,
+          -2.5789921372179094,
+          0.8526771252809338,
+          3.5091053091711677,
+          -1.1994832817397159
+        ]
+      }
+    },
+    {
+      "env_id": 89,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.0075578256919822855,
+        "closing_alignment": 0.9496678434323057,
+        "approach_alignment": 0.9464064056067928,
+        "full_rotation_error_deg": 21.73201893945245,
+        "tilt_deg": 4.016983908573928,
+        "wall_gap_m": -0.0015156427803062616,
+        "aperture_m": 0.035355446860194206
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0075578256919822855,
+        "closing_alignment": 0.9496678434323057,
+        "approach_alignment": 0.9464064056067928,
+        "full_rotation_error_deg": 21.73201893945245,
+        "tilt_deg": 4.016983908573928,
+        "wall_gap_m": -0.0015156427803062616,
+        "aperture_m": 0.035355446860194206
+      },
+      "max_sampled_tilt_deg": 4.7968096789494
+    },
+    {
+      "env_id": 90,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.025652794649692896,
+        "closing_alignment": 0.9316042190589204,
+        "approach_alignment": 0.9651530593287967,
+        "full_rotation_error_deg": 23.851061792619056,
+        "tilt_deg": 2.9806876985497164,
+        "wall_gap_m": -0.0006075162555752092,
+        "aperture_m": 0.05107639916241169
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0289623313680476,
+        "closing_alignment": 0.9151998333958804,
+        "approach_alignment": 0.9536488889842037,
+        "full_rotation_error_deg": 26.81186080263729,
+        "tilt_deg": 3.0421697831963845,
+        "wall_gap_m": -0.000994818928344396,
+        "aperture_m": 0.05313040316104889
+      },
+      "max_sampled_tilt_deg": 3.6951590669379955
+    },
+    {
+      "env_id": 91,
+      "closest": {
+        "step": 260,
+        "distance_m": 0.0018972840714809515,
+        "closing_alignment": 0.9595981156879722,
+        "approach_alignment": 0.9425941362373116,
+        "full_rotation_error_deg": 20.75255806857693,
+        "tilt_deg": 3.94869251273017,
+        "wall_gap_m": -0.0014804708368000644,
+        "aperture_m": 0.03293828293681145
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0022655766578392,
+        "closing_alignment": 0.9555080849285214,
+        "approach_alignment": 0.937695609561288,
+        "full_rotation_error_deg": 21.722610068983048,
+        "tilt_deg": 3.9802484930090705,
+        "wall_gap_m": -0.0014623108877067081,
+        "aperture_m": 0.032886283472180367
+      },
+      "max_sampled_tilt_deg": 4.869846886294785
+    },
+    {
+      "env_id": 92,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.009481440195982195,
+        "closing_alignment": 0.9524284931786472,
+        "approach_alignment": 0.9595169752442445,
+        "full_rotation_error_deg": 21.796605187709183,
+        "tilt_deg": 3.6862205373267583,
+        "wall_gap_m": -0.001241888616812438,
+        "aperture_m": 0.04784870706498623
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.009694911802764421,
+        "closing_alignment": 0.951061329038174,
+        "approach_alignment": 0.957982728057048,
+        "full_rotation_error_deg": 22.028878075887775,
+        "tilt_deg": 3.569379674688908,
+        "wall_gap_m": -0.0011998058768617273,
+        "aperture_m": 0.04795641452074051
+      },
+      "max_sampled_tilt_deg": 4.533929985738845,
+      "endpoint_ik": {
+        "target_m": [
+          0.4339809079261181,
+          -0.08391081365169563,
+          0.031122041069429097
+        ],
+        "position_error_m": 5.0691344158728344e-14,
+        "orientation_error_deg": 2.699869328381916e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.059683107239539804,
+          0.5157583574138108,
+          -0.43705402364590845,
+          -2.6212507528944053,
+          -0.8193666050799993,
+          3.570181884747975,
+          -0.24946330935282618
+        ]
+      }
+    },
+    {
+      "env_id": 93,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.0012843673622717267,
+        "closing_alignment": 0.9590497641001445,
+        "approach_alignment": 0.9321954507876008,
+        "full_rotation_error_deg": 21.68891300337835,
+        "tilt_deg": 3.902591224399579,
+        "wall_gap_m": -0.0012729047415343114,
+        "aperture_m": 0.030468768440186977
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.002480552806281778,
+        "closing_alignment": 0.9485085924447266,
+        "approach_alignment": 0.9239831630286001,
+        "full_rotation_error_deg": 23.156930018869186,
+        "tilt_deg": 4.076758470912851,
+        "wall_gap_m": -0.0015722644870130378,
+        "aperture_m": 0.028428221121430397
+      },
+      "max_sampled_tilt_deg": 4.133216663091111
+    },
+    {
+      "env_id": 94,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.009552703630354742,
+        "closing_alignment": 0.9072046491516036,
+        "approach_alignment": 0.859476183656829,
+        "full_rotation_error_deg": 30.74689649458116,
+        "tilt_deg": 1.2503072825240131,
+        "wall_gap_m": -2.0843400700326642e-05,
+        "aperture_m": 0.002647550543770194
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.014664810663806437,
+        "closing_alignment": 0.9579698736303958,
+        "approach_alignment": 0.9274172744817947,
+        "full_rotation_error_deg": 21.97328030620387,
+        "tilt_deg": 3.965398225412378,
+        "wall_gap_m": -0.0015342072015792213,
+        "aperture_m": 0.002419971628114581
+      },
+      "max_sampled_tilt_deg": 4.801181734344396
+    },
+    {
+      "env_id": 95,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.00399697104199564,
+        "closing_alignment": 0.9310238338604759,
+        "approach_alignment": 0.8957300076360791,
+        "full_rotation_error_deg": 26.569362170680392,
+        "tilt_deg": 1.5390103190136195,
+        "wall_gap_m": -0.0006638770187134407,
+        "aperture_m": 0.018941218964755535
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0068528670437956055,
+        "closing_alignment": 0.9585811179149107,
+        "approach_alignment": 0.9340579767880878,
+        "full_rotation_error_deg": 21.075421199364932,
+        "tilt_deg": 3.788433610659909,
+        "wall_gap_m": -0.0017861894526916625,
+        "aperture_m": 0.02735980413854122
+      },
+      "max_sampled_tilt_deg": 4.286795427076049
+    },
+    {
+      "env_id": 96,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.002741793834368734,
+        "closing_alignment": 0.9511053284847675,
+        "approach_alignment": 0.9274159051976126,
+        "full_rotation_error_deg": 22.359334667126245,
+        "tilt_deg": 3.779293078016223,
+        "wall_gap_m": -0.0018981001827024085,
+        "aperture_m": 0.02536572329699993
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0043872705493065945,
+        "closing_alignment": 0.9551780245398668,
+        "approach_alignment": 0.9302341522428471,
+        "full_rotation_error_deg": 21.761138800632477,
+        "tilt_deg": 3.529095497698705,
+        "wall_gap_m": -0.001633648709190659,
+        "aperture_m": 0.0261960094794631
+      },
+      "max_sampled_tilt_deg": 3.8623073558015277,
+      "endpoint_ik": {
+        "target_m": [
+          0.43463934772724117,
+          0.11229339910948818,
+          0.03112511633373819
+        ],
+        "position_error_m": 1.3911602115706414e-11,
+        "orientation_error_deg": 3.1945284701301985e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.22011317755034712,
+          0.4845528642779856,
+          0.21421141649297998,
+          -2.624686835691431,
+          0.6931519582352025,
+          3.5085597698697666,
+          -1.0894010350601782
+        ]
+      }
+    },
+    {
+      "env_id": 97,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.0082089820835116,
+        "closing_alignment": 0.883318398227776,
+        "approach_alignment": 0.8653373432823129,
+        "full_rotation_error_deg": 30.078995210874325,
+        "tilt_deg": 0.4673412521218351,
+        "wall_gap_m": 0.0009554073948997363,
+        "aperture_m": 0.013000953011214733
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01448107074757832,
+        "closing_alignment": 0.9606868697722363,
+        "approach_alignment": 0.9391184434794907,
+        "full_rotation_error_deg": 20.21604018845951,
+        "tilt_deg": 4.141858608358441,
+        "wall_gap_m": -0.0013621666632433055,
+        "aperture_m": 0.008237584261223674
+      },
+      "max_sampled_tilt_deg": 4.602818556912496
+    },
+    {
+      "env_id": 98,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.003351266289513483,
+        "closing_alignment": 0.9260262050264959,
+        "approach_alignment": 0.90208497989763,
+        "full_rotation_error_deg": 25.608266793338924,
+        "tilt_deg": 0.812248530921211,
+        "wall_gap_m": 0.0008054672124841386,
+        "aperture_m": 0.02218453772366047
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008722402743220612,
+        "closing_alignment": 0.9604443173944899,
+        "approach_alignment": 0.9475946231131965,
+        "full_rotation_error_deg": 20.020996897556714,
+        "tilt_deg": 4.316082023155345,
+        "wall_gap_m": -0.0017280368282704406,
+        "aperture_m": 0.032261259853839874
+      },
+      "max_sampled_tilt_deg": 4.919667076739377
+    },
+    {
+      "env_id": 99,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.00014010445914174223,
+        "closing_alignment": 0.9494567933817871,
+        "approach_alignment": 0.930274021133738,
+        "full_rotation_error_deg": 23.389348574760643,
+        "tilt_deg": 3.598941536951203,
+        "wall_gap_m": -0.0017924137937244677,
+        "aperture_m": 0.030728335492312908
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.00037605778217148357,
+        "closing_alignment": 0.9493506713928366,
+        "approach_alignment": 0.9285712412549305,
+        "full_rotation_error_deg": 23.650778874072984,
+        "tilt_deg": 3.3902487207661087,
+        "wall_gap_m": -0.0017310059421117296,
+        "aperture_m": 0.03088619653135538
+      },
+      "max_sampled_tilt_deg": 4.704038736453453
+    },
+    {
+      "env_id": 100,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.002125236835969821,
+        "closing_alignment": 0.9508237034350391,
+        "approach_alignment": 0.9262502552980263,
+        "full_rotation_error_deg": 23.018560382388728,
+        "tilt_deg": 3.936311501111987,
+        "wall_gap_m": -0.002249889945418672,
+        "aperture_m": 0.02420436404645443
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.002125236835969821,
+        "closing_alignment": 0.9508237034350391,
+        "approach_alignment": 0.9262502552980263,
+        "full_rotation_error_deg": 23.018560382388728,
+        "tilt_deg": 3.936311501111987,
+        "wall_gap_m": -0.002249889945418672,
+        "aperture_m": 0.02420436404645443
+      },
+      "max_sampled_tilt_deg": 4.247906240578626,
+      "endpoint_ik": {
+        "target_m": [
+          0.4349166392583223,
+          0.11269922292477035,
+          0.03113047771315959
+        ],
+        "position_error_m": 1.3535093759549288e-10,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.12231641259627818,
+          0.5058230294305928,
+          0.33335415013652536,
+          -2.5956276912938594,
+          0.8413790874684592,
+          3.5353526671295588,
+          -1.2458442277108448
+        ]
+      }
+    },
+    {
+      "env_id": 101,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.0045492439732416415,
+        "closing_alignment": 0.9437016324963804,
+        "approach_alignment": 0.9322071407566465,
+        "full_rotation_error_deg": 23.409677896370805,
+        "tilt_deg": 3.787942289455672,
+        "wall_gap_m": -0.0017766756427130687,
+        "aperture_m": 0.028548598289489746
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005157043284337371,
+        "closing_alignment": 0.9427238463947645,
+        "approach_alignment": 0.9298715877076255,
+        "full_rotation_error_deg": 23.780309452348515,
+        "tilt_deg": 3.8189512759589914,
+        "wall_gap_m": -0.0017698141410437823,
+        "aperture_m": 0.028567972593009472
+      },
+      "max_sampled_tilt_deg": 4.7941778938878565
+    },
+    {
+      "env_id": 102,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.005074221633832968,
+        "closing_alignment": 0.949463341281757,
+        "approach_alignment": 0.9114314313780743,
+        "full_rotation_error_deg": 24.30356303491631,
+        "tilt_deg": 2.109223552342153,
+        "wall_gap_m": -0.00017009661384723151,
+        "aperture_m": 0.031442996114492416
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.009975846805804541,
+        "closing_alignment": 0.9579163807036681,
+        "approach_alignment": 0.9314389349066069,
+        "full_rotation_error_deg": 21.341194855195795,
+        "tilt_deg": 3.6798988560309414,
+        "wall_gap_m": -0.001241097065501226,
+        "aperture_m": 0.032615795731544495
+      },
+      "max_sampled_tilt_deg": 4.628747707932413
+    },
+    {
+      "env_id": 103,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.010813125169308045,
+        "closing_alignment": 0.9305653784493901,
+        "approach_alignment": 0.9431468659597233,
+        "full_rotation_error_deg": 24.12125121191565,
+        "tilt_deg": 3.506057507081862,
+        "wall_gap_m": -0.0012365536746045194,
+        "aperture_m": 0.013260658830404282
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010813125169308045,
+        "closing_alignment": 0.9305653784493901,
+        "approach_alignment": 0.9431468659597233,
+        "full_rotation_error_deg": 24.12125121191565,
+        "tilt_deg": 3.506057507081862,
+        "wall_gap_m": -0.0012365536746045194,
+        "aperture_m": 0.013260658830404282
+      },
+      "max_sampled_tilt_deg": 4.957768847095014
+    },
+    {
+      "env_id": 104,
+      "closest": {
+        "step": 90,
+        "distance_m": 0.000581961017315381,
+        "closing_alignment": 0.978035886202466,
+        "approach_alignment": 0.9637772445547109,
+        "full_rotation_error_deg": 16.517451837575976,
+        "tilt_deg": 3.5042344713584095,
+        "wall_gap_m": -0.0010369882685740753,
+        "aperture_m": 0.044580914080142975
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0026294038559463366,
+        "closing_alignment": 0.9696570188795387,
+        "approach_alignment": 0.9544374340921099,
+        "full_rotation_error_deg": 18.81182869070033,
+        "tilt_deg": 4.0413373676990085,
+        "wall_gap_m": -0.001266614374210183,
+        "aperture_m": 0.043707188218832016
+      },
+      "max_sampled_tilt_deg": 4.159206211137929,
+      "endpoint_ik": {
+        "target_m": [
+          0.4338403682920786,
+          -0.04652896946981658,
+          0.03140033371975743
+        ],
+        "position_error_m": 2.429632534554655e-12,
+        "orientation_error_deg": 3.1945284701301985e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.3239585045142381,
+          0.4596173982880178,
+          -0.24729679304087526,
+          -2.394211942695986,
+          2.199915819931494,
+          3.0580640801365027,
+          -2.854475000536768
+        ]
+      }
+    },
+    {
+      "env_id": 105,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.0027961915127539838,
+        "closing_alignment": 0.9672141351991591,
+        "approach_alignment": 0.9566279841063178,
+        "full_rotation_error_deg": 17.204865229729567,
+        "tilt_deg": 2.1034422870852842,
+        "wall_gap_m": -0.001027363056046511,
+        "aperture_m": 0.03177329245954752
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.010181797110222875,
+        "closing_alignment": 0.9616521764320707,
+        "approach_alignment": 0.9435155027692338,
+        "full_rotation_error_deg": 21.102969784287453,
+        "tilt_deg": 4.025315689456548,
+        "wall_gap_m": -0.0014260764765759576,
+        "aperture_m": 0.04130031168460846
+      },
+      "max_sampled_tilt_deg": 4.520071680165105
+    },
+    {
+      "env_id": 106,
+      "closest": {
+        "step": 280,
+        "distance_m": 0.003512760579387737,
+        "closing_alignment": 0.9559893913433692,
+        "approach_alignment": 0.9419992938871931,
+        "full_rotation_error_deg": 21.28355146570995,
+        "tilt_deg": 4.181051011755398,
+        "wall_gap_m": -0.0010410354365229593,
+        "aperture_m": 0.036637919023633
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.004206759466653992,
+        "closing_alignment": 0.9536998528890344,
+        "approach_alignment": 0.9364996410092824,
+        "full_rotation_error_deg": 22.155958448310834,
+        "tilt_deg": 3.734378296077648,
+        "wall_gap_m": -0.0009822642810580831,
+        "aperture_m": 0.03682858496904373
+      },
+      "max_sampled_tilt_deg": 4.683944135267653
+    },
+    {
+      "env_id": 107,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.0029151957006201537,
+        "closing_alignment": 0.9479752375177296,
+        "approach_alignment": 0.9308196364631132,
+        "full_rotation_error_deg": 22.810113998147358,
+        "tilt_deg": 3.9117988281084815,
+        "wall_gap_m": -0.0017093633646909356,
+        "aperture_m": 0.026742570102214813
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.004283258752902932,
+        "closing_alignment": 0.945298163155163,
+        "approach_alignment": 0.9268684784225666,
+        "full_rotation_error_deg": 23.406019190643143,
+        "tilt_deg": 4.019360594302538,
+        "wall_gap_m": -0.001609009487276783,
+        "aperture_m": 0.027104895561933517
+      },
+      "max_sampled_tilt_deg": 4.0459778047089605
+    },
+    {
+      "env_id": 108,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.01804951484894981,
+        "closing_alignment": 0.9384156875995135,
+        "approach_alignment": 0.9617267512033403,
+        "full_rotation_error_deg": 22.53551726998034,
+        "tilt_deg": 4.345929880831839,
+        "wall_gap_m": -0.0014278369361688942,
+        "aperture_m": 0.01462906040251255
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01804951484894981,
+        "closing_alignment": 0.9384156875995135,
+        "approach_alignment": 0.9617267512033403,
+        "full_rotation_error_deg": 22.53551726998034,
+        "tilt_deg": 4.345929880831839,
+        "wall_gap_m": -0.0014278369361688942,
+        "aperture_m": 0.01462906040251255
+      },
+      "max_sampled_tilt_deg": 4.621257779259627,
+      "endpoint_ik": {
+        "target_m": [
+          0.43397587305493673,
+          -0.024350398266820242,
+          0.031145487484149015
+        ],
+        "position_error_m": 1.0231703962129293e-11,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.709424470716035,
+          0.5036376272330231,
+          0.428450033081758,
+          -2.4029851315823056,
+          -2.2021713810942396,
+          3.042885651809602,
+          1.0430697619817932
+        ]
+      }
+    },
+    {
+      "env_id": 109,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.008292527164476668,
+        "closing_alignment": 0.952901228200298,
+        "approach_alignment": 0.9576171481405129,
+        "full_rotation_error_deg": 21.50510243239388,
+        "tilt_deg": 4.003495844346002,
+        "wall_gap_m": -0.0011163188829918722,
+        "aperture_m": 0.046408263966441154
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008292527164476668,
+        "closing_alignment": 0.952901228200298,
+        "approach_alignment": 0.9576171481405129,
+        "full_rotation_error_deg": 21.50510243239388,
+        "tilt_deg": 4.003495844346002,
+        "wall_gap_m": -0.0011163188829918722,
+        "aperture_m": 0.046408263966441154
+      },
+      "max_sampled_tilt_deg": 4.152018877068721
+    },
+    {
+      "env_id": 110,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.0008818443585186795,
+        "closing_alignment": 0.9708875348989626,
+        "approach_alignment": 0.9605182718010878,
+        "full_rotation_error_deg": 17.493416829701566,
+        "tilt_deg": 3.9636495586537017,
+        "wall_gap_m": -0.002041642640369455,
+        "aperture_m": 0.03873187489807606
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0025449286097742963,
+        "closing_alignment": 0.960971505722408,
+        "approach_alignment": 0.9518820922865449,
+        "full_rotation_error_deg": 19.83417720879092,
+        "tilt_deg": 4.1100692208895815,
+        "wall_gap_m": -0.001070246060613081,
+        "aperture_m": 0.0410052053630352
+      },
+      "max_sampled_tilt_deg": 4.48875672028537
+    },
+    {
+      "env_id": 111,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.012370983747083338,
+        "closing_alignment": 0.9443062709331497,
+        "approach_alignment": 0.9225419229947363,
+        "full_rotation_error_deg": 22.76634293217385,
+        "tilt_deg": 0.8495817960187506,
+        "wall_gap_m": 0.003734633905692425,
+        "aperture_m": 0.030730764381587505
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.017363019291254226,
+        "closing_alignment": 0.9620591178146923,
+        "approach_alignment": 0.9292313813191665,
+        "full_rotation_error_deg": 21.92445668151811,
+        "tilt_deg": 3.5093624860712653,
+        "wall_gap_m": -0.0010256759961789694,
+        "aperture_m": 0.03870825469493866
+      },
+      "max_sampled_tilt_deg": 4.139161643969461
+    },
+    {
+      "env_id": 112,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004858056071630809,
+        "closing_alignment": 0.9267787645162143,
+        "approach_alignment": 0.8867925590204171,
+        "full_rotation_error_deg": 27.538406647255385,
+        "tilt_deg": 1.3546193902268464,
+        "wall_gap_m": 0.0018764403660317813,
+        "aperture_m": 0.017879122868180275
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.009386969788998062,
+        "closing_alignment": 0.9579816858994112,
+        "approach_alignment": 0.9232558593384361,
+        "full_rotation_error_deg": 22.596238330006067,
+        "tilt_deg": 3.7239949997339936,
+        "wall_gap_m": -0.001313113851673299,
+        "aperture_m": 0.01780853234231472
+      },
+      "max_sampled_tilt_deg": 3.845064916584423,
+      "endpoint_ik": {
+        "target_m": [
+          0.4314986789545371,
+          0.10961963376702494,
+          0.033043793839178756
+        ],
+        "position_error_m": 1.6378107329179845e-10,
+        "orientation_error_deg": 2.9575586669421963e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          0.14711799638682463,
+          0.4860041657546256,
+          0.29573070394673256,
+          -2.6226981086672354,
+          0.7783021116870833,
+          3.5257471929878093,
+          -1.1826619986654483
+        ]
+      }
+    },
+    {
+      "env_id": 113,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004943799303466557,
+        "closing_alignment": 0.934304985793405,
+        "approach_alignment": 0.9046427217054616,
+        "full_rotation_error_deg": 25.23074294726304,
+        "tilt_deg": 0.1451279951033224,
+        "wall_gap_m": 0.0005850381351731673,
+        "aperture_m": 0.02226107008755207
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008169236199816776,
+        "closing_alignment": 0.9652583143551176,
+        "approach_alignment": 0.9438445850968038,
+        "full_rotation_error_deg": 19.91288203720443,
+        "tilt_deg": 4.148725475722423,
+        "wall_gap_m": -0.0012418016421178665,
+        "aperture_m": 0.03743770904839039
+      },
+      "max_sampled_tilt_deg": 4.456047592653115
+    },
+    {
+      "env_id": 114,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.004158980171432971,
+        "closing_alignment": 0.9470781287538511,
+        "approach_alignment": 0.9191302487600126,
+        "full_rotation_error_deg": 23.24053504793435,
+        "tilt_deg": 1.6879134243475375,
+        "wall_gap_m": 0.0007309363224575899,
+        "aperture_m": 0.02016447950154543
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007126780462455182,
+        "closing_alignment": 0.9604344662308125,
+        "approach_alignment": 0.9360849251722142,
+        "full_rotation_error_deg": 21.075593588827065,
+        "tilt_deg": 4.211149669057282,
+        "wall_gap_m": -0.0017993640253501295,
+        "aperture_m": 0.029577234759926796
+      },
+      "max_sampled_tilt_deg": 5.052946167403339
+    },
+    {
+      "env_id": 115,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.0032036423674480564,
+        "closing_alignment": 0.9603157060315658,
+        "approach_alignment": 0.9529919794785567,
+        "full_rotation_error_deg": 20.545087663707186,
+        "tilt_deg": 3.9048414901378514,
+        "wall_gap_m": -0.0012393444929754693,
+        "aperture_m": 0.04304351471364498
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.003982962098435654,
+        "closing_alignment": 0.9516043191557836,
+        "approach_alignment": 0.9440177749104496,
+        "full_rotation_error_deg": 22.469376096979673,
+        "tilt_deg": 3.9044922006928307,
+        "wall_gap_m": -0.0011875400262688768,
+        "aperture_m": 0.043219855055212975
+      },
+      "max_sampled_tilt_deg": 4.922731400901588
+    },
+    {
+      "env_id": 116,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.0056037175606198876,
+        "closing_alignment": 0.9425348144524991,
+        "approach_alignment": 0.945460809389351,
+        "full_rotation_error_deg": 23.933214081796052,
+        "tilt_deg": 3.5961031463809556,
+        "wall_gap_m": -0.001004306996959095,
+        "aperture_m": 0.044351233169436455
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.005780846962426204,
+        "closing_alignment": 0.9435727832464812,
+        "approach_alignment": 0.9383903733702526,
+        "full_rotation_error_deg": 24.564193313673194,
+        "tilt_deg": 3.437726067264972,
+        "wall_gap_m": -0.0009494021420146451,
+        "aperture_m": 0.04431292414665222
+      },
+      "max_sampled_tilt_deg": 4.243569659984994,
+      "endpoint_ik": {
+        "target_m": [
+          0.43381299951745167,
+          -0.08682513473721588,
+          0.03111913629896551
+        ],
+        "position_error_m": 1.2272472318384787e-12,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.6998649412895416,
+          0.5201895120149156,
+          0.5614311531509977,
+          -2.669432041520256,
+          0.5227413267219372,
+          3.5162861204961655,
+          -1.5568816514313022
+        ]
+      }
+    },
+    {
+      "env_id": 117,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.005425550665910145,
+        "closing_alignment": 0.9372696382252836,
+        "approach_alignment": 0.9196892964552525,
+        "full_rotation_error_deg": 23.211290382881074,
+        "tilt_deg": 1.0935574222498807,
+        "wall_gap_m": -0.00018160020811410632,
+        "aperture_m": 0.030343422666192055
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.013045461359321239,
+        "closing_alignment": 0.9637958429550841,
+        "approach_alignment": 0.9361090183785377,
+        "full_rotation_error_deg": 21.06581603200609,
+        "tilt_deg": 4.203510362812808,
+        "wall_gap_m": -0.0011836571060435674,
+        "aperture_m": 0.03422653302550316
+      },
+      "max_sampled_tilt_deg": 4.504811216226097
+    },
+    {
+      "env_id": 118,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.0008912152876376073,
+        "closing_alignment": 0.9644933308584448,
+        "approach_alignment": 0.9531582012638707,
+        "full_rotation_error_deg": 19.50570650696575,
+        "tilt_deg": 4.370656201920567,
+        "wall_gap_m": -0.0023086661848023826,
+        "aperture_m": 0.03533556871116161
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0033689429665509146,
+        "closing_alignment": 0.9502260105149288,
+        "approach_alignment": 0.936414027902798,
+        "full_rotation_error_deg": 22.622412711421337,
+        "tilt_deg": 3.605307352539522,
+        "wall_gap_m": -0.0011695215958049676,
+        "aperture_m": 0.03678053990006447
+      },
+      "max_sampled_tilt_deg": 4.6119601242322545
+    },
+    {
+      "env_id": 119,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.007463243728988947,
+        "closing_alignment": 0.9366256221194743,
+        "approach_alignment": 0.9370112766875642,
+        "full_rotation_error_deg": 24.02837075892229,
+        "tilt_deg": 3.5010210135757243,
+        "wall_gap_m": -0.0015753142335239514,
+        "aperture_m": 0.03242450952529907
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007463243728988947,
+        "closing_alignment": 0.9366256221194743,
+        "approach_alignment": 0.9370112766875642,
+        "full_rotation_error_deg": 24.02837075892229,
+        "tilt_deg": 3.5010210135757243,
+        "wall_gap_m": -0.0015753142335239514,
+        "aperture_m": 0.03242450952529907
+      },
+      "max_sampled_tilt_deg": 4.689116488117039
+    },
+    {
+      "env_id": 120,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.011645615683488469,
+        "closing_alignment": 0.9371135762647432,
+        "approach_alignment": 0.9171978544276079,
+        "full_rotation_error_deg": 23.55819473815564,
+        "tilt_deg": 0.23424204389715467,
+        "wall_gap_m": 0.00043799530659037467,
+        "aperture_m": 0.03930657170712948
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.023937400347480382,
+        "closing_alignment": 0.9698899630739476,
+        "approach_alignment": 0.9371722010789034,
+        "full_rotation_error_deg": 20.97728884749688,
+        "tilt_deg": 3.4128398724920763,
+        "wall_gap_m": -0.0013813085160769359,
+        "aperture_m": 0.0353652648627758
+      },
+      "max_sampled_tilt_deg": 4.02858552938745,
+      "endpoint_ik": {
+        "target_m": [
+          0.4323190456707761,
+          -0.12135681498708037,
+          0.03696544556835012
+        ],
+        "position_error_m": 4.840950243795565e-11,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.06260129602911586,
+          0.4327375539656851,
+          -0.050529941392859976,
+          -2.388901888296182,
+          2.014150387645945,
+          3.0785325053463795,
+          -2.895086113128108
+        ]
+      }
+    },
+    {
+      "env_id": 121,
+      "closest": {
+        "step": 180,
+        "distance_m": 0.021353478744505744,
+        "closing_alignment": 0.9399025969465548,
+        "approach_alignment": 0.9534466204425704,
+        "full_rotation_error_deg": 24.026896013091296,
+        "tilt_deg": 2.741216564486491,
+        "wall_gap_m": -0.0006782994206967555,
+        "aperture_m": 0.04912878759205341
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.021802553864443245,
+        "closing_alignment": 0.9280660759120595,
+        "approach_alignment": 0.9491100276069059,
+        "full_rotation_error_deg": 25.73024406487142,
+        "tilt_deg": 2.7489880661829735,
+        "wall_gap_m": -0.0008409588967278961,
+        "aperture_m": 0.04783768765628338
+      },
+      "max_sampled_tilt_deg": 3.574737693194581
+    },
+    {
+      "env_id": 122,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.00726189329212335,
+        "closing_alignment": 0.9576495136700364,
+        "approach_alignment": 0.9368448903970753,
+        "full_rotation_error_deg": 20.542163791251348,
+        "tilt_deg": 3.2943240768304585,
+        "wall_gap_m": -0.0025261313726669885,
+        "aperture_m": 0.012803213205188513
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.008762029024819996,
+        "closing_alignment": 0.9605715864178693,
+        "approach_alignment": 0.9429638363259535,
+        "full_rotation_error_deg": 20.191066325994473,
+        "tilt_deg": 4.53287232048365,
+        "wall_gap_m": -0.0021196521462226656,
+        "aperture_m": 0.014017031993716955
+      },
+      "max_sampled_tilt_deg": 4.973234468193066
+    },
+    {
+      "env_id": 123,
+      "closest": {
+        "step": 300,
+        "distance_m": 0.007832809465390484,
+        "closing_alignment": 0.9431437647895784,
+        "approach_alignment": 0.9513068656015911,
+        "full_rotation_error_deg": 22.689895050864934,
+        "tilt_deg": 3.743822293429744,
+        "wall_gap_m": -0.0011131420311159615,
+        "aperture_m": 0.0411029327660799
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.007832809465390484,
+        "closing_alignment": 0.9431437647895784,
+        "approach_alignment": 0.9513068656015911,
+        "full_rotation_error_deg": 22.689895050864934,
+        "tilt_deg": 3.743822293429744,
+        "wall_gap_m": -0.0011131420311159615,
+        "aperture_m": 0.0411029327660799
+      },
+      "max_sampled_tilt_deg": 4.354762293209874
+    },
+    {
+      "env_id": 124,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.01463433098161185,
+        "closing_alignment": 0.8003963133834479,
+        "approach_alignment": 0.7818061294063458,
+        "full_rotation_error_deg": 39.105893467442364,
+        "tilt_deg": 7.389812456542781,
+        "wall_gap_m": -0.0022989816289603893,
+        "aperture_m": -0.010294285602867603
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.01821246593902056,
+        "closing_alignment": 0.9144354540629763,
+        "approach_alignment": 0.9392792328609442,
+        "full_rotation_error_deg": 26.68495230565297,
+        "tilt_deg": 2.6012711295697812,
+        "wall_gap_m": -0.0008619292750618943,
+        "aperture_m": 0.04208679124712944
+      },
+      "max_sampled_tilt_deg": 7.389812456542781,
+      "endpoint_ik": {
+        "target_m": [
+          0.4291455344559235,
+          0.0028908714453336017,
+          0.037154107702636434
+        ],
+        "position_error_m": 1.3089988313923251e-11,
+        "orientation_error_deg": 2.4148365394514667e-06,
+        "penetrations": [],
+        "passes": true,
+        "qpos": [
+          -0.4020572168072262,
+          0.4434433321229861,
+          0.2274091586880178,
+          -2.384498467143129,
+          -2.35519606632831,
+          3.1083630772353446,
+          1.3529676184781472
+        ]
+      }
+    },
+    {
+      "env_id": 125,
+      "closest": {
+        "step": 50,
+        "distance_m": 0.006445075458774391,
+        "closing_alignment": 0.9648711439495565,
+        "approach_alignment": 0.9531901915680918,
+        "full_rotation_error_deg": 17.837062656608573,
+        "tilt_deg": 0.3062648773727441,
+        "wall_gap_m": -0.001876244482617577,
+        "aperture_m": 0.0431164912879467
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.02471405883383795,
+        "closing_alignment": 0.9527777597197641,
+        "approach_alignment": 0.9131959945615766,
+        "full_rotation_error_deg": 24.650779838102537,
+        "tilt_deg": 0.029924863686285646,
+        "wall_gap_m": -0.00011651292702623273,
+        "aperture_m": 0.05630389600992203
+      },
+      "max_sampled_tilt_deg": 0.5797145996592206
+    },
+    {
+      "env_id": 126,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.007677602539399267,
+        "closing_alignment": 0.9335332414289522,
+        "approach_alignment": 0.8946112778529952,
+        "full_rotation_error_deg": 26.544938285534446,
+        "tilt_deg": 1.3024537006612635,
+        "wall_gap_m": -0.00041033251718976954,
+        "aperture_m": 0.01489272154867649
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.011432472226698449,
+        "closing_alignment": 0.9540438546801537,
+        "approach_alignment": 0.9227202199740738,
+        "full_rotation_error_deg": 22.75130989619535,
+        "tilt_deg": 3.462189186842989,
+        "wall_gap_m": -0.001625596853742528,
+        "aperture_m": 0.024453025311231613
+      },
+      "max_sampled_tilt_deg": 3.945987168144536
+    },
+    {
+      "env_id": 127,
+      "closest": {
+        "step": 270,
+        "distance_m": 0.003190100922745028,
+        "closing_alignment": 0.9605714439785508,
+        "approach_alignment": 0.9497879486210483,
+        "full_rotation_error_deg": 20.511562541567386,
+        "tilt_deg": 4.012164197320569,
+        "wall_gap_m": -0.0011052709144156875,
+        "aperture_m": 0.04096250608563423
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.004280523033718879,
+        "closing_alignment": 0.9576727313116523,
+        "approach_alignment": 0.9403853967048208,
+        "full_rotation_error_deg": 21.93411626026743,
+        "tilt_deg": 3.8223482372531508,
+        "wall_gap_m": -0.0008789822366908062,
+        "aperture_m": 0.04108141176402569
+      },
+      "max_sampled_tilt_deg": 4.285123688738551
+    }
+  ]
+}

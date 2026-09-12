@@ -105,3 +105,42 @@ def test_ballistic_prediction_checks_rim_crossing_and_downward_branch(monkeypatc
   torch.testing.assert_close(landing[0,0],torch.tensor(expected))
   assert landing[2,0]<landing[0,0]
   assert torch.isfinite(landing).all()
+
+
+def test_pivot_ramp_clearance_and_opening_discriminate_flat_top_press(monkeypatch):
+  import math
+  reward=module(monkeypatch)
+  angle=math.radians(70)
+  closing=torch.tensor([[math.sin(angle),0.,math.cos(angle)]]).expand(3,-1)
+  approach=torch.tensor([[math.cos(angle),0.,-math.sin(angle)]]).expand(3,-1)
+  axes=[torch.cross(closing,approach,dim=-1),closing,approach]
+  gap=torch.tensor([.08,.03,.08]);floor=torch.tensor([0.,0.,2.])
+  corner=torch.tensor([[.35,0.,.005],[.35,0.,.005],[.35,0.,2.005]])
+  target=reward.pivot_ramp_target(corner,gap,closing,approach,floor)
+  # Independently enumerate both pad boxes using their XML offsets/half-sizes.
+  signs=torch.cartesian_prod(*[torch.tensor([-1.,1.])]*3)
+  for sign in [-1,1]:
+    center=target+sign*(gap/2+.0076)[:,None]*closing+.0037*approach
+    corners=center[:,None]+signs[None,:,0,None]*.00875*axes[0][:,None]+signs[None,:,1,None]*.0076*closing[:,None]+signs[None,:,2,None]*.0082*approach[:,None]
+    assert (corners[:,:,2]>=floor[:,None]+.001-1e-6).all()
+  score=reward.pivot_approach_score(torch.zeros(3),axes,closing,approach,gap,torch.zeros(3))
+  assert score[0]>score[1] and score.max()<=1.5
+  torch.testing.assert_close(score[0],score[2])
+  reversed_axes=[-axes[0],axes[1],-axes[2]]
+  wrong=reward.pivot_approach_score(torch.zeros(3),reversed_axes,closing,approach,gap,torch.zeros(3))
+  assert (wrong<score).all()
+
+
+def test_pivot_ramp_recipe_preserves_native_benchmark_and_agent(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Pivot-Lift-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'pivot_v2');recipes.apply_recipe(new,'pivot_v3')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params.pop('ramp_geometry') and params.pop('contact_geometry')
+  assert repr(old.env.rewards)==repr(new.env.rewards)
