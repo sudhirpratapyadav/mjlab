@@ -21,6 +21,8 @@ def main():
   parser.add_argument('--evaluation',type=Path,required=True)
   parser.add_argument('--output',type=Path,required=True)
   parser.add_argument('--gyro',action='store_true')
+  parser.add_argument('--use-trace-friction',action='store_true')
+  parser.add_argument('--fixed-grip-target',type=float)
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
   assert evaluation['task']=='Mjlab-Lift-Cube-Franka'
@@ -42,6 +44,9 @@ def main():
   try:
     env.reset()
     model = env.sim.mj_model
+    if args.use_trace_friction:
+      values = trace['initial_model_geom_friction'][[r['env_id'] for r in records]]
+      env.sim.model.geom_friction[:] = torch.as_tensor(values,device=env.device)
     command = env.command_manager.get_term('lift_object')
     joint = next(i for i in range(model.njnt) if model.joint(i).name.startswith('cube/') and model.jnt_type[i]==mujoco.mjtJoint.mjJNT_FREE)
     qadr,vadr = int(model.jnt_qposadr[joint]),int(model.jnt_dofadr[joint])
@@ -83,12 +88,17 @@ def main():
       cpu_model.geom_friction[:] = friction[lane]
     assert model.nu==8 and all(model.actuator_trnid[i,0]==model.joint(f'robot/joint{i+1}').id for i in range(7))
     cases = []
-    for mode in ['frozen_policy_targets','hold_current_arm','hold_current_arm_gentle_grip']:
+    modes = ['frozen_policy_targets','hold_current_arm','hold_current_arm_gentle_grip']
+    if args.fixed_grip_target is not None:
+      modes.append('hold_current_arm_fixed_grip')
+    for mode in modes:
       ctrl = policy_ctrl.copy()
       if mode!='frozen_policy_targets':
         ctrl[:,:7]=local['qpos'][:,:7]
       if mode=='hold_current_arm_gentle_grip':
         ctrl[:,7]=np.maximum(local['qpos'][:,7]-.002,0)
+      if mode=='hold_current_arm_fixed_grip':
+        ctrl[:,7]=args.fixed_grip_target
       restore()
       env.sim.data.ctrl[:]=torch.as_tensor(ctrl,device=env.device)
       cpus = [mujoco.MjData(cpu_model) for cpu_model in cpu_models]
@@ -140,8 +150,9 @@ def main():
     report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
                 gyro_correction=args.gyro,episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
-                source_episode_randomization_reconstructed=False,physics_dt=env.physics_dt,
-                method='Every fourth timeout terminal state, cold solver cache,400 native steps with constant XML position-actuator controls. Policy queried once from restored observations; alternatives hold current arm joints, optionally reduce gripper closure to2mm. CPU and GPU receive identical local state/controls and matched per-world randomized friction from this probe. Original evaluation friction was not saved in its trace; this probe samples the registered distribution. No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
+                source_episode_randomization_reconstructed=args.use_trace_friction,physics_dt=env.physics_dt,
+                fixed_grip_target=args.fixed_grip_target,
+                method='Every fourth timeout terminal state, cold solver cache,400 native steps with constant XML position-actuator controls. Policy queried once from restored observations; alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
     args.output.write_text(json.dumps(report,indent=2)+'\n')
   finally:
     wrapped.close()

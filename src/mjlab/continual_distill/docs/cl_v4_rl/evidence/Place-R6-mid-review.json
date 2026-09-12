@@ -1,0 +1,78 @@
+{
+  "task": "Mjlab-Place-In-Container-Franka",
+  "checkpoint_sha256": "3e8df472c2c6e74fcfb1ef4adfc3e08006a932263f615f65774bfeec96abf345",
+  "successes": 74,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual success frames show transport into the container followed by an open hand at its side; native terminal containment passes. Selected failure ends with the hand in the opening and fails the unchanged completion gate. Strict74/128, improved35/128; full R6 training continues unchanged.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.1640625,
+    "enclosed_fraction": 0.125,
+    "enclosed_grasp_fraction": 0.1171875,
+    "opposed_grasp_fraction": 0.1640625,
+    "robot_object_contact_fraction": 0.21875,
+    "aperture_mean": 0.055788181722164154,
+    "gripper_object_distance_mean": 0.06961919367313385,
+    "gripper_goal_distance_mean": 0.12836527824401855,
+    "gripper_down_alignment_mean": 0.9297620058059692,
+    "object_height_mean": 0.045126140117645264,
+    "gripper_action_mean": 0.21117158234119415,
+    "absolute_action_max": 1.0,
+    "goal_error_mean": 0.09195882827043533
+  },
+  "videos": {
+    "task": "Mjlab-Place-In-Container-Franka",
+    "checkpoint_sha256": "3e8df472c2c6e74fcfb1ef4adfc3e08006a932263f615f65774bfeec96abf345",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-019-R6-m5600/success.mp4",
+        "outcome": {
+          "env_id": 50,
+          "success": true,
+          "steps": 1000,
+          "return": 328.90911865234375,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-019-R6-m5600/failure.mp4",
+        "outcome": {
+          "env_id": 34,
+          "success": false,
+          "steps": 1000,
+          "return": 288.4232177734375,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

@@ -274,3 +274,12 @@ Preregister gripper-only PPO initialization reset: own3098, completion_v6, reset
 | RL-020-R5 | Peg | Acquire opposing capture from the stable upright approach | ownR4/model3098, same recorded gripper reset,2048 ×2000 additional, GPU6 | Prepared | Conditional on preflight; strict evaluation at budget. |
 
 StrikeR2 launch audit: substantial launches45→97/128, negligible58→21, weak25→10. All20 successes are substantial launches; median final error0.2341m versus0.5546m previously,85 undershoot by>8cm,15 overshoot by>8cm,10 lateral misses>8cm. Current reward improved acquisition; next retry should refine distance/direction while retaining contact. PlaceR6/model5600 strict74/128, improved35; full training continues unchanged.
+
+### Lift R9 — initialize the gripper in a demonstrated stable control range
+
+LiftR8 final8997 strict0/128;105 positions inside5cm,0 inside and settled, median linear/angular speeds0.3160m/s/2.0847rad/s, final grip action-0.913. Actual failure frames reviewed. New hold probe restores the original sampled fingertip friction from the trace for both GPU and CPU, with identical states/controls and cold solver cache. On31 evenly sampled timeouts, frozen policy targets and current-arm/strong-grip targets each drop31/31 on both backends. Current-arm plus actual finger position minus2mm retains16 GPU/17 CPU grasps and10 GPU native endpoint passes. Current-arm plus fixed20mm/finger retains23 GPU/22 CPU grasps and14 GPU native endpoint passes. These are controlled interventions, not RL episodes or proof of closed-loop success.
+
+Preregister a gripper-only PPO initialization reset to mean0 (20mm/finger target), std0.05, preserving the learned arm policy, saved optimizer/normalizers, lift_v7 reward and legacy backend. This tests the stable control range directly without overriding policy actions during training/evaluation. First64 ×3 updates finite and online, then2048 ×1500 additional from original8997 onGPU4; strict evaluation at budget. Native physics, target distribution, first-episode gate and60D/8D remain fixed.
+
+| PREFLIGHT-LIFT-GENTLE-030 | Lift | Verify retained transport policy with gentler gripper initialization | ownR8/model8997, lift_v7, mean0/std0.05,64 ×3 updates, GPU4 | Prepared | No learned arm reset; finite online PPO check required. |
+| RL-002-R9 | Lift | Learn settled near-goal holding from stable grip range | own8997, same recorded initialization reset,2048 ×1500 additional, GPU4 | Prepared | Conditional on preflight; no control clamp or scripted policy. |
