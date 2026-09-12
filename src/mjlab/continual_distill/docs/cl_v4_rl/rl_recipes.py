@@ -8,6 +8,7 @@ import torch
 RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lid_v2", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
 RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "completion_v3")
 RECIPES += ("edge_v2", "pivot_v2", "throw_v2", "lift_v4", "reorient_v5")
+RECIPES += ("cage_v3",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, **kwargs):
@@ -100,7 +101,7 @@ def apply_recipe(cfg, recipe):
       reach.params["require_enclosure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("lift_v2", "lift_v3", "lift_v4", "reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5", "cage_v1", "cage_v2"):
+  if recipe in ("lift_v2", "lift_v3", "lift_v4", "reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5", "cage_v1", "cage_v2", "cage_v3"):
     bounded_initialization(cfg)
     if recipe in ("reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5"):
       cfg.env.rewards["reach_object"].func = reorient_endface_reward
@@ -108,13 +109,15 @@ def apply_recipe(cfg, recipe):
         cfg.env.rewards["reach_object"].params["smooth_closure"] = True
       if recipe in ("reorient_v4", "reorient_v5"):
         cfg.env.rewards["reach_object"].params["closure_weight"] = 3.0
-    if recipe in ("cage_v1", "cage_v2"):
+    if recipe in ("cage_v1", "cage_v2", "cage_v3"):
       reach = cfg.env.rewards["reach_object"]
       if reach.params["command_name"] != "cage_drag":
         raise ValueError("cage_v1 requires the cage task")
       reach.func = cage_approach_reward
       if recipe == "cage_v2":
         reach.params["transport_guidance"] = True
+      if recipe == "cage_v3":
+        reach.func = cage_contact_reward
       cfg.env.rewards["joint_vel_penalty"].weight = -0.001
       cfg.env.rewards["action_rate_l2"].weight = -0.005
   if recipe in ("completion_v1", "completion_v2", "completion_v3"):
@@ -235,3 +238,41 @@ def lid_grasp_progress_reward(env, command_name, object_asset_name='object', **k
   error = (command.target_value-command._joint_value()).abs()
   progress = (1-error/command.target_value.abs().clamp_min(.01)).clamp(0,1)
   return base+2*closure+3*held+6*progress
+
+
+def cage_contact_target(position, corners, pads, grip, direction):
+  """Put the trailing inner pad at the cube's rear face, keeping an open cage."""
+  projected = ((corners-position[:,None])*direction[:,None]).sum(-1)
+  half_width = .5*(projected.amax(1)-projected.amin(1))
+  half_gap = .5*torch.linalg.vector_norm(pads[:,0]-pads[:,1],dim=-1)-.0076
+  # One millimetre of contact drive fits the native two-millimetre cage tolerance.
+  shift = (half_gap-half_width).clamp(0,.06)+.001
+  return position+shift[:,None]*direction-(pads.mean(1)-grip)
+
+
+def cage_contact_reward(env, command_name, **kwargs):
+  from mjlab.tasks.manipulation.mdp.task_geometry import object_corners, touching
+  command = env.command_manager.get_term(command_name)
+  robot, obj = command.robot, command.object
+  pos = tracking_position(obj)
+  grip = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
+  quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
+  ids = [robot.geom_names.index(n) for n in ('left_finger_pad','right_finger_pad')]
+  pads = robot.data.geom_pos_w[:,ids]
+  direction = command.target_pos-pos
+  direction = direction.clone(); direction[:,2] = 0
+  error = torch.linalg.vector_norm(direction,dim=-1)
+  direction = direction/error[:,None].clamp_min(.001)
+  target = cage_contact_target(pos,object_corners(obj),pads,grip,direction)
+  distance = torch.linalg.vector_norm(grip-target,dim=-1)
+  down_axis = quat_apply(quat,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))
+  close_axis = quat_apply(quat,torch.tensor([0.,1.,0.],device=env.device).expand(env.num_envs,3))
+  alignment = (.25+.75*(-down_axis[:,2]).clamp(0,1))*(.25+.75*(close_axis*direction).sum(-1).abs())
+  approach = (torch.exp(-distance/.15)+2*torch.exp(-distance/.03))*alignment
+  side_height = torch.exp(-((pads.mean(1)[:,2]-pos[:,2])/.02).square())
+  contact = touching(command,robot,obj,('left_finger_pad','right_finger_pad')).float()*side_height*alignment
+  progress = (command.caged_progress/command.required_progress.clamp_min(.001)).clamp(0,1)
+  valid = torch.minimum(command.min_aperture,command._aperture())>command.cfg.aperture_min
+  # Do not remove all transport guidance when stochastic contact briefly crosses
+  # the geometric cage boundary. Actual native history still gates completion.
+  return (approach+3*contact+4*torch.exp(-error/.15)+4*progress+20*command.compute_success().float())*valid.float()

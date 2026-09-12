@@ -25,6 +25,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Reorient-Object-Franka","reorient_v5"),
   ("Mjlab-Cage-Drag-Franka","cage_v1"),
   ("Mjlab-Cage-Drag-Franka","cage_v2"),
+  ("Mjlab-Cage-Drag-Franka","cage_v3"),
   ("Mjlab-Open-Lid-Franka","lid_v1"),
   ("Mjlab-Open-Lid-Franka","lid_v2"),
   ("Mjlab-Edge-Grasp-Franka","edge_v1"),
@@ -87,3 +88,21 @@ def test_cage_guidance_rewards_starting_transport_but_never_invalid_pinch(monkey
   assert guided[1]>guided[0]
   command.min_aperture[:]=.06
   assert torch.equal(recipes.cage_approach_reward(env,'cage_drag',transport_guidance=True),torch.zeros(2))
+
+
+def test_cage_target_places_trailing_pad_on_rear_face_for_both_directions(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  recipes=importlib.import_module('rl_recipes')
+  positions=torch.tensor([[.4,0.,.023],[.4,0.,.023]])
+  corners=positions[:,None]+torch.cartesian_prod(*[torch.tensor([-.023,.023])]*3)[None]
+  grip=torch.tensor([[.4,0.,.04],[.4,0.,.04]])
+  offsets=torch.tensor([[[-.055,0.,-.01],[.055,0.,-.01]]]).expand(2,-1,-1)
+  pads=grip[:,None]+offsets
+  direction=torch.tensor([[1.,0.,0.],[-1.,0.,0.]])
+  target=recipes.cage_contact_target(positions,corners,pads,grip,direction)
+  resulting_pads=target[:,None]+offsets
+  # Positive direction uses the negative-side pad's inner face, and vice versa.
+  torch.testing.assert_close(resulting_pads[0,0,0]+.0076,positions[0,0]-.023+.001)
+  torch.testing.assert_close(resulting_pads[1,1,0]-.0076,positions[1,0]+.023-.001)
+  torch.testing.assert_close(resulting_pads.mean(1)[:,2],positions[:,2])

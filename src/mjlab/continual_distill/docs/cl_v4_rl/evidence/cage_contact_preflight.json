@@ -1,0 +1,43 @@
+{
+  "finite_updates": 3,
+  "checkpoint": "src/mjlab/continual_distill/docs/cl_v4_rl/runs/PREFLIGHT-CAGE-CONTACT-PPO/model_3500.pt",
+  "manifest": {
+    "task": "Mjlab-Cage-Drag-Franka",
+    "run_id": "PREFLIGHT-CAGE-CONTACT-PPO",
+    "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+    "source_head": "3a8d2f239ef95e112ebc87d660f5260fc7df9d23",
+    "source_patch_sha256": "b9cce2292f81f159c232fa9b7d23f957d9311d3ff48f60f6b4359e19b451bd32",
+    "started_utc": "2026-09-12T18:23:46.972902+00:00",
+    "seed": 20260912,
+    "num_envs": 64,
+    "requested_updates": 3,
+    "interface": "franka_shared_60_v2",
+    "gpu_uuid": "GPU-7d5c3740-990d-15b7-5c54-6dc6270633fa",
+    "recipe": "cage_v3",
+    "slurm_job_id": "20277",
+    "slurm_step_id": "1746",
+    "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+    "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+    "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-013-R2-cage-guidance/model_3498.pt",
+    "resume_gripper_std": null,
+    "capture_pre_step": false,
+    "resume_sha256": "32b0144d041d69ad4aef3f8e5a4f551192fb88715f9481139e84991d9852c1af",
+    "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration."
+  },
+  "last_diagnostics": {
+    "iteration": 3500,
+    "Diagnostics/std_min": 0.016620667651295662,
+    "Diagnostics/std_max": 0.058182213455438614,
+    "Diagnostics/gripper_std": 0.017917200922966003,
+    "Diagnostics/gripper_action_mean": 0.998856782913208,
+    "Diagnostics/mean_abs_max": 0.9999287724494934,
+    "Diagnostics/action_saturation": 0.059488932291666664,
+    "Diagnostics/peak_gpu_memory_mib": 30.00244140625,
+    "Diagnostics/two_pad_contact_fraction": 0.0,
+    "Diagnostics/robot_object_contact_fraction": 0.0,
+    "Diagnostics/enclosed_fraction": 0.921875,
+    "Diagnostics/enclosed_grasp_fraction": 0.0,
+    "Diagnostics/aperture_mean": 0.07948553562164307,
+    "Diagnostics/object_height_mean": 0.02253514714539051
+  }
+}

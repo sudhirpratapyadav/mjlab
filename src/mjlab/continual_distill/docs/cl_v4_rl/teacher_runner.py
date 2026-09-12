@@ -97,12 +97,13 @@ class TeacherRunner(OnPolicyRunner):
       if len(names) == 1:
         command = env.command_manager.get_term(names[0])
         if hasattr(command, "object"):
-          from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers, finger_aperture, grasped, tracking_position
+          from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers, finger_aperture, grasped, touching, tracking_position
           with torch.no_grad():
             contact = grasped(command)
             enclosure = between_fingers(command)
             metrics.update({
               "Diagnostics/two_pad_contact_fraction":float(contact.float().mean()),
+              "Diagnostics/robot_object_contact_fraction":float(touching(command,command.robot,command.object).float().mean()),
               "Diagnostics/enclosed_fraction":float(enclosure.float().mean()),
               "Diagnostics/enclosed_grasp_fraction":float((contact&enclosure).float().mean()),
               "Diagnostics/aperture_mean":float(finger_aperture(command.robot).mean()),

@@ -1,8 +1,8 @@
 # Status — RL teachers
 
-Checked2026-09-12. **13/24 independent PPO RL teachers certified.** Seven task runs are active: Strike GPU1, Reorient R5 GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Cage R2 GPU5, fresh bounded Lid V3 GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
+Checked2026-09-12. **14/24 independent PPO RL teachers certified.** Seven task runs are active: Strike GPU1, Reorient R5 GPU2, fresh Stack V2 GPU3, fresh Peg V2 GPU4, Cage R2 GPU5, Edge first pilot GPU6, fresh Place V2 GPU7. Stack/Place/Peg now use completion_v3, which requires actual two-pad contact plus geometric enclosure for the training grasp bonus. The native benchmark and evaluation predicates remain unchanged. GPU0 remains unused.
 
-Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw completed physical and PPO preflights; full pilots still need slots and review of grasp-credit shaping in light of the observed top-press loophole. The full24-task goal remains active.
+Lift awaits a free slot after a numerical failure and a finite30-update diagnostic replay. Edge/Pivot/Throw enclosure-gated revisions passed PPO preflight. Edge now trains onGPU6; Pivot and Throw await slots. The full24-task goal remains active.
 
 ## Readiness
 
@@ -30,14 +30,14 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
 | Cage-Drag | 4 | on | Training retry | 0/128 first pilot | cage_v2 resumes1499 onGPU5; guide valid-cage transport. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Preflights complete; pilot pending | Not measured | edge_v1 finite physics and3 PPO updates; review enclosure credit before full pilot. |
+| Edge-Grasp | 6 | on | Training first pilot | Not measured | edge_v2,2048 ×3000 onGPU6; enclosed grasp credit after exposure. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
 | Lift-Cube | 20 | on | Waiting for slot after diagnostic replay | 0/128 final V3 | R4 failed at2009; same30-update replay finite, model2028 retained. Capture preceding state on next continuation. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
-| Open-Lid | 5 | on | Training fresh bounded V3 | 0/128 first pilot | R2 fully saturated, ownstep1717 stopped. Fresh lid_v2 onGPU6 after3 finite PPO updates. |
+| Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
 | Peg-Insertion | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU4; upper-body grasp, actual enclosure/contact; native seating unchanged. |
-| Pivot-Lift | 6 | on | Preflights complete; pilot pending | Not measured | pivot_v1 finite physics and3 PPO updates; actual wall/tilt history unchanged. |
+| Pivot-Lift | 6 | on | Preflights complete; pilot pending | Not measured | pivot_v2 finite physics and3 PPO updates; actual wall/tilt history unchanged. |
 | Place-In-Container | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU7; prior nearly closed top-contact policy replaced. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
@@ -48,7 +48,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training fresh V2 | 0/16 first-pilot debug | completion_v3 GPU3: contact plus enclosure rejects verified top pressing; actual release/support success unchanged. |
 | Strike-Slide | 4 | on | Training first pilot | Not measured | strike_v1 GPU1;3000 updates, native4-second horizon/friction/predicate unchanged. |
-| Throw-To-Bin | 5 | on | Preflights complete; pilot pending | Not measured | throw_v1 finite physics and3 PPO updates; review enclosure credit before full pilot. |
+| Throw-To-Bin | 5 | on | Preflights complete; pilot pending | Not measured | throw_v2 finite physics and3 PPO updates; enclosure-gated reward preflight passed. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
 

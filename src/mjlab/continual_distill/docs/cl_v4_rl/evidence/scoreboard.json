@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-09-12T18:07:03.082698+00:00",
-  "certified_count": 13,
+  "updated_utc": "2026-09-12T18:16:28.624753+00:00",
+  "certified_count": 14,
   "active_tasks": 24,
   "interface": "franka_shared_60_v2",
   "criterion": "Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review",
@@ -47,7 +47,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": "PREFLIGHT-Edge-Grasp-PPO"
+      "latest_training_run": "RL-021-edge-enclosed"
     },
     {
       "task": "Mjlab-Flip-Switch-Franka",
@@ -95,13 +95,13 @@
     },
     {
       "task": "Mjlab-Open-Lid-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": 0.0,
+      "certified": true,
+      "validation_successes": 128,
+      "validation_episodes": 128,
+      "confirmation_successes": 128,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/p5lo2knx",
+      "best_measured_validation_rate": 1.0,
       "latest_training_run": "RL-015-V3-lid-bounded"
     },
     {
@@ -124,7 +124,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": "PREFLIGHT-Pivot-Lift-PPO"
+      "latest_training_run": "PREFLIGHT-Pivot-Lift-ENCLOSURE-V2"
     },
     {
       "task": "Mjlab-Place-In-Container-Franka",
@@ -245,7 +245,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": null,
-      "latest_training_run": "PREFLIGHT-Throw-To-Bin-PPO"
+      "latest_training_run": "PREFLIGHT-Throw-To-Bin-ENCLOSURE-V2"
     },
     {
       "task": "Mjlab-Topple-Block-Franka",
