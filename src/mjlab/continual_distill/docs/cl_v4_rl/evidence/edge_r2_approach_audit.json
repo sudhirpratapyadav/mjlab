@@ -1,0 +1,1811 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "69f5fe800d7a0dec1588db1b37d62bacfd9411123965247bc628c8c0f5448eef",
+  "method": "CPU FK every10th recorded20ms state plus terminal. Existing edge_v3 side-pinch reward waypoint and nearest of three20deg-pitched wrist frames. No integration, demonstrations or success reclassification.",
+  "episodes": 128,
+  "episodes_reaching_exposure_gate": 128,
+  "median_closest_exposed_pinch": {
+    "exposure": 1.0,
+    "distance_m": 0.14883396140002586,
+    "vertical_error_m": 0.026815483077569258,
+    "horizontal_error_m": 0.14524592137090422,
+    "rotation_error_deg": 87.97865094327675,
+    "approach_into_ledge": 0.36603576786605085,
+    "hand_height_m": 0.13961228156905858,
+    "plate_height_m": 0.1078210324048996
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "closest_exposed_pinch": {
+        "step": 40,
+        "exposure": 1.0,
+        "distance_m": 0.268906198139964,
+        "vertical_error_m": 0.07994555798123401,
+        "horizontal_error_m": 0.2567474462524578,
+        "rotation_error_deg": 81.77691607254624,
+        "approach_into_ledge": -0.4100033718911446,
+        "hand_height_m": 0.15692597475598377,
+        "plate_height_m": 0.07198041677474976
+      }
+    },
+    {
+      "env_id": 1,
+      "closest_exposed_pinch": {
+        "step": 260,
+        "exposure": 1.0,
+        "distance_m": 0.14431376628165368,
+        "vertical_error_m": 0.02682959477576996,
+        "horizontal_error_m": 0.14179787016229733,
+        "rotation_error_deg": 91.35625727636676,
+        "approach_into_ledge": 0.1778650814036122,
+        "hand_height_m": 0.13952245484266068,
+        "plate_height_m": 0.10769286006689072
+      }
+    },
+    {
+      "env_id": 2,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.19703391923524508,
+        "vertical_error_m": 0.026218586807556815,
+        "horizontal_error_m": 0.19528172222462523,
+        "rotation_error_deg": 92.62829169028163,
+        "approach_into_ledge": 0.5651898429803907,
+        "hand_height_m": 0.13929122531921453,
+        "plate_height_m": 0.10807263851165771
+      }
+    },
+    {
+      "env_id": 3,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 0.9894950504100181,
+        "distance_m": 0.17071151369747023,
+        "vertical_error_m": 0.028762645169604972,
+        "horizontal_error_m": 0.1682710050832554,
+        "rotation_error_deg": 89.51243225073361,
+        "approach_into_ledge": 0.3570410056154663,
+        "hand_height_m": 0.14152431879888888,
+        "plate_height_m": 0.1077616736292839
+      }
+    },
+    {
+      "env_id": 4,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 1.0,
+        "distance_m": 0.1481786789396889,
+        "vertical_error_m": 0.0317573575387578,
+        "horizontal_error_m": 0.14473559042083223,
+        "rotation_error_deg": 87.13124021254588,
+        "approach_into_ledge": 0.545211873415252,
+        "hand_height_m": 0.1446471737037282,
+        "plate_height_m": 0.1078898161649704
+      }
+    },
+    {
+      "env_id": 5,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 1.0,
+        "distance_m": 0.12979195820908387,
+        "vertical_error_m": 0.022635993390799802,
+        "horizontal_error_m": 0.12780283337610415,
+        "rotation_error_deg": 79.19695019822035,
+        "approach_into_ledge": 0.48464173478915384,
+        "hand_height_m": 0.13544018748355036,
+        "plate_height_m": 0.10780419409275055
+      }
+    },
+    {
+      "env_id": 6,
+      "closest_exposed_pinch": {
+        "step": 60,
+        "exposure": 1.0,
+        "distance_m": 0.15739281937362176,
+        "vertical_error_m": 0.02314889015030791,
+        "horizontal_error_m": 0.15568117572521895,
+        "rotation_error_deg": 89.08882224605988,
+        "approach_into_ledge": 0.13011163410122661,
+        "hand_height_m": 0.1360380357630246,
+        "plate_height_m": 0.10788914561271667
+      }
+    },
+    {
+      "env_id": 7,
+      "closest_exposed_pinch": {
+        "step": 140,
+        "exposure": 1.0,
+        "distance_m": 0.1345750895375622,
+        "vertical_error_m": 0.031646106384750405,
+        "horizontal_error_m": 0.13080129462175802,
+        "rotation_error_deg": 89.0175273157695,
+        "approach_into_ledge": 0.7007189153994748,
+        "hand_height_m": 0.14448164507007222,
+        "plate_height_m": 0.10783553868532181
+      }
+    },
+    {
+      "env_id": 8,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 0.9920058238666101,
+        "distance_m": 0.15092602113746267,
+        "vertical_error_m": 0.009641831816212268,
+        "horizontal_error_m": 0.1506177245068246,
+        "rotation_error_deg": 81.98320626412098,
+        "approach_into_ledge": 0.21402854428443546,
+        "hand_height_m": 0.12248518616058025,
+        "plate_height_m": 0.10784335434436798
+      }
+    },
+    {
+      "env_id": 9,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 0.9765459777126808,
+        "distance_m": 0.14263807428220074,
+        "vertical_error_m": 0.026192926136362094,
+        "horizontal_error_m": 0.1402125203230785,
+        "rotation_error_deg": 89.56320857778546,
+        "approach_into_ledge": 0.3854727512896629,
+        "hand_height_m": 0.1390124833263035,
+        "plate_height_m": 0.1078195571899414
+      }
+    },
+    {
+      "env_id": 10,
+      "closest_exposed_pinch": {
+        "step": 280,
+        "exposure": 0.9508363551838805,
+        "distance_m": 0.17010862942407898,
+        "vertical_error_m": 0.0482810399526257,
+        "horizontal_error_m": 0.16311311101696147,
+        "rotation_error_deg": 102.2142037293603,
+        "approach_into_ledge": 0.27143113961660215,
+        "hand_height_m": 0.16107163673578687,
+        "plate_height_m": 0.10779059678316116
+      }
+    },
+    {
+      "env_id": 11,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 1.0,
+        "distance_m": 0.16142267426825646,
+        "vertical_error_m": 0.03501527381168018,
+        "horizontal_error_m": 0.1575792193400154,
+        "rotation_error_deg": 89.10736366804106,
+        "approach_into_ledge": 0.5479457690308754,
+        "hand_height_m": 0.14787050438151966,
+        "plate_height_m": 0.10785523056983948
+      }
+    },
+    {
+      "env_id": 12,
+      "closest_exposed_pinch": {
+        "step": 170,
+        "exposure": 1.0,
+        "distance_m": 0.15368612418508448,
+        "vertical_error_m": 0.03233176186071085,
+        "horizontal_error_m": 0.150246736876431,
+        "rotation_error_deg": 93.83367595393757,
+        "approach_into_ledge": 0.4311409623276209,
+        "hand_height_m": 0.14509002312408137,
+        "plate_height_m": 0.10775826126337051
+      }
+    },
+    {
+      "env_id": 13,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.13060050161065545,
+        "vertical_error_m": 0.017970347875889692,
+        "horizontal_error_m": 0.1293582529959891,
+        "rotation_error_deg": 75.47134609834545,
+        "approach_into_ledge": 0.33390395690345587,
+        "hand_height_m": 0.13083443718605892,
+        "plate_height_m": 0.10786408931016922
+      }
+    },
+    {
+      "env_id": 14,
+      "closest_exposed_pinch": {
+        "step": 190,
+        "exposure": 1.0,
+        "distance_m": 0.13645617894995968,
+        "vertical_error_m": 0.02474827879657554,
+        "horizontal_error_m": 0.13419318712300707,
+        "rotation_error_deg": 81.70523608401129,
+        "approach_into_ledge": 0.2981182994037034,
+        "hand_height_m": 0.1374795466064434,
+        "plate_height_m": 0.10773126780986786
+      }
+    },
+    {
+      "env_id": 15,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 0.912758744475734,
+        "distance_m": 0.12529529661896788,
+        "vertical_error_m": 0.021993769973334548,
+        "horizontal_error_m": 0.12334984976559636,
+        "rotation_error_deg": 90.15821284195714,
+        "approach_into_ledge": 0.14346793383625014,
+        "hand_height_m": 0.1339473536310761,
+        "plate_height_m": 0.10695358365774155
+      }
+    },
+    {
+      "env_id": 16,
+      "closest_exposed_pinch": {
+        "step": 70,
+        "exposure": 1.0,
+        "distance_m": 0.13517303371088266,
+        "vertical_error_m": 0.017692075753269587,
+        "horizontal_error_m": 0.13401022161814372,
+        "rotation_error_deg": 81.59635178587963,
+        "approach_into_ledge": 0.056136057110501375,
+        "hand_height_m": 0.13054305949216882,
+        "plate_height_m": 0.10785098373889923
+      }
+    },
+    {
+      "env_id": 17,
+      "closest_exposed_pinch": {
+        "step": 220,
+        "exposure": 0.9649040822698592,
+        "distance_m": 0.14017593982070248,
+        "vertical_error_m": 0.030026791120566165,
+        "horizontal_error_m": 0.13692218928873104,
+        "rotation_error_deg": 93.04987773573703,
+        "approach_into_ledge": 0.1810311137126877,
+        "hand_height_m": 0.14291996004680518,
+        "plate_height_m": 0.10789316892623901
+      }
+    },
+    {
+      "env_id": 18,
+      "closest_exposed_pinch": {
+        "step": 280,
+        "exposure": 1.0,
+        "distance_m": 0.14360414151706852,
+        "vertical_error_m": 0.03307141968525579,
+        "horizontal_error_m": 0.13974416145533922,
+        "rotation_error_deg": 90.62486275149405,
+        "approach_into_ledge": 0.5831376765658973,
+        "hand_height_m": 0.14588216283835104,
+        "plate_height_m": 0.10781074315309525
+      }
+    },
+    {
+      "env_id": 19,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 0.9788318739589906,
+        "distance_m": 0.15609967088200882,
+        "vertical_error_m": 0.023707307836671215,
+        "horizontal_error_m": 0.15428891990226898,
+        "rotation_error_deg": 88.08640462411623,
+        "approach_into_ledge": 0.42426016111075515,
+        "hand_height_m": 0.13657101716723,
+        "plate_height_m": 0.10786370933055878
+      }
+    },
+    {
+      "env_id": 20,
+      "closest_exposed_pinch": {
+        "step": 90,
+        "exposure": 1.0,
+        "distance_m": 0.14361701004226776,
+        "vertical_error_m": 0.016604883701272055,
+        "horizontal_error_m": 0.14265385873066339,
+        "rotation_error_deg": 85.36683761514604,
+        "approach_into_ledge": 0.5306335735202616,
+        "hand_height_m": 0.12936737689442163,
+        "plate_height_m": 0.10776249319314957
+      }
+    },
+    {
+      "env_id": 21,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 1.0,
+        "distance_m": 0.131217005069606,
+        "vertical_error_m": 0.021299344790545183,
+        "horizontal_error_m": 0.1294767945653988,
+        "rotation_error_deg": 87.80266718179669,
+        "approach_into_ledge": 0.13298951937670203,
+        "hand_height_m": 0.13413954008874007,
+        "plate_height_m": 0.10784019529819489
+      }
+    },
+    {
+      "env_id": 22,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 0.9916705126846544,
+        "distance_m": 0.16634440140650308,
+        "vertical_error_m": 0.017168594655188968,
+        "horizontal_error_m": 0.1654560341506276,
+        "rotation_error_deg": 85.28148432980008,
+        "approach_into_ledge": 0.3672892706842223,
+        "hand_height_m": 0.13003106718936866,
+        "plate_height_m": 0.10786247253417969
+      }
+    },
+    {
+      "env_id": 23,
+      "closest_exposed_pinch": {
+        "step": 230,
+        "exposure": 1.0,
+        "distance_m": 0.14579761586248563,
+        "vertical_error_m": 0.025561211132803074,
+        "horizontal_error_m": 0.14353943456976964,
+        "rotation_error_deg": 80.31175771880226,
+        "approach_into_ledge": 0.51735329187431,
+        "hand_height_m": 0.13838429244736683,
+        "plate_height_m": 0.10782308131456375
+      }
+    },
+    {
+      "env_id": 24,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 1.0,
+        "distance_m": 0.133598124511206,
+        "vertical_error_m": 0.029965573017509683,
+        "horizontal_error_m": 0.13019417539446226,
+        "rotation_error_deg": 78.50391570016647,
+        "approach_into_ledge": 0.5960228431381146,
+        "hand_height_m": 0.14279488301745247,
+        "plate_height_m": 0.10782930999994278
+      }
+    },
+    {
+      "env_id": 25,
+      "closest_exposed_pinch": {
+        "step": 60,
+        "exposure": 1.0,
+        "distance_m": 0.16778610156963103,
+        "vertical_error_m": 0.021794527427284327,
+        "horizontal_error_m": 0.16636458293205286,
+        "rotation_error_deg": 91.22700398223168,
+        "approach_into_ledge": 0.1517905516850337,
+        "hand_height_m": 0.13462974573764047,
+        "plate_height_m": 0.10783521831035614
+      }
+    },
+    {
+      "env_id": 26,
+      "closest_exposed_pinch": {
+        "step": 230,
+        "exposure": 1.0,
+        "distance_m": 0.17136392362767433,
+        "vertical_error_m": 0.04433431091195911,
+        "horizontal_error_m": 0.1655296444659782,
+        "rotation_error_deg": 99.32224465724713,
+        "approach_into_ledge": 0.6644946582686626,
+        "hand_height_m": 0.1574966171611008,
+        "plate_height_m": 0.1081623062491417
+      }
+    },
+    {
+      "env_id": 27,
+      "closest_exposed_pinch": {
+        "step": 270,
+        "exposure": 1.0,
+        "distance_m": 0.12095785833020163,
+        "vertical_error_m": 0.027563719147930155,
+        "horizontal_error_m": 0.1177754001418087,
+        "rotation_error_deg": 81.7654655685393,
+        "approach_into_ledge": 0.49945438635776723,
+        "hand_height_m": 0.14037622063804628,
+        "plate_height_m": 0.10781250149011612
+      }
+    },
+    {
+      "env_id": 28,
+      "closest_exposed_pinch": {
+        "step": 200,
+        "exposure": 1.0,
+        "distance_m": 0.14875979473208986,
+        "vertical_error_m": 0.03845500740242727,
+        "horizontal_error_m": 0.14370347572140615,
+        "rotation_error_deg": 90.36200652077041,
+        "approach_into_ledge": 0.43396136389061457,
+        "hand_height_m": 0.15126179429722555,
+        "plate_height_m": 0.10780678689479828
+      }
+    },
+    {
+      "env_id": 29,
+      "closest_exposed_pinch": {
+        "step": 170,
+        "exposure": 1.0,
+        "distance_m": 0.16436629701812247,
+        "vertical_error_m": 0.02021715829863252,
+        "horizontal_error_m": 0.16311819673407896,
+        "rotation_error_deg": 85.85904407017459,
+        "approach_into_ledge": 0.2067949785778559,
+        "hand_height_m": 0.13308391491665544,
+        "plate_height_m": 0.10786675661802292
+      }
+    },
+    {
+      "env_id": 30,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 0.9414346995943464,
+        "distance_m": 0.14325809440802525,
+        "vertical_error_m": 0.030782765734366613,
+        "horizontal_error_m": 0.13991176843697525,
+        "rotation_error_deg": 96.20798053624162,
+        "approach_into_ledge": 0.0846442766857001,
+        "hand_height_m": 0.14333796887414857,
+        "plate_height_m": 0.10755520313978195
+      }
+    },
+    {
+      "env_id": 31,
+      "closest_exposed_pinch": {
+        "step": 90,
+        "exposure": 0.9783896953759014,
+        "distance_m": 0.16233560359044627,
+        "vertical_error_m": 0.02504196880445264,
+        "horizontal_error_m": 0.16039248109394447,
+        "rotation_error_deg": 87.04321726052606,
+        "approach_into_ledge": 0.21878059194105182,
+        "hand_height_m": 0.13780483452663206,
+        "plate_height_m": 0.10776286572217941
+      }
+    },
+    {
+      "env_id": 32,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.18273557147289862,
+        "vertical_error_m": 0.011645007992423129,
+        "horizontal_error_m": 0.18236414908194878,
+        "rotation_error_deg": 83.05122529930763,
+        "approach_into_ledge": 0.1783891616076967,
+        "hand_height_m": 0.12448591109577473,
+        "plate_height_m": 0.10784090310335159
+      }
+    },
+    {
+      "env_id": 33,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.1252460632198709,
+        "vertical_error_m": 0.012365639967536826,
+        "horizontal_error_m": 0.12463413376867973,
+        "rotation_error_deg": 73.46173154131749,
+        "approach_into_ledge": 0.060875867123906184,
+        "hand_height_m": 0.12488281534395208,
+        "plate_height_m": 0.10751717537641525
+      }
+    },
+    {
+      "env_id": 34,
+      "closest_exposed_pinch": {
+        "step": 140,
+        "exposure": 1.0,
+        "distance_m": 0.15046017528565234,
+        "vertical_error_m": 0.029290467827337963,
+        "horizontal_error_m": 0.14758161417143026,
+        "rotation_error_deg": 95.02264837148272,
+        "approach_into_ledge": 0.3107603689768483,
+        "hand_height_m": 0.14211281153442262,
+        "plate_height_m": 0.10782234370708466
+      }
+    },
+    {
+      "env_id": 35,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.13676148949014275,
+        "vertical_error_m": 0.040550046245060895,
+        "horizontal_error_m": 0.130611633314517,
+        "rotation_error_deg": 87.87089726243727,
+        "approach_into_ledge": 0.5342709359942238,
+        "hand_height_m": 0.15335421053548906,
+        "plate_height_m": 0.10780416429042816
+      }
+    },
+    {
+      "env_id": 36,
+      "closest_exposed_pinch": {
+        "step": 300,
+        "exposure": 0.9470575271941866,
+        "distance_m": 0.16122264918963963,
+        "vertical_error_m": 0.023567746422490127,
+        "horizontal_error_m": 0.15949076443572152,
+        "rotation_error_deg": 89.03203055028116,
+        "approach_into_ledge": 0.2935924764632574,
+        "hand_height_m": 0.1361512245156374,
+        "plate_height_m": 0.10758347809314728
+      }
+    },
+    {
+      "env_id": 37,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 1.0,
+        "distance_m": 0.13541482291959558,
+        "vertical_error_m": 0.01860651078476669,
+        "horizontal_error_m": 0.1341304291455216,
+        "rotation_error_deg": 76.19056012019213,
+        "approach_into_ledge": 0.30112098188751407,
+        "hand_height_m": 0.13142886194243195,
+        "plate_height_m": 0.10782235115766525
+      }
+    },
+    {
+      "env_id": 38,
+      "closest_exposed_pinch": {
+        "step": 240,
+        "exposure": 1.0,
+        "distance_m": 0.12873397924098004,
+        "vertical_error_m": 0.03582923227875548,
+        "horizontal_error_m": 0.12364749704515683,
+        "rotation_error_deg": 86.26032279617884,
+        "approach_into_ledge": 0.6009702247778124,
+        "hand_height_m": 0.14863291228144485,
+        "plate_height_m": 0.10780368000268936
+      }
+    },
+    {
+      "env_id": 39,
+      "closest_exposed_pinch": {
+        "step": 30,
+        "exposure": 1.0,
+        "distance_m": 0.20951183046155783,
+        "vertical_error_m": 0.0007878164019393674,
+        "horizontal_error_m": 0.20951034926387144,
+        "rotation_error_deg": 107.74116841377243,
+        "approach_into_ledge": -0.32150763550101413,
+        "hand_height_m": 0.11488572185895918,
+        "plate_height_m": 0.1090979054570198
+      }
+    },
+    {
+      "env_id": 40,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 1.0,
+        "distance_m": 0.15073898587709036,
+        "vertical_error_m": 0.021319823359866763,
+        "horizontal_error_m": 0.14922368108030884,
+        "rotation_error_deg": 87.11785740315352,
+        "approach_into_ledge": 0.3634597316115895,
+        "hand_height_m": 0.13415298530997816,
+        "plate_height_m": 0.10783316195011139
+      }
+    },
+    {
+      "env_id": 41,
+      "closest_exposed_pinch": {
+        "step": 50,
+        "exposure": 0.8305577382447137,
+        "distance_m": 0.2001217625062127,
+        "vertical_error_m": -0.024824123501646658,
+        "horizontal_error_m": 0.19857613834740565,
+        "rotation_error_deg": 97.90437113561833,
+        "approach_into_ledge": -0.5199851478013549,
+        "hand_height_m": 0.08850997823489891,
+        "plate_height_m": 0.10833410173654556
+      }
+    },
+    {
+      "env_id": 42,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.13898319645897478,
+        "vertical_error_m": 0.02051652091028744,
+        "horizontal_error_m": 0.1374605444034459,
+        "rotation_error_deg": 76.90244640517108,
+        "approach_into_ledge": 0.5238124566497546,
+        "hand_height_m": 0.13322448330404812,
+        "plate_height_m": 0.10770796239376068
+      }
+    },
+    {
+      "env_id": 43,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 0.9320303135719823,
+        "distance_m": 0.14465044845577016,
+        "vertical_error_m": 0.03748806930946097,
+        "horizontal_error_m": 0.13970825636985262,
+        "rotation_error_deg": 93.41522951632489,
+        "approach_into_ledge": 0.42304341714953,
+        "hand_height_m": 0.15008432514833198,
+        "plate_height_m": 0.107596255838871
+      }
+    },
+    {
+      "env_id": 44,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 1.0,
+        "distance_m": 0.1341832374220717,
+        "vertical_error_m": 0.03030885711698736,
+        "horizontal_error_m": 0.13071539459960368,
+        "rotation_error_deg": 87.52354380907686,
+        "approach_into_ledge": 0.13966778297020807,
+        "hand_height_m": 0.14317805007486548,
+        "plate_height_m": 0.10786919295787811
+      }
+    },
+    {
+      "env_id": 45,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.16042573024145368,
+        "vertical_error_m": 0.030777370020627637,
+        "horizontal_error_m": 0.15744576341749256,
+        "rotation_error_deg": 92.68642182868501,
+        "approach_into_ledge": 0.3221717724352864,
+        "hand_height_m": 0.14353658495831456,
+        "plate_height_m": 0.10775921493768692
+      }
+    },
+    {
+      "env_id": 46,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 1.0,
+        "distance_m": 0.1420853194898306,
+        "vertical_error_m": 0.032386220605456706,
+        "horizontal_error_m": 0.13834511458458493,
+        "rotation_error_deg": 82.16743213156694,
+        "approach_into_ledge": 0.5317732698911186,
+        "hand_height_m": 0.14517692914732683,
+        "plate_height_m": 0.10779070854187012
+      }
+    },
+    {
+      "env_id": 47,
+      "closest_exposed_pinch": {
+        "step": 300,
+        "exposure": 1.0,
+        "distance_m": 0.18780070785863096,
+        "vertical_error_m": 0.03971616128802516,
+        "horizontal_error_m": 0.18355307789505035,
+        "rotation_error_deg": 98.24321876910292,
+        "approach_into_ledge": 0.6759631162139377,
+        "hand_height_m": 0.1525717047822497,
+        "plate_height_m": 0.10785554349422455
+      }
+    },
+    {
+      "env_id": 48,
+      "closest_exposed_pinch": {
+        "step": 290,
+        "exposure": 1.0,
+        "distance_m": 0.16148478107729053,
+        "vertical_error_m": 0.02696022363822176,
+        "horizontal_error_m": 0.1592183433557752,
+        "rotation_error_deg": 96.43956831312516,
+        "approach_into_ledge": 0.2457818931457998,
+        "hand_height_m": 0.1397172108523102,
+        "plate_height_m": 0.10775698721408844
+      }
+    },
+    {
+      "env_id": 49,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.1288236369355086,
+        "vertical_error_m": 0.01899001184931076,
+        "horizontal_error_m": 0.12741628186089396,
+        "rotation_error_deg": 76.26043296916218,
+        "approach_into_ledge": 0.3988176439995716,
+        "hand_height_m": 0.13180036757221497,
+        "plate_height_m": 0.1078103557229042
+      }
+    },
+    {
+      "env_id": 50,
+      "closest_exposed_pinch": {
+        "step": 240,
+        "exposure": 1.0,
+        "distance_m": 0.15162033840349487,
+        "vertical_error_m": 0.028918938579300307,
+        "horizontal_error_m": 0.14883689733744437,
+        "rotation_error_deg": 86.21438239716451,
+        "approach_into_ledge": 0.6436707372522861,
+        "hand_height_m": 0.14174951517794457,
+        "plate_height_m": 0.10783057659864426
+      }
+    },
+    {
+      "env_id": 51,
+      "closest_exposed_pinch": {
+        "step": 300,
+        "exposure": 0.9923569280068872,
+        "distance_m": 0.14987891567723408,
+        "vertical_error_m": 0.029376139079425934,
+        "horizontal_error_m": 0.1469718742391539,
+        "rotation_error_deg": 92.15265271206728,
+        "approach_into_ledge": 0.40045288304805277,
+        "hand_height_m": 0.1422033331144792,
+        "plate_height_m": 0.10782719403505325
+      }
+    },
+    {
+      "env_id": 52,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.14804009243753863,
+        "vertical_error_m": 0.025157095711456245,
+        "horizontal_error_m": 0.1458869065553164,
+        "rotation_error_deg": 78.60192925225763,
+        "approach_into_ledge": 0.33737717825354896,
+        "hand_height_m": 0.138371563475357,
+        "plate_height_m": 0.10821446776390076
+      }
+    },
+    {
+      "env_id": 53,
+      "closest_exposed_pinch": {
+        "step": 220,
+        "exposure": 1.0,
+        "distance_m": 0.16829314712765484,
+        "vertical_error_m": 0.03051212498553152,
+        "horizontal_error_m": 0.16550405916169483,
+        "rotation_error_deg": 91.82510314144615,
+        "approach_into_ledge": 0.4206431113009095,
+        "hand_height_m": 0.14325045594580527,
+        "plate_height_m": 0.10773833096027374
+      }
+    },
+    {
+      "env_id": 54,
+      "closest_exposed_pinch": {
+        "step": 190,
+        "exposure": 0.9974199660489949,
+        "distance_m": 0.15146651081595158,
+        "vertical_error_m": 0.02986445393104245,
+        "horizontal_error_m": 0.1484931590685558,
+        "rotation_error_deg": 92.72250065547678,
+        "approach_into_ledge": 0.2714000548910702,
+        "hand_height_m": 0.1426938533379524,
+        "plate_height_m": 0.10782939940690994
+      }
+    },
+    {
+      "env_id": 55,
+      "closest_exposed_pinch": {
+        "step": 140,
+        "exposure": 1.0,
+        "distance_m": 0.12860547921672746,
+        "vertical_error_m": 0.02585154825261371,
+        "horizontal_error_m": 0.1259804220405175,
+        "rotation_error_deg": 83.3918438126796,
+        "approach_into_ledge": 0.22424916188106264,
+        "hand_height_m": 0.13873139554074543,
+        "plate_height_m": 0.10787984728813171
+      }
+    },
+    {
+      "env_id": 56,
+      "closest_exposed_pinch": {
+        "step": 170,
+        "exposure": 0.9696299849051315,
+        "distance_m": 0.14718667089074172,
+        "vertical_error_m": 0.04632093073548332,
+        "horizontal_error_m": 0.139707864716694,
+        "rotation_error_deg": 95.37247485908243,
+        "approach_into_ledge": 0.4817084137261479,
+        "hand_height_m": 0.15844139994801537,
+        "plate_height_m": 0.10712046921253204
+      }
+    },
+    {
+      "env_id": 57,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.14912579652232938,
+        "vertical_error_m": 0.02978629333000543,
+        "horizontal_error_m": 0.14612077168588336,
+        "rotation_error_deg": 86.11374346287123,
+        "approach_into_ledge": 0.3973615484740555,
+        "hand_height_m": 0.14251044583540323,
+        "plate_height_m": 0.1077241525053978
+      }
+    },
+    {
+      "env_id": 58,
+      "closest_exposed_pinch": {
+        "step": 290,
+        "exposure": 0.9009350484619565,
+        "distance_m": 0.12759491610232693,
+        "vertical_error_m": 0.020123616500412778,
+        "horizontal_error_m": 0.12599802646908467,
+        "rotation_error_deg": 81.1834642325439,
+        "approach_into_ledge": 0.29250487139730363,
+        "hand_height_m": 0.132906338019883,
+        "plate_height_m": 0.10778272151947021
+      }
+    },
+    {
+      "env_id": 59,
+      "closest_exposed_pinch": {
+        "step": 260,
+        "exposure": 0.9637902432444403,
+        "distance_m": 0.1397569806155273,
+        "vertical_error_m": 0.04366668382921016,
+        "horizontal_error_m": 0.13276006309929456,
+        "rotation_error_deg": 96.12039335447317,
+        "approach_into_ledge": 0.3981937330665387,
+        "hand_height_m": 0.1557665521863917,
+        "plate_height_m": 0.10709986835718155
+      }
+    },
+    {
+      "env_id": 60,
+      "closest_exposed_pinch": {
+        "step": 50,
+        "exposure": 1.0,
+        "distance_m": 0.212486525512017,
+        "vertical_error_m": 0.046401856972342004,
+        "horizontal_error_m": 0.20735812304727144,
+        "rotation_error_deg": 103.08006136170309,
+        "approach_into_ledge": 0.10675540384546109,
+        "hand_height_m": 0.1593875993624978,
+        "plate_height_m": 0.10798574239015579
+      }
+    },
+    {
+      "env_id": 61,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 1.0,
+        "distance_m": 0.1634466453858251,
+        "vertical_error_m": 0.026370661386552308,
+        "horizontal_error_m": 0.16130528232489924,
+        "rotation_error_deg": 97.72782474803677,
+        "approach_into_ledge": 0.20505688816225848,
+        "hand_height_m": 0.13922625703484104,
+        "plate_height_m": 0.10785559564828873
+      }
+    },
+    {
+      "env_id": 62,
+      "closest_exposed_pinch": {
+        "step": 210,
+        "exposure": 1.0,
+        "distance_m": 0.1656164904090547,
+        "vertical_error_m": 0.020944428236646717,
+        "horizontal_error_m": 0.16428680050829544,
+        "rotation_error_deg": 85.71044745471785,
+        "approach_into_ledge": 0.3456715148569377,
+        "hand_height_m": 0.1338054926110936,
+        "plate_height_m": 0.10786106437444687
+      }
+    },
+    {
+      "env_id": 63,
+      "closest_exposed_pinch": {
+        "step": 220,
+        "exposure": 1.0,
+        "distance_m": 0.16735327497339025,
+        "vertical_error_m": 0.024616322086223552,
+        "horizontal_error_m": 0.16553294334139798,
+        "rotation_error_deg": 89.33204192803089,
+        "approach_into_ledge": 0.5497309091992488,
+        "hand_height_m": 0.13747899578607936,
+        "plate_height_m": 0.1078626736998558
+      }
+    },
+    {
+      "env_id": 64,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 0.9805363895866189,
+        "distance_m": 0.16511869553537678,
+        "vertical_error_m": 0.023248796047067616,
+        "horizontal_error_m": 0.1634737810710522,
+        "rotation_error_deg": 89.3918129449062,
+        "approach_into_ledge": 0.2826894897001595,
+        "hand_height_m": 0.13603919166455267,
+        "plate_height_m": 0.10779039561748505
+      }
+    },
+    {
+      "env_id": 65,
+      "closest_exposed_pinch": {
+        "step": 300,
+        "exposure": 1.0,
+        "distance_m": 0.14173950960446538,
+        "vertical_error_m": 0.02172399297534916,
+        "horizontal_error_m": 0.14006483038979242,
+        "rotation_error_deg": 90.8211245702086,
+        "approach_into_ledge": -0.14504306436103015,
+        "hand_height_m": 0.13453266486703847,
+        "plate_height_m": 0.1078086718916893
+      }
+    },
+    {
+      "env_id": 66,
+      "closest_exposed_pinch": {
+        "step": 280,
+        "exposure": 0.9192491923508145,
+        "distance_m": 0.14864620407275617,
+        "vertical_error_m": 0.0383496167652779,
+        "horizontal_error_m": 0.14361406922441752,
+        "rotation_error_deg": 75.07886550438465,
+        "approach_into_ledge": 0.6110217977493453,
+        "hand_height_m": 0.15081211233069233,
+        "plate_height_m": 0.10746249556541443
+      }
+    },
+    {
+      "env_id": 67,
+      "closest_exposed_pinch": {
+        "step": 190,
+        "exposure": 0.9226259338544215,
+        "distance_m": 0.16213493762033088,
+        "vertical_error_m": 0.02084277546230595,
+        "horizontal_error_m": 0.16078966604908565,
+        "rotation_error_deg": 89.05128031319234,
+        "approach_into_ledge": 0.16338968169718315,
+        "hand_height_m": 0.1334609956127767,
+        "plate_height_m": 0.10761822015047073
+      }
+    },
+    {
+      "env_id": 68,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.1531837196370606,
+        "vertical_error_m": 0.039537670585401696,
+        "horizontal_error_m": 0.1479933260877863,
+        "rotation_error_deg": 99.47095463536287,
+        "approach_into_ledge": 0.43127802244154867,
+        "hand_height_m": 0.15230018613029306,
+        "plate_height_m": 0.10776251554489136
+      }
+    },
+    {
+      "env_id": 69,
+      "closest_exposed_pinch": {
+        "step": 270,
+        "exposure": 1.0,
+        "distance_m": 0.12895437223671072,
+        "vertical_error_m": 0.0291592523199366,
+        "horizontal_error_m": 0.12561436272618837,
+        "rotation_error_deg": 84.68612446636851,
+        "approach_into_ledge": 0.3280418731898573,
+        "hand_height_m": 0.14199074533999428,
+        "plate_height_m": 0.10783149302005768
+      }
+    },
+    {
+      "env_id": 70,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 1.0,
+        "distance_m": 0.13753938540980862,
+        "vertical_error_m": 0.015329722472959606,
+        "horizontal_error_m": 0.13668241345473056,
+        "rotation_error_deg": 73.58305806842743,
+        "approach_into_ledge": 0.3393032419482902,
+        "hand_height_m": 0.12806858987503633,
+        "plate_height_m": 0.10773886740207672
+      }
+    },
+    {
+      "env_id": 71,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 1.0,
+        "distance_m": 0.13062274968639043,
+        "vertical_error_m": 0.027305808192883252,
+        "horizontal_error_m": 0.12773682152992097,
+        "rotation_error_deg": 88.10076009388513,
+        "approach_into_ledge": 0.3681219557475204,
+        "hand_height_m": 0.14015642685333324,
+        "plate_height_m": 0.10785061866044998
+      }
+    },
+    {
+      "env_id": 72,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.1584298151895283,
+        "vertical_error_m": 0.022129304433741948,
+        "horizontal_error_m": 0.1568767038991668,
+        "rotation_error_deg": 81.17694361851325,
+        "approach_into_ledge": 0.49744841176831733,
+        "hand_height_m": 0.13495032938806095,
+        "plate_height_m": 0.107821024954319
+      }
+    },
+    {
+      "env_id": 73,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.15657695482663797,
+        "vertical_error_m": 0.03664759317444968,
+        "horizontal_error_m": 0.15222777899353016,
+        "rotation_error_deg": 91.02711356719934,
+        "approach_into_ledge": 0.7265031624894513,
+        "hand_height_m": 0.14948858568476844,
+        "plate_height_m": 0.10784099251031876
+      }
+    },
+    {
+      "env_id": 74,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 1.0,
+        "distance_m": 0.1438717835139422,
+        "vertical_error_m": 0.02673694430992113,
+        "horizontal_error_m": 0.1413655753726869,
+        "rotation_error_deg": 83.42516981283751,
+        "approach_into_ledge": 0.49736832385408014,
+        "hand_height_m": 0.13955798416540133,
+        "plate_height_m": 0.1078210398554802
+      }
+    },
+    {
+      "env_id": 75,
+      "closest_exposed_pinch": {
+        "step": 210,
+        "exposure": 0.9751604691304616,
+        "distance_m": 0.13887926289459226,
+        "vertical_error_m": 0.024170469366548708,
+        "horizontal_error_m": 0.13675978236581834,
+        "rotation_error_deg": 88.26853195861575,
+        "approach_into_ledge": 0.0378300692034888,
+        "hand_height_m": 0.13706455471420115,
+        "plate_height_m": 0.10789408534765244
+      }
+    },
+    {
+      "env_id": 76,
+      "closest_exposed_pinch": {
+        "step": 300,
+        "exposure": 0.9433897651829006,
+        "distance_m": 0.14819291722212014,
+        "vertical_error_m": 0.03666680364264022,
+        "horizontal_error_m": 0.1435851183982317,
+        "rotation_error_deg": 89.82900981800184,
+        "approach_into_ledge": 0.7330248236863196,
+        "hand_height_m": 0.1494559028591014,
+        "plate_height_m": 0.10778909921646118
+      }
+    },
+    {
+      "env_id": 77,
+      "closest_exposed_pinch": {
+        "step": 170,
+        "exposure": 0.9423143650434883,
+        "distance_m": 0.16527469924224533,
+        "vertical_error_m": 0.026865700388330888,
+        "horizontal_error_m": 0.16307654752372913,
+        "rotation_error_deg": 89.72911256496971,
+        "approach_into_ledge": 0.39531272465026396,
+        "hand_height_m": 0.1396665789727158,
+        "plate_height_m": 0.10780087858438492
+      }
+    },
+    {
+      "env_id": 78,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.17723360923858453,
+        "vertical_error_m": 0.04409045703842107,
+        "horizontal_error_m": 0.1716618298920247,
+        "rotation_error_deg": 95.27087949524632,
+        "approach_into_ledge": 0.5683954688745603,
+        "hand_height_m": 0.15700135834648077,
+        "plate_height_m": 0.10791090130805969
+      }
+    },
+    {
+      "env_id": 79,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 1.0,
+        "distance_m": 0.14460784941414845,
+        "vertical_error_m": 0.03216182412120561,
+        "horizontal_error_m": 0.1409859822158986,
+        "rotation_error_deg": 94.01027282785567,
+        "approach_into_ledge": 0.5135575934436883,
+        "hand_height_m": 0.14498524071189622,
+        "plate_height_m": 0.10782341659069061
+      }
+    },
+    {
+      "env_id": 80,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 1.0,
+        "distance_m": 0.14484866803094273,
+        "vertical_error_m": 0.018308967432219797,
+        "horizontal_error_m": 0.14368687602527994,
+        "rotation_error_deg": 77.32897879757824,
+        "approach_into_ledge": 0.2384241280337508,
+        "hand_height_m": 0.13115017600937587,
+        "plate_height_m": 0.10784120857715607
+      }
+    },
+    {
+      "env_id": 81,
+      "closest_exposed_pinch": {
+        "step": 60,
+        "exposure": 1.0,
+        "distance_m": 0.15452330608738604,
+        "vertical_error_m": 0.031382914196701694,
+        "horizontal_error_m": 0.15130289098592417,
+        "rotation_error_deg": 86.24812675768439,
+        "approach_into_ledge": 0.4530269773669259,
+        "hand_height_m": 0.1442281311862189,
+        "plate_height_m": 0.10784521698951721
+      }
+    },
+    {
+      "env_id": 82,
+      "closest_exposed_pinch": {
+        "step": 190,
+        "exposure": 1.0,
+        "distance_m": 0.1492734470645409,
+        "vertical_error_m": 0.034707658873160296,
+        "horizontal_error_m": 0.1451824383803862,
+        "rotation_error_deg": 84.0980837966298,
+        "approach_into_ledge": 0.5920885751085105,
+        "hand_height_m": 0.1475662347536878,
+        "plate_height_m": 0.1078585758805275
+      }
+    },
+    {
+      "env_id": 83,
+      "closest_exposed_pinch": {
+        "step": 70,
+        "exposure": 1.0,
+        "distance_m": 0.15271950047633304,
+        "vertical_error_m": 0.021416544264606596,
+        "horizontal_error_m": 0.1512103748342118,
+        "rotation_error_deg": 87.64647839877071,
+        "approach_into_ledge": 0.35500465798294656,
+        "hand_height_m": 0.13424113059645093,
+        "plate_height_m": 0.10782458633184433
+      }
+    },
+    {
+      "env_id": 84,
+      "closest_exposed_pinch": {
+        "step": 180,
+        "exposure": 1.0,
+        "distance_m": 0.1316289237707426,
+        "vertical_error_m": 0.022005257259806538,
+        "horizontal_error_m": 0.12977650876015157,
+        "rotation_error_deg": 78.79288603589443,
+        "approach_into_ledge": 0.3388741452712508,
+        "hand_height_m": 0.1348423754682149,
+        "plate_height_m": 0.10783711820840836
+      }
+    },
+    {
+      "env_id": 85,
+      "closest_exposed_pinch": {
+        "step": 180,
+        "exposure": 1.0,
+        "distance_m": 0.16800782246978907,
+        "vertical_error_m": 0.03124192433610673,
+        "horizontal_error_m": 0.1650774684044347,
+        "rotation_error_deg": 92.95022439972465,
+        "approach_into_ledge": 0.6172412914408497,
+        "hand_height_m": 0.14404782461181398,
+        "plate_height_m": 0.10780590027570724
+      }
+    },
+    {
+      "env_id": 86,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 1.0,
+        "distance_m": 0.14411417353086478,
+        "vertical_error_m": 0.01738957770664673,
+        "horizontal_error_m": 0.14306116733645333,
+        "rotation_error_deg": 82.19752715128939,
+        "approach_into_ledge": 0.07260267632648425,
+        "hand_height_m": 0.13023910858232957,
+        "plate_height_m": 0.10784953087568283
+      }
+    },
+    {
+      "env_id": 87,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 1.0,
+        "distance_m": 0.13836300989641226,
+        "vertical_error_m": 0.026801371379368555,
+        "horizontal_error_m": 0.13574243625255825,
+        "rotation_error_deg": 87.44011615913382,
+        "approach_into_ledge": 0.12621911270903438,
+        "hand_height_m": 0.13967153291272427,
+        "plate_height_m": 0.10787016153335571
+      }
+    },
+    {
+      "env_id": 88,
+      "closest_exposed_pinch": {
+        "step": 190,
+        "exposure": 0.9430097879999121,
+        "distance_m": 0.1659272927465563,
+        "vertical_error_m": 0.026055286935072225,
+        "horizontal_error_m": 0.1638688149128212,
+        "rotation_error_deg": 91.53931904621324,
+        "approach_into_ledge": 0.48381158246438244,
+        "hand_height_m": 0.13879288773844747,
+        "plate_height_m": 0.10773760080337524
+      }
+    },
+    {
+      "env_id": 89,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 1.0,
+        "distance_m": 0.15107162167426416,
+        "vertical_error_m": 0.02441646006630288,
+        "horizontal_error_m": 0.14908544983707378,
+        "rotation_error_deg": 81.47597674827787,
+        "approach_into_ledge": 0.433760585879118,
+        "hand_height_m": 0.13713407841251718,
+        "plate_height_m": 0.1077176183462143
+      }
+    },
+    {
+      "env_id": 90,
+      "closest_exposed_pinch": {
+        "step": 50,
+        "exposure": 1.0,
+        "distance_m": 0.16476714380399146,
+        "vertical_error_m": 0.012229270949859872,
+        "horizontal_error_m": 0.16431267939316221,
+        "rotation_error_deg": 84.2298062451238,
+        "approach_into_ledge": 0.15053793339288332,
+        "hand_height_m": 0.12509631814052607,
+        "plate_height_m": 0.1078670471906662
+      }
+    },
+    {
+      "env_id": 91,
+      "closest_exposed_pinch": {
+        "step": 200,
+        "exposure": 0.9481912626712252,
+        "distance_m": 0.15628758439584406,
+        "vertical_error_m": 0.033277498235665615,
+        "horizontal_error_m": 0.1527036906805574,
+        "rotation_error_deg": 91.77924556707907,
+        "approach_into_ledge": 0.31927814765487805,
+        "hand_height_m": 0.14553210770126468,
+        "plate_height_m": 0.10725460946559906
+      }
+    },
+    {
+      "env_id": 92,
+      "closest_exposed_pinch": {
+        "step": 30,
+        "exposure": 0.9601225605627566,
+        "distance_m": 0.20214573034277683,
+        "vertical_error_m": -0.006585108547777718,
+        "horizontal_error_m": 0.20203844347358407,
+        "rotation_error_deg": 114.23569308765241,
+        "approach_into_ledge": -0.3543062590838465,
+        "hand_height_m": 0.11370790997210067,
+        "plate_height_m": 0.11529301851987839
+      }
+    },
+    {
+      "env_id": 93,
+      "closest_exposed_pinch": {
+        "step": 180,
+        "exposure": 1.0,
+        "distance_m": 0.13004887900577775,
+        "vertical_error_m": 0.022007227082279868,
+        "horizontal_error_m": 0.12817329240839678,
+        "rotation_error_deg": 90.61690765967968,
+        "approach_into_ledge": 0.1315390300528661,
+        "hand_height_m": 0.13483043505671377,
+        "plate_height_m": 0.1078232079744339
+      }
+    },
+    {
+      "env_id": 94,
+      "closest_exposed_pinch": {
+        "step": 220,
+        "exposure": 0.9517649502535668,
+        "distance_m": 0.16341405679189178,
+        "vertical_error_m": 0.039483745905217915,
+        "horizontal_error_m": 0.1585723423755726,
+        "rotation_error_deg": 95.89931005171618,
+        "approach_into_ledge": 0.5234977693982479,
+        "hand_height_m": 0.15176919332390765,
+        "plate_height_m": 0.10728544741868973
+      }
+    },
+    {
+      "env_id": 95,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 1.0,
+        "distance_m": 0.15732527626136783,
+        "vertical_error_m": 0.02784587222646412,
+        "horizontal_error_m": 0.15484137028153405,
+        "rotation_error_deg": 75.27487182801744,
+        "approach_into_ledge": 0.4480857800282064,
+        "hand_height_m": 0.1407439510853165,
+        "plate_height_m": 0.10789807885885239
+      }
+    },
+    {
+      "env_id": 96,
+      "closest_exposed_pinch": {
+        "step": 270,
+        "exposure": 1.0,
+        "distance_m": 0.12810699205154738,
+        "vertical_error_m": 0.017328547597173283,
+        "horizontal_error_m": 0.12692959800876913,
+        "rotation_error_deg": 83.6993976587508,
+        "approach_into_ledge": 0.1661869785467777,
+        "hand_height_m": 0.1301960641744171,
+        "plate_height_m": 0.1078675165772438
+      }
+    },
+    {
+      "env_id": 97,
+      "closest_exposed_pinch": {
+        "step": 90,
+        "exposure": 1.0,
+        "distance_m": 0.1441670656311359,
+        "vertical_error_m": 0.037487025026868764,
+        "horizontal_error_m": 0.1392079946243288,
+        "rotation_error_deg": 81.30456687027329,
+        "approach_into_ledge": 0.3647822650478795,
+        "hand_height_m": 0.15028285211760897,
+        "plate_height_m": 0.1077958270907402
+      }
+    },
+    {
+      "env_id": 98,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 1.0,
+        "distance_m": 0.17165671971350507,
+        "vertical_error_m": 0.017679417613191917,
+        "horizontal_error_m": 0.17074386552863094,
+        "rotation_error_deg": 86.52143427631694,
+        "approach_into_ledge": 0.16713979364582948,
+        "hand_height_m": 0.1304667957455352,
+        "plate_height_m": 0.10778737813234329
+      }
+    },
+    {
+      "env_id": 99,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 0.9994935344392414,
+        "distance_m": 0.15380790708992545,
+        "vertical_error_m": 0.033445685079906196,
+        "horizontal_error_m": 0.15012747394437462,
+        "rotation_error_deg": 95.39243717407665,
+        "approach_into_ledge": 0.5014793525519883,
+        "hand_height_m": 0.1462376304181554,
+        "plate_height_m": 0.1077919453382492
+      }
+    },
+    {
+      "env_id": 100,
+      "closest_exposed_pinch": {
+        "step": 180,
+        "exposure": 1.0,
+        "distance_m": 0.14294208521534277,
+        "vertical_error_m": 0.0280532142416155,
+        "horizontal_error_m": 0.1401622520382158,
+        "rotation_error_deg": 88.7563092873307,
+        "approach_into_ledge": 0.6057024213865341,
+        "hand_height_m": 0.14090150087033865,
+        "plate_height_m": 0.10784828662872314
+      }
+    },
+    {
+      "env_id": 101,
+      "closest_exposed_pinch": {
+        "step": 110,
+        "exposure": 0.8772040827838616,
+        "distance_m": 0.1482205694706738,
+        "vertical_error_m": 0.029232075163072413,
+        "horizontal_error_m": 0.14530940436142226,
+        "rotation_error_deg": 99.81373501248936,
+        "approach_into_ledge": 0.0841305435275526,
+        "hand_height_m": 0.1420480486237467,
+        "plate_height_m": 0.10781597346067429
+      }
+    },
+    {
+      "env_id": 102,
+      "closest_exposed_pinch": {
+        "step": 210,
+        "exposure": 1.0,
+        "distance_m": 0.1280635084814371,
+        "vertical_error_m": 0.031227245172432416,
+        "horizontal_error_m": 0.12419791207389885,
+        "rotation_error_deg": 80.42621075399241,
+        "approach_into_ledge": 0.5023630668061362,
+        "hand_height_m": 0.1439863110985074,
+        "plate_height_m": 0.10775906592607498
+      }
+    },
+    {
+      "env_id": 103,
+      "closest_exposed_pinch": {
+        "step": 200,
+        "exposure": 1.0,
+        "distance_m": 0.14323874611013931,
+        "vertical_error_m": 0.019398681407365975,
+        "horizontal_error_m": 0.14191909507483644,
+        "rotation_error_deg": 76.3469084780189,
+        "approach_into_ledge": 0.375047662501285,
+        "hand_height_m": 0.13223886180439967,
+        "plate_height_m": 0.10784018039703369
+      }
+    },
+    {
+      "env_id": 104,
+      "closest_exposed_pinch": {
+        "step": 90,
+        "exposure": 1.0,
+        "distance_m": 0.1468791559763919,
+        "vertical_error_m": 0.03859599373922809,
+        "horizontal_error_m": 0.14171745032852773,
+        "rotation_error_deg": 85.07330327068003,
+        "approach_into_ledge": 0.4934413001679234,
+        "hand_height_m": 0.1514128761707352,
+        "plate_height_m": 0.10781688243150711
+      }
+    },
+    {
+      "env_id": 105,
+      "closest_exposed_pinch": {
+        "step": 140,
+        "exposure": 1.0,
+        "distance_m": 0.13846029287943962,
+        "vertical_error_m": 0.02651584044738514,
+        "horizontal_error_m": 0.13589761921987084,
+        "rotation_error_deg": 89.69342269682865,
+        "approach_into_ledge": 0.2461747203831893,
+        "hand_height_m": 0.13931379840417607,
+        "plate_height_m": 0.10779795795679092
+      }
+    },
+    {
+      "env_id": 106,
+      "closest_exposed_pinch": {
+        "step": 70,
+        "exposure": 1.0,
+        "distance_m": 0.16260408776322394,
+        "vertical_error_m": 0.027567990714076174,
+        "horizontal_error_m": 0.16025010216938662,
+        "rotation_error_deg": 86.21358684630447,
+        "approach_into_ledge": 0.39042575145423,
+        "hand_height_m": 0.14036076306677164,
+        "plate_height_m": 0.10779277235269547
+      }
+    },
+    {
+      "env_id": 107,
+      "closest_exposed_pinch": {
+        "step": 40,
+        "exposure": 1.0,
+        "distance_m": 0.24759306353731814,
+        "vertical_error_m": 0.07828483615886131,
+        "horizontal_error_m": 0.2348910588749063,
+        "rotation_error_deg": 90.34031477019862,
+        "approach_into_ledge": -0.27260601382689,
+        "hand_height_m": 0.15765189741622368,
+        "plate_height_m": 0.07436706125736237
+      }
+    },
+    {
+      "env_id": 108,
+      "closest_exposed_pinch": {
+        "step": 200,
+        "exposure": 1.0,
+        "distance_m": 0.11700486644839085,
+        "vertical_error_m": 0.024659852019951745,
+        "horizontal_error_m": 0.11437670423193642,
+        "rotation_error_deg": 74.6312206182581,
+        "approach_into_ledge": 0.31834420426796556,
+        "hand_height_m": 0.13748426698844235,
+        "plate_height_m": 0.1078244149684906
+      }
+    },
+    {
+      "env_id": 109,
+      "closest_exposed_pinch": {
+        "step": 140,
+        "exposure": 1.0,
+        "distance_m": 0.14628109967919284,
+        "vertical_error_m": 0.02969946913489263,
+        "horizontal_error_m": 0.14323442901921138,
+        "rotation_error_deg": 85.1484835724215,
+        "approach_into_ledge": 0.4449895294326089,
+        "hand_height_m": 0.14254075966843527,
+        "plate_height_m": 0.10784129053354263
+      }
+    },
+    {
+      "env_id": 110,
+      "closest_exposed_pinch": {
+        "step": 200,
+        "exposure": 1.0,
+        "distance_m": 0.11601950644870185,
+        "vertical_error_m": 0.022601018215116953,
+        "horizontal_error_m": 0.11379683586216412,
+        "rotation_error_deg": 85.02856926856555,
+        "approach_into_ledge": 0.2309168872902892,
+        "hand_height_m": 0.13545492258161018,
+        "plate_height_m": 0.10785390436649323
+      }
+    },
+    {
+      "env_id": 111,
+      "closest_exposed_pinch": {
+        "step": 130,
+        "exposure": 1.0,
+        "distance_m": 0.12332629982456375,
+        "vertical_error_m": 0.022550491622868596,
+        "horizontal_error_m": 0.12124706823665934,
+        "rotation_error_deg": 84.71130391882514,
+        "approach_into_ledge": 0.3221736363208755,
+        "hand_height_m": 0.13538712554353816,
+        "plate_height_m": 0.10783663392066956
+      }
+    },
+    {
+      "env_id": 112,
+      "closest_exposed_pinch": {
+        "step": 280,
+        "exposure": 0.9764473101755032,
+        "distance_m": 0.14545285171127026,
+        "vertical_error_m": 0.04267934831612391,
+        "horizontal_error_m": 0.13905036964442688,
+        "rotation_error_deg": 92.8256410787865,
+        "approach_into_ledge": 0.4682503295134234,
+        "hand_height_m": 0.15546955021851344,
+        "plate_height_m": 0.10779020190238953
+      }
+    },
+    {
+      "env_id": 113,
+      "closest_exposed_pinch": {
+        "step": 170,
+        "exposure": 1.0,
+        "distance_m": 0.13374182805206455,
+        "vertical_error_m": 0.011845700756266064,
+        "horizontal_error_m": 0.1332162000069849,
+        "rotation_error_deg": 79.35094762900775,
+        "approach_into_ledge": 0.30332935200943284,
+        "hand_height_m": 0.1246533370172524,
+        "plate_height_m": 0.10780763626098633
+      }
+    },
+    {
+      "env_id": 114,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.14497596505183144,
+        "vertical_error_m": 0.04202799698554183,
+        "horizontal_error_m": 0.1387504158988114,
+        "rotation_error_deg": 90.82195644950042,
+        "approach_into_ledge": 0.5724004982046271,
+        "hand_height_m": 0.1548818044944873,
+        "plate_height_m": 0.10785380750894547
+      }
+    },
+    {
+      "env_id": 115,
+      "closest_exposed_pinch": {
+        "step": 180,
+        "exposure": 1.0,
+        "distance_m": 0.15596145777074702,
+        "vertical_error_m": 0.02663799184411117,
+        "horizontal_error_m": 0.15366975532123936,
+        "rotation_error_deg": 85.98253145344373,
+        "approach_into_ledge": 0.6395604433770296,
+        "hand_height_m": 0.13944545674174377,
+        "plate_height_m": 0.1078074648976326
+      }
+    },
+    {
+      "env_id": 116,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 1.0,
+        "distance_m": 0.1432017581455705,
+        "vertical_error_m": 0.023891857378879333,
+        "horizontal_error_m": 0.14119462697627613,
+        "rotation_error_deg": 91.71720383168639,
+        "approach_into_ledge": 0.30961312374806366,
+        "hand_height_m": 0.13669810038129404,
+        "plate_height_m": 0.1078062430024147
+      }
+    },
+    {
+      "env_id": 117,
+      "closest_exposed_pinch": {
+        "step": 150,
+        "exposure": 1.0,
+        "distance_m": 0.1700661219646482,
+        "vertical_error_m": 0.046603991802631056,
+        "horizontal_error_m": 0.16355596530898803,
+        "rotation_error_deg": 99.80839658188106,
+        "approach_into_ledge": 0.645361801883008,
+        "hand_height_m": 0.1594549755415303,
+        "plate_height_m": 0.10785098373889923
+      }
+    },
+    {
+      "env_id": 118,
+      "closest_exposed_pinch": {
+        "step": 160,
+        "exposure": 0.9245057977459659,
+        "distance_m": 0.13612651339442108,
+        "vertical_error_m": 0.02707737881649408,
+        "horizontal_error_m": 0.13340630871645306,
+        "rotation_error_deg": 87.20015542788457,
+        "approach_into_ledge": 0.20880802919205332,
+        "hand_height_m": 0.1399456255506364,
+        "plate_height_m": 0.1078682467341423
+      }
+    },
+    {
+      "env_id": 119,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.15477291150879807,
+        "vertical_error_m": 0.0243888664002396,
+        "horizontal_error_m": 0.15283925324543268,
+        "rotation_error_deg": 90.53898251117818,
+        "approach_into_ledge": 0.49634098900813367,
+        "hand_height_m": 0.13724652585935368,
+        "plate_height_m": 0.10785765945911407
+      }
+    },
+    {
+      "env_id": 120,
+      "closest_exposed_pinch": {
+        "step": 250,
+        "exposure": 1.0,
+        "distance_m": 0.14890812806796186,
+        "vertical_error_m": 0.03374293474155207,
+        "horizontal_error_m": 0.14503463365600605,
+        "rotation_error_deg": 98.637244502775,
+        "approach_into_ledge": 0.1845012572304785,
+        "hand_height_m": 0.14659232405620357,
+        "plate_height_m": 0.10784938931465149
+      }
+    },
+    {
+      "env_id": 121,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 1.0,
+        "distance_m": 0.15226685726540853,
+        "vertical_error_m": 0.024626937187990167,
+        "horizontal_error_m": 0.15026213690155976,
+        "rotation_error_deg": 80.6974359385967,
+        "approach_into_ledge": 0.42970211697647864,
+        "hand_height_m": 0.13743420837052725,
+        "plate_height_m": 0.10780727118253708
+      }
+    },
+    {
+      "env_id": 122,
+      "closest_exposed_pinch": {
+        "step": 80,
+        "exposure": 1.0,
+        "distance_m": 0.15555499942298895,
+        "vertical_error_m": 0.019023929066511458,
+        "horizontal_error_m": 0.15438733098398466,
+        "rotation_error_deg": 85.01729447293495,
+        "approach_into_ledge": 0.3922750107281953,
+        "hand_height_m": 0.13183865082964547,
+        "plate_height_m": 0.107814721763134
+      }
+    },
+    {
+      "env_id": 123,
+      "closest_exposed_pinch": {
+        "step": 100,
+        "exposure": 1.0,
+        "distance_m": 0.1499510386554536,
+        "vertical_error_m": 0.029783920750798887,
+        "horizontal_error_m": 0.1469633697849892,
+        "rotation_error_deg": 85.69345573805779,
+        "approach_into_ledge": 0.41708882623578725,
+        "hand_height_m": 0.14257227490920038,
+        "plate_height_m": 0.10778835415840149
+      }
+    },
+    {
+      "env_id": 124,
+      "closest_exposed_pinch": {
+        "step": 120,
+        "exposure": 0.9758008953043555,
+        "distance_m": 0.1387205982669122,
+        "vertical_error_m": 0.020523399783719365,
+        "horizontal_error_m": 0.13719400294782447,
+        "rotation_error_deg": 95.3430834494426,
+        "approach_into_ledge": -0.17692641061323,
+        "hand_height_m": 0.13324424423133213,
+        "plate_height_m": 0.10772084444761276
+      }
+    },
+    {
+      "env_id": 125,
+      "closest_exposed_pinch": {
+        "step": 240,
+        "exposure": 0.994411487171528,
+        "distance_m": 0.16331181868449882,
+        "vertical_error_m": 0.02884322366497577,
+        "horizontal_error_m": 0.16074457555591354,
+        "rotation_error_deg": 86.399467527226,
+        "approach_into_ledge": 0.11780942571218585,
+        "hand_height_m": 0.14154352686188282,
+        "plate_height_m": 0.10770030319690704
+      }
+    },
+    {
+      "env_id": 126,
+      "closest_exposed_pinch": {
+        "step": 270,
+        "exposure": 0.9700034134299955,
+        "distance_m": 0.1538245237921249,
+        "vertical_error_m": 0.021701910785315026,
+        "horizontal_error_m": 0.1522859520380663,
+        "rotation_error_deg": 89.01012730776654,
+        "approach_into_ledge": 0.39896235785594353,
+        "hand_height_m": 0.134504100671885,
+        "plate_height_m": 0.10780218988656998
+      }
+    },
+    {
+      "env_id": 127,
+      "closest_exposed_pinch": {
+        "step": 290,
+        "exposure": 0.9531374997672225,
+        "distance_m": 0.16097414756885242,
+        "vertical_error_m": 0.028389846428144683,
+        "horizontal_error_m": 0.15845091607594142,
+        "rotation_error_deg": 91.80329434595984,
+        "approach_into_ledge": 0.5977835645269394,
+        "hand_height_m": 0.14117940013002228,
+        "plate_height_m": 0.1077895537018776
+      }
+    }
+  ]
+}

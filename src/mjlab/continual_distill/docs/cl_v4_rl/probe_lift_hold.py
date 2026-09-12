@@ -1,4 +1,4 @@
-"""Compare constant-control settling from recorded Lift grasps on GPU and CPU."""
+"""Compare constant-control holding/release from recorded grasps on GPU and CPU."""
 import argparse
 import copy
 import json
@@ -25,12 +25,13 @@ def main():
   parser.add_argument('--fixed-grip-target',type=float)
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
-  assert evaluation['task']=='Mjlab-Lift-Cube-Franka'
+  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka')
   checkpoint = Path(evaluation['checkpoint'])
   manifest = json.loads((checkpoint.parent/'manifest.json').read_text())
   cfg = TrainConfig.from_task(evaluation['task'])
   apply_recipe(cfg,manifest['recipe'])
-  cfg.env.sim.free_body_implicitfast_compat = args.gyro
+  cfg.env.sim.free_body_implicitfast_compat = args.gyro or manifest.get('free_body_implicitfast_compat', False)
+  cfg.env.sim.elliptic_hessian_compat = manifest.get('elliptic_hessian_compat', False)
   records = [r for r in evaluation['records'] if r['reason']=='timeout'][::4]
   cfg.env.scene.num_envs = len(records)
   cfg.env.seed = 20260914
@@ -47,7 +48,7 @@ def main():
     if args.use_trace_friction:
       values = trace['initial_model_geom_friction'][[r['env_id'] for r in records]]
       env.sim.model.geom_friction[:] = torch.as_tensor(values,device=env.device)
-    command = env.command_manager.get_term('lift_object')
+    command = env.command_manager.get_term(next(iter(cfg.env.commands)))
     joint = next(i for i in range(model.njnt) if model.joint(i).name.startswith('cube/') and model.jnt_type[i]==mujoco.mjtJoint.mjJNT_FREE)
     qadr,vadr = int(model.jnt_qposadr[joint]),int(model.jnt_dofadr[joint])
     local = {name:values.copy() for name,values in initial.items()}
@@ -148,7 +149,9 @@ def main():
       cases.append(dict(mode=mode,**summary))
       print(mode,{name:{k:v for k,v in row.items() if k not in ['warnings','linear_speeds','angular_speeds','positions_local_m','goal_errors_m']} for name,row in summary.items()},flush=True)
     report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
-                gyro_correction=args.gyro,episodes=len(records),lanes=[r['env_id'] for r in records],
+                gyro_correction=cfg.env.sim.free_body_implicitfast_compat,
+                elliptic_hessian_compat=cfg.env.sim.elliptic_hessian_compat,
+                episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
                 source_episode_randomization_reconstructed=args.use_trace_friction,physics_dt=env.physics_dt,
                 fixed_grip_target=args.fixed_grip_target,

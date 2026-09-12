@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "checkpoint_sha256": "9fd2b03b9af80583ba567991d21e1a55b3cc37fc22303844d969e39243754a72",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0062.png",
+    "failure-0124.png"
+  ],
+  "review": "Actual failure frames show the cube lifted and held above the container rim without release. Terminal opposing contacts99.21%, height0.348m, gripper action-0.979. Strict0/128,127timeouts1bounds. Unchanged continuation improved transport but did not teach release.",
+  "last_diagnostics": {
+    "control_step": 240,
+    "active_episodes": 127,
+    "grasped_fraction": 0.9921259880065918,
+    "enclosed_fraction": 0.5826771855354309,
+    "enclosed_grasp_fraction": 0.5826771855354309,
+    "opposed_grasp_fraction": 0.9921259880065918,
+    "robot_object_contact_fraction": 0.9921259880065918,
+    "aperture_mean": 0.04722478985786438,
+    "gripper_object_distance_mean": 0.017122136428952217,
+    "gripper_goal_distance_mean": 0.3595179319381714,
+    "gripper_down_alignment_mean": 0.37689754366874695,
+    "object_height_mean": 0.34839677810668945,
+    "gripper_action_mean": -0.9788771271705627,
+    "absolute_action_max": 1.0,
+    "goal_error_mean": 0.34819990396499634
+  },
+  "videos": {
+    "task": "Mjlab-Throw-To-Bin-Franka",
+    "checkpoint_sha256": "9fd2b03b9af80583ba567991d21e1a55b3cc37fc22303844d969e39243754a72",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-R3-m7497/failure.mp4",
+        "outcome": {
+          "env_id": 16,
+          "success": false,
+          "steps": 250,
+          "return": 48.250205993652344,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 125,
+        "fps": 25,
+        "simulation_seconds": 5.0,
+        "encoded_seconds": 5.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
