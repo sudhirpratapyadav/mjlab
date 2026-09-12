@@ -56,4 +56,6 @@ Captured Peg/Reorient spin failures identify a missing native MuJoCo free-body g
 
 Public summary: https://cl.sudhirpratapyadav.com/v4-rl/ — current RL card and24 actual policy videos. Keep reviewed results current with PUBLICATION.md.
 
-See evidence/*-certificate.json, training_wave16.json, gyro_compatibility_audit.json and rl_training_coverage.json. Verify Slurm/process state before GPU reuse.
+See evidence/*-certificate.json, training_wave17.json, gyro_compatibility_audit.json and rl_training_coverage.json. Verify Slurm/process state before GPU reuse.
+
+Wave17: strike_v2 precise approach/contact-drive reward sourcea74b981 passes57 focused tests. It is prepared, not PPO-validated or launched. Next suitable freeGPU1/3 after its current final evaluation runsPREFLIGHT-STRIKE-CONTACT-024 from own2999, thenRL-023-R2 only after finite3-update verification. Strike/Edge recorded-pose audits identify vertical contact-height and side-wrist approach misses, respectively. Current seven full training runs remain unchanged.
