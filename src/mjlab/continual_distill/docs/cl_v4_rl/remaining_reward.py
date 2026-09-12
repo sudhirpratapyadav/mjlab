@@ -10,7 +10,7 @@ from mjlab.tasks.manipulation.mdp.task_geometry import (
   tracking_goal, tracking_position,
 )
 from mjlab.utils.lab_api.math import quat_apply
-from completion_reward import safe_grasp_target, smooth_closure_bonus
+from completion_reward import enclosed_grasp, safe_grasp_target, smooth_closure_bonus
 
 
 def sliding_endpoint(position, velocity, friction, gravity=9.81):
@@ -62,7 +62,7 @@ def strike_reward(env, command_name, **kwargs):
   return approach+4*torch.exp(-prediction_error/.25)+3*torch.exp(-actual_error/.20)+20*native_success(command)
 
 
-def throw_reward(env, command_name, **kwargs):
+def throw_reward(env, command_name, require_enclosure=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   grip, axes, aperture = hand_geometry(env,command)
@@ -70,7 +70,7 @@ def throw_reward(env, command_name, **kwargs):
   distance = torch.linalg.vector_norm(grip-safe_grasp_target(command),dim=-1)
   approach = torch.exp(-distance/.20)*(.25+.75*(-axes[2][:,2]).clamp(0,1))
   closure = smooth_closure_bonus(distance,aperture)
-  held = grasped(command).float()
+  held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   height = (pos[:,2]-env.scene.env_origins[:,2]-.023).clamp_min(0)
   lift = (height/.25).clamp(0,1)
   # Predict the rim crossing, not a trajectory through a bin wall below the rim.
@@ -82,7 +82,7 @@ def throw_reward(env, command_name, **kwargs):
           +6*aim*held+12*aim*airborne+25*native_success(command))
 
 
-def edge_reward(env, command_name, **kwargs):
+def edge_reward(env, command_name, require_enclosure=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -103,13 +103,13 @@ def edge_reward(env, command_name, **kwargs):
   pinch = torch.exp(-pinch_distance/.10)*(.25+.75*axes[1][:,2].abs())
   pinch *= 1+smooth_closure_bonus(pinch_distance,aperture)
   precursor = ((1-exposure)*push+exposure*pinch+4*exposure)*at_ledge
-  held = grasped(command).float()
+  held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   lift = ((pos[:,2]-top)/.10).clamp(0,1)
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.15)
   return precursor*(1-held)+8*held+6*lift*held+4*goal*held+25*native_success(command)
 
 
-def pivot_reward(env, command_name, **kwargs):
+def pivot_reward(env, command_name, require_enclosure=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -129,7 +129,7 @@ def pivot_reward(env, command_name, **kwargs):
   board_far = object_corners(obj)[:,:,0].amax(1)
   wall_near = torch.exp(-(wall_face-board_far).clamp_min(0)/.08)
   contact = touching(command,obj,command.wall).float()
-  held = grasped(command).float()
+  held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.20)
   lift = ((pos[:,2]-env.scene.env_origins[:,2]-.01)/.12).clamp(0,1)
   precursor = approach+2*wall_near+4*tilt*contact

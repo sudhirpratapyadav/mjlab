@@ -87,9 +87,27 @@ class TeacherRunner(OnPolicyRunner):
       std = policy.std if policy.noise_std_type == "scalar" else policy.log_std.exp()
       metrics = {"Diagnostics/std_min":float(std.min().detach()),
                  "Diagnostics/std_max":float(std.max().detach()),
+                 "Diagnostics/gripper_std":float(std[-1].detach()),
+                 "Diagnostics/gripper_action_mean":float(policy.action_mean[:,-1].mean().detach()),
                  "Diagnostics/mean_abs_max":float(policy.action_mean.abs().max().detach()),
                  "Diagnostics/action_saturation":sum(self._saturation)/max(1,len(self._saturation)),
                  "Diagnostics/peak_gpu_memory_mib":torch.cuda.max_memory_allocated()/1024**2}
+      env = self.env.unwrapped
+      names = env.command_manager.active_terms
+      if len(names) == 1:
+        command = env.command_manager.get_term(names[0])
+        if hasattr(command, "object"):
+          from mjlab.tasks.manipulation.mdp.task_geometry import between_fingers, finger_aperture, grasped, tracking_position
+          with torch.no_grad():
+            contact = grasped(command)
+            enclosure = between_fingers(command)
+            metrics.update({
+              "Diagnostics/two_pad_contact_fraction":float(contact.float().mean()),
+              "Diagnostics/enclosed_fraction":float(enclosure.float().mean()),
+              "Diagnostics/enclosed_grasp_fraction":float((contact&enclosure).float().mean()),
+              "Diagnostics/aperture_mean":float(finger_aperture(command.robot).mean()),
+              "Diagnostics/object_height_mean":float((tracking_position(command.object)[:,2]-env.scene.env_origins[:,2]).mean()),
+            })
       self._saturation.clear()
       for name,value in metrics.items():
         self.logger.writer.add_scalar(name,value,values["it"])

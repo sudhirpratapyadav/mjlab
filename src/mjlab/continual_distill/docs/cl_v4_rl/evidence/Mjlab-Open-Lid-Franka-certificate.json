@@ -1,0 +1,46 @@
+{
+  "task": "Mjlab-Open-Lid-Franka",
+  "certified_utc": "2026-09-12T18:11:30.936699+00:00",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Open-Lid-Franka/model.pt",
+  "checkpoint_sha256": "1ea76b5183afbef61f2804c7bd32cf82d53b0c84e6e4d8bf42e022b9bfe60b04",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Open-Lid-Franka/normalizers.pt",
+  "normalizers_sha256": "8c62f867cc457652c507d7baf900f6183653d293e0cae25c796348fa766c79ec",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 128,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-015-V3-m700-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 128,
+    "episodes": 128,
+    "seed": 20260915,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-015-V3-m700-confirm-20260915.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Open-Lid-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-015-V3-m700/success.mp4",
+      "outcome": {
+        "env_id": 42,
+        "success": true,
+        "steps": 250,
+        "return": 50.87282180786133,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 125,
+      "fps": 25,
+      "simulation_seconds": 5.0,
+      "encoded_seconds": 5.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/p5lo2knx",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Open-Lid-Franka-teacher:v0"
+}

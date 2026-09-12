@@ -139,3 +139,15 @@ Debug seed20260913 evaluations: Stackmodel1500, Placemodel1200 and Pegmodel800 e
 Added completion_v3: actual grasp reward now requires both native two-pad contact and existing between_fingers geometry. Old recipe behavior is preserved. An adversarial geometry test rejects top pressing, accepts an enclosed bilateral pinch, and rejects enclosure without contact.74 tests passed. Retained finite old checkpoints and stopped only ownsteps1704/1705/1714. All three fresh64-env3-update PPO preflights and checkpoints finite. Launched fresh Stack V2 onGPU3, Peg V2 onGPU4 and Place V2 onGPU7 with pre-recorded budgets. Exact seven current manifests in training_wave8.json. Native observations/actions/physics/success are unchanged. Edge/Pivot/Throw remain preflighted but need first full pilots; review their contact shaping before launch in light of this finding.
 
 W&B scoreboard remains13/24; all simulator numerical-failure artifacts now publish through the generic inventory, including Lift R4 and Reorient R4. Debug evaluations, preflights and reviewed Stack failure video are online. No numerical failure has been hidden or counted as success.
+
+## 2026-09-12 — Evaluate bounded Lid and continue remaining pilots
+
+Previous goal turn made progress: Valve became the13th certified independent RL teacher, remaining recipes passed physics/PPO checks, and a confirmed top-press reward loophole led to completion_v3 fresh pilots. Revalidated all seven actual training processes and GPU0 at0MiB.
+
+Fresh bounded Lid V3 now reports100% training at_goal arounditeration780. Verified finite savedmodel700. Pause only ownstep1728 at this retained candidate, then run both strict held-out gates with actual-state rendering. Training logs alone do not certify it; resume its own finite checkpoint if the gate fails.
+
+### Fourteen certified; remaining grasp-credit revisions pass PPO
+
+Lid model700 passed128/128 validation and128/128 confirmation. Reviewed initial, middle and final actual-state frames: wooden lid rotates upright, box interior exposed, and stays open through5s. Retained model/optimizer/normalizers/configs/video artifact; certification runp5lo2knx.14/24 independent PPO RL teachers certified.
+
+Added enclosure-gated edge_v2/pivot_v2/throw_v2 plus prepared lift_v4/reorient_v5, preserving older recipe behavior.79 focused tests passed. Edge/Pivot/Throw each completed3 finite guarded PPO updates and checkpoint save. Added per-update training diagnostics for gripper std/mean, two-pad contact, enclosure, enclosed grasp, aperture and object height; Throw preflight exercised the new metrics online. Full Edge pilot now takesGPU6 after Lid certification;3000 updates at2048 environments, fresh independent policy.

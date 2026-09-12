@@ -81,10 +81,10 @@ Use a unique run ID, record the hypothesis and config change before launch, then
 | RL-015-V3 | Lid | Learn hinge progress with bounded action means | lid_v2,2048 environments ×2000 updates, seed20260912, GPU6 | Running | Fresh bounded lid_v2 onGPU6; source4efa3e3. |
 
 | PREFLIGHT-REMAINING-008 | Edge/Pivot/Strike/Throw | Validate precursor/dynamic shaping with native completion | Each32 environments ×100 steps, GPU1;70 focused CPU tests | Complete | 70 CPU tests; four real-physics cases finite; evidence/remaining_preflight_v1.json and W&B5g2qp9h4. |
-| RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual grasp/height/settling required; assign GPU after readiness |
-| RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual contact/tilt history retained; assign GPU after readiness |
+| RL-021 | Edge-Grasp | Learn edge exposure, rim grasp and lift | edge_v2,2048 environments ×3000 updates, seed20260912, GPU6 | Prepared | Native actual grasp/height/settling required; assign GPU after readiness |
+| RL-022 | Pivot-Lift | Learn wall-assisted pivot, capture and lift | pivot_v2,2048 environments ×3000 updates, seed20260912 | Prepared | Native actual contact/tilt history retained; assign GPU after readiness |
 | RL-023 | Strike-Slide | Learn accurate contact launch to unreachable goal | strike_v1,2048 environments ×3000 updates, seed20260912 | Running | GPU1; exact manifest in training_wave8.json. |
-| RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v1,2048 environments ×3000 updates, seed20260912 | Prepared | Native full-object containment/release/support/settling retained; prediction does not certify success |
+| RL-024 | Throw-To-Bin | Learn grasp, launch and release into distant bin | throw_v2,2048 environments ×3000 updates, seed20260912 | Prepared | Native full-object containment/release/support/settling retained; prediction does not certify success |
 
 | PREFLIGHT-REMAINING-PPO-009 | Edge/Pivot/Strike/Throw | Check real guarded PPO updates before full pilots | Each64 environments ×3 updates, seed20260912, sequential onGPU1 | Complete | All four cases3 finite PPO updates and finite model2 checkpoints; remaining_ppo_preflight.json. |
 
@@ -94,3 +94,5 @@ RL-023 first full Strike pilot assignedGPU1 after remaining-task PPO preflight. 
 | RL-018-V2 | Stack | Learn opposed grasp and released stacking | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU3 | Running | Fresh enclosed-contact completion_v3 onGPU3; training_wave8.json. |
 | RL-019-V2 | Place | Learn opposed grasp and released containment | completion_v3, fresh2048 environments ×2500 updates, seed20260912, GPU7 | Running | Fresh enclosed-contact completion_v3 onGPU7; training_wave8.json. |
 | RL-020-V2 | Peg | Learn opposed upper-body grasp and released seating | completion_v3, fresh2048 environments ×3000 updates, seed20260912, GPU4 | Running | Fresh enclosed-contact completion_v3 onGPU4; training_wave8.json. |
+
+| PREFLIGHT-REMAINING-ENCLOSURE-011 | Edge/Pivot/Throw | Exclude top pressing before first full pilots | edge_v2/pivot_v2/throw_v2, each64 environments ×3 updates sequential onGPU6, seed20260912 | Prepared |79 CPU tests pass; prior recipes immutable, native geometry/contact/success unchanged |

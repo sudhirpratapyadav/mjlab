@@ -7,9 +7,10 @@ import torch
 
 RECIPES = ("baseline", "baseline_long", "stable_v1", "mechanism_v1", "lid_v1", "lid_v2", "lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2", "completion_v1", "completion_v2")
 RECIPES += ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "completion_v3")
+RECIPES += ("edge_v2", "pivot_v2", "throw_v2", "lift_v4", "reorient_v5")
 
 
-def grasp_components(env, command_name, object_asset_name="object", **kwargs):
+def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   robot = command.robot
   obj = env.scene[object_asset_name]
@@ -22,12 +23,16 @@ def grasp_components(env, command_name, object_asset_name="object", **kwargs):
   approach = torch.exp(-distance/0.10) * (0.5 + 0.5 * down.clamp(0,1))
   aperture = finger_aperture(robot)
   closing = torch.exp(-distance/0.025) * (1-aperture/0.08).clamp(0,1)
-  held = grasped(command).float()
+  if require_enclosure:
+    from completion_reward import enclosed_grasp
+    held = enclosed_grasp(command).float()
+  else:
+    held = grasped(command).float()
   return command, obj, approach, closing, held
 
 
 def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, **kwargs):
-  command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name)
+  command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name,**kwargs)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
   lift = ((height-0.02)/0.10).clamp(0,1)*held
@@ -83,23 +88,25 @@ def apply_recipe(cfg, recipe):
         bounded_initialization(cfg)
         cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], .5)
         cfg.agent.policy.initial_gripper_std = .15
-  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4"):
+  if recipe in ("lift_v1", "reorient_v1", "lift_v2", "lift_v3", "lift_v4", "reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5"):
     reach = cfg.env.rewards["reach_object"]
     expected = "lift_object" if recipe.startswith("lift_") else "reorient_object"
     if reach.params["command_name"] != expected:
       raise ValueError(f"{recipe} is restricted to {expected}")
     reach.func = lift_grasp_reward if recipe.startswith("lift_") else reorient_grasp_reward
-    if recipe == "lift_v3":
+    if recipe in ("lift_v3", "lift_v4"):
       reach.params["closure_weight"] = 2.0
+    if recipe in ("lift_v4", "reorient_v5"):
+      reach.params["require_enclosure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("lift_v2", "lift_v3", "reorient_v2", "reorient_v3", "reorient_v4", "cage_v1", "cage_v2"):
+  if recipe in ("lift_v2", "lift_v3", "lift_v4", "reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5", "cage_v1", "cage_v2"):
     bounded_initialization(cfg)
-    if recipe in ("reorient_v2", "reorient_v3", "reorient_v4"):
+    if recipe in ("reorient_v2", "reorient_v3", "reorient_v4", "reorient_v5"):
       cfg.env.rewards["reach_object"].func = reorient_endface_reward
-      if recipe in ("reorient_v3", "reorient_v4"):
+      if recipe in ("reorient_v3", "reorient_v4", "reorient_v5"):
         cfg.env.rewards["reach_object"].params["smooth_closure"] = True
-      if recipe == "reorient_v4":
+      if recipe in ("reorient_v4", "reorient_v5"):
         cfg.env.rewards["reach_object"].params["closure_weight"] = 3.0
     if recipe in ("cage_v1", "cage_v2"):
       reach = cfg.env.rewards["reach_object"]
@@ -125,7 +132,7 @@ def apply_recipe(cfg, recipe):
       cfg.env.rewards[name].params["require_enclosure"] = True
     cfg.env.rewards["joint_vel_penalty"].weight = -0.001
     cfg.env.rewards["action_rate_l2"].weight = -0.005
-  if recipe in ("edge_v1", "pivot_v1", "strike_v1", "throw_v1"):
+  if recipe in ("edge_v1", "pivot_v1", "strike_v1", "throw_v1", "edge_v2", "pivot_v2", "throw_v2"):
     from remaining_reward import edge_reward, pivot_reward, strike_reward, throw_reward
     choices = {
       "edge_v1": ("franka_edge_grasp", edge_reward),
@@ -133,14 +140,16 @@ def apply_recipe(cfg, recipe):
       "strike_v1": ("franka_strike_slide", strike_reward),
       "throw_v1": ("franka_throw_to_bin", throw_reward),
     }
-    expected, reward = choices[recipe]
+    expected, reward = choices[recipe.replace('_v2','_v1')]
     if cfg.agent.experiment_name != expected:
       raise ValueError(f"{recipe} requires {expected}")
     bounded_initialization(cfg)
     cfg.agent.policy.initial_mean = (*cfg.agent.policy.initial_mean[:7], .5)
     cfg.agent.policy.initial_gripper_std = .15
     cfg.env.rewards["reach_object"].func = reward
-    cfg.env.rewards["joint_vel_penalty"].weight = -.0001 if recipe in ("strike_v1", "throw_v1") else -.001
+    if recipe.endswith('_v2'):
+      cfg.env.rewards["reach_object"].params["require_enclosure"] = True
+    cfg.env.rewards["joint_vel_penalty"].weight = -.0001 if recipe in ("strike_v1", "throw_v1", "throw_v2") else -.001
     cfg.env.rewards["action_rate_l2"].weight = -.002
 
 
@@ -161,8 +170,8 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, **kwargs):
-  command, obj, _, _, held = grasp_components(env,command_name,object_asset_name)
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, **kwargs):
+  command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
   quat = robot.data.site_quat_w[:,command.robot_cfg.site_ids].squeeze(1)
