@@ -1,0 +1,59 @@
+{
+  "updated_utc": "2026-09-12T20:41:45.324114+00:00",
+  "source_head": "f821aa0",
+  "purpose": "Native CPU MuJoCo implicitfast compatibility for leaf free bodies; opt-in only",
+  "reference_documentation": "https://mujoco.readthedocs.io/en/latest/computation/",
+  "mujoco_version": "3.11.1",
+  "default_enabled": false,
+  "model_parameters_changed": false,
+  "native_success_changed": false,
+  "interface_changed": false,
+  "existing_certified_teachers_affected": false,
+  "limitations": [
+    "Private Warp APIs are version-sensitive.",
+    "Contact trajectory differences remain; this is not bitwise CPU/GPU equivalence.",
+    "Only eligible leaf-free-joint accelerations are replaced.",
+    "No claim that all numerical instability is solved."
+  ],
+  "rejected_prototype": {
+    "file": "Peg-R3-gyro-replay.json",
+    "reason": "Copied installed full-implicit inverse-bias sign, which increased free-spin energy; never enabled in training."
+  },
+  "accepted_regressions": {
+    "Peg-R3-gyro2048-replay.json": {
+      "worlds": 2048,
+      "substeps": 28,
+      "all_finite": true,
+      "final_gpu_spin": 38.52252197265625,
+      "final_cpu_spin": 38.5262339666436,
+      "maximum_final_qpos_difference": 7.051282286282996e-05
+    },
+    "Reorient-R8-gyro2048-replay.json": {
+      "worlds": 2048,
+      "substeps": 28,
+      "all_finite": true,
+      "final_gpu_spin": 84.79241943359375,
+      "final_cpu_spin": 83.28742868095279,
+      "maximum_final_qpos_difference": 0.1105545423477994
+    },
+    "gyro_sparse_preflight.json": {
+      "worlds": 64,
+      "steps": 100,
+      "max_qpos_error": 5.2290208989357045e-05,
+      "max_qvel_error": 0.0004377623912201756,
+      "max_hinge_qvel_error": 1.1351589240815585e-07
+    },
+    "gyro_dense_preflight.json": {
+      "worlds": 64,
+      "steps": 100,
+      "max_qpos_error": 5.2290208989357045e-05,
+      "max_qvel_error": 0.0004377623912201756,
+      "max_hinge_qvel_error": 1.1351589240815585e-07
+    }
+  },
+  "tests": [
+    "wave15-tests.log:100 reward/interface tests",
+    "gyro-tests.log:98 reset/evaluation/recipe tests",
+    "gyro-evaluation-tests.log:5 targeted checks including saved backend restoration"
+  ]
+}

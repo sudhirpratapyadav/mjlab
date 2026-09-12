@@ -1,0 +1,31 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "06fb8c4f6fb34294b505b050173592bd0dd704c091d3963a40c12424d5bac43c",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual opposite-pad grasp, lift and transport toward the raised goal are visible. The selected failure remains outside the native goal tolerance. Mean terminal goal error0.09496m versus0.26057m at4100; object height0.19646m versus0.02777m. Continue the unchanged learned policy; not certified.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 123,
+    "grasped_fraction": 0.8943089246749878,
+    "enclosed_fraction": 0.6341463327407837,
+    "enclosed_grasp_fraction": 0.6341463327407837,
+    "opposed_grasp_fraction": 0.8699186444282532,
+    "robot_object_contact_fraction": 0.9756097197532654,
+    "aperture_mean": 0.04533473029732704,
+    "gripper_object_distance_mean": 0.027520108968019485,
+    "gripper_goal_distance_mean": 0.09176675975322723,
+    "gripper_down_alignment_mean": 0.8413587808609009,
+    "object_height_mean": 0.19646233320236206,
+    "gripper_action_mean": -0.947801947593689,
+    "absolute_action_max": 0.9999005794525146,
+    "goal_error_mean": 0.09496043622493744
+  },
+  "wandb_video_run": "x1bx947x"
+}

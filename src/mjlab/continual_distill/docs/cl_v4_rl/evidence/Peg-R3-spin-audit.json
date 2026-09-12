@@ -1,0 +1,6340 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "mujoco_version": "3.11.1",
+  "source_lane": 184,
+  "failure_sha256": "eddf3be590b71c257f61e6a7ead0b270184c51a2e8d2a1de596dd66aacbb93d4",
+  "method": "CPU replay from oldest captured state, next-state recorded controls; integrator/timestep ablations only on isolated diagnostic models.",
+  "limitations": "Not a bitwise GPU replay; derived solver and actuator histories were not captured. Contact trajectories can diverge across integrators.",
+  "training_physics_changed": false,
+  "body": "object/peg",
+  "body_inertia": [
+    4.655e-06,
+    3.941e-05,
+    3.941e-05
+  ],
+  "children": [],
+  "recorded_history": [
+    {
+      "history_index": 0,
+      "linear_speed": 0.6340876817703247,
+      "angular_speed": 145.24386596679688
+    },
+    {
+      "history_index": 1,
+      "linear_speed": 0.6131214499473572,
+      "angular_speed": 174.84564208984375
+    },
+    {
+      "history_index": 2,
+      "linear_speed": 0.6955090165138245,
+      "angular_speed": 215.54168701171875
+    },
+    {
+      "history_index": 3,
+      "linear_speed": 0.7837511301040649,
+      "angular_speed": 270.36358642578125
+    },
+    {
+      "history_index": 4,
+      "linear_speed": 0.926442563533783,
+      "angular_speed": 343.16357421875
+    },
+    {
+      "history_index": 5,
+      "linear_speed": 1.1125432252883911,
+      "angular_speed": 438.9208984375
+    },
+    {
+      "history_index": 6,
+      "linear_speed": 2.3245487213134766,
+      "angular_speed": 1286.570556640625
+    },
+    {
+      "history_index": 7,
+      "linear_speed": 1009.2109985351562,
+      "angular_speed": 771808.0
+    }
+  ],
+  "cases": [
+    {
+      "name": "native_implicitfast",
+      "timestep": 0.005,
+      "samples": [
+        {
+          "history_index": 0,
+          "substep": 0,
+          "angular_speed": 145.2438664095481,
+          "linear_speed": 0.6340876767952139,
+          "object_kinetic_energy": 0.30109529914252364,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 1,
+          "angular_speed": 139.27894447723315,
+          "linear_speed": 0.6286564529479682,
+          "object_kinetic_energy": 0.2674992813701452,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 2,
+          "angular_speed": 133.8177145802464,
+          "linear_speed": 0.6243369291055576,
+          "object_kinetic_energy": 0.23803297795582823,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 3,
+          "angular_speed": 128.82746339947772,
+          "linear_speed": 0.6225632330575672,
+          "object_kinetic_energy": 0.21226063331814612,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 4,
+          "angular_speed": 124.27677166270779,
+          "linear_speed": 0.6245788432322685,
+          "object_kinetic_energy": 0.18973874163428836,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 1,
+          "angular_speed": 120.1354505986464,
+          "linear_speed": 0.6311119923232091,
+          "object_kinetic_energy": 0.17007729199073712,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 2,
+          "angular_speed": 116.37450205481244,
+          "linear_speed": 0.6423349419848042,
+          "object_kinetic_energy": 0.15293619552325144,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 3,
+          "angular_speed": 112.96609970031847,
+          "linear_speed": 0.6579947373476829,
+          "object_kinetic_energy": 0.13801986060619414,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 4,
+          "angular_speed": 109.8835877666756,
+          "linear_speed": 0.6775998949229511,
+          "object_kinetic_energy": 0.12507116409225572,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 1,
+          "angular_speed": 107.10149303799082,
+          "linear_speed": 0.7005830868264312,
+          "object_kinetic_energy": 0.11386575083793884,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 2,
+          "angular_speed": 104.59554537312526,
+          "linear_speed": 0.7264066929547104,
+          "object_kinetic_energy": 0.10420712269881276,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 3,
+          "angular_speed": 102.34270197190536,
+          "linear_speed": 0.7546127505743869,
+          "object_kinetic_energy": 0.09592261532863515,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 4,
+          "angular_speed": 100.32117088270174,
+          "linear_speed": 0.7848341519716517,
+          "object_kinetic_energy": 0.08886016301979743,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 1,
+          "angular_speed": 98.5104298416422,
+          "linear_speed": 0.8167851396528047,
+          "object_kinetic_energy": 0.0828856829962541,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 2,
+          "angular_speed": 96.89123735196125,
+          "linear_speed": 0.8502442263712201,
+          "object_kinetic_energy": 0.0778809157867915,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 3,
+          "angular_speed": 95.44563385457096,
+          "linear_speed": 0.8850369973255297,
+          "object_kinetic_energy": 0.07374159368913738,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 4,
+          "angular_speed": 94.15693180556556,
+          "linear_speed": 0.9210220235287616,
+          "object_kinetic_energy": 0.07037584897696142,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 1,
+          "angular_speed": 93.00969437397671,
+          "linear_speed": 0.958080621228979,
+          "object_kinetic_energy": 0.06770280589298247,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 2,
+          "angular_speed": 91.98970323757867,
+          "linear_speed": 0.9961100092671611,
+          "object_kinetic_energy": 0.06565132278548512,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 3,
+          "angular_speed": 91.08391654678032,
+          "linear_speed": 1.035019026949548,
+          "object_kinetic_energy": 0.06415886423962111,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 4,
+          "angular_speed": 90.28041853345108,
+          "linear_speed": 1.0747255853213014,
+          "object_kinetic_energy": 0.06317049025110168,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 1,
+          "angular_speed": 89.56836247103105,
+          "linear_speed": 1.1151551912898698,
+          "object_kinetic_energy": 0.06263795279646896,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 2,
+          "angular_speed": 88.93790876748973,
+          "linear_speed": 1.1562400788506695,
+          "object_kinetic_energy": 0.06251889137682146,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 3,
+          "angular_speed": 69.45756670889783,
+          "linear_speed": 0.8050343155539528,
+          "object_kinetic_energy": 0.03077497760013334,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 4,
+          "angular_speed": 60.013682616704166,
+          "linear_speed": 0.7154780516576178,
+          "object_kinetic_energy": 0.02776435309622048,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 1,
+          "angular_speed": 57.16284749471406,
+          "linear_speed": 0.7186780282440771,
+          "object_kinetic_energy": 0.028149389184094563,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 2,
+          "angular_speed": 44.69623026153637,
+          "linear_speed": 0.673355991512211,
+          "object_kinetic_energy": 0.023404480190065816,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 3,
+          "angular_speed": 40.04061134883407,
+          "linear_speed": 0.6535921043469102,
+          "object_kinetic_energy": 0.022451357008379403,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 4,
+          "angular_speed": 38.5262339666436,
+          "linear_speed": 0.654388812415158,
+          "object_kinetic_energy": 0.022466827620945894,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "implicit_diagnostic",
+      "timestep": 0.005,
+      "samples": [
+        {
+          "history_index": 0,
+          "substep": 0,
+          "angular_speed": 145.2438664095481,
+          "linear_speed": 0.6340876767952139,
+          "object_kinetic_energy": 0.30109529914252364,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 1,
+          "angular_speed": 139.27894447723315,
+          "linear_speed": 0.6286564529479682,
+          "object_kinetic_energy": 0.2674992813701452,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 2,
+          "angular_speed": 133.8177145802464,
+          "linear_speed": 0.6243369291055576,
+          "object_kinetic_energy": 0.23803297795582823,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 3,
+          "angular_speed": 128.82746339947775,
+          "linear_speed": 0.6225632330575672,
+          "object_kinetic_energy": 0.2122606333181461,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 4,
+          "angular_speed": 124.2767716627078,
+          "linear_speed": 0.6245788432322686,
+          "object_kinetic_energy": 0.18973874163428842,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 1,
+          "angular_speed": 120.13545059864641,
+          "linear_speed": 0.6311119923232092,
+          "object_kinetic_energy": 0.170077291990737,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 2,
+          "angular_speed": 116.37450205481248,
+          "linear_speed": 0.6423349419848043,
+          "object_kinetic_energy": 0.15293619552325127,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 3,
+          "angular_speed": 112.96609970031851,
+          "linear_speed": 0.657994737347683,
+          "object_kinetic_energy": 0.138019860606194,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 4,
+          "angular_speed": 109.88358776667565,
+          "linear_speed": 0.6775998949229511,
+          "object_kinetic_energy": 0.12507116409225558,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 1,
+          "angular_speed": 107.10149303799088,
+          "linear_speed": 0.7005830868264313,
+          "object_kinetic_energy": 0.11386575083793872,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 2,
+          "angular_speed": 104.5955453731253,
+          "linear_speed": 0.7264066929547106,
+          "object_kinetic_energy": 0.10420712269881256,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 3,
+          "angular_speed": 102.3427019719054,
+          "linear_speed": 0.754612750574387,
+          "object_kinetic_energy": 0.09592261532863489,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 4,
+          "angular_speed": 100.32117088270176,
+          "linear_speed": 0.7848341519716518,
+          "object_kinetic_energy": 0.08886016301979718,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 1,
+          "angular_speed": 98.51042984164225,
+          "linear_speed": 0.816785139652805,
+          "object_kinetic_energy": 0.08288568299625385,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 2,
+          "angular_speed": 96.89123735196131,
+          "linear_speed": 0.8502442263712202,
+          "object_kinetic_energy": 0.07788091578679127,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 3,
+          "angular_speed": 95.44563385457103,
+          "linear_speed": 0.8850369973255298,
+          "object_kinetic_energy": 0.07374159368913724,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 4,
+          "angular_speed": 94.1569318055656,
+          "linear_speed": 0.9210220235287616,
+          "object_kinetic_energy": 0.07037584897696134,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 1,
+          "angular_speed": 93.00969437397677,
+          "linear_speed": 0.9580806212289792,
+          "object_kinetic_energy": 0.06770280589298233,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 2,
+          "angular_speed": 91.98970323757872,
+          "linear_speed": 0.9961100092671613,
+          "object_kinetic_energy": 0.06565132278548504,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 3,
+          "angular_speed": 91.08391654678036,
+          "linear_speed": 1.0350190269495483,
+          "object_kinetic_energy": 0.06415886423962103,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 4,
+          "angular_speed": 90.28041853345114,
+          "linear_speed": 1.0747255853213014,
+          "object_kinetic_energy": 0.06317049025110158,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 1,
+          "angular_speed": 89.56836247103111,
+          "linear_speed": 1.11515519128987,
+          "object_kinetic_energy": 0.06263795279646892,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 2,
+          "angular_speed": 88.9379087674898,
+          "linear_speed": 1.1562400788506695,
+          "object_kinetic_energy": 0.06251889137682141,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 3,
+          "angular_speed": 69.45756670889837,
+          "linear_speed": 0.8050343155539523,
+          "object_kinetic_energy": 0.030774977600133355,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 4,
+          "angular_speed": 60.01368261670475,
+          "linear_speed": 0.7154780516576168,
+          "object_kinetic_energy": 0.027764353096220547,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 1,
+          "angular_speed": 57.16284749471471,
+          "linear_speed": 0.7186780282440771,
+          "object_kinetic_energy": 0.028149389184094615,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 2,
+          "angular_speed": 44.69623026153696,
+          "linear_speed": 0.6733559915122105,
+          "object_kinetic_energy": 0.023404480190065812,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 3,
+          "angular_speed": 40.04061134883461,
+          "linear_speed": 0.6535921043469091,
+          "object_kinetic_energy": 0.022451357008379372,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 4,
+          "angular_speed": 38.526233966644064,
+          "linear_speed": 0.6543888124151562,
+          "object_kinetic_energy": 0.02246682762094586,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rk4_diagnostic",
+      "timestep": 0.005,
+      "samples": [
+        {
+          "history_index": 0,
+          "substep": 0,
+          "angular_speed": 145.2438664095481,
+          "linear_speed": 0.6340876767952139,
+          "object_kinetic_energy": 0.30109529914252364,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 1,
+          "angular_speed": 145.24214003616976,
+          "linear_speed": 0.6267699738312544,
+          "object_kinetic_energy": 0.3009220123923664,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 2,
+          "angular_speed": 145.24041370410418,
+          "linear_speed": 0.6201436731087822,
+          "object_kinetic_energy": 0.3008562034939637,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 3,
+          "angular_speed": 145.23868741335056,
+          "linear_speed": 0.6160664570669365,
+          "object_kinetic_energy": 0.30089914327767014,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 4,
+          "angular_speed": 145.23696116390818,
+          "linear_speed": 0.6166657660410789,
+          "object_kinetic_energy": 0.301051460986972,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 1,
+          "angular_speed": 145.23523495577626,
+          "linear_speed": 0.6235204741068742,
+          "object_kinetic_energy": 0.30131340386733196,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 2,
+          "angular_speed": 145.23350878895414,
+          "linear_speed": 0.637068668600037,
+          "object_kinetic_energy": 0.3016847957010295,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 3,
+          "angular_speed": 145.23178266344098,
+          "linear_speed": 0.6565210023412915,
+          "object_kinetic_energy": 0.30216514193436383,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 4,
+          "angular_speed": 145.2300565792361,
+          "linear_speed": 0.6802814963624955,
+          "object_kinetic_energy": 0.3027538307624155,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 1,
+          "angular_speed": 145.22833053633872,
+          "linear_speed": 0.7066012336664674,
+          "object_kinetic_energy": 0.30345035097129397,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 2,
+          "angular_speed": 145.22660453474813,
+          "linear_speed": 0.7341397430389877,
+          "object_kinetic_energy": 0.3042544492583554,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 3,
+          "angular_speed": 145.22487857446362,
+          "linear_speed": 0.7622487274832854,
+          "object_kinetic_energy": 0.3051661789935173,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 4,
+          "angular_speed": 145.2231526554844,
+          "linear_speed": 0.790955966478008,
+          "object_kinetic_energy": 0.30618583615428563,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 1,
+          "angular_speed": 145.22142677780974,
+          "linear_speed": 0.8207290687820046,
+          "object_kinetic_energy": 0.30731381932919133,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 2,
+          "angular_speed": 145.21970094143887,
+          "linear_speed": 0.8521449536194183,
+          "object_kinetic_energy": 0.3085504743279566,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 3,
+          "angular_speed": 145.2179751463711,
+          "linear_speed": 0.8855976473887417,
+          "object_kinetic_energy": 0.30989598274463787,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 4,
+          "angular_speed": 145.21624939260562,
+          "linear_speed": 0.921143961305558,
+          "object_kinetic_energy": 0.3113503303153411,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 1,
+          "angular_speed": 145.21452368014178,
+          "linear_speed": 0.9585192184947687,
+          "object_kinetic_energy": 0.312913355904724,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 2,
+          "angular_speed": 145.21279800897878,
+          "linear_speed": 0.9972812455981885,
+          "object_kinetic_energy": 0.31458484993461505,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 3,
+          "angular_speed": 145.21107237911588,
+          "linear_speed": 1.0369957932970657,
+          "object_kinetic_energy": 0.3163646544334138,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 4,
+          "angular_speed": 145.20934679055236,
+          "linear_speed": 1.077376791356259,
+          "object_kinetic_energy": 0.3182527212276636,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 1,
+          "angular_speed": 145.20762124328746,
+          "linear_speed": 1.1183305819789477,
+          "object_kinetic_energy": 0.32024910702807596,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 2,
+          "angular_speed": 145.20589573732042,
+          "linear_speed": 1.1599022386649078,
+          "object_kinetic_energy": 0.32235391409151914,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 3,
+          "angular_speed": 150.5807707015237,
+          "linear_speed": 1.1891203351394262,
+          "object_kinetic_energy": 0.2330729394017061,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 4,
+          "angular_speed": 116.4322781719072,
+          "linear_speed": 1.35369490821161,
+          "object_kinetic_energy": 0.1556053944208004,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 1,
+          "angular_speed": 98.9656674647987,
+          "linear_speed": 1.415913733876596,
+          "object_kinetic_energy": 0.13122085307341705,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 2,
+          "angular_speed": 92.61249516366455,
+          "linear_speed": 1.3982036497841945,
+          "object_kinetic_energy": 0.12354550464233337,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 3,
+          "angular_speed": 92.20443671971145,
+          "linear_speed": 1.3905278422516822,
+          "object_kinetic_energy": 0.12267784060740919,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 4,
+          "angular_speed": 92.2041918975291,
+          "linear_speed": 1.3875591667390612,
+          "object_kinetic_energy": 0.1225978644338147,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "implicitfast_dt10_reference",
+      "timestep": 0.0005,
+      "samples": [
+        {
+          "history_index": 0,
+          "substep": 0,
+          "angular_speed": 145.2438664095481,
+          "linear_speed": 0.6340876767952139,
+          "object_kinetic_energy": 0.30109529914252364,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 1,
+          "angular_speed": 145.17746003740558,
+          "linear_speed": 0.6333836542078874,
+          "object_kinetic_energy": 0.30069195758195394,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 2,
+          "angular_speed": 145.11111480606658,
+          "linear_speed": 0.6326760165221815,
+          "object_kinetic_energy": 0.3002918315886387,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 3,
+          "angular_speed": 145.04483067330096,
+          "linear_speed": 0.6319652481253126,
+          "object_kinetic_energy": 0.2998933123839392,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 4,
+          "angular_speed": 144.9786075968979,
+          "linear_speed": 0.6312519730982253,
+          "object_kinetic_energy": 0.2994964004045896,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 5,
+          "angular_speed": 144.91244553466586,
+          "linear_speed": 0.6305369516477078,
+          "object_kinetic_energy": 0.2991010960451749,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 6,
+          "angular_speed": 144.8463444444326,
+          "linear_speed": 0.6298210760944603,
+          "object_kinetic_energy": 0.2987073996549389,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 7,
+          "angular_speed": 144.780304284045,
+          "linear_speed": 0.6291053664330823,
+          "object_kinetic_energy": 0.2983153115345877,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 8,
+          "angular_speed": 144.71432501136934,
+          "linear_speed": 0.6283909654797339,
+          "object_kinetic_energy": 0.29792483193351293,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 9,
+          "angular_speed": 144.648406584291,
+          "linear_speed": 0.6276791336244697,
+          "object_kinetic_energy": 0.29753596104719243,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 10,
+          "angular_speed": 144.58254896071455,
+          "linear_speed": 0.6269712432055353,
+          "object_kinetic_energy": 0.29714869901484375,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 11,
+          "angular_speed": 144.51675209856379,
+          "linear_speed": 0.6262687725233328,
+          "object_kinetic_energy": 0.2967630459173305,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 12,
+          "angular_speed": 144.4510159557816,
+          "linear_speed": 0.6255732995130997,
+          "object_kinetic_energy": 0.2963790017753822,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 13,
+          "angular_speed": 144.38534049033012,
+          "linear_speed": 0.6248864950957103,
+          "object_kinetic_energy": 0.29599656654798057,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 14,
+          "angular_speed": 144.31972566019047,
+          "linear_speed": 0.624210116227053,
+          "object_kinetic_energy": 0.29561574013112846,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 15,
+          "angular_speed": 144.25417142336298,
+          "linear_speed": 0.6235459986674533,
+          "object_kinetic_energy": 0.29523652235677555,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 16,
+          "angular_speed": 144.18867773786704,
+          "linear_speed": 0.6228960494936698,
+          "object_kinetic_energy": 0.2948589129920355,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 17,
+          "angular_speed": 144.12324456174107,
+          "linear_speed": 0.6222622393771053,
+          "object_kinetic_energy": 0.2944829117387336,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 18,
+          "angular_speed": 144.0578718530426,
+          "linear_speed": 0.6216465946529717,
+          "object_kinetic_energy": 0.29410851823306633,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 19,
+          "angular_speed": 143.9925595698482,
+          "linear_speed": 0.6210511892063852,
+          "object_kinetic_energy": 0.29373573204566655,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 20,
+          "angular_speed": 143.9273076702534,
+          "linear_speed": 0.6204781362029492,
+          "object_kinetic_energy": 0.29336455268180917,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 21,
+          "angular_speed": 143.8621161123728,
+          "linear_speed": 0.6199295796919745,
+          "object_kinetic_energy": 0.2929949795818796,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 22,
+          "angular_speed": 143.79698485434,
+          "linear_speed": 0.6194076861122803,
+          "object_kinetic_energy": 0.29262701212208825,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 23,
+          "angular_speed": 143.73191385430744,
+          "linear_speed": 0.6189146357316737,
+          "object_kinetic_energy": 0.29226064961543985,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 24,
+          "angular_speed": 143.66690307044666,
+          "linear_speed": 0.6184526140521093,
+          "object_kinetic_energy": 0.29189589131287397,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 25,
+          "angular_speed": 143.6019524609481,
+          "linear_speed": 0.6180238032137567,
+          "object_kinetic_energy": 0.29153273640458577,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 26,
+          "angular_speed": 143.53706198402105,
+          "linear_speed": 0.6176303734322818,
+          "object_kinetic_energy": 0.29117118402165504,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 27,
+          "angular_speed": 143.4722315978938,
+          "linear_speed": 0.6172744745043093,
+          "object_kinetic_energy": 0.2908112332377596,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 28,
+          "angular_speed": 143.40746126081348,
+          "linear_speed": 0.6169582274168983,
+          "object_kinetic_energy": 0.29045288307110534,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 29,
+          "angular_speed": 143.34275093104608,
+          "linear_speed": 0.6166837160970816,
+          "object_kinetic_energy": 0.2900961324865602,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 30,
+          "angular_speed": 143.27810056687645,
+          "linear_speed": 0.6164529793379627,
+          "object_kinetic_energy": 0.2897409803979004,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 31,
+          "angular_speed": 143.21351012660833,
+          "linear_speed": 0.6162680029380987,
+          "object_kinetic_energy": 0.28938742567015835,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 32,
+          "angular_speed": 143.1489795685642,
+          "linear_speed": 0.6161307120904113,
+          "object_kinetic_energy": 0.28903546712223854,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 33,
+          "angular_speed": 143.0845088510854,
+          "linear_speed": 0.6160429640561513,
+          "object_kinetic_energy": 0.2886851035295452,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 34,
+          "angular_speed": 143.020097932532,
+          "linear_speed": 0.616006541159408,
+          "object_kinetic_energy": 0.2883363336267421,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 35,
+          "angular_speed": 142.95574677128295,
+          "linear_speed": 0.6160231441356985,
+          "object_kinetic_energy": 0.28798915611057796,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 36,
+          "angular_speed": 142.89145532573582,
+          "linear_speed": 0.6160943858673446,
+          "object_kinetic_energy": 0.2876435696429338,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 37,
+          "angular_speed": 142.82722355430704,
+          "linear_speed": 0.616221785536512,
+          "object_kinetic_energy": 0.28729957285373164,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 38,
+          "angular_speed": 142.76305141543168,
+          "linear_speed": 0.6164067632243402,
+          "object_kinetic_energy": 0.2869571643440764,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 39,
+          "angular_speed": 142.69893886756356,
+          "linear_speed": 0.6166506349831558,
+          "object_kinetic_energy": 0.28661634268934877,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 0,
+          "substep": 40,
+          "angular_speed": 142.63488586917518,
+          "linear_speed": 0.6169546084050476,
+          "object_kinetic_energy": 0.2862771064423887,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 1,
+          "angular_speed": 142.5708923787577,
+          "linear_speed": 0.6173197787080752,
+          "object_kinetic_energy": 0.2859394541366109,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 2,
+          "angular_speed": 142.50695835482094,
+          "linear_speed": 0.6177471253580786,
+          "object_kinetic_energy": 0.28560338428925874,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 3,
+          "angular_speed": 142.4430837558934,
+          "linear_speed": 0.6182375092400971,
+          "object_kinetic_energy": 0.2852688954045363,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 4,
+          "angular_speed": 142.37926854052216,
+          "linear_speed": 0.6187916703908672,
+          "object_kinetic_energy": 0.2849359859768017,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 5,
+          "angular_speed": 142.31551266727294,
+          "linear_speed": 0.6194102262996898,
+          "object_kinetic_energy": 0.28460465449367045,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 6,
+          "angular_speed": 142.25181609473006,
+          "linear_speed": 0.6200936707811473,
+          "object_kinetic_energy": 0.28427489943918927,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 7,
+          "angular_speed": 142.1881787814964,
+          "linear_speed": 0.6208423734195911,
+          "object_kinetic_energy": 0.28394671929677673,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 8,
+          "angular_speed": 142.12460068619336,
+          "linear_speed": 0.6216565795814686,
+          "object_kinetic_energy": 0.28362011255232894,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 9,
+          "angular_speed": 142.06108176746096,
+          "linear_speed": 0.6225364109879448,
+          "object_kinetic_energy": 0.2832950776970999,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 10,
+          "angular_speed": 141.99762198395777,
+          "linear_speed": 0.6234818668361514,
+          "object_kinetic_energy": 0.2829716132305236,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 11,
+          "angular_speed": 141.93422129436078,
+          "linear_speed": 0.6244928254544172,
+          "object_kinetic_energy": 0.2826497176630305,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 12,
+          "angular_speed": 141.87087965736555,
+          "linear_speed": 0.6255690464731842,
+          "object_kinetic_energy": 0.28232938951868974,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 13,
+          "angular_speed": 141.8075970316861,
+          "linear_speed": 0.6267101734900182,
+          "object_kinetic_energy": 0.28201062733778937,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 14,
+          "angular_speed": 141.7443733760549,
+          "linear_speed": 0.6279157372045899,
+          "object_kinetic_energy": 0.28169342967925626,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 15,
+          "angular_speed": 141.68120864922292,
+          "linear_speed": 0.6291851589965574,
+          "object_kinetic_energy": 0.28137779512306477,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 16,
+          "angular_speed": 141.61810280995954,
+          "linear_speed": 0.6305177549168899,
+          "object_kinetic_energy": 0.2810637222723966,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 17,
+          "angular_speed": 141.55505581705256,
+          "linear_speed": 0.631912740061449,
+          "object_kinetic_energy": 0.2807512097557579,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 18,
+          "angular_speed": 141.4920676293082,
+          "linear_speed": 0.63336923329365,
+          "object_kinetic_energy": 0.280440256228953,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 19,
+          "angular_speed": 141.42913820555106,
+          "linear_speed": 0.6348862622817547,
+          "object_kinetic_energy": 0.2801308603768573,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 20,
+          "angular_speed": 141.36626750462412,
+          "linear_speed": 0.6364627688154736,
+          "object_kinetic_energy": 0.2798230209151722,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 21,
+          "angular_speed": 141.30345548538867,
+          "linear_speed": 0.6380976143655548,
+          "object_kinetic_energy": 0.27951673659190235,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 22,
+          "angular_speed": 141.24070210672446,
+          "linear_speed": 0.6397895858500241,
+          "object_kinetic_energy": 0.27921200618877695,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 23,
+          "angular_speed": 141.17800732752949,
+          "linear_speed": 0.6415374015705543,
+          "object_kinetic_energy": 0.2789088285224924,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 24,
+          "angular_speed": 141.11537110672006,
+          "linear_speed": 0.6433397172826976,
+          "object_kinetic_energy": 0.2786072024457935,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 25,
+          "angular_speed": 141.05279340323082,
+          "linear_speed": 0.6451951323643929,
+          "object_kinetic_energy": 0.2783071268484426,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 26,
+          "angular_speed": 140.99027417601465,
+          "linear_speed": 0.6471021960479095,
+          "object_kinetic_energy": 0.2780086006579938,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 27,
+          "angular_speed": 140.92781338404274,
+          "linear_speed": 0.649059413681445,
+          "object_kinetic_energy": 0.2777116228404606,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 28,
+          "angular_speed": 140.8654109863045,
+          "linear_speed": 0.6510652529879645,
+          "object_kinetic_energy": 0.27741619240078247,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 29,
+          "angular_speed": 140.80306694180766,
+          "linear_speed": 0.6531181502902721,
+          "object_kinetic_energy": 0.2771223083832116,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 30,
+          "angular_speed": 140.74078120957805,
+          "linear_speed": 0.655216516672968,
+          "object_kinetic_energy": 0.276829969871488,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 31,
+          "angular_speed": 140.67855374865982,
+          "linear_speed": 0.657358744053642,
+          "object_kinetic_energy": 0.2765391759889181,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 32,
+          "angular_speed": 140.61638451811524,
+          "linear_speed": 0.6595432111375618,
+          "object_kinetic_energy": 0.27624992589828984,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 33,
+          "angular_speed": 140.5542734770248,
+          "linear_speed": 0.6617682892320931,
+          "object_kinetic_energy": 0.27596221880166655,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 34,
+          "angular_speed": 140.49222058448711,
+          "linear_speed": 0.6640323478988986,
+          "object_kinetic_energy": 0.27567605394003414,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 35,
+          "angular_speed": 140.430225799619,
+          "linear_speed": 0.6663337604242066,
+          "object_kinetic_energy": 0.2753914305928268,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 36,
+          "angular_speed": 140.36828908155533,
+          "linear_speed": 0.6686709090892468,
+          "object_kinetic_energy": 0.27510834807733636,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 37,
+          "angular_speed": 140.3064103894492,
+          "linear_speed": 0.6710421902251089,
+          "object_kinetic_energy": 0.2748268057479854,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 38,
+          "angular_speed": 140.24458968247174,
+          "linear_speed": 0.6734460190381211,
+          "object_kinetic_energy": 0.27454680299550877,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 39,
+          "angular_speed": 140.1828269198122,
+          "linear_speed": 0.6758808341938412,
+          "object_kinetic_energy": 0.27426833924600585,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 1,
+          "substep": 40,
+          "angular_speed": 140.12112206067783,
+          "linear_speed": 0.6783451021496326,
+          "object_kinetic_energy": 0.273991413959908,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 1,
+          "angular_speed": 140.05947506429408,
+          "linear_speed": 0.6808373212274854,
+          "object_kinetic_energy": 0.2737160266308403,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 2,
+          "angular_speed": 139.9978858899043,
+          "linear_speed": 0.6833560254205961,
+          "object_kinetic_energy": 0.2734421767844017,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 3,
+          "angular_speed": 139.93635449677,
+          "linear_speed": 0.6858997879286849,
+          "object_kinetic_energy": 0.27316986397685133,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 4,
+          "angular_speed": 139.8748808441706,
+          "linear_speed": 0.6884672244186998,
+          "object_kinetic_energy": 0.27289908779372973,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 5,
+          "angular_speed": 139.8134648914036,
+          "linear_speed": 0.6910569960089151,
+          "object_kinetic_energy": 0.2726298478484043,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 6,
+          "angular_speed": 139.75210659778446,
+          "linear_speed": 0.6936678119757865,
+          "object_kinetic_energy": 0.2723621437805541,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 7,
+          "angular_speed": 139.69080592264663,
+          "linear_speed": 0.6962984321842094,
+          "object_kinetic_energy": 0.2720959752545988,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 8,
+          "angular_speed": 139.62956282534142,
+          "linear_speed": 0.698947669242892,
+          "object_kinetic_energy": 0.27183134195807973,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 9,
+          "angular_speed": 139.56837726523824,
+          "linear_speed": 0.7016143903877011,
+          "object_kinetic_energy": 0.2715682435999982,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 10,
+          "angular_speed": 139.50724920172433,
+          "linear_speed": 0.7042975190967461,
+          "object_kinetic_energy": 0.2713066799091188,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 11,
+          "angular_speed": 139.4461785942049,
+          "linear_speed": 0.7069960364418422,
+          "object_kinetic_energy": 0.27104665063224925,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 12,
+          "angular_speed": 139.38516540210304,
+          "linear_speed": 0.7097089821818364,
+          "object_kinetic_energy": 0.2707881555324929,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 13,
+          "angular_speed": 139.32420958485966,
+          "linear_speed": 0.7124354556039024,
+          "object_kinetic_energy": 0.27053119438749373,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 14,
+          "angular_speed": 139.26331110193368,
+          "linear_speed": 0.7151746161196376,
+          "object_kinetic_energy": 0.2702757669876701,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 15,
+          "angular_speed": 139.20246991280183,
+          "linear_speed": 0.7179256836233004,
+          "object_kinetic_energy": 0.2700218731344511,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 16,
+          "angular_speed": 139.1416859769586,
+          "linear_speed": 0.7206879386200707,
+          "object_kinetic_energy": 0.2697695126385144,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 17,
+          "angular_speed": 139.0809592539164,
+          "linear_speed": 0.7234607221326009,
+          "object_kinetic_energy": 0.269518685318042,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 18,
+          "angular_speed": 139.02028970320546,
+          "linear_speed": 0.7262434353945421,
+          "object_kinetic_energy": 0.26926939099699093,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 19,
+          "angular_speed": 138.95967728437378,
+          "linear_speed": 0.7290355393400991,
+          "object_kinetic_energy": 0.2690216295033881,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 20,
+          "angular_speed": 138.8991219569872,
+          "linear_speed": 0.731836553898875,
+          "object_kinetic_energy": 0.26877540066765226,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 21,
+          "angular_speed": 138.83862368062918,
+          "linear_speed": 0.7346460571055149,
+          "object_kinetic_energy": 0.2685307043209624,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 22,
+          "angular_speed": 138.7781824149012,
+          "linear_speed": 0.7374636840339631,
+          "object_kinetic_energy": 0.26828754029365315,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 23,
+          "angular_speed": 138.71779811942233,
+          "linear_speed": 0.740289125566175,
+          "object_kinetic_energy": 0.26804590841365855,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 24,
+          "angular_speed": 138.65747075382933,
+          "linear_speed": 0.7431221270053434,
+          "object_kinetic_energy": 0.26780580850500424,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 25,
+          "angular_speed": 138.5972002777768,
+          "linear_speed": 0.7459624865437018,
+          "object_kinetic_energy": 0.2675672403863808,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 26,
+          "angular_speed": 138.53698665093697,
+          "linear_speed": 0.748810053595236,
+          "object_kinetic_energy": 0.26733020386972156,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 27,
+          "angular_speed": 138.4768298329998,
+          "linear_speed": 0.7516647270034631,
+          "object_kinetic_energy": 0.2670946987588775,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 28,
+          "angular_speed": 138.41672978367293,
+          "linear_speed": 0.754526453134476,
+          "object_kinetic_energy": 0.26686072484837686,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 29,
+          "angular_speed": 138.35668646268167,
+          "linear_speed": 0.7573952238657463,
+          "object_kinetic_energy": 0.2666282819221905,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 30,
+          "angular_speed": 138.29669982976895,
+          "linear_speed": 0.760271074480639,
+          "object_kinetic_energy": 0.26639736975264144,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 31,
+          "angular_speed": 138.23676984469537,
+          "linear_speed": 0.7631540814790533,
+          "object_kinetic_energy": 0.26616798809933523,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 32,
+          "angular_speed": 138.17689646723917,
+          "linear_speed": 0.7660443603142525,
+          "object_kinetic_energy": 0.2659401367081605,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 33,
+          "angular_speed": 138.11707965719617,
+          "linear_speed": 0.7689420630658943,
+          "object_kinetic_energy": 0.2657138153104339,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 34,
+          "angular_speed": 138.0573193743798,
+          "linear_speed": 0.7718473760592262,
+          "object_kinetic_energy": 0.2654890236220502,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 35,
+          "angular_speed": 137.99761557862107,
+          "linear_speed": 0.774760517440344,
+          "object_kinetic_energy": 0.26526576134272445,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 36,
+          "angular_speed": 137.93796822976861,
+          "linear_speed": 0.7776817347170257,
+          "object_kinetic_energy": 0.265044028155373,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 37,
+          "angular_speed": 137.87837728768855,
+          "linear_speed": 0.7806113022748818,
+          "object_kinetic_energy": 0.26482382372550234,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 38,
+          "angular_speed": 137.8188427122646,
+          "linear_speed": 0.7835495188779732,
+          "object_kinetic_energy": 0.2646051477006957,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 39,
+          "angular_speed": 137.75936446339801,
+          "linear_speed": 0.7864967051631581,
+          "object_kinetic_energy": 0.2643879997102298,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 2,
+          "substep": 40,
+          "angular_speed": 137.69994250100748,
+          "linear_speed": 0.7894532011371054,
+          "object_kinetic_energy": 0.2641723793647248,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 1,
+          "angular_speed": 137.64057678502937,
+          "linear_speed": 0.7924193636846137,
+          "object_kinetic_energy": 0.26395828625583695,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 2,
+          "angular_speed": 137.58126727541736,
+          "linear_speed": 0.7953955640966923,
+          "object_kinetic_energy": 0.26374571995616225,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 3,
+          "angular_speed": 137.52201393214273,
+          "linear_speed": 0.798382185626727,
+          "object_kinetic_energy": 0.2635346800190488,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 4,
+          "angular_speed": 137.46281671519418,
+          "linear_speed": 0.8013796210823582,
+          "object_kinetic_energy": 0.26332516597862965,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 5,
+          "angular_speed": 137.40367558457788,
+          "linear_speed": 0.8043882704609597,
+          "object_kinetic_energy": 0.2631171773498481,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 6,
+          "angular_speed": 137.34459050031742,
+          "linear_speed": 0.8074085386357319,
+          "object_kinetic_energy": 0.26291071362852986,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 7,
+          "angular_speed": 137.2855614224539,
+          "linear_speed": 0.8104408330994906,
+          "object_kinetic_energy": 0.2627057742916471,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 8,
+          "angular_speed": 137.2265883110457,
+          "linear_speed": 0.8134855617725953,
+          "object_kinetic_energy": 0.2625023587975287,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 9,
+          "angular_speed": 137.16767112616873,
+          "linear_speed": 0.8165431308813217,
+          "object_kinetic_energy": 0.2623004665861764,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 10,
+          "angular_speed": 137.10880982791622,
+          "linear_speed": 0.8196139429124306,
+          "object_kinetic_energy": 0.26210009707963877,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 11,
+          "angular_speed": 137.05000437639882,
+          "linear_speed": 0.8226983946492569,
+          "object_kinetic_energy": 0.2619012496824956,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 12,
+          "angular_speed": 136.9912547317445,
+          "linear_speed": 0.825796875294428,
+          "object_kinetic_energy": 0.26170392378229995,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 13,
+          "angular_speed": 136.93256085409865,
+          "linear_speed": 0.828909764683673,
+          "object_kinetic_energy": 0.2615081187501245,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 14,
+          "angular_speed": 136.87392270362395,
+          "linear_speed": 0.8320374315948794,
+          "object_kinetic_energy": 0.26131383394121543,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 15,
+          "angular_speed": 136.8153402405004,
+          "linear_speed": 0.835180232156091,
+          "object_kinetic_energy": 0.2611210686955643,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 16,
+          "angular_speed": 136.75681342492538,
+          "linear_speed": 0.8383385083556032,
+          "object_kinetic_energy": 0.2609298223386227,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 17,
+          "angular_speed": 136.69834221711352,
+          "linear_speed": 0.8415125866569586,
+          "object_kinetic_energy": 0.2607400941820216,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 18,
+          "angular_speed": 136.6399265772967,
+          "linear_speed": 0.8447027767211515,
+          "object_kinetic_energy": 0.26055188352433867,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 19,
+          "angular_speed": 136.5815664657242,
+          "linear_speed": 0.8479093702378683,
+          "object_kinetic_energy": 0.2603651896518374,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 20,
+          "angular_speed": 136.52326184266246,
+          "linear_speed": 0.8511326398671267,
+          "object_kinetic_energy": 0.2601800118393352,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 21,
+          "angular_speed": 136.46501266839525,
+          "linear_speed": 0.8543728382922604,
+          "object_kinetic_energy": 0.2599963493510145,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 22,
+          "angular_speed": 136.40681890322347,
+          "linear_speed": 0.85763019738468,
+          "object_kinetic_energy": 0.25981420144125245,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 23,
+          "angular_speed": 136.34868050746542,
+          "linear_speed": 0.8609049274804341,
+          "object_kinetic_energy": 0.25963356735557536,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 24,
+          "angular_speed": 136.29059744145647,
+          "linear_speed": 0.8641972167682191,
+          "object_kinetic_energy": 0.25945444633141235,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 25,
+          "angular_speed": 136.23256966554925,
+          "linear_speed": 0.8675072307878212,
+          "object_kinetic_energy": 0.25927683759913306,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 26,
+          "angular_speed": 136.17459714011358,
+          "linear_speed": 0.870835112037893,
+          "object_kinetic_energy": 0.2591007403828253,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 27,
+          "angular_speed": 136.11667982553647,
+          "linear_speed": 0.8741809796912778,
+          "object_kinetic_energy": 0.25892615390122825,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 28,
+          "angular_speed": 136.05881768222207,
+          "linear_speed": 0.8775449294158816,
+          "object_kinetic_energy": 0.258753077368676,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 29,
+          "angular_speed": 136.00101067059174,
+          "linear_speed": 0.8809270332985916,
+          "object_kinetic_energy": 0.2585815099959439,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 30,
+          "angular_speed": 135.94325875108393,
+          "linear_speed": 0.884327339869545,
+          "object_kinetic_energy": 0.25841145099110246,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 31,
+          "angular_speed": 135.8855618841542,
+          "linear_speed": 0.8877458742236071,
+          "object_kinetic_energy": 0.2582428995604508,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 32,
+          "angular_speed": 135.8279200302754,
+          "linear_speed": 0.8911826382355562,
+          "object_kinetic_energy": 0.2580758549093072,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 33,
+          "angular_speed": 135.77033314993727,
+          "linear_speed": 0.8946376108653872,
+          "object_kinetic_energy": 0.2579103162429083,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 34,
+          "angular_speed": 135.71280120364673,
+          "linear_speed": 0.89811074854968,
+          "object_kinetic_energy": 0.2577462827671594,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 35,
+          "angular_speed": 135.65532415192786,
+          "linear_speed": 0.9016019856748517,
+          "object_kinetic_energy": 0.2575837536894721,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 36,
+          "angular_speed": 135.5979019553217,
+          "linear_speed": 0.905111235127848,
+          "object_kinetic_energy": 0.2574227282195201,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 37,
+          "angular_speed": 135.5405345743864,
+          "linear_speed": 0.908638388919635,
+          "object_kinetic_energy": 0.2572632055699417,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 38,
+          "angular_speed": 135.4832219696972,
+          "linear_speed": 0.9121833188767968,
+          "object_kinetic_energy": 0.25710518495710466,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 39,
+          "angular_speed": 135.42596410184638,
+          "linear_speed": 0.9157458773961611,
+          "object_kinetic_energy": 0.2569486656017315,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 3,
+          "substep": 40,
+          "angular_speed": 135.36876093144315,
+          "linear_speed": 0.9193258982575857,
+          "object_kinetic_energy": 0.2567936467295843,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 1,
+          "angular_speed": 135.3116124191138,
+          "linear_speed": 0.9229231974896376,
+          "object_kinetic_energy": 0.2566401275720194,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 2,
+          "angular_speed": 135.25451852550162,
+          "linear_speed": 0.9265375742830598,
+          "object_kinetic_energy": 0.2564881073665939,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 3,
+          "angular_speed": 135.1974792112669,
+          "linear_speed": 0.9301688119467918,
+          "object_kinetic_energy": 0.25633758535758433,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 4,
+          "angular_speed": 135.14049443708694,
+          "linear_speed": 0.9338166789012163,
+          "object_kinetic_energy": 0.25618856079646596,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 5,
+          "angular_speed": 135.08356416365595,
+          "linear_speed": 0.9374809297035268,
+          "object_kinetic_energy": 0.25604103294238684,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 6,
+          "angular_speed": 135.0266883516851,
+          "linear_speed": 0.9411613060998515,
+          "object_kinetic_energy": 0.2558950010625433,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 7,
+          "angular_speed": 134.9698669619025,
+          "linear_speed": 0.9448575380991259,
+          "object_kinetic_energy": 0.25575046443256483,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 8,
+          "angular_speed": 134.91309995505333,
+          "linear_speed": 0.9485693450635168,
+          "object_kinetic_energy": 0.25560742233684763,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 9,
+          "angular_speed": 134.85638729189952,
+          "linear_speed": 0.952296436810448,
+          "object_kinetic_energy": 0.2554658740688225,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 10,
+          "angular_speed": 134.79972893321997,
+          "linear_speed": 0.9560385147213161,
+          "object_kinetic_energy": 0.2553258189312028,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 11,
+          "angular_speed": 134.74312483981055,
+          "linear_speed": 0.9597952728521526,
+          "object_kinetic_energy": 0.25518725623616023,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 12,
+          "angular_speed": 134.6865749724839,
+          "linear_speed": 0.9635663990416041,
+          "object_kinetic_energy": 0.25505018530552664,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 13,
+          "angular_speed": 134.63007929206967,
+          "linear_speed": 0.9673515760117236,
+          "object_kinetic_energy": 0.254914605470854,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 14,
+          "angular_speed": 134.57363775941425,
+          "linear_speed": 0.9711504824573373,
+          "object_kinetic_energy": 0.2547805160735181,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 15,
+          "angular_speed": 134.51725033538102,
+          "linear_speed": 0.9749627941198218,
+          "object_kinetic_energy": 0.25464791646475693,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 16,
+          "angular_speed": 134.46091698085007,
+          "linear_speed": 0.9787881848413639,
+          "object_kinetic_energy": 0.25451680600564663,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 17,
+          "angular_speed": 134.40463765671848,
+          "linear_speed": 0.9826263275959962,
+          "object_kinetic_energy": 0.2543871840670612,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 18,
+          "angular_speed": 134.3484123239,
+          "linear_speed": 0.9864768954938787,
+          "object_kinetic_energy": 0.2542590500296034,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 19,
+          "angular_speed": 134.29224094332528,
+          "linear_speed": 0.9903395627555177,
+          "object_kinetic_energy": 0.2541324032834805,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 20,
+          "angular_speed": 134.23612347594178,
+          "linear_speed": 0.9942140056528294,
+          "object_kinetic_energy": 0.25400724322833224,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 21,
+          "angular_speed": 134.1800598827137,
+          "linear_speed": 0.9980999034142337,
+          "object_kinetic_energy": 0.25388356927307826,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 22,
+          "angular_speed": 134.12405012462204,
+          "linear_speed": 1.0019969390911068,
+          "object_kinetic_energy": 0.2537613808356837,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 23,
+          "angular_speed": 134.06809416266464,
+          "linear_speed": 1.0059048003832258,
+          "object_kinetic_energy": 0.25364067734291207,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 24,
+          "angular_speed": 134.012191957856,
+          "linear_speed": 1.0098231804210291,
+          "object_kinetic_energy": 0.25352145823005506,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 25,
+          "angular_speed": 133.9563434712274,
+          "linear_speed": 1.0137517785028054,
+          "object_kinetic_energy": 0.2534037229406533,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 26,
+          "angular_speed": 133.9005486638269,
+          "linear_speed": 1.0176903007850502,
+          "object_kinetic_energy": 0.25328747092612297,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 27,
+          "angular_speed": 133.84480749671928,
+          "linear_speed": 1.0216384609246034,
+          "object_kinetic_energy": 0.2531727016454542,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 28,
+          "angular_speed": 133.78911993098592,
+          "linear_speed": 1.025595980671309,
+          "object_kinetic_energy": 0.2530594145648308,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 29,
+          "angular_speed": 133.7334859277251,
+          "linear_speed": 1.0295625904101804,
+          "object_kinetic_energy": 0.25294760915721776,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 30,
+          "angular_speed": 133.67790544805163,
+          "linear_speed": 1.0335380296523637,
+          "object_kinetic_energy": 0.2528372849020248,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 31,
+          "angular_speed": 133.62237845309716,
+          "linear_speed": 1.0375220474742337,
+          "object_kinetic_energy": 0.2527284412845949,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 32,
+          "angular_speed": 133.56690490400987,
+          "linear_speed": 1.0415144029044092,
+          "object_kinetic_energy": 0.2526210777958706,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 33,
+          "angular_speed": 133.51148476195465,
+          "linear_speed": 1.0455148652584643,
+          "object_kinetic_energy": 0.2525151939319069,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 34,
+          "angular_speed": 133.45611798811314,
+          "linear_speed": 1.0495232144214628,
+          "object_kinetic_energy": 0.2524107891934314,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 35,
+          "angular_speed": 133.40080454368345,
+          "linear_speed": 1.0535392410785585,
+          "object_kinetic_energy": 0.25230786308539227,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 36,
+          "angular_speed": 133.3455443898805,
+          "linear_speed": 1.0575627468941562,
+          "object_kinetic_energy": 0.25220641511650177,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 37,
+          "angular_speed": 133.29033748793572,
+          "linear_speed": 1.0615935446402545,
+          "object_kinetic_energy": 0.252106444798803,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 38,
+          "angular_speed": 133.2351837990972,
+          "linear_speed": 1.0656314582748088,
+          "object_kinetic_energy": 0.25200795164716583,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 39,
+          "angular_speed": 133.18008328462963,
+          "linear_speed": 1.069676322971103,
+          "object_kinetic_energy": 0.25191093517887386,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 4,
+          "substep": 40,
+          "angular_speed": 133.1250359058143,
+          "linear_speed": 1.0737279850992965,
+          "object_kinetic_energy": 0.25181539491316085,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 1,
+          "angular_speed": 133.070041623949,
+          "linear_speed": 1.077786302161428,
+          "object_kinetic_energy": 0.25172133037075667,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 2,
+          "angular_speed": 133.0151004003483,
+          "linear_speed": 1.0818511426813324,
+          "object_kinetic_energy": 0.25162874107346694,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 3,
+          "angular_speed": 132.96021219634306,
+          "linear_speed": 1.0859223860510654,
+          "object_kinetic_energy": 0.2515376265437254,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 4,
+          "angular_speed": 132.90537697328094,
+          "linear_speed": 1.0899999223355317,
+          "object_kinetic_energy": 0.25144798630419585,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 5,
+          "angular_speed": 132.850594692526,
+          "linear_speed": 1.0940836520371315,
+          "object_kinetic_energy": 0.2513598198773513,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 6,
+          "angular_speed": 132.79586531545885,
+          "linear_speed": 1.098173485822389,
+          "object_kinetic_energy": 0.25127312678512975,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 7,
+          "angular_speed": 132.7411888034767,
+          "linear_speed": 1.10226934421255,
+          "object_kinetic_energy": 0.2511879065484733,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 8,
+          "angular_speed": 132.68656511799315,
+          "linear_speed": 1.1063711572402866,
+          "object_kinetic_energy": 0.2511041586870638,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 9,
+          "angular_speed": 132.63199422043846,
+          "linear_speed": 1.110478864074701,
+          "object_kinetic_energy": 0.25102188271892634,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 10,
+          "angular_speed": 132.57747607225926,
+          "linear_speed": 1.1145924126168953,
+          "object_kinetic_energy": 0.2509410781601379,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 11,
+          "angular_speed": 132.5230106349187,
+          "linear_speed": 1.1187117590684308,
+          "object_kinetic_energy": 0.250861744524514,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 12,
+          "angular_speed": 132.46859786989646,
+          "linear_speed": 1.122836867475036,
+          "object_kinetic_energy": 0.2507838813233451,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 13,
+          "angular_speed": 132.41423773868857,
+          "linear_speed": 1.1269677092480206,
+          "object_kinetic_energy": 0.2507074880651125,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 14,
+          "angular_speed": 132.35993020280762,
+          "linear_speed": 1.1311042626657777,
+          "object_kinetic_energy": 0.2506325642553031,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 15,
+          "angular_speed": 132.30567522378263,
+          "linear_speed": 1.1352465123579238,
+          "object_kinetic_energy": 0.2505591093961426,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 16,
+          "angular_speed": 132.25147276315903,
+          "linear_speed": 1.1393944487744918,
+          "object_kinetic_energy": 0.25048712298648257,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 17,
+          "angular_speed": 132.19732278249867,
+          "linear_speed": 1.1435480676427114,
+          "object_kinetic_energy": 0.250416604521555,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 18,
+          "angular_speed": 132.14322524337987,
+          "linear_speed": 1.1477073694138493,
+          "object_kinetic_energy": 0.25034755349292676,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 19,
+          "angular_speed": 132.08918010739728,
+          "linear_speed": 1.1518723587025763,
+          "object_kinetic_energy": 0.25027996938831054,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 20,
+          "angular_speed": 132.03518733616207,
+          "linear_speed": 1.156043043721326,
+          "object_kinetic_energy": 0.25021385169150673,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 21,
+          "angular_speed": 131.98124689130165,
+          "linear_speed": 1.1602194357120539,
+          "object_kinetic_energy": 0.25014919988238504,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 22,
+          "angular_speed": 131.92735873445994,
+          "linear_speed": 1.164401548377805,
+          "object_kinetic_energy": 0.2500860134367789,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 23,
+          "angular_speed": 131.87352282729717,
+          "linear_speed": 1.168589397316421,
+          "object_kinetic_energy": 0.2500242918265112,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 24,
+          "angular_speed": 131.81973913148994,
+          "linear_speed": 1.1727829994586643,
+          "object_kinetic_energy": 0.24996403451943267,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 25,
+          "angular_speed": 131.76600760873117,
+          "linear_speed": 1.1769823725130255,
+          "object_kinetic_energy": 0.24990524097940706,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 26,
+          "angular_speed": 131.71232822073023,
+          "linear_speed": 1.18118753441935,
+          "object_kinetic_energy": 0.24984791066638862,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 27,
+          "angular_speed": 131.65870092921273,
+          "linear_speed": 1.1853985028133907,
+          "object_kinetic_energy": 0.24979204303653385,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 28,
+          "angular_speed": 131.60512569592063,
+          "linear_speed": 1.189615294504295,
+          "object_kinetic_energy": 0.24973763754228875,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 29,
+          "angular_speed": 131.5516024826122,
+          "linear_speed": 1.1938379249669722,
+          "object_kinetic_energy": 0.2496846936325102,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 30,
+          "angular_speed": 131.49813125106203,
+          "linear_speed": 1.1980664078511796,
+          "object_kinetic_energy": 0.24963321075260422,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 31,
+          "angular_speed": 131.44471196306105,
+          "linear_speed": 1.2023007545090447,
+          "object_kinetic_energy": 0.2495831883447643,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 32,
+          "angular_speed": 131.39134458041642,
+          "linear_speed": 1.206540973542738,
+          "object_kinetic_energy": 0.24953462584804753,
+          "object_contacts": 0,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 33,
+          "angular_speed": 133.7980446384694,
+          "linear_speed": 1.192257422952276,
+          "object_kinetic_energy": 0.24236585580516262,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 34,
+          "angular_speed": 136.32021507382962,
+          "linear_speed": 1.1806759000104532,
+          "object_kinetic_energy": 0.2358261727967116,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 35,
+          "angular_speed": 138.90634738608784,
+          "linear_speed": 1.1719231577871982,
+          "object_kinetic_energy": 0.2298991586464698,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 36,
+          "angular_speed": 141.52516425682828,
+          "linear_speed": 1.165770238658858,
+          "object_kinetic_energy": 0.22451660551365663,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 37,
+          "angular_speed": 144.15140349152708,
+          "linear_speed": 1.1620247643133872,
+          "object_kinetic_energy": 0.2196165653828182,
+          "object_contacts": 1,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 38,
+          "angular_speed": 139.270391916639,
+          "linear_speed": 1.15640287370413,
+          "object_kinetic_energy": 0.20330339093678937,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 39,
+          "angular_speed": 134.69560994593587,
+          "linear_speed": 1.1542202084692765,
+          "object_kinetic_energy": 0.18878783416845232,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 5,
+          "substep": 40,
+          "angular_speed": 130.49039306358432,
+          "linear_speed": 1.1546048354525738,
+          "object_kinetic_energy": 0.1759745427357369,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 1,
+          "angular_speed": 126.6285188764738,
+          "linear_speed": 1.1569622969589348,
+          "object_kinetic_energy": 0.16466654104307638,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 2,
+          "angular_speed": 123.08534219405759,
+          "linear_speed": 1.1607783695979974,
+          "object_kinetic_energy": 0.15468966270940815,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 3,
+          "angular_speed": 119.83783102131338,
+          "linear_speed": 1.1656196275917179,
+          "object_kinetic_energy": 0.14589021921768658,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 4,
+          "angular_speed": 116.86452721136052,
+          "linear_speed": 1.1711277839205758,
+          "object_kinetic_energy": 0.13813259608620043,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 5,
+          "angular_speed": 114.14554816453656,
+          "linear_speed": 1.1770108965206998,
+          "object_kinetic_energy": 0.1312972613427303,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 6,
+          "angular_speed": 111.66236315545873,
+          "linear_speed": 1.1830341749589317,
+          "object_kinetic_energy": 0.1252785123864581,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 7,
+          "angular_speed": 109.3976985674501,
+          "linear_speed": 1.1890113193582152,
+          "object_kinetic_energy": 0.11998283832837997,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 8,
+          "angular_speed": 107.33540507114367,
+          "linear_speed": 1.1947971618549693,
+          "object_kinetic_energy": 0.1153274062604591,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 9,
+          "angular_speed": 105.46033986596176,
+          "linear_speed": 1.2002816963312954,
+          "object_kinetic_energy": 0.11123876432471652,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 10,
+          "angular_speed": 103.7582646577202,
+          "linear_speed": 1.2053854156052108,
+          "object_kinetic_energy": 0.10765173290058136,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 11,
+          "angular_speed": 102.21575643031125,
+          "linear_speed": 1.210055825900425,
+          "object_kinetic_energy": 0.1045084573274843,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 12,
+          "angular_speed": 100.82012627035526,
+          "linear_speed": 1.2142650495164078,
+          "object_kinetic_energy": 0.10175760219143438,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 13,
+          "angular_speed": 99.5593388867683,
+          "linear_speed": 1.218008525054689,
+          "object_kinetic_energy": 0.09935367411475539,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 14,
+          "angular_speed": 98.42192299834828,
+          "linear_speed": 1.2213049969932133,
+          "object_kinetic_energy": 0.0972564692519036,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 15,
+          "angular_speed": 97.41349463336742,
+          "linear_speed": 1.2240999125650354,
+          "object_kinetic_energy": 0.0954302786709883,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 16,
+          "angular_speed": 96.55314073439952,
+          "linear_speed": 1.226276973891508,
+          "object_kinetic_energy": 0.09384418005702146,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 17,
+          "angular_speed": 95.82966851901318,
+          "linear_speed": 1.2279013375563241,
+          "object_kinetic_energy": 0.0924719827940315,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 18,
+          "angular_speed": 95.23207636963078,
+          "linear_speed": 1.229046537239814,
+          "object_kinetic_energy": 0.09129033258483411,
+          "object_contacts": 2,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 19,
+          "angular_speed": 92.25361195712873,
+          "linear_speed": 1.2313492815968548,
+          "object_kinetic_energy": 0.08902042807478806,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 20,
+          "angular_speed": 89.34734354446192,
+          "linear_speed": 1.2328766434451368,
+          "object_kinetic_energy": 0.08692222428795776,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 21,
+          "angular_speed": 86.54121683939262,
+          "linear_speed": 1.2337778727384232,
+          "object_kinetic_energy": 0.0849877335360217,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 22,
+          "angular_speed": 83.86684848663656,
+          "linear_speed": 1.2342747335759718,
+          "object_kinetic_energy": 0.08320716077810031,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 23,
+          "angular_speed": 81.32066966568871,
+          "linear_speed": 1.2344059591008423,
+          "object_kinetic_energy": 0.081568309698812,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 24,
+          "angular_speed": 78.8990613023457,
+          "linear_speed": 1.234208635909017,
+          "object_kinetic_energy": 0.08005998331509115,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 25,
+          "angular_speed": 76.5983727437953,
+          "linear_speed": 1.2337179527433912,
+          "object_kinetic_energy": 0.07867189214347695,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 26,
+          "angular_speed": 74.41493275061389,
+          "linear_speed": 1.2329670253019622,
+          "object_kinetic_energy": 0.07739457089739674,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 27,
+          "angular_speed": 72.34505686891465,
+          "linear_speed": 1.2319867891190477,
+          "object_kinetic_energy": 0.07621930449704233,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 28,
+          "angular_speed": 70.38505237976692,
+          "linear_speed": 1.2308059502451323,
+          "object_kinetic_energy": 0.07513806231986703,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 29,
+          "angular_speed": 68.53122176834975,
+          "linear_speed": 1.2294509838431587,
+          "object_kinetic_energy": 0.0741434396686513,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 30,
+          "angular_speed": 66.77986544728762,
+          "linear_speed": 1.2279461714669615,
+          "object_kinetic_energy": 0.07322860551786022,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 31,
+          "angular_speed": 65.12728429729346,
+          "linear_speed": 1.2263136686126332,
+          "object_kinetic_energy": 0.07238725569957938,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 32,
+          "angular_speed": 63.5697824453052,
+          "linear_speed": 1.2245735950614687,
+          "object_kinetic_energy": 0.07161357079521961,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 33,
+          "angular_speed": 62.103670579301244,
+          "linear_speed": 1.2227441415014098,
+          "object_kinetic_energy": 0.07090217810124376,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 34,
+          "angular_speed": 60.72526999517635,
+          "linear_speed": 1.2208416868730625,
+          "object_kinetic_energy": 0.07024811713074944,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 35,
+          "angular_speed": 59.43091748127361,
+          "linear_speed": 1.2188809218010719,
+          "object_kinetic_energy": 0.06964680819662715,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 36,
+          "angular_speed": 58.21697106853647,
+          "linear_speed": 1.2168749743178247,
+          "object_kinetic_energy": 0.06909402369410776,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 37,
+          "angular_speed": 57.07981660784792,
+          "linear_speed": 1.2148355348503777,
+          "object_kinetic_energy": 0.06858586176247539,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 38,
+          "angular_speed": 56.01587508071861,
+          "linear_speed": 1.2127729781165986,
+          "object_kinetic_energy": 0.0681187220570751,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 39,
+          "angular_speed": 55.021610505200975,
+          "linear_speed": 1.210696480161814,
+          "object_kinetic_energy": 0.06768928340546049,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "history_index": 6,
+          "substep": 40,
+          "angular_speed": 54.09353826592227,
+          "linear_speed": 1.2086141292661037,
+          "object_kinetic_energy": 0.06729448315661553,
+          "object_contacts": 3,
+          "warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

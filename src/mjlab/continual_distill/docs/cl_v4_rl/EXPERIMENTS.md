@@ -195,3 +195,5 @@ Place R4/model3400 strict0/128; reviewed actual frames show a grasped cube lifte
 
 | PREFLIGHT-PLACE-LR-023 | Place | Verify restored optimizer uses5e-5 | ownR4/model3400, completion_v6,64 ×3 updates | Prepared | Real Adam checkpoint-load regression tests passed; no moment reset. |
 | RL-019-R5 | Place | Preserve grasp progress while learning released containment | ownR4/model3400, completion_v6, LR5e-5,2048 ×2000 additional, GPU5 | Prepared | Full run conditional on finite PPO preflight with saved effective LR5e-5. |
+
+Place LR preflight p0ncrxmz completed3 updates, all saved checkpoint tensors finite and actual Adam param-group LR5e-5. Full RL-019-R5-place-lr launched from original3400 onGPU5, source8982f35,2048 ×2000 additional; means/std/moments/normalizers/backend preserved. AllGPUs1–7 have one full PPO process; GPU0 remains unused.
