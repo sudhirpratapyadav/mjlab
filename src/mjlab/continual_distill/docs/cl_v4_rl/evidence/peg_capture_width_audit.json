@@ -1,0 +1,3004 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "3662bea157997a1894580e3fde4c9f67557138ea2013be9b7e0f13bac6f24927",
+  "method": "CPU FK at128 recorded first-episode terminal poses. Reproduce current pad-centerline width and full-projection miss fallback; compare a central box chord as a candidate approach-width estimate. No integration, changed actions or success reclassification.",
+  "summary": {
+    "poses": 128,
+    "ray_intersections": 10,
+    "median_old_effective_width_m": 0.054980058717551294,
+    "median_central_ray_width_m": 0.026285725202919386,
+    "median_projected_width_m": 0.05538440137772899,
+    "median_inner_pad_gap_m": 0.05853554078102108,
+    "median_target_error_m": 0.016394104614134604
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "ray_intersects": true,
+      "ray_width_m": 0.009490568066550228,
+      "old_effective_width_m": 0.009490568066550228,
+      "central_ray_width_m": 0.026136446865358584,
+      "projected_width_m": 0.05384704050616029,
+      "inner_pad_gap_m": 0.05769102119565001,
+      "target_error_m": 0.01378353739199778,
+      "target_delta_m": [
+        0.008072768602203295,
+        -0.009696578875396392,
+        0.0055491141856244125
+      ],
+      "pad_center_local_m": [
+        0.0012455451628643757,
+        -0.012600299599631638,
+        0.0720590279658602
+      ]
+    },
+    {
+      "env_id": 1,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05362387295775467,
+      "central_ray_width_m": 0.026107574311531764,
+      "projected_width_m": 0.05362387295775467,
+      "inner_pad_gap_m": 0.05709529326021665,
+      "target_error_m": 0.015985846428634952,
+      "target_delta_m": [
+        0.010586468632939827,
+        -0.011640586641436718,
+        0.002823244687746182
+      ],
+      "pad_center_local_m": [
+        0.0036874787042043104,
+        -0.014976001439214483,
+        0.06931631720819609
+      ]
+    },
+    {
+      "env_id": 2,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.0590692969478373,
+      "central_ray_width_m": 0.026719239530832575,
+      "projected_width_m": 0.0590692969478373,
+      "inner_pad_gap_m": 0.061204098469614936,
+      "target_error_m": 0.015368192957341528,
+      "target_delta_m": [
+        -0.0009449040268740272,
+        -0.014568762952031744,
+        0.004799964291699085
+      ],
+      "pad_center_local_m": [
+        0.002151601467757334,
+        -0.014646943925451553,
+        0.07140207478677768
+      ]
+    },
+    {
+      "env_id": 3,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.056439205991340724,
+      "central_ray_width_m": 0.026364799564179076,
+      "projected_width_m": 0.056439205991340724,
+      "inner_pad_gap_m": 0.06184673712313168,
+      "target_error_m": 0.01664509227513395,
+      "target_delta_m": [
+        0.00010146450277592756,
+        -0.01585310648133839,
+        0.00507225952547255
+      ],
+      "pad_center_local_m": [
+        -0.0050136246787634365,
+        -0.015202220105575618,
+        0.07158767900927956
+      ]
+    },
+    {
+      "env_id": 4,
+      "ray_intersects": true,
+      "ray_width_m": 0.02607981460507003,
+      "old_effective_width_m": 0.02607981460507003,
+      "central_ray_width_m": 0.02607981460507003,
+      "projected_width_m": 0.05303803961633796,
+      "inner_pad_gap_m": 0.05778214365899557,
+      "target_error_m": 0.013446820582320631,
+      "target_delta_m": [
+        0.002652358043531311,
+        -0.011521793546099446,
+        0.006405486247202288
+      ],
+      "pad_center_local_m": [
+        -0.0003304713526874631,
+        -0.011947222067797842,
+        0.07290395611444822
+      ]
+    },
+    {
+      "env_id": 5,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05267381268496957,
+      "central_ray_width_m": 0.026151015141681846,
+      "projected_width_m": 0.05267381268496957,
+      "inner_pad_gap_m": 0.05977935933232314,
+      "target_error_m": 0.018245156044747805,
+      "target_delta_m": [
+        0.005145897044038672,
+        -0.01717935636014009,
+        0.003357853147572948
+      ],
+      "pad_center_local_m": [
+        -0.0026259329503089813,
+        -0.017524452318574406,
+        0.06981924431135249
+      ]
+    },
+    {
+      "env_id": 6,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05628989131242951,
+      "central_ray_width_m": 0.02640927900338157,
+      "projected_width_m": 0.05628989131242951,
+      "inner_pad_gap_m": 0.06309988938927645,
+      "target_error_m": 0.016214537553931912,
+      "target_delta_m": [
+        0.0023747422182450184,
+        -0.015566079171859648,
+        0.0038689800594149254
+      ],
+      "pad_center_local_m": [
+        0.00042544434729914677,
+        -0.015672149987219466,
+        0.07041340557809257
+      ]
+    },
+    {
+      "env_id": 7,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06124098133770084,
+      "central_ray_width_m": 0.0268944913040126,
+      "projected_width_m": 0.06124098133770084,
+      "inner_pad_gap_m": 0.060112716934680906,
+      "target_error_m": 0.015396823183388576,
+      "target_delta_m": [
+        0.009212694479796002,
+        -0.01156391892148348,
+        0.004296999387924619
+      ],
+      "pad_center_local_m": [
+        0.003599440750608611,
+        -0.01408564396061932,
+        0.07087815060896298
+      ]
+    },
+    {
+      "env_id": 8,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05366582599503639,
+      "central_ray_width_m": 0.0261125659654785,
+      "projected_width_m": 0.05366582599503639,
+      "inner_pad_gap_m": 0.05587362714767443,
+      "target_error_m": 0.017144878887656024,
+      "target_delta_m": [
+        -0.005184369247583365,
+        -0.014573156528786158,
+        0.00739542401520038
+      ],
+      "pad_center_local_m": [
+        0.001295816215849197,
+        -0.015486880614831689,
+        0.07389153156141097
+      ]
+    },
+    {
+      "env_id": 9,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05535425178286407,
+      "central_ray_width_m": 0.026277675202302238,
+      "projected_width_m": 0.05535425178286407,
+      "inner_pad_gap_m": 0.06021799363851544,
+      "target_error_m": 0.01785665103785553,
+      "target_delta_m": [
+        0.003718606924211665,
+        -0.01696644631144624,
+        0.004143868771059753
+      ],
+      "pad_center_local_m": [
+        -0.004835659576591078,
+        -0.01682345397495737,
+        0.07067493111616986
+      ]
+    },
+    {
+      "env_id": 10,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05719351330946659,
+      "central_ray_width_m": 0.02646520583767644,
+      "projected_width_m": 0.05719351330946659,
+      "inner_pad_gap_m": 0.062094874984621955,
+      "target_error_m": 0.01889351266598527,
+      "target_delta_m": [
+        0.004052184356004462,
+        -0.01717946374563803,
+        0.006738742331993938
+      ],
+      "pad_center_local_m": [
+        -0.0028096625142126665,
+        -0.01744955862161264,
+        0.07325292063939655
+      ]
+    },
+    {
+      "env_id": 11,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05174074009166113,
+      "central_ray_width_m": 0.026009563971432285,
+      "projected_width_m": 0.05174074009166113,
+      "inner_pad_gap_m": 0.05754756212890139,
+      "target_error_m": 0.014785537736013252,
+      "target_delta_m": [
+        0.004008279543906368,
+        -0.013574146085786026,
+        0.00427649146879934
+      ],
+      "pad_center_local_m": [
+        0.005014151921413845,
+        -0.013008930389699715,
+        0.0707546436068215
+      ]
+    },
+    {
+      "env_id": 12,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053708282778545,
+      "central_ray_width_m": 0.026128328114342018,
+      "projected_width_m": 0.053708282778545,
+      "inner_pad_gap_m": 0.05560339645206922,
+      "target_error_m": 0.015108497091907553,
+      "target_delta_m": [
+        0.004222538336141168,
+        -0.014040685944082837,
+        0.0036463670407176213
+      ],
+      "pad_center_local_m": [
+        -0.003778177720058159,
+        -0.0145619501153612,
+        0.07016042055171656
+      ]
+    },
+    {
+      "env_id": 13,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06127485188717949,
+      "central_ray_width_m": 0.02695788801181271,
+      "projected_width_m": 0.06127485188717949,
+      "inner_pad_gap_m": 0.060635103217363255,
+      "target_error_m": 0.015890709090684164,
+      "target_delta_m": [
+        0.005165637714586113,
+        -0.013893739430889535,
+        0.005726676787888699
+      ],
+      "pad_center_local_m": [
+        0.0014118200479581913,
+        -0.014877030113436876,
+        0.07230432406884654
+      ]
+    },
+    {
+      "env_id": 14,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05222797092652309,
+      "central_ray_width_m": 0.0259965438499942,
+      "projected_width_m": 0.05222797092652309,
+      "inner_pad_gap_m": 0.05614850141763688,
+      "target_error_m": 0.01592475320367379,
+      "target_delta_m": [
+        0.010231247021361078,
+        -0.011617650547738168,
+        0.0037349089328185398
+      ],
+      "pad_center_local_m": [
+        0.0031562896019864525,
+        -0.015121401461606072,
+        0.07023227328170518
+      ]
+    },
+    {
+      "env_id": 15,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053989529356455124,
+      "central_ray_width_m": 0.026190864265174193,
+      "projected_width_m": 0.053989529356455124,
+      "inner_pad_gap_m": 0.0580265431916713,
+      "target_error_m": 0.016190618707289023,
+      "target_delta_m": [
+        -0.0005158454567846249,
+        -0.014804622322901279,
+        0.006534003020031834
+      ],
+      "pad_center_local_m": [
+        0.00383139312039095,
+        -0.014354894694918971,
+        0.0730630755102351
+      ]
+    },
+    {
+      "env_id": 16,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.061064616008653205,
+      "central_ray_width_m": 0.02687345858186402,
+      "projected_width_m": 0.061064616008653205,
+      "inner_pad_gap_m": 0.0621436278587579,
+      "target_error_m": 0.01536245692091697,
+      "target_delta_m": [
+        0.00277753895235483,
+        -0.014315169372597594,
+        0.004833868621407195
+      ],
+      "pad_center_local_m": [
+        0.0023649804198679755,
+        -0.014454852316028709,
+        0.07142040186104635
+      ]
+    },
+    {
+      "env_id": 17,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05906311260251565,
+      "central_ray_width_m": 0.026640295308726917,
+      "projected_width_m": 0.05906311260251565,
+      "inner_pad_gap_m": 0.062292648783922065,
+      "target_error_m": 0.018328939015042185,
+      "target_delta_m": [
+        0.004090344012909364,
+        -0.01670593375351232,
+        0.006334892950670107
+      ],
+      "pad_center_local_m": [
+        0.0012970924916773942,
+        -0.017239757779398467,
+        0.07290204299872775
+      ]
+    },
+    {
+      "env_id": 18,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05373425382558389,
+      "central_ray_width_m": 0.02622859353968982,
+      "projected_width_m": 0.05373425382558389,
+      "inner_pad_gap_m": 0.05936887331962582,
+      "target_error_m": 0.019009831260917428,
+      "target_delta_m": [
+        0.002825672729778017,
+        -0.018516972867780743,
+        0.003242063232975906
+      ],
+      "pad_center_local_m": [
+        -0.00641812896622225,
+        -0.017514977708040273,
+        0.06971788221817679
+      ]
+    },
+    {
+      "env_id": 19,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05841925090879735,
+      "central_ray_width_m": 0.026568870175159857,
+      "projected_width_m": 0.05841925090879735,
+      "inner_pad_gap_m": 0.05978771888375279,
+      "target_error_m": 0.015250465105925634,
+      "target_delta_m": [
+        0.0013329740266277423,
+        -0.014232800496747078,
+        0.0053129329198840225
+      ],
+      "pad_center_local_m": [
+        0.0017622751228114463,
+        -0.014237165227039238,
+        0.0718704775986188
+      ]
+    },
+    {
+      "env_id": 20,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.0536336594934555,
+      "central_ray_width_m": 0.02612993565465062,
+      "projected_width_m": 0.0536336594934555,
+      "inner_pad_gap_m": 0.06044195436596866,
+      "target_error_m": 0.017074947190835632,
+      "target_delta_m": [
+        0.004701234107574448,
+        -0.01618219091327805,
+        0.0027547988459823425
+      ],
+      "pad_center_local_m": [
+        0.0017669012975736274,
+        -0.016718199507754564,
+        0.0692706888779725
+      ]
+    },
+    {
+      "env_id": 21,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05068557779161814,
+      "central_ray_width_m": 0.025918704956882546,
+      "projected_width_m": 0.05068557779161814,
+      "inner_pad_gap_m": 0.05484339439034457,
+      "target_error_m": 0.015907065759218696,
+      "target_delta_m": [
+        -9.398030711427197e-06,
+        -0.014273625031131554,
+        0.007021273475359108
+      ],
+      "pad_center_local_m": [
+        0.005867009449076426,
+        -0.013045005404972521,
+        0.07351877939831791
+      ]
+    },
+    {
+      "env_id": 22,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.051316196371684275,
+      "central_ray_width_m": 0.025918907175538467,
+      "projected_width_m": 0.051316196371684275,
+      "inner_pad_gap_m": 0.058457820049524205,
+      "target_error_m": 0.019303115305131287,
+      "target_delta_m": [
+        0.0024319410463978786,
+        -0.0177754521185442,
+        0.007122445170823111
+      ],
+      "pad_center_local_m": [
+        -0.007373505858514447,
+        -0.016741260073271272,
+        0.07360112201466097
+      ]
+    },
+    {
+      "env_id": 23,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05128533109631683,
+      "central_ray_width_m": 0.025979047641720633,
+      "projected_width_m": 0.05128533109631683,
+      "inner_pad_gap_m": 0.05539892458081241,
+      "target_error_m": 0.016252382835462386,
+      "target_delta_m": [
+        -2.47022827039034e-05,
+        -0.014471403247796333,
+        0.00739714983404631
+      ],
+      "pad_center_local_m": [
+        0.00524492538799072,
+        -0.013403483302449172,
+        0.07390106201575881
+      ]
+    },
+    {
+      "env_id": 24,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.054316274077705895,
+      "central_ray_width_m": 0.026166614290508868,
+      "projected_width_m": 0.054316274077705895,
+      "inner_pad_gap_m": 0.05713423371970656,
+      "target_error_m": 0.018291463731198332,
+      "target_delta_m": [
+        -0.0006680710757250852,
+        -0.01764983124938055,
+        0.00475550032445729
+      ],
+      "pad_center_local_m": [
+        -0.0017504748015402729,
+        -0.017863294712116777,
+        0.07125311788530812
+      ]
+    },
+    {
+      "env_id": 25,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05951116327883471,
+      "central_ray_width_m": 0.026703184414040137,
+      "projected_width_m": 0.05951116327883471,
+      "inner_pad_gap_m": 0.059440108320712996,
+      "target_error_m": 0.016119935648892497,
+      "target_delta_m": [
+        0.0023693309023651854,
+        -0.014525031067949112,
+        0.0065773907345273025
+      ],
+      "pad_center_local_m": [
+        0.0009163286678789322,
+        -0.014858319519429088,
+        0.0731337282233029
+      ]
+    },
+    {
+      "env_id": 26,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052930199269312306,
+      "central_ray_width_m": 0.026056181595382602,
+      "projected_width_m": 0.052930199269312306,
+      "inner_pad_gap_m": 0.05667993270516385,
+      "target_error_m": 0.01848107139688725,
+      "target_delta_m": [
+        -0.006334830037582673,
+        -0.014352629601770112,
+        0.009768416037729793
+      ],
+      "pad_center_local_m": [
+        -0.00039147287297964216,
+        -0.01609271875768932,
+        0.07629465144413321
+      ]
+    },
+    {
+      "env_id": 27,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.060298177515336115,
+      "central_ray_width_m": 0.026790009449101298,
+      "projected_width_m": 0.060298177515336115,
+      "inner_pad_gap_m": 0.05929271907269946,
+      "target_error_m": 0.016655248005517743,
+      "target_delta_m": [
+        0.004379463478450307,
+        -0.01531083084641266,
+        0.004878118957012151
+      ],
+      "pad_center_local_m": [
+        0.000815388841770217,
+        -0.016139083830168658,
+        0.07144503997410452
+      ]
+    },
+    {
+      "env_id": 28,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05598553603806322,
+      "central_ray_width_m": 0.026360232979259428,
+      "projected_width_m": 0.05598553603806322,
+      "inner_pad_gap_m": 0.05918631733119482,
+      "target_error_m": 0.01640450966469544,
+      "target_delta_m": [
+        -0.0029527556728065063,
+        -0.015177690644128189,
+        0.005479678639020602
+      ],
+      "pad_center_local_m": [
+        -0.0016424799249304721,
+        -0.015407532077716495,
+        0.07202650824905049
+      ]
+    },
+    {
+      "env_id": 29,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05319405642709135,
+      "central_ray_width_m": 0.026112792720898604,
+      "projected_width_m": 0.05319405642709135,
+      "inner_pad_gap_m": 0.057383885911703035,
+      "target_error_m": 0.016783050970842858,
+      "target_delta_m": [
+        0.00457175836715884,
+        -0.015945516033621904,
+        0.0025515375254401562
+      ],
+      "pad_center_local_m": [
+        -0.0037855476614751895,
+        -0.016275917645581364,
+        0.06903002328932846
+      ]
+    },
+    {
+      "env_id": 30,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06095100114934729,
+      "central_ray_width_m": 0.026937268627404466,
+      "projected_width_m": 0.06095100114934729,
+      "inner_pad_gap_m": 0.058920979804396596,
+      "target_error_m": 0.017158543555010473,
+      "target_delta_m": [
+        0.00844059297715466,
+        -0.012963478888604885,
+        0.007424299443576768
+      ],
+      "pad_center_local_m": [
+        0.004031282412144904,
+        -0.014954630789041523,
+        0.07400065221178519
+      ]
+    },
+    {
+      "env_id": 31,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05415544070226325,
+      "central_ray_width_m": 0.0261900826363086,
+      "projected_width_m": 0.05415544070226325,
+      "inner_pad_gap_m": 0.057884786582589075,
+      "target_error_m": 0.01420846729866766,
+      "target_delta_m": [
+        0.0024395182956878925,
+        -0.0137281215369809,
+        0.002732759142001634
+      ],
+      "pad_center_local_m": [
+        0.005066047465802723,
+        -0.01280879443502392,
+        0.06925461818535071
+      ]
+    },
+    {
+      "env_id": 32,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055937368218063416,
+      "central_ray_width_m": 0.026423656741322712,
+      "projected_width_m": 0.055937368218063416,
+      "inner_pad_gap_m": 0.058169067210554946,
+      "target_error_m": 0.018158468359896828,
+      "target_delta_m": [
+        0.0077287664952936375,
+        -0.01515855421405679,
+        0.006341480566721139
+      ],
+      "pad_center_local_m": [
+        -0.0017612195582015404,
+        -0.016946950608414106,
+        0.07284735879860886
+      ]
+    },
+    {
+      "env_id": 33,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05291569584671785,
+      "central_ray_width_m": 0.026067143884011,
+      "projected_width_m": 0.05291569584671785,
+      "inner_pad_gap_m": 0.05823401019632806,
+      "target_error_m": 0.016192896965646603,
+      "target_delta_m": [
+        -0.0002101151402454926,
+        -0.016099607579350667,
+        0.001722904396303293
+      ],
+      "pad_center_local_m": [
+        0.005492799846455938,
+        -0.014957213089503887,
+        0.0682408348189975
+      ]
+    },
+    {
+      "env_id": 34,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052873229628875196,
+      "central_ray_width_m": 0.0261115134965979,
+      "projected_width_m": 0.052873229628875196,
+      "inner_pad_gap_m": 0.05523546256780625,
+      "target_error_m": 0.01615076632816941,
+      "target_delta_m": [
+        -0.003750810255339243,
+        -0.014635503133038977,
+        0.00570795265032735
+      ],
+      "pad_center_local_m": [
+        0.0017207893375373686,
+        -0.01515734188642103,
+        0.07221373848291764
+      ]
+    },
+    {
+      "env_id": 35,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.051896023763926546,
+      "central_ray_width_m": 0.02598529464283325,
+      "projected_width_m": 0.051896023763926546,
+      "inner_pad_gap_m": 0.0568206741726398,
+      "target_error_m": 0.016207525001709973,
+      "target_delta_m": [
+        0.008481909015761735,
+        -0.01355926476285807,
+        0.0026243904473437635
+      ],
+      "pad_center_local_m": [
+        0.002027247356344094,
+        -0.015715047077162918,
+        0.0691165662252758
+      ]
+    },
+    {
+      "env_id": 36,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05837384935155576,
+      "central_ray_width_m": 0.0265646752227063,
+      "projected_width_m": 0.05837384935155576,
+      "inner_pad_gap_m": 0.05814682722747317,
+      "target_error_m": 0.015871786204738232,
+      "target_delta_m": [
+        0.00746172693851177,
+        -0.013151416060504684,
+        0.0048245708645957425
+      ],
+      "pad_center_local_m": [
+        0.002193768738529677,
+        -0.014897277952844555,
+        0.07137569889547224
+      ]
+    },
+    {
+      "env_id": 37,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06342089449998398,
+      "central_ray_width_m": 0.027222185733023173,
+      "projected_width_m": 0.06342089449998398,
+      "inner_pad_gap_m": 0.05955101393818848,
+      "target_error_m": 0.015039858822955112,
+      "target_delta_m": [
+        0.00845275129335954,
+        -0.011629684041179172,
+        0.004415744341486699
+      ],
+      "pad_center_local_m": [
+        0.003053084382378672,
+        -0.01401858280200022,
+        0.07102266790578986
+      ]
+    },
+    {
+      "env_id": 38,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05635678466817093,
+      "central_ray_width_m": 0.02637616688012591,
+      "projected_width_m": 0.05635678466817093,
+      "inner_pad_gap_m": 0.059339516169428695,
+      "target_error_m": 0.014439122212898859,
+      "target_delta_m": [
+        0.005499227073193003,
+        -0.012848170477895535,
+        0.003629224055831215
+      ],
+      "pad_center_local_m": [
+        -0.0006643932324054776,
+        -0.014015484919620834,
+        0.07015465300553016
+      ]
+    },
+    {
+      "env_id": 39,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.058394820711996365,
+      "central_ray_width_m": 0.026569396454924003,
+      "projected_width_m": 0.058394820711996365,
+      "inner_pad_gap_m": 0.06032767922341815,
+      "target_error_m": 0.016505817468028757,
+      "target_delta_m": [
+        0.007281050297907654,
+        -0.013309801486413447,
+        0.006502115135822231
+      ],
+      "pad_center_local_m": [
+        0.004464144141957535,
+        -0.014387866017314772,
+        0.07305929860737276
+      ]
+    },
+    {
+      "env_id": 40,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05734988015961806,
+      "central_ray_width_m": 0.026456384383737302,
+      "projected_width_m": 0.05734988015961806,
+      "inner_pad_gap_m": 0.059770783714055926,
+      "target_error_m": 0.017395253923708123,
+      "target_delta_m": [
+        0.0038653043130288944,
+        -0.015837647315500164,
+        0.006068213011076129
+      ],
+      "pad_center_local_m": [
+        0.00034625972366013265,
+        -0.016496064973031337,
+        0.0726168832126586
+      ]
+    },
+    {
+      "env_id": 41,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05548715846723379,
+      "central_ray_width_m": 0.026307816256004604,
+      "projected_width_m": 0.05548715846723379,
+      "inner_pad_gap_m": 0.06037305139660825,
+      "target_error_m": 0.01689155419430647,
+      "target_delta_m": [
+        0.0017615921077139274,
+        -0.016317674551291475,
+        0.00399435771850333
+      ],
+      "pad_center_local_m": [
+        0.004708421098078298,
+        -0.015649325933119098,
+        0.07054027414704651
+      ]
+    },
+    {
+      "env_id": 42,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05501253974419634,
+      "central_ray_width_m": 0.02623269907932417,
+      "projected_width_m": 0.05501253974419634,
+      "inner_pad_gap_m": 0.057816380939483554,
+      "target_error_m": 0.01638441931920742,
+      "target_delta_m": [
+        0.005814071961974643,
+        -0.013972593362341551,
+        0.006277929465934334
+      ],
+      "pad_center_local_m": [
+        0.004003417587394804,
+        -0.014538677140092993,
+        0.07280800689145737
+      ]
+    },
+    {
+      "env_id": 43,
+      "ray_intersects": true,
+      "ray_width_m": 0.003335620669799949,
+      "old_effective_width_m": 0.003335620669799949,
+      "central_ray_width_m": 0.02623944560050439,
+      "projected_width_m": 0.05494708938490228,
+      "inner_pad_gap_m": 0.057984629950523274,
+      "target_error_m": 0.014453959334726275,
+      "target_delta_m": [
+        -0.0015002827161029741,
+        -0.013115522632495574,
+        0.005886353565508942
+      ],
+      "pad_center_local_m": [
+        0.0021429562236869324,
+        -0.013003922764513134,
+        0.07240218584325095
+      ]
+    },
+    {
+      "env_id": 44,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05873085735587158,
+      "central_ray_width_m": 0.026602754374220747,
+      "projected_width_m": 0.05873085735587158,
+      "inner_pad_gap_m": 0.06224947266936295,
+      "target_error_m": 0.01743265247860257,
+      "target_delta_m": [
+        -0.0019048242724825082,
+        -0.016739287008829123,
+        0.004479429357265766
+      ],
+      "pad_center_local_m": [
+        -0.0010049082707718389,
+        -0.01663506394819314,
+        0.07102934817286834
+      ]
+    },
+    {
+      "env_id": 45,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05746134063694966,
+      "central_ray_width_m": 0.02649714437990143,
+      "projected_width_m": 0.05746134063694966,
+      "inner_pad_gap_m": 0.05934224308192725,
+      "target_error_m": 0.018466748921153315,
+      "target_delta_m": [
+        0.008264776676723151,
+        -0.015743615055996557,
+        0.004985265004932904
+      ],
+      "pad_center_local_m": [
+        0.005431258708514182,
+        -0.01670766697653155,
+        0.07154689833228008
+      ]
+    },
+    {
+      "env_id": 46,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053371928497291554,
+      "central_ray_width_m": 0.026104929153377275,
+      "projected_width_m": 0.053371928497291554,
+      "inner_pad_gap_m": 0.05742641010045992,
+      "target_error_m": 0.017306097990100827,
+      "target_delta_m": [
+        0.002167320357078062,
+        -0.016797443381422777,
+        0.0035566340774196847
+      ],
+      "pad_center_local_m": [
+        0.006070633070836227,
+        -0.01571080721497531,
+        0.07006152504145259
+      ]
+    },
+    {
+      "env_id": 47,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05312040503062759,
+      "central_ray_width_m": 0.026111838139575547,
+      "projected_width_m": 0.05312040503062759,
+      "inner_pad_gap_m": 0.05797484920084469,
+      "target_error_m": 0.016993753720736863,
+      "target_delta_m": [
+        0.003089099869988121,
+        -0.016000799018729445,
+        0.004818667686874056
+      ],
+      "pad_center_local_m": [
+        0.0054198830385993515,
+        -0.015331826035210239,
+        0.0713338521851205
+      ]
+    },
+    {
+      "env_id": 48,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05472043690921585,
+      "central_ray_width_m": 0.02621562849800825,
+      "projected_width_m": 0.05472043690921585,
+      "inner_pad_gap_m": 0.05991955690741536,
+      "target_error_m": 0.016973377153017187,
+      "target_delta_m": [
+        0.002672615480754481,
+        -0.015828038529647204,
+        0.005515963630645229
+      ],
+      "pad_center_local_m": [
+        -0.0014989170819598137,
+        -0.01591126412746393,
+        0.07204041413910149
+      ]
+    },
+    {
+      "env_id": 49,
+      "ray_intersects": true,
+      "ray_width_m": 0.0012681672863999165,
+      "old_effective_width_m": 0.0012681672863999165,
+      "central_ray_width_m": 0.026162902754153176,
+      "projected_width_m": 0.054276723384137304,
+      "inner_pad_gap_m": 0.05860710360765447,
+      "target_error_m": 0.014152384255759322,
+      "target_delta_m": [
+        0.002339035690181679,
+        -0.013009796266660156,
+        0.0050560946651260485
+      ],
+      "pad_center_local_m": [
+        0.0012508803631674896,
+        -0.013217801054100566,
+        0.07156824069305223
+      ]
+    },
+    {
+      "env_id": 50,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05566767964122876,
+      "central_ray_width_m": 0.02632442043985542,
+      "projected_width_m": 0.05566767964122876,
+      "inner_pad_gap_m": 0.06019770943284027,
+      "target_error_m": 0.01686043850697604,
+      "target_delta_m": [
+        0.0018848071925139376,
+        -0.016428465319746316,
+        0.0032905038721236513
+      ],
+      "pad_center_local_m": [
+        0.004537496239587191,
+        -0.015881476217616115,
+        0.06984271546432724
+      ]
+    },
+    {
+      "env_id": 51,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05450473381215981,
+      "central_ray_width_m": 0.026222809792894344,
+      "projected_width_m": 0.05450473381215981,
+      "inner_pad_gap_m": 0.05868860364615911,
+      "target_error_m": 0.01642475233524272,
+      "target_delta_m": [
+        0.004208291499621264,
+        -0.014232990421929936,
+        0.0070345401823806025
+      ],
+      "pad_center_local_m": [
+        0.0035405307315076527,
+        -0.01427362931533803,
+        0.07355565216541274
+      ]
+    },
+    {
+      "env_id": 52,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05658786791663034,
+      "central_ray_width_m": 0.026423080700033685,
+      "projected_width_m": 0.05658786791663034,
+      "inner_pad_gap_m": 0.059828531301617575,
+      "target_error_m": 0.017289386489182313,
+      "target_delta_m": [
+        -0.00483412734661659,
+        -0.015917273331279666,
+        0.0047111047182531035
+      ],
+      "pad_center_local_m": [
+        -0.0009680765853893236,
+        -0.01674274613717322,
+        0.07124660158946
+      ]
+    },
+    {
+      "env_id": 53,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052679226875213925,
+      "central_ray_width_m": 0.02609756142239112,
+      "projected_width_m": 0.052679226875213925,
+      "inner_pad_gap_m": 0.05663506903409953,
+      "target_error_m": 0.015866113251243878,
+      "target_delta_m": [
+        -0.0026502674477055788,
+        -0.013389385126200415,
+        0.008089128389339104
+      ],
+      "pad_center_local_m": [
+        0.001990931740383794,
+        -0.01381580925816971,
+        0.07462626645580166
+      ]
+    },
+    {
+      "env_id": 54,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05382357214052452,
+      "central_ray_width_m": 0.026189567803446428,
+      "projected_width_m": 0.05382357214052452,
+      "inner_pad_gap_m": 0.05897688709855076,
+      "target_error_m": 0.016376138000653795,
+      "target_delta_m": [
+        0.0014678163966970748,
+        -0.014809568120328298,
+        0.006833747356421671
+      ],
+      "pad_center_local_m": [
+        0.0038219379330757582,
+        -0.014243207542438595,
+        0.07335556216597144
+      ]
+    },
+    {
+      "env_id": 55,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05883703584515576,
+      "central_ray_width_m": 0.026641946587850775,
+      "projected_width_m": 0.05883703584515576,
+      "inner_pad_gap_m": 0.06401410170555107,
+      "target_error_m": 0.01945145768372475,
+      "target_delta_m": [
+        -0.0005551711674323112,
+        -0.018807370513346452,
+        0.0049329307080368395
+      ],
+      "pad_center_local_m": [
+        -0.004792687527080466,
+        -0.018312729748134925,
+        0.07151738483190699
+      ]
+    },
+    {
+      "env_id": 56,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05761807526230239,
+      "central_ray_width_m": 0.026490083146436888,
+      "projected_width_m": 0.05761807526230239,
+      "inner_pad_gap_m": 0.05626585178732866,
+      "target_error_m": 0.015189846165015385,
+      "target_delta_m": [
+        0.009271532487079459,
+        -0.01072848256234607,
+        0.005446996765860898
+      ],
+      "pad_center_local_m": [
+        0.004090532143466047,
+        -0.013486693797302775,
+        0.0719882239190004
+      ]
+    },
+    {
+      "env_id": 57,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05753035975754639,
+      "central_ray_width_m": 0.026480414174738592,
+      "projected_width_m": 0.05753035975754639,
+      "inner_pad_gap_m": 0.06057617471277712,
+      "target_error_m": 0.014122150761046838,
+      "target_delta_m": [
+        0.0017528709112720753,
+        -0.013694765822506144,
+        0.0029691707180405785
+      ],
+      "pad_center_local_m": [
+        0.0010489646468723412,
+        -0.01360071872398245,
+        0.06951871510041684
+      ]
+    },
+    {
+      "env_id": 58,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053873091302815534,
+      "central_ray_width_m": 0.026148559633035806,
+      "projected_width_m": 0.053873091302815534,
+      "inner_pad_gap_m": 0.05743487582266322,
+      "target_error_m": 0.017631509160404974,
+      "target_delta_m": [
+        -0.003598358240668509,
+        -0.016454960022785153,
+        0.005211163391585408
+      ],
+      "pad_center_local_m": [
+        -0.0008790107928570176,
+        -0.01706532264266088,
+        0.0717357286514492
+      ]
+    },
+    {
+      "env_id": 59,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05830697736338003,
+      "central_ray_width_m": 0.026557906231983733,
+      "projected_width_m": 0.05830697736338003,
+      "inner_pad_gap_m": 0.05890887819886199,
+      "target_error_m": 0.016403789909061786,
+      "target_delta_m": [
+        0.0030328164622847043,
+        -0.015358785158100907,
+        0.004898373827509642
+      ],
+      "pad_center_local_m": [
+        0.0040637586462857886,
+        -0.015145966865232457,
+        0.071439951514125
+      ]
+    },
+    {
+      "env_id": 60,
+      "ray_intersects": true,
+      "ray_width_m": 0.005023416686404256,
+      "old_effective_width_m": 0.005023416686404256,
+      "central_ray_width_m": 0.026288307964171545,
+      "projected_width_m": 0.055453890612076506,
+      "inner_pad_gap_m": 0.05783749961018563,
+      "target_error_m": 0.013754459073710876,
+      "target_delta_m": [
+        -0.0014099756359579607,
+        -0.013256297397531591,
+        0.0033863981491533968
+      ],
+      "pad_center_local_m": [
+        0.0026052917622880873,
+        -0.012950810084790263,
+        0.06991730526810364
+      ]
+    },
+    {
+      "env_id": 61,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055364837804815104,
+      "central_ray_width_m": 0.02629659411549527,
+      "projected_width_m": 0.055364837804815104,
+      "inner_pad_gap_m": 0.058641325986981276,
+      "target_error_m": 0.01529014895290386,
+      "target_delta_m": [
+        0.0046237288505950325,
+        -0.013468994978174609,
+        0.005567401619792606
+      ],
+      "pad_center_local_m": [
+        0.0006896212668519989,
+        -0.014277388660428825,
+        0.0720895340296743
+      ]
+    },
+    {
+      "env_id": 62,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05521592445667989,
+      "central_ray_width_m": 0.026323259713513666,
+      "projected_width_m": 0.05521592445667989,
+      "inner_pad_gap_m": 0.058522716469168616,
+      "target_error_m": 0.017264014908883987,
+      "target_delta_m": [
+        -0.0031688100635550165,
+        -0.015915284093378668,
+        0.005891399305965342
+      ],
+      "pad_center_local_m": [
+        0.0004681152791394554,
+        -0.016509929482814028,
+        0.07243172662918893
+      ]
+    },
+    {
+      "env_id": 63,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05362683582670974,
+      "central_ray_width_m": 0.026113737083797516,
+      "projected_width_m": 0.05362683582670974,
+      "inner_pad_gap_m": 0.057855466685295,
+      "target_error_m": 0.015546796985603142,
+      "target_delta_m": [
+        0.0019608491658356653,
+        -0.01440217412580274,
+        0.005516824042006291
+      ],
+      "pad_center_local_m": [
+        0.005179813504614522,
+        -0.013483268472422996,
+        0.0720167606321024
+      ]
+    },
+    {
+      "env_id": 64,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.0595309687270337,
+      "central_ray_width_m": 0.02670599479377195,
+      "projected_width_m": 0.0595309687270337,
+      "inner_pad_gap_m": 0.058631979233622504,
+      "target_error_m": 0.015540165595690958,
+      "target_delta_m": [
+        0.008159723343195091,
+        -0.011772031322921983,
+        0.006027847064761824
+      ],
+      "pad_center_local_m": [
+        0.003983557052190951,
+        -0.013633005727635771,
+        0.07259361090684109
+      ]
+    },
+    {
+      "env_id": 65,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05095123513541833,
+      "central_ray_width_m": 0.025915553871632205,
+      "projected_width_m": 0.05095123513541833,
+      "inner_pad_gap_m": 0.05492578291058537,
+      "target_error_m": 0.020636382985972503,
+      "target_delta_m": [
+        -0.0030422871968362464,
+        -0.019785204472813678,
+        0.005015024957530659
+      ],
+      "pad_center_local_m": [
+        0.00562086204245728,
+        -0.01906777380033679,
+        0.0714724614750078
+      ]
+    },
+    {
+      "env_id": 66,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05577705337876582,
+      "central_ray_width_m": 0.026305008985864825,
+      "projected_width_m": 0.05577705337876582,
+      "inner_pad_gap_m": 0.05683849782407272,
+      "target_error_m": 0.015326858066138854,
+      "target_delta_m": [
+        0.00711368229733389,
+        -0.012182903835360276,
+        0.005990405369466073
+      ],
+      "pad_center_local_m": [
+        0.0034487035936444526,
+        -0.01363183004894489,
+        0.07251729977674858
+      ]
+    },
+    {
+      "env_id": 67,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05574387057452504,
+      "central_ray_width_m": 0.026312237937248913,
+      "projected_width_m": 0.05574387057452504,
+      "inner_pad_gap_m": 0.05705363520145409,
+      "target_error_m": 0.016169759902143616,
+      "target_delta_m": [
+        0.00915970250728343,
+        -0.012801086118532673,
+        0.003700429631400562
+      ],
+      "pad_center_local_m": [
+        0.004040973765181997,
+        -0.015139732650631317,
+        0.07022838702070926
+      ]
+    },
+    {
+      "env_id": 68,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05676356616276454,
+      "central_ray_width_m": 0.026459528074121965,
+      "projected_width_m": 0.05676356616276454,
+      "inner_pad_gap_m": 0.06151803985893722,
+      "target_error_m": 0.016112572929719432,
+      "target_delta_m": [
+        0.0015271514954769971,
+        -0.014950005245429554,
+        0.00581207001738783
+      ],
+      "pad_center_local_m": [
+        -0.001451755986341253,
+        -0.015086523995179658,
+        0.07235763146349156
+      ]
+    },
+    {
+      "env_id": 69,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.050106456536094524,
+      "central_ray_width_m": 0.025882530590544905,
+      "projected_width_m": 0.050106456536094524,
+      "inner_pad_gap_m": 0.05389983423709866,
+      "target_error_m": 0.015805478881524775,
+      "target_delta_m": [
+        -0.0036701157490625635,
+        -0.014428908223969715,
+        0.005305659292403508
+      ],
+      "pad_center_local_m": [
+        0.0025791486571543156,
+        -0.014867951756880255,
+        0.071808809600805
+      ]
+    },
+    {
+      "env_id": 70,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052452874504981706,
+      "central_ray_width_m": 0.026042736445611826,
+      "projected_width_m": 0.052452874504981706,
+      "inner_pad_gap_m": 0.057853570512533224,
+      "target_error_m": 0.0159280207440851,
+      "target_delta_m": [
+        0.003662870228186399,
+        -0.014887919552216577,
+        0.004316836564221341
+      ],
+      "pad_center_local_m": [
+        0.001176782015749754,
+        -0.015326888037838599,
+        0.07080257964861196
+      ]
+    },
+    {
+      "env_id": 71,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06065097296251973,
+      "central_ray_width_m": 0.026824845687925404,
+      "projected_width_m": 0.06065097296251973,
+      "inner_pad_gap_m": 0.06213439472675312,
+      "target_error_m": 0.017095180879059056,
+      "target_delta_m": [
+        0.0027451581390586233,
+        -0.016351516093822287,
+        0.004163800849317514
+      ],
+      "pad_center_local_m": [
+        0.0036421065226660636,
+        -0.016295697937053436,
+        0.07076305021506363
+      ]
+    },
+    {
+      "env_id": 72,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05637600234090412,
+      "central_ray_width_m": 0.02645066603794645,
+      "projected_width_m": 0.05637600234090412,
+      "inner_pad_gap_m": 0.06227092475354668,
+      "target_error_m": 0.01612522853913111,
+      "target_delta_m": [
+        2.8389394893135744e-05,
+        -0.01515804247827536,
+        0.005500539765174492
+      ],
+      "pad_center_local_m": [
+        0.0029781347053868933,
+        -0.014800960139388598,
+        0.07205363848709881
+      ]
+    },
+    {
+      "env_id": 73,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.058654781873744954,
+      "central_ray_width_m": 0.026634722562910714,
+      "projected_width_m": 0.058654781873744954,
+      "inner_pad_gap_m": 0.060751326686739875,
+      "target_error_m": 0.014967748577649088,
+      "target_delta_m": [
+        -0.003429116968802215,
+        -0.013677154920911296,
+        0.00502096480443559
+      ],
+      "pad_center_local_m": [
+        -0.0010964628296689218,
+        -0.014265462582868801,
+        0.07160054333266398
+      ]
+    },
+    {
+      "env_id": 74,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.057900343052798176,
+      "central_ray_width_m": 0.02657689508144578,
+      "projected_width_m": 0.057900343052798176,
+      "inner_pad_gap_m": 0.062045844576358734,
+      "target_error_m": 0.019266802698216068,
+      "target_delta_m": [
+        -0.0002822798417813077,
+        -0.01759228372910955,
+        0.007851213759503511
+      ],
+      "pad_center_local_m": [
+        0.0031910580553592464,
+        -0.0173486317321618,
+        0.0744343187648646
+      ]
+    },
+    {
+      "env_id": 75,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05861415830843947,
+      "central_ray_width_m": 0.02668412750907721,
+      "projected_width_m": 0.05861415830843947,
+      "inner_pad_gap_m": 0.06191905990898602,
+      "target_error_m": 0.013984692661700077,
+      "target_delta_m": [
+        -0.0035415090704772334,
+        -0.012870573918916883,
+        0.004168653181020457
+      ],
+      "pad_center_local_m": [
+        -0.0009242519394548605,
+        -0.01349842835293679,
+        0.0707546147550639
+      ]
+    },
+    {
+      "env_id": 76,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05767499631784184,
+      "central_ray_width_m": 0.026553772672532592,
+      "projected_width_m": 0.05767499631784184,
+      "inner_pad_gap_m": 0.059141923046708005,
+      "target_error_m": 0.015645174883549023,
+      "target_delta_m": [
+        0.008384333808907518,
+        -0.01274310131666892,
+        0.00347675316218371
+      ],
+      "pad_center_local_m": [
+        0.003821361185403053,
+        -0.014510837519302103,
+        0.07003724133092262
+      ]
+    },
+    {
+      "env_id": 77,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.0536027252371154,
+      "central_ray_width_m": 0.026144082945083528,
+      "projected_width_m": 0.0536027252371154,
+      "inner_pad_gap_m": 0.05767850049495692,
+      "target_error_m": 0.019321502158470505,
+      "target_delta_m": [
+        -0.004712976248534229,
+        -0.016116296285688725,
+        0.009558937941655882
+      ],
+      "pad_center_local_m": [
+        0.0006133766358027372,
+        -0.016958774874462543,
+        0.076088753157428
+      ]
+    },
+    {
+      "env_id": 78,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05404951186089918,
+      "central_ray_width_m": 0.026208682653910218,
+      "projected_width_m": 0.05404951186089918,
+      "inner_pad_gap_m": 0.05666026503503314,
+      "target_error_m": 0.018354550696864997,
+      "target_delta_m": [
+        -0.0032518682956590994,
+        -0.016352255081664074,
+        0.0076758476805930675
+      ],
+      "pad_center_local_m": [
+        0.001403933509432226,
+        -0.016921457532572248,
+        0.07421844408785007
+      ]
+    },
+    {
+      "env_id": 79,
+      "ray_intersects": true,
+      "ray_width_m": 0.019589835991422493,
+      "old_effective_width_m": 0.019589835991422493,
+      "central_ray_width_m": 0.02636870054967463,
+      "projected_width_m": 0.056451694538317165,
+      "inner_pad_gap_m": 0.05807015516519539,
+      "target_error_m": 0.013152452251624999,
+      "target_delta_m": [
+        0.007091939719826301,
+        -0.009426493795244552,
+        0.005816580264196611
+      ],
+      "pad_center_local_m": [
+        0.0014834828629443353,
+        -0.011783493856131984,
+        0.07234249927153628
+      ]
+    },
+    {
+      "env_id": 80,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.04885244087327845,
+      "central_ray_width_m": 0.025755675723798464,
+      "projected_width_m": 0.04885244087327845,
+      "inner_pad_gap_m": 0.05281553075373165,
+      "target_error_m": 0.017786240184972147,
+      "target_delta_m": [
+        -0.0016884178756488843,
+        -0.016802126812140272,
+        0.005584632448376911
+      ],
+      "pad_center_local_m": [
+        0.005693247252537397,
+        -0.01586759125542753,
+        0.07204666211148256
+      ]
+    },
+    {
+      "env_id": 81,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.049069661780842266,
+      "central_ray_width_m": 0.025789167863329177,
+      "projected_width_m": 0.049069661780842266,
+      "inner_pad_gap_m": 0.05646087073445314,
+      "target_error_m": 0.017809296711124547,
+      "target_delta_m": [
+        0.004991963161267043,
+        -0.016827560807023245,
+        0.0030140587962678433
+      ],
+      "pad_center_local_m": [
+        0.004242987944442008,
+        -0.016976337369539487,
+        0.06948667234769411
+      ]
+    },
+    {
+      "env_id": 82,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05225092024866551,
+      "central_ray_width_m": 0.026031302597795094,
+      "projected_width_m": 0.05225092024866551,
+      "inner_pad_gap_m": 0.05692189031004898,
+      "target_error_m": 0.016237363102946312,
+      "target_delta_m": [
+        0.0023520142220828655,
+        -0.015781416188303005,
+        0.003011128148652939
+      ],
+      "pad_center_local_m": [
+        0.005652150386039635,
+        -0.014674233460311758,
+        0.06951253848832917
+      ]
+    },
+    {
+      "env_id": 83,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052673851930968574,
+      "central_ray_width_m": 0.026065136818388034,
+      "projected_width_m": 0.052673851930968574,
+      "inner_pad_gap_m": 0.057820070839524236,
+      "target_error_m": 0.016332284129770665,
+      "target_delta_m": [
+        0.0009311635097984938,
+        -0.01479982116484263,
+        0.006844102052296894
+      ],
+      "pad_center_local_m": [
+        0.004404920010970155,
+        -0.013984484274878873,
+        0.07334632776647412
+      ]
+    },
+    {
+      "env_id": 84,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05459700419198904,
+      "central_ray_width_m": 0.02619264190763548,
+      "projected_width_m": 0.05459700419198904,
+      "inner_pad_gap_m": 0.06037209772229186,
+      "target_error_m": 0.016622074876275678,
+      "target_delta_m": [
+        0.002730523210718483,
+        -0.015484701749118895,
+        0.005390883779963815
+      ],
+      "pad_center_local_m": [
+        -0.0031988670841298626,
+        -0.01547940668482339,
+        0.07188217970623534
+      ]
+    },
+    {
+      "env_id": 85,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055940080961750904,
+      "central_ray_width_m": 0.026324323879680513,
+      "projected_width_m": 0.055940080961750904,
+      "inner_pad_gap_m": 0.05819080800473684,
+      "target_error_m": 0.01820208895048869,
+      "target_delta_m": [
+        0.0102945303568584,
+        -0.014112301914858155,
+        0.005116797978923351
+      ],
+      "pad_center_local_m": [
+        0.0013528351564707334,
+        -0.01723409044016654,
+        0.07163046100483214
+      ]
+    },
+    {
+      "env_id": 86,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05445181430847945,
+      "central_ray_width_m": 0.026178313392663653,
+      "projected_width_m": 0.05445181430847945,
+      "inner_pad_gap_m": 0.05814683281540859,
+      "target_error_m": 0.01663427641260224,
+      "target_delta_m": [
+        0.01020537515947878,
+        -0.012530339376154748,
+        0.003942088880724864
+      ],
+      "pad_center_local_m": [
+        0.00844004976336796,
+        -0.013338929054359955,
+        0.07045315630035025
+      ]
+    },
+    {
+      "env_id": 87,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05636740967809334,
+      "central_ray_width_m": 0.026455605694755614,
+      "projected_width_m": 0.05636740967809334,
+      "inner_pad_gap_m": 0.061289405754804606,
+      "target_error_m": 0.016262849354712644,
+      "target_delta_m": [
+        -0.0025123303560709576,
+        -0.01553767572878334,
+        0.004092566219772012
+      ],
+      "pad_center_local_m": [
+        0.0010459855287575412,
+        -0.01571159975207633,
+        0.0706356220116464
+      ]
+    },
+    {
+      "env_id": 88,
+      "ray_intersects": true,
+      "ray_width_m": 0.005158740971647468,
+      "old_effective_width_m": 0.005158740971647468,
+      "central_ray_width_m": 0.026376869083233775,
+      "projected_width_m": 0.05653480759393925,
+      "inner_pad_gap_m": 0.05968899496555318,
+      "target_error_m": 0.014211739014946934,
+      "target_delta_m": [
+        0.0038068442934507396,
+        -0.012818970205108283,
+        0.0048120125971294475
+      ],
+      "pad_center_local_m": [
+        0.0033543484479606443,
+        -0.012789609895530239,
+        0.07133070104634431
+      ]
+    },
+    {
+      "env_id": 89,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05540396495064287,
+      "central_ray_width_m": 0.02634137001679824,
+      "projected_width_m": 0.05540396495064287,
+      "inner_pad_gap_m": 0.06077976555287828,
+      "target_error_m": 0.015294927166029815,
+      "target_delta_m": [
+        0.0037397680617159423,
+        -0.014440011630693528,
+        0.0033815670870414316
+      ],
+      "pad_center_local_m": [
+        0.004793624636383135,
+        -0.013940631019893488,
+        0.06991016170569708
+      ]
+    },
+    {
+      "env_id": 90,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05731314489326106,
+      "central_ray_width_m": 0.026465947984837656,
+      "projected_width_m": 0.05731314489326106,
+      "inner_pad_gap_m": 0.06053558767497536,
+      "target_error_m": 0.01618009568215082,
+      "target_delta_m": [
+        -0.002398913973046868,
+        -0.015060533631883768,
+        0.005405648412204964
+      ],
+      "pad_center_local_m": [
+        0.0022828610798745503,
+        -0.015243698255907056,
+        0.07196615641417006
+      ]
+    },
+    {
+      "env_id": 91,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06016094862632021,
+      "central_ray_width_m": 0.026786573971060382,
+      "projected_width_m": 0.06016094862632021,
+      "inner_pad_gap_m": 0.06174334541618826,
+      "target_error_m": 0.01651634410488537,
+      "target_delta_m": [
+        0.002168467984402067,
+        -0.01433581818467669,
+        0.007910226682434462
+      ],
+      "pad_center_local_m": [
+        0.002307400889432825,
+        -0.014409909628278848,
+        0.07451146105563647
+      ]
+    },
+    {
+      "env_id": 92,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.056874102072493105,
+      "central_ray_width_m": 0.026431018549969487,
+      "projected_width_m": 0.056874102072493105,
+      "inner_pad_gap_m": 0.059018668091893094,
+      "target_error_m": 0.015741110553492935,
+      "target_delta_m": [
+        0.008273244804336777,
+        -0.012373126495311831,
+        0.00512266752735463
+      ],
+      "pad_center_local_m": [
+        0.0018605973520228085,
+        -0.014599378611050923,
+        0.07166584769829717
+      ]
+    },
+    {
+      "env_id": 93,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05597242396985652,
+      "central_ray_width_m": 0.026402642695340633,
+      "projected_width_m": 0.05597242396985652,
+      "inner_pad_gap_m": 0.061820824003815646,
+      "target_error_m": 0.017008600981316888,
+      "target_delta_m": [
+        0.0026677590332092604,
+        -0.015354184635046425,
+        0.0068135587819647125
+      ],
+      "pad_center_local_m": [
+        0.004070121607432593,
+        -0.014839834170263765,
+        0.07336510011645232
+      ]
+    },
+    {
+      "env_id": 94,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053348941205660694,
+      "central_ray_width_m": 0.026153590528251267,
+      "projected_width_m": 0.053348941205660694,
+      "inner_pad_gap_m": 0.05646666728615759,
+      "target_error_m": 0.018311215071739714,
+      "target_delta_m": [
+        0.013054156845108356,
+        -0.01261962639971878,
+        0.0023737346099214768
+      ],
+      "pad_center_local_m": [
+        0.005435710760005118,
+        -0.017075755812896665,
+        0.06887894782170738
+      ]
+    },
+    {
+      "env_id": 95,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05302815939858618,
+      "central_ray_width_m": 0.02609628505915863,
+      "projected_width_m": 0.05302815939858618,
+      "inner_pad_gap_m": 0.05522984110474582,
+      "target_error_m": 0.01622161146485876,
+      "target_delta_m": [
+        -0.005815998433633285,
+        -0.013403372770565344,
+        0.007047300129133127
+      ],
+      "pad_center_local_m": [
+        0.00055927687879707,
+        -0.014954505926190421,
+        0.07356155980898936
+      ]
+    },
+    {
+      "env_id": 96,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05458201338432034,
+      "central_ray_width_m": 0.02619528216227221,
+      "projected_width_m": 0.05458201338432034,
+      "inner_pad_gap_m": 0.05902747654080386,
+      "target_error_m": 0.01648134360306974,
+      "target_delta_m": [
+        0.0015041384021931004,
+        -0.016248222574684126,
+        0.0023167904076590584
+      ],
+      "pad_center_local_m": [
+        0.0044905827137594655,
+        -0.015623970509419601,
+        0.0688436816091498
+      ]
+    },
+    {
+      "env_id": 97,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05555767152862068,
+      "central_ray_width_m": 0.026319697303497945,
+      "projected_width_m": 0.05555767152862068,
+      "inner_pad_gap_m": 0.057960497519969865,
+      "target_error_m": 0.016835358274307596,
+      "target_delta_m": [
+        0.007552037992529292,
+        -0.014077966627020627,
+        0.005311013653925667
+      ],
+      "pad_center_local_m": [
+        -0.00048147045301538986,
+        -0.01601455007809552,
+        0.0718416095181715
+      ]
+    },
+    {
+      "env_id": 98,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05820662615885708,
+      "central_ray_width_m": 0.02656209173515438,
+      "projected_width_m": 0.05820662615885708,
+      "inner_pad_gap_m": 0.059283035180568704,
+      "target_error_m": 0.01730763520779512,
+      "target_delta_m": [
+        -0.0013094709148442352,
+        -0.016757978840964444,
+        0.0041242778246711465
+      ],
+      "pad_center_local_m": [
+        0.001730053574036852,
+        -0.01700106627303317,
+        0.07069542955924057
+      ]
+    },
+    {
+      "env_id": 99,
+      "ray_intersects": true,
+      "ray_width_m": 0.0024035093971551784,
+      "old_effective_width_m": 0.0024035093971551784,
+      "central_ray_width_m": 0.0259817524634096,
+      "projected_width_m": 0.05201729421154083,
+      "inner_pad_gap_m": 0.056304300508499015,
+      "target_error_m": 0.015096355210489128,
+      "target_delta_m": [
+        0.0002958349287705553,
+        -0.013632540406318339,
+        0.006478137417983615
+      ],
+      "pad_center_local_m": [
+        0.0032615359555193133,
+        -0.013099613131257364,
+        0.07296950092436591
+      ]
+    },
+    {
+      "env_id": 100,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06309721220336084,
+      "central_ray_width_m": 0.02969980132385721,
+      "projected_width_m": 0.06309721220336084,
+      "inner_pad_gap_m": 0.06733884879112229,
+      "target_error_m": 0.02454211122816291,
+      "target_delta_m": [
+        9.278105029775219e-05,
+        -0.023403471528989,
+        0.007388107714701178
+      ],
+      "pad_center_local_m": [
+        -0.010433942165176872,
+        -0.02026663929818046,
+        0.07396038832168242
+      ]
+    },
+    {
+      "env_id": 101,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055030372820534246,
+      "central_ray_width_m": 0.026255052453317173,
+      "projected_width_m": 0.055030372820534246,
+      "inner_pad_gap_m": 0.05854836509287354,
+      "target_error_m": 0.01737131720708924,
+      "target_delta_m": [
+        0.0026621499054070297,
+        -0.01662826670326001,
+        0.004263374934920752
+      ],
+      "pad_center_local_m": [
+        0.0050923274576202306,
+        -0.015917876224817877,
+        0.07077965031274842
+      ]
+    },
+    {
+      "env_id": 102,
+      "ray_intersects": true,
+      "ray_width_m": 0.02664441571135507,
+      "old_effective_width_m": 0.02664441571135507,
+      "central_ray_width_m": 0.02664441571135507,
+      "projected_width_m": 0.05818009383991013,
+      "inner_pad_gap_m": 0.06179026731014255,
+      "target_error_m": 0.014968567191039306,
+      "target_delta_m": [
+        0.0021318768287139633,
+        -0.012329618305370743,
+        0.00821544991973766
+      ],
+      "pad_center_local_m": [
+        0.0030559754513778308,
+        -0.012006283965323281,
+        0.07480357094658492
+      ]
+    },
+    {
+      "env_id": 103,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05040298250669767,
+      "central_ray_width_m": 0.025897872918804698,
+      "projected_width_m": 0.05040298250669767,
+      "inner_pad_gap_m": 0.05770868652224528,
+      "target_error_m": 0.016643626106845593,
+      "target_delta_m": [
+        0.0028086686542312944,
+        -0.014663536800224392,
+        0.007355430570923485
+      ],
+      "pad_center_local_m": [
+        0.0035867719919417643,
+        -0.014396709027011668,
+        0.07383946916326714
+      ]
+    },
+    {
+      "env_id": 104,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05576103805957022,
+      "central_ray_width_m": 0.026299521834139937,
+      "projected_width_m": 0.05576103805957022,
+      "inner_pad_gap_m": 0.05780709006547923,
+      "target_error_m": 0.01577145108512767,
+      "target_delta_m": [
+        0.004382088682596819,
+        -0.014899638164066156,
+        0.0027453143150348025
+      ],
+      "pad_center_local_m": [
+        0.0006299830226958312,
+        -0.015590351305595593,
+        0.06925952390058497
+      ]
+    },
+    {
+      "env_id": 105,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.053090232969172924,
+      "central_ray_width_m": 0.026072261974331237,
+      "projected_width_m": 0.053090232969172924,
+      "inner_pad_gap_m": 0.05667092867851251,
+      "target_error_m": 0.015962279917713387,
+      "target_delta_m": [
+        -0.0007741018484831441,
+        -0.014477480036237764,
+        0.0066781523118260855
+      ],
+      "pad_center_local_m": [
+        0.00494726152464729,
+        -0.013830018135625576,
+        0.0732154668922656
+      ]
+    },
+    {
+      "env_id": 106,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05481143630603014,
+      "central_ray_width_m": 0.026260565855034796,
+      "projected_width_m": 0.05481143630603014,
+      "inner_pad_gap_m": 0.05767615915000426,
+      "target_error_m": 0.016704683259685348,
+      "target_delta_m": [
+        0.0020601959637173706,
+        -0.01591323518190957,
+        0.004644457066518115
+      ],
+      "pad_center_local_m": [
+        0.00157515850484214,
+        -0.016003997265089893,
+        0.07116545086959926
+      ]
+    },
+    {
+      "env_id": 107,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05024513780998896,
+      "central_ray_width_m": 0.02588787487339467,
+      "projected_width_m": 0.05024513780998896,
+      "inner_pad_gap_m": 0.0548382162368297,
+      "target_error_m": 0.0175905237139148,
+      "target_delta_m": [
+        -0.002919425558133737,
+        -0.016935091677933403,
+        0.0037558153309641407
+      ],
+      "pad_center_local_m": [
+        0.0033289647573020147,
+        -0.016946577541801306,
+        0.07024861524890691
+      ]
+    },
+    {
+      "env_id": 108,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.052862463388405945,
+      "central_ray_width_m": 0.026053073550115834,
+      "projected_width_m": 0.052862463388405945,
+      "inner_pad_gap_m": 0.05748467736601818,
+      "target_error_m": 0.017429833604536777,
+      "target_delta_m": [
+        0.005699806060790513,
+        -0.015377733943376465,
+        0.005902254579221625
+      ],
+      "pad_center_local_m": [
+        0.0075573433052171434,
+        -0.014293378504330385,
+        0.07239995184738782
+      ]
+    },
+    {
+      "env_id": 109,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05439094519512305,
+      "central_ray_width_m": 0.02617459020977695,
+      "projected_width_m": 0.05439094519512305,
+      "inner_pad_gap_m": 0.05812665664315215,
+      "target_error_m": 0.018177254525560977,
+      "target_delta_m": [
+        0.006233455014940714,
+        -0.01648327558248336,
+        0.004456259276079594
+      ],
+      "pad_center_local_m": [
+        0.002954477799129938,
+        -0.017363976596236418,
+        0.07095923757735062
+      ]
+    },
+    {
+      "env_id": 110,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05821075671072004,
+      "central_ray_width_m": 0.02656989510574413,
+      "projected_width_m": 0.05821075671072004,
+      "inner_pad_gap_m": 0.058241823992729085,
+      "target_error_m": 0.01737755543678244,
+      "target_delta_m": [
+        0.00663049245509828,
+        -0.014525867326152658,
+        0.00685676171267037
+      ],
+      "pad_center_local_m": [
+        0.0012643140838094452,
+        -0.01599924156921266,
+        0.07342520546446914
+      ]
+    },
+    {
+      "env_id": 111,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05447610821218413,
+      "central_ray_width_m": 0.02624863991148834,
+      "projected_width_m": 0.05447610821218413,
+      "inner_pad_gap_m": 0.059411051056384924,
+      "target_error_m": 0.016883003092461678,
+      "target_delta_m": [
+        0.006186684601815651,
+        -0.015207772748223464,
+        0.003935019071887633
+      ],
+      "pad_center_local_m": [
+        0.002469159856707536,
+        -0.01608991558643057,
+        0.07045003040336259
+      ]
+    },
+    {
+      "env_id": 112,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05384630910186333,
+      "central_ray_width_m": 0.026128956317402627,
+      "projected_width_m": 0.05384630910186333,
+      "inner_pad_gap_m": 0.057182329080104725,
+      "target_error_m": 0.019732132040678634,
+      "target_delta_m": [
+        -0.001678351209172202,
+        -0.018761924462528917,
+        0.005876254125870117
+      ],
+      "pad_center_local_m": [
+        0.002349982360925283,
+        -0.018674505216578253,
+        0.07237569669257787
+      ]
+    },
+    {
+      "env_id": 113,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05668643631191114,
+      "central_ray_width_m": 0.026470145193633218,
+      "projected_width_m": 0.05668643631191114,
+      "inner_pad_gap_m": 0.05916399539172632,
+      "target_error_m": 0.014311664490481268,
+      "target_delta_m": [
+        0.008224085912692969,
+        -0.010803593864036454,
+        0.0045244348829109465
+      ],
+      "pad_center_local_m": [
+        0.0030376638077705405,
+        -0.012883032224070182,
+        0.0710737234775817
+      ]
+    },
+    {
+      "env_id": 114,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05836488400370021,
+      "central_ray_width_m": 0.027475748692163394,
+      "projected_width_m": 0.05836488400370021,
+      "inner_pad_gap_m": 0.062294084883332206,
+      "target_error_m": 0.02104205238415249,
+      "target_delta_m": [
+        -0.003731886645232607,
+        -0.020054089886635484,
+        0.005164733238347971
+      ],
+      "pad_center_local_m": [
+        -0.011560453499934845,
+        -0.016650371507723596,
+        0.07167399925478782
+      ]
+    },
+    {
+      "env_id": 115,
+      "ray_intersects": true,
+      "ray_width_m": 0.0031357857824239836,
+      "old_effective_width_m": 0.0031357857824239836,
+      "central_ray_width_m": 0.0265708399237958,
+      "projected_width_m": 0.05843402553016608,
+      "inner_pad_gap_m": 0.06274815120458588,
+      "target_error_m": 0.014614558464752087,
+      "target_delta_m": [
+        0.0019131649196160172,
+        -0.013643676460519095,
+        0.004875983157342181
+      ],
+      "pad_center_local_m": [
+        -0.00015478400037773266,
+        -0.01337127326007734,
+        0.07144336327241962
+      ]
+    },
+    {
+      "env_id": 116,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06323353412469934,
+      "central_ray_width_m": 0.02716102948126711,
+      "projected_width_m": 0.06323353412469934,
+      "inner_pad_gap_m": 0.06277029805541026,
+      "target_error_m": 0.01914753217875949,
+      "target_delta_m": [
+        0.0038839162184524656,
+        -0.017086002449094202,
+        0.007720861587557373
+      ],
+      "pad_center_local_m": [
+        0.0021508377983876243,
+        -0.01756564772165588,
+        0.07434369061547645
+      ]
+    },
+    {
+      "env_id": 117,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05696181902254288,
+      "central_ray_width_m": 0.02643185258039443,
+      "projected_width_m": 0.05696181902254288,
+      "inner_pad_gap_m": 0.059543010151982274,
+      "target_error_m": 0.01634653172804796,
+      "target_delta_m": [
+        8.761386296063378e-05,
+        -0.013684583832782996,
+        0.008940558633029033
+      ],
+      "pad_center_local_m": [
+        0.0021979395687097593,
+        -0.013714512644639612,
+        0.0755069107759622
+      ]
+    },
+    {
+      "env_id": 118,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055430005778704966,
+      "central_ray_width_m": 0.02627030467245458,
+      "projected_width_m": 0.055430005778704966,
+      "inner_pad_gap_m": 0.05838199176549904,
+      "target_error_m": 0.016274087434824867,
+      "target_delta_m": [
+        0.007151936238854739,
+        -0.014489875629648652,
+        0.0019337099340374225
+      ],
+      "pad_center_local_m": [
+        -0.0012283839420929238,
+        -0.01599447106388898,
+        0.06844890416757382
+      ]
+    },
+    {
+      "env_id": 119,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.054160578284093985,
+      "central_ray_width_m": 0.0261667826687685,
+      "projected_width_m": 0.054160578284093985,
+      "inner_pad_gap_m": 0.05588766590416425,
+      "target_error_m": 0.017527148314386103,
+      "target_delta_m": [
+        -0.006759722425578318,
+        -0.015102297277178545,
+        0.005781669111540946
+      ],
+      "pad_center_local_m": [
+        -0.0008573337075541744,
+        -0.016762145488191313,
+        0.07231031914152578
+      ]
+    },
+    {
+      "env_id": 120,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05335614372326253,
+      "central_ray_width_m": 0.026107448478397376,
+      "projected_width_m": 0.05335614372326253,
+      "inner_pad_gap_m": 0.05537938543319699,
+      "target_error_m": 0.014478817708833237,
+      "target_delta_m": [
+        -0.002466364022499612,
+        -0.01358703703577624,
+        0.004352658422457162
+      ],
+      "pad_center_local_m": [
+        0.0029516288604600695,
+        -0.013596212438359194,
+        0.07087995290360295
+      ]
+    },
+    {
+      "env_id": 121,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.050786403167039806,
+      "central_ray_width_m": 0.02593993276186417,
+      "projected_width_m": 0.050786403167039806,
+      "inner_pad_gap_m": 0.05557921000480646,
+      "target_error_m": 0.017589307402013376,
+      "target_delta_m": [
+        0.0010467548217833467,
+        -0.01741635807363845,
+        0.0022267713570109926
+      ],
+      "pad_center_local_m": [
+        0.006274212226098688,
+        -0.016201320296993477,
+        0.06873002517449953
+      ]
+    },
+    {
+      "env_id": 122,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.05695255748781164,
+      "central_ray_width_m": 0.026442771049555065,
+      "projected_width_m": 0.05695255748781164,
+      "inner_pad_gap_m": 0.060507193512320416,
+      "target_error_m": 0.015696238015016146,
+      "target_delta_m": [
+        -0.0021405361165374726,
+        -0.014126233057806775,
+        0.006499194761996577
+      ],
+      "pad_center_local_m": [
+        0.0015445014271405003,
+        -0.014490544986024978,
+        0.07305530322583023
+      ]
+    },
+    {
+      "env_id": 123,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.055556980038338866,
+      "central_ray_width_m": 0.02628314244166723,
+      "projected_width_m": 0.055556980038338866,
+      "inner_pad_gap_m": 0.057546625218391316,
+      "target_error_m": 0.01551427645253941,
+      "target_delta_m": [
+        0.0018592171447355255,
+        -0.013813101682868617,
+        0.00681427232749561
+      ],
+      "pad_center_local_m": [
+        -5.163941272758982e-05,
+        -0.014106713955079706,
+        0.07333984194165875
+      ]
+    },
+    {
+      "env_id": 124,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.054947577690906246,
+      "central_ray_width_m": 0.02622865431588895,
+      "projected_width_m": 0.054947577690906246,
+      "inner_pad_gap_m": 0.05822752819120879,
+      "target_error_m": 0.016410826905353434,
+      "target_delta_m": [
+        0.002835736975773051,
+        -0.015715665677665747,
+        0.0037804348730727383
+      ],
+      "pad_center_local_m": [
+        0.004003214676914463,
+        -0.015408770554989475,
+        0.07028393689679212
+      ]
+    },
+    {
+      "env_id": 125,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.0542048683507077,
+      "central_ray_width_m": 0.026203077149471978,
+      "projected_width_m": 0.0542048683507077,
+      "inner_pad_gap_m": 0.057145132056474625,
+      "target_error_m": 0.016529040276673946,
+      "target_delta_m": [
+        -0.0015499299700137414,
+        -0.014695738740533398,
+        0.00740554875927156
+      ],
+      "pad_center_local_m": [
+        0.0019030826110743501,
+        -0.014706677995184844,
+        0.07393065869080993
+      ]
+    },
+    {
+      "env_id": 126,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.06107261319919491,
+      "central_ray_width_m": 0.02687435327921785,
+      "projected_width_m": 0.06107261319919491,
+      "inner_pad_gap_m": 0.061298633298873854,
+      "target_error_m": 0.01629509020146765,
+      "target_delta_m": [
+        0.008512628764627272,
+        -0.013044643494134783,
+        0.004785644397626548
+      ],
+      "pad_center_local_m": [
+        0.004771424679181753,
+        -0.014577268913805456,
+        0.0713883031044965
+      ]
+    },
+    {
+      "env_id": 127,
+      "ray_intersects": false,
+      "ray_width_m": 0.0,
+      "old_effective_width_m": 0.058145636108632826,
+      "central_ray_width_m": 0.026550339455582557,
+      "projected_width_m": 0.058145636108632826,
+      "inner_pad_gap_m": 0.06120356947839254,
+      "target_error_m": 0.019165609051392793,
+      "target_delta_m": [
+        -0.00030827520853893287,
+        -0.016997474668183535,
+        0.008849372385151877
+      ],
+      "pad_center_local_m": [
+        0.002170455679725246,
+        -0.017032044931261203,
+        0.07542401651525475
+      ]
+    }
+  ],
+  "counterfactual_contact_comparison": {
+    "poses": 60,
+    "ray_misses_with_opposing_contacts": 52,
+    "median_old_width_excess_m": 0.02707452944070518,
+    "median_central_width_error_m": -0.0030800915004019873,
+    "rows": [
+      {
+        "env_id": 0,
+        "ray_intersects": true,
+        "old_width_m": 0.009490568066550228,
+        "central_width_m": 0.026136446865358584,
+        "first_contact_gap_m": 0.028691021195650077
+      },
+      {
+        "env_id": 2,
+        "ray_intersects": false,
+        "old_width_m": 0.0590692969478373,
+        "central_width_m": 0.026719239530832575,
+        "first_contact_gap_m": 0.02420409846961495
+      },
+      {
+        "env_id": 4,
+        "ray_intersects": true,
+        "old_width_m": 0.02607981460507003,
+        "central_width_m": 0.02607981460507003,
+        "first_contact_gap_m": 0.029782143658995563
+      },
+      {
+        "env_id": 6,
+        "ray_intersects": false,
+        "old_width_m": 0.05628989131242951,
+        "central_width_m": 0.02640927900338157,
+        "first_contact_gap_m": 0.031099889389276478
+      },
+      {
+        "env_id": 7,
+        "ray_intersects": false,
+        "old_width_m": 0.06124098133770084,
+        "central_width_m": 0.0268944913040126,
+        "first_contact_gap_m": 0.027112716934680904
+      },
+      {
+        "env_id": 8,
+        "ray_intersects": false,
+        "old_width_m": 0.05366582599503639,
+        "central_width_m": 0.0261125659654785,
+        "first_contact_gap_m": 0.0248736271476745
+      },
+      {
+        "env_id": 13,
+        "ray_intersects": false,
+        "old_width_m": 0.06127485188717949,
+        "central_width_m": 0.02695788801181271,
+        "first_contact_gap_m": 0.03263510321736327
+      },
+      {
+        "env_id": 14,
+        "ray_intersects": false,
+        "old_width_m": 0.05222797092652309,
+        "central_width_m": 0.0259965438499942,
+        "first_contact_gap_m": 0.023148501417636885
+      },
+      {
+        "env_id": 16,
+        "ray_intersects": false,
+        "old_width_m": 0.061064616008653205,
+        "central_width_m": 0.02687345858186402,
+        "first_contact_gap_m": 0.030143627858757925
+      },
+      {
+        "env_id": 17,
+        "ray_intersects": false,
+        "old_width_m": 0.05906311260251565,
+        "central_width_m": 0.026640295308726917,
+        "first_contact_gap_m": 0.03129264878392212
+      },
+      {
+        "env_id": 19,
+        "ray_intersects": false,
+        "old_width_m": 0.05841925090879735,
+        "central_width_m": 0.026568870175159857,
+        "first_contact_gap_m": 0.029787718883752798
+      },
+      {
+        "env_id": 25,
+        "ray_intersects": false,
+        "old_width_m": 0.05951116327883471,
+        "central_width_m": 0.026703184414040137,
+        "first_contact_gap_m": 0.032440108320713056
+      },
+      {
+        "env_id": 26,
+        "ray_intersects": false,
+        "old_width_m": 0.052930199269312306,
+        "central_width_m": 0.026056181595382602,
+        "first_contact_gap_m": 0.029679932705163864
+      },
+      {
+        "env_id": 27,
+        "ray_intersects": false,
+        "old_width_m": 0.060298177515336115,
+        "central_width_m": 0.026790009449101298,
+        "first_contact_gap_m": 0.03229271907269947
+      },
+      {
+        "env_id": 32,
+        "ray_intersects": false,
+        "old_width_m": 0.055937368218063416,
+        "central_width_m": 0.026423656741322712,
+        "first_contact_gap_m": 0.030169067210555046
+      },
+      {
+        "env_id": 34,
+        "ray_intersects": false,
+        "old_width_m": 0.052873229628875196,
+        "central_width_m": 0.0261115134965979,
+        "first_contact_gap_m": 0.024235462567806225
+      },
+      {
+        "env_id": 35,
+        "ray_intersects": false,
+        "old_width_m": 0.051896023763926546,
+        "central_width_m": 0.02598529464283325,
+        "first_contact_gap_m": 0.025820674172639786
+      },
+      {
+        "env_id": 36,
+        "ray_intersects": false,
+        "old_width_m": 0.05837384935155576,
+        "central_width_m": 0.0265646752227063,
+        "first_contact_gap_m": 0.02914682722747322
+      },
+      {
+        "env_id": 38,
+        "ray_intersects": false,
+        "old_width_m": 0.05635678466817093,
+        "central_width_m": 0.02637616688012591,
+        "first_contact_gap_m": 0.029339516169428842
+      },
+      {
+        "env_id": 40,
+        "ray_intersects": false,
+        "old_width_m": 0.05734988015961806,
+        "central_width_m": 0.026456384383737302,
+        "first_contact_gap_m": 0.030770783714055998
+      },
+      {
+        "env_id": 43,
+        "ray_intersects": true,
+        "old_width_m": 0.003335620669799949,
+        "central_width_m": 0.02623944560050439,
+        "first_contact_gap_m": 0.024984629950523328
+      },
+      {
+        "env_id": 44,
+        "ray_intersects": false,
+        "old_width_m": 0.05873085735587158,
+        "central_width_m": 0.026602754374220747,
+        "first_contact_gap_m": 0.031249472669362927
+      },
+      {
+        "env_id": 48,
+        "ray_intersects": false,
+        "old_width_m": 0.05472043690921585,
+        "central_width_m": 0.02621562849800825,
+        "first_contact_gap_m": 0.02891955690741537
+      },
+      {
+        "env_id": 49,
+        "ray_intersects": true,
+        "old_width_m": 0.0012681672863999165,
+        "central_width_m": 0.026162902754153176,
+        "first_contact_gap_m": 0.029607103607654492
+      },
+      {
+        "env_id": 52,
+        "ray_intersects": false,
+        "old_width_m": 0.05658786791663034,
+        "central_width_m": 0.026423080700033685,
+        "first_contact_gap_m": 0.029828531301617604
+      },
+      {
+        "env_id": 53,
+        "ray_intersects": false,
+        "old_width_m": 0.052679226875213925,
+        "central_width_m": 0.02609756142239112,
+        "first_contact_gap_m": 0.024635069034099538
+      },
+      {
+        "env_id": 57,
+        "ray_intersects": false,
+        "old_width_m": 0.05753035975754639,
+        "central_width_m": 0.026480414174738592,
+        "first_contact_gap_m": 0.029576174712777133
+      },
+      {
+        "env_id": 58,
+        "ray_intersects": false,
+        "old_width_m": 0.053873091302815534,
+        "central_width_m": 0.026148559633035806,
+        "first_contact_gap_m": 0.029434875822663256
+      },
+      {
+        "env_id": 60,
+        "ray_intersects": true,
+        "old_width_m": 0.005023416686404256,
+        "central_width_m": 0.026288307964171545,
+        "first_contact_gap_m": 0.02583749961018563
+      },
+      {
+        "env_id": 61,
+        "ray_intersects": false,
+        "old_width_m": 0.055364837804815104,
+        "central_width_m": 0.02629659411549527,
+        "first_contact_gap_m": 0.03064132598698136
+      },
+      {
+        "env_id": 62,
+        "ray_intersects": false,
+        "old_width_m": 0.05521592445667989,
+        "central_width_m": 0.026323259713513666,
+        "first_contact_gap_m": 0.030522716469168668
+      },
+      {
+        "env_id": 68,
+        "ray_intersects": false,
+        "old_width_m": 0.05676356616276454,
+        "central_width_m": 0.026459528074121965,
+        "first_contact_gap_m": 0.02351803985893726
+      },
+      {
+        "env_id": 70,
+        "ray_intersects": false,
+        "old_width_m": 0.052452874504981706,
+        "central_width_m": 0.026042736445611826,
+        "first_contact_gap_m": 0.0288535705125332
+      },
+      {
+        "env_id": 73,
+        "ray_intersects": false,
+        "old_width_m": 0.058654781873744954,
+        "central_width_m": 0.026634722562910714,
+        "first_contact_gap_m": 0.029751326686739903
+      },
+      {
+        "env_id": 75,
+        "ray_intersects": false,
+        "old_width_m": 0.05861415830843947,
+        "central_width_m": 0.02668412750907721,
+        "first_contact_gap_m": 0.029919059908986037
+      },
+      {
+        "env_id": 77,
+        "ray_intersects": false,
+        "old_width_m": 0.0536027252371154,
+        "central_width_m": 0.026144082945083528,
+        "first_contact_gap_m": 0.029678500494956954
+      },
+      {
+        "env_id": 78,
+        "ray_intersects": false,
+        "old_width_m": 0.05404951186089918,
+        "central_width_m": 0.026208682653910218,
+        "first_contact_gap_m": 0.028660265035033126
+      },
+      {
+        "env_id": 79,
+        "ray_intersects": true,
+        "old_width_m": 0.019589835991422493,
+        "central_width_m": 0.02636870054967463,
+        "first_contact_gap_m": 0.030070155165195463
+      },
+      {
+        "env_id": 85,
+        "ray_intersects": false,
+        "old_width_m": 0.055940080961750904,
+        "central_width_m": 0.026324323879680513,
+        "first_contact_gap_m": 0.025190808004736893
+      },
+      {
+        "env_id": 87,
+        "ray_intersects": false,
+        "old_width_m": 0.05636740967809334,
+        "central_width_m": 0.026455605694755614,
+        "first_contact_gap_m": 0.029289405754804633
+      },
+      {
+        "env_id": 90,
+        "ray_intersects": false,
+        "old_width_m": 0.05731314489326106,
+        "central_width_m": 0.026465947984837656,
+        "first_contact_gap_m": 0.024535587674975393
+      },
+      {
+        "env_id": 91,
+        "ray_intersects": false,
+        "old_width_m": 0.06016094862632021,
+        "central_width_m": 0.026786573971060382,
+        "first_contact_gap_m": 0.024743345416188264
+      },
+      {
+        "env_id": 92,
+        "ray_intersects": false,
+        "old_width_m": 0.056874102072493105,
+        "central_width_m": 0.026431018549969487,
+        "first_contact_gap_m": 0.025018668091893112
+      },
+      {
+        "env_id": 95,
+        "ray_intersects": false,
+        "old_width_m": 0.05302815939858618,
+        "central_width_m": 0.02609628505915863,
+        "first_contact_gap_m": 0.029229841104745857
+      },
+      {
+        "env_id": 97,
+        "ray_intersects": false,
+        "old_width_m": 0.05555767152862068,
+        "central_width_m": 0.026319697303497945,
+        "first_contact_gap_m": 0.02996049751996993
+      },
+      {
+        "env_id": 98,
+        "ray_intersects": false,
+        "old_width_m": 0.05820662615885708,
+        "central_width_m": 0.02656209173515438,
+        "first_contact_gap_m": 0.029283035180568656
+      },
+      {
+        "env_id": 99,
+        "ray_intersects": true,
+        "old_width_m": 0.0024035093971551784,
+        "central_width_m": 0.0259817524634096,
+        "first_contact_gap_m": 0.023304300508499097
+      },
+      {
+        "env_id": 104,
+        "ray_intersects": false,
+        "old_width_m": 0.05576103805957022,
+        "central_width_m": 0.026299521834139937,
+        "first_contact_gap_m": 0.0308070900654792
+      },
+      {
+        "env_id": 106,
+        "ray_intersects": false,
+        "old_width_m": 0.05481143630603014,
+        "central_width_m": 0.026260565855034796,
+        "first_contact_gap_m": 0.028676159150004307
+      },
+      {
+        "env_id": 110,
+        "ray_intersects": false,
+        "old_width_m": 0.05821075671072004,
+        "central_width_m": 0.02656989510574413,
+        "first_contact_gap_m": 0.03024182399272919
+      },
+      {
+        "env_id": 113,
+        "ray_intersects": false,
+        "old_width_m": 0.05668643631191114,
+        "central_width_m": 0.026470145193633218,
+        "first_contact_gap_m": 0.025163995391726375
+      },
+      {
+        "env_id": 115,
+        "ray_intersects": true,
+        "old_width_m": 0.0031357857824239836,
+        "central_width_m": 0.0265708399237958,
+        "first_contact_gap_m": 0.03174815120458594
+      },
+      {
+        "env_id": 116,
+        "ray_intersects": false,
+        "old_width_m": 0.06323353412469934,
+        "central_width_m": 0.02716102948126711,
+        "first_contact_gap_m": 0.03177029805541034
+      },
+      {
+        "env_id": 117,
+        "ray_intersects": false,
+        "old_width_m": 0.05696181902254288,
+        "central_width_m": 0.02643185258039443,
+        "first_contact_gap_m": 0.024543010151982306
+      },
+      {
+        "env_id": 118,
+        "ray_intersects": false,
+        "old_width_m": 0.055430005778704966,
+        "central_width_m": 0.02627030467245458,
+        "first_contact_gap_m": 0.030381991765499043
+      },
+      {
+        "env_id": 119,
+        "ray_intersects": false,
+        "old_width_m": 0.054160578284093985,
+        "central_width_m": 0.0261667826687685,
+        "first_contact_gap_m": 0.02888766590416427
+      },
+      {
+        "env_id": 122,
+        "ray_intersects": false,
+        "old_width_m": 0.05695255748781164,
+        "central_width_m": 0.026442771049555065,
+        "first_contact_gap_m": 0.0295071935123205
+      },
+      {
+        "env_id": 123,
+        "ray_intersects": false,
+        "old_width_m": 0.055556980038338866,
+        "central_width_m": 0.02628314244166723,
+        "first_contact_gap_m": 0.030546625218391313
+      },
+      {
+        "env_id": 125,
+        "ray_intersects": false,
+        "old_width_m": 0.0542048683507077,
+        "central_width_m": 0.026203077149471978,
+        "first_contact_gap_m": 0.02414513205647463
+      },
+      {
+        "env_id": 127,
+        "ray_intersects": false,
+        "old_width_m": 0.058145636108632826,
+        "central_width_m": 0.026550339455582557,
+        "first_contact_gap_m": 0.02920356947839258
+      }
+    ]
+  }
+}

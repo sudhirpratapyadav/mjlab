@@ -17,6 +17,7 @@ RECIPES += ("strike_v2",)
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
+RECIPES += ("peg_v1",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -91,6 +92,12 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "peg_v1":
+    if cfg.agent.experiment_name != "franka_peg_insertion":
+      raise ValueError("peg_v1 requires Peg-Insertion")
+    apply_recipe(cfg,"completion_v6")
+    cfg.env.rewards["stack"].params["centered_fallback"] = True
     return
   if recipe == "pivot_v3":
     apply_recipe(cfg, "pivot_v2")

@@ -49,3 +49,32 @@ def test_ray_miss_parallel_axes_and_zero_direction_remain_finite(monkeypatch):
   width,valid=m.box_ray_width(origin,direction,torch.full((3,),-.023),torch.full((3,),.023))
   assert valid.tolist()==[True,False,False]
   torch.testing.assert_close(width,torch.tensor([.046,0.,0.]))
+
+
+def test_slender_peg_fallback_uses_cross_section_without_changing_true_ray_hits(monkeypatch):
+  m=module(monkeypatch)
+  angle=math.radians(18)
+  direction=torch.tensor([[math.cos(angle),0.,math.sin(angle)]]).expand(2,-1)
+  lower=torch.tensor([-.0125,-.0125,0.]);upper=torch.tensor([.0125,.0125,.1])
+  # First center ray misses sideways by7.5mm, within the8.8mm finite pad width.
+  origin=torch.tensor([[0.,.02,.07],[0.,0.,.05]])
+  projected=((upper-lower)*direction.abs()).sum(-1)
+  old=m.box_capture_width(origin,direction,lower,upper,projected)
+  new=m.box_capture_width(origin,direction,lower,upper,projected,True)
+  assert old[0]>.05 and .025<new[0]<.028
+  torch.testing.assert_close(new,torch.full((2,),.025/math.cos(angle)))
+  torch.testing.assert_close(new[1],old[1])
+
+
+def test_peg_fallback_recipe_changes_only_training_width_estimate(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Peg-Insertion-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'completion_v6');recipes.apply_recipe(new,'peg_v1')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['stack'].params.pop('centered_fallback')
+  assert repr(old.env.rewards)==repr(new.env.rewards)

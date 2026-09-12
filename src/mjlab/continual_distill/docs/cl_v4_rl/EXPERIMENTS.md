@@ -283,3 +283,14 @@ Preregister a gripper-only PPO initialization reset to mean0 (20mm/finger target
 
 | PREFLIGHT-LIFT-GENTLE-030 | Lift | Verify retained transport policy with gentler gripper initialization | ownR8/model8997, lift_v7, mean0/std0.05,64 ×3 updates, GPU4 | Prepared | No learned arm reset; finite online PPO check required. |
 | RL-002-R9 | Lift | Learn settled near-goal holding from stable grip range | own8997, same recorded initialization reset,2048 ×1500 additional, GPU4 | Prepared | Conditional on preflight; no control clamp or scripted policy. |
+
+### Peg capture-width fallback correction
+
+PegR5 begins reopening its reset fingers and has no contacts in sampled training states. Audit original R4 terminal poses: pad centerline intersects the peg in only10/128; the miss fallback uses full projected length, median55.0mm versus central cross-section26.3mm.52 of60 valid finite-pad closure counterfactuals have a missed center ray. Old estimated width exceeds their first-contact gap by median27.1mm; central-section estimate is3.1mm below the first-contact gap. This is a training-shaping defect for a slender tilted object, not evidence that native contact or success should change.
+
+peg_v1 inherits completion_v6 and changes only the missed-ray aperture estimate to the chord through the collider-box center along the closing direction. Actual ray hits retain their local width; actual opposing contacts still determine held credit. Defaults/other recipes retain full-projection fallback.74 focused tests pass, including tilted slender geometry, unchanged actual-hit estimates and unchanged Peg model/agent/native60D8D configuration.
+
+| PREFLIGHT-PEG-WIDTH-031 | Peg | Validate slender-object aperture fallback in PPO | peg_v1, ownR4/model3098, mean-0.25/std0.15,64 ×3, GPU6 alongside its sole full trainer | Prepared | Small preflight only; no second full trainer. Preserve original comparison initialization and gyroON. |
+| RL-020-R6 | Peg | Acquire capture with corrected width incentive | peg_v1, original3098, same mean-0.25/std0.15,2048 ×2000 additional, GPU6 | Prepared | After finite preflight, stop only verified R5 step, retain/evaluate latest saved R5 checkpoint, then replace with R6. |
+
+PlaceR6/model6000 strict evaluation launched onGPU5 alongside its sole full trainer after74/128 at5600. No policy/reward changes; confirmation only if validation exceeds90%.

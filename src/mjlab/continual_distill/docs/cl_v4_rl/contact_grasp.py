@@ -53,7 +53,18 @@ def box_ray_width(origin, direction, lower, upper):
   return torch.where(valid,(exit-entry).clamp_min(0),torch.zeros_like(entry)),valid
 
 
-def pad_centerline_width(command):
+def box_capture_width(origin, direction, lower, upper, projected, centered_fallback=False):
+  width,valid = box_ray_width(origin,direction,lower,upper)
+  if centered_fallback:
+    # A long tilted peg's full projection includes its length and rewards an
+    # opening much wider than its graspable section. Finite pad faces may still
+    # contact when the zero-width center ray misses. Use a central section as
+    # approach shaping only; actual opposed contacts remain the grasp gate.
+    projected,_ = box_ray_width((lower+upper)/2,direction,lower,upper)
+  return torch.where(valid,width,projected)
+
+
+def pad_centerline_width(command, centered_fallback=False):
   """Local box cross-section at pad center; full projection is a miss fallback.
 
   Collider bounds are a shaping approximation for meshes, never a contact or
@@ -69,7 +80,6 @@ def pad_centerline_width(command):
   local_direction = quat_apply_inverse(q,direction)
   corners = object_corners(obj)
   support = obj._task_support_points
-  width,valid = box_ray_width(local_origin,local_direction,support.amin(0),support.amax(0))
   projected = (corners*direction[:,None]).sum(-1)
   fallback = projected.amax(1)-projected.amin(1)
-  return torch.where(valid,width,fallback)
+  return box_capture_width(local_origin,local_direction,support.amin(0),support.amax(0),fallback,centered_fallback)
