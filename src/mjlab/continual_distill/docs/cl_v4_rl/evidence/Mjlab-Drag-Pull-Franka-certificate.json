@@ -1,0 +1,65 @@
+{
+  "task": "Mjlab-Drag-Pull-Franka",
+  "certified_utc": "2026-09-12T16:29:54.984561+00:00",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Drag-Pull-Franka/model.pt",
+  "checkpoint_sha256": "276e506d4011603d9128c1b3cd0f257db3d8b7b82654a5e03adfacfe7a384b32",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Drag-Pull-Franka/normalizers.pt",
+  "normalizers_sha256": "8dc51353f5ef3129d6ff0ddd6cd7a8641c32a45d3abbcabde7b4104430a02357",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 122,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-004-R2-m1300-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 120,
+    "episodes": 128,
+    "seed": 20260915,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-004-R2-m1300-confirm-20260915.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Drag-Pull-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/Drag-Pull-m1300/success.mp4",
+      "outcome": {
+        "env_id": 4,
+        "success": true,
+        "steps": 150,
+        "return": 7.8413405418396,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 75,
+      "fps": 25,
+      "simulation_seconds": 3.0,
+      "encoded_seconds": 3.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    },
+    "failure": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/Drag-Pull-m1300/failure.mp4",
+      "outcome": {
+        "env_id": 82,
+        "success": false,
+        "steps": 150,
+        "return": 6.6540937423706055,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 75,
+      "fps": 25,
+      "simulation_seconds": 3.0,
+      "encoded_seconds": 3.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/mqedqzcb",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Drag-Pull-Franka-teacher:v0"
+}

@@ -1,0 +1,18 @@
+{
+  "task": "Mjlab-Drag-Pull-Franka",
+  "checkpoint_sha256": "276e506d4011603d9128c1b3cd0f257db3d8b7b82654a5e03adfacfe7a384b32",
+  "verdict": "pass",
+  "reviewer": "Codex",
+  "reviewed_frames": [
+    "runs/verified/Drag-Pull-m1300/success-0000.png",
+    "runs/verified/Drag-Pull-m1300/success-0074.png",
+    "runs/verified/Drag-Pull-m1300/failure-0074.png"
+  ],
+  "success_observation": "The robot draws the object from the far spawn toward the near target while the object remains on the floor. The final object closely overlaps the target.",
+  "highest_return_failure": "The object remains just outside the unchanged 0.03m position threshold at timeout despite high shaped return; motion is slow, so visual proximity alone would incorrectly accept it.",
+  "terminal_position_error_m": {
+    "success": 0.008500001393258572,
+    "failure": 0.03005411848425865
+  },
+  "training_failure_note": "This finite checkpoint was saved at iteration1300 before a later nonfinite simulation state after iteration1380. Two strict batches passed122/128 and120/128; no claim that the longer training run completed."
+}

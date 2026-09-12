@@ -55,3 +55,11 @@ Button model700 and Drawer model1000 each passed validation128/128 and independe
 Push stable V2 completed1,000 updates without the original numerical failure; strict model999 validation111/128. Prepared an additional1,000-update continuation with unchanged recipe. Drag R2 stopped after iteration1380 due to nonfinite qpos/qvel in environment563 while policy parameters remained finite. Retained full diagnostic state and compact evidence/RL-004-R2-numerical-failure.json. An attempted final-model evaluation found the expected final checkpoint absent and produced no result; evaluated actual model1300 instead:122/128 validation. Independent confirmation launched. This is a simulator-state failure, distinct from the original Push scalar-std failure.
 
 Finite-state preflight passed for all eight remaining mechanism tasks with the validated mechanism_v1 recipe. Fresh Flip/Door/Flap runs are recorded before launch. Drawer rendering was successful; Button's first render invocation used an incorrect CLI flag and was retried with the documented positional argument, with both logs preserved.
+
+### Fifth certificate and next training wave
+
+Drag model1300 confirmation scored120/128 after validation122/128. Reviewed recorded success and highest-return failure: terminal position errors0.008500m and0.030054m respectively, correctly separated by the unchanged0.03m threshold. Retained teacher/normalizers/video artifact uploaded; **5/24 certified**. Published a24-task W&B scoreboard and the full Drag simulator-failure diagnostic artifact.
+
+Launched fresh Flip (GPU2), Door (GPU7), Flap (GPU4), Lever (GPU6), and Push continuation (GPU3). Exact manifests/source/Slurm IDs are copied to evidence/training_wave3.json. Worktree sourcea5b5eee plus archived patch; Lever's patch includes its pre-recorded budget. Reorient V2 completed1,500 updates with zero training success and full action saturation; strict final-checkpoint evaluation with recorded physical trace is running on GPU5. Lift V2 is still training. GPU0 remains0MiB.
+
+Reorient V2 final model1499 strict validation completed: **0/128** on seed20260914. Uploaded measured result to W&B and retained full physical trace under runs/diagnostics/Reorient-V2-final. No confirmation batch warranted. Highest-return failure rendering is the next diagnostic.
