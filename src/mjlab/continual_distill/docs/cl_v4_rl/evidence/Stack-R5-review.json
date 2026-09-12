@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "48e954f61d5c6bc978a0325b7fdefb3e2a16743e9a218d98f70eb8cac919df5c",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual recorded initial/mid/final frames show approach and capture of the top cube beside the base, without a completed lift/stack/release. Strict0/128; final surviving-world opposed grasp65.08%, height0.02463m. Preserve learned grasp and continue unchanged for1000 additional updates.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 126,
+    "grasped_fraction": 0.682539701461792,
+    "enclosed_fraction": 0.444444477558136,
+    "enclosed_grasp_fraction": 0.341269850730896,
+    "opposed_grasp_fraction": 0.6507936716079712,
+    "robot_object_contact_fraction": 0.8333333730697632,
+    "aperture_mean": 0.04958728328347206,
+    "gripper_object_distance_mean": 0.022313877940177917,
+    "gripper_goal_distance_mean": 0.15922079980373383,
+    "gripper_down_alignment_mean": 0.9888577461242676,
+    "object_height_mean": 0.024628760293126106,
+    "gripper_action_mean": -0.5598021149635315,
+    "absolute_action_max": 0.9948097467422485,
+    "goal_error_mean": 0.16127629578113556
+  },
+  "videos": {
+    "task": "Mjlab-Stack-Cube-Franka",
+    "checkpoint_sha256": "48e954f61d5c6bc978a0325b7fdefb3e2a16743e9a218d98f70eb8cac919df5c",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-018-R5-m4199/failure.mp4",
+        "outcome": {
+          "env_id": 79,
+          "success": false,
+          "steps": 1000,
+          "return": 102.16661834716797,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

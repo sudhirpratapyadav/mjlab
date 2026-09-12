@@ -197,3 +197,10 @@ Place R4/model3400 strict0/128; reviewed actual frames show a grasped cube lifte
 | RL-019-R5 | Place | Preserve grasp progress while learning released containment | ownR4/model3400, completion_v6, LR5e-5,2048 ×2000 additional, GPU5 | Prepared | Full run conditional on finite PPO preflight with saved effective LR5e-5. |
 
 Place LR preflight p0ncrxmz completed3 updates, all saved checkpoint tensors finite and actual Adam param-group LR5e-5. Full RL-019-R5-place-lr launched from original3400 onGPU5, source8982f35,2048 ×2000 additional; means/std/moments/normalizers/backend preserved. AllGPUs1–7 have one full PPO process; GPU0 remains unused.
+
+### Wave16 — retained-policy progress
+
+Cage R5 final7598 strict16/128 (previous2/128), actual success/failure reviewed; still incomplete, no confirmation. Stack R5 final4199 strict0/128 but65.08% final surviving-world opposing grasps, object height0.02463m; actual cube capture beside base without stacking. These measurements justify bounded unchanged continuations. No reward, model, backend, mean/std or LR changes; preserve optimizer/normalizers, seed20260912 and8-state failure capture.
+
+| RL-013-R6 | Cage | Continue improved native caging transport | cage_v4, ownR5/model7598,1024 ×1500 additional updates, GPU1 | Prepared |16/128 prior, unchanged settings; strict eval at budget. |
+| RL-018-R6 | Stack | Continue newly acquired opposing grasp toward lift/stack/release | completion_v6, ownR5/model4199,2048 ×1000 additional updates, GPU3 | Prepared |0/128; actual grasp precursor improved, unchanged settings; strict eval at budget. |

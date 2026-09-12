@@ -253,3 +253,7 @@ Place lower-LR preflight completed online (p0ncrxmz), finite3402 with saved Adam
 Wave15 public verification:50/50 served files HTTP200 with SHA256 matching generated local summary/media;24/24 videos play in Chromium, home newest-card navigation, filters, search and mobile overflow pass. Python verification used the host CA bundle at /etc/pki/tls/certs/ca-bundle.crt; TLS verification remained enabled.
 
 Wave15 W&B scoreboard p7a1sv8z reports14/24. Remote API verified101 files in the current CL24-experiment-records artifact, including all new reviews, optional-backend audit, seven-run inventory, Place LR preflight and public50-file/24-video verification (wave15_wandb_records.json). The scoreboard process completed successfully after syncing numerical failure artifacts. Holder20277 expiry reverified2026-09-28T08:58:54, GPU0 at0MiB, filesystem~1.6TB free.
+
+### Wave16
+
+Previous goal turn made progress: Place LR retry, reviewed four final policies, updated public media, verified50 served files/24 playable videos, synced101 W&B records and committeda46f8af. Revalidated liveSlurm; StackR5 exited normally and CageR5 reachedfinal7598 then synced/exited. Strict evaluations: Stack4199 0/128 (126timeouts,2bounds), final opposing grasp65.08%; Cage7598 16/128 (127timeouts,1ground), improved from2/128. Actual frames reviewed and evidence retained. Preregister bounded unchanged CageR6×1500 andStackR6×1000; no confirmation for failed gates. Full goal remains14/24.

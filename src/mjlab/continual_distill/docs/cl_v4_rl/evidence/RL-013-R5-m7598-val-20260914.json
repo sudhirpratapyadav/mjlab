@@ -1,0 +1,1732 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-013-R5-cage-drive/model_7598.pt",
+  "checkpoint_sha256": "59c42ea7fd04c32d49b4a9e118f88d00c7b796d7e5a2e446e4e671c96c2bfebf",
+  "seed": 20260914,
+  "episodes": 128,
+  "successes": 16,
+  "success_rate": 0.125,
+  "deterministic": true,
+  "first_episode_only": true,
+  "records": [
+    {
+      "env_id": 0,
+      "success": false,
+      "steps": 200,
+      "return": 0.7549545168876648,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 1,
+      "success": false,
+      "steps": 200,
+      "return": 28.22133445739746,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 2,
+      "success": false,
+      "steps": 111,
+      "return": 11.257081031799316,
+      "reason": "terminated",
+      "termination_terms": [
+        "ee_ground_collision"
+      ]
+    },
+    {
+      "env_id": 3,
+      "success": true,
+      "steps": 200,
+      "return": 65.90272521972656,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 4,
+      "success": false,
+      "steps": 200,
+      "return": 23.47827911376953,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 5,
+      "success": false,
+      "steps": 200,
+      "return": 26.06922721862793,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 6,
+      "success": false,
+      "steps": 200,
+      "return": 31.091394424438477,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 7,
+      "success": false,
+      "steps": 200,
+      "return": 28.19053077697754,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 8,
+      "success": false,
+      "steps": 200,
+      "return": 20.800649642944336,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 9,
+      "success": false,
+      "steps": 200,
+      "return": 23.788612365722656,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 10,
+      "success": false,
+      "steps": 200,
+      "return": 19.913965225219727,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 11,
+      "success": false,
+      "steps": 200,
+      "return": 24.53786277770996,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 12,
+      "success": false,
+      "steps": 200,
+      "return": 26.78588104248047,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 13,
+      "success": true,
+      "steps": 200,
+      "return": 60.29716873168945,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 14,
+      "success": false,
+      "steps": 200,
+      "return": 19.66215705871582,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 15,
+      "success": false,
+      "steps": 200,
+      "return": 2.521627426147461,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 16,
+      "success": false,
+      "steps": 200,
+      "return": 27.04536247253418,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 17,
+      "success": false,
+      "steps": 200,
+      "return": 29.142427444458008,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 18,
+      "success": false,
+      "steps": 200,
+      "return": 25.250755310058594,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 19,
+      "success": false,
+      "steps": 200,
+      "return": 0.343003511428833,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 20,
+      "success": false,
+      "steps": 200,
+      "return": 20.86517333984375,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 21,
+      "success": false,
+      "steps": 200,
+      "return": 21.74388885498047,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 22,
+      "success": false,
+      "steps": 200,
+      "return": 20.7922420501709,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 23,
+      "success": false,
+      "steps": 200,
+      "return": 20.39812469482422,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 24,
+      "success": false,
+      "steps": 200,
+      "return": 0.6552769541740417,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 25,
+      "success": false,
+      "steps": 200,
+      "return": 1.115861415863037,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 26,
+      "success": true,
+      "steps": 200,
+      "return": 66.45426177978516,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 27,
+      "success": false,
+      "steps": 200,
+      "return": 9.043227195739746,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 28,
+      "success": false,
+      "steps": 200,
+      "return": 21.64162826538086,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 29,
+      "success": false,
+      "steps": 200,
+      "return": 21.703121185302734,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 30,
+      "success": false,
+      "steps": 200,
+      "return": 62.77197265625,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 31,
+      "success": true,
+      "steps": 200,
+      "return": 96.14303588867188,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 32,
+      "success": false,
+      "steps": 200,
+      "return": 5.797056674957275,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 33,
+      "success": false,
+      "steps": 200,
+      "return": 42.89870834350586,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 34,
+      "success": false,
+      "steps": 200,
+      "return": 16.704139709472656,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 35,
+      "success": false,
+      "steps": 200,
+      "return": 23.032163619995117,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 36,
+      "success": false,
+      "steps": 200,
+      "return": 22.848495483398438,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 37,
+      "success": true,
+      "steps": 200,
+      "return": 107.91472625732422,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 38,
+      "success": false,
+      "steps": 200,
+      "return": 13.023709297180176,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 39,
+      "success": false,
+      "steps": 200,
+      "return": 18.164426803588867,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 40,
+      "success": false,
+      "steps": 200,
+      "return": 21.648494720458984,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 41,
+      "success": false,
+      "steps": 200,
+      "return": 21.525089263916016,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 42,
+      "success": false,
+      "steps": 200,
+      "return": 76.93659973144531,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 43,
+      "success": false,
+      "steps": 200,
+      "return": 10.423531532287598,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 44,
+      "success": true,
+      "steps": 200,
+      "return": 71.48808288574219,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 45,
+      "success": false,
+      "steps": 200,
+      "return": 36.89915466308594,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 46,
+      "success": false,
+      "steps": 200,
+      "return": 6.983180522918701,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 47,
+      "success": false,
+      "steps": 200,
+      "return": 25.984556198120117,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 48,
+      "success": false,
+      "steps": 200,
+      "return": 1.2233864068984985,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 49,
+      "success": true,
+      "steps": 200,
+      "return": 41.53626251220703,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 50,
+      "success": false,
+      "steps": 200,
+      "return": 0.7730518579483032,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 51,
+      "success": false,
+      "steps": 200,
+      "return": 22.557323455810547,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 52,
+      "success": false,
+      "steps": 200,
+      "return": 22.678102493286133,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 53,
+      "success": false,
+      "steps": 200,
+      "return": 2.7862555980682373,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 54,
+      "success": false,
+      "steps": 200,
+      "return": 34.6594123840332,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 55,
+      "success": false,
+      "steps": 200,
+      "return": 13.614666938781738,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 56,
+      "success": false,
+      "steps": 200,
+      "return": 13.528532028198242,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 57,
+      "success": true,
+      "steps": 200,
+      "return": 83.4987564086914,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 58,
+      "success": false,
+      "steps": 200,
+      "return": 25.630001068115234,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 59,
+      "success": false,
+      "steps": 200,
+      "return": 0.4551975727081299,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 60,
+      "success": false,
+      "steps": 200,
+      "return": 24.51836395263672,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 61,
+      "success": false,
+      "steps": 200,
+      "return": 7.552722454071045,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 62,
+      "success": false,
+      "steps": 200,
+      "return": -0.254378080368042,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 63,
+      "success": false,
+      "steps": 200,
+      "return": 24.67098045349121,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 64,
+      "success": false,
+      "steps": 200,
+      "return": 26.05765151977539,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 65,
+      "success": false,
+      "steps": 200,
+      "return": 14.527597427368164,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 66,
+      "success": false,
+      "steps": 200,
+      "return": 0.3696720004081726,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 67,
+      "success": false,
+      "steps": 200,
+      "return": 17.846351623535156,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 68,
+      "success": false,
+      "steps": 200,
+      "return": 24.15604591369629,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 69,
+      "success": false,
+      "steps": 200,
+      "return": 22.286026000976562,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 70,
+      "success": false,
+      "steps": 200,
+      "return": 23.067394256591797,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 71,
+      "success": false,
+      "steps": 200,
+      "return": 3.662419557571411,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 72,
+      "success": false,
+      "steps": 200,
+      "return": 12.288498878479004,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 73,
+      "success": true,
+      "steps": 200,
+      "return": 55.266883850097656,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 74,
+      "success": false,
+      "steps": 200,
+      "return": 0.11963500082492828,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 75,
+      "success": false,
+      "steps": 200,
+      "return": 21.566944122314453,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 76,
+      "success": false,
+      "steps": 200,
+      "return": 14.998133659362793,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 77,
+      "success": false,
+      "steps": 200,
+      "return": 25.310646057128906,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 78,
+      "success": false,
+      "steps": 200,
+      "return": 5.227761745452881,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 79,
+      "success": false,
+      "steps": 200,
+      "return": 8.339661598205566,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 80,
+      "success": false,
+      "steps": 200,
+      "return": 12.078279495239258,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 81,
+      "success": false,
+      "steps": 200,
+      "return": 1.5737268924713135,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 82,
+      "success": false,
+      "steps": 200,
+      "return": 19.821996688842773,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 83,
+      "success": false,
+      "steps": 200,
+      "return": 20.98908805847168,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 84,
+      "success": true,
+      "steps": 200,
+      "return": 60.250526428222656,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 85,
+      "success": true,
+      "steps": 200,
+      "return": 63.12068557739258,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 86,
+      "success": false,
+      "steps": 200,
+      "return": 20.867341995239258,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 87,
+      "success": false,
+      "steps": 200,
+      "return": 9.573505401611328,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 88,
+      "success": false,
+      "steps": 200,
+      "return": 27.155895233154297,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 89,
+      "success": false,
+      "steps": 200,
+      "return": 19.020727157592773,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 90,
+      "success": false,
+      "steps": 200,
+      "return": 25.048280715942383,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 91,
+      "success": false,
+      "steps": 200,
+      "return": 45.88085174560547,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 92,
+      "success": false,
+      "steps": 200,
+      "return": 14.504508018493652,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 93,
+      "success": false,
+      "steps": 200,
+      "return": 27.180753707885742,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 94,
+      "success": false,
+      "steps": 200,
+      "return": 0.13293540477752686,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 95,
+      "success": false,
+      "steps": 200,
+      "return": 25.009382247924805,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 96,
+      "success": false,
+      "steps": 200,
+      "return": 20.454545974731445,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 97,
+      "success": false,
+      "steps": 200,
+      "return": 24.470279693603516,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 98,
+      "success": false,
+      "steps": 200,
+      "return": 8.89256477355957,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 99,
+      "success": true,
+      "steps": 200,
+      "return": 54.64997482299805,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 100,
+      "success": false,
+      "steps": 200,
+      "return": 22.565706253051758,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 101,
+      "success": true,
+      "steps": 200,
+      "return": 77.29241180419922,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 102,
+      "success": false,
+      "steps": 200,
+      "return": 30.220455169677734,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 103,
+      "success": false,
+      "steps": 200,
+      "return": 8.495670318603516,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 104,
+      "success": false,
+      "steps": 200,
+      "return": 16.35810661315918,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 105,
+      "success": false,
+      "steps": 200,
+      "return": 6.068637371063232,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 106,
+      "success": false,
+      "steps": 200,
+      "return": 29.168254852294922,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 107,
+      "success": false,
+      "steps": 200,
+      "return": 15.088738441467285,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 108,
+      "success": false,
+      "steps": 200,
+      "return": 12.65258502960205,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 109,
+      "success": false,
+      "steps": 200,
+      "return": 6.421991348266602,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 110,
+      "success": false,
+      "steps": 200,
+      "return": 23.422666549682617,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 111,
+      "success": false,
+      "steps": 200,
+      "return": 33.21709442138672,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 112,
+      "success": false,
+      "steps": 200,
+      "return": 28.84337043762207,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 113,
+      "success": false,
+      "steps": 200,
+      "return": 14.053915977478027,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 114,
+      "success": false,
+      "steps": 200,
+      "return": 26.68061065673828,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 115,
+      "success": false,
+      "steps": 200,
+      "return": 14.080004692077637,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 116,
+      "success": false,
+      "steps": 200,
+      "return": 29.228313446044922,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 117,
+      "success": true,
+      "steps": 200,
+      "return": 68.40052795410156,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 118,
+      "success": false,
+      "steps": 200,
+      "return": 24.840923309326172,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 119,
+      "success": false,
+      "steps": 200,
+      "return": 24.8117618560791,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 120,
+      "success": false,
+      "steps": 200,
+      "return": 0.2561829686164856,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 121,
+      "success": false,
+      "steps": 200,
+      "return": 21.235078811645508,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 122,
+      "success": false,
+      "steps": 200,
+      "return": 17.147802352905273,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 123,
+      "success": false,
+      "steps": 200,
+      "return": 24.4986572265625,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 124,
+      "success": true,
+      "steps": 200,
+      "return": 40.884605407714844,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 125,
+      "success": false,
+      "steps": 200,
+      "return": 19.441728591918945,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 126,
+      "success": false,
+      "steps": 200,
+      "return": 9.884306907653809,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    },
+    {
+      "env_id": 127,
+      "success": true,
+      "steps": 200,
+      "return": 77.99456024169922,
+      "reason": "timeout",
+      "termination_terms": [
+        "time_out"
+      ]
+    }
+  ],
+  "protocol": "terminal_first_episode_v1",
+  "interface": "franka_shared_60_v2",
+  "recipe": "cage_v4",
+  "episode_length_s": 4.0,
+  "free_body_implicitfast_compat": false,
+  "gravity": [
+    0,
+    0,
+    -9.81
+  ],
+  "agent_config_sha256": "5b5fde8d7b1357c9df23513556f53ec2aae2e74ffa0ce0096141ba633af86629",
+  "termination_counts": {
+    "time_out": 127,
+    "ee_ground_collision": 1,
+    "object_out_of_bounds": 0
+  },
+  "trace_dir": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R5-m7598",
+  "diagnostic_samples": [
+    {
+      "control_step": 0,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.0,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0,
+      "aperture_mean": 0.07599999755620956,
+      "gripper_object_distance_mean": 0.47975027561187744,
+      "gripper_goal_distance_mean": 0.48535558581352234,
+      "gripper_down_alignment_mean": 0.9730435609817505,
+      "object_height_mean": 0.022600000724196434,
+      "gripper_action_mean": 0.9852346777915955,
+      "absolute_action_max": 0.9999949932098389,
+      "goal_error_mean": 0.0,
+      "minimum_episode_aperture": 1.0,
+      "valid_no_pinch_fraction": 1.0,
+      "caged_fraction": 0.0,
+      "caged_progress_mean": 0.0
+    },
+    {
+      "control_step": 10,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.0546875,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0,
+      "aperture_mean": 0.07941147685050964,
+      "gripper_object_distance_mean": 0.10201495885848999,
+      "gripper_goal_distance_mean": 0.19552458822727203,
+      "gripper_down_alignment_mean": 0.6920433044433594,
+      "object_height_mean": 0.022542420774698257,
+      "gripper_action_mean": 0.9965848326683044,
+      "absolute_action_max": 0.999967098236084,
+      "goal_error_mean": 0.15686404705047607,
+      "minimum_episode_aperture": 0.06551855057477951,
+      "valid_no_pinch_fraction": 0.9921875,
+      "caged_fraction": 0.0546875,
+      "caged_progress_mean": 0.0
+    },
+    {
+      "control_step": 20,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5234375,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015625,
+      "aperture_mean": 0.07973170280456543,
+      "gripper_object_distance_mean": 0.03809253126382828,
+      "gripper_goal_distance_mean": 0.16543731093406677,
+      "gripper_down_alignment_mean": 0.9172564744949341,
+      "object_height_mean": 0.023623423650860786,
+      "gripper_action_mean": 0.9579675793647766,
+      "absolute_action_max": 0.999990701675415,
+      "goal_error_mean": 0.15503349900245667,
+      "minimum_episode_aperture": 0.05987320840358734,
+      "valid_no_pinch_fraction": 0.9765625,
+      "caged_fraction": 0.515625,
+      "caged_progress_mean": 0.000985574210062623
+    },
+    {
+      "control_step": 30,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.6484375,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0546875,
+      "aperture_mean": 0.07985387742519379,
+      "gripper_object_distance_mean": 0.037259962409734726,
+      "gripper_goal_distance_mean": 0.15719708800315857,
+      "gripper_down_alignment_mean": 0.9750475287437439,
+      "object_height_mean": 0.024314770475029945,
+      "gripper_action_mean": 0.9806103110313416,
+      "absolute_action_max": 0.9999955296516418,
+      "goal_error_mean": 0.14826416969299316,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.9140625,
+      "caged_fraction": 0.640625,
+      "caged_progress_mean": 0.003327932208776474
+    },
+    {
+      "control_step": 40,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5390625,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0078125,
+      "aperture_mean": 0.07982230186462402,
+      "gripper_object_distance_mean": 0.04657650738954544,
+      "gripper_goal_distance_mean": 0.15571440756320953,
+      "gripper_down_alignment_mean": 0.9657555818557739,
+      "object_height_mean": 0.023650335147976875,
+      "gripper_action_mean": 0.9832212328910828,
+      "absolute_action_max": 0.9999971985816956,
+      "goal_error_mean": 0.1398998498916626,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8984375,
+      "caged_fraction": 0.5234375,
+      "caged_progress_mean": 0.006468375213444233
+    },
+    {
+      "control_step": 50,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5625,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.046875,
+      "aperture_mean": 0.0799044817686081,
+      "gripper_object_distance_mean": 0.0464717298746109,
+      "gripper_goal_distance_mean": 0.148532897233963,
+      "gripper_down_alignment_mean": 0.9635289907455444,
+      "object_height_mean": 0.02317972108721733,
+      "gripper_action_mean": 0.9959192276000977,
+      "absolute_action_max": 0.999997615814209,
+      "goal_error_mean": 0.13442377746105194,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.890625,
+      "caged_fraction": 0.546875,
+      "caged_progress_mean": 0.007402183022350073
+    },
+    {
+      "control_step": 60,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5390625,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0234375,
+      "aperture_mean": 0.07998589426279068,
+      "gripper_object_distance_mean": 0.05097129940986633,
+      "gripper_goal_distance_mean": 0.14574360847473145,
+      "gripper_down_alignment_mean": 0.9618123769760132,
+      "object_height_mean": 0.02320815995335579,
+      "gripper_action_mean": 0.9993796944618225,
+      "absolute_action_max": 0.9999974966049194,
+      "goal_error_mean": 0.12839770317077637,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8828125,
+      "caged_fraction": 0.5,
+      "caged_progress_mean": 0.008884581737220287
+    },
+    {
+      "control_step": 70,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5625,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0390625,
+      "aperture_mean": 0.07989964634180069,
+      "gripper_object_distance_mean": 0.050487976521253586,
+      "gripper_goal_distance_mean": 0.1408555507659912,
+      "gripper_down_alignment_mean": 0.9626582860946655,
+      "object_height_mean": 0.02294204756617546,
+      "gripper_action_mean": 0.9994041323661804,
+      "absolute_action_max": 0.9999952912330627,
+      "goal_error_mean": 0.12609951198101044,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.875,
+      "caged_fraction": 0.5390625,
+      "caged_progress_mean": 0.009717651642858982
+    },
+    {
+      "control_step": 80,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.59375,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.03125,
+      "aperture_mean": 0.08002812415361404,
+      "gripper_object_distance_mean": 0.050397515296936035,
+      "gripper_goal_distance_mean": 0.1360301971435547,
+      "gripper_down_alignment_mean": 0.9625778794288635,
+      "object_height_mean": 0.022946540266275406,
+      "gripper_action_mean": 0.9991185665130615,
+      "absolute_action_max": 0.9999974966049194,
+      "goal_error_mean": 0.12268728017807007,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.875,
+      "caged_fraction": 0.5625,
+      "caged_progress_mean": 0.01078147441148758
+    },
+    {
+      "control_step": 90,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.59375,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015625,
+      "aperture_mean": 0.08005250990390778,
+      "gripper_object_distance_mean": 0.05352037400007248,
+      "gripper_goal_distance_mean": 0.13757610321044922,
+      "gripper_down_alignment_mean": 0.9610151052474976,
+      "object_height_mean": 0.02275511622428894,
+      "gripper_action_mean": 0.9995912313461304,
+      "absolute_action_max": 0.9999957084655762,
+      "goal_error_mean": 0.12126624584197998,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.875,
+      "caged_fraction": 0.5546875,
+      "caged_progress_mean": 0.011786659248173237
+    },
+    {
+      "control_step": 100,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.59375,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015625,
+      "aperture_mean": 0.08000048995018005,
+      "gripper_object_distance_mean": 0.05289675295352936,
+      "gripper_goal_distance_mean": 0.13604848086833954,
+      "gripper_down_alignment_mean": 0.9609665274620056,
+      "object_height_mean": 0.022790856659412384,
+      "gripper_action_mean": 0.9994990825653076,
+      "absolute_action_max": 0.9999966621398926,
+      "goal_error_mean": 0.11972944438457489,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.875,
+      "caged_fraction": 0.5703125,
+      "caged_progress_mean": 0.012157049030065536
+    },
+    {
+      "control_step": 110,
+      "active_episodes": 128,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5703125,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0234375,
+      "aperture_mean": 0.07977069914340973,
+      "gripper_object_distance_mean": 0.052594639360904694,
+      "gripper_goal_distance_mean": 0.1331992894411087,
+      "gripper_down_alignment_mean": 0.9615849256515503,
+      "object_height_mean": 0.023089643567800522,
+      "gripper_action_mean": 0.9994511604309082,
+      "absolute_action_max": 0.9999976754188538,
+      "goal_error_mean": 0.11788986623287201,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.859375,
+      "caged_fraction": 0.53125,
+      "caged_progress_mean": 0.01287272572517395
+    },
+    {
+      "control_step": 120,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5905511975288391,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015748031437397003,
+      "aperture_mean": 0.08000746369361877,
+      "gripper_object_distance_mean": 0.057190753519535065,
+      "gripper_goal_distance_mean": 0.13371022045612335,
+      "gripper_down_alignment_mean": 0.9601842164993286,
+      "object_height_mean": 0.023043354973196983,
+      "gripper_action_mean": 0.99932461977005,
+      "absolute_action_max": 0.9999927878379822,
+      "goal_error_mean": 0.11645422130823135,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8582677245140076,
+      "caged_fraction": 0.5511810779571533,
+      "caged_progress_mean": 0.01355541031807661
+    },
+    {
+      "control_step": 130,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5826771855354309,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.0,
+      "aperture_mean": 0.07999077439308167,
+      "gripper_object_distance_mean": 0.05664834380149841,
+      "gripper_goal_distance_mean": 0.13245521485805511,
+      "gripper_down_alignment_mean": 0.9615802764892578,
+      "object_height_mean": 0.022659121081233025,
+      "gripper_action_mean": 0.9995572566986084,
+      "absolute_action_max": 0.9999942183494568,
+      "goal_error_mean": 0.1159401386976242,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8582677245140076,
+      "caged_fraction": 0.5433070659637451,
+      "caged_progress_mean": 0.013900546357035637
+    },
+    {
+      "control_step": 140,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5826771855354309,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015748031437397003,
+      "aperture_mean": 0.07987894862890244,
+      "gripper_object_distance_mean": 0.05679057538509369,
+      "gripper_goal_distance_mean": 0.13182027637958527,
+      "gripper_down_alignment_mean": 0.9609609246253967,
+      "object_height_mean": 0.022699741646647453,
+      "gripper_action_mean": 0.9995157718658447,
+      "absolute_action_max": 0.999993622303009,
+      "goal_error_mean": 0.11460024863481522,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8503937125205994,
+      "caged_fraction": 0.5433070659637451,
+      "caged_progress_mean": 0.014333118684589863
+    },
+    {
+      "control_step": 150,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5826771855354309,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.007874015718698502,
+      "aperture_mean": 0.07987529784440994,
+      "gripper_object_distance_mean": 0.05694708600640297,
+      "gripper_goal_distance_mean": 0.13047415018081665,
+      "gripper_down_alignment_mean": 0.9614318013191223,
+      "object_height_mean": 0.02288844622671604,
+      "gripper_action_mean": 0.9994776844978333,
+      "absolute_action_max": 0.999994695186615,
+      "goal_error_mean": 0.1136455163359642,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8425197005271912,
+      "caged_fraction": 0.5354330539703369,
+      "caged_progress_mean": 0.014766432344913483
+    },
+    {
+      "control_step": 160,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5826771855354309,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015748031437397003,
+      "aperture_mean": 0.07999863475561142,
+      "gripper_object_distance_mean": 0.05690496414899826,
+      "gripper_goal_distance_mean": 0.12792031466960907,
+      "gripper_down_alignment_mean": 0.961578369140625,
+      "object_height_mean": 0.02280327118933201,
+      "gripper_action_mean": 0.997890830039978,
+      "absolute_action_max": 0.9999967813491821,
+      "goal_error_mean": 0.1122298315167427,
+      "minimum_episode_aperture": 0.041257165372371674,
+      "valid_no_pinch_fraction": 0.8425197005271912,
+      "caged_fraction": 0.5590550899505615,
+      "caged_progress_mean": 0.01527769211679697
+    },
+    {
+      "control_step": 170,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5826771855354309,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.03937007859349251,
+      "aperture_mean": 0.07974427938461304,
+      "gripper_object_distance_mean": 0.05771107226610184,
+      "gripper_goal_distance_mean": 0.12856999039649963,
+      "gripper_down_alignment_mean": 0.9615007042884827,
+      "object_height_mean": 0.022884169593453407,
+      "gripper_action_mean": 0.9992692470550537,
+      "absolute_action_max": 0.9999929666519165,
+      "goal_error_mean": 0.1112300381064415,
+      "minimum_episode_aperture": 0.040026720613241196,
+      "valid_no_pinch_fraction": 0.8425197005271912,
+      "caged_fraction": 0.5433070659637451,
+      "caged_progress_mean": 0.015464208088815212
+    },
+    {
+      "control_step": 180,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.5433070659637451,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.015748031437397003,
+      "aperture_mean": 0.07997355610132217,
+      "gripper_object_distance_mean": 0.058163225650787354,
+      "gripper_goal_distance_mean": 0.1273675411939621,
+      "gripper_down_alignment_mean": 0.9608363509178162,
+      "object_height_mean": 0.022825228050351143,
+      "gripper_action_mean": 0.9993273019790649,
+      "absolute_action_max": 0.9999946355819702,
+      "goal_error_mean": 0.11036454141139984,
+      "minimum_episode_aperture": 0.040026720613241196,
+      "valid_no_pinch_fraction": 0.8425197005271912,
+      "caged_fraction": 0.5118110179901123,
+      "caged_progress_mean": 0.015762029215693474
+    },
+    {
+      "control_step": 190,
+      "active_episodes": 127,
+      "grasped_fraction": 0.0,
+      "enclosed_fraction": 0.6299212574958801,
+      "enclosed_grasp_fraction": 0.0,
+      "opposed_grasp_fraction": 0.0,
+      "robot_object_contact_fraction": 0.007874015718698502,
+      "aperture_mean": 0.08000529557466507,
+      "gripper_object_distance_mean": 0.058036141097545624,
+      "gripper_goal_distance_mean": 0.12779836356639862,
+      "gripper_down_alignment_mean": 0.9624677896499634,
+      "object_height_mean": 0.02280566096305847,
+      "gripper_action_mean": 0.999348521232605,
+      "absolute_action_max": 0.9999973177909851,
+      "goal_error_mean": 0.11009912192821503,
+      "minimum_episode_aperture": 0.040026720613241196,
+      "valid_no_pinch_fraction": 0.8425197005271912,
+      "caged_fraction": 0.5590550899505615,
+      "caged_progress_mean": 0.015931768342852592
+    }
+  ]
+}
