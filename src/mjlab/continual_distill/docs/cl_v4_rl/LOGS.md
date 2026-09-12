@@ -333,3 +333,9 @@ Lift/Throw preflights passed and full retries launched. Peg3900 strict0/128 actu
 Wave21 placement verified: one full PPO process perGPU1–7, GPU0 at0MiB, no numerical failure artifacts in these seven current runs. training_wave21.json records source/manifests/PIDs and checkpoint labels. Cone compatibility enabled only for new PlaceR7/LiftR10 lineages; defaults and all14 certified configurations retain their saved backend. Holder expiry unchanged2026-09-28T08:58:54.
 
 Wave21 public refresh verified:24 actual videos play, newest home card/navigation, filters/search/mobile pass,50 public files match local hashes over verified TLS. Reviewed Lift/Throw/Pivot/Peg updates published. Goal remains14/24; seven PPO runs are active.
+
+CageR8 reached12600 with improving training metrics; launched one128-world strict validation beside its sole full trainer onGPU7 (about4.6GB trainer on80GB GPU). No second full trainer. Confirmation remains conditional on116+ successes.
+
+CageR8/model12600 strict90/128, all timeouts, actual success/failure frames reviewed. Below prior97/128; no confirmation, full bounded run continues. LiftR9 exact terminal audit:107 inside5cm,5 settled overall,0 inside and settled; median speeds0.2848m/s and2.0058rad/s. Initial wave21 scoreboard kn3ebe2m finished, remote API verified170 records. Final refresh adds these two late audits/reviews.
+
+Final wave21 gallery includes late Cage12600 clip/rate;24-playback, navigation/filter/search/mobile checks and50 HTTPS SHA256 matches pass after the change. Final W&B rollup includes Cage review and Lift settling audit.

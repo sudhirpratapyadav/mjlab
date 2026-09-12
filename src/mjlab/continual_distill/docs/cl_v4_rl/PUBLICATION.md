@@ -26,3 +26,5 @@ Detailed numerical results, experiment records and retained checkpoints continue
 Latest wave20 refresh:14 certified/10 in progress; all24 actual RL videos. Updated Cage11096 (97/128), Place6300 (96/128), Edge4998, Peg3400 and Lift8997. All newly selected clips reviewed before upload via untu_vps. Public checks pass newest home card/navigation,24-video playback, filters/search/mobile layout and50 HTTP200 SHA256 matches.
 
 Wave21 refresh includes reviewed Lift10496, Throw7497, Pivot3499 and Peg3900 clips. Still14 certified/10 in progress. Newest homepage-card navigation,24 video playback, search/filters/mobile layout and50 HTTP200 SHA256 matches passed.
+
+Wave21 final refresh also includes Cage12600 latest90/128 (best97/128 remains in detailed records). All24 playback and50 HTTPS SHA256 checks repeated successfully after this new clip.
