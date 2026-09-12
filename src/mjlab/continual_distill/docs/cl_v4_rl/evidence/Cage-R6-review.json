@@ -1,0 +1,82 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "checkpoint_sha256": "50899ba6e9330c273f0b12f64bc93fe6838a95900fb7dffdbd024a57e9acdbce",
+  "successes": 37,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "review": "Actual success/failure frames show open-hand displacement toward the goal followed by a stationary cage. Strict37/128, improved from16/128; failure still misses the native terminal gate. No-pinch and required caged progress remain unchanged.",
+  "last_diagnostics": {
+    "control_step": 190,
+    "active_episodes": 125,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.6640000343322754,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.00800000037997961,
+    "aperture_mean": 0.07989107817411423,
+    "gripper_object_distance_mean": 0.05577370896935463,
+    "gripper_goal_distance_mean": 0.0914047434926033,
+    "gripper_down_alignment_mean": 0.9533440470695496,
+    "object_height_mean": 0.02269207127392292,
+    "gripper_action_mean": 0.9994614720344543,
+    "absolute_action_max": 0.9999955892562866,
+    "goal_error_mean": 0.06800195574760437,
+    "minimum_episode_aperture": 0.04162181541323662,
+    "valid_no_pinch_fraction": 0.9440000653266907,
+    "caged_fraction": 0.6320000290870667,
+    "caged_progress_mean": 0.026511885225772858
+  },
+  "videos": {
+    "task": "Mjlab-Cage-Drag-Franka",
+    "checkpoint_sha256": "50899ba6e9330c273f0b12f64bc93fe6838a95900fb7dffdbd024a57e9acdbce",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R6-m9097/success.mp4",
+        "outcome": {
+          "env_id": 30,
+          "success": true,
+          "steps": 200,
+          "return": 102.67963409423828,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R6-m9097/failure.mp4",
+        "outcome": {
+          "env_id": 4,
+          "success": false,
+          "steps": 200,
+          "return": 83.44882202148438,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

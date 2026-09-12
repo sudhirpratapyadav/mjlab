@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "8d9b9522a7a594256d167848373d988a4b21262f4590ac9bbfd53b3b60045f69",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual grasp/lift/transport near the goal is visible, but the cube changes orientation while held. Strict0/128;110 terminal positions inside5cm, none settled at native limits. Settling/load diagnosis retained separately.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 124,
+    "grasped_fraction": 0.9677419066429138,
+    "enclosed_fraction": 0.6693547964096069,
+    "enclosed_grasp_fraction": 0.6612902879714966,
+    "opposed_grasp_fraction": 0.9677419066429138,
+    "robot_object_contact_fraction": 0.9677419066429138,
+    "aperture_mean": 0.0460660457611084,
+    "gripper_object_distance_mean": 0.02463074028491974,
+    "gripper_goal_distance_mean": 0.04230606183409691,
+    "gripper_down_alignment_mean": 0.8492988348007202,
+    "object_height_mean": 0.22369609773159027,
+    "gripper_action_mean": -0.9518498778343201,
+    "absolute_action_max": 0.9999492168426514,
+    "goal_error_mean": 0.035417716950178146
+  },
+  "videos": {
+    "task": "Mjlab-Lift-Cube-Franka",
+    "checkpoint_sha256": "8d9b9522a7a594256d167848373d988a4b21262f4590ac9bbfd53b3b60045f69",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-002-R7-m7100/failure.mp4",
+        "outcome": {
+          "env_id": 125,
+          "success": false,
+          "steps": 1000,
+          "return": 294.3157653808594,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

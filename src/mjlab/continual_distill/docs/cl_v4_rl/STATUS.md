@@ -1,10 +1,10 @@
 # Status — RL teachers
 
-Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Training: Cage R6 GPU1, Throw R2 GPU2, Stack R6 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+Checked2026-09-13. **14/24 independent PPO RL teachers certified.** Current training: Strike R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R5 GPU5, Peg R4 GPU6 and Cage R7 GPU7. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
-Lift R6 final5499 strict0/128, but actual grasp/lift/transport now occurs: mean final goal error9.50cm and height19.65cm, improved from26.06cm/2.78cm at4100. Continue its unchanged policy from5499. Throw final2999 and Peg R3/2300 each strict0/128; actual failure clips reviewed. Place learned grasps then regressed after3400 into open-hand joint-limit saturation; retained finite3400, strict0/128, reviewed grasp/lift beside the container. R5 continues3400 at half the learning rate after a finite3-update PPO check.
+Latest strict validation: Cage R6/final9097 improved16→37/128; Lift R7/final7498, Stack R6/final5198, Reorient R9/final8598 and Throw R2/final5498 each0/128. All completed budgets normally and their actual videos were reviewed. Lift places111 terminal objects inside5cm but none both inside and settled; lift_v7 adds mild loaded-grip/settling credit after a finite PPO preflight. Throw now captures/lifts (94.49% final opposing contacts) but holds without release; its bounded unchanged continuation targets launch. Stack remains low beside the base; Reorient remains near the floor.
 
-Captured Peg/Reorient spin failures identify a missing native MuJoCo free-body gyroscopic correction in the installed Warp implicitfast path. Optional backend compatibility sourcef821aa0 passes CPU comparisons,64-world sparse/dense CUDA-graph regressions, two2048-world captured-state regressions and both100-update2048-world PPO stress runs. Peg's new fresh PPO lineage and Reorient's own resumed policy enable the recorded correction. It defaults off and is restored from the run manifest in evaluation/certification; all existing certified teachers retain their configuration. Model parameters, timestep, success predicates and60D/8D remain unchanged. Contact trajectories may differ from CPU; no claim that all simulator instability is resolved.
+Strike's contact-height and Edge's full side-wrist reward changes passed finite online PPO preflights before full continuations. Cage's2048-world10-update preflight passed before doubling its rollout batch. Place retains the previously verified5e-5 Adam learning rate. Optional free-body gyroscopic compatibility remains enabled only for the recorded Peg/Reorient lineages; all14 certified configurations retain their saved backend. Native predicates, model parameters and60D/8D remain fixed. Matched Lift hold interventions support a gentler-grip hypothesis but are not RL success measurements; original evaluation friction is not captured in old traces.
 
 ## Readiness
 
@@ -31,11 +31,11 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Task | Episode s | Gravity | Next stage | RL success | Main issue |
 |---|---:|---|---|---|---|
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
-| Cage-Drag | 4 | on | Training R6 | 16/128 R5 final7598 | Native caging improved from2/128; unchanged cage_v4 from7598 ×1500 additional, GPU1. |
+| Cage-Drag | 4 | on | Training R7 | 37/128 R6 final9097 | Improved16→37; unchanged cage_v4 from9097,2048 ×2000 after finite10-update batch preflight, GPU7. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Rejected first pilot; retry needed | 0/128 final2999 | Slides plate to overhang; FK audit shows20.3cm closest pinch-target miss and0.40 vertical closing alignment. edge_v3 full side-wrist/capture reward prepared;32 endpoint checks and62 focused tests pass; PPO preflight pending. |
+| Edge-Grasp | 6 | on | Training R2 | 0/128 final2999 | Full side-wrist edge_v3 passed endpoint checks,62 focused tests and3 PPO updates; own2999 ×2000, GPU3. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | Training R7 | 0/128 R6 final5499 | lift_v6 from5499, unchanged reward/output/std/backend; genuine lift/transport, exact goal still missed. |
+| Lift-Cube | 20 | on | Training R8 | 0/128 R7 final7498 |111 inside5cm but0 inside and settled; lift_v7 gentler loaded closure/settling bonus, preflight passed, GPU4. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
@@ -46,12 +46,12 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Training R9 | 0/128 R7 final6099 | R8 stopped6589 with spin failure; own stress6599 resumes with optional gyro correction onGPU7. |
+| Reorient-Object | 20 | on | Retry diagnosis | 0/128 R9 final8598 | Full gyro-enabled budget finite; actual low capture without goal reorientation. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
-| Stack-Cube | 20 | on | Training R6 | 0/128 R5 final4199 | Opposing grasps65.08% at final surviving-world sample; no stacking. Unchanged completion_v6 from4199 ×1000, GPU3. |
-| Strike-Slide | 4 | on | Contact retry prepared | 9/128 final2999 | Strikes and retracts;58/128 negligible launches,25 weak launches,45 substantial launches with9 successes. Actual success/failure reviewed; native4s/friction/predicate unchanged. |
-| Throw-To-Bin | 5 | on | Training R2 | 0/128 final2999 | throw_v4 from2999/std0.15, opposed contacts/local width;3-update PPO preflight passed, GPU2. |
+| Stack-Cube | 20 | on | Retry diagnosis | 0/128 R6 final5198 | Final opposing grasp95.8%, height2.62cm; held beside base without released stack. |
+| Strike-Slide | 4 | on | Training R2 | 9/128 final2999 | strike_v2 precise contact approach; finite3-update preflight then own2999 ×2000 onGPU1. |
+| Throw-To-Bin | 5 | on | Training R3 | 0/128 R2 final5498 | Actual capture/lift,94.49% final opposing contacts; holds without release. Bounded unchanged continuation, GPU2. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
 

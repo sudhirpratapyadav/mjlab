@@ -1,0 +1,39 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "fe64b479c5b1f3b278ea559a1257b49da9f3bd511ecddb9336dd5dca8bdea812",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual initial/middle/final recorded frames show the hand approaching and closing around the object near the floor. The object remains low beside the closed pads; the selected episode does not achieve the native reorientation goal. Final strict validation 0/128, no confirmation. Full training budget completed without a numerical failure.",
+  "videos": {
+    "task": "Mjlab-Reorient-Object-Franka",
+    "checkpoint_sha256": "fe64b479c5b1f3b278ea559a1257b49da9f3bd511ecddb9336dd5dca8bdea812",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-005-R9-m8598/failure.mp4",
+        "outcome": {
+          "env_id": 35,
+          "success": false,
+          "steps": 1000,
+          "return": 117.62728881835938,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

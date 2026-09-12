@@ -2,11 +2,11 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** Training: Cage R6 GPU1, Throw R2 GPU2, Stack R6 GPU3, Lift R7 GPU4, Peg R4 GPU6 and Reorient R9 GPU7. Place R5 is training onGPU5 from retained3400 with verified Adam LR5e-5 after its later policy regressed. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
+**14/24 independent PPO RL teachers certified.** Current training: Strike R2 GPU1, Throw R3 GPU2, Edge R2 GPU3, Lift R8 GPU4, Place R5 GPU5, Peg R4 GPU6 and Cage R7 GPU7. GPU0 remains unused. All24 tasks have RL training evidence; coverage is not certification.
 
-Lift R6 final5499 strict0/128, but actual grasp/lift/transport now occurs: mean final goal error9.50cm and height19.65cm, improved from26.06cm/2.78cm at4100. Continue its unchanged policy from5499. Throw final2999 and Peg R3/2300 each strict0/128; actual failure clips reviewed. Place learned grasps then regressed after3400 into open-hand joint-limit saturation; retained finite3400, strict0/128, reviewed grasp/lift beside the container. R5 continues3400 at half the learning rate after a finite3-update PPO check.
+Latest strict validation: Cage R6/final9097 improved16→37/128; Lift R7/final7498, Stack R6/final5198, Reorient R9/final8598 and Throw R2/final5498 each0/128. All completed budgets normally and their actual videos were reviewed. Lift places111 terminal objects inside5cm but none both inside and settled; lift_v7 adds mild loaded-grip/settling credit after a finite PPO preflight. Throw now captures/lifts (94.49% final opposing contacts) but holds without release; its bounded unchanged continuation targets launch. Stack remains low beside the base; Reorient remains near the floor.
 
-Captured Peg/Reorient spin failures identify a missing native MuJoCo free-body gyroscopic correction in the installed Warp implicitfast path. Optional backend compatibility sourcef821aa0 passes CPU comparisons,64-world sparse/dense CUDA-graph regressions, two2048-world captured-state regressions and both100-update2048-world PPO stress runs. Peg's new fresh PPO lineage and Reorient's own resumed policy enable the recorded correction. It defaults off and is restored from the run manifest in evaluation/certification; all existing certified teachers retain their configuration. Model parameters, timestep, success predicates and60D/8D remain unchanged. Contact trajectories may differ from CPU; no claim that all simulator instability is resolved.
+Strike's contact-height and Edge's full side-wrist reward changes passed finite online PPO preflights before full continuations. Cage's2048-world10-update preflight passed before doubling its rollout batch. Place retains the previously verified5e-5 Adam learning rate. Optional free-body gyroscopic compatibility remains enabled only for the recorded Peg/Reorient lineages; all14 certified configurations retain their saved backend. Native predicates, model parameters and60D/8D remain fixed. Matched Lift hold interventions support a gentler-grip hypothesis but are not RL success measurements; original evaluation friction is not captured in old traces.
 
 ## Acceptance
 
@@ -14,15 +14,15 @@ Deterministic policy means,60D observations and normalized8D absolute joint targ
 
 ## Active work
 
-- GPU1: Cage R6 cage_v4,1024 ×1500 additional from7598, preserve all settings. Prior strict16/128 versus2/128; improve goal accuracy and native no-pinch history.
-- GPU2: Throw R2 throw_v4,2048 ×2500 from2999/std0.15; learn actual opposing capture then launch.
-- GPU3: Stack R6 completion_v6,2048 ×1000 from4199, preserve all settings. Prior strict0/128, but65.08% final opposed contacts; evaluate lift/stack/release at budget.
-- GPU4: Lift R7 lift_v6,2048 ×2000 from5499, no reset/reward/backend changes. Goal error is improving; evaluate a retained checkpoint when native success rises or budget ends.
-- GPU5: Place R5 completion_v6 from own3400,2048 ×2000 additional, Adam LR5e-5. The3-update PPO preflight saved finite tensors and effective LR5e-5. Preserve means/std/moments/normalizers/backend; evaluate released containment at budget or a justified checkpoint.
-- GPU6: Peg R4 completion_v6 from fresh stressmodel99 ×3000 additional, optional gyro correction inherited. Previous resumed lineage toppled/pressed; this is fresh PPO, not distillation.
-- GPU7: Reorient R9 reorient_v7 from own stress6599 ×2000 additional, optional gyro correction inherited; output/std preserved.
+- GPU1: Strike R2 strike_v2,2048 ×2000 from2999 after finite3-update preflight. Improve precise contact acquisition.
+- GPU2: Throw R3 throw_v4,2048 ×2000 from5498 unchanged. Convert new capture/lift into launch; diagnose reward if holding persists at budget.
+- GPU3: Edge R2 edge_v3,2048 ×2000 from2999 after finite3-update preflight. Learn side pinch and settled lift after exposure.
+- GPU4: Lift R8 lift_v7,2048 ×1500 from7498 after finite3-update preflight. Learn gentle loaded grip and native settling; monitor new actual-speed diagnostics.
+- GPU5: Place R5 completion_v6 from3400,2048 ×2000, saved Adam LR5e-5. Evaluate released containment at budget.
+- GPU6: Peg R4 completion_v6 from fresh stress99 ×3000; recorded optional gyro correction. Evaluate its fresh PPO lineage at budget.
+- GPU7: Cage R7 cage_v4 from9097,2048 ×2000 after finite10-update full-batch preflight. Improve37/128 without changing native no-pinch history.
 
-Edge/Pivot/Strike remain targeted retries, using the next suitable free slot. Edge exposes the plate then misses the pinch; Pivot presses the board flat; Strike9/128:58 negligible launches remain a median8.2cm above contact height. strike_v2 precision/drive reward is prepared and CPU-tested; next free GPU1/3 after current final evaluation runs a3-update PPO preflight before its2000-update retry. Diagnose geometry/approach alignment and contact launch rather than blindly extending failed recipes.
+Stack, Reorient and Pivot remain targeted retries. Stack has acquired opposing capture but stays low beside its base. Reorient remains near the floor after its gyro-enabled budget. Pivot presses the board flat with same-face contacts; investigate full wrist/approach geometry. Use actual trajectory evidence before changing shaping; do not loosen predicates or import scripted actions.
 
 ## Numerical readiness
 
@@ -31,5 +31,3 @@ Selective warm-start reset is retained. The separate captured high-spin failure 
 ## Records and resources
 
 Keep STATUS/EXPERIMENTS/LOGS, current training_wave inventory and scoped W&B records current. Publish reviewed policy summaries/videos to /v4-rl/ using PUBLICATION.md. GPU0 stays free; verify real placement, holder20277 expiry2026-09-28T08:58:54 and available disk before resource reuse. Stop only verified own steps. Full24-teacher goal remains active until every teacher is independently certified.
-
-Wave17 pending readiness: strike_v2 is implemented and57 focused tests pass; runPREFLIGHT-STRIKE-CONTACT-024 (own2999,64×3, online, no resets) on the first suitable freeGPU1/3 after evaluating its current final checkpoint, thenRL-023-R2 (2048×2000) only if finite. Edge FK evidence shows the exposed plate is still20.3cm from the closest pinch target with poor wrist alignment; prepare a reachable full side-approach orientation before its retry. Current seven runs remain on their loaded configurations; no new teacher certification.

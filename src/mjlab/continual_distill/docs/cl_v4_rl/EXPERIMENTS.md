@@ -233,3 +233,18 @@ lift_v7 retains lift_v6 and adds held-object credit for mild loaded finger closu
 
 | PREFLIGHT-LIFT-SETTLE-026 | Lift | Verify gentle loaded grasp/settling shaping on own policy | lift_v7, ownR7/model7498,64 ×3 updates, GPU4, seed20260912 | Prepared | Finite online PPO checkpoint required before full continuation. |
 | RL-002-R8 | Lift | Learn settled grasp inside the native goal | lift_v7, ownR7/model7498,2048 ×1500 additional updates, GPU4, seed20260912 | Prepared | Preserve learned means/std, optimizer/normalizers and legacy backend. |
+
+### Cage R7 — increase rollout batch after native progress
+
+CageR6 final9097 strict37/128 versus16/128 at7598, actual success/failure frames reviewed. Continue its unchanged cage_v4 policy onGPU7 after Reorient final evaluation. Increase rollout worlds1024→2048 to use more of the A100 capacity while preserving the registered initialization distribution, timestep, rewards, means/std, LR and native gates. First10-update2048-world PPO preflight must be finite and online; then2000 additional updates from original9097. This is a training batch-size change, not a benchmark change.
+
+| PREFLIGHT-CAGE-2048-027 | Cage | Validate doubled rollout batch and throughput | cage_v4, ownR6/model9097,2048 ×10 updates, GPU7, seed20260912 | Prepared | Preserve all policy/optimizer settings; monitor numerical capture. |
+| RL-013-R7 | Cage | Continue improving native open-hand transport | cage_v4, ownR6/model9097,2048 ×2000 additional, GPU7 | Prepared | Conditional on finite10-update preflight, strict validation at budget. |
+
+Wave18 launch update: Lift settle preflight passed finite and online (zxswj059); R8 launched from original7498 with lift_v7 onGPU4. Cage2048-world10-update preflight passed finite and online (kb7bz1ex), actual Adam LR1e-4; R7 launched from original9097 onGPU7 for2000 additional updates. No policy/std/optimizer/normalizer/backend resets.
+
+### Throw R3 — continue acquired grasp/lift toward launch
+
+Throw R2 final5498 completed normally, strict0/128 (127timeouts,1ground). Actual recorded frames now show cube capture and lift, followed by holding without release; final opposing contacts94.49%, height0.26976m, goal error0.4610m. This is a newly learned precursor compared with final2999 hovering. Preregister a bounded unchanged throw_v4 continuation from own5498,2048 ×2000 additional, seed20260912, GPU2. Preserve means/std, Adam state/LR, normalizers, physics and native5s success. Strict evaluation at budget; no further blind continuation if holding persists.
+
+| RL-024-R3 | Throw | Convert acquired grasp/lift into native release/launch | throw_v4, ownR2/model5498,2048 ×2000 additional, GPU2 | Prepared | Unchanged recipe/configuration; no additional PPO preflight required for an unchanged resume. |
