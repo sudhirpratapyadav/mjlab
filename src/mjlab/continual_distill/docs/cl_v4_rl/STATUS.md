@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-Checked 2026-09-12. **Reach passed the measured rate gate (128/128 validation and 128/128 confirmation); 0/24 fully certified while evaluator edge-case checks and video review remain pending.** Six pilots were launched. Four were interrupted to fix W&B routing; their checkpoints are retained. Push-Cuboid failed at iteration268. Correct W&B destination is now verified; continuation launches are tracked in EXPERIMENTS.md.
+Checked 2026-09-12. **Reach passed the measured rate gate (128/128 validation and 128/128 confirmation); 0/24 fully certified while evaluator edge-case checks and video review remain pending.** Six pilots were launched. Four were interrupted to fix W&B routing; their checkpoints are retained. Push-Cuboid failed at iteration 268. Correct W&B destination is now verified; Lift, Drag-Pull, Reorient and Topple have resumed on GPUs 1, 4, 5 and 6; see EXPERIMENTS.md.
 
 ## Readiness
 
@@ -12,7 +12,7 @@ Checked 2026-09-12. **Reach passed the measured rate gate (128/128 validation an
 | PPO optimization/checkpoint round trip | PASS | `evidence/ppo_smoke.json`, Reach only |
 | GPU allocation | User expanded | GPUs1–7 authorized; leave GPU0 unused; recheck placement before launch |
 | Generic CLI with UUID pinning | BLOCKED route; workaround prepared | Integer-only GPU parsing; stage-local launcher bypasses reselection |
-| Stage-local launcher | PASS on Reach; resume dry-run pending verification | Full optimization/config/checkpoint path exercised |
+| Stage-local launcher | PASS on Reach; checkpoint resume verified | Full optimization/config/checkpoint path exercised |
 | W&B destination | PASS | Sudhir IIT Jodhpur entity; successful write/read; shared login unchanged |
 | Strict RL checkpoint evaluation | End-to-end exercised; edge-case tests pending | Captures predicate before internal reset, masks later episodes; Reach 128/128 twice, Push-Cuboid 1/128 |
 | Reward learnability across all tasks | NOT READY for blanket launch | Issues below; smoke success is not learning success |
@@ -38,7 +38,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Pivot-Lift | 6 | on | Needs preparation | Not measured | Reward wall-assisted pivot/capture; hidden history is a compact-state risk. |
 | Place-In-Container | 20 | on | Needs preparation | Not measured | Align final incentive with released, settled containment. |
 | Push-Button | 3 | off | Needs preparation | Not measured | Approach reward saturates at reset; review idle bonus and gravity preset. |
-| Push-Cuboid | 3 | on | Diagnose PPO failure | 1/128 at model_200 | Invalid action std at iteration268; diagnosis required before replacement run. |
+| Push-Cuboid | 3 | on | Diagnose PPO failure | 1/128 at model_200 | Invalid action std at iteration 268; diagnosis required before replacement run. |
 | Push-Flap | 3 | off | Needs preparation | Not measured | Approach reward saturates at reset; review idle bonus and gravity preset. |
 | Reach-Target | 20 | on | Certification review | 128/128 + 128/128 | model_499; evaluator edge-case tests and videos pending. |
 | Reorient-Object | 20 | on | Resume partial pilot | Not measured | model_300 retained after W&B pause. |
@@ -52,4 +52,4 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 
 ## Resource limits
 
-Seven A100 80GB GPUs authorized by the user (indices1–7); never use GPU0. Holder expiry is September28 per Slurm. Last filesystem snapshot: about1.6TB free. Pilot processes used about1GB (Reach) or2.5GB (contact tasks) per GPU at1,024 environments. Recheck GPU use, free space and holder lifetime before a long run.
+Seven A100 80GB GPUs authorized by the user (indices 1–7); never use GPU0. Holder expiry is September 28 per Slurm. Last filesystem snapshot: about 1.6 TB free. Pilot processes used about 1 GB (Reach) or 2.5 GB (contact tasks) per GPU at 1,024 environments. Recheck GPU use, free space and holder lifetime before a long run.

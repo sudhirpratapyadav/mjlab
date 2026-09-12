@@ -48,6 +48,6 @@ Use `.venv/bin/python`. Package versions are saved in preflight evidence. PPO sm
 
 ## Current outcome and next action
 
-**0/24 fully certified RL teachers; Reach has passed the measured rate gate.** RL-001's fresh 500-update pilot achieved 128/128 first-episode terminal successes on both seeds20260914 and20260915. Targeted evaluator edge-case tests and video review remain required before full certification. Four further pilots have partial checkpoints, and Push-Cuboid failed at iteration268 with invalid action standard deviation (its retained model_200 achieved 1/128). See the updated experiment ledger.
+**0/24 fully certified RL teachers; Reach has passed the measured rate gate.** RL-001's fresh 500-update pilot achieved 128/128 first-episode terminal successes on both seeds 20260914 and 20260915. Targeted evaluator edge-case tests and video review remain required before full certification. Four further pilots have partial checkpoints, and Push-Cuboid failed at iteration 268 with invalid action standard deviation (its retained model_200 achieved 1/128). See the updated experiment ledger.
 
 Next: establish the strict checkpoint evaluator, freeze reward/physics decisions and pilot budgets, then run Reach followed by Lift. Resolve the mechanism approach signal and Cage initialization before their expensive runs. See PLAN/STATUS/EXPERIMENTS for all tasks and outstanding checks.
