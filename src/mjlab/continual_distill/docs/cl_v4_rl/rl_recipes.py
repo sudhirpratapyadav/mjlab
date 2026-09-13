@@ -18,6 +18,7 @@ RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
+RECIPES += ("pivot_v5",)
 RECIPES += ("stack_v1", "reorient_v11", "strike_v5")
 RECIPES += ("reorient_v10",)
 RECIPES += ("edge_v5",)
@@ -153,6 +154,10 @@ def apply_recipe(cfg, recipe):
       raise ValueError("peg_v1 requires Peg-Insertion")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params["centered_fallback"] = True
+    return
+  if recipe == "pivot_v5":
+    apply_recipe(cfg, "pivot_v4")
+    cfg.env.rewards["reach_object"].params.update(held_weight=16.,native_weight=35.)
     return
   if recipe == "pivot_v4":
     apply_recipe(cfg, "pivot_v3")

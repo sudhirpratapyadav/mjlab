@@ -1,0 +1,35 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "method": "Analytic bounds on the training-only reward branch, with exact old-default regression and native config/agent invariance tests. This identifies possible negative immediate reward at a held-classifier transition; it does not prove a physical capture is feasible or guarantee policy improvement.",
+  "old_recipe": "pivot_v4",
+  "new_recipe": "pivot_v5",
+  "nonheld_upper_bound": 15.5,
+  "old_held_minimum": 8,
+  "new_held_minimum": 16,
+  "new_noncompleted_upper_bound": 26,
+  "new_native_bonus": 35,
+  "example_20deg_contact_precursor": 11.741229516856366,
+  "changed_parameters": {
+    "held_weight": [
+      8,
+      16
+    ],
+    "native_weight": [
+      25,
+      35
+    ]
+  },
+  "validation": {
+    "command": "pytest -q tests/test_cl24_remaining_reward.py tests/test_cl24_recipes.py",
+    "passed": 90,
+    "seconds": 5.57
+  },
+  "preserved": [
+    "physical model",
+    "native success including pivot history",
+    "60D observations",
+    "normalized8D actions",
+    "waypoint/wrist/aperture",
+    "PPO parameters and remaining penalties"
+  ]
+}

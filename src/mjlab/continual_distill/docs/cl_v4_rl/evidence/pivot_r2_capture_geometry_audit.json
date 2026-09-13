@@ -1,0 +1,1201 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "ca2417b987a57922818c6fa49dae37110b1285ffa46207fec6d2fe7f7c4a4696",
+  "source_controls": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot-r2-bounded-wrist-controls.npz",
+  "source_replay": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot_r2_gpu_path_box_audit.npz",
+  "method": "All32 native CPU terminal states of the bounded5s diagnostic path. Original friction/mocap/controls; FK and exact box/centerline slab intersection only. Centerline intersection is a geometric diagnostic, not contact, force closure, dynamic feasibility or RL success. No integration or policy/reset data.",
+  "summary": {
+    "cases": 32,
+    "centerline_intersects": 0,
+    "median_tilt_deg": 22.072100441056758,
+    "median_axis_normal_angle_deg": 38.858075760455385,
+    "median_centerline_width_m": null
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "board_tilt_deg": 21.51235111185238,
+      "closing_axis_normal_angle_deg": 39.13437774368689,
+      "pad_midpoint_board_local_m": [
+        -0.037271352458971015,
+        -0.0028736185191624033,
+        0.046202923693887545
+      ],
+      "closing_axis_board_local": [
+        -0.6176138454369773,
+        0.12997119154127282,
+        -0.775667858876397
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4766959612698829,
+          -0.021803926957933817,
+          0.11322930608345738
+        ],
+        [
+          0.3872509527847575,
+          -0.008223439419753524,
+          0.06164544601317603
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04413001585354099,
+        0.044852837018987915
+      ],
+      "pad_inner_gap_m": 0.08894285287252883
+    },
+    {
+      "env_id": 4,
+      "board_tilt_deg": 22.068624367376838,
+      "closing_axis_normal_angle_deg": 39.257048432968716,
+      "pad_midpoint_board_local_m": [
+        -0.036966837368507144,
+        -0.0027019855094384698,
+        0.046122486553622964
+      ],
+      "closing_axis_board_local": [
+        -0.6210935905104511,
+        0.12115831117430306,
+        -0.7743148038493316
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.478026656638565,
+          0.06557310164186396,
+          0.11312114295329365
+        ],
+        [
+          0.3877892606379669,
+          0.07826811223482308,
+          0.06266461592825281
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04413750811241191,
+        0.04486492297650225
+      ],
+      "pad_inner_gap_m": 0.08896243108891405
+    },
+    {
+      "env_id": 8,
+      "board_tilt_deg": 22.193635427854467,
+      "closing_axis_normal_angle_deg": 38.379587974678756,
+      "pad_midpoint_board_local_m": [
+        -0.037840542757463264,
+        -0.004078505611472119,
+        0.04650025923785066
+      ],
+      "closing_axis_board_local": [
+        -0.6070675751743753,
+        0.13017952519977427,
+        -0.7839146958634367
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4770349380909806,
+          -0.0931017372581499,
+          0.11453468161015519
+        ],
+        [
+          0.38775507029771966,
+          -0.07950351038127484,
+          0.06285147842115288
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04408418803818519,
+        0.04480849121253301
+      ],
+      "pad_inner_gap_m": 0.08885267925071806
+    },
+    {
+      "env_id": 12,
+      "board_tilt_deg": 23.787504638054873,
+      "closing_axis_normal_angle_deg": 37.269813442789,
+      "pad_midpoint_board_local_m": [
+        -0.038416206602646996,
+        -0.0015961458004064178,
+        0.041797091841921534
+      ],
+      "closing_axis_board_local": [
+        -0.5939608306800747,
+        0.11800257783768417,
+        -0.7957926383433644
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47696695226666974,
+          -0.004215019598379633,
+          0.11204541811057434
+        ],
+        [
+          0.38692835678645543,
+          0.008116496876006239,
+          0.06112966870104369
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04414329560465983,
+        0.0448668945292833
+      ],
+      "pad_inner_gap_m": 0.08897019013394301
+    },
+    {
+      "env_id": 16,
+      "board_tilt_deg": 22.075576514736678,
+      "closing_axis_normal_angle_deg": 39.30390906879245,
+      "pad_midpoint_board_local_m": [
+        -0.03734216513920389,
+        -0.00201213591757405,
+        0.04528265476726132
+      ],
+      "closing_axis_board_local": [
+        -0.6106326026852231,
+        0.1684221938107992,
+        -0.7737969948053747
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47712502836261894,
+          0.07998006051076144,
+          0.11291120036760527
+        ],
+        [
+          0.38752973781819927,
+          0.09767266824214958,
+          0.0618570865935133
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04436411875601335,
+        0.045103157751280376
+      ],
+      "pad_inner_gap_m": 0.08942727650729364
+    },
+    {
+      "env_id": 20,
+      "board_tilt_deg": 21.28400806245131,
+      "closing_axis_normal_angle_deg": 39.37628171361803,
+      "pad_midpoint_board_local_m": [
+        -0.0377706706630436,
+        -0.004440901646076235,
+        0.04526034986362544
+      ],
+      "closing_axis_board_local": [
+        -0.6098962267038563,
+        0.17465214578991414,
+        -0.772996261713714
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47519865701818503,
+          -0.10230966161549716,
+          0.11249832186468492
+        ],
+        [
+          0.3866394510175195,
+          -0.08402777098086421,
+          0.06040687587822024
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04423329901397709,
+        0.04496415993173404
+      ],
+      "pad_inner_gap_m": 0.089157458945711
+    },
+    {
+      "env_id": 24,
+      "board_tilt_deg": 9.849898899756023e-05,
+      "closing_axis_normal_angle_deg": 57.753266342013085,
+      "pad_midpoint_board_local_m": [
+        0.014967958191065243,
+        0.00039129052462642106,
+        0.10004432078798657
+      ],
+      "closing_axis_board_local": [
+        -0.8287920121012213,
+        0.16855504336995517,
+        -0.5335663014394396
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.496333236639745,
+          0.11571903392912791,
+          0.1314752569799884
+        ],
+        [
+          0.4295673877477392,
+          0.12930862165359325,
+          0.08849093543876232
+        ]
+      ],
+      "finger_qpos_m": [
+        0.03269656678433732,
+        0.03270401520928168
+      ],
+      "pad_inner_gap_m": 0.06536058199361892
+    },
+    {
+      "env_id": 28,
+      "board_tilt_deg": 24.037572281217336,
+      "closing_axis_normal_angle_deg": 36.57816845143714,
+      "pad_midpoint_board_local_m": [
+        -0.038697587286976184,
+        -0.0015212309662579527,
+        0.04197279562656291
+      ],
+      "closing_axis_board_local": [
+        -0.5880311900977633,
+        0.09663691452935572,
+        -0.8030445979037867
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47708488112422026,
+          -0.01781177663946751,
+          0.1129021006531303
+        ],
+        [
+          0.38705894597192086,
+          -0.00771725475104764,
+          0.06143422442247795
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04415217206551291,
+        0.044877609851408026
+      ],
+      "pad_inner_gap_m": 0.08898978191692096
+    },
+    {
+      "env_id": 32,
+      "board_tilt_deg": 23.15851133885382,
+      "closing_axis_normal_angle_deg": 37.133332858440795,
+      "pad_midpoint_board_local_m": [
+        -0.03878968736087564,
+        -0.0006697665085329664,
+        0.04688464041252116
+      ],
+      "closing_axis_board_local": [
+        -0.5911924393362316,
+        0.12211165358447314,
+        -0.7972328666898663
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47712527360065277,
+          0.05304478622722324,
+          0.11657328993889689
+        ],
+        [
+          0.38850315142288416,
+          0.06574200433520734,
+          0.0647914598325659
+        ]
+      ],
+      "finger_qpos_m": [
+        0.043781562258229455,
+        0.044482118860429354
+      ],
+      "pad_inner_gap_m": 0.08822368111865865
+    },
+    {
+      "env_id": 36,
+      "board_tilt_deg": 26.160487217283602,
+      "closing_axis_normal_angle_deg": 35.54896212728798,
+      "pad_midpoint_board_local_m": [
+        -0.04041099834486296,
+        -0.0005611284996679984,
+        0.04616421341013959
+      ],
+      "closing_axis_board_local": [
+        -0.5561176908725145,
+        0.16957967813263253,
+        -0.8136189812578458
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47942685742883956,
+          0.011805375749086659,
+          0.11918340525054869
+        ],
+        [
+          0.3906233671959297,
+          0.02942729530158738,
+          0.0689190483795449
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04384302738056686,
+        0.04454936273147728
+      ],
+      "pad_inner_gap_m": 0.08835239011204397
+    },
+    {
+      "env_id": 40,
+      "board_tilt_deg": 21.60430511141557,
+      "closing_axis_normal_angle_deg": 40.31090905656038,
+      "pad_midpoint_board_local_m": [
+        -0.0371459206069904,
+        -0.0028367131968787735,
+        0.04489771644689332
+      ],
+      "closing_axis_board_local": [
+        -0.6196107297487985,
+        0.1860306713542827,
+        -0.7625451677741022
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47638670690911417,
+          0.04151126090485701,
+          0.11149761986664158
+        ],
+        [
+          0.3870919058278026,
+          0.06096989213192162,
+          0.0613232829059763
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044184761834590816,
+        0.04491291854831579
+      ],
+      "pad_inner_gap_m": 0.08905768038290643
+    },
+    {
+      "env_id": 44,
+      "board_tilt_deg": 9.850268911547809e-05,
+      "closing_axis_normal_angle_deg": 57.267875782906174,
+      "pad_midpoint_board_local_m": [
+        0.017429880070493762,
+        -0.00018557875538398173,
+        0.09989107414955258
+      ],
+      "closing_axis_board_local": [
+        -0.8283314763545452,
+        0.14662007432533847,
+        -0.5407120482152521
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4962519539057391,
+          0.06961190596963607,
+          0.13207203704615839
+        ],
+        [
+          0.4281325149399923,
+          0.08182925413925707,
+          0.08758765556481582
+        ]
+      ],
+      "finger_qpos_m": [
+        0.03355131620445388,
+        0.033558859175713315
+      ],
+      "pad_inner_gap_m": 0.06707017538016712
+    },
+    {
+      "env_id": 48,
+      "board_tilt_deg": 22.95115039934355,
+      "closing_axis_normal_angle_deg": 38.105558142118646,
+      "pad_midpoint_board_local_m": [
+        -0.03780870718438262,
+        -0.0023655182564401873,
+        0.04587458592140965
+      ],
+      "closing_axis_board_local": [
+        -0.6081395215962344,
+        0.10485133955032301,
+        -0.7868751609163995
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4780497624156433,
+          0.010442472855478432,
+          0.11433535589477675
+        ],
+        [
+          0.38810322891360005,
+          0.021369250324539412,
+          0.06373517861710555
+        ]
+      ],
+      "finger_qpos_m": [
+        0.043950978269152945,
+        0.0446683611748054
+      ],
+      "pad_inner_gap_m": 0.08857933944395828
+    },
+    {
+      "env_id": 52,
+      "board_tilt_deg": 24.352245506954603,
+      "closing_axis_normal_angle_deg": 37.046317749063014,
+      "pad_midpoint_board_local_m": [
+        -0.038723275636768056,
+        -0.002730271831786908,
+        0.04277558507930667
+      ],
+      "closing_axis_board_local": [
+        -0.5888083572105114,
+        0.12752765052519577,
+        -0.7981487435500856
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4777485069381813,
+          0.0032991891294334853,
+          0.11350418374404785
+        ],
+        [
+          0.3877442636589648,
+          0.016606399414803304,
+          0.06310610688496635
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04406390247632184,
+        0.044784807759587514
+      ],
+      "pad_inner_gap_m": 0.08880871023590924
+    },
+    {
+      "env_id": 56,
+      "board_tilt_deg": 21.944636970480534,
+      "closing_axis_normal_angle_deg": 38.65110664658725,
+      "pad_midpoint_board_local_m": [
+        -0.037406113370017924,
+        -0.00213701402725527,
+        0.04593489751032901
+      ],
+      "closing_axis_board_local": [
+        -0.6133372425753796,
+        0.11795408793711361,
+        -0.7809636739368571
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47712678339224246,
+          -0.028082972704175674,
+          0.11353264846213662
+        ],
+        [
+          0.3874514692889124,
+          -0.015739354788099093,
+          0.06192128617890467
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044157502523275154,
+        0.04488307127322571
+      ],
+      "pad_inner_gap_m": 0.08900057379650081
+    },
+    {
+      "env_id": 60,
+      "board_tilt_deg": 21.067870272671357,
+      "closing_axis_normal_angle_deg": 40.13696525036501,
+      "pad_midpoint_board_local_m": [
+        -0.037237482314768144,
+        -0.003447949780754538,
+        0.045419556678821756
+      ],
+      "closing_axis_board_local": [
+        -0.6211059509217687,
+        0.17250643416282635,
+        -0.7645056755198045
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.475605414314552,
+          -0.06369171495223509,
+          0.11165576773333291
+        ],
+        [
+          0.3867432863603161,
+          -0.04567367898606906,
+          0.06063609056375999
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04407844143472495,
+        0.04480066113311009
+      ],
+      "pad_inner_gap_m": 0.08883910256783499
+    },
+    {
+      "env_id": 64,
+      "board_tilt_deg": 22.400633900360404,
+      "closing_axis_normal_angle_deg": 40.401925558001984,
+      "pad_midpoint_board_local_m": [
+        -0.03720308342427008,
+        -0.003753437342098402,
+        0.044673151626026
+      ],
+      "closing_axis_board_local": [
+        -0.6170924322407629,
+        0.1982158202998487,
+        -0.7615165255291828
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47743867292068626,
+          0.08108734412480416,
+          0.1115787623543445
+        ],
+        [
+          0.3877423423214838,
+          0.10189129880365759,
+          0.0626523524822386
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04418915908684908,
+        0.04491986716838414
+      ],
+      "pad_inner_gap_m": 0.08906902625523319
+    },
+    {
+      "env_id": 68,
+      "board_tilt_deg": 21.172207260660546,
+      "closing_axis_normal_angle_deg": 39.49938084628801,
+      "pad_midpoint_board_local_m": [
+        -0.03734164565483579,
+        -0.0038717847045700742,
+        0.046611765229709175
+      ],
+      "closing_axis_board_local": [
+        -0.6153870976923151,
+        0.1608838543752002,
+        -0.7716314569761966
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4761591166461773,
+          -0.07429089945025914,
+          0.11335297930190291
+        ],
+        [
+          0.38720569922453135,
+          -0.05743268904153221,
+          0.06142394140037042
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04424137691090287,
+        0.04497072044539875
+      ],
+      "pad_inner_gap_m": 0.08917209735630158
+    },
+    {
+      "env_id": 72,
+      "board_tilt_deg": 24.16993133444824,
+      "closing_axis_normal_angle_deg": 37.794963744294726,
+      "pad_midpoint_board_local_m": [
+        -0.03844280073033067,
+        -0.0016816185149562365,
+        0.04094123450805643
+      ],
+      "closing_axis_board_local": [
+        -0.5918498378472987,
+        0.15900845905782016,
+        -0.7902088833898191
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.477146597771001,
+          0.05164025006071766,
+          0.11132833038101614
+        ],
+        [
+          0.3869986061525889,
+          0.068306618641174,
+          0.061316545266701564
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044269189205521205,
+        0.045000724539599336
+      ],
+      "pad_inner_gap_m": 0.08922991374512043
+    },
+    {
+      "env_id": 76,
+      "board_tilt_deg": 24.245045042256585,
+      "closing_axis_normal_angle_deg": 36.70811208180858,
+      "pad_midpoint_board_local_m": [
+        -0.038922477150729246,
+        -0.0022348839771069566,
+        0.042872201602988644
+      ],
+      "closing_axis_board_local": [
+        -0.5850261643448277,
+        0.1226209231558613,
+        -0.801691022923659
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47733683794179405,
+          -0.030842713598137148,
+          0.11382779844866715
+        ],
+        [
+          0.38762136460991287,
+          -0.01804456056101175,
+          0.06276315861015995
+        ]
+      ],
+      "finger_qpos_m": [
+        0.0440692551991253,
+        0.044791205856196156
+      ],
+      "pad_inner_gap_m": 0.08882046105532133
+    },
+    {
+      "env_id": 80,
+      "board_tilt_deg": 22.12376551913537,
+      "closing_axis_normal_angle_deg": 38.529252977216935,
+      "pad_midpoint_board_local_m": [
+        -0.037788441900033165,
+        -0.004705282200076121,
+        0.04611432600127855
+      ],
+      "closing_axis_board_local": [
+        -0.6076024543887735,
+        0.13726348359956062,
+        -0.7822902233128401
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4768732449243351,
+          -0.10026799545182073,
+          0.11407835281227949
+        ],
+        [
+          0.387570197948788,
+          -0.08591563253829596,
+          0.062403151359292724
+        ]
+      ],
+      "finger_qpos_m": [
+        0.0441414960502477,
+        0.04486832186994013
+      ],
+      "pad_inner_gap_m": 0.08896981792018768
+    },
+    {
+      "env_id": 84,
+      "board_tilt_deg": 24.170331008656298,
+      "closing_axis_normal_angle_deg": 36.508980565469486,
+      "pad_midpoint_board_local_m": [
+        -0.03894155812036061,
+        -0.0029174414235608953,
+        0.0429117008449478
+      ],
+      "closing_axis_board_local": [
+        -0.5828774333037221,
+        0.11923902125071617,
+        -0.803763617960179
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47721826430842457,
+          0.02459678391031208,
+          0.11405788296802755
+        ],
+        [
+          0.3875960391930805,
+          0.03705032182477133,
+          0.06253307532419575
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04411987276600613,
+        0.04484524257100645
+      ],
+      "pad_inner_gap_m": 0.08892511533701247
+    },
+    {
+      "env_id": 88,
+      "board_tilt_deg": 23.241653094613206,
+      "closing_axis_normal_angle_deg": 39.16989949827814,
+      "pad_midpoint_board_local_m": [
+        -0.037292351240934406,
+        -0.005117482578143488,
+        0.04184510386708912
+      ],
+      "closing_axis_board_local": [
+        -0.6147863853372684,
+        0.14485914800861655,
+        -0.7752764201510003
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47774677509805596,
+          0.0886303118334502,
+          0.11015512793878976
+        ],
+        [
+          0.3869624781492328,
+          0.10380881436989242,
+          0.061129786619480535
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04419937791158525,
+        0.04492705266888707
+      ],
+      "pad_inner_gap_m": 0.08908643058047223
+    },
+    {
+      "env_id": 92,
+      "board_tilt_deg": 22.06756573877861,
+      "closing_axis_normal_angle_deg": 38.17506275748796,
+      "pad_midpoint_board_local_m": [
+        -0.03796266207778146,
+        -0.005608041804073105,
+        0.0473433095902753
+      ],
+      "closing_axis_board_local": [
+        -0.6077280887540184,
+        0.11257230923380263,
+        -0.7861259729414593
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4769289501974649,
+          -0.09729509346586432,
+          0.11532533267042444
+        ],
+        [
+          0.3878873294510587,
+          -0.08556688919004428,
+          0.06342309129700299
+        ]
+      ],
+      "finger_qpos_m": [
+        0.0439265251044629,
+        0.04464294833615138
+      ],
+      "pad_inner_gap_m": 0.08852947344061425
+    },
+    {
+      "env_id": 96,
+      "board_tilt_deg": 23.887048295005705,
+      "closing_axis_normal_angle_deg": 38.043443204258224,
+      "pad_midpoint_board_local_m": [
+        -0.038762711171971574,
+        -0.0014214667561196488,
+        0.04103509829005714
+      ],
+      "closing_axis_board_local": [
+        -0.5790402179077758,
+        0.2109201778335513,
+        -0.7875437160107227
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4762297724941591,
+          0.10281632055027054,
+          0.11173474569299396
+        ],
+        [
+          0.38703224521940005,
+          0.125106994276753,
+          0.060583065549836695
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044650885872229935,
+        0.045401125745169385
+      ],
+      "pad_inner_gap_m": 0.09001201161739923
+    },
+    {
+      "env_id": 100,
+      "board_tilt_deg": 9.848418713572933e-05,
+      "closing_axis_normal_angle_deg": 58.36336845202046,
+      "pad_midpoint_board_local_m": [
+        0.013959493245058968,
+        -2.158557869141398e-06,
+        0.09946190029245633
+      ],
+      "closing_axis_board_local": [
+        -0.8279798355838084,
+        0.19828593305759268,
+        -0.5245303428955198
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4959943905950528,
+          0.08927358536839611,
+          0.1313028503692658
+        ],
+        [
+          0.42688598097455743,
+          0.10598933497165021,
+          0.08749850475479468
+        ]
+      ],
+      "finger_qpos_m": [
+        0.03417221583100969,
+        0.03417951543942265
+      ],
+      "pad_inner_gap_m": 0.0683117312704323
+    },
+    {
+      "env_id": 104,
+      "board_tilt_deg": 21.942997654317185,
+      "closing_axis_normal_angle_deg": 39.068031708598674,
+      "pad_midpoint_board_local_m": [
+        -0.037467371367361196,
+        -0.0018015481645527085,
+        0.04580216207096345
+      ],
+      "closing_axis_board_local": [
+        -0.6121069224367899,
+        0.15010327244741664,
+        -0.7763981730436629
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4769207824082691,
+          -0.050524562104715835,
+          0.11325409774163625
+        ],
+        [
+          0.38747286176526635,
+          -0.034803812715759296,
+          0.061981064471083105
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04420251717869686,
+        0.044930322505869154
+      ],
+      "pad_inner_gap_m": 0.08909283968456577
+    },
+    {
+      "env_id": 108,
+      "board_tilt_deg": 21.925471008169676,
+      "closing_axis_normal_angle_deg": 39.063034978828995,
+      "pad_midpoint_board_local_m": [
+        -0.037218614698609494,
+        -0.002117129972621116,
+        0.04571011469186011
+      ],
+      "closing_axis_board_local": [
+        -0.6168110336384711,
+        0.1290917533006083,
+        -0.7764531331713558
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.477293733357755,
+          -0.03936162135193943,
+          0.11297453134732394
+        ],
+        [
+          0.3874213898365895,
+          -0.025840726773422425,
+          0.061869387938433114
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044189754654939295,
+        0.04491715477961265
+      ],
+      "pad_inner_gap_m": 0.08906690943455185
+    },
+    {
+      "env_id": 112,
+      "board_tilt_deg": 23.53855653172723,
+      "closing_axis_normal_angle_deg": 37.852870184147314,
+      "pad_midpoint_board_local_m": [
+        -0.037789568437224474,
+        -0.0025537674115711276,
+        0.044861467401832916
+      ],
+      "closing_axis_board_local": [
+        -0.6020802682185037,
+        0.11852589131830812,
+        -0.7895891106829773
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4787628682207423,
+          0.09992589057171755,
+          0.11407741946937713
+        ],
+        [
+          0.38824783940008734,
+          0.11237153648967124,
+          0.06358587366656512
+        ]
+      ],
+      "finger_qpos_m": [
+        0.044249978307672654,
+        0.04497996729187526
+      ],
+      "pad_inner_gap_m": 0.08918994559954778
+    },
+    {
+      "env_id": 116,
+      "board_tilt_deg": 21.54851863504284,
+      "closing_axis_normal_angle_deg": 38.780112366162584,
+      "pad_midpoint_board_local_m": [
+        -0.03738533116525823,
+        -0.003791467828372717,
+        0.04624773832868272
+      ],
+      "closing_axis_board_local": [
+        -0.6145730921808055,
+        0.12080260408375064,
+        -0.7795554151013955
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4766634031887502,
+          -0.07877142007374102,
+          0.11355508163105757
+        ],
+        [
+          0.38721861870880603,
+          -0.0661282407711712,
+          0.06147145379926286
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04419265479678855,
+        0.04492065790431209
+      ],
+      "pad_inner_gap_m": 0.08907331270110054
+    },
+    {
+      "env_id": 120,
+      "board_tilt_deg": 21.492218072524008,
+      "closing_axis_normal_angle_deg": 38.93603915474819,
+      "pad_midpoint_board_local_m": [
+        -0.0377406046699783,
+        -0.0046102607968559264,
+        0.046522622829091226
+      ],
+      "closing_axis_board_local": [
+        -0.6107527500241704,
+        0.14809983126821216,
+        -0.7778480046360225
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.47601760136773824,
+          -0.10926719416080018,
+          0.11387117079650547
+        ],
+        [
+          0.38724135665172826,
+          -0.09380422708306295,
+          0.06181676818969008
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04409153919887591,
+        0.04481567853791444
+      ],
+      "pad_inner_gap_m": 0.08886721773679021
+    },
+    {
+      "env_id": 124,
+      "board_tilt_deg": 19.153215071881494,
+      "closing_axis_normal_angle_deg": 44.84560865365912,
+      "pad_midpoint_board_local_m": [
+        -0.0356262161963382,
+        -0.0031958325568735425,
+        0.04204255972363963
+      ],
+      "closing_axis_board_local": [
+        -0.6615774232152161,
+        0.2441734809630737,
+        -0.7090096080352415
+      ],
+      "centerline_intersects": false,
+      "centerline_width_m": null,
+      "centerline_entry_m": null,
+      "centerline_exit_m": null,
+      "lower_pad_index": 1,
+      "pad_positions_m": [
+        [
+          0.4737358021450949,
+          0.00019598631914688816,
+          0.10375008149195261
+        ],
+        [
+          0.38477221403660367,
+          0.02559682164821761,
+          0.05672127877961552
+        ]
+      ],
+      "finger_qpos_m": [
+        0.04395702772203495,
+        0.044668475741154894
+      ],
+      "pad_inner_gap_m": 0.08858550346318976
+    }
+  ],
+  "serialization_note": "Initial uncommitted audit produced NaN for the empty set of intersections; corrected to null. All32 original rows and geometry values unchanged."
+}

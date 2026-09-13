@@ -1,0 +1,5229 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "c38411b1c7c6fb002877e0c97426ab0f0102f91762cecda0dfb1589f8ffc8875",
+  "wrist_transition": true,
+  "finger_position_m": 0.035,
+  "floor_clearance_m": 0.001,
+  "method": "CPU FK every tenth recorded20ms state plus terminal,128 first episodes. Optional floor guard applied to the actual reward waypoint; recomputed closest-pose robot contacts. No IK, integration, policy supervision or RL success measurement.",
+  "summary": {
+    "distance_m": 0.03716388724693048,
+    "closing_alignment": 0.9295755547432923,
+    "approach_alignment": 0.9610083729494905,
+    "full_rotation_error_deg": 22.01318302710692,
+    "tilt_deg": 12.178544977828487,
+    "wall_gap_m": -0.000972930186809759,
+    "aperture_m": 0.08011339046061039,
+    "episodes": 128,
+    "sampled_tilt_over20_count": 97,
+    "endpoint_ik_cases": 0,
+    "endpoint_ik_passes": 0
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.046112433283265246,
+        "closing_alignment": 0.8042959560811153,
+        "approach_alignment": 0.8069752601378479,
+        "full_rotation_error_deg": 36.708195048201176,
+        "tilt_deg": 0.25997683639806046,
+        "wall_gap_m": 0.000317175108752156,
+        "aperture_m": 0.03118918091058731
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.050960212631134996,
+        "closing_alignment": 0.893941738681926,
+        "approach_alignment": 0.9763206199140664,
+        "full_rotation_error_deg": 26.759388828270723,
+        "tilt_deg": 20.395485026343277,
+        "wall_gap_m": -0.00291852276407574,
+        "aperture_m": 0.08220529556274414
+      },
+      "max_sampled_tilt_deg": 20.503722624500412,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 1,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.03941029908302216,
+        "closing_alignment": 0.9319170381595021,
+        "approach_alignment": 0.9541680637635253,
+        "full_rotation_error_deg": 21.545690750066427,
+        "tilt_deg": 10.147322306254758,
+        "wall_gap_m": -0.00087906074242277,
+        "aperture_m": 0.07856530696153641
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0495544347833822,
+        "closing_alignment": 0.9105501986294176,
+        "approach_alignment": 0.9776094228873293,
+        "full_rotation_error_deg": 24.504905388364993,
+        "tilt_deg": 20.810757745210893,
+        "wall_gap_m": -0.0026336186220637034,
+        "aperture_m": 0.08088525012135506
+      },
+      "max_sampled_tilt_deg": 20.86386267586714,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001353325061129308,
+          "normal": [
+            0.2930973701728265,
+            -0.017734513188279056,
+            -0.9559181024751796
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 2,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.026385831704368302,
+        "closing_alignment": 0.9346319620384393,
+        "approach_alignment": 0.946994740571476,
+        "full_rotation_error_deg": 21.758349782521538,
+        "tilt_deg": 9.960248314341435,
+        "wall_gap_m": -0.000807560460940597,
+        "aperture_m": 0.0799746923148632
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.041330033006436534,
+        "closing_alignment": 0.9416225977863398,
+        "approach_alignment": 0.9772498249186911,
+        "full_rotation_error_deg": 19.722581490522412,
+        "tilt_deg": 20.840473679155938,
+        "wall_gap_m": -0.0023622178509745406,
+        "aperture_m": 0.07976702228188515
+      },
+      "max_sampled_tilt_deg": 20.860461700831817,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0004686641658834067,
+          "normal": [
+            0.2801859613837477,
+            -0.015706858812964502,
+            -0.9598172334510852
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 3,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.032902569701215315,
+        "closing_alignment": 0.9348415087193818,
+        "approach_alignment": 0.9374029256407052,
+        "full_rotation_error_deg": 20.96528205908043,
+        "tilt_deg": 0.007495746709647285,
+        "wall_gap_m": 0.00026480539187175023,
+        "aperture_m": 0.06305951625108719
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05220752762592368,
+        "closing_alignment": 0.9076877692666733,
+        "approach_alignment": 0.9778955936919543,
+        "full_rotation_error_deg": 24.89789304002055,
+        "tilt_deg": 20.79581290575292,
+        "wall_gap_m": -0.0031057858271775624,
+        "aperture_m": 0.08139419183135033
+      },
+      "max_sampled_tilt_deg": 20.79581290575292,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 4,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.026794887769153976,
+        "closing_alignment": 0.958024772196846,
+        "approach_alignment": 0.9538392273483538,
+        "full_rotation_error_deg": 18.18300129095457,
+        "tilt_deg": 16.59634890057756,
+        "wall_gap_m": -0.0012321381311318977,
+        "aperture_m": 0.08165914937853813
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04362833479535443,
+        "closing_alignment": 0.9265241710425676,
+        "approach_alignment": 0.9768309020749777,
+        "full_rotation_error_deg": 22.20247838852973,
+        "tilt_deg": 20.92847341947912,
+        "wall_gap_m": -0.0024307866290369518,
+        "aperture_m": 0.08054875209927559
+      },
+      "max_sampled_tilt_deg": 21.02578669043239,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0002924126843439341,
+          "normal": [
+            0.3202736609563018,
+            -0.027614534068894466,
+            -0.9469224992605286
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 5,
+      "closest": {
+        "step": 90,
+        "distance_m": 0.03721352720239994,
+        "closing_alignment": 0.9348755557651819,
+        "approach_alignment": 0.9883944724418332,
+        "full_rotation_error_deg": 20.870223066893388,
+        "tilt_deg": 5.779371295098447,
+        "wall_gap_m": -0.0006711761061970328,
+        "aperture_m": 0.08091891184449196
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05005644860174369,
+        "closing_alignment": 0.8783614289453207,
+        "approach_alignment": 0.9784999665597619,
+        "full_rotation_error_deg": 28.6695704630067,
+        "tilt_deg": 20.169365841394637,
+        "wall_gap_m": -0.0029117929053708996,
+        "aperture_m": 0.08053500577807426
+      },
+      "max_sampled_tilt_deg": 20.41928207539195,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009732343796555414,
+          "normal": [
+            0.2635234834054674,
+            -0.026366296631274735,
+            -0.9642925863532293
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 6,
+      "closest": {
+        "step": 90,
+        "distance_m": 0.04194412028354449,
+        "closing_alignment": 0.9098586841532396,
+        "approach_alignment": 0.9596611524733777,
+        "full_rotation_error_deg": 24.664541750142142,
+        "tilt_deg": 11.523052798388276,
+        "wall_gap_m": -0.0007216109570212861,
+        "aperture_m": 0.08191843330860138
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05033524211930967,
+        "closing_alignment": 0.8783451989296398,
+        "approach_alignment": 0.9779059577423777,
+        "full_rotation_error_deg": 28.698149401657687,
+        "tilt_deg": 20.12983456220193,
+        "wall_gap_m": -0.002717787344381148,
+        "aperture_m": 0.08054385706782341
+      },
+      "max_sampled_tilt_deg": 20.593816097646247,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007082480755871762,
+          "normal": [
+            0.29627716488566697,
+            -0.031851250176323016,
+            -0.9545707618765185
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 7,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.04515593194280315,
+        "closing_alignment": 0.9258902142514458,
+        "approach_alignment": 0.972677832808643,
+        "full_rotation_error_deg": 22.326332730306834,
+        "tilt_deg": 16.63470229285791,
+        "wall_gap_m": -0.001725344636286416,
+        "aperture_m": 0.08213599771261215
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05006568702133158,
+        "closing_alignment": 0.8726052360934439,
+        "approach_alignment": 0.9807154742351927,
+        "full_rotation_error_deg": 29.36004519978772,
+        "tilt_deg": 20.877903600987523,
+        "wall_gap_m": -0.003062329181405067,
+        "aperture_m": 0.0816241167485714
+      },
+      "max_sampled_tilt_deg": 21.446408865091463,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00012872628281365345,
+          "normal": [
+            0.34622034048330924,
+            -0.0366634872082554,
+            -0.9374365389408242
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0021925283602888235,
+          "normal": [
+            0.34622034048330924,
+            -0.0366634872082554,
+            -0.9374365389408242
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.04923733857544485,
+        "closing_alignment": 0.9343157253844101,
+        "approach_alignment": 0.9734123938038096,
+        "full_rotation_error_deg": 21.14636991548431,
+        "tilt_deg": 17.58399730692734,
+        "wall_gap_m": -0.001968294246895985,
+        "aperture_m": 0.08229437470436096
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.057647571982384835,
+        "closing_alignment": 0.870315011593182,
+        "approach_alignment": 0.9814710208067184,
+        "full_rotation_error_deg": 29.62106480149476,
+        "tilt_deg": 20.804274158304473,
+        "wall_gap_m": -0.0030507128548951865,
+        "aperture_m": 0.08089137449860573
+      },
+      "max_sampled_tilt_deg": 21.028611119614116,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007483170556848461,
+          "normal": [
+            0.34835191133919957,
+            -0.05404058992964267,
+            -0.9358047662340595
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 9,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.024506293246612503,
+        "closing_alignment": 0.9198859572553691,
+        "approach_alignment": 0.969430754034664,
+        "full_rotation_error_deg": 23.095161158805727,
+        "tilt_deg": 0.003958606377094184,
+        "wall_gap_m": 0.0005234871254547052,
+        "aperture_m": 0.0677855871617794
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.031490188140468695,
+        "closing_alignment": 0.9356673734649349,
+        "approach_alignment": 0.9703294070613989,
+        "full_rotation_error_deg": 20.912075857147723,
+        "tilt_deg": 18.889658837141795,
+        "wall_gap_m": -0.002411250233338748,
+        "aperture_m": 0.08119617402553558
+      },
+      "max_sampled_tilt_deg": 18.889658837141795,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 10,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.059144360547124845,
+        "closing_alignment": 0.8571362928953125,
+        "approach_alignment": 0.9909596642858594,
+        "full_rotation_error_deg": 31.31361741926073,
+        "tilt_deg": 6.186221862644568,
+        "wall_gap_m": -0.0009673536353850959,
+        "aperture_m": 0.0896768867969513
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.066989429658553,
+        "closing_alignment": 0.8694921495670375,
+        "approach_alignment": 0.9794602472698559,
+        "full_rotation_error_deg": 29.7529327277522,
+        "tilt_deg": 20.383335142843556,
+        "wall_gap_m": -0.0034817813038298534,
+        "aperture_m": 0.08157326281070709
+      },
+      "max_sampled_tilt_deg": 20.77088211044148,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0032652309377514083,
+          "normal": [
+            0.31330486280488257,
+            -0.04757286184702623,
+            -0.9484602710490817
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0032207693776547777,
+          "normal": [
+            0.31330486280488257,
+            -0.04757286184702623,
+            -0.9484602710490817
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 11,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.04949701332783892,
+        "closing_alignment": 0.9116971154405192,
+        "approach_alignment": 0.9791313754508323,
+        "full_rotation_error_deg": 24.49592830840318,
+        "tilt_deg": 19.497618049687404,
+        "wall_gap_m": -0.004452612744190759,
+        "aperture_m": 0.08544798195362091
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.053444420120576784,
+        "closing_alignment": 0.8864541711470018,
+        "approach_alignment": 0.9782614495523002,
+        "full_rotation_error_deg": 27.700467089838718,
+        "tilt_deg": 20.98642480565394,
+        "wall_gap_m": -0.0030569469189316023,
+        "aperture_m": 0.08171037957072258
+      },
+      "max_sampled_tilt_deg": 21.114352089841777,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002827981536271437,
+          "normal": [
+            0.3817837041824656,
+            -0.057920219550588965,
+            -0.922435066217632
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002302464855646278,
+          "normal": [
+            0.3817837041824656,
+            -0.057920219550588965,
+            -0.922435066217632
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012315237753247605,
+          "normal": [
+            0.3817837041824656,
+            -0.057920219550588965,
+            -0.922435066217632
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03115013488519974,
+        "closing_alignment": 0.9431569431943394,
+        "approach_alignment": 0.9604632826651374,
+        "full_rotation_error_deg": 19.715946253694142,
+        "tilt_deg": 14.52511502538266,
+        "wall_gap_m": -0.001306904716720285,
+        "aperture_m": 0.08128422871232033
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.048260389056509714,
+        "closing_alignment": 0.8874230389277099,
+        "approach_alignment": 0.9766139619383236,
+        "full_rotation_error_deg": 27.585343073013917,
+        "tilt_deg": 20.323951955827816,
+        "wall_gap_m": -0.002684242298090153,
+        "aperture_m": 0.08064517751336098
+      },
+      "max_sampled_tilt_deg": 20.468695413159228,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00015161091927109793,
+          "normal": [
+            0.3162796839861502,
+            -0.020010964761715273,
+            -0.9484549134180953
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0020309426296945465,
+          "normal": [
+            0.3162796839861502,
+            -0.020010964761715273,
+            -0.9484549134180953
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 13,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.049410647595759215,
+        "closing_alignment": 0.9121097006748893,
+        "approach_alignment": 0.9645683032416166,
+        "full_rotation_error_deg": 24.219318754228222,
+        "tilt_deg": 11.22835268120717,
+        "wall_gap_m": -0.002091760432821166,
+        "aperture_m": 0.0823817178606987
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0533688329444816,
+        "closing_alignment": 0.8964305618484881,
+        "approach_alignment": 0.9705941037904541,
+        "full_rotation_error_deg": 26.499500533572977,
+        "tilt_deg": 18.913617589345264,
+        "wall_gap_m": -0.002790303798596558,
+        "aperture_m": 0.08113142102956772
+      },
+      "max_sampled_tilt_deg": 18.913617589345264,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0016407798474236993,
+          "normal": [
+            0.32230320038051163,
+            -0.007749948723549291,
+            -0.9466047672176928
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0028661113447223776,
+          "normal": [
+            0.32230320038051163,
+            -0.007749948723549291,
+            -0.9466047672176928
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00011544279390546558,
+          "normal": [
+            0.32230320038051163,
+            -0.007749948723549291,
+            -0.9466047672176928
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 14,
+      "closest": {
+        "step": 180,
+        "distance_m": 0.04595882868521881,
+        "closing_alignment": 0.8912445938627811,
+        "approach_alignment": 0.9756913190533847,
+        "full_rotation_error_deg": 27.169363125174954,
+        "tilt_deg": 18.655492134477875,
+        "wall_gap_m": -0.004440428452182052,
+        "aperture_m": 0.08610126376152039
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04942292704113359,
+        "closing_alignment": 0.8723290385260288,
+        "approach_alignment": 0.9766283727519709,
+        "full_rotation_error_deg": 29.406538577535702,
+        "tilt_deg": 20.20866278354726,
+        "wall_gap_m": -0.0032776880073081827,
+        "aperture_m": 0.08277074620127678
+      },
+      "max_sampled_tilt_deg": 20.257581610613045,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0029387531146395276,
+          "normal": [
+            0.36006180120086345,
+            -0.057643991588600015,
+            -0.9311458905830619
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0022823777430278826,
+          "normal": [
+            0.36006180120086345,
+            -0.057643991588600015,
+            -0.9311458905830619
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012698660997068354,
+          "normal": [
+            0.36006180120086345,
+            -0.057643991588600015,
+            -0.9311458905830619
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 15,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.044250183323864906,
+        "closing_alignment": 0.9464102980571277,
+        "approach_alignment": 0.9569146121518605,
+        "full_rotation_error_deg": 19.37194674233346,
+        "tilt_deg": 12.987614096179838,
+        "wall_gap_m": -0.0008111097976086709,
+        "aperture_m": 0.08017094433307648
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04943244111503868,
+        "closing_alignment": 0.9320463869909985,
+        "approach_alignment": 0.9762642873562708,
+        "full_rotation_error_deg": 21.37410487972736,
+        "tilt_deg": 20.721874815547753,
+        "wall_gap_m": -0.0030794088424820343,
+        "aperture_m": 0.08328895643353462
+      },
+      "max_sampled_tilt_deg": 20.73814400813032,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00012386374142470835,
+          "normal": [
+            0.3101580799164504,
+            -0.016707488678010425,
+            -0.9505381766581577
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002187418445907312,
+          "normal": [
+            0.3101580799164504,
+            -0.016707488678010425,
+            -0.9505381766581577
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.024917956209239703,
+        "closing_alignment": 0.944908563209584,
+        "approach_alignment": 0.9546811840956023,
+        "full_rotation_error_deg": 19.564312215695825,
+        "tilt_deg": 12.693279680653783,
+        "wall_gap_m": -0.000684178213804322,
+        "aperture_m": 0.07965007796883583
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03820176058203491,
+        "closing_alignment": 0.943079370593066,
+        "approach_alignment": 0.9757669905428841,
+        "full_rotation_error_deg": 19.530098033530145,
+        "tilt_deg": 20.614982741964084,
+        "wall_gap_m": -0.0023622618256063793,
+        "aperture_m": 0.08021439239382744
+      },
+      "max_sampled_tilt_deg": 20.614982741964084,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0017615575462644056,
+          "normal": [
+            0.30315064507156153,
+            -0.010659279437190578,
+            -0.9528830285793615
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 17,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.02899569870159329,
+        "closing_alignment": 0.9428453013735579,
+        "approach_alignment": 0.9446102308380435,
+        "full_rotation_error_deg": 19.764917274631838,
+        "tilt_deg": 0.006182268652902629,
+        "wall_gap_m": 3.222593291051651e-05,
+        "aperture_m": 0.06451314315199852
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06032517702887824,
+        "closing_alignment": 0.8901472082523141,
+        "approach_alignment": 0.9772197679501349,
+        "full_rotation_error_deg": 27.21560415867512,
+        "tilt_deg": 20.412174034057035,
+        "wall_gap_m": -0.0027846155896019686,
+        "aperture_m": 0.08115905895829201
+      },
+      "max_sampled_tilt_deg": 20.491995435273882,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 18,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.026529437980566593,
+        "closing_alignment": 0.9441148481669326,
+        "approach_alignment": 0.9561448454057921,
+        "full_rotation_error_deg": 19.537314713932556,
+        "tilt_deg": 13.298937765452523,
+        "wall_gap_m": -0.0008161011608784491,
+        "aperture_m": 0.07920952886343002
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.043267776556012806,
+        "closing_alignment": 0.9156617973774442,
+        "approach_alignment": 0.9760946695941218,
+        "full_rotation_error_deg": 23.81464960131081,
+        "tilt_deg": 20.588861575711093,
+        "wall_gap_m": -0.0024367085151958817,
+        "aperture_m": 0.08063896372914314
+      },
+      "max_sampled_tilt_deg": 20.8202986845669,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012047727013121767,
+          "normal": [
+            0.30478414960164124,
+            -0.013643421522172969,
+            -0.9523237260515842
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 19,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.03182731145450417,
+        "closing_alignment": 0.9271363472523122,
+        "approach_alignment": 0.9585001308583606,
+        "full_rotation_error_deg": 22.10958376310487,
+        "tilt_deg": 11.969628503500305,
+        "wall_gap_m": -0.001256193444761744,
+        "aperture_m": 0.07914439216256142
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03542691189564466,
+        "closing_alignment": 0.9232349347728797,
+        "approach_alignment": 0.9695662871608041,
+        "full_rotation_error_deg": 22.840853754979424,
+        "tilt_deg": 18.840699554164082,
+        "wall_gap_m": -0.002568302604810474,
+        "aperture_m": 0.08195507526397705
+      },
+      "max_sampled_tilt_deg": 18.840699554164082,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0010823308554669673,
+          "normal": [
+            0.3031108222267176,
+            -0.018092964800257613,
+            -0.9527835399889001
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0027086078980124795,
+          "normal": [
+            0.3031108222267176,
+            -0.018092964800257613,
+            -0.9527835399889001
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00017749687073694172,
+          "normal": [
+            0.3031108222267176,
+            -0.018092964800257613,
+            -0.9527835399889001
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "closest": {
+        "step": 70,
+        "distance_m": 0.050832143400328114,
+        "closing_alignment": 0.8704214727459753,
+        "approach_alignment": 0.9508334785403152,
+        "full_rotation_error_deg": 29.608867826552565,
+        "tilt_deg": 10.385156167187176,
+        "wall_gap_m": -0.0006046388371488964,
+        "aperture_m": 0.08017312362790108
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05655297277227874,
+        "closing_alignment": 0.8692712524530088,
+        "approach_alignment": 0.980073691384562,
+        "full_rotation_error_deg": 29.786615150039257,
+        "tilt_deg": 20.426155430149183,
+        "wall_gap_m": -0.002791020613048277,
+        "aperture_m": 0.08061089739203453
+      },
+      "max_sampled_tilt_deg": 20.764173755671116,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0004465380694793656,
+          "normal": [
+            0.27196677394558416,
+            -0.029207089681223403,
+            -0.9618633061833604
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0013714893611367375,
+          "normal": [
+            0.27196677394558416,
+            -0.029207089681223403,
+            -0.9618633061833604
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 21,
+      "closest": {
+        "step": 170,
+        "distance_m": 0.04511456973332351,
+        "closing_alignment": 0.875637057521399,
+        "approach_alignment": 0.9798564367388476,
+        "full_rotation_error_deg": 29.132731942643414,
+        "tilt_deg": 19.615901460630283,
+        "wall_gap_m": -0.005210377715920478,
+        "aperture_m": 0.08630659058690071
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04911451692434544,
+        "closing_alignment": 0.8617314135048715,
+        "approach_alignment": 0.9811194017215472,
+        "full_rotation_error_deg": 30.637313862058484,
+        "tilt_deg": 20.747804713620262,
+        "wall_gap_m": -0.003114063981321351,
+        "aperture_m": 0.08223182335495949
+      },
+      "max_sampled_tilt_deg": 20.96949064980092,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003010479662240833,
+          "normal": [
+            0.38078410142681335,
+            -0.057768948166601136,
+            -0.9228576362193137
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002838194229915311,
+          "normal": [
+            0.38078410142681335,
+            -0.057768948166601136,
+            -0.9228576362193137
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012070086064508104,
+          "normal": [
+            0.38078410142681335,
+            -0.057768948166601136,
+            -0.9228576362193137
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 22,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.04933559123989158,
+        "closing_alignment": 0.9095800688336827,
+        "approach_alignment": 0.9596100942671343,
+        "full_rotation_error_deg": 24.91895159701355,
+        "tilt_deg": 0.04123608867464805,
+        "wall_gap_m": -4.770513203560672e-05,
+        "aperture_m": 0.055141547694802284
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.062015974936176124,
+        "closing_alignment": 0.8673451656452684,
+        "approach_alignment": 0.9800670236185978,
+        "full_rotation_error_deg": 30.002765373108772,
+        "tilt_deg": 20.55722822971598,
+        "wall_gap_m": -0.003293472945308233,
+        "aperture_m": 0.08166038990020752
+      },
+      "max_sampled_tilt_deg": 20.906667508691203,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 23,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.020379909518151572,
+        "closing_alignment": 0.9604453745204289,
+        "approach_alignment": 0.9515205536685238,
+        "full_rotation_error_deg": 17.921574702336553,
+        "tilt_deg": 17.05743347116783,
+        "wall_gap_m": -0.0016175357019020259,
+        "aperture_m": 0.0785813257098198
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0399384885174927,
+        "closing_alignment": 0.9537672522188562,
+        "approach_alignment": 0.9780302463129854,
+        "full_rotation_error_deg": 17.54423483503353,
+        "tilt_deg": 21.19562738353858,
+        "wall_gap_m": -0.0025844474617665383,
+        "aperture_m": 0.08168164268136024
+      },
+      "max_sampled_tilt_deg": 21.19562738353858,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0003141639368767357,
+          "normal": [
+            0.32305632702131504,
+            -0.01967244719145099,
+            -0.9461752503595711
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.024434599059158055,
+        "closing_alignment": 0.9276863761338004,
+        "approach_alignment": 0.9441579965298507,
+        "full_rotation_error_deg": 23.352442386902666,
+        "tilt_deg": 11.05724987172582,
+        "wall_gap_m": -0.0013335713889475603,
+        "aperture_m": 0.07985135912895203
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03461590958797051,
+        "closing_alignment": 0.9591146133980964,
+        "approach_alignment": 0.9748384398556542,
+        "full_rotation_error_deg": 16.514538955967488,
+        "tilt_deg": 19.016802326629097,
+        "wall_gap_m": -0.0023873260694717846,
+        "aperture_m": 0.08042965084314346
+      },
+      "max_sampled_tilt_deg": 19.016802326629097,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00031349583497609397,
+          "normal": [
+            0.27853645716615544,
+            -0.012349934074104044,
+            -0.9603462506605063
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 25,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.015103687689094994,
+        "closing_alignment": 0.94366418651289,
+        "approach_alignment": 0.979314764074022,
+        "full_rotation_error_deg": 19.929847472792012,
+        "tilt_deg": 6.469909302536643,
+        "wall_gap_m": -0.0008683576768309179,
+        "aperture_m": 0.07564697042107582
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.029736801761549008,
+        "closing_alignment": 0.9318847243571254,
+        "approach_alignment": 0.9755244912291091,
+        "full_rotation_error_deg": 21.349472682949187,
+        "tilt_deg": 20.367004718875393,
+        "wall_gap_m": -0.002310367850988787,
+        "aperture_m": 0.0796777717769146
+      },
+      "max_sampled_tilt_deg": 20.367004718875393,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00043935227068406707,
+          "normal": [
+            0.25185699665944694,
+            -0.0048228437367197115,
+            -0.9677524442810643
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 26,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.03061508421477632,
+        "closing_alignment": 0.9232726453608462,
+        "approach_alignment": 0.9674417480539409,
+        "full_rotation_error_deg": 22.700843657946574,
+        "tilt_deg": 9.154250726929828,
+        "wall_gap_m": -0.000874902675277997,
+        "aperture_m": 0.08021943643689156
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.036097621067150636,
+        "closing_alignment": 0.918299208777982,
+        "approach_alignment": 0.9722867483651216,
+        "full_rotation_error_deg": 23.521810063322302,
+        "tilt_deg": 19.69489488075071,
+        "wall_gap_m": -0.0028898820497070474,
+        "aperture_m": 0.08347701653838158
+      },
+      "max_sampled_tilt_deg": 19.69489488075071,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0003505311837587758,
+          "normal": [
+            0.2927487035747553,
+            -0.012803697424367598,
+            -0.9561036878328445
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0019643306328014317,
+          "normal": [
+            0.2927487035747553,
+            -0.012803697424367598,
+            -0.9561036878328445
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 27,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.03126156428269017,
+        "closing_alignment": 0.9594852195198814,
+        "approach_alignment": 0.9905555962538498,
+        "full_rotation_error_deg": 16.4159066270937,
+        "tilt_deg": 6.3543864085696695,
+        "wall_gap_m": -0.0012033433096700977,
+        "aperture_m": 0.07605243474245071
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.042181590067170226,
+        "closing_alignment": 0.967962675847846,
+        "approach_alignment": 0.9764171493051369,
+        "full_rotation_error_deg": 14.624361100005311,
+        "tilt_deg": 18.018713798438707,
+        "wall_gap_m": -0.0025300165135974384,
+        "aperture_m": 0.08070113137364388
+      },
+      "max_sampled_tilt_deg": 18.018713798438707,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009063548780386905,
+          "normal": [
+            0.3038402531224059,
+            -0.017032309411017618,
+            -0.9525707328165398
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0019192702855657655,
+          "normal": [
+            0.3038402531224059,
+            -0.017032309411017618,
+            -0.9525707328165398
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.038475997269021116,
+        "closing_alignment": 0.9307870612838799,
+        "approach_alignment": 0.9485235497803203,
+        "full_rotation_error_deg": 21.848841551835132,
+        "tilt_deg": 0.2788238753398928,
+        "wall_gap_m": 0.0007433132050877131,
+        "aperture_m": 0.05164588987827301
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04625882173672694,
+        "closing_alignment": 0.8836945286138026,
+        "approach_alignment": 0.9774909320546898,
+        "full_rotation_error_deg": 28.04702506842002,
+        "tilt_deg": 20.724346768127376,
+        "wall_gap_m": -0.0032401187786453844,
+        "aperture_m": 0.08273619040846825
+      },
+      "max_sampled_tilt_deg": 20.77467746142684,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 29,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03711424729146102,
+        "closing_alignment": 0.9374103186698697,
+        "approach_alignment": 0.9415959530521197,
+        "full_rotation_error_deg": 20.592453651833928,
+        "tilt_deg": 0.06110741304136659,
+        "wall_gap_m": 0.0003601751174850121,
+        "aperture_m": 0.05854294262826443
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0630040812049694,
+        "closing_alignment": 0.8819253344716382,
+        "approach_alignment": 0.9817980478114692,
+        "full_rotation_error_deg": 28.19228337878114,
+        "tilt_deg": 20.717265199397588,
+        "wall_gap_m": -0.002661615172799413,
+        "aperture_m": 0.07968994602560997
+      },
+      "max_sampled_tilt_deg": 20.95826447761131,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 30,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.036488966216358325,
+        "closing_alignment": 0.9322796187608313,
+        "approach_alignment": 0.9620114600537739,
+        "full_rotation_error_deg": 21.410144856423745,
+        "tilt_deg": 13.900162548077835,
+        "wall_gap_m": -0.0009053426336674206,
+        "aperture_m": 0.08103485777974129
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.045843834879977244,
+        "closing_alignment": 0.8870495260641661,
+        "approach_alignment": 0.9785009731597364,
+        "full_rotation_error_deg": 27.612447408589382,
+        "tilt_deg": 21.048053070256692,
+        "wall_gap_m": -0.002869645831844028,
+        "aperture_m": 0.08156286552548409
+      },
+      "max_sampled_tilt_deg": 21.255309551348276,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0013319106292059985,
+          "normal": [
+            0.31521356876155066,
+            -0.023228654451994447,
+            -0.9487364416322148
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 31,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.041270114024358526,
+        "closing_alignment": 0.9335137984299575,
+        "approach_alignment": 0.9564743840991465,
+        "full_rotation_error_deg": 21.326978749797814,
+        "tilt_deg": 14.266257351399119,
+        "wall_gap_m": -0.0008248205777621823,
+        "aperture_m": 0.0813383087515831
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0561650365925222,
+        "closing_alignment": 0.896433052161296,
+        "approach_alignment": 0.9754709442821654,
+        "full_rotation_error_deg": 26.4067980399192,
+        "tilt_deg": 19.80883427539481,
+        "wall_gap_m": -0.0025853643680777763,
+        "aperture_m": 0.08029090985655785
+      },
+      "max_sampled_tilt_deg": 19.83158690125964,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007742658254631625,
+          "normal": [
+            0.2989782724998662,
+            -0.026261670469022613,
+            -0.9538984837167801
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03811398848328664,
+        "closing_alignment": 0.8118539493099857,
+        "approach_alignment": 0.8008539361935165,
+        "full_rotation_error_deg": 36.81540898140237,
+        "tilt_deg": 0.6893001311010833,
+        "wall_gap_m": 0.0003694949837021247,
+        "aperture_m": 0.024302229285240173
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04543954770733899,
+        "closing_alignment": 0.917230320195259,
+        "approach_alignment": 0.9724104430796414,
+        "full_rotation_error_deg": 23.650474400266617,
+        "tilt_deg": 18.829362122660708,
+        "wall_gap_m": -0.0030762442730788847,
+        "aperture_m": 0.08306144550442696
+      },
+      "max_sampled_tilt_deg": 18.829362122660708,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 33,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03865431483322106,
+        "closing_alignment": 0.8392884805252332,
+        "approach_alignment": 0.8379052090148275,
+        "full_rotation_error_deg": 33.137541649684565,
+        "tilt_deg": 0.0896779375388371,
+        "wall_gap_m": -9.306497545576858e-05,
+        "aperture_m": 0.027956443838775158
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05832536658492411,
+        "closing_alignment": 0.9185641335804643,
+        "approach_alignment": 0.9749777122938059,
+        "full_rotation_error_deg": 23.392982846860377,
+        "tilt_deg": 20.10256877495271,
+        "wall_gap_m": -0.0025304116185087544,
+        "aperture_m": 0.07805004715919495
+      },
+      "max_sampled_tilt_deg": 20.140338388863626,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 34,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.04703439192375704,
+        "closing_alignment": 0.8999246893600876,
+        "approach_alignment": 0.9705526552482806,
+        "full_rotation_error_deg": 26.24627250884347,
+        "tilt_deg": 15.834272672752046,
+        "wall_gap_m": -0.004576874774611675,
+        "aperture_m": 0.08675742521882057
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.049056457009572146,
+        "closing_alignment": 0.8923805900302102,
+        "approach_alignment": 0.9759150521642384,
+        "full_rotation_error_deg": 26.990346835547687,
+        "tilt_deg": 19.58343979669279,
+        "wall_gap_m": -0.003834508064329313,
+        "aperture_m": 0.08381202071905136
+      },
+      "max_sampled_tilt_deg": 19.58343979669279,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0026706914015675494,
+          "normal": [
+            0.35193414915488735,
+            -0.05427119333679696,
+            -0.9344501015209028
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0031003337194667646,
+          "normal": [
+            0.35193414915488735,
+            -0.05427119333679696,
+            -0.9344501015209028
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0015527128500990486,
+          "normal": [
+            0.35193414915488735,
+            -0.05427119333679696,
+            -0.9344501015209028
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 35,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.03200368543506393,
+        "closing_alignment": 0.9420297241932958,
+        "approach_alignment": 0.9605942018573246,
+        "full_rotation_error_deg": 20.234346686837764,
+        "tilt_deg": 16.908328614637988,
+        "wall_gap_m": -0.001117238427785834,
+        "aperture_m": 0.08206063136458397
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.047276432709376044,
+        "closing_alignment": 0.8867970643782352,
+        "approach_alignment": 0.977039426286061,
+        "full_rotation_error_deg": 27.631337450811543,
+        "tilt_deg": 20.282251297560016,
+        "wall_gap_m": -0.0027123596916837286,
+        "aperture_m": 0.08066949248313904
+      },
+      "max_sampled_tilt_deg": 20.50289415313607,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00033831435167262216,
+          "normal": [
+            0.31689089315689584,
+            -0.035248382076132866,
+            -0.947806791173834
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.024545776856662878,
+        "closing_alignment": 0.9294714100147526,
+        "approach_alignment": 0.937019815675094,
+        "full_rotation_error_deg": 21.651851845858047,
+        "tilt_deg": 0.0015423228920165293,
+        "wall_gap_m": 0.0005948848579979335,
+        "aperture_m": 0.0630398578941822
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04378032328096574,
+        "closing_alignment": 0.8975322741680919,
+        "approach_alignment": 0.9705949761191194,
+        "full_rotation_error_deg": 26.357322343541718,
+        "tilt_deg": 18.95731719583005,
+        "wall_gap_m": -0.0025409949945125465,
+        "aperture_m": 0.08103947713971138
+      },
+      "max_sampled_tilt_deg": 18.95731719583005,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 37,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.02881533602283224,
+        "closing_alignment": 0.9494835211005257,
+        "approach_alignment": 0.9620337893499016,
+        "full_rotation_error_deg": 18.719231802089418,
+        "tilt_deg": 16.022414700833032,
+        "wall_gap_m": -0.0013470718844220825,
+        "aperture_m": 0.08027778938412666
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0488600201208486,
+        "closing_alignment": 0.8919016661044065,
+        "approach_alignment": 0.977692167187632,
+        "full_rotation_error_deg": 26.997164706557463,
+        "tilt_deg": 20.607494518648583,
+        "wall_gap_m": -0.0026601674191802163,
+        "aperture_m": 0.08057767152786255
+      },
+      "max_sampled_tilt_deg": 20.72277991498837,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0002309368372550037,
+          "normal": [
+            0.32456165211645216,
+            -0.024191824436386587,
+            -0.9455551224576377
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00227366847274864,
+          "normal": [
+            0.32456165211645216,
+            -0.024191824436386587,
+            -0.9455551224576377
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 38,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.03174354110838147,
+        "closing_alignment": 0.9583103474253882,
+        "approach_alignment": 0.9541418908295348,
+        "full_rotation_error_deg": 17.90651547303869,
+        "tilt_deg": 15.200945314977755,
+        "wall_gap_m": -0.001056025743537796,
+        "aperture_m": 0.08113450929522514
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05001062017268049,
+        "closing_alignment": 0.9260656586384364,
+        "approach_alignment": 0.9795540437382085,
+        "full_rotation_error_deg": 22.21631102669253,
+        "tilt_deg": 21.52513425779657,
+        "wall_gap_m": -0.0026494495116224717,
+        "aperture_m": 0.08078280836343765
+      },
+      "max_sampled_tilt_deg": 21.616489604563267,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.000700171976981309,
+          "normal": [
+            0.3190990704675019,
+            -0.0237778347077986,
+            -0.9474230300153068
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 39,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.018044339147595793,
+        "closing_alignment": 0.9416326213000321,
+        "approach_alignment": 0.9762553685425817,
+        "full_rotation_error_deg": 19.767957016615348,
+        "tilt_deg": 7.560146766807787,
+        "wall_gap_m": -0.0008104403204020477,
+        "aperture_m": 0.0750640369951725
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.033895916646689006,
+        "closing_alignment": 0.9259479807782541,
+        "approach_alignment": 0.9736611839921734,
+        "full_rotation_error_deg": 22.355738322905623,
+        "tilt_deg": 20.113847276623144,
+        "wall_gap_m": -0.002278311259454782,
+        "aperture_m": 0.08018271625041962
+      },
+      "max_sampled_tilt_deg": 20.172205817182107,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00010685044538950504,
+          "normal": [
+            0.26818483513895874,
+            -0.004804180696782324,
+            -0.9633554972331462
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001309449461979345,
+          "normal": [
+            0.26818483513895874,
+            -0.004804180696782324,
+            -0.9633554972331462
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.038626425270436346,
+        "closing_alignment": 0.9539171354318583,
+        "approach_alignment": 0.9861576390537653,
+        "full_rotation_error_deg": 17.551153437006807,
+        "tilt_deg": 6.1769243359298835,
+        "wall_gap_m": -0.00047653275698126413,
+        "aperture_m": 0.07781646773219109
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.051842395872072795,
+        "closing_alignment": 0.9117292401988472,
+        "approach_alignment": 0.97725072745285,
+        "full_rotation_error_deg": 24.37796060292776,
+        "tilt_deg": 20.900140994700347,
+        "wall_gap_m": -0.002666701264408697,
+        "aperture_m": 0.08094671368598938
+      },
+      "max_sampled_tilt_deg": 20.99889006558428,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0006443501230335504,
+          "normal": [
+            0.27012776908752567,
+            -0.014403175697036563,
+            -0.9627167480093181
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 41,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.045951974462457676,
+        "closing_alignment": 0.8608381203991725,
+        "approach_alignment": 0.9952602741143703,
+        "full_rotation_error_deg": 30.75393735257478,
+        "tilt_deg": 4.981220860724956,
+        "wall_gap_m": -0.0007159863063189859,
+        "aperture_m": 0.08813821151852608
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05021573014893345,
+        "closing_alignment": 0.8638972609463529,
+        "approach_alignment": 0.9796952916437625,
+        "full_rotation_error_deg": 30.392414020318334,
+        "tilt_deg": 20.459564186700465,
+        "wall_gap_m": -0.003172958135131361,
+        "aperture_m": 0.08210189640522003
+      },
+      "max_sampled_tilt_deg": 20.930417709013042,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0032024950083762885,
+          "normal": [
+            0.3150231707970296,
+            -0.03315279451599599,
+            -0.9485047675561603
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0031842787980326482,
+          "normal": [
+            0.3150231707970296,
+            -0.03315279451599599,
+            -0.9485047675561603
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 42,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.039076300786870515,
+        "closing_alignment": 0.939667975557324,
+        "approach_alignment": 0.9712303588485339,
+        "full_rotation_error_deg": 20.461478428668013,
+        "tilt_deg": 0.037776613726097676,
+        "wall_gap_m": 0.00016833003719000234,
+        "aperture_m": 0.06086155213415623
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0625706916362318,
+        "closing_alignment": 0.8769942898507332,
+        "approach_alignment": 0.9754167840381129,
+        "full_rotation_error_deg": 28.85753805475724,
+        "tilt_deg": 19.68008532233669,
+        "wall_gap_m": -0.003102668239982148,
+        "aperture_m": 0.08139647170901299
+      },
+      "max_sampled_tilt_deg": 19.68008532233669,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 43,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.04149721307737542,
+        "closing_alignment": 0.9377120499687388,
+        "approach_alignment": 0.9621389024433473,
+        "full_rotation_error_deg": 20.630229503899436,
+        "tilt_deg": 16.189413896598012,
+        "wall_gap_m": -0.000829334101733803,
+        "aperture_m": 0.07802177593111992
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05414202491439682,
+        "closing_alignment": 0.8979326443972667,
+        "approach_alignment": 0.9768264830975081,
+        "full_rotation_error_deg": 26.220161325460875,
+        "tilt_deg": 20.389914803840092,
+        "wall_gap_m": -0.002643636430887497,
+        "aperture_m": 0.08061006292700768
+      },
+      "max_sampled_tilt_deg": 20.60123639651051,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009757821206017425,
+          "normal": [
+            0.3187527994452425,
+            -0.02248271005857493,
+            -0.9475712008045851
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.026291469074452303,
+        "closing_alignment": 0.9574444076937593,
+        "approach_alignment": 0.9688405591633268,
+        "full_rotation_error_deg": 16.90809579041573,
+        "tilt_deg": 0.00456174391243467,
+        "wall_gap_m": 0.00022826446232265818,
+        "aperture_m": 0.06848713383078575
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04920311286829644,
+        "closing_alignment": 0.9328997789988724,
+        "approach_alignment": 0.977431215817889,
+        "full_rotation_error_deg": 21.14932464845219,
+        "tilt_deg": 20.867233216197853,
+        "wall_gap_m": -0.0025002655214968195,
+        "aperture_m": 0.08037028461694717
+      },
+      "max_sampled_tilt_deg": 20.921894432624295,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 45,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.041905540734165345,
+        "closing_alignment": 0.9075676761457443,
+        "approach_alignment": 0.9635773199434193,
+        "full_rotation_error_deg": 24.843580732628002,
+        "tilt_deg": 9.62394627480134,
+        "wall_gap_m": -0.0016727973960238077,
+        "aperture_m": 0.08118515834212303
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.047935310054899254,
+        "closing_alignment": 0.907819461254807,
+        "approach_alignment": 0.9752704045409788,
+        "full_rotation_error_deg": 24.901297145015157,
+        "tilt_deg": 19.90608708611346,
+        "wall_gap_m": -0.0027332295182429314,
+        "aperture_m": 0.08135084807872772
+      },
+      "max_sampled_tilt_deg": 19.90608708611346,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0008878872763829393,
+          "normal": [
+            0.29425197135245545,
+            -0.023457960317804342,
+            -0.9554399517776729
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0024236510077200873,
+          "normal": [
+            0.29425197135245545,
+            -0.023457960317804342,
+            -0.9554399517776729
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 46,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.022607384752932592,
+        "closing_alignment": 0.944094278326713,
+        "approach_alignment": 0.9513853272767875,
+        "full_rotation_error_deg": 20.758860544670654,
+        "tilt_deg": 15.604117931329043,
+        "wall_gap_m": -0.0013080832922327881,
+        "aperture_m": 0.0804351195693016
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03373026440144242,
+        "closing_alignment": 0.9276179998252545,
+        "approach_alignment": 0.9755848179206316,
+        "full_rotation_error_deg": 22.000525568917997,
+        "tilt_deg": 20.4760993035815,
+        "wall_gap_m": -0.0024418641039671563,
+        "aperture_m": 0.0802517682313919
+      },
+      "max_sampled_tilt_deg": 20.51843072642457,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0006476451952896894,
+          "normal": [
+            0.30473176814801395,
+            -0.02549936339642597,
+            -0.9520968080756086
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 47,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03722865194111726,
+        "closing_alignment": 0.9141543776286026,
+        "approach_alignment": 0.9162288603228023,
+        "full_rotation_error_deg": 23.91978371996985,
+        "tilt_deg": 0.03676454916352335,
+        "wall_gap_m": 0.00023729435493128476,
+        "aperture_m": 0.05664837546646595
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04533559836774909,
+        "closing_alignment": 0.9142060120413917,
+        "approach_alignment": 0.9737157038474417,
+        "full_rotation_error_deg": 24.054917284118876,
+        "tilt_deg": 19.80421307240861,
+        "wall_gap_m": -0.002678827671683988,
+        "aperture_m": 0.08223454654216766
+      },
+      "max_sampled_tilt_deg": 19.80421307240861,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 48,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.02997373123535398,
+        "closing_alignment": 0.959609038471769,
+        "approach_alignment": 0.9600596955668992,
+        "full_rotation_error_deg": 17.081313651764077,
+        "tilt_deg": 15.781682656889425,
+        "wall_gap_m": -0.0009904602875281804,
+        "aperture_m": 0.08011931926012039
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05159599166091447,
+        "closing_alignment": 0.9106711092118471,
+        "approach_alignment": 0.9786315489742108,
+        "full_rotation_error_deg": 24.514756784513715,
+        "tilt_deg": 21.13374201419529,
+        "wall_gap_m": -0.002843183748440635,
+        "aperture_m": 0.08093764260411263
+      },
+      "max_sampled_tilt_deg": 21.13374201419529,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0015476069717385529,
+          "normal": [
+            0.3287568993978171,
+            -0.018334452763727298,
+            -0.9442365958488308
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 49,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.04995442103383774,
+        "closing_alignment": 0.8583768551104077,
+        "approach_alignment": 0.9937865664116807,
+        "full_rotation_error_deg": 31.069643013607777,
+        "tilt_deg": 5.262562472868373,
+        "wall_gap_m": -0.0010408267833070667,
+        "aperture_m": 0.08599908649921417
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.056639163752929426,
+        "closing_alignment": 0.875922719863349,
+        "approach_alignment": 0.9783276538076627,
+        "full_rotation_error_deg": 28.951620536252097,
+        "tilt_deg": 20.13051569716641,
+        "wall_gap_m": -0.002959489632296926,
+        "aperture_m": 0.08142466470599174
+      },
+      "max_sampled_tilt_deg": 20.489084734774117,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0030395139943398624,
+          "normal": [
+            0.3090599770350447,
+            -0.03558733910254324,
+            -0.950376489550693
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003025835021740021,
+          "normal": [
+            0.3090599770350447,
+            -0.03558733910254324,
+            -0.950376489550693
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 50,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.039014785507388974,
+        "closing_alignment": 0.8628525869325898,
+        "approach_alignment": 0.8867970992579325,
+        "full_rotation_error_deg": 30.498894842771588,
+        "tilt_deg": 0.04373143588469714,
+        "wall_gap_m": 0.000986968298706592,
+        "aperture_m": 0.06858477741479874
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04993981121670935,
+        "closing_alignment": 0.8682755081370672,
+        "approach_alignment": 0.9782680731751745,
+        "full_rotation_error_deg": 29.892545760836793,
+        "tilt_deg": 20.33425496523532,
+        "wall_gap_m": -0.003102847199948959,
+        "aperture_m": 0.08266042172908783
+      },
+      "max_sampled_tilt_deg": 20.72508096520519,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 51,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.02298998144307584,
+        "closing_alignment": 0.9266154469861732,
+        "approach_alignment": 0.9537819369631308,
+        "full_rotation_error_deg": 22.16783233171258,
+        "tilt_deg": 10.527821716996936,
+        "wall_gap_m": -0.0008392077981944981,
+        "aperture_m": 0.07996983453631401
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04044684331304447,
+        "closing_alignment": 0.9037052269374208,
+        "approach_alignment": 0.9741026011889753,
+        "full_rotation_error_deg": 25.522790088243077,
+        "tilt_deg": 20.10089105574899,
+        "wall_gap_m": -0.0024504011873270753,
+        "aperture_m": 0.0809834823012352
+      },
+      "max_sampled_tilt_deg": 20.271402033355482,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001354815369506011,
+          "normal": [
+            0.29025135105545663,
+            -0.011968212415011116,
+            -0.9568756006409983
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.043911889280778625,
+        "closing_alignment": 0.8180112550422475,
+        "approach_alignment": 0.9960389826916866,
+        "full_rotation_error_deg": 35.150018547771545,
+        "tilt_deg": 3.6324693540842046,
+        "wall_gap_m": -0.0014755137461676116,
+        "aperture_m": 0.08528116345405579
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04635302127888142,
+        "closing_alignment": 0.9003884604940812,
+        "approach_alignment": 0.9764613382025286,
+        "full_rotation_error_deg": 25.888143364858337,
+        "tilt_deg": 20.385481705317655,
+        "wall_gap_m": -0.0032851267989108812,
+        "aperture_m": 0.08156351745128632
+      },
+      "max_sampled_tilt_deg": 20.385481705317655,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003099603211029353,
+          "normal": [
+            0.27873798270511796,
+            -0.017833393699640713,
+            -0.9602015970964822
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0030203321909120346,
+          "normal": [
+            0.27873798270511796,
+            -0.017833393699640713,
+            -0.9602015970964822
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 53,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03672690516479199,
+        "closing_alignment": 0.910291664130522,
+        "approach_alignment": 0.9281759966666643,
+        "full_rotation_error_deg": 24.569158091588402,
+        "tilt_deg": 0.026158085639513044,
+        "wall_gap_m": 0.00036607192978774933,
+        "aperture_m": 0.06099964305758476
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05006666807221887,
+        "closing_alignment": 0.8829022816050045,
+        "approach_alignment": 0.9756069535613288,
+        "full_rotation_error_deg": 28.139891008769634,
+        "tilt_deg": 19.949791252865577,
+        "wall_gap_m": -0.002860235953746529,
+        "aperture_m": 0.08223370835185051
+      },
+      "max_sampled_tilt_deg": 20.14031367882559,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 54,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.04917146318773222,
+        "closing_alignment": 0.8926636916600201,
+        "approach_alignment": 0.975255871344438,
+        "full_rotation_error_deg": 27.035798154515764,
+        "tilt_deg": 18.2291266922174,
+        "wall_gap_m": -0.004093343158451196,
+        "aperture_m": 0.08831300958991051
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05344517473108752,
+        "closing_alignment": 0.8811586884022888,
+        "approach_alignment": 0.976218941011332,
+        "full_rotation_error_deg": 28.362308911271803,
+        "tilt_deg": 20.09084281814928,
+        "wall_gap_m": -0.0028001314764928217,
+        "aperture_m": 0.08205315098166466
+      },
+      "max_sampled_tilt_deg": 20.26237413209298,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0028557033429502704,
+          "normal": [
+            0.3613482766284555,
+            -0.05749610620277809,
+            -0.9306565535949146
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002181260121434819,
+          "normal": [
+            0.3613482766284555,
+            -0.05749610620277809,
+            -0.9306565535949146
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012225723660227125,
+          "normal": [
+            0.3613482766284555,
+            -0.05749610620277809,
+            -0.9306565535949146
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 55,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.03346607517079518,
+        "closing_alignment": 0.9488999404186236,
+        "approach_alignment": 0.9744705768354077,
+        "full_rotation_error_deg": 18.560854155863723,
+        "tilt_deg": 7.9676018370498864,
+        "wall_gap_m": -0.0007003852915874742,
+        "aperture_m": 0.0777779296040535
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04549257505726579,
+        "closing_alignment": 0.9296812789857707,
+        "approach_alignment": 0.9767919633558751,
+        "full_rotation_error_deg": 21.699506864659,
+        "tilt_deg": 20.864740218237035,
+        "wall_gap_m": -0.00246377664563191,
+        "aperture_m": 0.08043328672647476
+      },
+      "max_sampled_tilt_deg": 20.953361820762947,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001114636657652723,
+          "normal": [
+            0.27643164761238354,
+            -0.015723946432737754,
+            -0.9609049389543607
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03690290032970424,
+        "closing_alignment": 0.9287413566175835,
+        "approach_alignment": 0.9717157664749906,
+        "full_rotation_error_deg": 22.00369882108957,
+        "tilt_deg": 16.801712620313413,
+        "wall_gap_m": -0.0023399828269797737,
+        "aperture_m": 0.08433675765991211
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04742401185676047,
+        "closing_alignment": 0.8802284322219854,
+        "approach_alignment": 0.9777336710225433,
+        "full_rotation_error_deg": 28.452203964152027,
+        "tilt_deg": 20.465512459583003,
+        "wall_gap_m": -0.0028031724807206643,
+        "aperture_m": 0.08063797652721405
+      },
+      "max_sampled_tilt_deg": 20.604436260020083,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0020808962986731652,
+          "normal": [
+            0.34234232627231176,
+            -0.043544739280589856,
+            -0.938565707515168
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 57,
+      "closest": {
+        "step": 90,
+        "distance_m": 0.040503960775329265,
+        "closing_alignment": 0.9379178381252626,
+        "approach_alignment": 0.9853793808528036,
+        "full_rotation_error_deg": 20.312303266115116,
+        "tilt_deg": 6.722237844501377,
+        "wall_gap_m": -0.0008358648910620214,
+        "aperture_m": 0.07834517583251
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05109355918753803,
+        "closing_alignment": 0.9253369024537997,
+        "approach_alignment": 0.977202778879039,
+        "full_rotation_error_deg": 22.386033086913795,
+        "tilt_deg": 20.874310460654584,
+        "wall_gap_m": -0.00259624304338673,
+        "aperture_m": 0.08067434653639793
+      },
+      "max_sampled_tilt_deg": 20.874310460654584,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007191746827814361,
+          "normal": [
+            0.2789994659353859,
+            -0.017307989851583536,
+            -0.9601352672905349
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 58,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.030556543657819138,
+        "closing_alignment": 0.9211969058414344,
+        "approach_alignment": 0.9683498698129013,
+        "full_rotation_error_deg": 23.224182399755225,
+        "tilt_deg": 0.19196903271092236,
+        "wall_gap_m": 0.0015841898852949066,
+        "aperture_m": 0.06069757416844368
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.049033088828991926,
+        "closing_alignment": 0.8859288037821513,
+        "approach_alignment": 0.9773285033890762,
+        "full_rotation_error_deg": 27.786538639622798,
+        "tilt_deg": 20.756324641979724,
+        "wall_gap_m": -0.0031946151959744845,
+        "aperture_m": 0.08225638419389725
+      },
+      "max_sampled_tilt_deg": 20.86347978148412,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 59,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.021477005382324606,
+        "closing_alignment": 0.9480313655417578,
+        "approach_alignment": 0.9602663422078291,
+        "full_rotation_error_deg": 19.145229470173234,
+        "tilt_deg": 17.50451947774284,
+        "wall_gap_m": -0.0015804562902250324,
+        "aperture_m": 0.0809449627995491
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03914792482850545,
+        "closing_alignment": 0.8936740610044711,
+        "approach_alignment": 0.9756476245342762,
+        "full_rotation_error_deg": 26.810827113587003,
+        "tilt_deg": 20.338643170276605,
+        "wall_gap_m": -0.002596810273411597,
+        "aperture_m": 0.08088664337992668
+      },
+      "max_sampled_tilt_deg": 20.602926840523736,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001367164543422489,
+          "normal": [
+            0.3203687843004023,
+            -0.024373395394592226,
+            -0.946979292087647
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.046468934394415594,
+        "closing_alignment": 0.8935278865348583,
+        "approach_alignment": 0.9776299669211765,
+        "full_rotation_error_deg": 26.927043803556746,
+        "tilt_deg": 19.66122488891155,
+        "wall_gap_m": -0.005016805179100442,
+        "aperture_m": 0.08560260385274887
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05052918680587168,
+        "closing_alignment": 0.8718218500979946,
+        "approach_alignment": 0.977984793904934,
+        "full_rotation_error_deg": 29.48882673219474,
+        "tilt_deg": 20.753253566293065,
+        "wall_gap_m": -0.0031340000547185262,
+        "aperture_m": 0.08253515139222145
+      },
+      "max_sampled_tilt_deg": 20.943737061460176,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002757100064049595,
+          "normal": [
+            0.3724433459277716,
+            -0.057491917091246666,
+            -0.926272440237374
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00227391527112617,
+          "normal": [
+            0.3724433459277716,
+            -0.057491917091246666,
+            -0.926272440237374
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0012964362604665173,
+          "normal": [
+            0.3724433459277716,
+            -0.057491917091246666,
+            -0.926272440237374
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 61,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.03263860772585085,
+        "closing_alignment": 0.9552073523779397,
+        "approach_alignment": 0.9597055782863091,
+        "full_rotation_error_deg": 17.818652307753926,
+        "tilt_deg": 13.732727410613082,
+        "wall_gap_m": -0.0009134472891828074,
+        "aperture_m": 0.0797877386212349
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03698406825141375,
+        "closing_alignment": 0.9541830074272788,
+        "approach_alignment": 0.9725697390715254,
+        "full_rotation_error_deg": 17.592502808508318,
+        "tilt_deg": 19.38695746051341,
+        "wall_gap_m": -0.0022724033283548772,
+        "aperture_m": 0.0801902711391449
+      },
+      "max_sampled_tilt_deg": 19.38695746051341,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007817599067403557,
+          "normal": [
+            0.3236392906257123,
+            -0.015977556402111084,
+            -0.9460456264127556
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0027457353663203317,
+          "normal": [
+            0.3236392906257123,
+            -0.015977556402111084,
+            -0.9460456264127556
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0001149746269615679,
+          "normal": [
+            0.3236392906257123,
+            -0.015977556402111084,
+            -0.9460456264127556
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 62,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.05077629178589699,
+        "closing_alignment": 0.9024289795401692,
+        "approach_alignment": 0.9686799337104978,
+        "full_rotation_error_deg": 25.521863619353205,
+        "tilt_deg": 15.380747047449791,
+        "wall_gap_m": -0.0013869019768288152,
+        "aperture_m": 0.08124915882945061
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05795731113586083,
+        "closing_alignment": 0.8684346291581926,
+        "approach_alignment": 0.9798746181323558,
+        "full_rotation_error_deg": 29.86400368381642,
+        "tilt_deg": 20.217638864839618,
+        "wall_gap_m": -0.002840694917076489,
+        "aperture_m": 0.08074368163943291
+      },
+      "max_sampled_tilt_deg": 20.47387179897036,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0014429206209924349,
+          "normal": [
+            0.32494846333847827,
+            -0.038891192972899634,
+            -0.9449317283714769
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -9.782500318761966e-05,
+          "normal": [
+            0.32494846333847827,
+            -0.038891192972899634,
+            -0.9449317283714769
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 63,
+      "closest": {
+        "step": 220,
+        "distance_m": 0.04520650418534186,
+        "closing_alignment": 0.9067633221015065,
+        "approach_alignment": 0.9718734584054218,
+        "full_rotation_error_deg": 25.244108713619283,
+        "tilt_deg": 17.742315264582828,
+        "wall_gap_m": -0.004236153432261497,
+        "aperture_m": 0.08598947897553444
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.048716554294091795,
+        "closing_alignment": 0.8934390496225652,
+        "approach_alignment": 0.9715065919637957,
+        "full_rotation_error_deg": 26.92630668316336,
+        "tilt_deg": 19.450072435021358,
+        "wall_gap_m": -0.003353519303351163,
+        "aperture_m": 0.08253760263323784
+      },
+      "max_sampled_tilt_deg": 19.450072435021358,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002466426422507509,
+          "normal": [
+            0.35444403992973283,
+            -0.05300626269347838,
+            -0.9335736493033424
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0030136406943989703,
+          "normal": [
+            0.35444403992973283,
+            -0.05300626269347838,
+            -0.9335736493033424
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001752350758791634,
+          "normal": [
+            0.35444403992973283,
+            -0.05300626269347838,
+            -0.9335736493033424
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "closest": {
+        "step": 220,
+        "distance_m": 0.03556873553526938,
+        "closing_alignment": 0.9372312986376196,
+        "approach_alignment": 0.9708312512180111,
+        "full_rotation_error_deg": 20.67551404364544,
+        "tilt_deg": 17.396802466670188,
+        "wall_gap_m": -0.0030474544193453343,
+        "aperture_m": 0.08308365195989609
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03773848321446125,
+        "closing_alignment": 0.9342665477752972,
+        "approach_alignment": 0.9719140409022857,
+        "full_rotation_error_deg": 21.084858043074142,
+        "tilt_deg": 19.278091357258734,
+        "wall_gap_m": -0.0027371729063762965,
+        "aperture_m": 0.08174117654561996
+      },
+      "max_sampled_tilt_deg": 19.278091357258734,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002871776817477445,
+          "normal": [
+            0.35789967399690015,
+            -0.03850112565447806,
+            -0.9329659622281248
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003114759406386413,
+          "normal": [
+            0.35789967399690015,
+            -0.03850112565447806,
+            -0.9329659622281248
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0022160348610565247,
+          "normal": [
+            0.35789967399690015,
+            -0.03850112565447806,
+            -0.9329659622281248
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 65,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.040583742019461154,
+        "closing_alignment": 0.8511963085398229,
+        "approach_alignment": 0.8510208727762616,
+        "full_rotation_error_deg": 31.867412742693535,
+        "tilt_deg": 0.00761286143549368,
+        "wall_gap_m": 0.0001320664708070532,
+        "aperture_m": 0.03521990031003952
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05221413235069685,
+        "closing_alignment": 0.8808998959871129,
+        "approach_alignment": 0.9760235970439495,
+        "full_rotation_error_deg": 28.39569709371752,
+        "tilt_deg": 19.995313488480512,
+        "wall_gap_m": -0.0027665677726169263,
+        "aperture_m": 0.08106862381100655
+      },
+      "max_sampled_tilt_deg": 20.114145163900293,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 66,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03585856818757547,
+        "closing_alignment": 0.9261042555773926,
+        "approach_alignment": 0.9395672579631027,
+        "full_rotation_error_deg": 22.601132104349396,
+        "tilt_deg": 0.027395310427674194,
+        "wall_gap_m": 2.262147172146789e-05,
+        "aperture_m": 0.06008451245725155
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05699100152618613,
+        "closing_alignment": 0.8740014074955083,
+        "approach_alignment": 0.9797859813108025,
+        "full_rotation_error_deg": 29.174987104155697,
+        "tilt_deg": 20.249716572018784,
+        "wall_gap_m": -0.002854335775622975,
+        "aperture_m": 0.08126506954431534
+      },
+      "max_sampled_tilt_deg": 20.822025524617754,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 67,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.03199905085062044,
+        "closing_alignment": 0.9336550771825972,
+        "approach_alignment": 0.9871132538343927,
+        "full_rotation_error_deg": 21.043271584656868,
+        "tilt_deg": 6.605117044644327,
+        "wall_gap_m": -0.001151479318522483,
+        "aperture_m": 0.07852030918002129
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03601705507216079,
+        "closing_alignment": 0.9123906732703282,
+        "approach_alignment": 0.9695968299626734,
+        "full_rotation_error_deg": 24.372902748762584,
+        "tilt_deg": 17.614707723151998,
+        "wall_gap_m": -0.0029407800035990833,
+        "aperture_m": 0.08306116983294487
+      },
+      "max_sampled_tilt_deg": 17.614707723151998,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007822043382579548,
+          "normal": [
+            0.2856851989130307,
+            -0.01170395320220442,
+            -0.9582520464895772
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001955425493365333,
+          "normal": [
+            0.2856851989130307,
+            -0.01170395320220442,
+            -0.9582520464895772
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.04519956170014989,
+        "closing_alignment": 0.879557953650292,
+        "approach_alignment": 0.8897647576576604,
+        "full_rotation_error_deg": 28.518704932620086,
+        "tilt_deg": 0.23654787609604913,
+        "wall_gap_m": 0.0011743964534739817,
+        "aperture_m": 0.04397055134177208
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05899442416482387,
+        "closing_alignment": 0.8750919447751735,
+        "approach_alignment": 0.9751070934851919,
+        "full_rotation_error_deg": 29.115888882271623,
+        "tilt_deg": 19.698505947065275,
+        "wall_gap_m": -0.003282425636226112,
+        "aperture_m": 0.08142324909567833
+      },
+      "max_sampled_tilt_deg": 19.710800633084716,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 69,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.037615222727906156,
+        "closing_alignment": 0.9191375750875129,
+        "approach_alignment": 0.9356760043444284,
+        "full_rotation_error_deg": 23.31048272888504,
+        "tilt_deg": 0.0022117907274966132,
+        "wall_gap_m": 0.0004816792560552105,
+        "aperture_m": 0.058466944843530655
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05840049991742337,
+        "closing_alignment": 0.8744984074925036,
+        "approach_alignment": 0.9808526947913825,
+        "full_rotation_error_deg": 29.114227941728476,
+        "tilt_deg": 20.487474204781,
+        "wall_gap_m": -0.002767292351379784,
+        "aperture_m": 0.08050906285643578
+      },
+      "max_sampled_tilt_deg": 20.85488713040482,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 70,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.04435931499194413,
+        "closing_alignment": 0.8890496048455315,
+        "approach_alignment": 0.9750924106947222,
+        "full_rotation_error_deg": 27.48055332610656,
+        "tilt_deg": 16.031208283884556,
+        "wall_gap_m": -0.003767508305709856,
+        "aperture_m": 0.08719327673316002
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.049626517368514034,
+        "closing_alignment": 0.8834745296005467,
+        "approach_alignment": 0.9792872052493151,
+        "full_rotation_error_deg": 28.0176107469315,
+        "tilt_deg": 20.289992013357406,
+        "wall_gap_m": -0.0026962477744099447,
+        "aperture_m": 0.0805734358727932
+      },
+      "max_sampled_tilt_deg": 20.464897831023297,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0031765223166509986,
+          "normal": [
+            0.3609542414624196,
+            -0.05372172446594518,
+            -0.9310349144316203
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0026893480566303465,
+          "normal": [
+            0.3609542414624196,
+            -0.05372172446594518,
+            -0.9310349144316203
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0008629630989260931,
+          "normal": [
+            0.3609542414624196,
+            -0.05372172446594518,
+            -0.9310349144316203
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 71,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.03870567238190725,
+        "closing_alignment": 0.9353463655044958,
+        "approach_alignment": 0.9661392375630877,
+        "full_rotation_error_deg": 20.839775801845114,
+        "tilt_deg": 15.674829657368281,
+        "wall_gap_m": -0.0011888683386697338,
+        "aperture_m": 0.08263098448514938
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.053875245688725815,
+        "closing_alignment": 0.8718398354590421,
+        "approach_alignment": 0.9795279866107874,
+        "full_rotation_error_deg": 29.454716586939124,
+        "tilt_deg": 20.132828760374736,
+        "wall_gap_m": -0.002690631852919803,
+        "aperture_m": 0.08050422370433807
+      },
+      "max_sampled_tilt_deg": 20.468340906610752,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009249009879623116,
+          "normal": [
+            0.3255981387955344,
+            -0.03950775606616411,
+            -0.9446824806375423
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.03401800047936077,
+        "closing_alignment": 0.9231708049087252,
+        "approach_alignment": 0.9664591709356106,
+        "full_rotation_error_deg": 22.63694736437199,
+        "tilt_deg": 14.43503400875077,
+        "wall_gap_m": -0.0020391018760902435,
+        "aperture_m": 0.08221340551972389
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0367446424806101,
+        "closing_alignment": 0.9073486040105532,
+        "approach_alignment": 0.9717282690081372,
+        "full_rotation_error_deg": 25.041773112174024,
+        "tilt_deg": 19.291726310743957,
+        "wall_gap_m": -0.002817498346463644,
+        "aperture_m": 0.08271031826734543
+      },
+      "max_sampled_tilt_deg": 19.291726310743957,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001579841926469074,
+          "normal": [
+            0.32554950588835263,
+            -0.028207761679959534,
+            -0.9451041431487094
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0031550293062580317,
+          "normal": [
+            0.32554950588835263,
+            -0.028207761679959534,
+            -0.9451041431487094
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.000728491110085209,
+          "normal": [
+            0.32554950588835263,
+            -0.028207761679959534,
+            -0.9451041431487094
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 73,
+      "closest": {
+        "step": 210,
+        "distance_m": 0.01773718961074958,
+        "closing_alignment": 0.9608263185332871,
+        "approach_alignment": 0.9564660826930841,
+        "full_rotation_error_deg": 17.208911240791995,
+        "tilt_deg": 17.875805869952742,
+        "wall_gap_m": -0.0016183312328967858,
+        "aperture_m": 0.08010746166110039
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.036161508269852455,
+        "closing_alignment": 0.9278673633720469,
+        "approach_alignment": 0.9773337358272176,
+        "full_rotation_error_deg": 22.011528095137272,
+        "tilt_deg": 21.259463598329067,
+        "wall_gap_m": -0.002580224197011434,
+        "aperture_m": 0.08111847937107086
+      },
+      "max_sampled_tilt_deg": 21.31294028756436,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0010066035035250411,
+          "normal": [
+            0.3253728238792174,
+            -0.018766093577473095,
+            -0.9453995764821906
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 74,
+      "closest": {
+        "step": 70,
+        "distance_m": 0.05596294778017827,
+        "closing_alignment": 0.8967013147790368,
+        "approach_alignment": 0.960252983845736,
+        "full_rotation_error_deg": 26.27895160467219,
+        "tilt_deg": 12.029377453489394,
+        "wall_gap_m": -0.0006534637529569398,
+        "aperture_m": 0.08084651082754135
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06033543744702843,
+        "closing_alignment": 0.8688600149951502,
+        "approach_alignment": 0.980768335911131,
+        "full_rotation_error_deg": 29.812372233383307,
+        "tilt_deg": 20.59554378826865,
+        "wall_gap_m": -0.0029917123675743534,
+        "aperture_m": 0.0813358686864376
+      },
+      "max_sampled_tilt_deg": 21.031646861529005,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001265817567431448,
+          "normal": [
+            0.29740512621275184,
+            -0.036509728212302126,
+            -0.9540530544200576
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 75,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.04723609303358623,
+        "closing_alignment": 0.8659838004412782,
+        "approach_alignment": 0.9967293897847531,
+        "full_rotation_error_deg": 30.006056367436486,
+        "tilt_deg": 4.485648868388577,
+        "wall_gap_m": -0.0016932100538425282,
+        "aperture_m": 0.08520254120230675
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05455989805250151,
+        "closing_alignment": 0.9145152581586713,
+        "approach_alignment": 0.9728565111961485,
+        "full_rotation_error_deg": 23.996602798354424,
+        "tilt_deg": 19.03118461457912,
+        "wall_gap_m": -0.0027188706309399444,
+        "aperture_m": 0.08130638301372528
+      },
+      "max_sampled_tilt_deg": 19.03118461457912,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003214310214754515,
+          "normal": [
+            0.2929937015623927,
+            -0.028048336705268295,
+            -0.9557028731006493
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0026807494422085355,
+          "normal": [
+            0.2929937015623927,
+            -0.028048336705268295,
+            -0.9557028731006493
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "closest": {
+        "step": 170,
+        "distance_m": 0.03804937893879324,
+        "closing_alignment": 0.929679699471832,
+        "approach_alignment": 0.9649795163999979,
+        "full_rotation_error_deg": 22.200510200570474,
+        "tilt_deg": 17.123951224012337,
+        "wall_gap_m": -0.0014615224585118672,
+        "aperture_m": 0.0831138901412487
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04389967713391701,
+        "closing_alignment": 0.8806694506297158,
+        "approach_alignment": 0.9764980875962603,
+        "full_rotation_error_deg": 28.439764080262137,
+        "tilt_deg": 20.494477867475613,
+        "wall_gap_m": -0.0031127256740927645,
+        "aperture_m": 0.0826621800661087
+      },
+      "max_sampled_tilt_deg": 20.61253387936643,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0013536026152867436,
+          "normal": [
+            0.3242005921030189,
+            -0.0379604549326718,
+            -0.9452264172891893
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 77,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.018996948814515028,
+        "closing_alignment": 0.9313957150284939,
+        "approach_alignment": 0.9539868846371995,
+        "full_rotation_error_deg": 22.091344763618245,
+        "tilt_deg": 14.90522288448179,
+        "wall_gap_m": -0.0012774748698788987,
+        "aperture_m": 0.08188159018754959
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.030791882478080793,
+        "closing_alignment": 0.8953439611539081,
+        "approach_alignment": 0.9729591316643389,
+        "full_rotation_error_deg": 26.643359584156062,
+        "tilt_deg": 19.865776863844054,
+        "wall_gap_m": -0.002398880651792515,
+        "aperture_m": 0.08086442202329636
+      },
+      "max_sampled_tilt_deg": 19.98006537475618,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0003279976046146523,
+          "normal": [
+            0.296384612559427,
+            -0.02209995117443589,
+            -0.954812941678152
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 78,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03785090958024565,
+        "closing_alignment": 0.9524179011584791,
+        "approach_alignment": 0.9609141003325747,
+        "full_rotation_error_deg": 18.580183371557215,
+        "tilt_deg": 16.114823951536014,
+        "wall_gap_m": -0.0010425493841686242,
+        "aperture_m": 0.08169389516115189
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05510396048429386,
+        "closing_alignment": 0.9002564293527977,
+        "approach_alignment": 0.9786505818999052,
+        "full_rotation_error_deg": 25.893538136734367,
+        "tilt_deg": 20.94603270914152,
+        "wall_gap_m": -0.002673701855427084,
+        "aperture_m": 0.07921313121914864
+      },
+      "max_sampled_tilt_deg": 21.10956389358964,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00044639378027726403,
+          "normal": [
+            0.32601524139971283,
+            -0.03468194713761522,
+            -0.9447281222223836
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 79,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.037663019121760274,
+        "closing_alignment": 0.9243297289812442,
+        "approach_alignment": 0.9742734858003066,
+        "full_rotation_error_deg": 22.89974061503636,
+        "tilt_deg": 0.10857957945271869,
+        "wall_gap_m": -0.00010051563932393648,
+        "aperture_m": 0.06552363187074661
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0514453177408092,
+        "closing_alignment": 0.8815929496972106,
+        "approach_alignment": 0.9809116495129386,
+        "full_rotation_error_deg": 28.29128275930381,
+        "tilt_deg": 21.11646578929942,
+        "wall_gap_m": -0.002917520307363114,
+        "aperture_m": 0.0810837559401989
+      },
+      "max_sampled_tilt_deg": 21.592627407021535,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 80,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.03912255495371985,
+        "closing_alignment": 0.9142081909208233,
+        "approach_alignment": 0.9641322137610859,
+        "full_rotation_error_deg": 23.906506332448156,
+        "tilt_deg": 14.435415161476433,
+        "wall_gap_m": -0.0008582032826818034,
+        "aperture_m": 0.07929183170199394
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.052318716720954034,
+        "closing_alignment": 0.873307000812589,
+        "approach_alignment": 0.9795362462489787,
+        "full_rotation_error_deg": 29.280562799430168,
+        "tilt_deg": 19.994912473181923,
+        "wall_gap_m": -0.0025866561120258813,
+        "aperture_m": 0.0795532576739788
+      },
+      "max_sampled_tilt_deg": 20.14273004453081,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0002652918972572476,
+          "normal": [
+            0.3161075007806818,
+            -0.03027685946357768,
+            -0.9482401382198574
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0016127710674657327,
+          "normal": [
+            0.3161075007806818,
+            -0.03027685946357768,
+            -0.9482401382198574
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 81,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.025963610087382582,
+        "closing_alignment": 0.9388800407360383,
+        "approach_alignment": 0.9545170245206404,
+        "full_rotation_error_deg": 20.369793380426202,
+        "tilt_deg": 12.373096734284989,
+        "wall_gap_m": -0.0008294999301343767,
+        "aperture_m": 0.0787610299885273
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04266824592026084,
+        "closing_alignment": 0.9169333822096313,
+        "approach_alignment": 0.9753163138474021,
+        "full_rotation_error_deg": 23.62776638708342,
+        "tilt_deg": 20.324808236989508,
+        "wall_gap_m": -0.002434599157576614,
+        "aperture_m": 0.07986317947506905
+      },
+      "max_sampled_tilt_deg": 20.389966355204873,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0010470104012286921,
+          "normal": [
+            0.2975366566237618,
+            -0.01272089060529812,
+            -0.9546256422846402
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 82,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03572869516056438,
+        "closing_alignment": 0.9229399989647085,
+        "approach_alignment": 0.9609730384347495,
+        "full_rotation_error_deg": 22.84476978352049,
+        "tilt_deg": 12.47796707899861,
+        "wall_gap_m": -0.0011145783196305284,
+        "aperture_m": 0.08224324882030487
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03995332425015606,
+        "closing_alignment": 0.8732624034581701,
+        "approach_alignment": 0.9746286952508207,
+        "full_rotation_error_deg": 29.333433227145644,
+        "tilt_deg": 19.865113334297355,
+        "wall_gap_m": -0.003119927913321191,
+        "aperture_m": 0.08230041339993477
+      },
+      "max_sampled_tilt_deg": 20.001286696294766,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0013794431499007667,
+          "normal": [
+            0.30751530575568214,
+            -0.02608649161199721,
+            -0.9511854875266793
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 83,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.042415793687399506,
+        "closing_alignment": 0.9634798044536108,
+        "approach_alignment": 0.9873220287364811,
+        "full_rotation_error_deg": 15.618699026859728,
+        "tilt_deg": 6.038294999620479,
+        "wall_gap_m": -0.0005050258662146132,
+        "aperture_m": 0.07834117487072945
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06255542407571567,
+        "closing_alignment": 0.890920952266278,
+        "approach_alignment": 0.9788058670316658,
+        "full_rotation_error_deg": 27.113552995013027,
+        "tilt_deg": 20.905916712160987,
+        "wall_gap_m": -0.002793156384347413,
+        "aperture_m": 0.080181784927845
+      },
+      "max_sampled_tilt_deg": 20.965881658829776,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0003880607795092405,
+          "normal": [
+            0.2728984027542065,
+            -0.02391716378055828,
+            -0.9617455126232183
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03672850681565604,
+        "closing_alignment": 0.9043323996876703,
+        "approach_alignment": 0.9611189788018258,
+        "full_rotation_error_deg": 25.30841068140427,
+        "tilt_deg": 14.167679277982922,
+        "wall_gap_m": -0.000978506738234422,
+        "aperture_m": 0.07779079303145409
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04424870610172353,
+        "closing_alignment": 0.8863190063894957,
+        "approach_alignment": 0.9746289808684118,
+        "full_rotation_error_deg": 27.707821568305164,
+        "tilt_deg": 19.601463349246835,
+        "wall_gap_m": -0.002592567689877187,
+        "aperture_m": 0.08034162223339081
+      },
+      "max_sampled_tilt_deg": 19.667402017312707,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009421593431487668,
+          "normal": [
+            0.3038353479098921,
+            -0.0193137032293332,
+            -0.9525287723885533
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 85,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.04581574823493762,
+        "closing_alignment": 0.8627435567478321,
+        "approach_alignment": 0.8628152255765364,
+        "full_rotation_error_deg": 30.374936461584333,
+        "tilt_deg": 0.04062342159809481,
+        "wall_gap_m": 0.0003188054501904597,
+        "aperture_m": 0.05205436795949936
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05927031574657571,
+        "closing_alignment": 0.8955543686317312,
+        "approach_alignment": 0.9768995698160311,
+        "full_rotation_error_deg": 26.558606266425464,
+        "tilt_deg": 20.568778411150824,
+        "wall_gap_m": -0.0029915906690718697,
+        "aperture_m": 0.08148034289479256
+      },
+      "max_sampled_tilt_deg": 20.64739315499564,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 86,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03168974648182843,
+        "closing_alignment": 0.9279338323955945,
+        "approach_alignment": 0.9584507133446523,
+        "full_rotation_error_deg": 22.022667233124267,
+        "tilt_deg": 14.386456471632666,
+        "wall_gap_m": -0.0007186397314453419,
+        "aperture_m": 0.07918140664696693
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04719416003422842,
+        "closing_alignment": 0.880255274086251,
+        "approach_alignment": 0.9765719249457346,
+        "full_rotation_error_deg": 28.437707083103195,
+        "tilt_deg": 20.005725565250216,
+        "wall_gap_m": -0.002746377914900004,
+        "aperture_m": 0.08085854724049568
+      },
+      "max_sampled_tilt_deg": 20.141266734370397,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0006145857205833441,
+          "normal": [
+            0.3023734154835125,
+            -0.02193261158609495,
+            -0.9529371847912373
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 87,
+      "closest": {
+        "step": 80,
+        "distance_m": 0.02600567985649069,
+        "closing_alignment": 0.9614725548908172,
+        "approach_alignment": 0.9821170221055375,
+        "full_rotation_error_deg": 16.363103161845963,
+        "tilt_deg": 7.039233412219382,
+        "wall_gap_m": -0.0008068880258779096,
+        "aperture_m": 0.07686568424105644
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04173186859080877,
+        "closing_alignment": 0.9150802221117649,
+        "approach_alignment": 0.975202533713458,
+        "full_rotation_error_deg": 23.896135745861862,
+        "tilt_deg": 20.25150893276045,
+        "wall_gap_m": -0.0025618996516933237,
+        "aperture_m": 0.08017333969473839
+      },
+      "max_sampled_tilt_deg": 20.515081275960515,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0010961685067862553,
+          "normal": [
+            0.2836100132217565,
+            -0.014576166939966575,
+            -0.9588289189202074
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.017947685277219495,
+        "closing_alignment": 0.9496123984160517,
+        "approach_alignment": 0.9474245336830722,
+        "full_rotation_error_deg": 19.615495835029108,
+        "tilt_deg": 12.327712502167579,
+        "wall_gap_m": -0.0014555283646782227,
+        "aperture_m": 0.07998524978756905
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.044124002082263795,
+        "closing_alignment": 0.9744452194156559,
+        "approach_alignment": 0.9781025353539017,
+        "full_rotation_error_deg": 13.023653577074832,
+        "tilt_deg": 19.93510636437859,
+        "wall_gap_m": -0.002329845425712865,
+        "aperture_m": 0.07996146008372307
+      },
+      "max_sampled_tilt_deg": 19.93510636437859,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001145669119430332,
+          "normal": [
+            0.29777867404305164,
+            -0.00858861330923659,
+            -0.9545963005410123
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 89,
+      "closest": {
+        "step": 180,
+        "distance_m": 0.03419011943730021,
+        "closing_alignment": 0.9549716680932255,
+        "approach_alignment": 0.9575209811146017,
+        "full_rotation_error_deg": 18.85377326732367,
+        "tilt_deg": 17.487400767031726,
+        "wall_gap_m": -0.0012264709415766711,
+        "aperture_m": 0.08157328143715858
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0460706581628292,
+        "closing_alignment": 0.9278366032378481,
+        "approach_alignment": 0.9776677931317094,
+        "full_rotation_error_deg": 21.96967460306226,
+        "tilt_deg": 21.057380684493303,
+        "wall_gap_m": -0.002552226045887937,
+        "aperture_m": 0.08062940835952759
+      },
+      "max_sampled_tilt_deg": 21.123868002939258,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00033205100384517926,
+          "normal": [
+            0.32781214836742134,
+            -0.034358600755434676,
+            -0.9441179385738121
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 90,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03467308992130108,
+        "closing_alignment": 0.9419163102223986,
+        "approach_alignment": 0.9470885275648692,
+        "full_rotation_error_deg": 19.741338610008555,
+        "tilt_deg": 0.011057939205486254,
+        "wall_gap_m": 0.0001222888768445743,
+        "aperture_m": 0.060583874583244324
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06863213112065067,
+        "closing_alignment": 0.8776192841504501,
+        "approach_alignment": 0.9797444935202266,
+        "full_rotation_error_deg": 28.754798080299256,
+        "tilt_deg": 20.22491069292252,
+        "wall_gap_m": -0.0026439989427872873,
+        "aperture_m": 0.08017217740416527
+      },
+      "max_sampled_tilt_deg": 20.711257124387544,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 91,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.04849890744935164,
+        "closing_alignment": 0.8457183906065967,
+        "approach_alignment": 0.9927164365274594,
+        "full_rotation_error_deg": 32.392938946396285,
+        "tilt_deg": 6.356338516007656,
+        "wall_gap_m": -0.0017836089247700027,
+        "aperture_m": 0.09008756652474403
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05351797657356592,
+        "closing_alignment": 0.9019776387818099,
+        "approach_alignment": 0.9783709455536378,
+        "full_rotation_error_deg": 25.67647699477837,
+        "tilt_deg": 21.020608693266862,
+        "wall_gap_m": -0.0029214095417191277,
+        "aperture_m": 0.0815875492990017
+      },
+      "max_sampled_tilt_deg": 21.176182538673228,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0035218298470083586,
+          "normal": [
+            0.3157949010733364,
+            -0.042695858594494276,
+            -0.9478663640592807
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0033725972610785166,
+          "normal": [
+            0.3157949010733364,
+            -0.042695858594494276,
+            -0.9478663640592807
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.057009031964387905,
+        "closing_alignment": 0.8551309964835239,
+        "approach_alignment": 0.9883637666120052,
+        "full_rotation_error_deg": 31.71603246605,
+        "tilt_deg": 7.165944015320193,
+        "wall_gap_m": -0.0015136939025921364,
+        "aperture_m": 0.09141098335385323
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06528451809462808,
+        "closing_alignment": 0.873470320950643,
+        "approach_alignment": 0.9817452542108676,
+        "full_rotation_error_deg": 29.25133673121744,
+        "tilt_deg": 20.915243175855633,
+        "wall_gap_m": -0.002911743009404888,
+        "aperture_m": 0.08092764019966125
+      },
+      "max_sampled_tilt_deg": 21.38561231078581,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003473906274571853,
+          "normal": [
+            0.32297624963310306,
+            -0.051401160823851356,
+            -0.9450101919232915
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0035209315427085545,
+          "normal": [
+            0.32297624963310306,
+            -0.051401160823851356,
+            -0.9450101919232915
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 93,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.028613874644207067,
+        "closing_alignment": 0.9135921753165508,
+        "approach_alignment": 0.9593528816983119,
+        "full_rotation_error_deg": 24.02096473135229,
+        "tilt_deg": 12.686804721860787,
+        "wall_gap_m": -0.0013810211919607907,
+        "aperture_m": 0.08073820546269417
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.031838605223744286,
+        "closing_alignment": 0.8963905217928009,
+        "approach_alignment": 0.9651319303101136,
+        "full_rotation_error_deg": 26.67511692335573,
+        "tilt_deg": 18.06263778533299,
+        "wall_gap_m": -0.0028559540103788514,
+        "aperture_m": 0.08325956016778946
+      },
+      "max_sampled_tilt_deg": 18.06263778533299,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001063365920696919,
+          "normal": [
+            0.3014420356315181,
+            -0.019523513466482748,
+            -0.95328460156254
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0025633193643532395,
+          "normal": [
+            0.3014420356315181,
+            -0.019523513466482748,
+            -0.95328460156254
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00023652129607701995,
+          "normal": [
+            0.3014420356315181,
+            -0.019523513466482748,
+            -0.95328460156254
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 94,
+      "closest": {
+        "step": 240,
+        "distance_m": 0.026753522356491675,
+        "closing_alignment": 0.9489740741210786,
+        "approach_alignment": 0.9575626165855368,
+        "full_rotation_error_deg": 18.997363128178883,
+        "tilt_deg": 16.1735646498701,
+        "wall_gap_m": -0.000999646263138712,
+        "aperture_m": 0.08001852035522461
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03967885121432008,
+        "closing_alignment": 0.9409918233409709,
+        "approach_alignment": 0.975756555967853,
+        "full_rotation_error_deg": 19.86619383762065,
+        "tilt_deg": 20.303474094286617,
+        "wall_gap_m": -0.0024899861675529225,
+        "aperture_m": 0.08205809071660042
+      },
+      "max_sampled_tilt_deg": 20.303474094286617,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0020079931311611514,
+          "normal": [
+            0.314862559498266,
+            -0.01255606953595428,
+            -0.9490542206554953
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 95,
+      "closest": {
+        "step": 140,
+        "distance_m": 0.027159234716210044,
+        "closing_alignment": 0.9409133214108072,
+        "approach_alignment": 0.957160692228187,
+        "full_rotation_error_deg": 20.255902327597212,
+        "tilt_deg": 13.102106521114004,
+        "wall_gap_m": -0.0008844731017001312,
+        "aperture_m": 0.07928837835788727
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.033805323008551186,
+        "closing_alignment": 0.9405475801590658,
+        "approach_alignment": 0.9726970188697236,
+        "full_rotation_error_deg": 19.9874778152804,
+        "tilt_deg": 19.756962281724885,
+        "wall_gap_m": -0.0025154856025377745,
+        "aperture_m": 0.0814780555665493
+      },
+      "max_sampled_tilt_deg": 19.756962281724885,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0005679160537946072,
+          "normal": [
+            0.3080921697576805,
+            -0.014094584474948069,
+            -0.9512520999306562
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0026093497041373794,
+          "normal": [
+            0.3080921697576805,
+            -0.014094584474948069,
+            -0.9512520999306562
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "closest": {
+        "step": 290,
+        "distance_m": 0.025180091161237986,
+        "closing_alignment": 0.9345783323027917,
+        "approach_alignment": 0.9704567742250907,
+        "full_rotation_error_deg": 20.84546351615982,
+        "tilt_deg": 8.519125207099709,
+        "wall_gap_m": -0.001782060245847747,
+        "aperture_m": 0.07406137138605118
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.02565596220528631,
+        "closing_alignment": 0.9165428511243457,
+        "approach_alignment": 0.9605388092161853,
+        "full_rotation_error_deg": 23.75094218207998,
+        "tilt_deg": 12.164785693306705,
+        "wall_gap_m": -0.002351179031528497,
+        "aperture_m": 0.08096770942211151
+      },
+      "max_sampled_tilt_deg": 12.164785693306705,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0016483688295751927,
+          "normal": [
+            0.2789563859096104,
+            -0.018490164414674288,
+            -0.9601257462333603
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0027223282715066713,
+          "normal": [
+            0.2789563859096104,
+            -0.018490164414674288,
+            -0.9601257462333603
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00047000777422974183,
+          "normal": [
+            0.2789563859096104,
+            -0.018490164414674288,
+            -0.9601257462333603
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 97,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03473618499695325,
+        "closing_alignment": 0.9375806817001308,
+        "approach_alignment": 0.9604383854712049,
+        "full_rotation_error_deg": 21.049108086353346,
+        "tilt_deg": 15.650655157483776,
+        "wall_gap_m": -0.001127416616987488,
+        "aperture_m": 0.08235471695661545
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04694421619011237,
+        "closing_alignment": 0.8919065395799578,
+        "approach_alignment": 0.9762323373320341,
+        "full_rotation_error_deg": 27.022866394736226,
+        "tilt_deg": 20.311287380975116,
+        "wall_gap_m": -0.0026444250743294997,
+        "aperture_m": 0.08027755469083786
+      },
+      "max_sampled_tilt_deg": 20.53353742547861,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00038333604261735953,
+          "normal": [
+            0.31506223640561515,
+            -0.03550094810237064,
+            -0.9484068061095541
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 98,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03457151057602411,
+        "closing_alignment": 0.9274882162880799,
+        "approach_alignment": 0.9602326611225515,
+        "full_rotation_error_deg": 22.0926043008494,
+        "tilt_deg": 14.385844131410183,
+        "wall_gap_m": -0.0007247380690566449,
+        "aperture_m": 0.07801477611064911
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04822245354953476,
+        "closing_alignment": 0.8824197755375974,
+        "approach_alignment": 0.976969793917721,
+        "full_rotation_error_deg": 28.173315569967613,
+        "tilt_deg": 20.14815539826072,
+        "wall_gap_m": -0.002726468212250706,
+        "aperture_m": 0.08032956346869469
+      },
+      "max_sampled_tilt_deg": 20.266283596583488,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0005373657896314634,
+          "normal": [
+            0.30792930045823697,
+            -0.02116078288362939,
+            -0.9511738890376739
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 99,
+      "closest": {
+        "step": 130,
+        "distance_m": 0.03987796913190388,
+        "closing_alignment": 0.9306697444457275,
+        "approach_alignment": 0.9685529581568612,
+        "full_rotation_error_deg": 21.579538654704653,
+        "tilt_deg": 15.375874384733624,
+        "wall_gap_m": -0.001559739371878005,
+        "aperture_m": 0.08309849351644516
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04475965999150103,
+        "closing_alignment": 0.8768579803425786,
+        "approach_alignment": 0.9738111188543449,
+        "full_rotation_error_deg": 28.942357826400528,
+        "tilt_deg": 19.75756951840812,
+        "wall_gap_m": -0.002957510398877039,
+        "aperture_m": 0.08181421831250191
+      },
+      "max_sampled_tilt_deg": 20.03204051248434,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007384485411025344,
+          "normal": [
+            0.3341428184361292,
+            -0.03155174109829583,
+            -0.9419941955878637
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0026313844619620104,
+          "normal": [
+            0.3341428184361292,
+            -0.03155174109829583,
+            -0.9419941955878637
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "closest": {
+        "step": 180,
+        "distance_m": 0.02278910733868716,
+        "closing_alignment": 0.9617686995156465,
+        "approach_alignment": 0.9549133627689332,
+        "full_rotation_error_deg": 17.31058696694683,
+        "tilt_deg": 16.50755159784584,
+        "wall_gap_m": -0.0013179176472728968,
+        "aperture_m": 0.07814252376556396
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.041015839994092355,
+        "closing_alignment": 0.9521746082024641,
+        "approach_alignment": 0.9777490731676954,
+        "full_rotation_error_deg": 17.857625125901425,
+        "tilt_deg": 21.205459731875283,
+        "wall_gap_m": -0.0026128014464265603,
+        "aperture_m": 0.08202578127384186
+      },
+      "max_sampled_tilt_deg": 21.206132211093376,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0021637233654443508,
+          "normal": [
+            0.3272657461526697,
+            -0.012514471418162625,
+            -0.94484946917499
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 101,
+      "closest": {
+        "step": 190,
+        "distance_m": 0.027620036023941037,
+        "closing_alignment": 0.9414368703350092,
+        "approach_alignment": 0.9566069931034552,
+        "full_rotation_error_deg": 20.30885613628922,
+        "tilt_deg": 15.958782084247636,
+        "wall_gap_m": -0.0013466270070085634,
+        "aperture_m": 0.07843499258160591
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03363495310777673,
+        "closing_alignment": 0.9234243211562772,
+        "approach_alignment": 0.9734287700930111,
+        "full_rotation_error_deg": 22.77285983383579,
+        "tilt_deg": 20.142237049265876,
+        "wall_gap_m": -0.0029066700031588205,
+        "aperture_m": 0.08338705450296402
+      },
+      "max_sampled_tilt_deg": 20.15309584804432,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -8.879919480502788e-05,
+          "normal": [
+            0.3080603680468645,
+            -0.015579427539908503,
+            -0.9512392396639026
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002335918615609737,
+          "normal": [
+            0.3080603680468645,
+            -0.015579427539908503,
+            -0.9512392396639026
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 102,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.021743363633345666,
+        "closing_alignment": 0.9560185250692396,
+        "approach_alignment": 0.958507471540773,
+        "full_rotation_error_deg": 17.777682806109876,
+        "tilt_deg": 16.154012668044402,
+        "wall_gap_m": -0.0010218344168304444,
+        "aperture_m": 0.08043529465794563
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.041651328610394056,
+        "closing_alignment": 0.9147648739926415,
+        "approach_alignment": 0.9765850836933545,
+        "full_rotation_error_deg": 23.91862646691619,
+        "tilt_deg": 20.618038682733694,
+        "wall_gap_m": -0.0024809877830878416,
+        "aperture_m": 0.08016322180628777
+      },
+      "max_sampled_tilt_deg": 20.785508130392284,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0016332461219283904,
+          "normal": [
+            0.3221476391982305,
+            -0.015619434320817822,
+            -0.9465605801165103
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 103,
+      "closest": {
+        "step": 180,
+        "distance_m": 0.03824718428844278,
+        "closing_alignment": 0.8993265277476747,
+        "approach_alignment": 0.9718206626648525,
+        "full_rotation_error_deg": 26.269667189646473,
+        "tilt_deg": 17.44714848486053,
+        "wall_gap_m": -0.004305295357755201,
+        "aperture_m": 0.0852339081466198
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04212505281346609,
+        "closing_alignment": 0.8862931723889342,
+        "approach_alignment": 0.9721821257515407,
+        "full_rotation_error_deg": 27.777777777232966,
+        "tilt_deg": 19.35827010668512,
+        "wall_gap_m": -0.0029407222105298225,
+        "aperture_m": 0.08172975480556488
+      },
+      "max_sampled_tilt_deg": 19.402311630449166,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002709750990967288,
+          "normal": [
+            0.3564437271718342,
+            -0.04900543727939125,
+            -0.9330307264377239
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003137375891726508,
+          "normal": [
+            0.3564437271718342,
+            -0.04900543727939125,
+            -0.9330307264377239
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001825860966422281,
+          "normal": [
+            0.3564437271718342,
+            -0.04900543727939125,
+            -0.9330307264377239
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.04108819077065589,
+        "closing_alignment": 0.9254223005637089,
+        "approach_alignment": 0.96509409197906,
+        "full_rotation_error_deg": 22.37890075999761,
+        "tilt_deg": 15.819037744889242,
+        "wall_gap_m": -0.0009928676064820605,
+        "aperture_m": 0.0799010880291462
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05326730090159958,
+        "closing_alignment": 0.880070847916847,
+        "approach_alignment": 0.9791049380204422,
+        "full_rotation_error_deg": 28.45368686780455,
+        "tilt_deg": 20.221130166835152,
+        "wall_gap_m": -0.002659570654638503,
+        "aperture_m": 0.08035797253251076
+      },
+      "max_sampled_tilt_deg": 20.747215067704015,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0005049394862986663,
+          "normal": [
+            0.3212841394083123,
+            -0.027571863088176746,
+            -0.9465813721653872
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 105,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.04458085006660272,
+        "closing_alignment": 0.9405677835138732,
+        "approach_alignment": 0.9672482836389745,
+        "full_rotation_error_deg": 19.90340618185585,
+        "tilt_deg": 15.81170741345809,
+        "wall_gap_m": -0.001066073474797924,
+        "aperture_m": 0.08195611461997032
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06020176385832736,
+        "closing_alignment": 0.8715790330797377,
+        "approach_alignment": 0.9805739568909215,
+        "full_rotation_error_deg": 29.480365107771597,
+        "tilt_deg": 20.405006997582024,
+        "wall_gap_m": -0.0028209730640210637,
+        "aperture_m": 0.08073058724403381
+      },
+      "max_sampled_tilt_deg": 20.70683418768141,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0010089299432737818,
+          "normal": [
+            0.3316014494005208,
+            -0.039089671010482545,
+            -0.9426093975638936
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 106,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.02972966407493165,
+        "closing_alignment": 0.9550367028668646,
+        "approach_alignment": 0.9581519102355978,
+        "full_rotation_error_deg": 18.28170709671985,
+        "tilt_deg": 17.729741973879136,
+        "wall_gap_m": -0.001177855600824132,
+        "aperture_m": 0.08146750926971436
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04725062335073134,
+        "closing_alignment": 0.9109903644085298,
+        "approach_alignment": 0.9765158686855892,
+        "full_rotation_error_deg": 24.463887576127,
+        "tilt_deg": 20.597119515751604,
+        "wall_gap_m": -0.0025489786801383973,
+        "aperture_m": 0.08039159700274467
+      },
+      "max_sampled_tilt_deg": 20.81888725089862,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0006645288949658633,
+          "normal": [
+            0.32275148609884236,
+            -0.03084211161480018,
+            -0.9459811004307269
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 107,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.022861074754341355,
+        "closing_alignment": 0.9442641053604565,
+        "approach_alignment": 0.9496504383754795,
+        "full_rotation_error_deg": 19.225643909355,
+        "tilt_deg": 0.03387627437693335,
+        "wall_gap_m": -6.043007716356047e-05,
+        "aperture_m": 0.06110602430999279
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04474679619339629,
+        "closing_alignment": 0.9242453110777981,
+        "approach_alignment": 0.9737220100360642,
+        "full_rotation_error_deg": 22.629680250887052,
+        "tilt_deg": 20.0870963817561,
+        "wall_gap_m": -0.0030944118462272324,
+        "aperture_m": 0.08311724662780762
+      },
+      "max_sampled_tilt_deg": 20.118393731021182,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 108,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.03521465752396573,
+        "closing_alignment": 0.9325289408915691,
+        "approach_alignment": 0.9621293026685281,
+        "full_rotation_error_deg": 21.293738483022363,
+        "tilt_deg": 15.201503563722353,
+        "wall_gap_m": -0.0010436307746571824,
+        "aperture_m": 0.08032580837607384
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05340950537507639,
+        "closing_alignment": 0.8798321725106933,
+        "approach_alignment": 0.9782125260325183,
+        "full_rotation_error_deg": 28.476766652827504,
+        "tilt_deg": 19.852801053324455,
+        "wall_gap_m": -0.0025853696187133277,
+        "aperture_m": 0.08003510162234306
+      },
+      "max_sampled_tilt_deg": 20.32532915204387,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00115038225959313,
+          "normal": [
+            0.3141153514976574,
+            -0.028184916957657475,
+            -0.9489663621064727
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 109,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.05617172014475015,
+        "closing_alignment": 0.8540859812684987,
+        "approach_alignment": 0.9920754117045506,
+        "full_rotation_error_deg": 31.62404065241152,
+        "tilt_deg": 6.2297173007824815,
+        "wall_gap_m": -0.0009034049558240137,
+        "aperture_m": 0.09087817370891571
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06052397792855028,
+        "closing_alignment": 0.8653389350269769,
+        "approach_alignment": 0.9813314175930891,
+        "full_rotation_error_deg": 30.241356088202426,
+        "tilt_deg": 20.9931172705406,
+        "wall_gap_m": -0.0033660753800278803,
+        "aperture_m": 0.08200822025537491
+      },
+      "max_sampled_tilt_deg": 21.324116982889038,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0033668640445787762,
+          "normal": [
+            0.32264060766384967,
+            -0.04672570537674889,
+            -0.9453675194036165
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0033307654002436697,
+          "normal": [
+            0.32264060766384967,
+            -0.04672570537674889,
+            -0.9453675194036165
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 110,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.04046342660251019,
+        "closing_alignment": 0.926529102649729,
+        "approach_alignment": 0.9308690613466608,
+        "full_rotation_error_deg": 22.128842098832198,
+        "tilt_deg": 0.007265530363144605,
+        "wall_gap_m": -3.2594069278996107e-07,
+        "aperture_m": 0.053776299580931664
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0597818250030726,
+        "closing_alignment": 0.8811801989618587,
+        "approach_alignment": 0.9777424929892087,
+        "full_rotation_error_deg": 28.348656944613982,
+        "tilt_deg": 20.50011562942887,
+        "wall_gap_m": -0.002794389368100808,
+        "aperture_m": 0.08060980215668678
+      },
+      "max_sampled_tilt_deg": 20.660737381625236,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 111,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.03145018148455591,
+        "closing_alignment": 0.9376293590417721,
+        "approach_alignment": 0.9690161283876958,
+        "full_rotation_error_deg": 20.916365189873556,
+        "tilt_deg": 0.007456504522380341,
+        "wall_gap_m": -3.236886138541922e-05,
+        "aperture_m": 0.062242813408374786
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05341067250979986,
+        "closing_alignment": 0.8709296837605525,
+        "approach_alignment": 0.9798886857168541,
+        "full_rotation_error_deg": 29.57936783706236,
+        "tilt_deg": 20.507488872947473,
+        "wall_gap_m": -0.0028687541989875012,
+        "aperture_m": 0.08112681284546852
+      },
+      "max_sampled_tilt_deg": 20.813782279780604,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 112,
+      "closest": {
+        "step": 150,
+        "distance_m": 0.027280865587861903,
+        "closing_alignment": 0.9462484343413532,
+        "approach_alignment": 0.9502461295702164,
+        "full_rotation_error_deg": 19.877588046386364,
+        "tilt_deg": 10.60115218712205,
+        "wall_gap_m": -0.0011486213581021962,
+        "aperture_m": 0.08056526631116867
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.0477145671041765,
+        "closing_alignment": 0.96061167313359,
+        "approach_alignment": 0.9779724235231922,
+        "full_rotation_error_deg": 16.157842231396494,
+        "tilt_deg": 20.813492003279087,
+        "wall_gap_m": -0.0024479225470997526,
+        "aperture_m": 0.08090787008404732
+      },
+      "max_sampled_tilt_deg": 20.813492003279087,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0014189150976046544,
+          "normal": [
+            0.29840621089802605,
+            -0.010336033256042166,
+            -0.9543829942502187
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 113,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.0453767256673567,
+        "closing_alignment": 0.8125435276808002,
+        "approach_alignment": 0.9765434260314173,
+        "full_rotation_error_deg": 35.674372595258006,
+        "tilt_deg": 0.0003698219865245126,
+        "wall_gap_m": 0.00014262585605442218,
+        "aperture_m": 0.07508264482021332
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04960705184440267,
+        "closing_alignment": 0.8696040192252564,
+        "approach_alignment": 0.9765062544179572,
+        "full_rotation_error_deg": 29.752085054420736,
+        "tilt_deg": 20.043765329624808,
+        "wall_gap_m": -0.0028863132172953776,
+        "aperture_m": 0.08170674741268158
+      },
+      "max_sampled_tilt_deg": 20.146538271098475,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 114,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.04187411381414234,
+        "closing_alignment": 0.9092288428971106,
+        "approach_alignment": 0.9653057253362443,
+        "full_rotation_error_deg": 24.672271028813682,
+        "tilt_deg": 15.847948331532223,
+        "wall_gap_m": -0.0011919348722838272,
+        "aperture_m": 0.07983918488025665
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.048427331576866274,
+        "closing_alignment": 0.8845869208440915,
+        "approach_alignment": 0.975978000929826,
+        "full_rotation_error_deg": 27.93664359843852,
+        "tilt_deg": 20.05975508266163,
+        "wall_gap_m": -0.002647069740024849,
+        "aperture_m": 0.0808611623942852
+      },
+      "max_sampled_tilt_deg": 20.294406201871535,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0011738994545788654,
+          "normal": [
+            0.31762968252488616,
+            -0.02384608305091593,
+            -0.9479149482428626
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 115,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.034796975889808436,
+        "closing_alignment": 0.9430647323402271,
+        "approach_alignment": 0.9713569938317412,
+        "full_rotation_error_deg": 20.07486404939231,
+        "tilt_deg": 0.02228147147110496,
+        "wall_gap_m": 4.019627861590047e-06,
+        "aperture_m": 0.06597647815942764
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05780797883048142,
+        "closing_alignment": 0.8784494599195583,
+        "approach_alignment": 0.9806313755318826,
+        "full_rotation_error_deg": 28.662190007976047,
+        "tilt_deg": 20.72749331652998,
+        "wall_gap_m": -0.002846602160673721,
+        "aperture_m": 0.08041967824101448
+      },
+      "max_sampled_tilt_deg": 21.060674419749745,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 116,
+      "closest": {
+        "step": 70,
+        "distance_m": 0.05189283013796211,
+        "closing_alignment": 0.9423277116069819,
+        "approach_alignment": 0.9603249212258617,
+        "full_rotation_error_deg": 19.56518225583516,
+        "tilt_deg": 10.024653872928779,
+        "wall_gap_m": -0.0008622060085718697,
+        "aperture_m": 0.08144652098417282
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.07490882212357014,
+        "closing_alignment": 0.8777833047118074,
+        "approach_alignment": 0.9803245937930073,
+        "full_rotation_error_deg": 28.754256939386465,
+        "tilt_deg": 20.490818302014265,
+        "wall_gap_m": -0.002844729999331455,
+        "aperture_m": 0.0791860967874527
+      },
+      "max_sampled_tilt_deg": 20.598809224569816,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0008968786485045938,
+          "normal": [
+            0.3111905719221014,
+            -0.0363733198924524,
+            -0.9496512041517122
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 117,
+      "closest": {
+        "step": 120,
+        "distance_m": 0.036480864318859496,
+        "closing_alignment": 0.9504912690084042,
+        "approach_alignment": 0.9669213109358458,
+        "full_rotation_error_deg": 18.3055601757427,
+        "tilt_deg": 16.596983216886763,
+        "wall_gap_m": -0.0009515616852878162,
+        "aperture_m": 0.08084917813539505
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05604556017830574,
+        "closing_alignment": 0.8821103504725472,
+        "approach_alignment": 0.9798374094670971,
+        "full_rotation_error_deg": 28.212019941109947,
+        "tilt_deg": 20.556389586938906,
+        "wall_gap_m": -0.0027332699860248763,
+        "aperture_m": 0.08052283525466919
+      },
+      "max_sampled_tilt_deg": 21.175975894495775,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0016866419767941577,
+          "normal": [
+            0.33698135834260673,
+            -0.0317296574948102,
+            -0.9409765103151267
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 118,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.04475076996200939,
+        "closing_alignment": 0.9297706417183179,
+        "approach_alignment": 0.9713104026061639,
+        "full_rotation_error_deg": 21.836848236633983,
+        "tilt_deg": 16.88415310669775,
+        "wall_gap_m": -0.0016183406714004658,
+        "aperture_m": 0.08233954384922981
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04925302079590296,
+        "closing_alignment": 0.8750206774157772,
+        "approach_alignment": 0.9804553495682257,
+        "full_rotation_error_deg": 29.057737311400984,
+        "tilt_deg": 21.11304455537623,
+        "wall_gap_m": -0.0033499864221950837,
+        "aperture_m": 0.0827142745256424
+      },
+      "max_sampled_tilt_deg": 21.43908754750193,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.002053641366565874,
+          "normal": [
+            0.34352475581710545,
+            -0.035428114513015835,
+            -0.9384751413025552
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 119,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.03838327559410951,
+        "closing_alignment": 0.9025099476772879,
+        "approach_alignment": 0.964986092579935,
+        "full_rotation_error_deg": 25.92373025171083,
+        "tilt_deg": 13.898507738723039,
+        "wall_gap_m": -0.003683233489839788,
+        "aperture_m": 0.08458461984992027
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04209516217100081,
+        "closing_alignment": 0.8980245329531942,
+        "approach_alignment": 0.9689797560293936,
+        "full_rotation_error_deg": 26.352864937877822,
+        "tilt_deg": 17.337672018454324,
+        "wall_gap_m": -0.0028089978654815898,
+        "aperture_m": 0.08247742056846619
+      },
+      "max_sampled_tilt_deg": 17.337672018454324,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0029939864361155535,
+          "normal": [
+            0.3344853794222494,
+            -0.046362788597549574,
+            -0.9412598062098545
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00327508623397561,
+          "normal": [
+            0.3344853794222494,
+            -0.046362788597549574,
+            -0.9412598062098545
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0018276426679102915,
+          "normal": [
+            0.3344853794222494,
+            -0.046362788597549574,
+            -0.9412598062098545
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.048022533541468994,
+        "closing_alignment": 0.9258020449303408,
+        "approach_alignment": 0.9394266715958978,
+        "full_rotation_error_deg": 22.53273899679841,
+        "tilt_deg": 0.11139370478637743,
+        "wall_gap_m": 0.00093616531303925,
+        "aperture_m": 0.05510570853948593
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06042531462767276,
+        "closing_alignment": 0.8716086924741551,
+        "approach_alignment": 0.9829862649873474,
+        "full_rotation_error_deg": 29.477171471645185,
+        "tilt_deg": 21.299470100891025,
+        "wall_gap_m": -0.0029329642720668306,
+        "aperture_m": 0.08137745037674904
+      },
+      "max_sampled_tilt_deg": 21.641028015522195,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 121,
+      "closest": {
+        "step": 30,
+        "distance_m": 0.0491236894291548,
+        "closing_alignment": 0.9014270549710575,
+        "approach_alignment": 0.9189741768561704,
+        "full_rotation_error_deg": 25.67502953616018,
+        "tilt_deg": 0.00995811384225245,
+        "wall_gap_m": 0.00029669113206196723,
+        "aperture_m": 0.055037785321474075
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05482349994882387,
+        "closing_alignment": 0.8727648116565607,
+        "approach_alignment": 0.9795494088869944,
+        "full_rotation_error_deg": 29.334321486420865,
+        "tilt_deg": 20.170632724800384,
+        "wall_gap_m": -0.0027416663594566557,
+        "aperture_m": 0.08084818348288536
+      },
+      "max_sampled_tilt_deg": 20.640565243106423,
+      "closest_contacts": []
+    },
+    {
+      "env_id": 122,
+      "closest": {
+        "step": 100,
+        "distance_m": 0.03559789683980287,
+        "closing_alignment": 0.9197106274169145,
+        "approach_alignment": 0.9666489444274569,
+        "full_rotation_error_deg": 23.170942977669473,
+        "tilt_deg": 9.24447590199726,
+        "wall_gap_m": -0.0008975845258607992,
+        "aperture_m": 0.08000855520367622
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04287503854994396,
+        "closing_alignment": 0.9158199503901974,
+        "approach_alignment": 0.9751501935507153,
+        "full_rotation_error_deg": 23.798456293588657,
+        "tilt_deg": 20.338421673025724,
+        "wall_gap_m": -0.0025325385478510085,
+        "aperture_m": 0.0811481699347496
+      },
+      "max_sampled_tilt_deg": 20.349549655899576,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.001044010681099153,
+          "normal": [
+            0.2923045779138982,
+            -0.015837722499120774,
+            -0.9561941226950826
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 123,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.035651437386690465,
+        "closing_alignment": 0.9135215978696742,
+        "approach_alignment": 0.9610437074642314,
+        "full_rotation_error_deg": 24.098527277194915,
+        "tilt_deg": 12.728994169677653,
+        "wall_gap_m": -0.0010480085329857627,
+        "aperture_m": 0.08120967075228691
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.03942275341792336,
+        "closing_alignment": 0.8715859222564543,
+        "approach_alignment": 0.9711326602353054,
+        "full_rotation_error_deg": 29.56342781184624,
+        "tilt_deg": 18.975816643034648,
+        "wall_gap_m": -0.0030767942790195443,
+        "aperture_m": 0.08271772041916847
+      },
+      "max_sampled_tilt_deg": 19.020459544152352,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0005818161993515077,
+          "normal": [
+            0.3047842961435026,
+            -0.02348334292239257,
+            -0.9521318529644407
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0024579224179587405,
+          "normal": [
+            0.3047842961435026,
+            -0.02348334292239257,
+            -0.9521318529644407
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "closest": {
+        "step": 110,
+        "distance_m": 0.038526135571771085,
+        "closing_alignment": 0.9231231034580567,
+        "approach_alignment": 0.95945858317098,
+        "full_rotation_error_deg": 22.934242006203792,
+        "tilt_deg": 13.564016598688667,
+        "wall_gap_m": -0.0011946111503911769,
+        "aperture_m": 0.08140337467193604
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04436534300508381,
+        "closing_alignment": 0.8919148556456242,
+        "approach_alignment": 0.9727652195693579,
+        "full_rotation_error_deg": 27.048460896031987,
+        "tilt_deg": 19.415820284333275,
+        "wall_gap_m": -0.0026240738134983635,
+        "aperture_m": 0.08122074604034424
+      },
+      "max_sampled_tilt_deg": 19.50173165498174,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0022480645413444373,
+          "normal": [
+            0.3037788799307856,
+            -0.025597110789226184,
+            -0.9523986455404277
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 125,
+      "closest": {
+        "step": 40,
+        "distance_m": 0.049082709435903274,
+        "closing_alignment": 0.8497633384738967,
+        "approach_alignment": 0.9931598726343752,
+        "full_rotation_error_deg": 32.00362257754527,
+        "tilt_deg": 5.835180194165083,
+        "wall_gap_m": -0.0008824996274590935,
+        "aperture_m": 0.09120799228549004
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.05598223113432231,
+        "closing_alignment": 0.8692475343570438,
+        "approach_alignment": 0.9727453534295387,
+        "full_rotation_error_deg": 29.797239906628512,
+        "tilt_deg": 18.782389832152575,
+        "wall_gap_m": -0.0027779195165684514,
+        "aperture_m": 0.08107380196452141
+      },
+      "max_sampled_tilt_deg": 18.800793768801835,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0034654262413156616,
+          "normal": [
+            0.3117741678789137,
+            -0.04238255753463565,
+            -0.9492105072428532
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.003355201512505944,
+          "normal": [
+            0.3117741678789137,
+            -0.04238255753463565,
+            -0.9492105072428532
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 126,
+      "closest": {
+        "step": 160,
+        "distance_m": 0.02622354538386007,
+        "closing_alignment": 0.9481980173707923,
+        "approach_alignment": 0.9485258671258594,
+        "full_rotation_error_deg": 19.913164556129306,
+        "tilt_deg": 13.796066866918881,
+        "wall_gap_m": -0.0012870707061147513,
+        "aperture_m": 0.08018599823117256
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.04144084215382769,
+        "closing_alignment": 0.9567097386840968,
+        "approach_alignment": 0.9768984750935246,
+        "full_rotation_error_deg": 17.00930582294618,
+        "tilt_deg": 21.057871158344135,
+        "wall_gap_m": -0.002557431174785109,
+        "aperture_m": 0.08176951855421066
+      },
+      "max_sampled_tilt_deg": 21.057871158344135,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0007040852211462123,
+          "normal": [
+            0.2996750664964128,
+            -0.012727552534210327,
+            -0.9539564266395293
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 127,
+      "closest": {
+        "step": 170,
+        "distance_m": 0.05763245152521798,
+        "closing_alignment": 0.908131793974275,
+        "approach_alignment": 0.9770051197390363,
+        "full_rotation_error_deg": 25.050584879352638,
+        "tilt_deg": 17.796579586954632,
+        "wall_gap_m": -0.005021138516123139,
+        "aperture_m": 0.08612827584147453
+      },
+      "terminal": {
+        "step": 300,
+        "distance_m": 0.06149964838340519,
+        "closing_alignment": 0.8773162500926418,
+        "approach_alignment": 0.9778768228618094,
+        "full_rotation_error_deg": 28.83765997114797,
+        "tilt_deg": 20.6728175165761,
+        "wall_gap_m": -0.0036113470493732217,
+        "aperture_m": 0.08257506415247917
+      },
+      "max_sampled_tilt_deg": 20.6728175165761,
+      "closest_contacts": [
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0028507184178287286,
+          "normal": [
+            0.3721464769860896,
+            -0.06431945439024185,
+            -0.9259427668348534
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.00218812692254595,
+          "normal": [
+            0.3721464769860896,
+            -0.06431945439024185,
+            -0.9259427668348534
+          ]
+        },
+        {
+          "geoms": [
+            "robot/right_finger_pad",
+            "board/board_geom"
+          ],
+          "distance_m": -0.0009912886322632427,
+          "normal": [
+            0.3721464769860896,
+            -0.06431945439024185,
+            -0.9259427668348534
+          ]
+        }
+      ]
+    }
+  ]
+}

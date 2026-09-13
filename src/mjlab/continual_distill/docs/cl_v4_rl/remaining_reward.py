@@ -212,7 +212,11 @@ def pivot_wall_tilt_score(tilt, contact):
   return (tilt/(1-math.cos(math.radians(20)))).clamp(0,1)*contact
 
 
-def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False, contact_geometry=False, wrist_transition=False, **kwargs):
+def pivot_stage_reward(precursor, held, lift, goal, native, held_weight=8., native_weight=25.):
+  return precursor*(1-held)+held_weight*held+5*lift*held+5*goal*held+native_weight*native
+
+
+def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False, contact_geometry=False, wrist_transition=False, held_weight=8., native_weight=25., **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -248,4 +252,4 @@ def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False
   precursor = approach+2*wall_near+4*tilt*contact
   if wrist_transition:
     precursor += 8*pivot_wall_tilt_score(tilt,contact)
-  return precursor*(1-held)+8*held+5*lift*held+5*goal*held+25*native_success(command)
+  return pivot_stage_reward(precursor,held,lift,goal,native_success(command),held_weight,native_weight)

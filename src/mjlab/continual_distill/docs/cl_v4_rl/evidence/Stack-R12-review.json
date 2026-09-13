@@ -1,0 +1,21 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "45e03e51800dfeafb4178cfcf0a5d5636fa9d7989a47d6ef94d332ff6f0972ab",
+  "reviewed_utc": "2026-09-13T09:38:05.633524+00:00",
+  "verdict": "not certified",
+  "validation_successes": 101,
+  "episodes": 128,
+  "finite_tensors": 76,
+  "all_checkpoint_tensors_finite": true,
+  "saved_learning_rate": 1e-05,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success38 places/releases cube on support; CPU confirms0.492mmXY error,0.0413mmheight error, supportcontact/no robotcontact, negligible speed. Failure106 remainsgrasped while touchingbase,linear.2001/angular2.8393 fails settling. CPU labels agree128/128,101successes;126evercapture,119released,111supported. No confirmation below116.",
+  "terminal_audit": "stack_r12_clearance_audit.json"
+}

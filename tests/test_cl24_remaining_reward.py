@@ -270,3 +270,38 @@ def test_edge_capture_reward_bounds_and_wide_arrival(monkeypatch):
   max_pinch=reward.edge_side_pinch_score(torch.tensor(0.),torch.tensor(1.),2.).item()
   assert 4+3*max_pinch*2<14
   assert 14+6+4<25
+
+
+def test_pivot_capture_credit_repairs_tipping_to_grasp_drop(monkeypatch):
+  import math
+  reward=module(monkeypatch)
+  # Same20deg wall-supported state: isolate switching the opposed-contact
+  # classifier. The v4 tipping bonus made capture pay less at low lift/goal.
+  precursor=torch.tensor(1.5+2+4*(1-math.cos(math.radians(20)))+8)
+  held=torch.tensor([0.,1.]);zero=torch.zeros(2)
+  old=reward.pivot_stage_reward(precursor,held,zero,zero,zero)
+  assert old[1]<old[0]
+  new=reward.pivot_stage_reward(precursor,held,zero,zero,zero,16.,35.)
+  assert new[1]>new[0]
+  # Entire physical input domain, including the highest precursor and no
+  # downstream credit: the lowest held value exceeds all nonheld values.
+  assert 16>1.5+2+4+8
+  assert 16+5+5<35
+  grid=torch.linspace(0,1,101)
+  actual=reward.pivot_stage_reward(15.5*grid,grid.round(),grid,1-grid,grid.round())
+  legacy=15.5*grid*(1-grid.round())+8*grid.round()+5*grid*grid.round()+5*(1-grid)*grid.round()+25*grid.round()
+  torch.testing.assert_close(actual,legacy,rtol=0,atol=0)
+
+
+def test_pivot_capture_credit_recipe_preserves_benchmark_and_agent(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch);recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Pivot-Lift-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'pivot_v4');recipes.apply_recipe(new,'pivot_v5')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params.pop('held_weight')==16. and params.pop('native_weight')==35.
+  assert repr(old.env.rewards)==repr(new.env.rewards)

@@ -1,0 +1,21 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "56fba78314d1656c903e20c52dee77448ffbd73057440f15f5f6b6df38d7b56a",
+  "reviewed_utc": "2026-09-13T09:38:05.633524+00:00",
+  "verdict": "not certified",
+  "validation_successes": 57,
+  "episodes": 128,
+  "finite_tensors": 76,
+  "all_checkpoint_tensors_finite": true,
+  "saved_learning_rate": 1.25e-06,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "observations": "Actual success puck overlaps target; high-return failure ends just beyond it. Native position-only criterion retained.126substantiallaunches,36undershoots26overshoots12lateral misses>8cm. Median86.66mmendpoint error, similar to R9 86.21mm; half-noise experiment has not surpassed retained59/128. No confirmation.",
+  "terminal_audit": "strike_r12_endpoint_audit.json"
+}

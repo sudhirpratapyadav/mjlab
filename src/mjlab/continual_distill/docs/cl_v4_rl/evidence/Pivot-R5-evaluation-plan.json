@@ -1,0 +1,18 @@
+{
+  "preregistered_utc": "2026-09-13T09:23:22.033755+00:00",
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "run_id": "RL-022-R5-pivot-capture-credit",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-022-R4-pivot-box-guard/model_8497.pt",
+  "source_checkpoint_sha256": "c38411b1c7c6fb002877e0c97426ab0f0102f91762cecda0dfb1589f8ffc8875",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_10496.pt",
+  "recipe": "pivot_v5",
+  "physical_gpu_index": 7,
+  "learning_rate": 6.25e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "reason": "Conditional on focused invariants and077 finite50-update preflight. Correct stage reward inversion only; retain original policy/Adam/normalizers/noise/backend, no diagnostic data or intermediate evaluation. Record any preflight accepted LR reduction before full launch.",
+  "source_optimizer_note": "Before077 launch, direct checkpoint audit finds R4 final savedAdam6.25e-6 (fullrun guard lowered earlier2.5e-5). Use this final saved value for077/fullR5; retain original optimizer moments."
+}

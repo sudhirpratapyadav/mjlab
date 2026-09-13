@@ -1,0 +1,18 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "c38411b1c7c6fb002877e0c97426ab0f0102f91762cecda0dfb1589f8ffc8875",
+  "reviewed_utc": "2026-09-13T09:23:55.423931+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "saved_learning_rate": 6.25e-06,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0075.png",
+    "failure-0149.png"
+  ],
+  "observations": "Actual recorded high-return failure90 tips the near board edge against the wall and holds it there. No captured lift or transport; all128timeouts. Primitive correction alone does not solve grasp. FK every10steps finds97/128 ever above20deg; closest waypoint median37.16mm/12.18deg,80.11mm aperture. Training final opposed0, two-pad0.307. Reward audit finds v4 tipping-to-held credit inversion; prospective v5 fixes weights only.",
+  "wrist_audit": "pivot_r4_wrist_audit.json"
+}
