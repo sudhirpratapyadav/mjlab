@@ -1,0 +1,30 @@
+{
+  "preregistered_utc": "2026-09-13T10:48:33.354589+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S2-lift-arm-exploration",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S1-lift-smooth/model_23489.pt",
+  "source_checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "updates": 1500,
+  "expected_final_checkpoint": "model_24988.pt",
+  "recipe": "lift_smooth_v1",
+  "physical_gpu_index": 1,
+  "learning_rate": 2.5e-05,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260918,
+  "episodes_per_batch": 128,
+  "reason": "S1 retained117/128+119/128 native success but fails all motion gates: p95peak7.785rad/s, accelerationRMS58.423rad/s2, max-target-step4.624rad. Saved arm std0.00249\u20130.00704 and Adam2.5e-6 may limit policy adaptation. Test larger arm-only exploration0.03 and LR2.5e-5 with unchanged lift_smooth_v1 rewards and KLguard0.03; preserve deterministic weights/normalizers/gripper exploration/all other Adam state. Clear only seven arm log-std Adam moment entries on load. User scope remains Lift only; no changes to native physical/interface/task/time rules. Preflight2048x100 sourceS1 before full1500 updates from originalS1, adopt lower accepted preflightLR if backtracked. Seed18 verified unused; S1 confirmation17 is now retired.",
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "resume_arm_std": 0.03
+}

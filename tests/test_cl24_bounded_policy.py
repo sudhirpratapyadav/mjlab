@@ -28,6 +28,7 @@ def test_resume_learning_rate_survives_adam_restore(monkeypatch,override,expecte
   runner.alg=SimpleNamespace(optimizer=restored,learning_rate=3e-4)
   runner.resume_gripper_std=runner.resume_gripper_mean=None
   runner.resume_noise_scale=None
+  runner.resume_arm_std=None
   runner.learning_rate_override=override
   assert runner.load('checkpoint')['restored']
   assert restored.param_groups[0]['lr']==runner.alg.learning_rate==expected
@@ -147,6 +148,40 @@ def test_bounded_policy_initialization_and_roundtrip(monkeypatch):
       runner_module.scale_policy_exploration(policy,optimizer,invalid)
   for name,value in policy.state_dict().items():
     torch.testing.assert_close(value,after[name],rtol=0,atol=0)
+
+
+def test_arm_exploration_reset_preserves_means_gripper_and_other_adam_state(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  runner=importlib.import_module('teacher_runner')
+  bounded=importlib.import_module('bounded_policy')
+  obs=TensorDict({'policy':torch.randn(32,60),'critic':torch.randn(32,60)},batch_size=[32])
+  policy=bounded.BoundedActorCritic(obs,{'policy':['policy'],'critic':['critic']},8,
+      actor_obs_normalization=True,critic_obs_normalization=True,noise_std_type='log')
+  optimizer=torch.optim.Adam(policy.parameters(),lr=1e-4,amsgrad=True)
+  loss=policy.act_inference(obs).square().mean()+policy.evaluate(obs).square().mean()+policy.log_std.square().sum()+policy.log_std.sum()
+  loss.backward();optimizer.step()
+  state=copy.deepcopy(policy.state_dict())
+  moments={p:copy.deepcopy(v) for p,v in optimizer.state.items()}
+  mean=policy.act_inference(obs).detach().clone()
+  runner.reset_arm_exploration(policy,optimizer,.03)
+  torch.testing.assert_close(policy.act_inference(obs),mean,rtol=0,atol=0)
+  for name,value in policy.state_dict().items():
+    if name=='log_std':
+      torch.testing.assert_close(value[:7].exp(),torch.full((7,),.03))
+      torch.testing.assert_close(value[7:],state[name][7:],rtol=0,atol=0)
+    else:torch.testing.assert_close(value,state[name],rtol=0,atol=0)
+  for parameter,previous in moments.items():
+    for name,value in previous.items():
+      current=optimizer.state[parameter][name]
+      if parameter is policy.log_std and name in ('exp_avg','exp_avg_sq','max_exp_avg_sq'):
+        assert (current[:7]==0).all()
+        torch.testing.assert_close(current[7:],value[7:],rtol=0,atol=0)
+      else:torch.testing.assert_close(current,value,rtol=0,atol=0)
+  state=copy.deepcopy(policy.state_dict())
+  for invalid in (0.,-1.,float('nan'),float('inf')):
+    with pytest.raises(ValueError):runner.reset_arm_exploration(policy,optimizer,invalid)
+  for name,value in policy.state_dict().items():torch.testing.assert_close(value,state[name],rtol=0,atol=0)
 
 
 def test_distribution_drift_is_read_only_and_matches_gaussian_kl(monkeypatch):

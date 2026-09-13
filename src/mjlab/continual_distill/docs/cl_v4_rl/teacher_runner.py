@@ -39,6 +39,21 @@ def reset_gripper_exploration(policy, optimizer, std):
         moment[-1] = 0
 
 
+def reset_arm_exploration(policy, optimizer, std):
+  """Reset seven arm noise scales; retain gripper noise and policy means."""
+  if not math.isfinite(std) or std <= 0:
+    raise ValueError("Arm exploration std must be finite and positive")
+  parameter = policy.log_std if policy.noise_std_type == "log" else policy.std
+  if parameter.shape != (8,):
+    raise ValueError("Expected the approved eight-action policy")
+  with torch.no_grad():
+    parameter[:7] = math.log(std) if policy.noise_std_type == "log" else std
+    for name in ("exp_avg", "exp_avg_sq", "max_exp_avg_sq"):
+      moment = optimizer.state.get(parameter, {}).get(name)
+      if moment is not None:
+        moment[:7] = 0
+
+
 def reset_gripper_output(policy, optimizer, mean):
   """Reopen a saturated gripper output while preserving the seven arm outputs."""
   if not math.isfinite(mean) or not -1 < mean < 1:
@@ -116,10 +131,11 @@ def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8):
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, resume_arm_std=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
     self.resume_noise_scale = resume_noise_scale
+    self.resume_arm_std = resume_arm_std
     self.learning_rate_override = learning_rate_override
     super().__init__(*args, **kwargs)
     update_kl_diagnostics |= max_update_kl is not None
@@ -266,6 +282,8 @@ class TeacherRunner(OnPolicyRunner):
     self.alg.learning_rate = self.alg.optimizer.param_groups[0]['lr']
     if self.resume_noise_scale is not None:
       scale_policy_exploration(self.alg.policy, self.alg.optimizer, self.resume_noise_scale)
+    if self.resume_arm_std is not None:
+      reset_arm_exploration(self.alg.policy, self.alg.optimizer, self.resume_arm_std)
     if self.resume_gripper_std is not None:
       reset_gripper_exploration(self.alg.policy, self.alg.optimizer, self.resume_gripper_std)
     if self.resume_gripper_mean is not None:

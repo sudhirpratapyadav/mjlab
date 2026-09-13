@@ -39,6 +39,7 @@ def main():
   parser.add_argument("--resume-gripper-std", type=float, help="Explicit gripper-only exploration reset after checkpoint load")
   parser.add_argument("--resume-gripper-mean", type=float, help="Reset only the gripper output row after loading a bounded actor")
   parser.add_argument("--resume-noise-scale", type=float, help="Scale all learned action stds once after checkpoint load")
+  parser.add_argument("--resume-arm-std", type=float, help="Reset only seven arm exploration stds after checkpoint load")
   parser.add_argument("--capture-pre-step", action="store_true", help="Save preceding physics state if the numerical guard fails")
   parser.add_argument("--elliptic-hessian", action="store_true", help="Opt in to stable native-equivalent dense cone Hessian")
   parser.add_argument("--primitive-box-box", action="store_true", help="Opt in to native-style primitive box-box contact manifolds")
@@ -66,6 +67,11 @@ def main():
     parser.error("--resume-noise-scale requires a resume checkpoint and a finite positive value")
   if args.resume_noise_scale is not None and (args.resume_gripper_std is not None or args.resume_gripper_mean is not None):
     parser.error("Noise scaling and gripper resets are separate experiments")
+  if args.resume_arm_std is not None:
+    if not args.resume_checkpoint or not math.isfinite(args.resume_arm_std) or args.resume_arm_std <= 0:
+      parser.error("--resume-arm-std requires a resume checkpoint and a finite positive value")
+    if any(v is not None for v in (args.resume_noise_scale, args.resume_gripper_std, args.resume_gripper_mean)):
+      parser.error("Arm exploration reset must be a separate experiment")
   if not args.dry_run:
     try:
       configure(args.wandb_entity, args.wandb_project, args.wandb_api_key_file, args.wandb_offline)
@@ -145,6 +151,7 @@ def main():
       "resume_gripper_std": args.resume_gripper_std,
       "resume_gripper_mean": args.resume_gripper_mean,
       "resume_noise_scale": args.resume_noise_scale,
+      "resume_arm_std": args.resume_arm_std,
       "capture_pre_step": args.capture_pre_step,
       "capture_history_steps": 8 if args.capture_pre_step else 0,
       "resume_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest() if checkpoint else None,
@@ -153,6 +160,7 @@ def main():
     (run / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     try:
       runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std,
+                       resume_arm_std=args.resume_arm_std,
                        resume_noise_scale=args.resume_noise_scale,
                        resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step,
                        learning_rate_override=args.learning_rate, update_kl_diagnostics=args.update_kl_diagnostics,

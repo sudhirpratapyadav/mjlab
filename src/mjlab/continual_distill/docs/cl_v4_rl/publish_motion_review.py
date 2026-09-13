@@ -43,7 +43,7 @@ def main():
   with wandb.init(entity=ENTITY, project=PROJECT, name=checkpoint.parent.name + '-motion-review',
                   job_type='motion-review', config={
                     'task': validation['task'], 'checkpoint_sha256': sha,
-                    'public_url': args.public_url, 'review_status': 'awaiting_user',
+                    'public_url': args.public_url, 'review_status': summary['review_status'],
                     'baseline_preserved': True, 'other_teachers_paused': True,
                     'paired_env_ids': [0, 1, 2], 'video_fps': 50}) as run:
     metrics = {'strict/validation_success_rate': validation['success_rate']}
@@ -61,7 +61,7 @@ def main():
         wandb.Video(str(args.review_dir / clip['video']), format='mp4',
                     caption=f'{clip["label"]}; 1x real time, 50fps; success={clip["success"]}')})
     artifact = wandb.Artifact(checkpoint.parent.name + '-motion-review', type='motion-trial',
-                              metadata={'checkpoint_sha256': sha, 'review_status': 'awaiting_user'})
+                              metadata={'checkpoint_sha256': sha, 'review_status': summary['review_status']})
     artifact.add_file(str(checkpoint), name='candidate/model.pt')
     for name in ['manifest.json', 'source.patch']:
       artifact.add_file(str(checkpoint.parent / name), name='candidate/' + name)
@@ -80,7 +80,7 @@ def main():
     receipt = {'published_utc': datetime.now(timezone.utc).isoformat(),
                'wandb_run_url': run.url, 'wandb_artifact': retained.qualified_name,
                'checkpoint_sha256': sha, 'public_url': args.public_url,
-               'review_status': 'awaiting_user', 'baseline_preserved': True}
+               'review_status': summary['review_status'], 'baseline_preserved': True}
   # Read the remote manifest back; upload completion alone is not a retention audit.
   remote = wandb.Api().artifact(receipt['wandb_artifact'])
   paths = set(remote.manifest.entries)
