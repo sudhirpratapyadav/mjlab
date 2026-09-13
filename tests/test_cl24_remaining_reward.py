@@ -144,3 +144,32 @@ def test_pivot_ramp_recipe_preserves_native_benchmark_and_agent(monkeypatch):
   params=new.env.rewards['reach_object'].params
   assert params.pop('ramp_geometry') and params.pop('contact_geometry')
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_strike_precision_favors_correct_speed_and_settled_endpoint(monkeypatch):
+  reward=module(monkeypatch)
+  # At a half-metre target distance, the gradient must increase an undershoot
+  # speed and decrease an overshoot speed under the physical sliding model.
+  speeds=torch.tensor([.5,.9],requires_grad=True)
+  velocities=torch.stack([speeds,torch.zeros_like(speeds)],dim=-1)
+  predicted=reward.sliding_endpoint(torch.zeros(2,2),velocities,.04)
+  error=torch.linalg.vector_norm(predicted-torch.tensor([.5,0.]),dim=-1)
+  score=reward.strike_endpoint_precision(error,torch.full((2,),.5),speeds)
+  score.sum().backward()
+  assert speeds.grad[0]>0 and speeds.grad[1]<0
+  settled=reward.strike_endpoint_precision(torch.zeros(2),torch.zeros(2),torch.tensor([0.,1.]))
+  assert settled[0]>settled[1] and torch.isfinite(settled).all()
+
+
+def test_strike_precision_recipe_preserves_native_benchmark(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Strike-Slide-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'strike_v2');recipes.apply_recipe(new,'strike_v3')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('endpoint_precision_weight')==4.
+  assert repr(old.env.rewards)==repr(new.env.rewards)

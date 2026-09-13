@@ -13,7 +13,7 @@ RECIPES += ("lift_v5", "reorient_v6", "throw_v3")
 RECIPES += ("completion_v4", "completion_v5")
 RECIPES += ("completion_v6", "lift_v6")
 RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
-RECIPES += ("strike_v2",)
+RECIPES += ("strike_v2", "strike_v3")
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
@@ -110,6 +110,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "edge_v3":
     apply_recipe(cfg, "edge_v2")
     cfg.env.rewards["reach_object"].params.update(side_wrist=True,contact_geometry=True)
+    return
+  if recipe == "strike_v3":
+    apply_recipe(cfg,"strike_v2")
+    cfg.env.rewards["reach_object"].params["endpoint_precision_weight"] = 4.
     return
   if recipe == "strike_v2":
     apply_recipe(cfg, "strike_v1")

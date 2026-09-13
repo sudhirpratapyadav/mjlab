@@ -355,3 +355,15 @@ Pivot R2 contact audit: median closest reward waypoint6.45mm, wrist error8.74deg
 Wave22 refresh: reviewed final Cage13095 (99/128) and Strike6997 (21/128) clips published via untu_vps. Newest homepage card links to current RL teachers. Browser checks passed24 actual video playback,14/10 filters, search and mobile layout; all50 public files returnedHTTP200 and matched local SHA256 over verified TLS. No new certification.
 
 Wave22 scoreboard24dce44e finished; remote API verified178 experiment-record files including both new reviews, Pivot contact/shift/tipping audits, current inventory and public verification. Both new video runs finished online. This turn made progress through two strict final evaluations, actual video reviews, geometric diagnosis and verified publication; full24-teacher goal remains active at14/24. Five bounded PPO runs continue. Next: finish Peg/Lift strict evaluations, test Pivot contact dynamics and diagnose Cage/Strike residual failures before further preregistered retries.
+
+
+### Wave23
+
+Previous turn made progress: final Cage99/128 and Strike21/128 strict results and reviewed videos, Pivot geometric evidence and verified public/W&B publication. Five full trainers revalidated live; GPU0/3/7 at0MiB.
+
+Preregister PREFLIGHT-CAGE-REFINE-037: ownR8/model13095, unchanged cage_v4,64 environments×3 PPO updates, explicit Adam5e-5, preserve optimizer moments/normalizers/policy/gripper and legacy backend. Cage improved97→99/128 over2000 updates but remains below116; a bounded smaller-step refinement tests endpoint consistency. If finite with correct saved LR, launch RL-013-R9-cage-refine from original13095,2048×2000 onGPU7, same settings. Native gate/60D/8D/model unchanged. No confirmation unless strict validation passes116/128.
+
+
+StrikeR3 endpoint audit:113/128 substantial launches versus97 before; median final error15.82cm,57 undershoots>8cm,41 overshoots>8cm and20 lateral misses>8cm. Peak-speed Coulomb prediction differs from measured endpoint by1.84mm median among substantial launches; peak may still contact hand, so this is empirical support for shaping, not a model proof. The bottleneck is now endpoint calibration. Preregister strike_v3: preserve strike_v2 approach/broad rewards/native20 bonus and add4×(exp(-predicted_error/.05)+exp(-actual_error/.05)/(1+XYspeed/.05)). This rewards precise flight and a settled near-goal endpoint; no gate/model/action changes. PREFLIGHT-STRIKE-PRECISION-038: ownR3/6997,64×3, inherited5e-5 Adam/normalizers/means/std/backend. After finite preflight, RL-023-R4-strike-precision from original6997,2048×2000 onGPU3 after Place evaluator exits.
+
+Cage preflight13097 finite with5e-5 confirmed; fullR9 launched original13095 onGPU7. PlaceR7/7400 strict105/128, below116; full budget continues. PegR6 completed normally at5097; strict evaluation started onGPU6. Pivot constant-control CPU probes preserve actual source states/friction; four initial modes and20 small XY/Z variations all32cases show no tilt>20deg, no warnings or deep obstacle penetration. No Pivot reward change is justified by these negative dynamic probes.
