@@ -1,0 +1,15 @@
+{
+  "recorded_utc": "2026-09-13T05:02:04.032855+00:00",
+  "preregistered_in": "LOGS.md and EXPERIMENTS.md before preflight056",
+  "task": "Mjlab-Reorient-Object-Franka",
+  "run_id": "RL-005-R13-reorient-quiet",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-R12-reorient-axis/model_14595.pt",
+  "source_checkpoint_sha256": "d7b0ac56a24d15d9ebf2d551c6ce92ede9c5c49090c47366f40f698d01bc7c5a",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_16594.pt",
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "recipe": "reorient_v9",
+  "reason": "82/128 terminal orientation/drift pass but settling fails. Finite64x3 and64 focused tests; retain all learned state/gyro-only backend/Adam1e-4, original14595 parent only. Fullbudget before strict gate."
+}

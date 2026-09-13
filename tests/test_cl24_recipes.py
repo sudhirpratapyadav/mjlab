@@ -61,6 +61,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Place-In-Container-Franka","completion_v6"),
   ("Mjlab-Peg-Insertion-Franka","completion_v6"),
   ("Mjlab-Peg-Insertion-Franka","peg_v3"),
+  ("Mjlab-Reorient-Object-Franka","reorient_v9"),
 ])
 def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   stage=Path(__file__).resolve().parents[1]/"src/mjlab/continual_distill/docs/cl_v4_rl"
@@ -72,6 +73,21 @@ def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   recipes.apply_recipe(cfg,recipe)
   assert before=={field:repr(getattr(cfg.env,field)) for field in fields}
   assert cfg.agent.clip_actions==1.0
+
+
+def test_reorient_quiet_score_requires_axis_progress_and_both_speeds(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage)); recipes=importlib.import_module('rl_recipes')
+  orientation=torch.tensor([1.,1.,1.,1.,0.])
+  linear=torch.tensor([0.,.123,0.,.123,0.])
+  angular=torch.tensor([0.,0.,.999,.999,0.])
+  saved=[v.clone() for v in (orientation,linear,angular)]
+  score=recipes.reorient_quiet_score(orientation,linear,angular)
+  assert score[0]>score[1]>score[3]>0
+  assert score[0]>score[2]>score[3] and score[4]==0
+  assert (score>=0).all() and (score<=1).all()
+  for value,before in zip((orientation,linear,angular),saved):
+    torch.testing.assert_close(value,before,rtol=0,atol=0)
 
 
 def test_mechanism_approach_recovers_signal_without_changing_joint_goal():

@@ -19,6 +19,7 @@ RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
 RECIPES += ("lift_v9", "peg_v2", "peg_v3", "edge_v4")
+RECIPES += ("reorient_v9",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -135,6 +136,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "reorient_v8":
     apply_recipe(cfg,"reorient_v7")
     cfg.env.rewards["reach_object"].params.update(continuous_orientation=True,native_completion_weight=25.)
+    return
+  if recipe == "reorient_v9":
+    apply_recipe(cfg,"reorient_v8")
+    cfg.env.rewards["reach_object"].params["quiet_weight"]=6.
     return
   if recipe == "lift_v8":
     apply_recipe(cfg,"lift_v7")
@@ -313,7 +318,12 @@ def reorient_axis_score(alignment, symmetric=False):
   return alignment.abs() if symmetric else (1+alignment)/2
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, continuous_orientation=False, native_completion_weight=0., **kwargs):
+def reorient_quiet_score(held_valid_orientation, linear_speed, angular_speed):
+  """Settling incentive weighted by the existing held, valid axis progress."""
+  return held_valid_orientation/(1+linear_speed/.03+angular_speed/.3)
+
+
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, continuous_orientation=False, native_completion_weight=0., quiet_weight=0., **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure,contact_geometry=contact_geometry)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -346,6 +356,10 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
   # Actual contact must still dominate the maximum noncontact closure score.
   grasp_bonus = max(2.,1+closure_weight)+(2 if geometry_aperture else 0)
   reward = approach*(1-held)*(1+closure_weight*aperture_score) + grasp_bonus*held + 3*lift + 6*orientation
+  if quiet_weight:
+    reward += quiet_weight*reorient_quiet_score(orientation,
+      torch.linalg.vector_norm(obj.data.root_link_lin_vel_w,dim=-1),
+      torch.linalg.vector_norm(obj.data.root_link_ang_vel_w,dim=-1))
   if native_completion_weight:
     command._update_metrics()
     reward += native_completion_weight*command.compute_success().float()
