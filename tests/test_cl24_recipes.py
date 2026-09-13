@@ -25,6 +25,8 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_smooth_v2"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_x10"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_x100"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_live_x3"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_live_x10"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -116,6 +118,29 @@ def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch,reci
   for name in ['joint_vel_penalty','action_rate_l2']:new.env.rewards[name]=old.env.rewards[name]
   del new.env.rewards['smooth_arm_acceleration']
   assert repr(old.env)==repr(new.env)
+
+
+@pytest.mark.parametrize('recipe,scale',[('lift_smooth_live_x3',3.),('lift_smooth_live_x10',10.)])
+def test_lift_survival_bonus_preserves_full_episode_ranking_and_native_task(monkeypatch,recipe,scale):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_smooth_v2');recipes.apply_recipe(new,recipe)
+  assert asdict(old.agent)==asdict(new.agent)
+  for name in ('action_rate_l2','joint_vel_penalty','smooth_arm_acceleration'):
+    assert new.env.rewards[name].weight==old.env.rewards[name].weight*scale
+    new.env.rewards[name].weight=old.env.rewards[name].weight
+  term=new.env.rewards.pop('motion_survival')
+  assert repr(old.env)==repr(new.env)
+  # Success is deliberately irrelevant to this term. Timeouts are truncated,
+  # not terminated; only physical failure forfeits the final step and future bonus.
+  env=SimpleNamespace(termination_manager=SimpleNamespace(terminated=torch.tensor([False,False,True])))
+  contribution=term.func(env)*term.weight*.02
+  torch.testing.assert_close(contribution,torch.tensor([10.,10.,0.]))
+  assert contribution[0]*1000==10000.
+  gamma=.995
+  assert 10*sum(gamma**i for i in range(1000))>10*sum(gamma**i for i in range(24))
 
 
 def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):
