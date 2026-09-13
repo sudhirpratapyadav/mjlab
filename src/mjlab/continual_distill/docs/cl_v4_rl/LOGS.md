@@ -913,3 +913,8 @@ S11/S12/S13 rejected at11/128,3/128,59/128. All76finite and valid1000-updateKL/L
 ### 2026-09-13T16:43:20.814786+00:00 — Reject disruptive exploration before full pilots
 
 Preflights094/095 passedfinite/KL checks but are rejectedforfulltraining: final logged stochasticmeanreturn−10379.56/−10358.90, episode859/818steps, goalerror.1852/.1793m. These are traininglogs, notstrictsuccessbatches. Widerarmnoise.03 disruptsgrasp/hold andaddslargecosts; nofullS14/S15runwasstarted. Revisebothcommonarmstdto.01 beforefulltraining, withfresh100-updatepreflights096/097 fromORIGINALS13 andexplicitpreflighthistory. Full1500budgets/final26986, densegoal50/500, LR2.5e-5ceiling/KL.03 andfreshseedsunchanged. Preserved allfailedmodels/evidence; neverresume094/095.
+
+
+### S14/S15 full runs active — 2026-09-13T17:10:50.424078+00:00
+
+Reduced arm exploration (.01) preflights096/097 passed. Full runs restart the original S13 checkpoint, use dense goal weights50/500, unchanged motion costs and 1,500-update final26986 budgets. Trainers2422303/2422319 occupy GPUs1/2; evaluators2422657/2422672 and motion watchers2423190/2423205 are attached. Own-worktree import and eight-CPU affinity verified. W&B training logs are live in the scoped IIT Jodhpur project. About56% complete at this snapshot; no strict S14/S15 result yet. Other23 paused; baseline not promoted or overwritten. See evidence/lift_s14_s15_active_status.json.
