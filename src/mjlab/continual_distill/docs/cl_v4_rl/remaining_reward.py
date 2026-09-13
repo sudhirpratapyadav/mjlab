@@ -187,7 +187,16 @@ def pivot_approach_score(distance, axes, closing, approach, aperture, tilt):
   return (torch.exp(-distance/.15)+.5*torch.exp(-distance/.04))*(.25+.75*alignment)*(.5+.5*opening)
 
 
-def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False, contact_geometry=False, **kwargs):
+def pivot_wrist_angle(tilt, early_transition=False):
+  scale = 1-math.cos(math.radians(10)) if early_transition else .43
+  return math.radians(70)-math.radians(15)*(tilt/scale).clamp(0,1)
+
+
+def pivot_wall_tilt_score(tilt, contact):
+  return (tilt/(1-math.cos(math.radians(20)))).clamp(0,1)*contact
+
+
+def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False, contact_geometry=False, wrist_transition=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -195,10 +204,13 @@ def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False
   board_x = quat_apply(obj.data.root_link_quat_w,torch.tensor([1.,0.,0.],device=env.device).expand(env.num_envs,3))
   board_z = quat_apply(obj.data.root_link_quat_w,torch.tensor([0.,0.,1.],device=env.device).expand(env.num_envs,3))
   tilt = (1-board_z[:,2].abs()).clamp(0,1)
-  psi = math.radians(70)-math.radians(15)*(tilt/.43).clamp(0,1)
+  psi = pivot_wrist_angle(tilt, wrist_transition)
   expected_closing = torch.stack([psi.sin(),torch.zeros_like(psi),psi.cos()],dim=-1)
   expected_approach = torch.stack([psi.cos(),torch.zeros_like(psi),-psi.sin()],dim=-1)
   corner = pos-.05*board_x+.010*board_z
+  if wrist_transition:
+    # Actual board collider half-width60mm plus an outside2mm reward standoff.
+    corner = pos-.062*board_x+.010*board_z
   ramp_target = corner+.5*aperture[:,None]*expected_closing-.005*expected_approach
   if ramp_geometry:
     ramp_target = pivot_ramp_target(corner,aperture,expected_closing,expected_approach,env.scene.env_origins[:,2])
@@ -218,4 +230,6 @@ def pivot_reward(env, command_name, require_enclosure=False, ramp_geometry=False
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.20)
   lift = ((pos[:,2]-env.scene.env_origins[:,2]-.01)/.12).clamp(0,1)
   precursor = approach+2*wall_near+4*tilt*contact
+  if wrist_transition:
+    precursor += 8*pivot_wall_tilt_score(tilt,contact)
   return precursor*(1-held)+8*held+5*lift*held+5*goal*held+25*native_success(command)

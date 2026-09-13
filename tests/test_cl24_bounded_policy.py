@@ -147,3 +147,62 @@ def test_bounded_policy_initialization_and_roundtrip(monkeypatch):
       runner_module.scale_policy_exploration(policy,optimizer,invalid)
   for name,value in policy.state_dict().items():
     torch.testing.assert_close(value,after[name],rtol=0,atol=0)
+
+
+def test_distribution_drift_is_read_only_and_matches_gaussian_kl(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  module=importlib.import_module('teacher_runner')
+  bounded=importlib.import_module('bounded_policy')
+  obs=TensorDict({'policy':torch.randn(32,60),'critic':torch.randn(32,60)},batch_size=[32])
+  policy=bounded.BoundedActorCritic(obs,{'policy':['policy'],'critic':['critic']},8,
+      actor_obs_normalization=True,critic_obs_normalization=True,noise_std_type='log')
+  old_mean=policy.act_inference(obs).detach().clone();old_std=policy.log_std.exp().detach().expand_as(old_mean).clone()
+  assert module.distribution_drift(policy,obs,old_mean,old_std)['kl_mean']==pytest.approx(0,abs=1e-6)
+  with torch.no_grad():policy.actor[-2].bias[0]+=.1
+  state=copy.deepcopy(policy.state_dict());rng=torch.random.get_rng_state().clone()
+  actual=module.distribution_drift(policy,obs,old_mean,old_std)
+  expected=torch.distributions.kl_divergence(torch.distributions.Normal(old_mean,old_std),
+      torch.distributions.Normal(policy.act_inference(obs),policy.log_std.exp())).sum(-1)
+  assert actual['kl_mean']==pytest.approx(float(expected.detach().mean()),abs=1e-6)
+  assert actual['kl_max']==pytest.approx(float(expected.detach().max()),abs=1e-6)
+  assert actual['kl_mean']>0
+  assert torch.equal(rng,torch.random.get_rng_state())
+  for name,value in policy.state_dict().items():torch.testing.assert_close(value,state[name],rtol=0,atol=0)
+
+
+def test_kl_guard_rolls_back_rejected_adam_updates_and_rng(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));module=importlib.import_module('teacher_runner')
+  policy=torch.nn.Linear(1,1,bias=False)
+  with torch.inference_mode():
+    policy.register_buffer('rollout_std',torch.ones(1))
+  with torch.no_grad():policy.weight.fill_(0.)
+  optimizer=torch.optim.Adam(policy.parameters(),lr=.2)
+  algorithm=SimpleNamespace(policy=policy,optimizer=optimizer,storage=SimpleNamespace(step=24),learning_rate=.2,schedule='fixed')
+  draws=[]
+  def update():
+    draws.append(torch.rand(1).item())
+    optimizer.zero_grad();(policy(torch.ones(1,1))-1).square().mean().backward();optimizer.step()
+    algorithm.storage.step=0
+    return {'value':1.}
+  measure=lambda:{'kl_mean':float(policy.weight.detach().square().sum())}
+  rng=torch.random.get_rng_state().clone()
+  loss,diagnostics=module.guarded_update(algorithm,update,measure,.003)
+  assert diagnostics['Diagnostics/kl_guard_backtracks']==2
+  assert len(set(draws))==1
+  assert optimizer.state[policy.weight]['step']==1
+  assert algorithm.storage.step==0 and algorithm.learning_rate==pytest.approx(.05)
+  torch.testing.assert_close(policy.weight,torch.full_like(policy.weight,.05))
+  accepted_rng=torch.random.get_rng_state().clone()
+  torch.random.set_rng_state(rng);torch.rand(1)
+  assert torch.equal(accepted_rng,torch.random.get_rng_state())
+  # Exhaustion must restore accumulated Adam state and the unconsumed rollout.
+  algorithm.storage.step=24;before=copy.deepcopy(policy.state_dict());adam=copy.deepcopy(optimizer.state_dict());rng=torch.random.get_rng_state().clone()
+  with pytest.raises(RuntimeError,match='exhausted'):
+    module.guarded_update(algorithm,update,lambda:{'kl_mean':1.},.03,max_attempts=2)
+  assert algorithm.storage.step==24 and algorithm.learning_rate==pytest.approx(.05)
+  assert torch.equal(rng,torch.random.get_rng_state())
+  for k,v in before.items():torch.testing.assert_close(policy.state_dict()[k],v,rtol=0,atol=0)
+  for k,v in adam['state'].items():
+    for n,t in v.items():torch.testing.assert_close(optimizer.state_dict()['state'][k][n],t,rtol=0,atol=0)

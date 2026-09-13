@@ -110,3 +110,29 @@ def test_increased_peg_lift_credit_still_requires_grasp_and_prefers_completion(m
   best_carry=module.completion_score(one,one,one,one,one,zero,zero,lift_weight=4.)
   weakest_complete=module.completion_score(zero,zero,zero,zero,zero,zero,one,lift_weight=4.)
   assert best_carry<weakest_complete
+
+
+def test_stack_support_opening_preserves_interface_and_rewards_release(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  reward=importlib.import_module('completion_reward');recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Stack-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'completion_v6');recipes.apply_recipe(new,'stack_v1')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['stack'].params
+  assert params.pop('release_weight')==10 and params.pop('support_open_weight')==3
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+  gap=torch.tensor([0.,.04,.08]);ones=torch.ones(3);zero=torch.zeros(3)
+  score=reward.support_opening_score(zero,ones,ones,gap)
+  assert torch.all(score[1:]>score[:-1])
+  assert not reward.support_opening_score(zero,ones,zero,gap).any()
+  assert not reward.support_opening_score(zero,zero,ones,gap).any()
+  assert torch.all(reward.support_opening_score(ones,ones,ones,gap)<=score)
+  # Both mutually exclusive physical stages remain below the native15 bonus.
+  for held in (0.,1.):
+    upper=reward.completion_score(1.,1.,held,1.,1.,1.,0.,release_weight=10.)+3
+    assert upper<15

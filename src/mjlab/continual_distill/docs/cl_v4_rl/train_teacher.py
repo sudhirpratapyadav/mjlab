@@ -44,6 +44,8 @@ def main():
   parser.add_argument("--primitive-box-box", action="store_true", help="Opt in to native-style primitive box-box contact manifolds")
   parser.add_argument("--free-body-gyro", action="store_true", help="Opt in to CPU-compatible standalone free-body gyroscopic integration")
   parser.add_argument("--learning-rate", type=float, help="Explicit optimizer LR override, including after checkpoint load")
+  parser.add_argument("--update-kl-diagnostics", action="store_true", help="Record rollout distribution drift before and after PPO updates without changing optimization")
+  parser.add_argument("--max-update-kl", type=float, help="Opt in to PPO update rollback and LR halving above this rollout KL")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -54,6 +56,8 @@ def main():
     parser.error("environment and iteration counts must be positive")
   if args.learning_rate is not None and (not math.isfinite(args.learning_rate) or args.learning_rate <= 0):
     parser.error("--learning-rate must be finite and positive")
+  if args.max_update_kl is not None and (not math.isfinite(args.max_update_kl) or args.max_update_kl <= 0):
+    parser.error("--max-update-kl must be finite and positive")
   if args.resume_gripper_std is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_std) or args.resume_gripper_std <= 0):
     parser.error("--resume-gripper-std requires a resume checkpoint and a finite positive value")
   if args.resume_gripper_mean is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_mean) or not -1 < args.resume_gripper_mean < 1):
@@ -131,6 +135,8 @@ def main():
       "free_body_implicitfast_compat": cfg.env.sim.free_body_implicitfast_compat,
       "primitive_box_box_compat": cfg.env.sim.primitive_box_box_compat,
       "learning_rate_override": args.learning_rate,
+      "update_kl_diagnostics": args.update_kl_diagnostics,
+      "max_update_kl": args.max_update_kl,
       "cpu_affinity": sorted(os.sched_getaffinity(0)),
       "slurm_cpus_per_task": os.environ.get("SLURM_CPUS_PER_TASK"),
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
@@ -149,7 +155,8 @@ def main():
       runner = partial(TeacherRunner, resume_gripper_std=args.resume_gripper_std,
                        resume_noise_scale=args.resume_noise_scale,
                        resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step,
-                       learning_rate_override=args.learning_rate)
+                       learning_rate_override=args.learning_rate, update_kl_diagnostics=args.update_kl_diagnostics,
+                       max_update_kl=args.max_update_kl)
       run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys

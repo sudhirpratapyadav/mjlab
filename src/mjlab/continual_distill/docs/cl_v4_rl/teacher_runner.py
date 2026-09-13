@@ -1,5 +1,6 @@
 """PPO diagnostics that stop at the first nonfinite rollout or optimizer update."""
 
+import copy
 import json
 import math
 from collections import deque
@@ -57,17 +58,76 @@ def reset_gripper_output(policy, optimizer, mean):
           moment[-1].zero_()
 
 
+@torch.no_grad()
+def distribution_drift(policy, observations, old_mean, old_std):
+  """Read-only KL(old || current) on a fixed set of actual rollout states."""
+  mean = policy.act_inference(observations)
+  std = policy.log_std.exp()
+  kl = (torch.log(std / old_std) + (old_std.square() + (old_mean-mean).square()) / (2*std.square()) - .5).sum(-1)
+  return {"kl_mean": float(kl.mean()), "kl_max": float(kl.max()),
+          "mean_step_in_old_std_rms": float(((mean-old_mean)/old_std).square().mean().sqrt())}
+
+
+def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8):
+  """Backtrack a fixed-schedule PPO update, retaining only an accepted state."""
+  if algorithm.schedule != 'fixed' or not math.isfinite(maximum_kl) or maximum_kl <= 0:
+    raise ValueError('KL guard requires a fixed schedule and positive finite limit')
+  state = copy.deepcopy(algorithm.policy.state_dict())
+  optimizer = copy.deepcopy(algorithm.optimizer.state_dict())
+  storage_step = algorithm.storage.step
+  cpu_rng = torch.random.get_rng_state()
+  cuda_rng = torch.cuda.get_rng_state_all() if torch.cuda.is_initialized() else None
+  rates = [group['lr'] for group in algorithm.optimizer.param_groups]
+  saved_rate = algorithm.learning_rate
+  distribution = getattr(algorithm.policy, 'distribution', None)
+  def restore():
+    # Rollout normalization can replace _std with an inference tensor.
+    with torch.inference_mode():
+      algorithm.policy.load_state_dict(state)
+    # Adam may alias loaded tensors on the same device; keep the snapshot pristine.
+    algorithm.optimizer.load_state_dict(copy.deepcopy(optimizer))
+    if hasattr(algorithm.policy, 'distribution'):
+      algorithm.policy.distribution = distribution
+    algorithm.storage.step = storage_step
+    algorithm.learning_rate = saved_rate
+    torch.random.set_rng_state(cpu_rng)
+    if cuda_rng is not None:
+      torch.cuda.set_rng_state_all(cuda_rng)
+  attempted = []
+  for attempt in range(max_attempts):
+    if attempt:
+      restore()
+    for group, rate in zip(algorithm.optimizer.param_groups, rates):
+      group['lr'] = rate * .5**attempt
+    algorithm.learning_rate = algorithm.optimizer.param_groups[0]['lr']
+    try:
+      loss = update()
+      kl = measure()['kl_mean']
+    except Exception:
+      restore()
+      raise
+    attempted.append(kl)
+    if math.isfinite(kl) and kl <= maximum_kl:
+      return loss, {'Diagnostics/kl_guard_backtracks': attempt,
+                    'Diagnostics/kl_guard_first_kl': attempted[0],
+                    'Diagnostics/kl_guard_accepted_kl': kl}
+  restore()
+  raise RuntimeError(f'PPO KL guard exhausted {max_attempts} attempts: {attempted}')
+
+
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, capture_pre_step=False, learning_rate_override=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
     self.resume_noise_scale = resume_noise_scale
     self.learning_rate_override = learning_rate_override
     super().__init__(*args, **kwargs)
+    update_kl_diagnostics |= max_update_kl is not None
     original_step = self.env.step
     original_update = self.alg.update
     original_log = self.logger.log
     self._saturation = []
+    self._update_metrics = {}
     previous_state = {}
     state_history = deque(maxlen=8)
 
@@ -114,8 +174,22 @@ class TeacherRunner(OnPolicyRunner):
       return result
 
     def checked_update():
+      guard_metrics = {}
+      if update_kl_diagnostics:
+        storage = self.alg.storage
+        # Fixed evenly spaced samples consume no RNG and span all rollout times.
+        count = storage.mu.shape[0]*storage.mu.shape[1]
+        stride = max(1, math.ceil(count/1024))
+        observations = storage.observations.flatten(0,1)[::stride].clone()
+        old_mean = storage.mu.flatten(0,1)[::stride].clone()
+        old_std = storage.sigma.flatten(0,1)[::stride].clone()
+        before = distribution_drift(self.alg.policy, observations, old_mean, old_std)
       try:
-        loss = original_update()
+        if max_update_kl is None:
+          loss = original_update()
+        else:
+          measure = lambda: distribution_drift(self.alg.policy, observations, old_mean, old_std)
+          loss, guard_metrics = guarded_update(self.alg, original_update, measure, max_update_kl)
       except (RuntimeError, ValueError):
         fail("ppo_update_exception")
       policy = self.alg.policy
@@ -126,6 +200,12 @@ class TeacherRunner(OnPolicyRunner):
         fail("nonpositive_policy_std")
       if not all(torch.isfinite(torch.as_tensor(value)).all() for value in loss.values()):
         fail("ppo_loss")
+      if update_kl_diagnostics:
+        after = distribution_drift(policy, observations, old_mean, old_std)
+        self._update_metrics = {f"Diagnostics/{phase}_{key}": value
+                               for phase, metrics in (("before_update",before),("after_update",after))
+                               for key,value in metrics.items()}
+        self._update_metrics.update(guard_metrics)
       return loss
 
     def log_with_diagnostics(**values):
@@ -166,6 +246,7 @@ class TeacherRunner(OnPolicyRunner):
               "Diagnostics/grasped_and_settled_at_lift_limits_fraction":float((contact&quiet).float().mean()),
             })
       self._saturation.clear()
+      metrics.update(self._update_metrics)
       for name,value in metrics.items():
         self.logger.writer.add_scalar(name,value,values["it"])
       with (Path(self.logger.log_dir)/"diagnostics.jsonl").open("a") as stream:

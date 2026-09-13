@@ -1,0 +1,551 @@
+{
+  "Lift": {
+    "run": "RL-002-R14-lift-arm-hold",
+    "source": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-R13-lift-arm-hold/model_17992.pt",
+    "final": "src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-R14-lift-arm-hold/model_19991.pt",
+    "window_definition": "first100, updates900:1000, last100; training-only metrics, not strict evaluation",
+    "scalars": {
+      "Episode_Reward/reach_object": [
+        19.32579214159865,
+        0.3398977616429329,
+        0.3250689122080803
+      ],
+      "Episode_Reward/move_object_to_goal": [
+        0.32946948733497095,
+        2.4078747043824212e-26,
+        0.0
+      ],
+      "Episode_Reward/action_rate_l2": [
+        -0.00017645398222157382,
+        -0.0014870034507475794,
+        -0.00440421533305198
+      ],
+      "Episode_Reward/joint_pos_limits": [
+        -1.8060857223064521,
+        -12.61358591079712,
+        -6.822320528030396
+      ],
+      "Episode_Reward/joint_vel_penalty": [
+        -0.004244139690417797,
+        -0.0038611331395804883,
+        -0.028431732254102827
+      ],
+      "Metrics/lift_object/episode_success": [
+        0.682971205636859,
+        0.0,
+        0.0
+      ],
+      "Loss/value": [
+        21.740595006942748,
+        0.3467056841030717,
+        0.12418406562879682
+      ],
+      "Loss/surrogate": [
+        0.05178319344297051,
+        0.07769848668947815,
+        0.15613584764301777
+      ],
+      "Loss/entropy": [
+        -27.91849868774414,
+        -27.543680667877197,
+        -24.661626873016356
+      ],
+      "Loss/learning_rate": [
+        9.999999747378752e-05,
+        9.999999747378752e-05,
+        9.999999747378752e-05
+      ],
+      "Policy/mean_noise_std": [
+        0.01094087545759976,
+        0.011320745777338744,
+        0.01484191270545125
+      ],
+      "Train/mean_reward": [
+        357.75530208177867,
+        -245.59742141723632,
+        -131.16192977905274
+      ],
+      "Diagnostics/std_min": [
+        0.00357062678784132,
+        0.003772256898228079,
+        0.006239518420770764
+      ],
+      "Diagnostics/std_max": [
+        0.046047448068857195,
+        0.04766602877527475,
+        0.05523335848003626
+      ],
+      "Diagnostics/gripper_std": [
+        0.046047448068857195,
+        0.04766602877527475,
+        0.05523335848003626
+      ],
+      "Diagnostics/gripper_action_mean": [
+        -0.7795288145542145,
+        0.9747358697652817,
+        0.9689524739980697
+      ],
+      "Diagnostics/action_saturation": [
+        0.07038297016173602,
+        0.3971003973484039,
+        0.35909983366727827
+      ]
+    },
+    "normalizers": {
+      "actor_obs_normalizer._mean": {
+        "source_min": -1.060387372970581,
+        "source_max": 2.8142812252044678,
+        "final_min": -0.8472851514816284,
+        "final_max": 2.5059711933135986,
+        "max_abs_change": 0.30831003189086914
+      },
+      "actor_obs_normalizer._var": {
+        "source_min": 2.400937955826521e-05,
+        "source_max": 2.5712761878967285,
+        "final_min": 3.655059481388889e-05,
+        "final_max": 2.603250026702881,
+        "max_abs_change": 1.4485063552856445
+      },
+      "actor_obs_normalizer._std": {
+        "source_min": 0.004899936728179455,
+        "source_max": 1.6035199165344238,
+        "final_min": 0.0060457088984549046,
+        "final_max": 1.6134589910507202,
+        "max_abs_change": 0.637913167476654
+      },
+      "actor_obs_normalizer.count": {
+        "source_min": 884932608.0,
+        "source_max": 884932608.0,
+        "final_min": 983236608.0,
+        "final_max": 983236608.0,
+        "max_abs_change": 98304000.0
+      },
+      "critic_obs_normalizer._mean": {
+        "source_min": -1.060387372970581,
+        "source_max": 2.8142812252044678,
+        "final_min": -0.8472851514816284,
+        "final_max": 2.5059711933135986,
+        "max_abs_change": 0.30831003189086914
+      },
+      "critic_obs_normalizer._var": {
+        "source_min": 2.400937955826521e-05,
+        "source_max": 2.5712761878967285,
+        "final_min": 3.655059481388889e-05,
+        "final_max": 2.603250026702881,
+        "max_abs_change": 1.4485063552856445
+      },
+      "critic_obs_normalizer._std": {
+        "source_min": 0.004899936728179455,
+        "source_max": 1.6035199165344238,
+        "final_min": 0.0060457088984549046,
+        "final_max": 1.6134589910507202,
+        "max_abs_change": 0.637913167476654
+      },
+      "critic_obs_normalizer.count": {
+        "source_min": 884932608.0,
+        "source_max": 884932608.0,
+        "final_min": 983236608.0,
+        "final_max": 983236608.0,
+        "max_abs_change": 98304000.0
+      }
+    },
+    "stds": [
+      [
+        0.005087418016046286,
+        0.006217652931809425,
+        0.004635162651538849,
+        0.005127744283527136,
+        0.008215030655264854,
+        0.0035905586555600166,
+        0.008815539069473743,
+        0.0460093729197979
+      ],
+      [
+        0.010702339000999928,
+        0.008184993639588356,
+        0.009974163956940174,
+        0.006306842435151339,
+        0.009606794454157352,
+        0.006931019481271505,
+        0.012921525165438652,
+        0.0548248291015625
+      ]
+    ],
+    "parameter_rms_change": {
+      "actor.0.weight": 0.016767585650086403,
+      "actor.0.bias": 0.014309430494904518,
+      "actor.2.weight": 0.017600510269403458,
+      "actor.2.bias": 0.014527397230267525,
+      "actor.4.weight": 0.015980664640665054,
+      "actor.4.bias": 0.01391636673361063,
+      "actor.6.weight": 0.011042921803891659,
+      "actor.6.bias": 0.008162288926541805
+    }
+  },
+  "Stack": {
+    "run": "RL-018-R9-stack-release",
+    "source": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-018-R8-stack-release/model_10196.pt",
+    "final": "src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-018-R9-stack-release/model_12195.pt",
+    "window_definition": "first100, updates900:1000, last100; training-only metrics, not strict evaluation",
+    "scalars": {
+      "Episode_Reward/stack": [
+        0.9855611432250589,
+        7.973827919960022,
+        7.97855357170105
+      ],
+      "Episode_Reward/at_goal_bonus": [
+        0.060431979149964885,
+        0.8686866784095764,
+        0.8733578419685364
+      ],
+      "Episode_Reward/action_rate_l2": [
+        -0.002912738914892543,
+        -0.009913219828158617,
+        -0.011020190780982375
+      ],
+      "Episode_Reward/joint_pos_limits": [
+        -0.01674334978761635,
+        -0.0025490328097657767,
+        -0.005624206162465271
+      ],
+      "Episode_Reward/joint_vel_penalty": [
+        -0.0045164774521254,
+        -0.003552692101802677,
+        -0.0034485977748408914
+      ],
+      "Metrics/stack_object/episode_success": [
+        0.01799206454306841,
+        0.003395833456888795,
+        0.004458333468064666
+      ],
+      "Loss/value": [
+        3.304117873907089,
+        0.24432288020849227,
+        0.28094433430582283
+      ],
+      "Loss/surrogate": [
+        0.002945120092686011,
+        0.0020195581090183623,
+        0.002334952343881014
+      ],
+      "Loss/entropy": [
+        -18.501489658355712,
+        -19.154752254486084,
+        -19.35881483078003
+      ],
+      "Loss/learning_rate": [
+        9.999999747378752e-05,
+        9.999999747378752e-05,
+        9.999999747378752e-05
+      ],
+      "Policy/mean_noise_std": [
+        0.0347432803735137,
+        0.031071091499179603,
+        0.029408114198595285
+      ],
+      "Train/mean_reward": [
+        20.24156952314079,
+        176.09477645874023,
+        176.86199630737303
+      ],
+      "Diagnostics/std_min": [
+        0.009299194598570466,
+        0.008869907474145294,
+        0.008562923278659582
+      ],
+      "Diagnostics/std_max": [
+        0.11747049048542976,
+        0.09547297395765782,
+        0.08071732200682163
+      ],
+      "Diagnostics/gripper_std": [
+        0.11747049048542976,
+        0.09547297395765782,
+        0.08071732200682163
+      ],
+      "Diagnostics/gripper_action_mean": [
+        -0.0797694847342791,
+        -0.9330803090333939,
+        -0.942321617603302
+      ],
+      "Diagnostics/action_saturation": [
+        0.0011004638613667339,
+        0.05407895408570766,
+        0.05822054546326399
+      ]
+    },
+    "normalizers": {
+      "actor_obs_normalizer._mean": {
+        "source_min": -1.0373235940933228,
+        "source_max": 0.8929325342178345,
+        "final_min": -1.0414323806762695,
+        "final_max": 0.9435323476791382,
+        "max_abs_change": 0.11847943067550659
+      },
+      "actor_obs_normalizer._var": {
+        "source_min": 2.6806264941114932e-05,
+        "source_max": 2.7701218128204346,
+        "final_min": 2.50187858910067e-05,
+        "final_max": 2.7938807010650635,
+        "max_abs_change": 0.18919944763183594
+      },
+      "actor_obs_normalizer._std": {
+        "source_min": 0.005177476909011602,
+        "source_max": 1.6643682718276978,
+        "final_min": 0.0050018783658742905,
+        "final_max": 1.6714905500411987,
+        "max_abs_change": 0.08189868927001953
+      },
+      "actor_obs_normalizer.count": {
+        "source_min": 501497856.0,
+        "source_max": 501497856.0,
+        "final_min": 599801856.0,
+        "final_max": 599801856.0,
+        "max_abs_change": 98304000.0
+      },
+      "critic_obs_normalizer._mean": {
+        "source_min": -1.0373235940933228,
+        "source_max": 0.8929325342178345,
+        "final_min": -1.0414323806762695,
+        "final_max": 0.9435323476791382,
+        "max_abs_change": 0.11847943067550659
+      },
+      "critic_obs_normalizer._var": {
+        "source_min": 2.6806264941114932e-05,
+        "source_max": 2.7701218128204346,
+        "final_min": 2.50187858910067e-05,
+        "final_max": 2.7938807010650635,
+        "max_abs_change": 0.18919944763183594
+      },
+      "critic_obs_normalizer._std": {
+        "source_min": 0.005177476909011602,
+        "source_max": 1.6643682718276978,
+        "final_min": 0.0050018783658742905,
+        "final_max": 1.6714905500411987,
+        "max_abs_change": 0.08189868927001953
+      },
+      "critic_obs_normalizer.count": {
+        "source_min": 501497856.0,
+        "source_max": 501497856.0,
+        "final_min": 599801856.0,
+        "final_max": 599801856.0,
+        "max_abs_change": 98304000.0
+      }
+    },
+    "stds": [
+      [
+        0.03344735503196716,
+        0.009257188066840172,
+        0.015654174610972404,
+        0.009710382670164108,
+        0.032303813844919205,
+        0.012643968686461449,
+        0.046395622193813324,
+        0.118074432015419
+      ],
+      [
+        0.03400673344731331,
+        0.009288675151765347,
+        0.013709592632949352,
+        0.008574467152357101,
+        0.03002477064728737,
+        0.010541087947785854,
+        0.04831961542367935,
+        0.08089321851730347
+      ]
+    ],
+    "parameter_rms_change": {
+      "actor.0.weight": 0.009350004605948925,
+      "actor.0.bias": 0.005819805897772312,
+      "actor.2.weight": 0.011647628620266914,
+      "actor.2.bias": 0.007653319742530584,
+      "actor.4.weight": 0.009646317921578884,
+      "actor.4.bias": 0.007009586784988642,
+      "actor.6.weight": 0.02728363312780857,
+      "actor.6.bias": 0.19109390676021576
+    }
+  },
+  "Strike": {
+    "run": "RL-023-R8-strike-noise",
+    "source": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-023-R7-strike-endpoint/model_14993.pt",
+    "final": "src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-023-R8-strike-noise/model_16992.pt",
+    "window_definition": "first100, updates900:1000, last100; training-only metrics, not strict evaluation",
+    "scalars": {
+      "Episode_Reward/reach_object": [
+        0.8263522052019835,
+        0.964569194316864,
+        1.2758440685272217
+      ],
+      "Episode_Reward/move_object_to_goal": [
+        0.004044570002663278,
+        0.00011892112529174305,
+        5.323041130897224e-05
+      ],
+      "Episode_Reward/action_rate_l2": [
+        -0.00015315334905608325,
+        -0.000146915474178968,
+        -0.00014755829659407027
+      ],
+      "Episode_Reward/joint_pos_limits": [
+        -0.10265498916502111,
+        -0.0493883759342134,
+        -0.016226555714383722
+      ],
+      "Episode_Reward/joint_vel_penalty": [
+        -0.0016384370355808642,
+        -0.002396140554919839,
+        -0.002464005406945944
+      ],
+      "Metrics/strike_slide/episode_success": [
+        0.015150947470683605,
+        0.0005819845595397055,
+        0.0002209567162208259
+      ],
+      "Loss/value": [
+        52.77587713241577,
+        0.1832319475710392,
+        0.05882798004895449
+      ],
+      "Loss/surrogate": [
+        0.14524069909006357,
+        0.022950490433722735,
+        0.013904576709028333
+      ],
+      "Loss/entropy": [
+        -29.126246700286867,
+        -27.179557514190673,
+        -26.202246475219727
+      ],
+      "Loss/learning_rate": [
+        4.999999873689376e-05,
+        4.999999873689376e-05,
+        4.999999873689376e-05
+      ],
+      "Policy/mean_noise_std": [
+        0.007310594730079174,
+        0.008930317787453533,
+        0.009948968905955553
+      ],
+      "Train/mean_reward": [
+        2.9164795330166817,
+        3.6521303248405457,
+        5.020115365982056
+      ],
+      "Diagnostics/std_min": [
+        0.003829726525582373,
+        0.005455227387137711,
+        0.006231959420256316
+      ],
+      "Diagnostics/std_max": [
+        0.019648033007979394,
+        0.02096703277900815,
+        0.022376965470612048
+      ],
+      "Diagnostics/gripper_std": [
+        0.019648033007979394,
+        0.02096703277900815,
+        0.022376965470612048
+      ],
+      "Diagnostics/gripper_action_mean": [
+        0.45516916988417505,
+        0.49483111917972566,
+        0.426724040210247
+      ],
+      "Diagnostics/action_saturation": [
+        0.02001892092637718,
+        0.01433377585373819,
+        0.013757095355540514
+      ]
+    },
+    "normalizers": {
+      "actor_obs_normalizer._mean": {
+        "source_min": -0.6838824152946472,
+        "source_max": 0.9991883635520935,
+        "final_min": -0.7067264318466187,
+        "final_max": 0.9991777539253235,
+        "max_abs_change": 0.14361828565597534
+      },
+      "actor_obs_normalizer._var": {
+        "source_min": 1.7523390738460876e-07,
+        "source_max": 5.940777778625488,
+        "final_min": 3.206103258435178e-07,
+        "final_max": 6.0816144943237305,
+        "max_abs_change": 0.33478498458862305
+      },
+      "actor_obs_normalizer._std": {
+        "source_min": 0.0004186095029581338,
+        "source_max": 2.437371015548706,
+        "final_min": 0.0005662246257998049,
+        "final_max": 2.466093063354492,
+        "max_abs_change": 0.13068079948425293
+      },
+      "actor_obs_normalizer.count": {
+        "source_min": 737329152.0,
+        "source_max": 737329152.0,
+        "final_min": 835633152.0,
+        "final_max": 835633152.0,
+        "max_abs_change": 98304000.0
+      },
+      "critic_obs_normalizer._mean": {
+        "source_min": -0.6838824152946472,
+        "source_max": 0.9991883635520935,
+        "final_min": -0.7067264318466187,
+        "final_max": 0.9991777539253235,
+        "max_abs_change": 0.14361828565597534
+      },
+      "critic_obs_normalizer._var": {
+        "source_min": 1.7523390738460876e-07,
+        "source_max": 5.940777778625488,
+        "final_min": 3.206103258435178e-07,
+        "final_max": 6.0816144943237305,
+        "max_abs_change": 0.33478498458862305
+      },
+      "critic_obs_normalizer._std": {
+        "source_min": 0.0004186095029581338,
+        "source_max": 2.437371015548706,
+        "final_min": 0.0005662246257998049,
+        "final_max": 2.466093063354492,
+        "max_abs_change": 0.13068079948425293
+      },
+      "critic_obs_normalizer.count": {
+        "source_min": 737329152.0,
+        "source_max": 737329152.0,
+        "final_min": 835633152.0,
+        "final_max": 835633152.0,
+        "max_abs_change": 98304000.0
+      }
+    },
+    "stds": [
+      [
+        0.01010723877698183,
+        0.007365711033344269,
+        0.008354551158845425,
+        0.01266619935631752,
+        0.012738209217786789,
+        0.009293818846344948,
+        0.015082796104252338,
+        0.039020754396915436
+      ],
+      [
+        0.008207130245864391,
+        0.006260714028030634,
+        0.006974590010941029,
+        0.009609200060367584,
+        0.009200990200042725,
+        0.00695129856467247,
+        0.010189294815063477,
+        0.02236858569085598
+      ]
+    ],
+    "parameter_rms_change": {
+      "actor.0.weight": 0.005989507306367159,
+      "actor.0.bias": 0.003052618820220232,
+      "actor.2.weight": 0.005899511743336916,
+      "actor.2.bias": 0.0032318655867129564,
+      "actor.4.weight": 0.005326572805643082,
+      "actor.4.bias": 0.0032138372771441936,
+      "actor.6.weight": 0.003982636146247387,
+      "actor.6.bias": 0.003999928943812847
+    }
+  }
+}

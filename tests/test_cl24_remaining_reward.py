@@ -223,3 +223,24 @@ def test_edge_pinch_recipe_preserves_benchmark_and_native_dominance(monkeypatch)
   assert params.pop('pinch_weight')==4.
   assert params.pop('orientation_power')==2.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_pivot_transition_reward_preserves_benchmark_and_tracks_early_tilt(monkeypatch):
+  import math
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  reward=module(monkeypatch);recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Pivot-Lift-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'pivot_v3');recipes.apply_recipe(new,'pivot_v4')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('wrist_transition') is True
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+  tilt=torch.tensor([0.,1-math.cos(math.radians(5)),1-math.cos(math.radians(10)),1-math.cos(math.radians(20))])
+  angle=reward.pivot_wrist_angle(tilt,True)*180/math.pi
+  torch.testing.assert_close(angle[[0,2,3]],torch.tensor([70.,55.,55.]))
+  assert 55<angle[1]<70 and reward.pivot_wrist_angle(tilt,False)[2]>reward.pivot_wrist_angle(tilt,True)[2]
+  score=reward.pivot_wall_tilt_score(tilt,torch.ones(4))
+  assert torch.all(score[1:]>score[:-1]) and score[-1]==1
+  assert not reward.pivot_wall_tilt_score(tilt,torch.zeros(4)).any()
