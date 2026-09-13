@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "5de74a1e1af75aaf31b6c6a762caf2516a87dea8348838c3493636261440c01c",
+  "reviewed_utc": "2026-09-13T04:47:55.393575+00:00",
+  "verdict": "not certified",
+  "validation_successes": 90,
+  "episodes": 128,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success and failure both visibly lift and hold cube near goal; native settling/contact criteria distinguish outcomes. Strict90/128 improves from56/128 but remains below116 gate; no confirmation.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}

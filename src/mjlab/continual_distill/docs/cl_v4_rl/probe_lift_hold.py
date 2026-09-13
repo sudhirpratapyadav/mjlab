@@ -21,6 +21,7 @@ def main():
   parser.add_argument('--evaluation',type=Path,required=True)
   parser.add_argument('--output',type=Path,required=True)
   parser.add_argument('--gyro',action='store_true')
+  parser.add_argument('--elliptic-hessian',action='store_true',help='Diagnostic native-equivalent dense elliptic Hessian')
   parser.add_argument('--use-trace-friction',action='store_true')
   parser.add_argument('--fixed-grip-target',type=float)
   parser.add_argument('--failures-only',action='store_true')
@@ -32,7 +33,7 @@ def main():
   parser.add_argument('--recorded-only',action='store_true',help='Run only the actual recorded terminal-control hold')
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
-  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka')
+  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka', 'Mjlab-Peg-Insertion-Franka')
   assert args.stride>=1
   assert not args.fixed_only or args.fixed_grip_target is not None
   assert not args.recorded_only or args.use_trace_controls
@@ -42,7 +43,7 @@ def main():
   cfg = TrainConfig.from_task(evaluation['task'])
   apply_recipe(cfg,manifest['recipe'])
   cfg.env.sim.free_body_implicitfast_compat = args.gyro or manifest.get('free_body_implicitfast_compat', False)
-  cfg.env.sim.elliptic_hessian_compat = manifest.get('elliptic_hessian_compat', False)
+  cfg.env.sim.elliptic_hessian_compat = args.elliptic_hessian or manifest.get('elliptic_hessian_compat', False)
   cfg.env.sim.primitive_box_box_compat = args.primitive_box_box or manifest.get('primitive_box_box_compat', False)
   records = [r for r in evaluation['records'] if r['reason']=='timeout' and (not args.failures_only or not r['success'])][::args.stride]
   assert records, 'No selected episodes'

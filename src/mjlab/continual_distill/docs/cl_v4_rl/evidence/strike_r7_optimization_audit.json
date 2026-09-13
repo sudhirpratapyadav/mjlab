@@ -1,0 +1,74 @@
+{
+  "run_id": "RL-023-R7-strike-endpoint",
+  "checkpoint": "model_14993.pt",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "action_std": [
+    0.01010723877698183,
+    0.007365711033344269,
+    0.008354551158845425,
+    0.01266619935631752,
+    0.012738209217786789,
+    0.009293818846344948,
+    0.015082796104252338,
+    0.039020754396915436
+  ],
+  "method": "Final checkpoint tensors and saved training-only scalar means over consecutive400-update windows; no checkpoint selection or validation sweep.",
+  "windows": [
+    {
+      "first": 12994,
+      "last": 13393,
+      "means": {
+        "Metrics/strike_slide/episode_success": 0.4831107773911208,
+        "Loss/value": 77.04561424016953,
+        "Loss/surrogate": 0.0022397446281968315,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 42.451335793063045
+      }
+    },
+    {
+      "first": 13394,
+      "last": 13793,
+      "means": {
+        "Metrics/strike_slide/episode_success": 0.5161855992674828,
+        "Loss/value": 118.78706857681274,
+        "Loss/surrogate": 0.003371728456229448,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 44.197757306098936
+      }
+    },
+    {
+      "first": 13794,
+      "last": 14193,
+      "means": {
+        "Metrics/strike_slide/episode_success": 0.5560859283804893,
+        "Loss/value": 138.23861434936524,
+        "Loss/surrogate": 0.0037788926915254704,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 47.81537814617157
+      }
+    },
+    {
+      "first": 14194,
+      "last": 14593,
+      "means": {
+        "Metrics/strike_slide/episode_success": 0.5238693588227034,
+        "Loss/value": 135.53310205459596,
+        "Loss/surrogate": 0.004074006711884976,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 46.25642632484436
+      }
+    },
+    {
+      "first": 14594,
+      "last": 14993,
+      "means": {
+        "Metrics/strike_slide/episode_success": 0.5112998014688492,
+        "Loss/value": 136.76985525131226,
+        "Loss/surrogate": 0.004069537158070489,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 45.78470956325531
+      }
+    }
+  ]
+}

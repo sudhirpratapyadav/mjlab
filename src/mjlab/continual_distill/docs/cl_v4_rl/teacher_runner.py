@@ -9,6 +9,20 @@ import torch
 from rsl_rl.runners import OnPolicyRunner
 
 
+def scale_policy_exploration(policy, optimizer, factor):
+  """Scale learned action noise once; preserve all deterministic behavior."""
+  if not math.isfinite(factor) or factor <= 0:
+    raise ValueError("Exploration scale must be finite and positive")
+  if policy.noise_std_type != 'log' or policy.log_std.shape != (8,):
+    raise ValueError("Expected independent log std for the approved eight actions")
+  with torch.no_grad():
+    policy.log_std.add_(math.log(factor))
+    for name in ('exp_avg', 'exp_avg_sq', 'max_exp_avg_sq'):
+      moment = optimizer.state.get(policy.log_std, {}).get(name)
+      if moment is not None:
+        moment.zero_()
+
+
 def reset_gripper_exploration(policy, optimizer, std):
   """Change only the eighth action's exploration and its Adam moments."""
   if not math.isfinite(std) or std <= 0:
@@ -44,9 +58,10 @@ def reset_gripper_output(policy, optimizer, mean):
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, capture_pre_step=False, learning_rate_override=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, capture_pre_step=False, learning_rate_override=None, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
+    self.resume_noise_scale = resume_noise_scale
     self.learning_rate_override = learning_rate_override
     super().__init__(*args, **kwargs)
     original_step = self.env.step
@@ -168,6 +183,8 @@ class TeacherRunner(OnPolicyRunner):
     # Adam's restored parameter groups override the constructor LR. Keep PPO's
     # scheduler/logger aligned with the optimizer actually used for updates.
     self.alg.learning_rate = self.alg.optimizer.param_groups[0]['lr']
+    if self.resume_noise_scale is not None:
+      scale_policy_exploration(self.alg.policy, self.alg.optimizer, self.resume_noise_scale)
     if self.resume_gripper_std is not None:
       reset_gripper_exploration(self.alg.policy, self.alg.optimizer, self.resume_gripper_std)
     if self.resume_gripper_mean is not None:

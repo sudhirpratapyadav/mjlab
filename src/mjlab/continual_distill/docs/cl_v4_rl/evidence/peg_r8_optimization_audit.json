@@ -1,0 +1,74 @@
+{
+  "run_id": "RL-020-R8-peg-lift",
+  "checkpoint": "model_8199.pt",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "action_std": [
+    0.010880553163588047,
+    0.0028638553339987993,
+    0.013660293072462082,
+    0.0022247571032494307,
+    0.009035901166498661,
+    0.008225681260228157,
+    0.03001462109386921,
+    0.03639347851276398
+  ],
+  "method": "Final checkpoint tensors and saved training-only scalar means over consecutive400-update windows; no checkpoint selection or validation sweep.",
+  "windows": [
+    {
+      "first": 6200,
+      "last": 6599,
+      "means": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/value": 0.033074890351854264,
+        "Loss/surrogate": 0.011340664332965388,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 57.447452471163125
+      }
+    },
+    {
+      "first": 6600,
+      "last": 6999,
+      "means": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/value": 0.0374158174591139,
+        "Loss/surrogate": 0.01509134275955148,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 62.60656394004822
+      }
+    },
+    {
+      "first": 7000,
+      "last": 7399,
+      "means": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/value": 0.030755001984070985,
+        "Loss/surrogate": 0.01717638754809741,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 63.70186874389648
+      }
+    },
+    {
+      "first": 7400,
+      "last": 7799,
+      "means": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/value": 0.033857265000697224,
+        "Loss/surrogate": 0.020851292371517047,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 62.78468759536743
+      }
+    },
+    {
+      "first": 7800,
+      "last": 8199,
+      "means": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/value": 0.03567059287801385,
+        "Loss/surrogate": 0.018969373729778454,
+        "Loss/learning_rate": 4.999999873689376e-05,
+        "Train/mean_reward": 63.69188584327698
+      }
+    }
+  ]
+}

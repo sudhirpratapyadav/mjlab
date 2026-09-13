@@ -27,6 +27,7 @@ def test_resume_learning_rate_survives_adam_restore(monkeypatch,override,expecte
   runner=module.TeacherRunner.__new__(module.TeacherRunner)
   runner.alg=SimpleNamespace(optimizer=restored,learning_rate=3e-4)
   runner.resume_gripper_std=runner.resume_gripper_mean=None
+  runner.resume_noise_scale=None
   runner.learning_rate_override=override
   assert runner.load('checkpoint')['restored']
   assert restored.param_groups[0]['lr']==runner.alg.learning_rate==expected
@@ -122,3 +123,27 @@ def test_bounded_policy_initialization_and_roundtrip(monkeypatch):
   for invalid in (-1.,1.,float('nan'),float('inf')):
     with pytest.raises(ValueError):
       runner_module.reset_gripper_output(policy,optimizer,invalid)
+
+  before = copy.deepcopy(policy.state_dict())
+  moments = {p:copy.deepcopy(v) for p,v in optimizer.state.items()}
+  output_before = policy.act_inference(obs).detach().clone()
+  runner_module.scale_policy_exploration(policy,optimizer,.5)
+  torch.testing.assert_close(policy.act_inference(obs),output_before,rtol=0,atol=0)
+  for name,value in policy.state_dict().items():
+    if name == 'log_std':
+      torch.testing.assert_close(value.exp(),.5*before[name].exp())
+    else:
+      torch.testing.assert_close(value,before[name],rtol=0,atol=0)
+  for parameter,old_state in moments.items():
+    for key,old in old_state.items():
+      new=optimizer.state[parameter][key]
+      if parameter is policy.log_std and key in ('exp_avg','exp_avg_sq','max_exp_avg_sq'):
+        assert (new==0).all()
+      else:
+        torch.testing.assert_close(new,old,rtol=0,atol=0)
+  after=copy.deepcopy(policy.state_dict())
+  for invalid in (0.,-1.,float('nan'),float('inf')):
+    with pytest.raises(ValueError):
+      runner_module.scale_policy_exploration(policy,optimizer,invalid)
+  for name,value in policy.state_dict().items():
+    torch.testing.assert_close(value,after[name],rtol=0,atol=0)
