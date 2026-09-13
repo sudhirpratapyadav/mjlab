@@ -32,5 +32,18 @@
   "survival_bonus_rate": 500.0,
   "native_completion_weight": 100.0,
   "reason": "Independent optimizer ablation against S10: same ORIGINAL S7/model24488, goal100 recipe, rewards, exploration, source Adam/normalizers, 1000 updates/final25487 and LR5e-6 ceiling/KL.03; only actor/noise and critic are gradient-clipped separately at original .5 norm instead of sharing one bound. One-update gradient probes measured critic-dominated clipping (>99.999% squared norm); their rollouts were not byte-identical, so no matched cross-recipe causal claim. Separate clipping implementation tested for critic-scale independence, default preservation and exception restoration. GPU3 preflight091 x100 must pass finite/KL checks before full S11 restarts ORIGINALS7. No preflight model selection. Diagnostic updates are excluded from teacher training. Other23 paused. Main S9/S10 unchanged.",
-  "separate_gradient_clipping": true
+  "separate_gradient_clipping": true,
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-SEPCLIP-091",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.029650164768099785,
+    "backtracks": 9,
+    "learning_rate_ceiling": 5e-06,
+    "saved_learning_rate": 5e-06,
+    "checkpoint_sha256": "386534998786f7ffa1ae9efa50c27b818199590e1f3089cf0eca98e0cb4f421d",
+    "separate_gradient_clipping": true,
+    "per_update_rate_rule_verified": true,
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  }
 }

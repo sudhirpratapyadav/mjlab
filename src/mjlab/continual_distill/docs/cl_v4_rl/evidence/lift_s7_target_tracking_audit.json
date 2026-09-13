@@ -1,0 +1,1309 @@
+{
+  "checkpoint_sha256": "431d89d6358948b51e3049f315bdf3cdae4c9a180fdb43ec62b50680358204bf",
+  "episodes": 128,
+  "method": "Diagnostic only: squared physical arm target minus post-step arm qpos, per-joint deadband0.05rad, summed7joints. Recorded controls, no policy/simulator/reward change. Potential dense command cost; not an existing training reward or a motion gate.",
+  "summary": {
+    "mean_excess_target_error_l2": {
+      "median": 0.11301502957940102,
+      "p95": 1.2763824999332427
+    },
+    "first_step_excess_target_error_l2": {
+      "median": 21.652437210083008,
+      "p95": 35.032917976379395
+    },
+    "integral_excess_target_error_l2": {
+      "median": 2.176597833633423,
+      "p95": 24.389236927032467
+    },
+    "first_second_integral": {
+      "median": 1.789355754852295,
+      "p95": 16.41609525680542
+    },
+    "remaining_integral": {
+      "median": 0.1241580881178379,
+      "p95": 9.164171361923215
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.106201171875,
+      "first_step_excess_target_error_l2": 15.268447875976562,
+      "integral_excess_target_error_l2": 2.1240234375,
+      "first_second_integral": 1.9506628513336182,
+      "remaining_integral": 0.1733606457710266
+    },
+    {
+      "env_id": 1,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08287227898836136,
+      "first_step_excess_target_error_l2": 20.11058235168457,
+      "integral_excess_target_error_l2": 1.6574454307556152,
+      "first_second_integral": 1.5150983333587646,
+      "remaining_integral": 0.14234678447246552
+    },
+    {
+      "env_id": 2,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.058507055044174194,
+      "first_step_excess_target_error_l2": 10.593608856201172,
+      "integral_excess_target_error_l2": 1.1701411008834839,
+      "first_second_integral": 1.1327649354934692,
+      "remaining_integral": 0.03737596049904823
+    },
+    {
+      "env_id": 3,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07181074470281601,
+      "first_step_excess_target_error_l2": 22.20775032043457,
+      "integral_excess_target_error_l2": 1.4362149238586426,
+      "first_second_integral": 1.3934296369552612,
+      "remaining_integral": 0.0427851602435112
+    },
+    {
+      "env_id": 4,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06117522716522217,
+      "first_step_excess_target_error_l2": 22.822093963623047,
+      "integral_excess_target_error_l2": 1.2235045433044434,
+      "first_second_integral": 1.1776642799377441,
+      "remaining_integral": 0.04584018141031265
+    },
+    {
+      "env_id": 5,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.0708775520324707,
+      "first_step_excess_target_error_l2": 29.685787200927734,
+      "integral_excess_target_error_l2": 21.417551040649414,
+      "first_second_integral": 16.25396156311035,
+      "remaining_integral": 5.1635918617248535
+    },
+    {
+      "env_id": 6,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11145861446857452,
+      "first_step_excess_target_error_l2": 19.824827194213867,
+      "integral_excess_target_error_l2": 2.2291722297668457,
+      "first_second_integral": 2.2262942790985107,
+      "remaining_integral": 0.0028778898995369673
+    },
+    {
+      "env_id": 7,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.21788978576660156,
+      "first_step_excess_target_error_l2": 26.42137336730957,
+      "integral_excess_target_error_l2": 4.357795715332031,
+      "first_second_integral": 4.183740139007568,
+      "remaining_integral": 0.1740552932024002
+    },
+    {
+      "env_id": 8,
+      "success": false,
+      "duration_s": 19.900000000000002,
+      "mean_excess_target_error_l2": 6.986120700836182,
+      "first_step_excess_target_error_l2": 34.88117980957031,
+      "integral_excess_target_error_l2": 139.02378845214844,
+      "first_second_integral": 14.339614868164062,
+      "remaining_integral": 124.68417358398438
+    },
+    {
+      "env_id": 9,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1148725226521492,
+      "first_step_excess_target_error_l2": 17.891704559326172,
+      "integral_excess_target_error_l2": 2.297450304031372,
+      "first_second_integral": 2.2838187217712402,
+      "remaining_integral": 0.013631884939968586
+    },
+    {
+      "env_id": 10,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.3474819660186768,
+      "first_step_excess_target_error_l2": 33.42306900024414,
+      "integral_excess_target_error_l2": 26.94963836669922,
+      "first_second_integral": 14.875882148742676,
+      "remaining_integral": 12.07375431060791
+    },
+    {
+      "env_id": 11,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07659763842821121,
+      "first_step_excess_target_error_l2": 22.645038604736328,
+      "integral_excess_target_error_l2": 1.5319527387619019,
+      "first_second_integral": 1.4574835300445557,
+      "remaining_integral": 0.07446946203708649
+    },
+    {
+      "env_id": 12,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07844606041908264,
+      "first_step_excess_target_error_l2": 22.97344398498535,
+      "integral_excess_target_error_l2": 1.5689212083816528,
+      "first_second_integral": 1.2297295331954956,
+      "remaining_integral": 0.33919137716293335
+    },
+    {
+      "env_id": 13,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.12113259732723236,
+      "first_step_excess_target_error_l2": 23.945690155029297,
+      "integral_excess_target_error_l2": 2.422652006149292,
+      "first_second_integral": 1.971726894378662,
+      "remaining_integral": 0.4509250819683075
+    },
+    {
+      "env_id": 14,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09355859458446503,
+      "first_step_excess_target_error_l2": 18.313343048095703,
+      "integral_excess_target_error_l2": 1.8711718320846558,
+      "first_second_integral": 1.8375585079193115,
+      "remaining_integral": 0.03361321985721588
+    },
+    {
+      "env_id": 15,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07366050779819489,
+      "first_step_excess_target_error_l2": 12.916474342346191,
+      "integral_excess_target_error_l2": 1.473210096359253,
+      "first_second_integral": 1.4032694101333618,
+      "remaining_integral": 0.06994073837995529
+    },
+    {
+      "env_id": 16,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1223612055182457,
+      "first_step_excess_target_error_l2": 15.909048080444336,
+      "integral_excess_target_error_l2": 2.4472241401672363,
+      "first_second_integral": 2.014832019805908,
+      "remaining_integral": 0.4323921203613281
+    },
+    {
+      "env_id": 17,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06250645965337753,
+      "first_step_excess_target_error_l2": 22.802139282226562,
+      "integral_excess_target_error_l2": 1.250129222869873,
+      "first_second_integral": 1.2213259935379028,
+      "remaining_integral": 0.02880331501364708
+    },
+    {
+      "env_id": 18,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0678165853023529,
+      "first_step_excess_target_error_l2": 28.476469039916992,
+      "integral_excess_target_error_l2": 1.3563315868377686,
+      "first_second_integral": 1.3113617897033691,
+      "remaining_integral": 0.044969797134399414
+    },
+    {
+      "env_id": 19,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1936240941286087,
+      "first_step_excess_target_error_l2": 10.249783515930176,
+      "integral_excess_target_error_l2": 3.8724818229675293,
+      "first_second_integral": 0.8900450468063354,
+      "remaining_integral": 2.9824366569519043
+    },
+    {
+      "env_id": 20,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.16401205956935883,
+      "first_step_excess_target_error_l2": 27.324426651000977,
+      "integral_excess_target_error_l2": 3.280241012573242,
+      "first_second_integral": 3.195573091506958,
+      "remaining_integral": 0.0846681296825409
+    },
+    {
+      "env_id": 21,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7193480134010315,
+      "first_step_excess_target_error_l2": 33.103759765625,
+      "integral_excess_target_error_l2": 14.38696002960205,
+      "first_second_integral": 13.853897094726562,
+      "remaining_integral": 0.5330609679222107
+    },
+    {
+      "env_id": 22,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7967408895492554,
+      "first_step_excess_target_error_l2": 36.751739501953125,
+      "integral_excess_target_error_l2": 15.93481731414795,
+      "first_second_integral": 14.967500686645508,
+      "remaining_integral": 0.9673157334327698
+    },
+    {
+      "env_id": 23,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08284521847963333,
+      "first_step_excess_target_error_l2": 7.621286869049072,
+      "integral_excess_target_error_l2": 1.6569042205810547,
+      "first_second_integral": 1.294006109237671,
+      "remaining_integral": 0.36289799213409424
+    },
+    {
+      "env_id": 24,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.723343014717102,
+      "first_step_excess_target_error_l2": 13.155538558959961,
+      "integral_excess_target_error_l2": 14.466859817504883,
+      "first_second_integral": 2.3482916355133057,
+      "remaining_integral": 12.118570327758789
+    },
+    {
+      "env_id": 25,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06377635151147842,
+      "first_step_excess_target_error_l2": 10.127483367919922,
+      "integral_excess_target_error_l2": 1.2755268812179565,
+      "first_second_integral": 1.1809451580047607,
+      "remaining_integral": 0.09458188712596893
+    },
+    {
+      "env_id": 26,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09100723266601562,
+      "first_step_excess_target_error_l2": 12.868115425109863,
+      "integral_excess_target_error_l2": 1.8201446533203125,
+      "first_second_integral": 1.3047233819961548,
+      "remaining_integral": 0.5154211521148682
+    },
+    {
+      "env_id": 27,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07035262137651443,
+      "first_step_excess_target_error_l2": 7.537528038024902,
+      "integral_excess_target_error_l2": 1.4070523977279663,
+      "first_second_integral": 1.3816474676132202,
+      "remaining_integral": 0.02540491707623005
+    },
+    {
+      "env_id": 28,
+      "success": false,
+      "duration_s": 4.76,
+      "mean_excess_target_error_l2": 9.640067100524902,
+      "first_step_excess_target_error_l2": 34.96719741821289,
+      "integral_excess_target_error_l2": 45.88671875,
+      "first_second_integral": 17.280942916870117,
+      "remaining_integral": 28.605777740478516
+    },
+    {
+      "env_id": 29,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.2072980403900146,
+      "first_step_excess_target_error_l2": 34.832618713378906,
+      "integral_excess_target_error_l2": 24.14596176147461,
+      "first_second_integral": 16.72416114807129,
+      "remaining_integral": 7.421799182891846
+    },
+    {
+      "env_id": 30,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.05983395874500275,
+      "first_step_excess_target_error_l2": 17.941608428955078,
+      "integral_excess_target_error_l2": 1.1966791152954102,
+      "first_second_integral": 1.1691555976867676,
+      "remaining_integral": 0.02752353437244892
+    },
+    {
+      "env_id": 31,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08425714820623398,
+      "first_step_excess_target_error_l2": 21.37972640991211,
+      "integral_excess_target_error_l2": 1.685142993927002,
+      "first_second_integral": 1.6027170419692993,
+      "remaining_integral": 0.08242586255073547
+    },
+    {
+      "env_id": 32,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07356646656990051,
+      "first_step_excess_target_error_l2": 8.971110343933105,
+      "integral_excess_target_error_l2": 1.4713293313980103,
+      "first_second_integral": 1.3028321266174316,
+      "remaining_integral": 0.16849710047245026
+    },
+    {
+      "env_id": 33,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07109221071004868,
+      "first_step_excess_target_error_l2": 24.515640258789062,
+      "integral_excess_target_error_l2": 1.4218441247940063,
+      "first_second_integral": 1.4086668491363525,
+      "remaining_integral": 0.013177085667848587
+    },
+    {
+      "env_id": 34,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06672936677932739,
+      "first_step_excess_target_error_l2": 13.650015830993652,
+      "integral_excess_target_error_l2": 1.3345873355865479,
+      "first_second_integral": 1.239027738571167,
+      "remaining_integral": 0.0955597460269928
+    },
+    {
+      "env_id": 35,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09231743961572647,
+      "first_step_excess_target_error_l2": 19.242658615112305,
+      "integral_excess_target_error_l2": 1.8463486433029175,
+      "first_second_integral": 1.8066576719284058,
+      "remaining_integral": 0.03969105705618858
+    },
+    {
+      "env_id": 36,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07105737924575806,
+      "first_step_excess_target_error_l2": 18.83129119873047,
+      "integral_excess_target_error_l2": 1.4211475849151611,
+      "first_second_integral": 1.4070371389389038,
+      "remaining_integral": 0.014110539108514786
+    },
+    {
+      "env_id": 37,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1781509518623352,
+      "first_step_excess_target_error_l2": 29.29962158203125,
+      "integral_excess_target_error_l2": 3.563019037246704,
+      "first_second_integral": 3.3052542209625244,
+      "remaining_integral": 0.2577650547027588
+    },
+    {
+      "env_id": 38,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.053810279816389084,
+      "first_step_excess_target_error_l2": 7.1273884773254395,
+      "integral_excess_target_error_l2": 1.0762056112289429,
+      "first_second_integral": 1.0634193420410156,
+      "remaining_integral": 0.012786321341991425
+    },
+    {
+      "env_id": 39,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.062217190861701965,
+      "first_step_excess_target_error_l2": 15.087837219238281,
+      "integral_excess_target_error_l2": 1.2443437576293945,
+      "first_second_integral": 1.1813175678253174,
+      "remaining_integral": 0.06302620470523834
+    },
+    {
+      "env_id": 40,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06207200512290001,
+      "first_step_excess_target_error_l2": 21.80342674255371,
+      "integral_excess_target_error_l2": 1.2414400577545166,
+      "first_second_integral": 1.2243205308914185,
+      "remaining_integral": 0.017119500786066055
+    },
+    {
+      "env_id": 41,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.1900383234024048,
+      "first_step_excess_target_error_l2": 31.86139488220215,
+      "integral_excess_target_error_l2": 23.800765991210938,
+      "first_second_integral": 14.830455780029297,
+      "remaining_integral": 8.97031307220459
+    },
+    {
+      "env_id": 42,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.6122804880142212,
+      "first_step_excess_target_error_l2": 33.06846237182617,
+      "integral_excess_target_error_l2": 32.245609283447266,
+      "first_second_integral": 16.434263229370117,
+      "remaining_integral": 15.811347007751465
+    },
+    {
+      "env_id": 43,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.053108107298612595,
+      "first_step_excess_target_error_l2": 14.198774337768555,
+      "integral_excess_target_error_l2": 1.062162160873413,
+      "first_second_integral": 1.0042697191238403,
+      "remaining_integral": 0.05789227411150932
+    },
+    {
+      "env_id": 44,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.12848098576068878,
+      "first_step_excess_target_error_l2": 18.27965545654297,
+      "integral_excess_target_error_l2": 2.569619655609131,
+      "first_second_integral": 2.4513943195343018,
+      "remaining_integral": 0.11822517961263657
+    },
+    {
+      "env_id": 45,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0792083889245987,
+      "first_step_excess_target_error_l2": 18.740354537963867,
+      "integral_excess_target_error_l2": 1.584167718887329,
+      "first_second_integral": 1.5823426246643066,
+      "remaining_integral": 0.0018249090062454343
+    },
+    {
+      "env_id": 46,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11771855503320694,
+      "first_step_excess_target_error_l2": 15.545998573303223,
+      "integral_excess_target_error_l2": 2.3543710708618164,
+      "first_second_integral": 1.9538438320159912,
+      "remaining_integral": 0.40052711963653564
+    },
+    {
+      "env_id": 47,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0500321201980114,
+      "first_step_excess_target_error_l2": 12.648530006408691,
+      "integral_excess_target_error_l2": 1.0006424188613892,
+      "first_second_integral": 0.9466387033462524,
+      "remaining_integral": 0.054003722965717316
+    },
+    {
+      "env_id": 48,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07602667063474655,
+      "first_step_excess_target_error_l2": 10.920120239257812,
+      "integral_excess_target_error_l2": 1.5205334424972534,
+      "first_second_integral": 1.4486989974975586,
+      "remaining_integral": 0.07183447480201721
+    },
+    {
+      "env_id": 49,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.8303806185722351,
+      "first_step_excess_target_error_l2": 34.126346588134766,
+      "integral_excess_target_error_l2": 16.60761260986328,
+      "first_second_integral": 15.33065414428711,
+      "remaining_integral": 1.2769596576690674
+    },
+    {
+      "env_id": 50,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.14707352221012115,
+      "first_step_excess_target_error_l2": 25.308353424072266,
+      "integral_excess_target_error_l2": 2.9414703845977783,
+      "first_second_integral": 2.8754491806030273,
+      "remaining_integral": 0.06602106243371964
+    },
+    {
+      "env_id": 51,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1731538325548172,
+      "first_step_excess_target_error_l2": 23.672138214111328,
+      "integral_excess_target_error_l2": 3.463076591491699,
+      "first_second_integral": 3.2496845722198486,
+      "remaining_integral": 0.213392436504364
+    },
+    {
+      "env_id": 52,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07566149532794952,
+      "first_step_excess_target_error_l2": 18.20862579345703,
+      "integral_excess_target_error_l2": 1.5132299661636353,
+      "first_second_integral": 1.4711780548095703,
+      "remaining_integral": 0.0420520044863224
+    },
+    {
+      "env_id": 53,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.069438099861145,
+      "first_step_excess_target_error_l2": 14.041035652160645,
+      "integral_excess_target_error_l2": 21.388761520385742,
+      "first_second_integral": 1.5066524744033813,
+      "remaining_integral": 19.882108688354492
+    },
+    {
+      "env_id": 54,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.685108482837677,
+      "first_step_excess_target_error_l2": 30.91205596923828,
+      "integral_excess_target_error_l2": 13.702168464660645,
+      "first_second_integral": 13.338428497314453,
+      "remaining_integral": 0.36374160647392273
+    },
+    {
+      "env_id": 55,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06701736152172089,
+      "first_step_excess_target_error_l2": 10.584474563598633,
+      "integral_excess_target_error_l2": 1.3403472900390625,
+      "first_second_integral": 1.311608076095581,
+      "remaining_integral": 0.028739113360643387
+    },
+    {
+      "env_id": 56,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09015492349863052,
+      "first_step_excess_target_error_l2": 21.412378311157227,
+      "integral_excess_target_error_l2": 1.803098440170288,
+      "first_second_integral": 1.772053837776184,
+      "remaining_integral": 0.031044505536556244
+    },
+    {
+      "env_id": 57,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.056442126631736755,
+      "first_step_excess_target_error_l2": 12.580059051513672,
+      "integral_excess_target_error_l2": 1.1288424730300903,
+      "first_second_integral": 1.109705924987793,
+      "remaining_integral": 0.01913650706410408
+    },
+    {
+      "env_id": 58,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.2260116338729858,
+      "first_step_excess_target_error_l2": 34.88955307006836,
+      "integral_excess_target_error_l2": 24.520231246948242,
+      "first_second_integral": 16.89240264892578,
+      "remaining_integral": 7.627828121185303
+    },
+    {
+      "env_id": 59,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08243218809366226,
+      "first_step_excess_target_error_l2": 24.585979461669922,
+      "integral_excess_target_error_l2": 1.6486437320709229,
+      "first_second_integral": 1.4813354015350342,
+      "remaining_integral": 0.16730868816375732
+    },
+    {
+      "env_id": 60,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7646071314811707,
+      "first_step_excess_target_error_l2": 31.133413314819336,
+      "integral_excess_target_error_l2": 15.292141914367676,
+      "first_second_integral": 13.138795852661133,
+      "remaining_integral": 2.153346300125122
+    },
+    {
+      "env_id": 61,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0672507956624031,
+      "first_step_excess_target_error_l2": 12.936203002929688,
+      "integral_excess_target_error_l2": 1.3450158834457397,
+      "first_second_integral": 1.0283637046813965,
+      "remaining_integral": 0.31665194034576416
+    },
+    {
+      "env_id": 62,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.2060436010360718,
+      "first_step_excess_target_error_l2": 33.41849899291992,
+      "integral_excess_target_error_l2": 24.12087059020996,
+      "first_second_integral": 16.79649543762207,
+      "remaining_integral": 7.324375629425049
+    },
+    {
+      "env_id": 63,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06867442280054092,
+      "first_step_excess_target_error_l2": 25.48870086669922,
+      "integral_excess_target_error_l2": 1.373488426208496,
+      "first_second_integral": 1.3173291683197021,
+      "remaining_integral": 0.056159064173698425
+    },
+    {
+      "env_id": 64,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1950346678495407,
+      "first_step_excess_target_error_l2": 8.864336967468262,
+      "integral_excess_target_error_l2": 3.90069317817688,
+      "first_second_integral": 1.0146009922027588,
+      "remaining_integral": 2.886092185974121
+    },
+    {
+      "env_id": 65,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.8092502951622009,
+      "first_step_excess_target_error_l2": 33.4925651550293,
+      "integral_excess_target_error_l2": 16.18500518798828,
+      "first_second_integral": 14.542247772216797,
+      "remaining_integral": 1.6427581310272217
+    },
+    {
+      "env_id": 66,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1825670450925827,
+      "first_step_excess_target_error_l2": 24.866962432861328,
+      "integral_excess_target_error_l2": 3.651340961456299,
+      "first_second_integral": 3.558382272720337,
+      "remaining_integral": 0.09295833110809326
+    },
+    {
+      "env_id": 67,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08658623695373535,
+      "first_step_excess_target_error_l2": 23.7747802734375,
+      "integral_excess_target_error_l2": 1.7317246198654175,
+      "first_second_integral": 1.718546986579895,
+      "remaining_integral": 0.013177434913814068
+    },
+    {
+      "env_id": 68,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.19659017026424408,
+      "first_step_excess_target_error_l2": 24.94559669494629,
+      "integral_excess_target_error_l2": 3.9318032264709473,
+      "first_second_integral": 1.424561858177185,
+      "remaining_integral": 2.5072414875030518
+    },
+    {
+      "env_id": 69,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.2649368047714233,
+      "first_step_excess_target_error_l2": 36.37084197998047,
+      "integral_excess_target_error_l2": 25.298734664916992,
+      "first_second_integral": 16.606521606445312,
+      "remaining_integral": 8.692214965820312
+    },
+    {
+      "env_id": 70,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7309264540672302,
+      "first_step_excess_target_error_l2": 34.02288055419922,
+      "integral_excess_target_error_l2": 14.618528366088867,
+      "first_second_integral": 14.071041107177734,
+      "remaining_integral": 0.5474863052368164
+    },
+    {
+      "env_id": 71,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11685275286436081,
+      "first_step_excess_target_error_l2": 22.1240234375,
+      "integral_excess_target_error_l2": 2.337054967880249,
+      "first_second_integral": 2.072448253631592,
+      "remaining_integral": 0.2646067142486572
+    },
+    {
+      "env_id": 72,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09087152034044266,
+      "first_step_excess_target_error_l2": 11.973787307739258,
+      "integral_excess_target_error_l2": 1.8174303770065308,
+      "first_second_integral": 1.7238725423812866,
+      "remaining_integral": 0.09355784952640533
+    },
+    {
+      "env_id": 73,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08066729456186295,
+      "first_step_excess_target_error_l2": 11.996711730957031,
+      "integral_excess_target_error_l2": 1.6133458614349365,
+      "first_second_integral": 1.5936357975006104,
+      "remaining_integral": 0.019710183143615723
+    },
+    {
+      "env_id": 74,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 1.282545566558838,
+      "first_step_excess_target_error_l2": 36.3321418762207,
+      "integral_excess_target_error_l2": 25.650909423828125,
+      "first_second_integral": 16.382354736328125,
+      "remaining_integral": 9.268556594848633
+    },
+    {
+      "env_id": 75,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.055502139031887054,
+      "first_step_excess_target_error_l2": 6.915067672729492,
+      "integral_excess_target_error_l2": 1.1100428104400635,
+      "first_second_integral": 1.0153766870498657,
+      "remaining_integral": 0.09466610103845596
+    },
+    {
+      "env_id": 76,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.12377504259347916,
+      "first_step_excess_target_error_l2": 21.44129753112793,
+      "integral_excess_target_error_l2": 2.4755008220672607,
+      "first_second_integral": 2.098968744277954,
+      "remaining_integral": 0.3765318989753723
+    },
+    {
+      "env_id": 77,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.061632681638002396,
+      "first_step_excess_target_error_l2": 5.781828880310059,
+      "integral_excess_target_error_l2": 1.2326536178588867,
+      "first_second_integral": 0.9282099604606628,
+      "remaining_integral": 0.3044435381889343
+    },
+    {
+      "env_id": 78,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1277734935283661,
+      "first_step_excess_target_error_l2": 21.16415023803711,
+      "integral_excess_target_error_l2": 2.5554699897766113,
+      "first_second_integral": 1.1828876733779907,
+      "remaining_integral": 1.3725823163986206
+    },
+    {
+      "env_id": 79,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7810705304145813,
+      "first_step_excess_target_error_l2": 32.46282958984375,
+      "integral_excess_target_error_l2": 15.621410369873047,
+      "first_second_integral": 14.921531677246094,
+      "remaining_integral": 0.6998796463012695
+    },
+    {
+      "env_id": 80,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7897032499313354,
+      "first_step_excess_target_error_l2": 35.52753829956055,
+      "integral_excess_target_error_l2": 15.79406452178955,
+      "first_second_integral": 14.39640998840332,
+      "remaining_integral": 1.3976552486419678
+    },
+    {
+      "env_id": 81,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06836770474910736,
+      "first_step_excess_target_error_l2": 28.406265258789062,
+      "integral_excess_target_error_l2": 1.367354154586792,
+      "first_second_integral": 1.345415472984314,
+      "remaining_integral": 0.02193845622241497
+    },
+    {
+      "env_id": 82,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.8131476044654846,
+      "first_step_excess_target_error_l2": 28.010257720947266,
+      "integral_excess_target_error_l2": 16.262950897216797,
+      "first_second_integral": 15.09865665435791,
+      "remaining_integral": 1.1642934083938599
+    },
+    {
+      "env_id": 83,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0756496861577034,
+      "first_step_excess_target_error_l2": 21.702295303344727,
+      "integral_excess_target_error_l2": 1.5129936933517456,
+      "first_second_integral": 1.4748618602752686,
+      "remaining_integral": 0.03813192993402481
+    },
+    {
+      "env_id": 84,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07743897289037704,
+      "first_step_excess_target_error_l2": 13.372232437133789,
+      "integral_excess_target_error_l2": 1.5487793684005737,
+      "first_second_integral": 1.5395028591156006,
+      "remaining_integral": 0.00927649438381195
+    },
+    {
+      "env_id": 85,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08179626613855362,
+      "first_step_excess_target_error_l2": 29.931255340576172,
+      "integral_excess_target_error_l2": 1.63592529296875,
+      "first_second_integral": 1.452054738998413,
+      "remaining_integral": 0.18387044966220856
+    },
+    {
+      "env_id": 86,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08940766006708145,
+      "first_step_excess_target_error_l2": 20.127742767333984,
+      "integral_excess_target_error_l2": 1.7881531715393066,
+      "first_second_integral": 1.7201179265975952,
+      "remaining_integral": 0.06803514063358307
+    },
+    {
+      "env_id": 87,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.05827772989869118,
+      "first_step_excess_target_error_l2": 8.858320236206055,
+      "integral_excess_target_error_l2": 1.1655545234680176,
+      "first_second_integral": 1.1236053705215454,
+      "remaining_integral": 0.04194917157292366
+    },
+    {
+      "env_id": 88,
+      "success": false,
+      "duration_s": 0.7000000000000001,
+      "mean_excess_target_error_l2": 2.955120086669922,
+      "first_step_excess_target_error_l2": 15.51584243774414,
+      "integral_excess_target_error_l2": 2.0685839653015137,
+      "first_second_integral": 2.0685839653015137,
+      "remaining_integral": 0.0
+    },
+    {
+      "env_id": 89,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0567416176199913,
+      "first_step_excess_target_error_l2": 13.27737808227539,
+      "integral_excess_target_error_l2": 1.1348323822021484,
+      "first_second_integral": 1.0808902978897095,
+      "remaining_integral": 0.053942058235406876
+    },
+    {
+      "env_id": 90,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.24769504368305206,
+      "first_step_excess_target_error_l2": 28.817089080810547,
+      "integral_excess_target_error_l2": 4.9539008140563965,
+      "first_second_integral": 4.019552707672119,
+      "remaining_integral": 0.9343484044075012
+    },
+    {
+      "env_id": 91,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0959322601556778,
+      "first_step_excess_target_error_l2": 21.60257911682129,
+      "integral_excess_target_error_l2": 1.9186451435089111,
+      "first_second_integral": 1.8526971340179443,
+      "remaining_integral": 0.06594807654619217
+    },
+    {
+      "env_id": 92,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.2738739252090454,
+      "first_step_excess_target_error_l2": 24.667953491210938,
+      "integral_excess_target_error_l2": 5.477478504180908,
+      "first_second_integral": 3.2426631450653076,
+      "remaining_integral": 2.2348155975341797
+    },
+    {
+      "env_id": 93,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06512150913476944,
+      "first_step_excess_target_error_l2": 10.704089164733887,
+      "integral_excess_target_error_l2": 1.3024300336837769,
+      "first_second_integral": 1.205606460571289,
+      "remaining_integral": 0.09682358801364899
+    },
+    {
+      "env_id": 94,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06684805452823639,
+      "first_step_excess_target_error_l2": 7.544334411621094,
+      "integral_excess_target_error_l2": 1.336961030960083,
+      "first_second_integral": 1.0658835172653198,
+      "remaining_integral": 0.2710776925086975
+    },
+    {
+      "env_id": 95,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.09087830036878586,
+      "first_step_excess_target_error_l2": 11.035505294799805,
+      "integral_excess_target_error_l2": 1.8175660371780396,
+      "first_second_integral": 1.639243483543396,
+      "remaining_integral": 0.17832255363464355
+    },
+    {
+      "env_id": 96,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.10224279761314392,
+      "first_step_excess_target_error_l2": 12.689980506896973,
+      "integral_excess_target_error_l2": 2.044855833053589,
+      "first_second_integral": 2.021712064743042,
+      "remaining_integral": 0.02314380556344986
+    },
+    {
+      "env_id": 97,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.6847018003463745,
+      "first_step_excess_target_error_l2": 27.548908233642578,
+      "integral_excess_target_error_l2": 13.694035530090332,
+      "first_second_integral": 13.40526008605957,
+      "remaining_integral": 0.28877392411231995
+    },
+    {
+      "env_id": 98,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11728161573410034,
+      "first_step_excess_target_error_l2": 23.67128562927246,
+      "integral_excess_target_error_l2": 2.345632314682007,
+      "first_second_integral": 2.2500898838043213,
+      "remaining_integral": 0.09554243087768555
+    },
+    {
+      "env_id": 99,
+      "success": false,
+      "duration_s": 2.42,
+      "mean_excess_target_error_l2": 1.3262883424758911,
+      "first_step_excess_target_error_l2": 26.348045349121094,
+      "integral_excess_target_error_l2": 3.209617853164673,
+      "first_second_integral": 1.4752569198608398,
+      "remaining_integral": 1.7343604564666748
+    },
+    {
+      "env_id": 100,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11841238290071487,
+      "first_step_excess_target_error_l2": 18.183460235595703,
+      "integral_excess_target_error_l2": 2.3682475090026855,
+      "first_second_integral": 2.238157033920288,
+      "remaining_integral": 0.13009099662303925
+    },
+    {
+      "env_id": 101,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07562946528196335,
+      "first_step_excess_target_error_l2": 26.194278717041016,
+      "integral_excess_target_error_l2": 1.5125892162322998,
+      "first_second_integral": 1.415448546409607,
+      "remaining_integral": 0.09714075177907944
+    },
+    {
+      "env_id": 102,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.07545191794633865,
+      "first_step_excess_target_error_l2": 18.667682647705078,
+      "integral_excess_target_error_l2": 1.5090383291244507,
+      "first_second_integral": 1.434577465057373,
+      "remaining_integral": 0.07446089386940002
+    },
+    {
+      "env_id": 103,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.10055549442768097,
+      "first_step_excess_target_error_l2": 19.78171730041504,
+      "integral_excess_target_error_l2": 2.0111098289489746,
+      "first_second_integral": 1.9584434032440186,
+      "remaining_integral": 0.05266653001308441
+    },
+    {
+      "env_id": 104,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11759942770004272,
+      "first_step_excess_target_error_l2": 22.063907623291016,
+      "integral_excess_target_error_l2": 2.3519885540008545,
+      "first_second_integral": 1.5510008335113525,
+      "remaining_integral": 0.8009875416755676
+    },
+    {
+      "env_id": 105,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.8156709671020508,
+      "first_step_excess_target_error_l2": 34.171775817871094,
+      "integral_excess_target_error_l2": 16.313419342041016,
+      "first_second_integral": 14.892125129699707,
+      "remaining_integral": 1.4212956428527832
+    },
+    {
+      "env_id": 106,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.0555635504424572,
+      "first_step_excess_target_error_l2": 20.018985748291016,
+      "integral_excess_target_error_l2": 1.1112709045410156,
+      "first_second_integral": 1.0599077939987183,
+      "remaining_integral": 0.05136317014694214
+    },
+    {
+      "env_id": 107,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06348515301942825,
+      "first_step_excess_target_error_l2": 14.19558048248291,
+      "integral_excess_target_error_l2": 1.2697030305862427,
+      "first_second_integral": 1.2327070236206055,
+      "remaining_integral": 0.036995913833379745
+    },
+    {
+      "env_id": 108,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.18654046952724457,
+      "first_step_excess_target_error_l2": 28.391830444335938,
+      "integral_excess_target_error_l2": 3.730809211730957,
+      "first_second_integral": 3.5803780555725098,
+      "remaining_integral": 0.15043151378631592
+    },
+    {
+      "env_id": 109,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.12526187300682068,
+      "first_step_excess_target_error_l2": 20.343393325805664,
+      "integral_excess_target_error_l2": 2.505237579345703,
+      "first_second_integral": 2.1789357662200928,
+      "remaining_integral": 0.3263015151023865
+    },
+    {
+      "env_id": 110,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1331731081008911,
+      "first_step_excess_target_error_l2": 22.156862258911133,
+      "integral_excess_target_error_l2": 2.6634621620178223,
+      "first_second_integral": 2.6495068073272705,
+      "remaining_integral": 0.013955377973616123
+    },
+    {
+      "env_id": 111,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.879781186580658,
+      "first_step_excess_target_error_l2": 34.74312210083008,
+      "integral_excess_target_error_l2": 17.595623016357422,
+      "first_second_integral": 15.07335090637207,
+      "remaining_integral": 2.5222740173339844
+    },
+    {
+      "env_id": 112,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.12968721985816956,
+      "first_step_excess_target_error_l2": 15.987298965454102,
+      "integral_excess_target_error_l2": 2.5937445163726807,
+      "first_second_integral": 2.187037706375122,
+      "remaining_integral": 0.4067072570323944
+    },
+    {
+      "env_id": 113,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.20986877381801605,
+      "first_step_excess_target_error_l2": 31.36338233947754,
+      "integral_excess_target_error_l2": 4.197375297546387,
+      "first_second_integral": 4.010127544403076,
+      "remaining_integral": 0.18724824488162994
+    },
+    {
+      "env_id": 114,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.05672012269496918,
+      "first_step_excess_target_error_l2": 20.77062225341797,
+      "integral_excess_target_error_l2": 1.1344023942947388,
+      "first_second_integral": 1.1216670274734497,
+      "remaining_integral": 0.012735409662127495
+    },
+    {
+      "env_id": 115,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.13878217339515686,
+      "first_step_excess_target_error_l2": 24.529743194580078,
+      "integral_excess_target_error_l2": 2.7756435871124268,
+      "first_second_integral": 2.7475388050079346,
+      "remaining_integral": 0.028104692697525024
+    },
+    {
+      "env_id": 116,
+      "success": false,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.9657108783721924,
+      "first_step_excess_target_error_l2": 37.00509262084961,
+      "integral_excess_target_error_l2": 19.31421661376953,
+      "first_second_integral": 16.515581130981445,
+      "remaining_integral": 2.7986369132995605
+    },
+    {
+      "env_id": 117,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7697610259056091,
+      "first_step_excess_target_error_l2": 35.06830596923828,
+      "integral_excess_target_error_l2": 15.395220756530762,
+      "first_second_integral": 14.82746696472168,
+      "remaining_integral": 0.5677523612976074
+    },
+    {
+      "env_id": 118,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7574955821037292,
+      "first_step_excess_target_error_l2": 33.11029815673828,
+      "integral_excess_target_error_l2": 15.149911880493164,
+      "first_second_integral": 14.82412338256836,
+      "remaining_integral": 0.3257870376110077
+    },
+    {
+      "env_id": 119,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06421633809804916,
+      "first_step_excess_target_error_l2": 7.639782905578613,
+      "integral_excess_target_error_l2": 1.2843267917633057,
+      "first_second_integral": 1.2688453197479248,
+      "remaining_integral": 0.015481438487768173
+    },
+    {
+      "env_id": 120,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.17827387154102325,
+      "first_step_excess_target_error_l2": 21.016923904418945,
+      "integral_excess_target_error_l2": 3.565477132797241,
+      "first_second_integral": 2.319247007369995,
+      "remaining_integral": 1.2462300062179565
+    },
+    {
+      "env_id": 121,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.7537958025932312,
+      "first_step_excess_target_error_l2": 35.197025299072266,
+      "integral_excess_target_error_l2": 15.075915336608887,
+      "first_second_integral": 14.536829948425293,
+      "remaining_integral": 0.5390868186950684
+    },
+    {
+      "env_id": 122,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.061865322291851044,
+      "first_step_excess_target_error_l2": 7.159102916717529,
+      "integral_excess_target_error_l2": 1.2373063564300537,
+      "first_second_integral": 1.173887014389038,
+      "remaining_integral": 0.06341945379972458
+    },
+    {
+      "env_id": 123,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.1760827898979187,
+      "first_step_excess_target_error_l2": 24.84177589416504,
+      "integral_excess_target_error_l2": 3.521655797958374,
+      "first_second_integral": 3.4861018657684326,
+      "remaining_integral": 0.03555411472916603
+    },
+    {
+      "env_id": 124,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.06906423717737198,
+      "first_step_excess_target_error_l2": 26.688926696777344,
+      "integral_excess_target_error_l2": 1.3812847137451172,
+      "first_second_integral": 1.3612847328186035,
+      "remaining_integral": 0.020000040531158447
+    },
+    {
+      "env_id": 125,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.17756325006484985,
+      "first_step_excess_target_error_l2": 25.14252281188965,
+      "integral_excess_target_error_l2": 3.551264762878418,
+      "first_second_integral": 3.469132661819458,
+      "remaining_integral": 0.08213191479444504
+    },
+    {
+      "env_id": 126,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.11457144469022751,
+      "first_step_excess_target_error_l2": 18.557941436767578,
+      "integral_excess_target_error_l2": 2.291428804397583,
+      "first_second_integral": 2.213433027267456,
+      "remaining_integral": 0.07799572497606277
+    },
+    {
+      "env_id": 127,
+      "success": true,
+      "duration_s": 20.0,
+      "mean_excess_target_error_l2": 0.08966246247291565,
+      "first_step_excess_target_error_l2": 20.668298721313477,
+      "integral_excess_target_error_l2": 1.7932491302490234,
+      "first_second_integral": 1.7222208976745605,
+      "remaining_integral": 0.07102829962968826
+    }
+  ]
+}
