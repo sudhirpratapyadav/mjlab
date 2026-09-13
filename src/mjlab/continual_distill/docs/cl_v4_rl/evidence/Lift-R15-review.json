@@ -1,0 +1,20 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "864f7931af30a81ae7ae17509d68fcaf8b1befcaa8bc3376c9af290faa2a3279",
+  "reviewed_utc": "2026-09-13T07:08:11.671655+00:00",
+  "verdict": "not certified",
+  "validation_successes": 109,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded success45 lifts the cube to overlap the yellow goal and holds it at middle/final frames. Selected failure42 also visibly lifts and holds the cube near the target; the native terminal gate remains failure and visual stillness alone is not a settling measurement. Strict109/128 improves retained90/128;117 terminal positions inside5cm. Exact recorded controls audited. Below116 gate, no confirmation.",
+  "controls_audit": "lift_r15_controls_audit.json"
+}

@@ -1,0 +1,2323 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "864f7931af30a81ae7ae17509d68fcaf8b1befcaa8bc3376c9af290faa2a3279",
+  "method": "Actual applied ctrl and joint state in the last100 control states of each uninterrupted first episode; near-goal filter is position<5cm, not a contact or success proxy. Controls are recorded before terminal reset. No integration, policy query or success reclassification.",
+  "summary": {
+    "episodes": 128,
+    "native_successes": 109,
+    "terminal_inside5cm": 117,
+    "last100_near_goal_states": 11650,
+    "near_goal_median_goal_error_m": 0.011198011692613363,
+    "near_goal_median_arm_target_rms_rad": 0.059240588918328285,
+    "near_goal_median_target_step_rms_rad": 0.11295541748404503,
+    "near_goal_median_loaded_closure_m": 0.022346005775034428,
+    "near_goal_median_linear_speed_m_s": 0.03646215237677097,
+    "near_goal_median_angular_speed_rad_s": 0.2852008789777756
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.013610060326755047,
+      "terminal_arm_target_error_rad": [
+        -0.012175898998975754,
+        -0.011184394359588623,
+        -0.01852564513683319,
+        0.01285243034362793,
+        0.1528151035308838,
+        0.0018715858459472656,
+        -0.12047076225280762
+      ],
+      "terminal_arm_target_rms_rad": 0.07430717349052429,
+      "terminal_loaded_finger_closure_m": 0.022297238931059837,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11975984275341034
+    },
+    {
+      "env_id": 1,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.018410079181194305,
+      "terminal_arm_target_error_rad": [
+        -0.01775917410850525,
+        -0.03356432542204857,
+        -0.012278154492378235,
+        0.013533830642700195,
+        0.17512798309326172,
+        -0.0003466606140136719,
+        -0.22632694244384766
+      ],
+      "terminal_arm_target_rms_rad": 0.10932891815900803,
+      "terminal_loaded_finger_closure_m": 0.022664709016680717,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13234369456768036
+    },
+    {
+      "env_id": 2,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.003902029013261199,
+      "terminal_arm_target_error_rad": [
+        0.007878631353378296,
+        -0.030459880828857422,
+        0.012986510992050171,
+        0.02620673179626465,
+        -0.03563880920410156,
+        0.0053920745849609375,
+        0.1349012851715088
+      ],
+      "terminal_arm_target_rms_rad": 0.05521758645772934,
+      "terminal_loaded_finger_closure_m": 0.02273046039044857,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1269921362400055
+    },
+    {
+      "env_id": 3,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.025244373828172684,
+      "terminal_arm_target_error_rad": [
+        0.02113056182861328,
+        -0.014705747365951538,
+        0.01682119071483612,
+        0.03745102882385254,
+        -0.03889966011047363,
+        0.0066606998443603516,
+        0.039299964904785156
+      ],
+      "terminal_arm_target_rms_rad": 0.027903731912374496,
+      "terminal_loaded_finger_closure_m": 0.022075409069657326,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10926928371191025
+    },
+    {
+      "env_id": 4,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.019457297399640083,
+      "terminal_arm_target_error_rad": [
+        -0.01992666721343994,
+        -0.024208635091781616,
+        -0.023925989866256714,
+        0.00399327278137207,
+        0.16564035415649414,
+        -0.00012302398681640625,
+        -0.16674089431762695
+      ],
+      "terminal_arm_target_rms_rad": 0.090087890625,
+      "terminal_loaded_finger_closure_m": 0.022613508626818657,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12049141526222229
+    },
+    {
+      "env_id": 5,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.04559025913476944,
+      "terminal_arm_target_error_rad": [
+        -0.3131334185600281,
+        -0.060650166124105453,
+        -0.05174332857131958,
+        0.01960611343383789,
+        1.2749406099319458,
+        0.13590550422668457,
+        -0.8377048969268799
+      ],
+      "terminal_arm_target_rms_rad": 0.5916666388511658,
+      "terminal_loaded_finger_closure_m": 0.02480463869869709,
+      "last100_near_goal_states": 50,
+      "last100_arm_target_delta_rms_rad_median": 0.15679249167442322
+    },
+    {
+      "env_id": 6,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012461135163903236,
+      "terminal_arm_target_error_rad": [
+        -0.009729504585266113,
+        -0.02581164240837097,
+        -0.019155874848365784,
+        0.0021238327026367188,
+        0.0883641242980957,
+        0.0025734901428222656,
+        -0.11472320556640625
+      ],
+      "terminal_arm_target_rms_rad": 0.056199412792921066,
+      "terminal_loaded_finger_closure_m": 0.022308697924017906,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10052508115768433
+    },
+    {
+      "env_id": 7,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0181093942373991,
+      "terminal_arm_target_error_rad": [
+        -0.021362364292144775,
+        -0.013813197612762451,
+        -0.010777056217193604,
+        0.010506153106689453,
+        0.17538142204284668,
+        0.0007085800170898438,
+        -0.17415308952331543
+      ],
+      "terminal_arm_target_rms_rad": 0.09408364444971085,
+      "terminal_loaded_finger_closure_m": 0.02231927029788494,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12007014453411102
+    },
+    {
+      "env_id": 8,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010350821539759636,
+      "terminal_arm_target_error_rad": [
+        0.008270367980003357,
+        -0.016284972429275513,
+        0.018097221851348877,
+        0.031844377517700195,
+        -0.03892087936401367,
+        0.004754781723022461,
+        0.11756205558776855
+      ],
+      "terminal_arm_target_rms_rad": 0.0493290014564991,
+      "terminal_loaded_finger_closure_m": 0.022346671670675278,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1131952777504921
+    },
+    {
+      "env_id": 9,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0059115090407431126,
+      "terminal_arm_target_error_rad": [
+        -0.01563355326652527,
+        -0.022009149193763733,
+        -0.021792471408843994,
+        0.0004146099090576172,
+        0.11865377426147461,
+        0.002995729446411133,
+        -0.1251506805419922
+      ],
+      "terminal_arm_target_rms_rad": 0.06649842113256454,
+      "terminal_loaded_finger_closure_m": 0.02229381538927555,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10352969914674759
+    },
+    {
+      "env_id": 10,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.20725810527801514,
+      "terminal_arm_target_error_rad": [
+        -0.18762969970703125,
+        -0.514917254447937,
+        -0.02101510763168335,
+        -0.9110078811645508,
+        -1.4226889610290527,
+        0.28185927867889404,
+        2.131678581237793
+      ],
+      "terminal_arm_target_rms_rad": 1.054125428199768,
+      "terminal_loaded_finger_closure_m": 0.0028933286666870117,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.05711906775832176
+    },
+    {
+      "env_id": 11,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.006369071081280708,
+      "terminal_arm_target_error_rad": [
+        -0.01928633451461792,
+        -0.02016528695821762,
+        -0.025526106357574463,
+        0.008627891540527344,
+        0.1191718578338623,
+        0.0017764568328857422,
+        -0.14998698234558105
+      ],
+      "terminal_arm_target_rms_rad": 0.07387808710336685,
+      "terminal_loaded_finger_closure_m": 0.0226881206035614,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.0997922345995903
+    },
+    {
+      "env_id": 12,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0168207585811615,
+      "terminal_arm_target_error_rad": [
+        -0.005184948444366455,
+        -0.022518619894981384,
+        -0.012345105409622192,
+        0.010529756546020508,
+        0.11154723167419434,
+        0.0023653507232666016,
+        -0.0467066764831543
+      ],
+      "terminal_arm_target_rms_rad": 0.0469454750418663,
+      "terminal_loaded_finger_closure_m": 0.024643857032060623,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.15590694546699524
+    },
+    {
+      "env_id": 13,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.026188625022768974,
+      "terminal_arm_target_error_rad": [
+        -0.011454254388809204,
+        -0.017695516347885132,
+        -0.023727774620056152,
+        0.01919412612915039,
+        0.09103631973266602,
+        0.004769563674926758,
+        -0.1352992057800293
+      ],
+      "terminal_arm_target_rms_rad": 0.06323650479316711,
+      "terminal_loaded_finger_closure_m": 0.022723864763975143,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.0983937680721283
+    },
+    {
+      "env_id": 14,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009860308840870857,
+      "terminal_arm_target_error_rad": [
+        -0.01542680710554123,
+        -0.021460847929120064,
+        -0.013568207621574402,
+        0.013077974319458008,
+        0.10251092910766602,
+        0.000469207763671875,
+        -0.15224361419677734
+      ],
+      "terminal_arm_target_rms_rad": 0.07044806331396103,
+      "terminal_loaded_finger_closure_m": 0.022296041250228882,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10059978812932968
+    },
+    {
+      "env_id": 15,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01465605664998293,
+      "terminal_arm_target_error_rad": [
+        0.025643587112426758,
+        -0.02149442583322525,
+        0.01960998773574829,
+        0.029061079025268555,
+        -0.037453651428222656,
+        0.007142543792724609,
+        0.0390470027923584
+      ],
+      "terminal_arm_target_rms_rad": 0.027586648240685463,
+      "terminal_loaded_finger_closure_m": 0.024317698553204536,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11196164041757584
+    },
+    {
+      "env_id": 16,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011165927164256573,
+      "terminal_arm_target_error_rad": [
+        0.011269718408584595,
+        -0.004041135311126709,
+        0.017162710428237915,
+        0.041178226470947266,
+        -0.11877322196960449,
+        0.004091501235961914,
+        0.04624295234680176
+      ],
+      "terminal_arm_target_rms_rad": 0.05126370117068291,
+      "terminal_loaded_finger_closure_m": 0.022342799231410027,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11161582916975021
+    },
+    {
+      "env_id": 17,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.007963275536894798,
+      "terminal_arm_target_error_rad": [
+        0.019890785217285156,
+        -0.020625073462724686,
+        0.020628169178962708,
+        0.037764787673950195,
+        -0.038100242614746094,
+        0.005448102951049805,
+        0.04004788398742676
+      ],
+      "terminal_arm_target_rms_rad": 0.028680209070444107,
+      "terminal_loaded_finger_closure_m": 0.022335868328809738,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09490829706192017
+    },
+    {
+      "env_id": 18,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.003777259960770607,
+      "terminal_arm_target_error_rad": [
+        0.020198434591293335,
+        -0.016697078943252563,
+        0.015447042882442474,
+        0.036388397216796875,
+        -0.03758978843688965,
+        0.0071790218353271484,
+        0.0392460823059082
+      ],
+      "terminal_arm_target_rms_rad": 0.027397293597459793,
+      "terminal_loaded_finger_closure_m": 0.02272716909646988,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10742130875587463
+    },
+    {
+      "env_id": 19,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010254325345158577,
+      "terminal_arm_target_error_rad": [
+        0.021345853805541992,
+        -0.013767719268798828,
+        0.025492846965789795,
+        0.03704261779785156,
+        -0.03842616081237793,
+        0.007368564605712891,
+        0.039934396743774414
+      ],
+      "terminal_arm_target_rms_rad": 0.028767189010977745,
+      "terminal_loaded_finger_closure_m": 0.02271893434226513,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11085090041160583
+    },
+    {
+      "env_id": 20,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01683313399553299,
+      "terminal_arm_target_error_rad": [
+        0.01428823173046112,
+        -0.006524503231048584,
+        0.008969977498054504,
+        0.03700876235961914,
+        -0.057573795318603516,
+        0.006310939788818359,
+        0.07819676399230957
+      ],
+      "terminal_arm_target_rms_rad": 0.039939481765031815,
+      "terminal_loaded_finger_closure_m": 0.022323278710246086,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11003914475440979
+    },
+    {
+      "env_id": 21,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.005587835796177387,
+      "terminal_arm_target_error_rad": [
+        0.010784074664115906,
+        -0.026276111602783203,
+        0.012274324893951416,
+        0.02928757667541504,
+        -0.03663229942321777,
+        0.0019373893737792969,
+        0.0941309928894043
+      ],
+      "terminal_arm_target_rms_rad": 0.04144096374511719,
+      "terminal_loaded_finger_closure_m": 0.022302528843283653,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10540120303630829
+    },
+    {
+      "env_id": 22,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014003021642565727,
+      "terminal_arm_target_error_rad": [
+        0.017086952924728394,
+        -0.028698837384581566,
+        0.021196529269218445,
+        0.03090357780456543,
+        -0.03813958168029785,
+        0.01484227180480957,
+        0.07419300079345703
+      ],
+      "terminal_arm_target_rms_rad": 0.037224095314741135,
+      "terminal_loaded_finger_closure_m": 0.022323528304696083,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11551502346992493
+    },
+    {
+      "env_id": 23,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0060357144102454185,
+      "terminal_arm_target_error_rad": [
+        -0.012742921710014343,
+        -0.021345775574445724,
+        -0.016592085361480713,
+        0.004630327224731445,
+        0.08421206474304199,
+        0.003961801528930664,
+        -0.14226102828979492
+      ],
+      "terminal_arm_target_rms_rad": 0.06353888660669327,
+      "terminal_loaded_finger_closure_m": 0.022699737921357155,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1040608212351799
+    },
+    {
+      "env_id": 24,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0244614090770483,
+      "terminal_arm_target_error_rad": [
+        0.011991308070719242,
+        -0.01867610216140747,
+        0.003982961177825928,
+        0.024113893508911133,
+        -0.03722047805786133,
+        -0.0037682056427001953,
+        0.05561971664428711
+      ],
+      "terminal_arm_target_rms_rad": 0.02824142947793007,
+      "terminal_loaded_finger_closure_m": 0.022704171016812325,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1296994686126709
+    },
+    {
+      "env_id": 25,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.026531603187322617,
+      "terminal_arm_target_error_rad": [
+        0.026570281013846397,
+        -0.010906398296356201,
+        0.014202550053596497,
+        0.04061627388000488,
+        -0.03893876075744629,
+        0.0058329105377197266,
+        0.04056739807128906
+      ],
+      "terminal_arm_target_rms_rad": 0.028963740915060043,
+      "terminal_loaded_finger_closure_m": 0.022476516664028168,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11804530024528503
+    },
+    {
+      "env_id": 26,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.00800404790788889,
+      "terminal_arm_target_error_rad": [
+        0.02536332607269287,
+        -0.019516289234161377,
+        0.01605863869190216,
+        0.038897037506103516,
+        -0.03757023811340332,
+        0.00603938102722168,
+        0.03870654106140137
+      ],
+      "terminal_arm_target_rms_rad": 0.028638726100325584,
+      "terminal_loaded_finger_closure_m": 0.022325418889522552,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10580652207136154
+    },
+    {
+      "env_id": 27,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014728151261806488,
+      "terminal_arm_target_error_rad": [
+        0.010611481964588165,
+        -0.016033582389354706,
+        0.017073944211006165,
+        0.03172659873962402,
+        -0.037833452224731445,
+        0.004220247268676758,
+        0.041541099548339844
+      ],
+      "terminal_arm_target_rms_rad": 0.026302143931388855,
+      "terminal_loaded_finger_closure_m": 0.022300085052847862,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12655937671661377
+    },
+    {
+      "env_id": 28,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.019229702651500702,
+      "terminal_arm_target_error_rad": [
+        0.02709054946899414,
+        -0.021997228264808655,
+        0.014902539551258087,
+        0.03932952880859375,
+        -0.03708028793334961,
+        0.00692296028137207,
+        0.10237836837768555
+      ],
+      "terminal_arm_target_rms_rad": 0.04612232372164726,
+      "terminal_loaded_finger_closure_m": 0.02261763997375965,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12739333510398865
+    },
+    {
+      "env_id": 29,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.00844226498156786,
+      "terminal_arm_target_error_rad": [
+        0.007957711815834045,
+        -0.025297999382019043,
+        0.006114214658737183,
+        0.029490947723388672,
+        -0.03670692443847656,
+        0.004666805267333984,
+        0.07402515411376953
+      ],
+      "terminal_arm_target_rms_rad": 0.03476310148835182,
+      "terminal_loaded_finger_closure_m": 0.022334670647978783,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10851100087165833
+    },
+    {
+      "env_id": 30,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0074989511631429195,
+      "terminal_arm_target_error_rad": [
+        -0.023212671279907227,
+        -0.025308996438980103,
+        -0.019824177026748657,
+        0.007504940032958984,
+        0.12109065055847168,
+        0.00237274169921875,
+        -0.1649012565612793
+      ],
+      "terminal_arm_target_rms_rad": 0.07882139831781387,
+      "terminal_loaded_finger_closure_m": 0.02229825034737587,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10731205344200134
+    },
+    {
+      "env_id": 31,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.03299350291490555,
+      "terminal_arm_target_error_rad": [
+        0.009543273597955704,
+        -0.018758580088615417,
+        0.010910898447036743,
+        0.036339759826660156,
+        -0.03920269012451172,
+        0.003993034362792969,
+        0.04021906852722168
+      ],
+      "terminal_arm_target_rms_rad": 0.026867274194955826,
+      "terminal_loaded_finger_closure_m": 0.02273380570113659,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1177220344543457
+    },
+    {
+      "env_id": 32,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01830136589705944,
+      "terminal_arm_target_error_rad": [
+        -0.0143088698387146,
+        -0.0159892737865448,
+        -0.021331101655960083,
+        0.010922670364379883,
+        0.14902424812316895,
+        0.0015609264373779297,
+        -0.14032864570617676
+      ],
+      "terminal_arm_target_rms_rad": 0.07831941545009613,
+      "terminal_loaded_finger_closure_m": 0.022702964022755623,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12489953637123108
+    },
+    {
+      "env_id": 33,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.022611912339925766,
+      "terminal_arm_target_error_rad": [
+        -0.01071321964263916,
+        -0.021014465019106865,
+        -0.00820264220237732,
+        0.013537168502807617,
+        0.25901079177856445,
+        0.0017178058624267578,
+        -0.16079163551330566
+      ],
+      "terminal_arm_target_rms_rad": 0.11572776734828949,
+      "terminal_loaded_finger_closure_m": 0.022652074694633484,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.14749851822853088
+    },
+    {
+      "env_id": 34,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.005691341124475002,
+      "terminal_arm_target_error_rad": [
+        0.02516716718673706,
+        -0.01857578009366989,
+        0.017604827880859375,
+        0.03564620018005371,
+        -0.037569522857666016,
+        0.006060600280761719,
+        0.04004192352294922
+      ],
+      "terminal_arm_target_rms_rad": 0.02831098437309265,
+      "terminal_loaded_finger_closure_m": 0.022716380655765533,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11226722598075867
+    },
+    {
+      "env_id": 35,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004673128016293049,
+      "terminal_arm_target_error_rad": [
+        0.022073715925216675,
+        -0.02125021442770958,
+        0.012431859970092773,
+        0.0339350700378418,
+        -0.03755068778991699,
+        0.0051343441009521484,
+        0.06667947769165039
+      ],
+      "terminal_arm_target_rms_rad": 0.034074559807777405,
+      "terminal_loaded_finger_closure_m": 0.022319504991173744,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11108746379613876
+    },
+    {
+      "env_id": 36,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.003894826862961054,
+      "terminal_arm_target_error_rad": [
+        0.005521237850189209,
+        -0.031945183873176575,
+        0.013901829719543457,
+        0.024283885955810547,
+        -0.03577017784118652,
+        -0.0008721351623535156,
+        0.0853266716003418
+      ],
+      "terminal_arm_target_rms_rad": 0.038535427302122116,
+      "terminal_loaded_finger_closure_m": 0.022706076502799988,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11617287248373032
+    },
+    {
+      "env_id": 37,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.03287476301193237,
+      "terminal_arm_target_error_rad": [
+        0.018262237310409546,
+        -0.014222264289855957,
+        0.015897274017333984,
+        0.035399675369262695,
+        -0.12407088279724121,
+        0.0022923946380615234,
+        0.0397336483001709
+      ],
+      "terminal_arm_target_rms_rad": 0.05212518572807312,
+      "terminal_loaded_finger_closure_m": 0.02233896218240261,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10705789923667908
+    },
+    {
+      "env_id": 38,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.008328665047883987,
+      "terminal_arm_target_error_rad": [
+        -0.005185574293136597,
+        -0.022738009691238403,
+        -0.0037523210048675537,
+        0.014178752899169922,
+        0.12708258628845215,
+        0.006531715393066406,
+        -0.1514754295349121
+      ],
+      "terminal_arm_target_rms_rad": 0.07549501210451126,
+      "terminal_loaded_finger_closure_m": 0.022299092262983322,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10514918714761734
+    },
+    {
+      "env_id": 39,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.008200268261134624,
+      "terminal_arm_target_error_rad": [
+        0.02003645896911621,
+        -0.016170240938663483,
+        0.012941703200340271,
+        0.03371572494506836,
+        -0.03725576400756836,
+        0.009468793869018555,
+        0.04018259048461914
+      ],
+      "terminal_arm_target_rms_rad": 0.02688458003103733,
+      "terminal_loaded_finger_closure_m": 0.0227346308529377,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1109313815832138
+    },
+    {
+      "env_id": 40,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004998182877898216,
+      "terminal_arm_target_error_rad": [
+        0.018594861030578613,
+        -0.026402130722999573,
+        0.023982197046279907,
+        0.030794620513916016,
+        -0.037514686584472656,
+        0.013544559478759766,
+        0.05716753005981445
+      ],
+      "terminal_arm_target_rms_rad": 0.03256911039352417,
+      "terminal_loaded_finger_closure_m": 0.022715704515576363,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09055541455745697
+    },
+    {
+      "env_id": 41,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.40546849370002747,
+      "terminal_arm_target_error_rad": [
+        1.1932573318481445,
+        0.022277355194091797,
+        0.3374408483505249,
+        0.3562159538269043,
+        0.03237760066986084,
+        -0.1710975170135498,
+        -0.4536409378051758
+      ],
+      "terminal_arm_target_rms_rad": 0.5211564302444458,
+      "terminal_loaded_finger_closure_m": -0.002201386960223317,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.18755824863910675
+    },
+    {
+      "env_id": 42,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.01919372007250786,
+      "terminal_arm_target_error_rad": [
+        0.0072734057903289795,
+        -0.014255866408348083,
+        0.013298436999320984,
+        0.036008358001708984,
+        -0.03912830352783203,
+        0.005410194396972656,
+        0.05604124069213867
+      ],
+      "terminal_arm_target_rms_rad": 0.03030911646783352,
+      "terminal_loaded_finger_closure_m": 0.022562827914953232,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09432275593280792
+    },
+    {
+      "env_id": 43,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014273607172071934,
+      "terminal_arm_target_error_rad": [
+        0.007485330104827881,
+        -0.03430907428264618,
+        0.01656472682952881,
+        0.02695631980895996,
+        -0.033838748931884766,
+        0.002913236618041992,
+        0.09577822685241699
+      ],
+      "terminal_arm_target_rms_rad": 0.04236102104187012,
+      "terminal_loaded_finger_closure_m": 0.02270893007516861,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11814892292022705
+    },
+    {
+      "env_id": 44,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.013416588306427002,
+      "terminal_arm_target_error_rad": [
+        0.017008379101753235,
+        -0.023659395053982735,
+        0.012551158666610718,
+        0.026746749877929688,
+        -0.037544965744018555,
+        -0.003622293472290039,
+        0.09421253204345703
+      ],
+      "terminal_arm_target_rms_rad": 0.041439659893512726,
+      "terminal_loaded_finger_closure_m": 0.022302968427538872,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12827400863170624
+    },
+    {
+      "env_id": 45,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.002704604994505644,
+      "terminal_arm_target_error_rad": [
+        -0.008951574563980103,
+        -0.025093451142311096,
+        -0.001602083444595337,
+        0.01613473892211914,
+        0.11632132530212402,
+        0.00162506103515625,
+        -0.13288474082946777
+      ],
+      "terminal_arm_target_rms_rad": 0.06778575479984283,
+      "terminal_loaded_finger_closure_m": 0.022643670439720154,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1210092082619667
+    },
+    {
+      "env_id": 46,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011289708316326141,
+      "terminal_arm_target_error_rad": [
+        0.009998120367527008,
+        -0.030651569366455078,
+        0.0144023597240448,
+        0.026972532272338867,
+        -0.03668618202209473,
+        0.006784915924072266,
+        0.14289283752441406
+      ],
+      "terminal_arm_target_rms_rad": 0.05829077586531639,
+      "terminal_loaded_finger_closure_m": 0.0227049570530653,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.14213551580905914
+    },
+    {
+      "env_id": 47,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.06390003114938736,
+      "terminal_arm_target_error_rad": [
+        0.019201457500457764,
+        -0.04008358716964722,
+        0.015955626964569092,
+        0.03122234344482422,
+        -0.03304862976074219,
+        0.008798360824584961,
+        0.0394902229309082
+      ],
+      "terminal_arm_target_rms_rad": 0.029115306213498116,
+      "terminal_loaded_finger_closure_m": 0.022702980786561966,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.15488553047180176
+    },
+    {
+      "env_id": 48,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011594046838581562,
+      "terminal_arm_target_error_rad": [
+        -0.01931065320968628,
+        -0.012944206595420837,
+        -0.029215008020401,
+        0.008407115936279297,
+        0.14832639694213867,
+        0.0015616416931152344,
+        -0.1663048267364502
+      ],
+      "terminal_arm_target_rms_rad": 0.08546102046966553,
+      "terminal_loaded_finger_closure_m": 0.022697869688272476,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1121227964758873
+    },
+    {
+      "env_id": 49,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.5328585505485535,
+      "terminal_arm_target_error_rad": [
+        0.2972933053970337,
+        -0.4501950740814209,
+        -0.029687345027923584,
+        -0.5342602729797363,
+        -0.09534628689289093,
+        0.03888845443725586,
+        2.4811105728149414
+      ],
+      "terminal_arm_target_rms_rad": 0.9815357327461243,
+      "terminal_loaded_finger_closure_m": 0.0012172088027000427,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.18738053739070892
+    },
+    {
+      "env_id": 50,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004803045652806759,
+      "terminal_arm_target_error_rad": [
+        -0.021298468112945557,
+        -0.023673780262470245,
+        -0.022165194153785706,
+        0.01339578628540039,
+        0.15341782569885254,
+        0.004259824752807617,
+        -0.1721172332763672
+      ],
+      "terminal_arm_target_rms_rad": 0.08853113651275635,
+      "terminal_loaded_finger_closure_m": 0.022275200113654137,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11758303642272949
+    },
+    {
+      "env_id": 51,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.017965443432331085,
+      "terminal_arm_target_error_rad": [
+        0.0215795636177063,
+        -0.015936553478240967,
+        0.01868966408073902,
+        0.0436558723449707,
+        -0.03623175621032715,
+        0.0064792633056640625,
+        0.05459880828857422
+      ],
+      "terminal_arm_target_rms_rad": 0.03231660649180412,
+      "terminal_loaded_finger_closure_m": 0.022459104657173157,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12139942497015
+    },
+    {
+      "env_id": 52,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.02790656127035618,
+      "terminal_arm_target_error_rad": [
+        -0.014017343521118164,
+        -0.026586027815937996,
+        -0.011754095554351807,
+        0.022923946380615234,
+        0.16635584831237793,
+        0.0010404586791992188,
+        -0.21933197975158691
+      ],
+      "terminal_arm_target_rms_rad": 0.10511819273233414,
+      "terminal_loaded_finger_closure_m": 0.022658370435237885,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13463032245635986
+    },
+    {
+      "env_id": 53,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01559185329824686,
+      "terminal_arm_target_error_rad": [
+        -0.00981283187866211,
+        -0.03062249720096588,
+        -0.0071884989738464355,
+        0.015824317932128906,
+        0.15198135375976562,
+        0.00772857666015625,
+        -0.2709648609161377
+      ],
+      "terminal_arm_target_rms_rad": 0.11827095597982407,
+      "terminal_loaded_finger_closure_m": 0.022259239107370377,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1408366858959198
+    },
+    {
+      "env_id": 54,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01410363893955946,
+      "terminal_arm_target_error_rad": [
+        -0.0163973867893219,
+        -0.02327224612236023,
+        -0.024324074387550354,
+        0.006124258041381836,
+        0.13241243362426758,
+        0.0020172595977783203,
+        -0.15119361877441406
+      ],
+      "terminal_arm_target_rms_rad": 0.0773085355758667,
+      "terminal_loaded_finger_closure_m": 0.022285452112555504,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10669837146997452
+    },
+    {
+      "env_id": 55,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009400008246302605,
+      "terminal_arm_target_error_rad": [
+        0.012702632695436478,
+        -0.016786761581897736,
+        0.01631079614162445,
+        0.035512685775756836,
+        -0.03835654258728027,
+        0.00650334358215332,
+        0.0398862361907959
+      ],
+      "terminal_arm_target_rms_rad": 0.02692522667348385,
+      "terminal_loaded_finger_closure_m": 0.022739890962839127,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11696118116378784
+    },
+    {
+      "env_id": 56,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009932064451277256,
+      "terminal_arm_target_error_rad": [
+        -0.00030928850173950195,
+        -0.033455342054367065,
+        0.020246297121047974,
+        0.03115367889404297,
+        -0.03361940383911133,
+        0.0017256736755371094,
+        0.14324307441711426
+      ],
+      "terminal_arm_target_rms_rad": 0.058738693594932556,
+      "terminal_loaded_finger_closure_m": 0.022689856588840485,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13627129793167114
+    },
+    {
+      "env_id": 57,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004527398385107517,
+      "terminal_arm_target_error_rad": [
+        0.018291175365447998,
+        -0.030511334538459778,
+        0.02442985773086548,
+        0.026073455810546875,
+        -0.036263227462768555,
+        0.011380672454833984,
+        0.04245877265930176
+      ],
+      "terminal_arm_target_rms_rad": 0.0287587009370327,
+      "terminal_loaded_finger_closure_m": 0.02272672951221466,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11384103447198868
+    },
+    {
+      "env_id": 58,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01777872070670128,
+      "terminal_arm_target_error_rad": [
+        0.011884421110153198,
+        -0.010793983936309814,
+        0.002520143985748291,
+        0.037638187408447266,
+        -0.03892087936401367,
+        0.0058498382568359375,
+        0.06320643424987793
+      ],
+      "terminal_arm_target_rms_rad": 0.03212663158774376,
+      "terminal_loaded_finger_closure_m": 0.02232368104159832,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11758922040462494
+    },
+    {
+      "env_id": 59,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01090485230088234,
+      "terminal_arm_target_error_rad": [
+        -0.014999210834503174,
+        -0.01600128784775734,
+        -0.027473360300064087,
+        0.012111186981201172,
+        0.17812538146972656,
+        -0.00035691261291503906,
+        -0.24410104751586914
+      ],
+      "terminal_arm_target_rms_rad": 0.1150754913687706,
+      "terminal_loaded_finger_closure_m": 0.022282440215349197,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13956715166568756
+    },
+    {
+      "env_id": 60,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.024865789338946342,
+      "terminal_arm_target_error_rad": [
+        -0.01274728775024414,
+        0.0017247200012207031,
+        -0.014723032712936401,
+        0.006189823150634766,
+        0.1813368797302246,
+        -2.2411346435546875e-05,
+        -0.16417860984802246
+      ],
+      "terminal_arm_target_rms_rad": 0.09278102219104767,
+      "terminal_loaded_finger_closure_m": 0.0223724115639925,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1178470104932785
+    },
+    {
+      "env_id": 61,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010127372108399868,
+      "terminal_arm_target_error_rad": [
+        0.01894068717956543,
+        -0.02139481157064438,
+        0.021221011877059937,
+        0.04029107093811035,
+        -0.03771710395812988,
+        0.0025131702423095703,
+        0.06426143646240234
+      ],
+      "terminal_arm_target_rms_rad": 0.0347411185503006,
+      "terminal_loaded_finger_closure_m": 0.02273387275636196,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11287163197994232
+    },
+    {
+      "env_id": 62,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0024817255325615406,
+      "terminal_arm_target_error_rad": [
+        0.01112222671508789,
+        -0.031651586294174194,
+        0.015869617462158203,
+        0.023543596267700195,
+        -0.03530454635620117,
+        0.003270864486694336,
+        0.14122414588928223
+      ],
+      "terminal_arm_target_rms_rad": 0.05748669430613518,
+      "terminal_loaded_finger_closure_m": 0.022308174520730972,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1199733316898346
+    },
+    {
+      "env_id": 63,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.006733616814017296,
+      "terminal_arm_target_error_rad": [
+        0.024074971675872803,
+        -0.016994185745716095,
+        0.017232820391654968,
+        0.0346832275390625,
+        -0.037592411041259766,
+        0.007166147232055664,
+        0.039872169494628906
+      ],
+      "terminal_arm_target_rms_rad": 0.02783275581896305,
+      "terminal_loaded_finger_closure_m": 0.022345365956425667,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10132113099098206
+    },
+    {
+      "env_id": 64,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.021242937073111534,
+      "terminal_arm_target_error_rad": [
+        0.014474064111709595,
+        -0.009812325239181519,
+        0.010899953544139862,
+        0.03598356246948242,
+        -0.03649282455444336,
+        0.006884574890136719,
+        0.04006147384643555
+      ],
+      "terminal_arm_target_rms_rad": 0.025921450927853584,
+      "terminal_loaded_finger_closure_m": 0.022483287379145622,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1073615700006485
+    },
+    {
+      "env_id": 65,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.029570071026682854,
+      "terminal_arm_target_error_rad": [
+        0.011448577046394348,
+        -0.01134374737739563,
+        0.014214098453521729,
+        0.03561520576477051,
+        -0.0999460220336914,
+        0.0037889480590820312,
+        0.06799602508544922
+      ],
+      "terminal_arm_target_rms_rad": 0.048339955508708954,
+      "terminal_loaded_finger_closure_m": 0.022739600390195847,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1054915189743042
+    },
+    {
+      "env_id": 66,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009582501836121082,
+      "terminal_arm_target_error_rad": [
+        -0.019104212522506714,
+        -0.021147646009922028,
+        -0.018878698348999023,
+        0.01260995864868164,
+        0.10721898078918457,
+        0.003993988037109375,
+        -0.14510297775268555
+      ],
+      "terminal_arm_target_rms_rad": 0.06958483904600143,
+      "terminal_loaded_finger_closure_m": 0.02227660082280636,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1153896227478981
+    },
+    {
+      "env_id": 67,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.01632934808731079,
+      "terminal_arm_target_error_rad": [
+        -0.01647724211215973,
+        -0.01850184053182602,
+        -0.02083653211593628,
+        0.009154796600341797,
+        0.11697101593017578,
+        0.005797386169433594,
+        -0.1385791301727295
+      ],
+      "terminal_arm_target_rms_rad": 0.06974626332521439,
+      "terminal_loaded_finger_closure_m": 0.022306455299258232,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09793604910373688
+    },
+    {
+      "env_id": 68,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009590466506779194,
+      "terminal_arm_target_error_rad": [
+        -0.013513147830963135,
+        -0.026357248425483704,
+        -0.018471956253051758,
+        0.016091585159301758,
+        0.14911198616027832,
+        0.008342504501342773,
+        -0.16942739486694336
+      ],
+      "terminal_arm_target_rms_rad": 0.08659188449382782,
+      "terminal_loaded_finger_closure_m": 0.02228403650224209,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12506118416786194
+    },
+    {
+      "env_id": 69,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.2881168723106384,
+      "terminal_arm_target_error_rad": [
+        0.14900946617126465,
+        -0.5547322034835815,
+        -0.045502424240112305,
+        -0.22210288047790527,
+        -0.6051218509674072,
+        0.19211578369140625,
+        2.5888733863830566
+      ],
+      "terminal_arm_target_rms_rad": 1.034178614616394,
+      "terminal_loaded_finger_closure_m": 0.019198322668671608,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.18542060256004333
+    },
+    {
+      "env_id": 70,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.03349633514881134,
+      "terminal_arm_target_error_rad": [
+        -0.005945712327957153,
+        -0.022547483444213867,
+        -0.013652265071868896,
+        0.017293214797973633,
+        0.14146804809570312,
+        -0.00028395652770996094,
+        -0.15147137641906738
+      ],
+      "terminal_arm_target_rms_rad": 0.07926993072032928,
+      "terminal_loaded_finger_closure_m": 0.02226722426712513,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12071287631988525
+    },
+    {
+      "env_id": 71,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004424229264259338,
+      "terminal_arm_target_error_rad": [
+        0.02013254165649414,
+        -0.02094392105937004,
+        0.01792469620704651,
+        0.03204488754272461,
+        -0.037056922912597656,
+        0.008514165878295898,
+        0.08590388298034668
+      ],
+      "terminal_arm_target_rms_rad": 0.03967244550585747,
+      "terminal_loaded_finger_closure_m": 0.02273053489625454,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11211299151182175
+    },
+    {
+      "env_id": 72,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.00388250476680696,
+      "terminal_arm_target_error_rad": [
+        0.021582067012786865,
+        -0.02167448401451111,
+        0.020898103713989258,
+        0.038280487060546875,
+        -0.03871655464172363,
+        0.003721475601196289,
+        0.039925336837768555
+      ],
+      "terminal_arm_target_rms_rad": 0.02914140187203884,
+      "terminal_loaded_finger_closure_m": 0.02273225411772728,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09604589641094208
+    },
+    {
+      "env_id": 73,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.016032835468649864,
+      "terminal_arm_target_error_rad": [
+        0.011320531368255615,
+        -0.035222128033638,
+        0.017489075660705566,
+        0.03091573715209961,
+        -0.03564572334289551,
+        0.008423566818237305,
+        0.1324901580810547
+      ],
+      "terminal_arm_target_rms_rad": 0.05545348301529884,
+      "terminal_loaded_finger_closure_m": 0.022733796387910843,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12568511068820953
+    },
+    {
+      "env_id": 74,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014932661317288876,
+      "terminal_arm_target_error_rad": [
+        0.020439952611923218,
+        -0.01721079647541046,
+        0.02290729433298111,
+        0.04006695747375488,
+        -0.03808474540710449,
+        0.007708072662353516,
+        0.059754133224487305
+      ],
+      "terminal_arm_target_rms_rad": 0.03364632651209831,
+      "terminal_loaded_finger_closure_m": 0.022709766402840614,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10835110396146774
+    },
+    {
+      "env_id": 75,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009624350816011429,
+      "terminal_arm_target_error_rad": [
+        0.011564120650291443,
+        -0.02208033949136734,
+        0.009844958782196045,
+        0.026107311248779297,
+        -0.03699517250061035,
+        0.0036547183990478516,
+        0.04003119468688965
+      ],
+      "terminal_arm_target_rms_rad": 0.025026505813002586,
+      "terminal_loaded_finger_closure_m": 0.022339560091495514,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12380073964595795
+    },
+    {
+      "env_id": 76,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012401326559484005,
+      "terminal_arm_target_error_rad": [
+        -0.010922849178314209,
+        -0.02135246992111206,
+        -0.012811124324798584,
+        0.012537240982055664,
+        0.10818052291870117,
+        3.743171691894531e-05,
+        -0.24563026428222656
+      ],
+      "terminal_arm_target_rms_rad": 0.10207406431436539,
+      "terminal_loaded_finger_closure_m": 0.022282766178250313,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12419451773166656
+    },
+    {
+      "env_id": 77,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0037993285804986954,
+      "terminal_arm_target_error_rad": [
+        -0.02376687526702881,
+        -0.02073878049850464,
+        -0.023809358477592468,
+        0.014194011688232422,
+        0.13613319396972656,
+        -0.0011730194091796875,
+        -0.15174078941345215
+      ],
+      "terminal_arm_target_rms_rad": 0.0786694809794426,
+      "terminal_loaded_finger_closure_m": 0.022272801026701927,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10452932119369507
+    },
+    {
+      "env_id": 78,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012802892364561558,
+      "terminal_arm_target_error_rad": [
+        0.014241158962249756,
+        -0.03455289825797081,
+        0.031301915645599365,
+        0.040078163146972656,
+        -0.037030935287475586,
+        0.0031859874725341797,
+        0.03908419609069824
+      ],
+      "terminal_arm_target_rms_rad": 0.03137741982936859,
+      "terminal_loaded_finger_closure_m": 0.022325383499264717,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.14835503697395325
+    },
+    {
+      "env_id": 79,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011824277229607105,
+      "terminal_arm_target_error_rad": [
+        -0.02452164888381958,
+        -0.03417874500155449,
+        -0.020099084824323654,
+        0.0011649131774902344,
+        0.16560101509094238,
+        0.003792285919189453,
+        -0.1553058624267578
+      ],
+      "terminal_arm_target_rms_rad": 0.08761345595121384,
+      "terminal_loaded_finger_closure_m": 0.02258036658167839,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12429399788379669
+    },
+    {
+      "env_id": 80,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.737893283367157,
+      "terminal_arm_target_error_rad": [
+        -0.020133137702941895,
+        -0.09288239479064941,
+        0.21636319160461426,
+        -0.004207134246826172,
+        -0.4467332363128662,
+        0.11948442459106445,
+        0.09048175811767578
+      ],
+      "terminal_arm_target_rms_rad": 0.19924761354923248,
+      "terminal_loaded_finger_closure_m": -0.0007919259369373322,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.1272655725479126
+    },
+    {
+      "env_id": 81,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.001630584942176938,
+      "terminal_arm_target_error_rad": [
+        0.018336951732635498,
+        -0.019834917038679123,
+        0.014616906642913818,
+        0.03604483604431152,
+        -0.03807377815246582,
+        0.005793333053588867,
+        0.03894543647766113
+      ],
+      "terminal_arm_target_rms_rad": 0.02736649289727211,
+      "terminal_loaded_finger_closure_m": 0.022338971495628357,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10648031532764435
+    },
+    {
+      "env_id": 82,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.025419455021619797,
+      "terminal_arm_target_error_rad": [
+        0.018875718116760254,
+        -0.009775102138519287,
+        0.015507660806179047,
+        0.04040336608886719,
+        -0.03817582130432129,
+        0.006384134292602539,
+        0.04018902778625488
+      ],
+      "terminal_arm_target_rms_rad": 0.027872346341609955,
+      "terminal_loaded_finger_closure_m": 0.02233397215604782,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11222469806671143
+    },
+    {
+      "env_id": 83,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012525225058197975,
+      "terminal_arm_target_error_rad": [
+        -0.01782110333442688,
+        -0.023987814784049988,
+        -0.019548550248146057,
+        0.005431652069091797,
+        0.1301422119140625,
+        0.0039038658142089844,
+        -0.14957904815673828
+      ],
+      "terminal_arm_target_rms_rad": 0.07618659734725952,
+      "terminal_loaded_finger_closure_m": 0.022301413118839264,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10893899202346802
+    },
+    {
+      "env_id": 84,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.031253572553396225,
+      "terminal_arm_target_error_rad": [
+        -0.01355605199933052,
+        -0.027415838092565536,
+        -0.01267021894454956,
+        0.021732807159423828,
+        0.1411135196685791,
+        0.0010960102081298828,
+        -0.17054414749145508
+      ],
+      "terminal_arm_target_rms_rad": 0.08499392867088318,
+      "terminal_loaded_finger_closure_m": 0.022680504247546196,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11720108985900879
+    },
+    {
+      "env_id": 85,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.006760232616215944,
+      "terminal_arm_target_error_rad": [
+        0.018359065055847168,
+        -0.015854448080062866,
+        0.017609279602766037,
+        0.04184246063232422,
+        -0.03692030906677246,
+        0.005415678024291992,
+        0.039823055267333984
+      ],
+      "terminal_arm_target_rms_rad": 0.028353916481137276,
+      "terminal_loaded_finger_closure_m": 0.022318001836538315,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1006176769733429
+    },
+    {
+      "env_id": 86,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.021191393956542015,
+      "terminal_arm_target_error_rad": [
+        0.012126870453357697,
+        -0.036689624190330505,
+        0.013563334941864014,
+        0.02524709701538086,
+        -0.03666853904724121,
+        0.000743865966796875,
+        0.10786008834838867
+      ],
+      "terminal_arm_target_rms_rad": 0.04674169421195984,
+      "terminal_loaded_finger_closure_m": 0.022331248968839645,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12319949269294739
+    },
+    {
+      "env_id": 87,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.00915515422821045,
+      "terminal_arm_target_error_rad": [
+        0.00988471508026123,
+        -0.030691012740135193,
+        0.010646820068359375,
+        0.02450418472290039,
+        -0.036305904388427734,
+        0.0006883144378662109,
+        0.06467103958129883
+      ],
+      "terminal_arm_target_rms_rad": 0.03219226002693176,
+      "terminal_loaded_finger_closure_m": 0.02232978492975235,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10764344036579132
+    },
+    {
+      "env_id": 88,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.015744559466838837,
+      "terminal_arm_target_error_rad": [
+        0.014378011226654053,
+        -0.01777377724647522,
+        0.016451336443424225,
+        0.046822309494018555,
+        -0.03523063659667969,
+        0.006075620651245117,
+        0.04177975654602051
+      ],
+      "terminal_arm_target_rms_rad": 0.029299607500433922,
+      "terminal_loaded_finger_closure_m": 0.022080430760979652,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11651010066270828
+    },
+    {
+      "env_id": 89,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.015147650614380836,
+      "terminal_arm_target_error_rad": [
+        -0.01620279997587204,
+        -0.026381276547908783,
+        -0.010283514857292175,
+        0.012227773666381836,
+        0.15790843963623047,
+        -0.0003418922424316406,
+        -0.1619405746459961
+      ],
+      "terminal_arm_target_rms_rad": 0.08649832010269165,
+      "terminal_loaded_finger_closure_m": 0.022546250373125076,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11056604236364365
+    },
+    {
+      "env_id": 90,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010452610440552235,
+      "terminal_arm_target_error_rad": [
+        -0.008731573820114136,
+        -0.020905151963233948,
+        -0.01047101616859436,
+        0.015703678131103516,
+        0.12846040725708008,
+        0.005027055740356445,
+        -0.131880521774292
+      ],
+      "terminal_arm_target_rms_rad": 0.0704975500702858,
+      "terminal_loaded_finger_closure_m": 0.02268671616911888,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09752707183361053
+    },
+    {
+      "env_id": 91,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012232624925673008,
+      "terminal_arm_target_error_rad": [
+        0.020879775285720825,
+        -0.021710216999053955,
+        0.027347609400749207,
+        0.03998231887817383,
+        -0.03877997398376465,
+        0.0061876773834228516,
+        0.07627320289611816
+      ],
+      "terminal_arm_target_rms_rad": 0.03893868997693062,
+      "terminal_loaded_finger_closure_m": 0.022297916933894157,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10292865335941315
+    },
+    {
+      "env_id": 92,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012022127397358418,
+      "terminal_arm_target_error_rad": [
+        0.0046176910400390625,
+        -0.009894311428070068,
+        0.015628069639205933,
+        0.03778529167175293,
+        -0.0814657211303711,
+        0.004374027252197266,
+        0.09130072593688965
+      ],
+      "terminal_arm_target_rms_rad": 0.048964716494083405,
+      "terminal_loaded_finger_closure_m": 0.022321855649352074,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10246959328651428
+    },
+    {
+      "env_id": 93,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.008225897327065468,
+      "terminal_arm_target_error_rad": [
+        0.016638338565826416,
+        -0.013689279556274414,
+        0.02028421312570572,
+        0.04039454460144043,
+        -0.03819155693054199,
+        0.0073773860931396484,
+        0.03937721252441406
+      ],
+      "terminal_arm_target_rms_rad": 0.028210902586579323,
+      "terminal_loaded_finger_closure_m": 0.02232404425740242,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11269083619117737
+    },
+    {
+      "env_id": 94,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011141905561089516,
+      "terminal_arm_target_error_rad": [
+        -0.025234460830688477,
+        -0.020172610878944397,
+        -0.020034730434417725,
+        0.012140989303588867,
+        0.12298917770385742,
+        -0.00011682510375976562,
+        -0.17365384101867676
+      ],
+      "terminal_arm_target_rms_rad": 0.08183128386735916,
+      "terminal_loaded_finger_closure_m": 0.022270744666457176,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11259236931800842
+    },
+    {
+      "env_id": 95,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.011309879831969738,
+      "terminal_arm_target_error_rad": [
+        0.015319138765335083,
+        -0.020732752978801727,
+        0.011019855737686157,
+        0.03083491325378418,
+        -0.037994384765625,
+        0.0045795440673828125,
+        0.08617687225341797
+      ],
+      "terminal_arm_target_rms_rad": 0.03896472975611687,
+      "terminal_loaded_finger_closure_m": 0.022696901112794876,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11143137514591217
+    },
+    {
+      "env_id": 96,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.007606112863868475,
+      "terminal_arm_target_error_rad": [
+        0.014351487159729004,
+        -0.0223696306347847,
+        0.019171148538589478,
+        0.039518117904663086,
+        -0.038984060287475586,
+        0.004648923873901367,
+        0.08893299102783203
+      ],
+      "terminal_arm_target_rms_rad": 0.04155207797884941,
+      "terminal_loaded_finger_closure_m": 0.022724192589521408,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09818696975708008
+    },
+    {
+      "env_id": 97,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004034391604363918,
+      "terminal_arm_target_error_rad": [
+        -0.02154409885406494,
+        -0.01779896393418312,
+        -0.02643570303916931,
+        0.00868844985961914,
+        0.14227628707885742,
+        -0.003292560577392578,
+        -0.1437547206878662
+      ],
+      "terminal_arm_target_rms_rad": 0.0778956189751625,
+      "terminal_loaded_finger_closure_m": 0.022291725501418114,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10851496458053589
+    },
+    {
+      "env_id": 98,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.018345549702644348,
+      "terminal_arm_target_error_rad": [
+        -0.011620908975601196,
+        -0.023823076859116554,
+        -0.01670345664024353,
+        0.017314434051513672,
+        0.16002488136291504,
+        -1.9311904907226562e-05,
+        -0.2055797576904297
+      ],
+      "terminal_arm_target_rms_rad": 0.09939271211624146,
+      "terminal_loaded_finger_closure_m": 0.022266238927841187,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12358143925666809
+    },
+    {
+      "env_id": 99,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0062024034559726715,
+      "terminal_arm_target_error_rad": [
+        -0.020137488842010498,
+        -0.017603054642677307,
+        -0.01938394457101822,
+        0.013160943984985352,
+        0.14374995231628418,
+        -0.0009660720825195312,
+        -0.17787384986877441
+      ],
+      "terminal_arm_target_rms_rad": 0.08747932314872742,
+      "terminal_loaded_finger_closure_m": 0.022303421050310135,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1118289902806282
+    },
+    {
+      "env_id": 100,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.007277786731719971,
+      "terminal_arm_target_error_rad": [
+        0.0171663761138916,
+        -0.016286104917526245,
+        0.02456577867269516,
+        0.042220354080200195,
+        -0.03891158103942871,
+        0.005469083786010742,
+        0.03969240188598633
+      ],
+      "terminal_arm_target_rms_rad": 0.02943629026412964,
+      "terminal_loaded_finger_closure_m": 0.02272702194750309,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10916529595851898
+    },
+    {
+      "env_id": 101,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014936056919395924,
+      "terminal_arm_target_error_rad": [
+        -0.017939448356628418,
+        -0.01592022180557251,
+        -0.024479657411575317,
+        0.008717775344848633,
+        0.15771770477294922,
+        0.0020744800567626953,
+        -0.1664142608642578
+      ],
+      "terminal_arm_target_rms_rad": 0.08768727630376816,
+      "terminal_loaded_finger_closure_m": 0.022698648273944855,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11317956447601318
+    },
+    {
+      "env_id": 102,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.024851588532328606,
+      "terminal_arm_target_error_rad": [
+        0.004438228905200958,
+        -0.019477255642414093,
+        0.017666339874267578,
+        0.034684181213378906,
+        -0.03749513626098633,
+        0.00614619255065918,
+        0.1023869514465332
+      ],
+      "terminal_arm_target_rms_rad": 0.0444665253162384,
+      "terminal_loaded_finger_closure_m": 0.02245360054075718,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11930100619792938
+    },
+    {
+      "env_id": 103,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010631217621266842,
+      "terminal_arm_target_error_rad": [
+        0.013092875480651855,
+        -0.01576271653175354,
+        0.01896613836288452,
+        0.03605198860168457,
+        -0.03889870643615723,
+        0.006681680679321289,
+        0.03852963447570801
+      ],
+      "terminal_arm_target_rms_rad": 0.027049250900745392,
+      "terminal_loaded_finger_closure_m": 0.022741688415408134,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10981792211532593
+    },
+    {
+      "env_id": 104,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.012392464093863964,
+      "terminal_arm_target_error_rad": [
+        0.013715535402297974,
+        -0.02549917995929718,
+        0.018075376749038696,
+        0.03448987007141113,
+        -0.03622174263000488,
+        0.00733184814453125,
+        0.13942575454711914
+      ],
+      "terminal_arm_target_rms_rad": 0.0575200654566288,
+      "terminal_loaded_finger_closure_m": 0.02226143889129162,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13810056447982788
+    },
+    {
+      "env_id": 105,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0069620138965547085,
+      "terminal_arm_target_error_rad": [
+        0.01699244976043701,
+        -0.022820264101028442,
+        0.016800135374069214,
+        0.037180423736572266,
+        -0.03792238235473633,
+        0.007388114929199219,
+        0.09399580955505371
+      ],
+      "terminal_arm_target_rms_rad": 0.04276520758867264,
+      "terminal_loaded_finger_closure_m": 0.02272414043545723,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10911189764738083
+    },
+    {
+      "env_id": 106,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.02677733637392521,
+      "terminal_arm_target_error_rad": [
+        -0.005217909812927246,
+        -0.019170492887496948,
+        -0.01375359296798706,
+        0.013820648193359375,
+        0.10270810127258301,
+        -0.002177715301513672,
+        -0.1680622100830078
+      ],
+      "terminal_arm_target_rms_rad": 0.07518881559371948,
+      "terminal_loaded_finger_closure_m": 0.02226446382701397,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13937363028526306
+    },
+    {
+      "env_id": 107,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.00997326523065567,
+      "terminal_arm_target_error_rad": [
+        -0.015179991722106934,
+        -0.025148332118988037,
+        -0.021104417741298676,
+        0.003066539764404297,
+        0.1077888011932373,
+        0.0023207664489746094,
+        -0.1302626132965088
+      ],
+      "terminal_arm_target_rms_rad": 0.06536690890789032,
+      "terminal_loaded_finger_closure_m": 0.022678280249238014,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11237960308790207
+    },
+    {
+      "env_id": 108,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.2726269066333771,
+      "terminal_arm_target_error_rad": [
+        0.2521568536758423,
+        -0.10964635014533997,
+        -0.24427343904972076,
+        0.8799960613250732,
+        0.8106998801231384,
+        0.1697467565536499,
+        -1.3471741676330566
+      ],
+      "terminal_arm_target_rms_rad": 0.6980170011520386,
+      "terminal_loaded_finger_closure_m": -0.0036332234740257263,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.1785498857498169
+    },
+    {
+      "env_id": 109,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.013910396955907345,
+      "terminal_arm_target_error_rad": [
+        0.021676719188690186,
+        -0.012000951915979385,
+        0.021875321865081787,
+        0.034682273864746094,
+        -0.03704237937927246,
+        0.008808135986328125,
+        0.038641929626464844
+      ],
+      "terminal_arm_target_rms_rad": 0.027355369180440903,
+      "terminal_loaded_finger_closure_m": 0.02251514419913292,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13418424129486084
+    },
+    {
+      "env_id": 110,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.014704098924994469,
+      "terminal_arm_target_error_rad": [
+        0.013772517442703247,
+        -0.014624770730733871,
+        0.01678892970085144,
+        0.03624558448791504,
+        -0.038237571716308594,
+        0.009768486022949219,
+        0.0912013053894043
+      ],
+      "terminal_arm_target_rms_rad": 0.04118666425347328,
+      "terminal_loaded_finger_closure_m": 0.022310953587293625,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1146240234375
+    },
+    {
+      "env_id": 111,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009027085267007351,
+      "terminal_arm_target_error_rad": [
+        -0.013813793659210205,
+        0.00325620174407959,
+        -0.006377294659614563,
+        0.014603137969970703,
+        0.1753559112548828,
+        0.0008192062377929688,
+        -0.13931488990783691
+      ],
+      "terminal_arm_target_rms_rad": 0.08503305912017822,
+      "terminal_loaded_finger_closure_m": 0.02232806570827961,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.10982581973075867
+    },
+    {
+      "env_id": 112,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.004657606594264507,
+      "terminal_arm_target_error_rad": [
+        -0.016246438026428223,
+        -0.024186596274375916,
+        -0.02029857039451599,
+        0.008753061294555664,
+        0.15340304374694824,
+        0.002814054489135742,
+        -0.17941784858703613
+      ],
+      "terminal_arm_target_rms_rad": 0.09029219299554825,
+      "terminal_loaded_finger_closure_m": 0.022257111966609955,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12652230262756348
+    },
+    {
+      "env_id": 113,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.03332895040512085,
+      "terminal_arm_target_error_rad": [
+        -0.015149764716625214,
+        -0.013447731733322144,
+        -0.013858512043952942,
+        0.0070378780364990234,
+        0.16698837280273438,
+        0.002785921096801758,
+        -0.202589750289917
+      ],
+      "terminal_arm_target_rms_rad": 0.09970487654209137,
+      "terminal_loaded_finger_closure_m": 0.022054798901081085,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1314663589000702
+    },
+    {
+      "env_id": 114,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.006331132259219885,
+      "terminal_arm_target_error_rad": [
+        0.010956883430480957,
+        -0.019293859601020813,
+        0.016144663095474243,
+        0.031126737594604492,
+        -0.035738468170166016,
+        0.00014781951904296875,
+        0.038619279861450195
+      ],
+      "terminal_arm_target_rms_rad": 0.025327960029244423,
+      "terminal_loaded_finger_closure_m": 0.022698676213622093,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1290205717086792
+    },
+    {
+      "env_id": 115,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.03408466652035713,
+      "terminal_arm_target_error_rad": [
+        -0.015867769718170166,
+        -0.024505525827407837,
+        -0.006868898868560791,
+        0.01076054573059082,
+        0.10843753814697266,
+        -0.0013637542724609375,
+        -0.1442103385925293
+      ],
+      "terminal_arm_target_rms_rad": 0.06925363093614578,
+      "terminal_loaded_finger_closure_m": 0.022217795252799988,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13219952583312988
+    },
+    {
+      "env_id": 116,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.008286688476800919,
+      "terminal_arm_target_error_rad": [
+        0.02297377586364746,
+        -0.021724119782447815,
+        0.02114756405353546,
+        0.03096628189086914,
+        -0.03705286979675293,
+        0.008304834365844727,
+        0.040044307708740234
+      ],
+      "terminal_arm_target_rms_rad": 0.027906203642487526,
+      "terminal_loaded_finger_closure_m": 0.02225937694311142,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12013524770736694
+    },
+    {
+      "env_id": 117,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.23695866763591766,
+      "terminal_arm_target_error_rad": [
+        0.2918751835823059,
+        -0.21592110395431519,
+        -0.06661662459373474,
+        0.013878107070922852,
+        -0.3712901771068573,
+        0.3753855228424072,
+        2.4839770793914795
+      ],
+      "terminal_arm_target_rms_rad": 0.9699305295944214,
+      "terminal_loaded_finger_closure_m": 0.016323748975992203,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.17377400398254395
+    },
+    {
+      "env_id": 118,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.33038437366485596,
+      "terminal_arm_target_error_rad": [
+        -0.24581611156463623,
+        0.06845736503601074,
+        -0.2376657873392105,
+        0.7502760887145996,
+        0.1504058837890625,
+        -0.1443033218383789,
+        0.24703383445739746
+      ],
+      "terminal_arm_target_rms_rad": 0.33572569489479065,
+      "terminal_loaded_finger_closure_m": 0.007377368398010731,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.13603293895721436
+    },
+    {
+      "env_id": 119,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010872541926801205,
+      "terminal_arm_target_error_rad": [
+        0.012497574090957642,
+        -0.018098609521985054,
+        0.021061256527900696,
+        0.037950754165649414,
+        -0.03784298896789551,
+        0.007974624633789062,
+        0.07577967643737793
+      ],
+      "terminal_arm_target_rms_rad": 0.03704405203461647,
+      "terminal_loaded_finger_closure_m": 0.022343365475535393,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.09494644403457642
+    },
+    {
+      "env_id": 120,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.3531065881252289,
+      "terminal_arm_target_error_rad": [
+        0.10734200477600098,
+        -0.3179561197757721,
+        0.40381503105163574,
+        0.2339189052581787,
+        -0.5201058387756348,
+        -0.03956794738769531,
+        -0.5210986137390137
+      ],
+      "terminal_arm_target_rms_rad": 0.35335585474967957,
+      "terminal_loaded_finger_closure_m": -0.015615466982126236,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.1392815262079239
+    },
+    {
+      "env_id": 121,
+      "terminal_native_success": false,
+      "terminal_goal_error_m": 0.2941855490207672,
+      "terminal_arm_target_error_rad": [
+        0.014468491077423096,
+        -0.4157973527908325,
+        0.18971022963523865,
+        -0.7547945976257324,
+        -0.22301557660102844,
+        0.08766412734985352,
+        1.927476406097412
+      ],
+      "terminal_arm_target_rms_rad": 0.8063487410545349,
+      "terminal_loaded_finger_closure_m": 0.00452074222266674,
+      "last100_near_goal_states": 0,
+      "last100_arm_target_delta_rms_rad_median": 0.08196274936199188
+    },
+    {
+      "env_id": 122,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.016080375760793686,
+      "terminal_arm_target_error_rad": [
+        0.01794019341468811,
+        -0.018116161227226257,
+        0.01644188165664673,
+        0.038038015365600586,
+        -0.037912845611572266,
+        0.00804281234741211,
+        0.039812326431274414
+      ],
+      "terminal_arm_target_rms_rad": 0.02791406214237213,
+      "terminal_loaded_finger_closure_m": 0.022319048643112183,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.11156105250120163
+    },
+    {
+      "env_id": 123,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009571376256644726,
+      "terminal_arm_target_error_rad": [
+        0.015414968132972717,
+        -0.02358144149184227,
+        0.017062604427337646,
+        0.03279471397399902,
+        -0.037164926528930664,
+        0.00805521011352539,
+        0.12982940673828125
+      ],
+      "terminal_arm_target_rms_rad": 0.054066263139247894,
+      "terminal_loaded_finger_closure_m": 0.02271835319697857,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12869755923748016
+    },
+    {
+      "env_id": 124,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.009548269212245941,
+      "terminal_arm_target_error_rad": [
+        0.011844605207443237,
+        -0.01580459624528885,
+        0.018471568822860718,
+        0.037325143814086914,
+        -0.0381779670715332,
+        0.006288051605224609,
+        0.06485962867736816
+      ],
+      "terminal_arm_target_rms_rad": 0.0334414467215538,
+      "terminal_loaded_finger_closure_m": 0.02274189330637455,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1016845852136612
+    },
+    {
+      "env_id": 125,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.0183281097561121,
+      "terminal_arm_target_error_rad": [
+        -0.011851366609334946,
+        -0.029908474534749985,
+        -0.008114367723464966,
+        0.019160032272338867,
+        0.16022133827209473,
+        0.0006954669952392578,
+        -0.13141083717346191
+      ],
+      "terminal_arm_target_rms_rad": 0.07964931428432465,
+      "terminal_loaded_finger_closure_m": 0.022673293948173523,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.13448603451251984
+    },
+    {
+      "env_id": 126,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.010115208104252815,
+      "terminal_arm_target_error_rad": [
+        -0.023604273796081543,
+        -0.02521882951259613,
+        -0.02224624902009964,
+        0.0069005489349365234,
+        0.1256704330444336,
+        0.003937482833862305,
+        -0.14725828170776367
+      ],
+      "terminal_arm_target_rms_rad": 0.07486104220151901,
+      "terminal_loaded_finger_closure_m": 0.022697309032082558,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.1080707311630249
+    },
+    {
+      "env_id": 127,
+      "terminal_native_success": true,
+      "terminal_goal_error_m": 0.007685760036110878,
+      "terminal_arm_target_error_rad": [
+        -0.025691211223602295,
+        -0.021642491221427917,
+        -0.021867621690034866,
+        0.01197361946105957,
+        0.16086649894714355,
+        0.0001671314239501953,
+        -0.16722822189331055
+      ],
+      "terminal_arm_target_rms_rad": 0.08911736309528351,
+      "terminal_loaded_finger_closure_m": 0.022635292261838913,
+      "last100_near_goal_states": 100,
+      "last100_arm_target_delta_rms_rad_median": 0.12099723517894745
+    }
+  ]
+}
