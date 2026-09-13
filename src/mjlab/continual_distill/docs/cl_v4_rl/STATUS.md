@@ -2,9 +2,9 @@
 
 Checked2026-09-13. **16/24 independent PPO RL teachers certified.** Cage19092 is newest at119/128 validation and120/128 prospectively frozen confirmation20260916. Its actual videos, all-episode no-pinch aperture audit, finite checkpoint and13-file W&B teacher artifact are verified. Place7500 remains117/128+119/128. Throw9496 failed confirmation107/128 and remains uncertified.
 
-Current full runs: ReorientR12 GPU1 final14595, ThrowR6 GPU2 final13099, StrikeR7 GPU3 final14993, LiftR13 GPU4 final17992, StackR8 GPU5 final10196, PegR8 GPU6 final8199 and EdgeR5 GPU7 final10995. GPU0 remains unused. Every new Slurm step requests8 CPUs, numerical threads1; holder20277 expires2026-09-28T08:58:54 scheduler time.
+Current full runs: ReorientR12 GPU1 final14595, ThrowR7 GPU2 final14098, LiftR13 GPU4 final17992, StackR9 GPU5 final12195 and EdgeR5 GPU7 final10995. Five actual process placements and eight-CPU affinities verified in training_wave30.json; GPUs3/6 are free after completed Strike/Peg evaluations. GPU0 remains unused. Holder20277 expires2026-09-28T08:58:54 scheduler time.
 
-StrikeR6 final12994 scored37/128 after prior42/128. Endpoint errors dominate despite121/128 substantial launches. New strike_v4 doubles fine endpoint and native-success weights while preserving the native gate and reward hierarchy;72 focused checks and finite64x3 PPO preflight passed before original12994x2000 full training. ThrowR6 and all other full runs retain their frozen budgets; Throw conditional confirmation16 remains reserved. EdgeR5 passed74 focused checks and finite64x3 before its stronger side-pinch shaping. Pivot remains in diagnosis. Native success, physical models and approved60D/8D interface stay fixed.
+Latest completed strict validations: ThrowR6 110/128, StackR8 2/128, StrikeR7 39/128, PegR8 0/128. Actual clips reviewed; none pass the116 gate, so no confirmation or new certificate. Throw native/GPU recorded-control replay isolates box-floor angular settling; existing opt-in primitive compatibility passes18-case replay, native parity tests and64x3/2048x100 finite preflights before fullR7. Stack transport improves but gripper mean saturates; mean-only initialization reset passes64x3 and bounded-reset tests before fullR9, retaining learned std. Pivot staged diagnostic arrival develops upward force and median10.56deg tilt, below20deg; no new Pivot training recipe. Native success, physical models and60D/8D remain fixed.
 
 ## Readiness
 
@@ -39,7 +39,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
-| Peg-Insertion | 20 | on | Training R8 | 0/128 R7 pre-collapse6200 |74.2% opposed capture; lift shaping4 andAdam5e-5 after finite gate. |
+| Peg-Insertion | 20 | on | Diagnosis | 0/128 R8 final8199 | Reviewed policy remains near fixture; next change awaits diagnosis. |
 | Pivot-Lift | 6 | on | Retry diagnosis | 0/128 R2 final3499 | Small side/height target shifts did not produce tipping in CPU dynamics; no reward change. |
 | Place-In-Container | 20 | on | Certified | 117/128 +119/128 | model7500 retained; placement/release physically reviewed,15th certificate. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
@@ -49,9 +49,9 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Reorient-Object | 20 | on | Training R12 | 1/128 R11 final12596 | Median angle39.63deg versus89.87; unchanged full continuation after finite-checkpoint gate. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
-| Stack-Cube | 20 | on | Training R8 | 0/128 R7 final8197 |117/128 sampled lifts above base; test gripper release exploration with learned means retained. |
-| Strike-Slide | 4 | on | Training R7 | 37/128 R6 final12994 | Prior42/128; stronger endpoint/native shaping passed preflight. |
-| Throw-To-Bin | 5 | on | Training R6 | 116/128 +107/128 R4 | Cone correction passes failure replay and full-world stress; evaluate new13099 only after budget. |
+| Stack-Cube | 20 | on | Training R9 | 2/128 R8 final10196 | Better transport; mean-only gripper reset passed preflight, std retained. |
+| Strike-Slide | 4 | on | Diagnosis | 39/128 R7 final14993 | Reviewed overshoot failure; endpoint precision remains incomplete. |
+| Throw-To-Bin | 5 | on | Training R7 | 110/128 R6 final13099 | Matched replay and finite stress gate support existing box-contact compatibility; confirmation16 reserved. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
 
