@@ -41,6 +41,7 @@ def main():
   apply_recipe(cfg, manifest['recipe'])
   cfg.env.sim.elliptic_hessian_compat = args.elliptic_hessian or manifest.get('elliptic_hessian_compat', False)
   cfg.env.sim.free_body_implicitfast_compat = manifest.get('free_body_implicitfast_compat', False)
+  cfg.env.sim.primitive_box_box_compat = manifest.get('primitive_box_box_compat', False)
   cfg.env.scene.num_envs = len(previous['qpos']) if args.all_lanes else 1
   cfg.env.seed = manifest['seed']
   env = ManagerBasedRlEnv(cfg.env, device='cuda:0')
@@ -94,6 +95,7 @@ def main():
               'physics_changed':False,'initial_state_restored':list(previous),
               'elliptic_hessian_compat':cfg.env.sim.elliptic_hessian_compat,
               'free_body_implicitfast_compat':cfg.env.sim.free_body_implicitfast_compat,
+              'primitive_box_box_compat':cfg.env.sim.primitive_box_box_compat,
               'limitations':'Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.',
               'physics_timestep':env.physics_dt,'control_substeps':cfg.env.decimation,'samples':samples}
     args.output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')

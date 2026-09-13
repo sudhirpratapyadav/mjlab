@@ -108,6 +108,13 @@ class SimulationCfg:
 
   Explicit backend compatibility choice; persist and restore with checkpoints.
   """
+  primitive_box_box_compat: bool = False
+  """Use Warp's primitive box-box contact manifold, matching native CPU dispatch.
+
+  The convex path can retain one alternating corner contact on resting boxes.
+  This changes only GPU box-box dispatch, not the benchmark model or other pairs.
+  Persist this opt-in backend choice with checkpoints and evaluations.
+  """
 
 
 class Simulation:
@@ -130,6 +137,8 @@ class Simulation:
     # MJWarp model and data.
     with wp.ScopedDevice(self.wp_device):
       self._wp_model = mjwarp.put_model(self._mj_model)
+      if cfg.primitive_box_box_compat:
+        self._wp_model.opt.disableflags |= int(mujoco.mjtDisableBit.mjDSBL_NATIVECCD)
       if cfg.elliptic_hessian_compat and self._wp_model.is_sparse:
         raise ValueError("elliptic_hessian_compat currently requires a dense Jacobian")
       # ls_parallel was removed in MuJoCo Warp 3.9.1 (raises AttributeError on both

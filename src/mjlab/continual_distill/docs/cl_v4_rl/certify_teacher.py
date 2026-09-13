@@ -35,9 +35,11 @@ def main():
   manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
   cone_compat=manifest.get("elliptic_hessian_compat",False)
   gyro_compat=manifest.get("free_body_implicitfast_compat",False)
+  box_compat=manifest.get("primitive_box_box_compat",False)
   for result in (validation,confirmation,video_result):
     assert result.get("elliptic_hessian_compat",False)==cone_compat, "Evaluation cone Hessian differs from training"
     assert result.get("free_body_implicitfast_compat",False)==gyro_compat, "Evaluation backend differs from training"
+    assert result.get("primitive_box_box_compat",False)==box_compat, "Evaluation box contacts differ from training"
   for result in (validation,confirmation):
     assert result["episodes"]>=128 and result["successes"]/result["episodes"]>0.90
     assert result["successes"]==sum(row["success"] for row in result["records"])
@@ -80,6 +82,7 @@ def main():
   certificate={"task":task,"certified_utc":datetime.now(timezone.utc).isoformat(),
                "elliptic_hessian_compat":cone_compat,
                "free_body_implicitfast_compat":gyro_compat,
+               "primitive_box_box_compat":box_compat,
                "checkpoint":str(destination/"model.pt"),"checkpoint_sha256":checkpoint_sha,
                "normalizers":str(destination/"normalizers.pt"),"normalizers_sha256":digest(destination/"normalizers.pt"),
                "interface":"franka_shared_60_v2","validation":{"successes":validation["successes"],"episodes":validation["episodes"],"seed":validation["seed"],"path":str(args.validation.resolve())},

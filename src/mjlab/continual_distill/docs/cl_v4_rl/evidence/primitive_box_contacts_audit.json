@@ -1,0 +1,24 @@
+{
+  "source": "src/mjlab/sim/sim.py",
+  "default_enabled": false,
+  "backend_flag": "primitive_box_box_compat",
+  "native_reference": "https://mujoco.readthedocs.io/en/stable/mjwarp/index.html#box-box-collisions",
+  "dispatch_source": "https://github.com/google-deepmind/mujoco_warp/blob/main/mujoco_warp/_src/collision_driver.py",
+  "recorded_cases": 30,
+  "baseline_gpu_settled": 13,
+  "primitive_gpu_settled": 30,
+  "native_cpu_settled": 30,
+  "same_state_comparison": "All17 moving baseline GPU states have no robot contact and one GPU floor contact versus four CPU contacts at identical state.",
+  "focused_checks": {
+    "passed": 13,
+    "gpu_support_states": 32,
+    "native_cpu_parity_states": 16,
+    "logs": [
+      "wave25_box_contacts_tests_support.log",
+      "wave25_strict_tests.log"
+    ],
+    "coverage": "Production Simulation contact dispatch; native model flag/physical-array invariance; all32 synthetic GPU states settle with four contacts and analytic support;16 native CPU support-clearance comparisons; all8 backend combinations restore in strict evaluator; independent confirmation schedule."
+  },
+  "limitations": "No claim of bitwise trajectories or universal CPU parity. One synthetic tilted side pose fails on native CPU and is recorded separately. Near-upright trajectories may settle on different cube faces, so physical collider support clearance, not root height, is compared. New RL success must be measured.",
+  "new_certification": false
+}

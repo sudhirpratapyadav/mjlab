@@ -1,0 +1,53 @@
+{
+  "method": "Synthetic CPU-only thin-floor regression; no RL policy or benchmark mutation.",
+  "mujoco_version": "3.11.1",
+  "floor_half_size": [
+    0.0835,
+    0.0835,
+    0.002
+  ],
+  "floor_position": [
+    0,
+    0,
+    0.002
+  ],
+  "cube_half_size": [
+    0.023,
+    0.0226,
+    0.0226
+  ],
+  "initial_position": [
+    0,
+    0,
+    0.028
+  ],
+  "initial_euler_xyz_rad": [
+    -0.008,
+    4.71838898038469,
+    5.55
+  ],
+  "native_contacts_during_first_15_steps": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_z_m": -19.64105,
+  "steps": 400,
+  "timestep": 0.005,
+  "reproduces_with_nativeccd_disabled": true,
+  "reproduces_with_small_xy_offsets": true,
+  "gpu_primitive_settled": true,
+  "limitation": "Native CPU is not a valid resting-height oracle for this synthetic side pose. Broader GPU regression retains all16 side poses and checks analytic collider support. Independent16 near-upright poses compare to native CPU; actual30 Place cases already settle on native CPU."
+}

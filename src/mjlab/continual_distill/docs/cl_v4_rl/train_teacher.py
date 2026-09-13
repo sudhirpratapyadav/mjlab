@@ -40,6 +40,7 @@ def main():
   parser.add_argument("--resume-gripper-mean", type=float, help="Reset only the gripper output row after loading a bounded actor")
   parser.add_argument("--capture-pre-step", action="store_true", help="Save preceding physics state if the numerical guard fails")
   parser.add_argument("--elliptic-hessian", action="store_true", help="Opt in to stable native-equivalent dense cone Hessian")
+  parser.add_argument("--primitive-box-box", action="store_true", help="Opt in to native-style primitive box-box contact manifolds")
   parser.add_argument("--free-body-gyro", action="store_true", help="Opt in to CPU-compatible standalone free-body gyroscopic integration")
   parser.add_argument("--learning-rate", type=float, help="Explicit optimizer LR override, including after checkpoint load")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
@@ -71,6 +72,7 @@ def main():
   apply_recipe(cfg, args.recipe)
   cfg.env.sim.elliptic_hessian_compat = args.elliptic_hessian
   cfg.env.sim.free_body_implicitfast_compat = args.free_body_gyro
+  cfg.env.sim.primitive_box_box_compat = args.primitive_box_box
   if args.resume_gripper_mean is not None and cfg.agent.policy.class_name != "BoundedActorCritic":
     parser.error("--resume-gripper-mean requires a bounded-mean policy")
   cfg.env.scene.num_envs = args.num_envs
@@ -91,6 +93,7 @@ def main():
     previous_manifest = json.loads((checkpoint.parent / "manifest.json").read_text())
     cfg.env.sim.elliptic_hessian_compat |= previous_manifest.get("elliptic_hessian_compat", False)
     cfg.env.sim.free_body_implicitfast_compat |= previous_manifest.get("free_body_implicitfast_compat", False)
+    cfg.env.sim.primitive_box_box_compat |= previous_manifest.get("primitive_box_box_compat", False)
     previous_train_cfg = TrainConfig.from_task(args.task)
     apply_recipe(previous_train_cfg, previous_manifest.get("recipe", "baseline"))
     if previous_train_cfg.agent.policy.class_name != cfg.agent.policy.class_name:
@@ -121,6 +124,7 @@ def main():
       "recipe": args.recipe,
       "elliptic_hessian_compat": cfg.env.sim.elliptic_hessian_compat,
       "free_body_implicitfast_compat": cfg.env.sim.free_body_implicitfast_compat,
+      "primitive_box_box_compat": cfg.env.sim.primitive_box_box_compat,
       "learning_rate_override": args.learning_rate,
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,

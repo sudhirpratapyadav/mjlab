@@ -38,6 +38,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
   cfg = training_cfg.env
   cfg.sim.elliptic_hessian_compat = manifest.get("elliptic_hessian_compat", False)
   cfg.sim.free_body_implicitfast_compat = manifest.get("free_body_implicitfast_compat", False)
+  cfg.sim.primitive_box_box_compat = manifest.get("primitive_box_box_compat", False)
   cfg.scene.num_envs = episodes
   cfg.seed = seed
   agent_path = checkpoint.parent / "params/agent.yaml"
@@ -171,6 +172,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
       "recipe": recipe, "episode_length_s": cfg.episode_length_s,
       "elliptic_hessian_compat": cfg.sim.elliptic_hessian_compat,
       "free_body_implicitfast_compat": cfg.sim.free_body_implicitfast_compat,
+      "primitive_box_box_compat": cfg.sim.primitive_box_box_compat,
       "gravity": list(cfg.sim.mujoco.gravity),
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
