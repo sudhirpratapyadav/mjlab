@@ -19,6 +19,7 @@ def main():
   p.add_argument('--output',type=Path,required=True)
   p.add_argument('--approach-opening',type=float,help='Diagnostic finger target during approach, in metres per finger')
   p.add_argument('--pinch-offset',type=float,default=.065,help='Diagnostic near-side target distance from plate center')
+  p.add_argument('--ideal-wrist',action='store_true',help='Rotate during arrival to the nearest canonical side-pinch wrist')
   args=p.parse_args()
   if args.approach_opening is not None and not 0<=args.approach_opening<=.04:p.error('Opening must be within approved0–40mm per finger')
   if not 0<args.pinch_offset<=.1:p.error('Pinch offset must be in(0,0.1]m')
@@ -53,6 +54,12 @@ def main():
       mujoco.mj_forward(m,d);d.qacc_warmstart[:]=0
     restore();rotation=d.site_xmat[grip].reshape(3,3).copy();start=d.site_xpos[grip].copy()
     far=d.xmat[ledge].reshape(3,3)[:,0].copy();target=d.site_xpos[site]-args.pinch_offset*far+np.array([0,0,.005])
+    desired_rotation=rotation
+    if args.ideal_wrist:
+      from probe_edge_wrist import side_frame
+      ledge_rotation=d.xmat[ledge].reshape(3,3)
+      candidates=[side_frame(ledge_rotation@np.array([np.cos(np.deg2rad(h)),np.sin(np.deg2rad(h)),0.]),np.deg2rad(20)) for h in [0.,70.,-70.]]
+      desired_rotation=max(candidates,key=lambda r:np.trace(r.T@rotation))
     plate_height=float(d.xpos[plate,2]);opening=float(initial['qpos'][fingers].mean()) if args.approach_opening is None else args.approach_opening;cases=[]
     for mode in ['frozen_recorded','direct_close_lift','staged_close_lift','staged_open_lift']:
       staged=mode.startswith('staged')
@@ -62,10 +69,11 @@ def main():
       controls=[];max_ik=0.;clipped=0;seed=initial['qpos'][arm].copy()
       if mode!='frozen_recorded':
         for index,position in enumerate(positions):
+          waypoint_rotation=rotation if index==0 else desired_rotation
           d.qpos[:]=initial['qpos']
           def residual(q):
             d.qpos[arm]=q;mujoco.mj_kinematics(m,d)
-            return np.r_[d.site_xpos[grip]-position,.08*(d.site_xmat[grip].reshape(3,3)-rotation).ravel()]
+            return np.r_[d.site_xpos[grip]-position,.08*(d.site_xmat[grip].reshape(3,3)-waypoint_rotation).ravel()]
           sol=least_squares(residual,np.clip(seed,*bounds),bounds=bounds,max_nfev=120)
           seed=sol.x;residual(seed);max_ik=max(max_ik,float(np.linalg.norm(d.site_xpos[grip]-position)))
           d.qvel[:]=0;mujoco.mj_forward(m,d);kp=m.actuator_gainprm[:7,0]
@@ -128,8 +136,8 @@ def main():
         [v['time_s'],v['hand_error_m'],v['plate_lift_m'],v['opposed_contact'],v['robot_plate_contact'],*v['hand_position_m'],*v['plate_position_m']]
         for v in case.pop('samples')])
   archive.parent.mkdir(parents=True,exist_ok=True);np.savez_compressed(archive,**arrays)
-  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],pinch_offset_m=args.pinch_offset,approach_opening_override_m=args.approach_opening,sample_archive=str(archive),sample_columns=columns,
-    method='32 every-fourth closest exposed recorded states, all retained; native CPU, original velocities/friction/wrist. Frozen actual controls versus1.5s direct or three0.5s outward/lower/approach segments,0.5s close3mm/finger,1s50mm lift,0.5s hold. Approach opening is original recorded position unless an explicit override is reported; staged open keeps that approach target throughout. Initial finger states are never reset. Bounded gravity-compensated IK controls, no IK initialization, policy supervision or certification. Frozen case hand error is relative to the direct nominal path, not a tracking instruction.',summary=summary,rows=rows)
+  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],ideal_wrist=args.ideal_wrist,pinch_offset_m=args.pinch_offset,approach_opening_override_m=args.approach_opening,sample_archive=str(archive),sample_columns=columns,
+    method='32 every-fourth closest exposed recorded states, all retained; native CPU, original velocities/friction; the reported ideal-wrist variant rotates from actual wrist during the first segment. Frozen actual controls versus1.5s direct or three0.5s outward/lower/approach segments,0.5s close3mm/finger,1s50mm lift,0.5s hold. Approach opening is original recorded position unless an explicit override is reported; staged open keeps that approach target throughout. Initial finger states are never reset. Bounded gravity-compensated IK controls, no IK initialization, policy supervision or certification. Frozen case hand error is relative to the direct nominal path, not a tracking instruction.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 

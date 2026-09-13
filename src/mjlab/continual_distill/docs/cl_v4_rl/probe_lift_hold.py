@@ -31,10 +31,14 @@ def main():
   parser.add_argument('--primitive-box-box',action='store_true',help='Diagnostic GPU primitive box-box dispatch; CPU benchmark model remains unchanged')
   parser.add_argument('--use-trace-controls',action='store_true',help='Freeze actual recorded terminal actuator targets instead of re-querying the policy')
   parser.add_argument('--recorded-only',action='store_true',help='Run only the actual recorded terminal-control hold')
+  parser.add_argument('--recorded-grip-target',type=float,help='Diagnostic override of only the finger control while retaining recorded arm targets')
   args = parser.parse_args()
+  if args.output.exists() or (args.save_state and args.save_state.exists()):
+    parser.error('Diagnostic output/state archive already exists')
   evaluation = json.loads(args.evaluation.read_text())
-  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka', 'Mjlab-Peg-Insertion-Franka')
+  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka', 'Mjlab-Peg-Insertion-Franka', 'Mjlab-Stack-Cube-Franka')
   assert args.stride>=1
+  assert args.recorded_grip_target is None or (args.recorded_only and args.use_trace_controls and 0<=args.recorded_grip_target<=.04)
   assert not args.fixed_only or args.fixed_grip_target is not None
   assert not args.recorded_only or args.use_trace_controls
   assert not args.save_state or args.fixed_only or args.recorded_only, 'State recording requires one control case'
@@ -128,6 +132,8 @@ def main():
         ctrl[:,7]=np.maximum(local['qpos'][:,7]-.002,0)
       if mode=='hold_current_arm_fixed_grip':
         ctrl[:,7]=args.fixed_grip_target
+      if args.recorded_grip_target is not None:
+        ctrl[:,7]=args.recorded_grip_target
       restore()
       env.sim.data.ctrl[:]=torch.as_tensor(ctrl,device=env.device)
       cpus = [mujoco.MjData(cpu_model) for cpu_model in cpu_models]
@@ -174,18 +180,38 @@ def main():
       summary['gpu'].update(grasped=int(native_grasp.sum()),native_success=int(command.compute_success().sum()),
                             robot_contact_by_lane=touching(command,command.robot,command.object).cpu().tolist(),
                             finite=bool(np.isfinite(gpu_qvel).all() and np.isfinite(gpu_qpos).all()))
+      if evaluation['task']=='Mjlab-Stack-Cube-Franka':
+        summary['gpu']['support_contact_by_lane']=touching(command,command.object,command.base).cpu().tolist()
       gpu_pos = gpu_qpos[:,qadr:qadr+3]-env.scene.env_origins.cpu().numpy()
       cpu_pos = np.stack([cpu.qpos[qadr:qadr+3].copy() for cpu in cpus])
+      goals={'gpu':local['mocap_pos'][:,1], 'cpu':local['mocap_pos'][:,1]}
+      if evaluation['task']=='Mjlab-Stack-Cube-Franka':
+        base_id=model.site_bodyid[model.site(command.cfg.base_asset_name+'/object_site').id]
+        offset=np.array([0.,0.,command.cfg.stack_height])
+        goals['gpu']=command._stack_target().cpu().numpy()-env.scene.env_origins.cpu().numpy()
+        goals['cpu']=np.stack([cpu.xpos[base_id]+cpu.xmat[base_id].reshape(3,3)@offset for cpu in cpus])
+        robots={i for i in range(model.ngeom) if model.geom(i).name.startswith('robot/')}
+        objects={i for i in range(model.ngeom) if model.geom(i).name.startswith(object_prefix)}
+        supports={i for i in range(model.ngeom) if model.geom(i).name.startswith(command.cfg.base_asset_name+'/')}
+        released_cpu=[];supported_cpu=[]
+        for cpu in cpus:
+          def hit(a,b):
+            return any(c.dist<=.001 and ((c.geom[0] in a and c.geom[1] in b) or (c.geom[0] in b and c.geom[1] in a)) for c in cpu.contact)
+          released_cpu.append(not hit(robots,objects));supported_cpu.append(hit(objects,supports))
+        delta=cpu_pos-goals['cpu']
+        valid=(np.linalg.norm(delta[:,:2],axis=1)<command.cfg.success_threshold)&(np.abs(delta[:,2])<command.cfg.height_threshold)&(np.linalg.norm(cpu_v[:,vadr:vadr+3],axis=1)<.03)&(np.linalg.norm(cpu_v[:,vadr+3:vadr+6],axis=1)<.3)&np.asarray(released_cpu)&np.asarray(supported_cpu)
+        summary['cpu'].update(native_success=int(valid.sum()),native_success_by_lane=valid.tolist(),released_by_lane=released_cpu,support_contact_by_lane=supported_cpu)
       for name,positions in [('gpu',gpu_pos),('cpu',cpu_pos)]:
         summary[name].update(median_height_m=float(np.median(positions[:,2])),
                              positions_local_m=positions.tolist(),
-                             goal_errors_m=np.linalg.norm(positions-local['mocap_pos'][:,1],axis=1).tolist())
+                             goal_errors_m=np.linalg.norm(positions-goals[name],axis=1).tolist())
       pads = [model.geom('robot/'+name).id for name in ['left_finger_pad','right_finger_pad']]
       object_ids = {i for i in range(model.ngeom) if model.geom(i).name.startswith(object_prefix)}
       cpu_grasp = []
       for cpu in cpus:
         cpu_grasp.append(all(any(contact.dist<=.001 and ((contact.geom[0]==pad and contact.geom[1] in object_ids) or (contact.geom[1]==pad and contact.geom[0] in object_ids)) for contact in cpu.contact) for pad in pads))
       summary['cpu']['grasped'] = sum(cpu_grasp)
+      summary['cpu']['finite']=bool(np.isfinite(cpu_v).all() and all(np.isfinite(cpu.qpos).all() for cpu in cpus))
       summary['cpu']['warnings']=[cpu.warning.number.tolist() for cpu in cpus]
       if args.save_state:
         nacon=int(env.sim.data.nacon[0])
@@ -197,6 +223,8 @@ def main():
         for name in ['geom','worldid','dist','pos','frame']:
           saved['gpu_contact_'+name]=getattr(contact,name)[:nacon].cpu().numpy()
         args.save_state.parent.mkdir(parents=True,exist_ok=True)
+        summary['gpu']['all_recorded_states_finite']=bool(np.isfinite(saved['gpu_qpos']).all() and np.isfinite(saved['gpu_qvel']).all())
+        summary['cpu']['all_recorded_states_finite']=bool(np.isfinite(saved['cpu_qpos']).all() and np.isfinite(saved['cpu_qvel']).all())
         np.savez_compressed(args.save_state,**saved)
         summary['cpu']['object_contacts']=[[
           dict(geoms=[model.geom(int(i)).name for i in c.geom],dist=float(c.dist),pos=c.pos.tolist(),frame=c.frame.tolist())
@@ -208,7 +236,7 @@ def main():
           for j in np.flatnonzero(worlds==lane) if any(int(g) in object_ids for g in geoms[j])
         ] for lane in range(len(records))]
       cases.append(dict(mode=mode,**summary))
-      print(mode,{name:{k:v for k,v in row.items() if k not in ['warnings','linear_speeds','angular_speeds','positions_local_m','goal_errors_m','object_contacts','robot_contact_by_lane']} for name,row in summary.items()},flush=True)
+      print(mode,{name:{k:v for k,v in row.items() if not isinstance(v,(list,dict))} for name,row in summary.items()},flush=True)
     report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
                 gyro_correction=cfg.env.sim.free_body_implicitfast_compat,
                 elliptic_hessian_compat=cfg.env.sim.elliptic_hessian_compat,
@@ -217,11 +245,11 @@ def main():
                 episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
                 source_episode_randomization_reconstructed=args.use_trace_friction,physics_dt=env.physics_dt,
-                fixed_grip_target=args.fixed_grip_target,failures_only=args.failures_only,stride=args.stride,
+                recorded_grip_target=args.recorded_grip_target,fixed_grip_target=args.fixed_grip_target,failures_only=args.failures_only,stride=args.stride,
                 state_archive=str(args.save_state) if args.save_state else None,
                 gpu_primitive_box_box=cfg.env.sim.primitive_box_box_compat,
                 actual_recorded_controls=args.use_trace_controls,
-                method=f'Every {args.stride}th timeout terminal state, failed-only={args.failures_only}, cold solver cache,400 native steps with constant XML position-actuator controls. '+('Actual applied terminal controls restored from trace; ' if args.use_trace_controls else 'Policy queried once from restored observations; ')+'alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
+                method=f'Every {args.stride}th timeout terminal state, failed-only={args.failures_only}, cold solver cache,400 native steps with constant XML position-actuator controls. '+('Actual applied terminal controls restored from trace; ' if args.use_trace_controls else 'Policy queried once from restored observations; ')+'alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+f'Recorded-arm finger override={args.recorded_grip_target}; no policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
     args.output.write_text(json.dumps(report,indent=2)+'\n')
   finally:
     wrapped.close()

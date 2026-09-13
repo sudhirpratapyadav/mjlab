@@ -18,11 +18,12 @@ RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
-RECIPES += ("stack_v1",)
+RECIPES += ("stack_v1", "reorient_v11", "strike_v5")
 RECIPES += ("reorient_v10",)
 RECIPES += ("edge_v5",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
 RECIPES += ("lift_v9", "peg_v2", "peg_v3", "edge_v4")
+RECIPES += ("peg_v4",)
 RECIPES += ("reorient_v9",)
 
 
@@ -115,6 +116,15 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
     return
+  if recipe == "strike_v5":
+    apply_recipe(cfg,"strike_v4")
+    cfg.agent.num_steps_per_env=96
+    cfg.agent.algorithm.lam=.99
+    return
+  if recipe == "reorient_v11":
+    apply_recipe(cfg,"reorient_v10")
+    cfg.env.rewards["reach_object"].params.update(quiet_weight=12.,steady_action_weight=12.,native_completion_weight=50.)
+    return
   if recipe == "stack_v1":
     if cfg.agent.experiment_name != "franka_stack_cube":
       raise ValueError("stack_v1 requires Stack-Cube")
@@ -132,6 +142,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "peg_v3":
     apply_recipe(cfg,"peg_v2")
     cfg.env.rewards["action_rate_l2"].weight=-.2
+    return
+  if recipe == "peg_v4":
+    apply_recipe(cfg,"peg_v3")
+    cfg.env.rewards["stack"].params.update(lift_weight=12.,native_completion_weight=30.)
     return
   if recipe == "peg_v1":
     if cfg.agent.experiment_name != "franka_peg_insertion":

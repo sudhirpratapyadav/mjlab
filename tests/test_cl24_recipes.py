@@ -61,7 +61,10 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Place-In-Container-Franka","completion_v6"),
   ("Mjlab-Peg-Insertion-Franka","completion_v6"),
   ("Mjlab-Peg-Insertion-Franka","peg_v3"),
+  ("Mjlab-Peg-Insertion-Franka","peg_v4"),
   ("Mjlab-Reorient-Object-Franka","reorient_v9"),
+  ("Mjlab-Reorient-Object-Franka","reorient_v11"),
+  ("Mjlab-Strike-Slide-Franka","strike_v5"),
 ])
 def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   stage=Path(__file__).resolve().parents[1]/"src/mjlab/continual_distill/docs/cl_v4_rl"
@@ -73,6 +76,19 @@ def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   recipes.apply_recipe(cfg,recipe)
   assert before=={field:repr(getattr(cfg.env,field)) for field in fields}
   assert cfg.agent.clip_actions==1.0
+
+
+def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage)); recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Peg-Insertion-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'peg_v3'); recipes.apply_recipe(new,'peg_v4')
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['stack'].params
+  assert params['lift_weight']==12. and params.pop('native_completion_weight')==30.
+  params['lift_weight']=4.
+  assert repr(old.env)==repr(new.env)
 
 
 def test_reorient_quiet_score_requires_axis_progress_and_both_speeds(monkeypatch):
@@ -287,3 +303,33 @@ def test_reorient_steady_actions_preserve_benchmark_and_gate_on_orientation(monk
   score=recipes.reorient_steady_action_score(torch.ones(4),action,previous)
   assert score[0]==1 and torch.all(score[1:]<score[:-1])
   assert not recipes.reorient_steady_action_score(torch.zeros(4),action,previous).any()
+
+
+def test_strike_returns_changes_only_rollout_and_lambda(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage)); recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Strike-Slide-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'strike_v4');recipes.apply_recipe(new,'strike_v5')
+  assert repr(old.env)==repr(new.env)
+  assert new.agent.num_steps_per_env==96 and new.agent.algorithm.lam==.99
+  assert new.agent.algorithm.gamma==old.agent.algorithm.gamma==.995
+  assert 500*new.agent.num_steps_per_env==2000*old.agent.num_steps_per_env
+  new.agent.num_steps_per_env=old.agent.num_steps_per_env
+  new.agent.algorithm.lam=old.agent.algorithm.lam
+  assert asdict(old.agent)==asdict(new.agent)
+
+
+def test_reorient_stronger_settling_keeps_native_bonus_dominant(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage)); recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Reorient-Object-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'reorient_v10');recipes.apply_recipe(new,'reorient_v11')
+  assert asdict(old.agent)==asdict(new.agent)
+  p=new.env.rewards['reach_object'].params
+  assert p['quiet_weight']==12 and p['steady_action_weight']==12
+  assert 6+3+6+p['quiet_weight']+p['steady_action_weight']<p['native_completion_weight']==50
+  for key in ('quiet_weight','steady_action_weight','native_completion_weight'):
+    p[key]=old.env.rewards['reach_object'].params[key]
+  assert repr(old.env)==repr(new.env)

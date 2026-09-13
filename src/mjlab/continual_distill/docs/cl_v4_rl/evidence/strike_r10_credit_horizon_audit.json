@@ -1,0 +1,1043 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "1e0b7fd2d778cf9b1fc51872c9f49f94c6d68226428178097ee6dbcb6a0197de",
+  "method": "Recorded first episodes only. Delay from peakXY launchspeed to first later native-radius entry, with all cases retained. Nominal(gamma*lambda)^delay illustrates direct residual attenuation, not measured actual advantages or proof of critic bias. Existing24-step rollouts are0.48s; longer-return hypothesis requires PPO preflight/training.",
+  "summary": {
+    "episodes": 128,
+    "substantial_launches_with_goal_entry": 92,
+    "median_peak_to_goal_steps": 54.0,
+    "median_peak_to_goal_seconds": 1.08,
+    "current_rollout_steps": 24,
+    "current_rollout_seconds": 0.48,
+    "gamma": 0.995,
+    "lambda_current": 0.95,
+    "nominal_gae_attenuation_at_median_delay_current": 0.047810253438852215,
+    "nominal_gae_attenuation_at_median_delay_proposed": 0.44335015898341035
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7128667831420898,
+      "first_goal_entry_step": 65,
+      "peak_to_goal_steps": 36
+    },
+    {
+      "env_id": 1,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7188894152641296,
+      "first_goal_entry_step": 98,
+      "peak_to_goal_steps": 67
+    },
+    {
+      "env_id": 2,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7522258162498474,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 54
+    },
+    {
+      "env_id": 3,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.7045885920524597,
+      "first_goal_entry_step": 98,
+      "peak_to_goal_steps": 68
+    },
+    {
+      "env_id": 4,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.701573371887207,
+      "first_goal_entry_step": 79,
+      "peak_to_goal_steps": 48
+    },
+    {
+      "env_id": 5,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7195374965667725,
+      "first_goal_entry_step": 84,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 6,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6233222484588623,
+      "first_goal_entry_step": 102,
+      "peak_to_goal_steps": 72
+    },
+    {
+      "env_id": 7,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.5789206027984619,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 8,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.5778273344039917,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 9,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.6324902772903442,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 10,
+      "terminal_success": false,
+      "peak_speed_step": 27,
+      "peak_speed": 0.71856689453125,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 49
+    },
+    {
+      "env_id": 11,
+      "terminal_success": true,
+      "peak_speed_step": 27,
+      "peak_speed": 0.7044554352760315,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 58
+    },
+    {
+      "env_id": 12,
+      "terminal_success": false,
+      "peak_speed_step": 26,
+      "peak_speed": 0.542081892490387,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 13,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.5982607007026672,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 14,
+      "terminal_success": true,
+      "peak_speed_step": 25,
+      "peak_speed": 0.6686342358589172,
+      "first_goal_entry_step": 79,
+      "peak_to_goal_steps": 54
+    },
+    {
+      "env_id": 15,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.9572318196296692,
+      "first_goal_entry_step": 78,
+      "peak_to_goal_steps": 48
+    },
+    {
+      "env_id": 16,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.71481853723526,
+      "first_goal_entry_step": 82,
+      "peak_to_goal_steps": 52
+    },
+    {
+      "env_id": 17,
+      "terminal_success": false,
+      "peak_speed_step": 26,
+      "peak_speed": 0.6062318682670593,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 18,
+      "terminal_success": false,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7949523329734802,
+      "first_goal_entry_step": 84,
+      "peak_to_goal_steps": 53
+    },
+    {
+      "env_id": 19,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6227251887321472,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 20,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.8743676543235779,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 21,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.7683302760124207,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 22,
+      "terminal_success": false,
+      "peak_speed_step": 25,
+      "peak_speed": 0.5775587558746338,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 23,
+      "terminal_success": false,
+      "peak_speed_step": 31,
+      "peak_speed": 0.717263400554657,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 45
+    },
+    {
+      "env_id": 24,
+      "terminal_success": true,
+      "peak_speed_step": 33,
+      "peak_speed": 0.6311520934104919,
+      "first_goal_entry_step": 83,
+      "peak_to_goal_steps": 50
+    },
+    {
+      "env_id": 25,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.8097478747367859,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 53
+    },
+    {
+      "env_id": 26,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.5913568139076233,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 27,
+      "terminal_success": false,
+      "peak_speed_step": 35,
+      "peak_speed": 0.804834246635437,
+      "first_goal_entry_step": 81,
+      "peak_to_goal_steps": 46
+    },
+    {
+      "env_id": 28,
+      "terminal_success": true,
+      "peak_speed_step": 28,
+      "peak_speed": 0.6794918775558472,
+      "first_goal_entry_step": 86,
+      "peak_to_goal_steps": 58
+    },
+    {
+      "env_id": 29,
+      "terminal_success": true,
+      "peak_speed_step": 26,
+      "peak_speed": 0.6638111472129822,
+      "first_goal_entry_step": 83,
+      "peak_to_goal_steps": 57
+    },
+    {
+      "env_id": 30,
+      "terminal_success": false,
+      "peak_speed_step": 26,
+      "peak_speed": 0.7564844489097595,
+      "first_goal_entry_step": 68,
+      "peak_to_goal_steps": 42
+    },
+    {
+      "env_id": 31,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.8084413409233093,
+      "first_goal_entry_step": 75,
+      "peak_to_goal_steps": 43
+    },
+    {
+      "env_id": 32,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.8237078189849854,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 46
+    },
+    {
+      "env_id": 33,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.5115905404090881,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 34,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.587253749370575,
+      "first_goal_entry_step": 91,
+      "peak_to_goal_steps": 62
+    },
+    {
+      "env_id": 35,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7310738563537598,
+      "first_goal_entry_step": 81,
+      "peak_to_goal_steps": 52
+    },
+    {
+      "env_id": 36,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6369869112968445,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 37,
+      "terminal_success": true,
+      "peak_speed_step": 27,
+      "peak_speed": 0.6511414051055908,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 58
+    },
+    {
+      "env_id": 38,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.5748538970947266,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 39,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.7132707834243774,
+      "first_goal_entry_step": 93,
+      "peak_to_goal_steps": 63
+    },
+    {
+      "env_id": 40,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.7513535022735596,
+      "first_goal_entry_step": 88,
+      "peak_to_goal_steps": 56
+    },
+    {
+      "env_id": 41,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6090295910835266,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 42,
+      "terminal_success": false,
+      "peak_speed_step": 27,
+      "peak_speed": 0.7564778923988342,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 49
+    },
+    {
+      "env_id": 43,
+      "terminal_success": true,
+      "peak_speed_step": 34,
+      "peak_speed": 0.74400395154953,
+      "first_goal_entry_step": 91,
+      "peak_to_goal_steps": 57
+    },
+    {
+      "env_id": 44,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6710252165794373,
+      "first_goal_entry_step": 103,
+      "peak_to_goal_steps": 73
+    },
+    {
+      "env_id": 45,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.6671998500823975,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 56
+    },
+    {
+      "env_id": 46,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6905756592750549,
+      "first_goal_entry_step": 112,
+      "peak_to_goal_steps": 83
+    },
+    {
+      "env_id": 47,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.5953685641288757,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 48,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.6411492824554443,
+      "first_goal_entry_step": 86,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 49,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6101747751235962,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 50,
+      "terminal_success": true,
+      "peak_speed_step": 27,
+      "peak_speed": 0.7820315361022949,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 60
+    },
+    {
+      "env_id": 51,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.701370358467102,
+      "first_goal_entry_step": 79,
+      "peak_to_goal_steps": 50
+    },
+    {
+      "env_id": 52,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.7437301874160767,
+      "first_goal_entry_step": 81,
+      "peak_to_goal_steps": 49
+    },
+    {
+      "env_id": 53,
+      "terminal_success": false,
+      "peak_speed_step": 26,
+      "peak_speed": 0.7478489279747009,
+      "first_goal_entry_step": 74,
+      "peak_to_goal_steps": 48
+    },
+    {
+      "env_id": 54,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6498787999153137,
+      "first_goal_entry_step": 92,
+      "peak_to_goal_steps": 62
+    },
+    {
+      "env_id": 55,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6714712381362915,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 56,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.8357601761817932,
+      "first_goal_entry_step": 80,
+      "peak_to_goal_steps": 51
+    },
+    {
+      "env_id": 57,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7259348034858704,
+      "first_goal_entry_step": 95,
+      "peak_to_goal_steps": 64
+    },
+    {
+      "env_id": 58,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6909962892532349,
+      "first_goal_entry_step": 74,
+      "peak_to_goal_steps": 44
+    },
+    {
+      "env_id": 59,
+      "terminal_success": false,
+      "peak_speed_step": 1,
+      "peak_speed": 2.4353161154344605e-10,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 60,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.5444498062133789,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 61,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7787820100784302,
+      "first_goal_entry_step": 75,
+      "peak_to_goal_steps": 46
+    },
+    {
+      "env_id": 62,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.7994818091392517,
+      "first_goal_entry_step": 90,
+      "peak_to_goal_steps": 60
+    },
+    {
+      "env_id": 63,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.8040434718132019,
+      "first_goal_entry_step": 75,
+      "peak_to_goal_steps": 45
+    },
+    {
+      "env_id": 64,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.786455512046814,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 65,
+      "terminal_success": false,
+      "peak_speed_step": 31,
+      "peak_speed": 0.6879673600196838,
+      "first_goal_entry_step": 73,
+      "peak_to_goal_steps": 42
+    },
+    {
+      "env_id": 66,
+      "terminal_success": false,
+      "peak_speed_step": 25,
+      "peak_speed": 0.8677817583084106,
+      "first_goal_entry_step": 74,
+      "peak_to_goal_steps": 49
+    },
+    {
+      "env_id": 67,
+      "terminal_success": true,
+      "peak_speed_step": 26,
+      "peak_speed": 0.618312656879425,
+      "first_goal_entry_step": 88,
+      "peak_to_goal_steps": 62
+    },
+    {
+      "env_id": 68,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6902973651885986,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 56
+    },
+    {
+      "env_id": 69,
+      "terminal_success": true,
+      "peak_speed_step": 25,
+      "peak_speed": 0.6891181468963623,
+      "first_goal_entry_step": 97,
+      "peak_to_goal_steps": 72
+    },
+    {
+      "env_id": 70,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.7084459662437439,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 48
+    },
+    {
+      "env_id": 71,
+      "terminal_success": false,
+      "peak_speed_step": 27,
+      "peak_speed": 0.7095657587051392,
+      "first_goal_entry_step": 70,
+      "peak_to_goal_steps": 43
+    },
+    {
+      "env_id": 72,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7027936577796936,
+      "first_goal_entry_step": 84,
+      "peak_to_goal_steps": 53
+    },
+    {
+      "env_id": 73,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.7453150153160095,
+      "first_goal_entry_step": 84,
+      "peak_to_goal_steps": 54
+    },
+    {
+      "env_id": 74,
+      "terminal_success": false,
+      "peak_speed_step": 34,
+      "peak_speed": 1.0169512033462524,
+      "first_goal_entry_step": 74,
+      "peak_to_goal_steps": 40
+    },
+    {
+      "env_id": 75,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.6441430449485779,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 76,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.640766978263855,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 77,
+      "terminal_success": false,
+      "peak_speed_step": 34,
+      "peak_speed": 0.5801644325256348,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 78,
+      "terminal_success": false,
+      "peak_speed_step": 31,
+      "peak_speed": 0.8854323029518127,
+      "first_goal_entry_step": 77,
+      "peak_to_goal_steps": 46
+    },
+    {
+      "env_id": 79,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6609320640563965,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 80,
+      "terminal_success": true,
+      "peak_speed_step": 26,
+      "peak_speed": 0.5871424078941345,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 61
+    },
+    {
+      "env_id": 81,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6889252066612244,
+      "first_goal_entry_step": 90,
+      "peak_to_goal_steps": 60
+    },
+    {
+      "env_id": 82,
+      "terminal_success": true,
+      "peak_speed_step": 28,
+      "peak_speed": 0.6403124332427979,
+      "first_goal_entry_step": 94,
+      "peak_to_goal_steps": 66
+    },
+    {
+      "env_id": 83,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6391432881355286,
+      "first_goal_entry_step": 105,
+      "peak_to_goal_steps": 75
+    },
+    {
+      "env_id": 84,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.5863030552864075,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 85,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.7629624605178833,
+      "first_goal_entry_step": 81,
+      "peak_to_goal_steps": 49
+    },
+    {
+      "env_id": 86,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6001757979393005,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 87,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.5960972905158997,
+      "first_goal_entry_step": 88,
+      "peak_to_goal_steps": 56
+    },
+    {
+      "env_id": 88,
+      "terminal_success": true,
+      "peak_speed_step": 34,
+      "peak_speed": 0.7178713083267212,
+      "first_goal_entry_step": 95,
+      "peak_to_goal_steps": 61
+    },
+    {
+      "env_id": 89,
+      "terminal_success": false,
+      "peak_speed_step": 34,
+      "peak_speed": 0.7364261150360107,
+      "first_goal_entry_step": 78,
+      "peak_to_goal_steps": 44
+    },
+    {
+      "env_id": 90,
+      "terminal_success": false,
+      "peak_speed_step": 22,
+      "peak_speed": 0.7256949543952942,
+      "first_goal_entry_step": 61,
+      "peak_to_goal_steps": 39
+    },
+    {
+      "env_id": 91,
+      "terminal_success": true,
+      "peak_speed_step": 33,
+      "peak_speed": 0.7243885397911072,
+      "first_goal_entry_step": 108,
+      "peak_to_goal_steps": 75
+    },
+    {
+      "env_id": 92,
+      "terminal_success": false,
+      "peak_speed_step": 139,
+      "peak_speed": 5.572568628764429e-09,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 93,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.7092307209968567,
+      "first_goal_entry_step": 83,
+      "peak_to_goal_steps": 51
+    },
+    {
+      "env_id": 94,
+      "terminal_success": false,
+      "peak_speed_step": 12,
+      "peak_speed": 4.863640157282134e-09,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 95,
+      "terminal_success": false,
+      "peak_speed_step": 4,
+      "peak_speed": 4.849324053424198e-09,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 96,
+      "terminal_success": false,
+      "peak_speed_step": 33,
+      "peak_speed": 0.8020516037940979,
+      "first_goal_entry_step": 77,
+      "peak_to_goal_steps": 44
+    },
+    {
+      "env_id": 97,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.75115966796875,
+      "first_goal_entry_step": 85,
+      "peak_to_goal_steps": 56
+    },
+    {
+      "env_id": 98,
+      "terminal_success": true,
+      "peak_speed_step": 32,
+      "peak_speed": 0.7659199237823486,
+      "first_goal_entry_step": 87,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 99,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7313376665115356,
+      "first_goal_entry_step": 101,
+      "peak_to_goal_steps": 70
+    },
+    {
+      "env_id": 100,
+      "terminal_success": false,
+      "peak_speed_step": 34,
+      "peak_speed": 0.950177013874054,
+      "first_goal_entry_step": 72,
+      "peak_to_goal_steps": 38
+    },
+    {
+      "env_id": 101,
+      "terminal_success": true,
+      "peak_speed_step": 34,
+      "peak_speed": 0.661675751209259,
+      "first_goal_entry_step": 101,
+      "peak_to_goal_steps": 67
+    },
+    {
+      "env_id": 102,
+      "terminal_success": true,
+      "peak_speed_step": 28,
+      "peak_speed": 0.73984694480896,
+      "first_goal_entry_step": 96,
+      "peak_to_goal_steps": 68
+    },
+    {
+      "env_id": 103,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.716914713382721,
+      "first_goal_entry_step": 70,
+      "peak_to_goal_steps": 42
+    },
+    {
+      "env_id": 104,
+      "terminal_success": false,
+      "peak_speed_step": 28,
+      "peak_speed": 0.7411083579063416,
+      "first_goal_entry_step": 73,
+      "peak_to_goal_steps": 45
+    },
+    {
+      "env_id": 105,
+      "terminal_success": false,
+      "peak_speed_step": 48,
+      "peak_speed": 1.2973213195800781,
+      "first_goal_entry_step": 76,
+      "peak_to_goal_steps": 28
+    },
+    {
+      "env_id": 106,
+      "terminal_success": true,
+      "peak_speed_step": 34,
+      "peak_speed": 0.7168422937393188,
+      "first_goal_entry_step": 95,
+      "peak_to_goal_steps": 61
+    },
+    {
+      "env_id": 107,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6796053051948547,
+      "first_goal_entry_step": 84,
+      "peak_to_goal_steps": 55
+    },
+    {
+      "env_id": 108,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7358142733573914,
+      "first_goal_entry_step": 83,
+      "peak_to_goal_steps": 54
+    },
+    {
+      "env_id": 109,
+      "terminal_success": false,
+      "peak_speed_step": 49,
+      "peak_speed": 0.6177646517753601,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 110,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.6900705099105835,
+      "first_goal_entry_step": 69,
+      "peak_to_goal_steps": 40
+    },
+    {
+      "env_id": 111,
+      "terminal_success": false,
+      "peak_speed_step": 25,
+      "peak_speed": 0.5581402778625488,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 112,
+      "terminal_success": false,
+      "peak_speed_step": 35,
+      "peak_speed": 0.6102991700172424,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 113,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.7640645503997803,
+      "first_goal_entry_step": 75,
+      "peak_to_goal_steps": 45
+    },
+    {
+      "env_id": 114,
+      "terminal_success": true,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7164556384086609,
+      "first_goal_entry_step": 83,
+      "peak_to_goal_steps": 54
+    },
+    {
+      "env_id": 115,
+      "terminal_success": false,
+      "peak_speed_step": 22,
+      "peak_speed": 0.7623776793479919,
+      "first_goal_entry_step": 61,
+      "peak_to_goal_steps": 39
+    },
+    {
+      "env_id": 116,
+      "terminal_success": false,
+      "peak_speed_step": 26,
+      "peak_speed": 0.49190273880958557,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 117,
+      "terminal_success": true,
+      "peak_speed_step": 30,
+      "peak_speed": 0.6764754056930542,
+      "first_goal_entry_step": 102,
+      "peak_to_goal_steps": 72
+    },
+    {
+      "env_id": 118,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.7397106289863586,
+      "first_goal_entry_step": 92,
+      "peak_to_goal_steps": 61
+    },
+    {
+      "env_id": 119,
+      "terminal_success": false,
+      "peak_speed_step": 33,
+      "peak_speed": 0.6733567714691162,
+      "first_goal_entry_step": 75,
+      "peak_to_goal_steps": 42
+    },
+    {
+      "env_id": 120,
+      "terminal_success": false,
+      "peak_speed_step": 147,
+      "peak_speed": 1.4088143984736234e-08,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 121,
+      "terminal_success": false,
+      "peak_speed_step": 25,
+      "peak_speed": 0.7768240571022034,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 122,
+      "terminal_success": false,
+      "peak_speed_step": 30,
+      "peak_speed": 0.5249484777450562,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 123,
+      "terminal_success": true,
+      "peak_speed_step": 26,
+      "peak_speed": 0.6475505232810974,
+      "first_goal_entry_step": 90,
+      "peak_to_goal_steps": 64
+    },
+    {
+      "env_id": 124,
+      "terminal_success": false,
+      "peak_speed_step": 32,
+      "peak_speed": 0.657625138759613,
+      "first_goal_entry_step": null,
+      "peak_to_goal_steps": null
+    },
+    {
+      "env_id": 125,
+      "terminal_success": true,
+      "peak_speed_step": 27,
+      "peak_speed": 0.6831265687942505,
+      "first_goal_entry_step": 80,
+      "peak_to_goal_steps": 53
+    },
+    {
+      "env_id": 126,
+      "terminal_success": true,
+      "peak_speed_step": 31,
+      "peak_speed": 0.6898785829544067,
+      "first_goal_entry_step": 104,
+      "peak_to_goal_steps": 73
+    },
+    {
+      "env_id": 127,
+      "terminal_success": false,
+      "peak_speed_step": 29,
+      "peak_speed": 0.7624551057815552,
+      "first_goal_entry_step": 79,
+      "peak_to_goal_steps": 50
+    }
+  ]
+}

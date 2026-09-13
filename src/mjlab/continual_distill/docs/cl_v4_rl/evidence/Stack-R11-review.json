@@ -1,0 +1,20 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "5f3707335bde870f2ff1b7508f217760063c48b5a372416b37e125676698de97",
+  "reviewed_utc": "2026-09-13T08:31:42.407120+00:00",
+  "verdict": "not certified",
+  "validation_successes": 85,
+  "episodes": 128,
+  "finite_tensors": 76,
+  "all_checkpoint_tensors_finite": true,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success21 transports cube onto support with fingers open near endpoint; object partially occluded. Exact native CPU terminal audit resolves visibility:0.860mmXY/0.041mmheight error, supportcontact,true release,linear3.79e-8/angular2.08e-7. Failure96 holds cube above support while moving; no support contact, robot contact and unsettled. All128 CPU terminal labels agree with nativeGPU,85successes. No confirmation below116 gate.",
+  "terminal_audit": "stack_r11_clearance_audit.json"
+}

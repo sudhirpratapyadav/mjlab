@@ -1,0 +1,17 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "0652635953d78f116877647534e70432d0b17d68405eee46d21f0a16c9a80c4d",
+  "reviewed_utc": "2026-09-13T08:14:02.223174+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual failure initial/middle/final frames show fingers around the peg near the floor, without transport above the socket. Native trace audit finds100 terminal opposed captures and no root lift exceeding2cm.",
+  "audit": "peg_r10_capture_audit.json"
+}

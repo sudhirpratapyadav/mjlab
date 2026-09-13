@@ -1,0 +1,22 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "1e0b7fd2d778cf9b1fc51872c9f49f94c6d68226428178097ee6dbcb6a0197de",
+  "reviewed_utc": "2026-09-13T07:41:20.416583+00:00",
+  "verdict": "not certified",
+  "validation_successes": 57,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "saved_learning_rates": [
+    1.25e-06
+  ],
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "observations": "Success slides onto/overlaps yellow goal; selected failure overshoots and settles beyond it. Strict57/128 versus59 previously, median endpoint97.27mm versus86.21mm, no confirmation. Plateau rather than optimization collapse;123 substantial launches."
+}

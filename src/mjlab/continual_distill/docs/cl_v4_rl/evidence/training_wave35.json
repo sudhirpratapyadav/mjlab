@@ -1,0 +1,251 @@
+{
+  "updated_utc": "2026-09-13T08:33:58.861999+00:00",
+  "certified_count": 18,
+  "holder_job": 20277,
+  "holder_expiry_scheduler_time": "2026-09-28T08:58:54",
+  "gpu0_unused": true,
+  "runs": [
+    {
+      "task": "Mjlab-Reorient-Object-Franka",
+      "run_id": "RL-005-R15-reorient-settle",
+      "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+      "source_head": "9d86aa7bdc9f925d8c6214b6bb0065fc7d994d40",
+      "source_patch_sha256": "bf23b39b322f27a4693b5f6c54a8e109223d1ed8d0f1af2dad4636e74c2c7cb9",
+      "started_utc": "2026-09-13T07:51:40.952153+00:00",
+      "seed": 20260912,
+      "num_envs": 2048,
+      "requested_updates": 2000,
+      "interface": "franka_shared_60_v2",
+      "gpu_uuid": "GPU-2496e2db-e138-0dec-41fc-27d2535b6e86",
+      "recipe": "reorient_v11",
+      "elliptic_hessian_compat": false,
+      "free_body_implicitfast_compat": true,
+      "primitive_box_box_compat": false,
+      "learning_rate_override": 5e-06,
+      "update_kl_diagnostics": true,
+      "max_update_kl": 0.03,
+      "cpu_affinity": [
+        0,
+        1,
+        2,
+        3,
+        128,
+        129,
+        130,
+        131
+      ],
+      "slurm_cpus_per_task": "8",
+      "slurm_job_id": "20277",
+      "slurm_step_id": "2204",
+      "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+      "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+      "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-R14-reorient-steady/model_18593.pt",
+      "resume_gripper_std": null,
+      "resume_gripper_mean": null,
+      "resume_noise_scale": null,
+      "capture_pre_step": true,
+      "capture_history_steps": 8,
+      "resume_sha256": "c17c3c2cd4ec8db7fbea9570d762a5d5b87a0dc58f90efbac39a5c79f1ad2c53",
+      "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration.",
+      "dispatcher": {
+        "updated_utc": "2026-09-13T08:10:12.272224+00:00",
+        "state": "waiting_for_identified_trainer_exit",
+        "trainer_pid": 2388036,
+        "dispatcher_pid": 2389398,
+        "plan": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Reorient-R15-evaluation-plan.json",
+        "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-R15-reorient-settle/model_20592.pt",
+        "label": "RL-005-R15-m20592"
+      },
+      "latest_observed_iteration": 20205
+    },
+    {
+      "task": "Mjlab-Stack-Cube-Franka",
+      "run_id": "RL-018-R12-stack-release-refine",
+      "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+      "source_head": "9d86aa7bdc9f925d8c6214b6bb0065fc7d994d40",
+      "source_patch_sha256": "9fbe29d2af73064f56c41091572c55063212f28071941e45b5ac1db645c1f3a7",
+      "started_utc": "2026-09-13T08:31:56.932013+00:00",
+      "seed": 20260912,
+      "num_envs": 2048,
+      "requested_updates": 2000,
+      "interface": "franka_shared_60_v2",
+      "gpu_uuid": "GPU-7d5c3740-990d-15b7-5c54-6dc6270633fa",
+      "recipe": "stack_v1",
+      "elliptic_hessian_compat": false,
+      "free_body_implicitfast_compat": false,
+      "primitive_box_box_compat": true,
+      "learning_rate_override": 1e-05,
+      "update_kl_diagnostics": true,
+      "max_update_kl": 0.03,
+      "cpu_affinity": [
+        0,
+        1,
+        2,
+        3,
+        128,
+        129,
+        130,
+        131
+      ],
+      "slurm_cpus_per_task": "8",
+      "slurm_job_id": "20277",
+      "slurm_step_id": "2218",
+      "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+      "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+      "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-018-R11-stack-box-guard/model_14194.pt",
+      "resume_gripper_std": null,
+      "resume_gripper_mean": null,
+      "resume_noise_scale": null,
+      "capture_pre_step": true,
+      "capture_history_steps": 8,
+      "resume_sha256": "5f3707335bde870f2ff1b7508f217760063c48b5a372416b37e125676698de97",
+      "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration.",
+      "dispatcher": {
+        "updated_utc": "2026-09-13T08:33:16.630412+00:00",
+        "state": "waiting_for_identified_trainer_exit",
+        "trainer_pid": 2391248,
+        "dispatcher_pid": 2391461,
+        "plan": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Stack-R12-evaluation-plan.json",
+        "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-018-R12-stack-release-refine/model_16193.pt",
+        "label": "RL-018-R12-m16193"
+      },
+      "latest_observed_iteration": 14264
+    },
+    {
+      "task": "Mjlab-Peg-Insertion-Franka",
+      "run_id": "RL-020-R11-peg-lift-credit",
+      "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+      "source_head": "9d86aa7bdc9f925d8c6214b6bb0065fc7d994d40",
+      "source_patch_sha256": "c652712de14aa024d20b7945f15e40d41f24af65ae0ec8c47fa87f1a8320a1a8",
+      "started_utc": "2026-09-13T08:23:28.601420+00:00",
+      "seed": 20260912,
+      "num_envs": 2048,
+      "requested_updates": 2000,
+      "interface": "franka_shared_60_v2",
+      "gpu_uuid": "GPU-46a4f4dc-5916-8d5a-a71b-6193e01b5723",
+      "recipe": "peg_v4",
+      "elliptic_hessian_compat": false,
+      "free_body_implicitfast_compat": true,
+      "primitive_box_box_compat": false,
+      "learning_rate_override": 5e-06,
+      "update_kl_diagnostics": true,
+      "max_update_kl": 0.03,
+      "cpu_affinity": [
+        0,
+        1,
+        2,
+        3,
+        128,
+        129,
+        130,
+        131
+      ],
+      "slurm_cpus_per_task": "8",
+      "slurm_job_id": "20277",
+      "slurm_step_id": "2213",
+      "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+      "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+      "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-020-R10-peg-guard/model_10198.pt",
+      "resume_gripper_std": null,
+      "resume_gripper_mean": null,
+      "resume_noise_scale": null,
+      "capture_pre_step": true,
+      "capture_history_steps": 8,
+      "resume_sha256": "0652635953d78f116877647534e70432d0b17d68405eee46d21f0a16c9a80c4d",
+      "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration.",
+      "dispatcher": {
+        "updated_utc": "2026-09-13T08:25:32.654221+00:00",
+        "state": "waiting_for_identified_trainer_exit",
+        "trainer_pid": 2390357,
+        "dispatcher_pid": 2390746,
+        "plan": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Peg-R11-evaluation-plan.json",
+        "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-020-R11-peg-lift-credit/model_12197.pt",
+        "label": "RL-020-R11-m12197"
+      },
+      "latest_observed_iteration": 10496
+    },
+    {
+      "task": "Mjlab-Pivot-Lift-Franka",
+      "run_id": "RL-022-R4-pivot-box-guard",
+      "worktree": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex",
+      "source_head": "9d86aa7bdc9f925d8c6214b6bb0065fc7d994d40",
+      "source_patch_sha256": "c652712de14aa024d20b7945f15e40d41f24af65ae0ec8c47fa87f1a8320a1a8",
+      "started_utc": "2026-09-13T08:23:28.634725+00:00",
+      "seed": 20260912,
+      "num_envs": 2048,
+      "requested_updates": 2000,
+      "interface": "franka_shared_60_v2",
+      "gpu_uuid": "GPU-811bf62a-ec3a-649f-1167-bfff22107497",
+      "recipe": "pivot_v4",
+      "elliptic_hessian_compat": false,
+      "free_body_implicitfast_compat": false,
+      "primitive_box_box_compat": true,
+      "learning_rate_override": 2.5e-05,
+      "update_kl_diagnostics": true,
+      "max_update_kl": 0.03,
+      "cpu_affinity": [
+        0,
+        1,
+        2,
+        3,
+        128,
+        129,
+        130,
+        131
+      ],
+      "slurm_cpus_per_task": "8",
+      "slurm_job_id": "20277",
+      "slurm_step_id": "2212",
+      "wandb_entity": "sudhirpratapyadav-indian-institute-of-technology-jodhpur",
+      "wandb_project": "mjlab-cl24-rl-teachers-20260912",
+      "resume_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-022-R3-pivot-transition/model_6498.pt",
+      "resume_gripper_std": null,
+      "resume_gripper_mean": null,
+      "resume_noise_scale": null,
+      "capture_pre_step": true,
+      "capture_history_steps": 8,
+      "resume_sha256": "9827669ee5975f8d3903fecb130471a09e86745dc6bc13db5c14e842c8366d3f",
+      "resume_note": "Optimizer and normalizers restored; environment and RNG restart from recorded seed. RSL starts labels at the saved iteration.",
+      "dispatcher": {
+        "updated_utc": "2026-09-13T08:25:34.801709+00:00",
+        "state": "waiting_for_identified_trainer_exit",
+        "trainer_pid": 2390358,
+        "dispatcher_pid": 2390761,
+        "plan": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Pivot-R4-evaluation-plan.json",
+        "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-022-R4-pivot-box-guard/model_8497.pt",
+        "label": "RL-022-R4-m8497"
+      },
+      "latest_observed_iteration": 6910
+    }
+  ],
+  "completed_strict": {
+    "Lift-R16": [
+      118,
+      117
+    ],
+    "Reorient-R14": [
+      4
+    ],
+    "Stack-R10": [
+      0
+    ],
+    "Peg-R10": [
+      0
+    ],
+    "Edge-R6": [
+      0
+    ],
+    "Pivot-R3": [
+      0
+    ],
+    "Strike-R10": [
+      57
+    ],
+    "Strike-R11": [
+      50
+    ],
+    "Stack-R11": [
+      85
+    ]
+  }
+}

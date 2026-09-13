@@ -9,6 +9,20 @@ def load_reward(monkeypatch):
   return importlib.import_module('completion_reward')
 
 
+def test_peg_lift_credit_retains_native_completion_dominance(monkeypatch):
+  module = load_reward(monkeypatch)
+  held = torch.tensor([0., 1.])
+  upper = module.completion_score(1., 1., held, 1., 1., 1., 0.,
+                                  lift_weight=12., native_completion_weight=30.)
+  torch.testing.assert_close(upper, torch.tensor([7.5, 20.5]))
+  assert (upper < module.completion_score(0., 0., 0., 0., 0., 0., 1.,
+           lift_weight=12., native_completion_weight=30.)).all()
+  # Defaults remain exactly the original function for all existing recipes.
+  v = torch.rand(7, 64, generator=torch.Generator().manual_seed(91))
+  expected = v[0]*(1+.5*v[1])+2*v[2]+2*v[3]*v[2]+5*v[4]*v[2]+6*v[5]*(1-v[2])+15*v[6]
+  torch.testing.assert_close(module.completion_score(*v), expected, rtol=0, atol=0)
+
+
 def test_native_completion_beats_lingering_carry_or_nearby_failure(monkeypatch):
   module = load_reward(monkeypatch)
   rng = torch.Generator().manual_seed(42)

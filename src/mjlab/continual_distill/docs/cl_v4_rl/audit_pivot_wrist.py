@@ -10,8 +10,9 @@ from mjlab.scene import Scene
 from mjlab.tasks.registry import load_env_cfg
 
 
-def frame(tilt):
-  psi = np.deg2rad(70)-np.deg2rad(15)*np.clip(tilt/.43,0,1)
+def frame(tilt, early=False):
+  scale=1-np.cos(np.deg2rad(10)) if early else .43
+  psi = np.deg2rad(70)-np.deg2rad(15)*np.clip(tilt/scale,0,1)
   y = np.array([np.sin(psi),0.,np.cos(psi)])
   z = np.array([np.cos(psi),0.,-np.sin(psi)])
   return np.column_stack([np.cross(y,z),y,z])
@@ -24,7 +25,9 @@ def main():
   parser.add_argument('--floor-clearance',type=float)
   parser.add_argument('--finger-position',type=float,default=.035)
   parser.add_argument('--skip-ik',action='store_true')
+  parser.add_argument('--wrist-transition',action='store_true',help='Audit the corrected pivot_v4 corner and early wrist transition')
   args=parser.parse_args()
+  if args.output.exists():parser.error('Output exists')
   evaluation=json.loads(args.evaluation.read_text())
   assert evaluation['task']=='Mjlab-Pivot-Lift-Franka'
   with np.load(Path(evaluation['trace_dir'])/'trace.npz') as archive:
@@ -53,8 +56,8 @@ def main():
 
   def geometry():
     board=data.xmat[obj].reshape(3,3)
-    tilt=1-abs(board[2,2]);desired=frame(tilt)
-    corner=data.site_xpos[site]-.05*board[:,0]+.010*board[:,2]
+    tilt=1-abs(board[2,2]);desired=frame(tilt,args.wrist_transition)
+    corner=data.site_xpos[site]-(.062 if args.wrist_transition else .05)*board[:,0]+.010*board[:,2]
     target=corner+.5*data.qpos[fingers].sum()*desired[:,1]-.005*desired[:,2]
     if args.floor_clearance is not None:
       target[2]=max(target[2],args.floor_clearance+(.5*data.qpos[fingers].sum()+.0152)*abs(desired[2,1])+.0119*abs(desired[2,2]))
@@ -102,7 +105,7 @@ def main():
     rows.append(row)
   summary={k:float(np.median([r['closest'][k] for r in rows])) for k in ['distance_m','closing_alignment','approach_alignment','full_rotation_error_deg','tilt_deg','wall_gap_m','aperture_m']}
   summary.update(episodes=len(rows),sampled_tilt_over20_count=sum(r['max_sampled_tilt_deg']>20 for r in rows),endpoint_ik_cases=sum('endpoint_ik' in r for r in rows),endpoint_ik_passes=sum(r.get('endpoint_ik',{}).get('passes',False) for r in rows))
-  report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],finger_position_m=args.finger_position,floor_clearance_m=args.floor_clearance,method='CPU FK every tenth recorded20ms state plus terminal,128 first episodes.32 evenly indexed closest ramp poses additionally use bounded three-seed endpoint IK at the reported opening and optional floor guard. Endpoint gate position<2cm, orientation<15deg and no robot/floor/wall penetration>3mm. No integration, policy supervision, trajectory feasibility or RL success measurement.',summary=summary,rows=rows)
+  report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],wrist_transition=args.wrist_transition,finger_position_m=args.finger_position,floor_clearance_m=args.floor_clearance,method='CPU FK every tenth recorded20ms state plus terminal,128 first episodes.32 evenly indexed closest ramp poses additionally use bounded three-seed endpoint IK at the reported opening and optional floor guard. Endpoint gate position<2cm, orientation<15deg and no robot/floor/wall penetration>3mm. No integration, policy supervision, trajectory feasibility or RL success measurement.',summary=summary,rows=rows)
   if args.skip_ik:
     report['method']='CPU FK every tenth recorded20ms state plus terminal,128 first episodes. Optional floor guard applied to the actual reward waypoint; recomputed closest-pose robot contacts. No IK, integration, policy supervision or RL success measurement.'
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))

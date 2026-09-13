@@ -1,0 +1,35 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "5fffa7b9e417f9b6bcf68bbcc6cf92941899caff4fa6b2207544dce985c2af28",
+  "finite_checkpoint_tensors": 76,
+  "method": "Training-only fixed100-update windows from completed2000-update budget. Capture and episode_success are diagnostic, not strict certification.",
+  "windows": [
+    {
+      "window": "first100",
+      "Train/mean_reward": 140.25560424774886,
+      "Loss/surrogate": 0.002323671485464729,
+      "Metrics/stack_object/episode_success": 0.007076389100402594,
+      "Diagnostics/opposed_grasp_fraction": 0.89537109375,
+      "Diagnostics/gripper_action_mean": -0.922631038427353,
+      "Diagnostics/gripper_std": 0.08107247553765774
+    },
+    {
+      "window": "middle100",
+      "Train/mean_reward": 189.53251220703126,
+      "Loss/surrogate": 0.00857157789519988,
+      "Metrics/stack_object/episode_success": 0.021680556293576955,
+      "Diagnostics/opposed_grasp_fraction": 0.8785595703125,
+      "Diagnostics/gripper_action_mean": -0.9313328778743744,
+      "Diagnostics/gripper_std": 0.0694848121702671
+    },
+    {
+      "window": "last100",
+      "Train/mean_reward": 167.9824479675293,
+      "Loss/surrogate": 0.020914396350854077,
+      "Metrics/stack_object/episode_success": 0.014089782340452075,
+      "Diagnostics/opposed_grasp_fraction": 0.8351220703125,
+      "Diagnostics/gripper_action_mean": -0.856837022304535,
+      "Diagnostics/gripper_std": 0.06806446865200996
+    }
+  ]
+}

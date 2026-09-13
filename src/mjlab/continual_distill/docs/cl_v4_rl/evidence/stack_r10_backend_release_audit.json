@@ -1,0 +1,55 @@
+{
+  "recorded_utc": "2026-09-13T07:25:15.197381+00:00",
+  "method": "All80 timeout terminal states, same recorded arms/state/friction,2s hold or40mm finger command. Intervention counts are native diagnostic outcomes, never RL successes or training/reset data.",
+  "conditions": [
+    {
+      "condition": "hold",
+      "episodes": 80,
+      "cpu_native_success": 0,
+      "gpu_native_success": 0,
+      "cpu_settled": 80,
+      "gpu_settled": 67,
+      "median_endpoint_difference_m": 0.029198022869425026,
+      "all_recorded_states_finite": true,
+      "primitive_box_box": false,
+      "finger_override": null
+    },
+    {
+      "condition": "open",
+      "episodes": 80,
+      "cpu_native_success": 19,
+      "gpu_native_success": 13,
+      "cpu_settled": 80,
+      "gpu_settled": 71,
+      "median_endpoint_difference_m": 0.048289076224279574,
+      "all_recorded_states_finite": true,
+      "primitive_box_box": false,
+      "finger_override": 0.04
+    },
+    {
+      "condition": "hold_box",
+      "episodes": 80,
+      "cpu_native_success": 0,
+      "gpu_native_success": 0,
+      "cpu_settled": 80,
+      "gpu_settled": 80,
+      "median_endpoint_difference_m": 0.0037840016187733498,
+      "all_recorded_states_finite": true,
+      "primitive_box_box": true,
+      "finger_override": null
+    },
+    {
+      "condition": "open_box",
+      "episodes": 80,
+      "cpu_native_success": 19,
+      "gpu_native_success": 17,
+      "cpu_settled": 80,
+      "gpu_settled": 80,
+      "median_endpoint_difference_m": 0.002464573202977802,
+      "all_recorded_states_finite": true,
+      "primitive_box_box": true,
+      "finger_override": 0.04
+    }
+  ],
+  "conclusion": "Primitive-only compatibility restores80/80 GPU settling versus67/71 legacy hold/open, reduces endpoint discrepancies29.20/48.29mm to3.78/2.46mm. CPU19 released native completions versusGPU13 legacy/17 primitive; remaining contact-path differences recorded, no exact trajectory equivalence claim. Static holding cannot release. Full R10 degraded grasp acquisition; guarded optimization from retained better R9 is a testable continuation, not proof of optimizer causality."
+}

@@ -1,0 +1,22 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "d497015309da95399768f16257043d4f8b31656fca85fd0323648a71bff6fd37",
+  "reviewed_utc": "2026-09-13T08:16:03.788247+00:00",
+  "verdict": "pass",
+  "validation_successes": 118,
+  "confirmation_successes": 117,
+  "episodes_per_batch": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success2 lifts cube from floor and holds it overlapping elevated yellow target, at both middle and final frames. Exact terminal recomputation: position error0.459mm, linear0.02290m/s, angular0.06015rad/s, both pads touching. High-return failure79 also lifts near target but angular speed1.80194rad/s fails settling; its native failure is preserved. Two independent frozen native batches118/128 and117/128 pass. No floor-supported success or reset retry in selected success clip.",
+  "terminal_audit": "lift_r16_terminal_audit.json",
+  "audit_limitation": "Post-integration qpos/qvel recomputation agrees126/128 native labels; lanes64/106 have larger angular speed than the live cached cvel predicate permitted. This recomputation itself passes116/128, but it is not substituted for the native118/128 result. Native eval uses the unchanged command predicate and original buffers before reset; no metric or physics changes."
+}

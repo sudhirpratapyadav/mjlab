@@ -1,0 +1,1551 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "d497015309da95399768f16257043d4f8b31656fca85fd0323648a71bff6fd37",
+  "seed": 20260914,
+  "method": "Exact recorded terminal states, original friction, CPU FK/contact queries only; no integration. Native Lift gate: root position within configured threshold, both pads touching at <=1mm (no opposing-normal requirement), linear speed <0.10m/s and angular speed <0.5rad/s. Norms of free-joint velocities are rotation invariant. No success substitution.",
+  "summary": {
+    "episodes": 128,
+    "cpu_native_successes": 116,
+    "recorded_gpu_successes": 118,
+    "label_agreement": 126
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "position_error_m": 0.0035165963367640145,
+      "linear_speed_m_s": 0.06675948981707815,
+      "angular_speed_rad_s": 0.4006861831073189,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 1,
+      "position_error_m": 0.004843933062506855,
+      "linear_speed_m_s": 0.025534843882068184,
+      "angular_speed_rad_s": 0.1281686898246334,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 2,
+      "position_error_m": 0.00045868739186572476,
+      "linear_speed_m_s": 0.02289550267159124,
+      "angular_speed_rad_s": 0.060146431278702846,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 3,
+      "position_error_m": 0.028899618585917518,
+      "linear_speed_m_s": 0.161995296693814,
+      "angular_speed_rad_s": 4.423958507905099,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 4,
+      "position_error_m": 0.006039431341887905,
+      "linear_speed_m_s": 0.0289711920758579,
+      "angular_speed_rad_s": 0.21482857086834486,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 5,
+      "position_error_m": 0.3272192284486129,
+      "linear_speed_m_s": 0.08740437391821469,
+      "angular_speed_rad_s": 3.920098946452756,
+      "pad_contacts": [
+        true,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 6,
+      "position_error_m": 0.008969251698100042,
+      "linear_speed_m_s": 0.043406137332567415,
+      "angular_speed_rad_s": 0.2493304945169189,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 7,
+      "position_error_m": 0.02673683983924671,
+      "linear_speed_m_s": 0.050337925392669056,
+      "angular_speed_rad_s": 0.30163965272621196,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 8,
+      "position_error_m": 0.006969941734100121,
+      "linear_speed_m_s": 0.05728095589041528,
+      "angular_speed_rad_s": 0.3255331352317006,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 9,
+      "position_error_m": 0.0018496189487374757,
+      "linear_speed_m_s": 0.05182474539061273,
+      "angular_speed_rad_s": 0.3518552257230452,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 10,
+      "position_error_m": 0.025256850858773373,
+      "linear_speed_m_s": 0.036889899513917704,
+      "angular_speed_rad_s": 0.10121959322876581,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 11,
+      "position_error_m": 0.01139009821201084,
+      "linear_speed_m_s": 0.04512881751948156,
+      "angular_speed_rad_s": 0.3482434399789212,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 12,
+      "position_error_m": 0.009201567742147991,
+      "linear_speed_m_s": 0.02142119646046534,
+      "angular_speed_rad_s": 0.0988780970296463,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 13,
+      "position_error_m": 0.004733947931926148,
+      "linear_speed_m_s": 0.04685807426328901,
+      "angular_speed_rad_s": 0.3108598667706278,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 14,
+      "position_error_m": 0.01158447073079838,
+      "linear_speed_m_s": 0.0320883180815456,
+      "angular_speed_rad_s": 0.2573414420544876,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 15,
+      "position_error_m": 0.005749849488107953,
+      "linear_speed_m_s": 0.016538750549139954,
+      "angular_speed_rad_s": 0.2688807938009894,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 16,
+      "position_error_m": 0.0020355835875234814,
+      "linear_speed_m_s": 0.05995766362030567,
+      "angular_speed_rad_s": 0.3835398641273036,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 17,
+      "position_error_m": 0.005544792573447917,
+      "linear_speed_m_s": 0.026896359691902245,
+      "angular_speed_rad_s": 0.329507435025855,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 18,
+      "position_error_m": 0.004512235976055075,
+      "linear_speed_m_s": 0.027975756907675422,
+      "angular_speed_rad_s": 0.35661008464583954,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 19,
+      "position_error_m": 0.006884839715628699,
+      "linear_speed_m_s": 0.04592506547090202,
+      "angular_speed_rad_s": 0.3922610096218212,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 20,
+      "position_error_m": 0.00841666988617886,
+      "linear_speed_m_s": 0.08671557863116593,
+      "angular_speed_rad_s": 0.4472817866709435,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 21,
+      "position_error_m": 0.0034214116871212545,
+      "linear_speed_m_s": 0.028413967352837317,
+      "angular_speed_rad_s": 0.08608390750869341,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 22,
+      "position_error_m": 0.018689408110135627,
+      "linear_speed_m_s": 0.062070306349481325,
+      "angular_speed_rad_s": 0.3501364522507921,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 23,
+      "position_error_m": 0.01853632035017289,
+      "linear_speed_m_s": 0.036352936694781415,
+      "angular_speed_rad_s": 1.7597898138750085,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 24,
+      "position_error_m": 0.018924773792336827,
+      "linear_speed_m_s": 0.02805566000606172,
+      "angular_speed_rad_s": 0.07957682621761608,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 25,
+      "position_error_m": 0.02686649229328767,
+      "linear_speed_m_s": 0.015494352767711985,
+      "angular_speed_rad_s": 0.3846101104320138,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 26,
+      "position_error_m": 0.00862132113432655,
+      "linear_speed_m_s": 0.03960338271921883,
+      "angular_speed_rad_s": 0.3338325653374668,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 27,
+      "position_error_m": 0.013330410441054253,
+      "linear_speed_m_s": 0.032466425027447836,
+      "angular_speed_rad_s": 0.20255813117915805,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 28,
+      "position_error_m": 0.0119232749901407,
+      "linear_speed_m_s": 0.0350005745152762,
+      "angular_speed_rad_s": 0.29239197396997446,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 29,
+      "position_error_m": 0.3604220642320423,
+      "linear_speed_m_s": 3.2308471806351627e-07,
+      "angular_speed_rad_s": 1.2508028579376451e-05,
+      "pad_contacts": [
+        false,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 30,
+      "position_error_m": 0.004841968020034474,
+      "linear_speed_m_s": 0.033974546119391755,
+      "angular_speed_rad_s": 0.3694871397978263,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 31,
+      "position_error_m": 0.02321691596129557,
+      "linear_speed_m_s": 0.0399599275871252,
+      "angular_speed_rad_s": 0.25240606818621875,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 32,
+      "position_error_m": 0.005767824569369808,
+      "linear_speed_m_s": 0.05590268807846111,
+      "angular_speed_rad_s": 0.3744157083644583,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 33,
+      "position_error_m": 0.012955775857950701,
+      "linear_speed_m_s": 0.05099292088088701,
+      "angular_speed_rad_s": 0.35351941967930983,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 34,
+      "position_error_m": 0.022683508393419215,
+      "linear_speed_m_s": 0.044662677676924015,
+      "angular_speed_rad_s": 0.3583910209569793,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 35,
+      "position_error_m": 0.021280626341429486,
+      "linear_speed_m_s": 0.03450809021722212,
+      "angular_speed_rad_s": 0.40963687234732105,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 36,
+      "position_error_m": 0.0037639651344687367,
+      "linear_speed_m_s": 0.038417167510799655,
+      "angular_speed_rad_s": 0.13362053310046818,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 37,
+      "position_error_m": 0.01697214161112355,
+      "linear_speed_m_s": 0.0286908034325123,
+      "angular_speed_rad_s": 0.3387941244067749,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 38,
+      "position_error_m": 0.007067855194158741,
+      "linear_speed_m_s": 0.024414185578370967,
+      "angular_speed_rad_s": 0.09832224908816244,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 39,
+      "position_error_m": 0.011799618214074012,
+      "linear_speed_m_s": 0.035103042742360396,
+      "angular_speed_rad_s": 0.2953382206669193,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 40,
+      "position_error_m": 0.008379262030728378,
+      "linear_speed_m_s": 0.039867445475140116,
+      "angular_speed_rad_s": 0.2889186879604131,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 41,
+      "position_error_m": 0.026085550323100698,
+      "linear_speed_m_s": 0.03932577223449149,
+      "angular_speed_rad_s": 0.33841682087741415,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 42,
+      "position_error_m": 0.007315838733365471,
+      "linear_speed_m_s": 0.0389577641497981,
+      "angular_speed_rad_s": 0.2778026458201417,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 43,
+      "position_error_m": 0.009671641673291199,
+      "linear_speed_m_s": 0.016801749127205338,
+      "angular_speed_rad_s": 0.09288984898264127,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 44,
+      "position_error_m": 0.014439754096133267,
+      "linear_speed_m_s": 0.028475838276706168,
+      "angular_speed_rad_s": 0.07887737887249863,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 45,
+      "position_error_m": 0.003466090082916761,
+      "linear_speed_m_s": 0.026942698463136187,
+      "angular_speed_rad_s": 0.07841312530223273,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 46,
+      "position_error_m": 0.01460330127365049,
+      "linear_speed_m_s": 0.03181930883681048,
+      "angular_speed_rad_s": 0.07686345815824312,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 47,
+      "position_error_m": 0.04505354490883453,
+      "linear_speed_m_s": 0.04888035504480175,
+      "angular_speed_rad_s": 0.1601612065519259,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 48,
+      "position_error_m": 0.0037076322971604262,
+      "linear_speed_m_s": 0.058486321475076514,
+      "angular_speed_rad_s": 0.38309311938412083,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 49,
+      "position_error_m": 0.0076449443970508174,
+      "linear_speed_m_s": 0.03846933678737863,
+      "angular_speed_rad_s": 0.26649012717593495,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 50,
+      "position_error_m": 0.006390953677186266,
+      "linear_speed_m_s": 0.028496481782131815,
+      "angular_speed_rad_s": 0.21221959230215756,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 51,
+      "position_error_m": 0.012593316224403538,
+      "linear_speed_m_s": 0.043320308233251156,
+      "angular_speed_rad_s": 0.3479297076234639,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 52,
+      "position_error_m": 0.01777810307714494,
+      "linear_speed_m_s": 0.03042130620446619,
+      "angular_speed_rad_s": 0.07330257763052953,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 53,
+      "position_error_m": 0.009576927823624673,
+      "linear_speed_m_s": 0.03272008254329782,
+      "angular_speed_rad_s": 0.103188873101266,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 54,
+      "position_error_m": 0.004838369377602475,
+      "linear_speed_m_s": 0.0452329885955102,
+      "angular_speed_rad_s": 0.4202008427929943,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 55,
+      "position_error_m": 0.007040483396273601,
+      "linear_speed_m_s": 0.04194277901110585,
+      "angular_speed_rad_s": 0.30165653934881215,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 56,
+      "position_error_m": 0.007456507333139315,
+      "linear_speed_m_s": 0.028076697606017623,
+      "angular_speed_rad_s": 0.12862368683863193,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 57,
+      "position_error_m": 0.009863049913024355,
+      "linear_speed_m_s": 0.006907150730258586,
+      "angular_speed_rad_s": 0.13838707748902168,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 58,
+      "position_error_m": 0.005030684928833317,
+      "linear_speed_m_s": 0.06829938819913312,
+      "angular_speed_rad_s": 0.4254908053206205,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 59,
+      "position_error_m": 0.4082944152575051,
+      "linear_speed_m_s": 0.15865460340652954,
+      "angular_speed_rad_s": 3.13954433418421,
+      "pad_contacts": [
+        true,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 60,
+      "position_error_m": 0.021926363474505602,
+      "linear_speed_m_s": 0.07651734248580959,
+      "angular_speed_rad_s": 0.26404616115259133,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 61,
+      "position_error_m": 0.02325500486012757,
+      "linear_speed_m_s": 0.026506346694979872,
+      "angular_speed_rad_s": 0.3251439295130936,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 62,
+      "position_error_m": 0.004760705871751095,
+      "linear_speed_m_s": 0.026320287902335683,
+      "angular_speed_rad_s": 0.06199751112981807,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 63,
+      "position_error_m": 0.004199039586216797,
+      "linear_speed_m_s": 0.038973552029179535,
+      "angular_speed_rad_s": 0.3366308695580098,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 64,
+      "position_error_m": 0.023304179792668123,
+      "linear_speed_m_s": 0.056338026500476715,
+      "angular_speed_rad_s": 1.3441289126048157,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 65,
+      "position_error_m": 0.013086984866614707,
+      "linear_speed_m_s": 0.06077998232421133,
+      "angular_speed_rad_s": 0.33013844187122865,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 66,
+      "position_error_m": 0.006775827735163004,
+      "linear_speed_m_s": 0.028042734209601013,
+      "angular_speed_rad_s": 0.26554822232012076,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 67,
+      "position_error_m": 0.005657607665262021,
+      "linear_speed_m_s": 0.0328365589864511,
+      "angular_speed_rad_s": 0.25653939742075416,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 68,
+      "position_error_m": 0.006832372349028107,
+      "linear_speed_m_s": 0.026210439219078372,
+      "angular_speed_rad_s": 0.16842082400957778,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 69,
+      "position_error_m": 0.006907273109231569,
+      "linear_speed_m_s": 0.033046055017245175,
+      "angular_speed_rad_s": 0.17344604455357335,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 70,
+      "position_error_m": 0.02303529991870017,
+      "linear_speed_m_s": 0.02319240812020115,
+      "angular_speed_rad_s": 0.21247848294256788,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 71,
+      "position_error_m": 0.0091747272988926,
+      "linear_speed_m_s": 0.035826476439648376,
+      "angular_speed_rad_s": 0.24988334864556014,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 72,
+      "position_error_m": 0.0024073879008014156,
+      "linear_speed_m_s": 0.024831511863391664,
+      "angular_speed_rad_s": 0.3173099084273294,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 73,
+      "position_error_m": 0.011518979653531918,
+      "linear_speed_m_s": 0.025589220242320913,
+      "angular_speed_rad_s": 0.10243498339262971,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 74,
+      "position_error_m": 0.004757684569848848,
+      "linear_speed_m_s": 0.03092543291130056,
+      "angular_speed_rad_s": 0.3700139702746965,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 75,
+      "position_error_m": 0.01105278992122018,
+      "linear_speed_m_s": 0.0446567843437783,
+      "angular_speed_rad_s": 0.12092218636860826,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 76,
+      "position_error_m": 0.008299548181873359,
+      "linear_speed_m_s": 0.02479821237060809,
+      "angular_speed_rad_s": 0.1332454993174849,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 77,
+      "position_error_m": 0.004187141794322709,
+      "linear_speed_m_s": 0.03849319766428957,
+      "angular_speed_rad_s": 0.2774373738532609,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 78,
+      "position_error_m": 0.00813703277597286,
+      "linear_speed_m_s": 0.024520621835038354,
+      "angular_speed_rad_s": 0.24148956243314712,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 79,
+      "position_error_m": 0.020626033729522538,
+      "linear_speed_m_s": 0.02059881239733075,
+      "angular_speed_rad_s": 1.801935110492164,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 80,
+      "position_error_m": 0.681349523743841,
+      "linear_speed_m_s": 2.9289309829623234e-07,
+      "angular_speed_rad_s": 1.093807708682101e-05,
+      "pad_contacts": [
+        false,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 81,
+      "position_error_m": 0.004655069741720763,
+      "linear_speed_m_s": 0.03492982746683668,
+      "angular_speed_rad_s": 0.28176723705503853,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 82,
+      "position_error_m": 0.009438304472040632,
+      "linear_speed_m_s": 0.03656364217494125,
+      "angular_speed_rad_s": 0.38005673650276367,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 83,
+      "position_error_m": 0.002613314760108902,
+      "linear_speed_m_s": 0.05711525502293213,
+      "angular_speed_rad_s": 0.38202468598447836,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 84,
+      "position_error_m": 0.01821797770286913,
+      "linear_speed_m_s": 0.023621642064279556,
+      "angular_speed_rad_s": 0.058441983704216514,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 85,
+      "position_error_m": 0.003226034667693766,
+      "linear_speed_m_s": 0.05572728940353423,
+      "angular_speed_rad_s": 0.38542319636882855,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 86,
+      "position_error_m": 0.014132614202761625,
+      "linear_speed_m_s": 0.026977204474537837,
+      "angular_speed_rad_s": 0.21565183976988547,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 87,
+      "position_error_m": 0.0038642283941099894,
+      "linear_speed_m_s": 0.04269405143318453,
+      "angular_speed_rad_s": 0.16855238246613677,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 88,
+      "position_error_m": 0.006602114129657593,
+      "linear_speed_m_s": 0.04456700188592868,
+      "angular_speed_rad_s": 0.466067074652746,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 89,
+      "position_error_m": 0.0038647500636079233,
+      "linear_speed_m_s": 0.0276879870998826,
+      "angular_speed_rad_s": 0.25126429352641694,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 90,
+      "position_error_m": 0.02056288337368106,
+      "linear_speed_m_s": 0.02362486518446544,
+      "angular_speed_rad_s": 0.21063127362965142,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 91,
+      "position_error_m": 0.012033951973002567,
+      "linear_speed_m_s": 0.04522913036715324,
+      "angular_speed_rad_s": 0.34325254783838577,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 92,
+      "position_error_m": 0.013489402010873765,
+      "linear_speed_m_s": 0.046567821484830005,
+      "angular_speed_rad_s": 0.3515137540085152,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 93,
+      "position_error_m": 0.24616036619061715,
+      "linear_speed_m_s": 0.028762414653838022,
+      "angular_speed_rad_s": 1.1108709175440996,
+      "pad_contacts": [
+        false,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 94,
+      "position_error_m": 0.014885532462352129,
+      "linear_speed_m_s": 0.03704183484097507,
+      "angular_speed_rad_s": 0.3392823102511812,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 95,
+      "position_error_m": 0.009187852380993525,
+      "linear_speed_m_s": 0.0290619038974076,
+      "angular_speed_rad_s": 0.16467469158617015,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 96,
+      "position_error_m": 0.020601845477248682,
+      "linear_speed_m_s": 0.07122334771017531,
+      "angular_speed_rad_s": 0.2937721099304306,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 97,
+      "position_error_m": 0.008487043732507506,
+      "linear_speed_m_s": 0.035100529171247466,
+      "angular_speed_rad_s": 0.28310759899633825,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 98,
+      "position_error_m": 0.004784281432020485,
+      "linear_speed_m_s": 0.029205981285718545,
+      "angular_speed_rad_s": 0.11964266918381901,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 99,
+      "position_error_m": 0.015407127357387182,
+      "linear_speed_m_s": 0.05099341588908093,
+      "angular_speed_rad_s": 0.36531368822673577,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 100,
+      "position_error_m": 0.0065244066632188175,
+      "linear_speed_m_s": 0.06206846464780311,
+      "angular_speed_rad_s": 0.4010728000761241,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 101,
+      "position_error_m": 0.011665828048346366,
+      "linear_speed_m_s": 0.06412848807438258,
+      "angular_speed_rad_s": 0.4113335696781966,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 102,
+      "position_error_m": 0.021926457458821637,
+      "linear_speed_m_s": 0.048539444705533175,
+      "angular_speed_rad_s": 0.24251867562798152,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 103,
+      "position_error_m": 0.0027830140476427533,
+      "linear_speed_m_s": 0.040255039182948246,
+      "angular_speed_rad_s": 0.332705048998767,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 104,
+      "position_error_m": 0.00389781844111111,
+      "linear_speed_m_s": 0.03365911071054314,
+      "angular_speed_rad_s": 0.10403784978818431,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 105,
+      "position_error_m": 0.007626529559466422,
+      "linear_speed_m_s": 0.03169550134551229,
+      "angular_speed_rad_s": 0.3017902992936945,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 106,
+      "position_error_m": 0.02071791652655475,
+      "linear_speed_m_s": 0.031112549077045432,
+      "angular_speed_rad_s": 0.7776838516736891,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 107,
+      "position_error_m": 0.004920985257414944,
+      "linear_speed_m_s": 0.011387819023733543,
+      "angular_speed_rad_s": 0.16993481112088507,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 108,
+      "position_error_m": 0.019668685913464826,
+      "linear_speed_m_s": 0.0188366140432282,
+      "angular_speed_rad_s": 0.07602940167374521,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 109,
+      "position_error_m": 0.027249579646804016,
+      "linear_speed_m_s": 0.0510840017827305,
+      "angular_speed_rad_s": 1.5138932120926565,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 110,
+      "position_error_m": 0.009571487876364257,
+      "linear_speed_m_s": 0.0389761483269794,
+      "angular_speed_rad_s": 0.2592456870623246,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 111,
+      "position_error_m": 0.020082009975475414,
+      "linear_speed_m_s": 0.07012109833584286,
+      "angular_speed_rad_s": 0.332233136426602,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 112,
+      "position_error_m": 0.013873103680085498,
+      "linear_speed_m_s": 0.039120176157744005,
+      "angular_speed_rad_s": 0.3281553826642417,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 113,
+      "position_error_m": 0.00984028945472651,
+      "linear_speed_m_s": 0.06778557242460202,
+      "angular_speed_rad_s": 0.3493229529262753,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 114,
+      "position_error_m": 0.0047387781723406555,
+      "linear_speed_m_s": 0.022784711230013542,
+      "angular_speed_rad_s": 0.16564834699790942,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 115,
+      "position_error_m": 0.0223724496984491,
+      "linear_speed_m_s": 0.027942508471171103,
+      "angular_speed_rad_s": 0.06587375097381373,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 116,
+      "position_error_m": 0.008299086799289966,
+      "linear_speed_m_s": 0.03234598103659761,
+      "angular_speed_rad_s": 0.2754060308890259,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 117,
+      "position_error_m": 0.0062464065318067075,
+      "linear_speed_m_s": 0.023095640542651896,
+      "angular_speed_rad_s": 0.08359480453300273,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 118,
+      "position_error_m": 0.01574052707802061,
+      "linear_speed_m_s": 0.03706089457491563,
+      "angular_speed_rad_s": 0.36886541289456226,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 119,
+      "position_error_m": 0.007430730932196374,
+      "linear_speed_m_s": 0.04394064861884327,
+      "angular_speed_rad_s": 0.25463427121590554,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 120,
+      "position_error_m": 0.3503270859455358,
+      "linear_speed_m_s": 3.24522311506275e-07,
+      "angular_speed_rad_s": 1.299053848120859e-05,
+      "pad_contacts": [
+        false,
+        false
+      ],
+      "cpu_native_success": false,
+      "recorded_gpu_success": false
+    },
+    {
+      "env_id": 121,
+      "position_error_m": 0.005259359840531901,
+      "linear_speed_m_s": 0.03813890082536266,
+      "angular_speed_rad_s": 0.2951122780965877,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 122,
+      "position_error_m": 0.002995389902202232,
+      "linear_speed_m_s": 0.03018889567841406,
+      "angular_speed_rad_s": 0.3010194888975087,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 123,
+      "position_error_m": 0.009258323567441731,
+      "linear_speed_m_s": 0.040496389553049066,
+      "angular_speed_rad_s": 0.15079641698251536,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 124,
+      "position_error_m": 0.009572820907675002,
+      "linear_speed_m_s": 0.040163218662123065,
+      "angular_speed_rad_s": 0.32568432719627444,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 125,
+      "position_error_m": 0.012469744014845421,
+      "linear_speed_m_s": 0.0226882833632157,
+      "angular_speed_rad_s": 0.05422174036359168,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 126,
+      "position_error_m": 0.008190900320179583,
+      "linear_speed_m_s": 0.04199105077612656,
+      "angular_speed_rad_s": 0.39198369716178316,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    },
+    {
+      "env_id": 127,
+      "position_error_m": 0.01743109582038507,
+      "linear_speed_m_s": 0.049024745393392195,
+      "angular_speed_rad_s": 0.36790159293677754,
+      "pad_contacts": [
+        true,
+        true
+      ],
+      "cpu_native_success": true,
+      "recorded_gpu_success": true
+    }
+  ],
+  "limitation": "This recomputes FK/contact and velocity from saved post-integration qpos/qvel. The live native predicate uses cached xpos/contact/cvel from the last physics substep before integration; those derived buffers were not archived. This audit is not an exact replay of the predicate buffers and does not replace measured118/128. Two GPU-success lanes64/106 exceed angular threshold when recomputed from post-integration qvel; all other126 labels agree. Both recorded clip labels agree."
+}

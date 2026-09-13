@@ -1,0 +1,933 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "ca2417b987a57922818c6fa49dae37110b1285ffa46207fec6d2fe7f7c4a4696",
+  "source_controls": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot-r2-bounded-wrist-controls.npz",
+  "sample_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot_r2_closure_audit.npz",
+  "sample_columns": [
+    "time_s",
+    "lift_m",
+    "opposed",
+    "tilt_deg",
+    "finger1",
+    "finger2"
+  ],
+  "method": "All32 original bounded-path cases, native CPU, original states/friction. After full5s diagnostic pivot path:1s close to3mm,1s100mm lift,1s hold. Compare fixed hand and lower-pad-preserving hand shift. Bounded IK physical controls, no policy data/reset demonstrations/certification.",
+  "summary": {
+    "fixed_hand_close": {
+      "episodes": 32,
+      "ever_opposed": 0,
+      "held_lift_above2cm": 0,
+      "all_finite": true,
+      "warnings": 0,
+      "max_ik_error_m": 1.0025602726185933e-08,
+      "obstacle_penetrations_over3mm": 0
+    },
+    "lower_pad_preserving_close": {
+      "episodes": 32,
+      "ever_opposed": 0,
+      "held_lift_above2cm": 0,
+      "all_finite": true,
+      "warnings": 0,
+      "max_ik_error_m": 0.0005180787404249411,
+      "obstacle_penetrations_over3mm": 0
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.019659110871719718,
+          "max_ik_error_m": 6.424863039080553e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006092149993560669,
+          "max_ik_error_m": 0.00046460649065371574,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.025395685614524564,
+          "max_ik_error_m": 3.288805252049768e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.00036799981206707714
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005297630365393019,
+          "max_ik_error_m": 5.930191139235956e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.020329202286756637,
+          "max_ik_error_m": 2.3222808314028603e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006362502651563358,
+          "max_ik_error_m": 0.00018766415668531125,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.01815517062856005,
+          "max_ik_error_m": 1.2904318908116054e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005583266830275976,
+          "max_ik_error_m": 0.00039012870495934665,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.029696875537560348,
+          "max_ik_error_m": 5.3774527807800036e-14,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0009598278457163267
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005832948411601535,
+          "max_ik_error_m": 3.201262674051997e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.01712240954519763,
+          "max_ik_error_m": 1.718591852850978e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0007185929149991915,
+          "max_ik_error_m": 0.0004030841402584138,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "starting_opening_m": 0.0327002909968095,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 2.463307335887066e-16,
+          "max_ik_error_m": 1.4751820931367976e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0005792450533318814
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 9.020562075079397e-17,
+          "max_ik_error_m": 1.6747465894678576e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.017082168654392826,
+          "max_ik_error_m": 1.0025602726185933e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005597610929256244,
+          "max_ik_error_m": 0.00048217950721246046,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.03226560741617943,
+          "max_ik_error_m": 3.0380771293146075e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.000461041989876117
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.011592124447669723,
+          "max_ik_error_m": 0.00019764284118236423,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.016983715802783614,
+          "max_ik_error_m": 6.339721506452938e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005703555056015899,
+          "max_ik_error_m": 0.00011309949189345537,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.029702955593138392,
+          "max_ik_error_m": 1.770036336016457e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006340596431241852,
+          "max_ik_error_m": 3.988650298137612e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "starting_opening_m": 0.0335550876900836,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 7.979727989493313e-17,
+          "max_ik_error_m": 2.360359314497485e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0001303008134653184
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 6.418476861114186e-17,
+          "max_ik_error_m": 2.2053347199251342e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.018831228274400605,
+          "max_ik_error_m": 2.2659309666540256e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005492595398846056,
+          "max_ik_error_m": 0.00016155676329273908,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.019593895358190262,
+          "max_ik_error_m": 2.7052361876757575e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.010370336187473385,
+          "max_ik_error_m": 0.00011950688176814017,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.019083204498463808,
+          "max_ik_error_m": 2.0471117818754513e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005824804233864993,
+          "max_ik_error_m": 0.0005180787404249411,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.018828807689369193,
+          "max_ik_error_m": 2.80622049715902e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006964374127225031,
+          "max_ik_error_m": 0.00034020911504437513,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.030473952075620703,
+          "max_ik_error_m": 4.354054957691645e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0008642819750389582
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.019101649543527596,
+          "max_ik_error_m": 4.155883321856537e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.021683456704814474,
+          "max_ik_error_m": 7.8854318307009e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.006468688783093007,
+          "max_ik_error_m": 0.0004503599163355778,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.03213472143146481,
+          "max_ik_error_m": 4.642909993272682e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.00025953163924823715
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.012137761072519945,
+          "max_ik_error_m": 3.6068898688221847e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.01751130210818811,
+          "max_ik_error_m": 2.6330889770854626e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006000889406461152,
+          "max_ik_error_m": 0.00033051590030844555,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.020815591115752027,
+          "max_ik_error_m": 3.5688329809091316e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006547101493400639,
+          "max_ik_error_m": 0.0001497521334364604,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.0479639742052445,
+          "max_ik_error_m": 2.8422237072504627e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005715578522042936,
+          "max_ik_error_m": 0.00031855745790165146,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.018150692436596887,
+          "max_ik_error_m": 8.527710230100542e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0007753045851002496
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005227363753782382,
+          "max_ik_error_m": 2.773237395050943e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.017617025983083772,
+          "max_ik_error_m": 2.612975446877766e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.007689589315670205,
+          "max_ik_error_m": 0.0002952164290599003,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.030242492923378987,
+          "max_ik_error_m": 5.0913962876299316e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -2.161320829703147e-05
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.01886959286799584,
+          "max_ik_error_m": 1.6045487998704088e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "starting_opening_m": 0.03417586563521617,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 3.4867941867133823e-16,
+          "max_ik_error_m": 4.087192979692681e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0003987727285205151
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 3.4867941867133823e-16,
+          "max_ik_error_m": 1.3462405555094565e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.021126965949467405,
+          "max_ik_error_m": 9.961700766172514e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.000625364278108307,
+          "max_ik_error_m": 0.00038219918829286985,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.019843950187685602,
+          "max_ik_error_m": 1.813271190918946e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005868016092885099,
+          "max_ik_error_m": 0.00035818694554556646,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.03024564038187242,
+          "max_ik_error_m": 7.638364677512221e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.000347447447204695
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0005276289455660998,
+          "max_ik_error_m": 3.818243419231685e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.020681190234023473,
+          "max_ik_error_m": 2.969468031530421e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.0006411774424508465,
+          "max_ik_error_m": 0.00045058688503071603,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.022550119002992152,
+          "max_ik_error_m": 2.281687644732922e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.009305240058073146,
+          "max_ik_error_m": 0.00029419405086917943,
+          "clipped_targets": 1,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "starting_opening_m": 0.04,
+      "cases": [
+        {
+          "mode": "fixed_hand_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": 0.011519125897360958,
+          "max_ik_error_m": 4.056916125535639e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        },
+        {
+          "mode": "lower_pad_preserving_close",
+          "all_finite": true,
+          "warnings": 0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "max_lift_m": -0.000645751761978338,
+          "max_ik_error_m": 5.797615146249075e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0
+        }
+      ]
+    }
+  ]
+}

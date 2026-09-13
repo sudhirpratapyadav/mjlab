@@ -1,0 +1,17 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "9827669ee5975f8d3903fecb130471a09e86745dc6bc13db5c14e842c8366d3f",
+  "reviewed_utc": "2026-09-13T07:53:29.639244+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0075.png",
+    "failure-0149.png"
+  ],
+  "observations": "Recorded failure visibly tips the near board edge upward against the wall and holds that tilted pose; it does not complete grasped transport/lift. Actual corrected-v4 waypoint audit finds108/128 sampled tilts above20deg, median closest tilt20.17deg, aperture80.56mm. Training final opposed capture0 despite two-pad contacts60.3%; gripper remains open. These are stage-progress measurements, strict result remains0/128.",
+  "wrist_audit": "pivot_r3_wrist_audit.json"
+}

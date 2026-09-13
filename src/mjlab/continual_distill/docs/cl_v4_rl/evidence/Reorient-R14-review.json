@@ -1,0 +1,22 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "c17c3c2cd4ec8db7fbea9570d762a5d5b87a0dc58f90efbac39a5c79f1ad2c53",
+  "reviewed_utc": "2026-09-13T07:41:20.348127+00:00",
+  "verdict": "not certified",
+  "validation_successes": 4,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "saved_learning_rates": [
+    5e-06
+  ],
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Success and selected failure both visibly hold the bottle upright; the native settling gate distinguishes outcomes, not apparent stillness. Strict4/128.123 orientation+drift passes,118 linear/115 angular failures among those; median target-stepRMS.05825rad improves from.1457 but angular motion remains."
+}

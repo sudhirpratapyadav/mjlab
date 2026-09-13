@@ -20,10 +20,10 @@ def safe_grasp_target(command):
   return target
 
 
-def completion_score(approach, aperture_match, held, lift, transport, released_near_support, strict, lift_weight=2., release_weight=6.):
+def completion_score(approach, aperture_match, held, lift, transport, released_near_support, strict, lift_weight=2., release_weight=6., native_completion_weight=15.):
   """Native completion dominates every physically valid noncompleted stage."""
   return (approach*(1+0.5*aperture_match) + 2*held + lift_weight*lift*held
-          + 5*transport*held + release_weight*released_near_support*(1-held) + 15*strict)
+          + 5*transport*held + release_weight*released_near_support*(1-held) + native_completion_weight*strict)
 
 
 def support_opening_score(error, orientation, support_contact, aperture):
@@ -62,7 +62,7 @@ def capture_aperture_bonus(command, distance, squeeze=False, centerline=False, c
   return aperture_fit_score(distance,gap,width,squeeze=squeeze)
 
 
-def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, squeeze_capture=False, contact_geometry=False, centered_fallback=False, lift_weight=2., release_weight=6., support_open_weight=0., **kwargs):
+def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, squeeze_capture=False, contact_geometry=False, centered_fallback=False, lift_weight=2., release_weight=6., support_open_weight=0., native_completion_weight=15., **kwargs):
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -95,7 +95,7 @@ def completion_reward(env, command_name, object_asset_name='object', smooth_clos
   # including release, support, containment/bore fit and settling.
   command._update_metrics()
   strict = command.compute_success().float()
-  score = completion_score(approach,aperture_match,held,lift,transport,released_near_support,strict,lift_weight=lift_weight,release_weight=release_weight)
+  score = completion_score(approach,aperture_match,held,lift,transport,released_near_support,strict,lift_weight=lift_weight,release_weight=release_weight,native_completion_weight=native_completion_weight)
   if support_open_weight:
     score += support_open_weight*support_opening_score(error,orientation,touching(command,obj,support).float(),aperture)
   return score

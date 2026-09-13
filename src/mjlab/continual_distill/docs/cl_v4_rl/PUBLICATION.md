@@ -7,7 +7,7 @@ User authorized publication on2026-09-13 via `untu_vps`.
 - Remote directory: `/home/untu/sudhir/continual_learning/v4-rl`.
 - Original home-page backup: `/home/untu/sudhir/cl24-site-backups/` (outside web root).
 
-`build_gallery.py` builds24 summary/video cards using certificate-backed success clips for certified tasks and the latest completed recorded validation failure for unfinished tasks. Actual evaluation rates are independent of the selected example. Keep the output concise; do not copy checkpoints, raw traces, credentials or full logs to the site. Never use earlier classical-teacher videos for an RL card.
+`build_gallery.py` builds24 summary/video cards using certificate-backed success clips for certified tasks and the latest reviewed recorded validation failure for unfinished tasks. Actual evaluation rates are independent of the selected example. Keep the output concise; do not copy checkpoints, raw traces, credentials or full logs to the site. Never use earlier classical-teacher videos for an RL card.
 
 From the experiment worktree, after reviewing new evaluation videos:
 
@@ -19,7 +19,7 @@ rsync -a --delay-updates src/mjlab/continual_distill/docs/cl_v4_rl/runs/public-g
 
 The first publication was staged outside the web root, browser-checked and moved into a new directory. Future updates are authorized within the same summary scope. Preserve all older galleries and unrelated home-page cards. The root card intentionally has no hard-coded certification count; current counts are inside the generated gallery.
 
-`verify_gallery.mjs` checks24 video playback, filter/search behavior and mobile overflow. On the VPS, an isolated Playwright install is at `/tmp/cl24-browser-check/node_modules/playwright`; use its `index.mjs` as PLAYWRIGHT_MODULE and the existing Chromium executable as CHROMIUM_PATH. The current check expects17 certified /7 unfinished; update these assertions against the authoritative certificate count when teachers are newly certified. Verify public HTTPS responses and media SHA256s against generated `summary.json`; retain compact verification in evidence and screenshots under ignored runs. No web-server reload or service configuration change is needed.
+`verify_gallery.mjs` checks24 video playback, filter/search behavior and mobile overflow. On the VPS, an isolated Playwright install is at `/tmp/cl24-browser-check/node_modules/playwright`; use its `index.mjs` as PLAYWRIGHT_MODULE and the existing Chromium executable as CHROMIUM_PATH. The current check expects18 certified /6 unfinished; update these assertions against the authoritative certificate count when teachers are newly certified. Verify public HTTPS responses and media SHA256s against generated `summary.json`; retain compact verification in evidence and screenshots under ignored runs. No web-server reload or service configuration change is needed.
 
 Detailed numerical results, experiment records and retained checkpoints continue to go to the scoped W&B project. The gallery is a point-in-time summary, not a live training monitor.
 
@@ -55,3 +55,7 @@ Wave31 gallery published via untu_vps:17 certified/7 unfinished, newly certified
 Wave32 gallery refreshed through untu_vps with reviewed latest Stack12195, Strike16992 and Lift19991 failure videos and0/128 rates. Still17 certified/7 unfinished. Newest homepage-card navigation, all24 actual video playbacks,17/7 filters, search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Full results remain in scoped W&B; gallery is a point-in-time summary.
 
 Wave33 public gallery refreshed via untu_vps with reviewed Reorient16594 (1/128) and Peg10198 (0/128) actual clips. Still17 certified/7 unfinished. Newest homepage-card navigation,24 video playbacks,17/7 filters, search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Full results remain in scoped W&B.
+
+Wave35 public gallery updated via untu_vps:18 certified/6 unfinished, newly certified Lift21990 and reviewed Reorient18593/Stack14194/Peg10198/Edge12994/Pivot6498/Strike19490. Builder now requires a saved matching checkpoint video review before selecting unfinished clips. Newest home-card navigation,24video playbacks,18/6filters,search/mobile/noJSerrors and50 verified-TLS HTTPS200 SHA256 checks passed. Detailed results remain in scoped W&B.
+
+Wave35 final gallery refresh includes reviewed StackR11 85/128. Repeated24-video playback,18/6filters,search/mobile/home-card navigation and50 HTTPS200 SHA256 matches pass. Four full trainers ReorientR15/StackR12/PegR11/PivotR4 have frozen final plans/identified-process watchers; actualGPUs1/5/6/7 verified, GPU0empty. First18/24 W&Brollup ek6d52kv remotely verified with409records; final rollup adds StackR11 review/audit and R12 launch. Previous goal status turn was a verified wait (live trainerGPU PIDs polled); this turn made concrete progress with Lift certification, Stack85/128, new full trainings, reviewed negatives and publication. Goal remains active and incomplete.

@@ -28,6 +28,8 @@ def main():
     if isinstance(data, dict) and data.get('first_episode_only') and data.get('episodes') == 128 and data.get('seed') == 20260914:
       evaluations.append((path.stat().st_mtime_ns, path.name, data))
   confirmations = [json.loads(path.read_text()) for path in (HERE/'evidence').glob('*-confirm-*.json')]
+  reviewed = {json.loads(path.read_text()).get('checkpoint_sha256')
+              for path in (HERE/'evidence').glob('*-review.json')}
   rows = []
   for task in tasks:
     certificate = HERE/'evidence'/f'{task}-certificate.json'
@@ -39,6 +41,7 @@ def main():
       confirmation = cert['confirmation']['successes']
     else:
       _, _, evaluation = max(item for item in evaluations if item[2]['task'] == task
+                              and item[2]['checkpoint_sha256'] in reviewed
                               and item[2].get('trace_dir')
                               and (Path(item[2]['trace_dir'])/'videos.json').is_file())
       videos = json.loads((Path(evaluation['trace_dir'])/'videos.json').read_text())
@@ -76,7 +79,7 @@ def main():
       rate += f" / {100*row['confirmation']/128:.1f}%"
       detail = 'Validation / confirmation · 128 episodes each'
     else:
-      detail = f"{row['validation']}/128 passed · latest evaluated checkpoint"
+      detail = f"{row['validation']}/128 passed · latest reviewed checkpoint"
     cards.append(f'''<article class="task" data-status="{state}" data-name="{html.escape(row['name'].lower())}">
 <div class="task-head"><h2>{html.escape(row['name'])}</h2><span class="badge {state}">{status}</span></div>
 <div class="media"><video controls playsinline preload="none" poster="{row['poster']}" aria-label="{html.escape(row['name'])} RL policy, {row['clip_outcome'].lower()}"><source src="{row['video']}" type="video/mp4">Your browser cannot play this video. <a href="{row['video']}">Download policy video</a>.</video></div>

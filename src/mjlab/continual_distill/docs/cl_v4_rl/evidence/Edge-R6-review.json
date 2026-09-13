@@ -1,0 +1,17 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "b8e42cc5fcab1c2876f19a3959d2101d77516b7ef906f7aabbbef33cd536c52c",
+  "reviewed_utc": "2026-09-13T08:14:02.220861+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0075.png",
+    "failure-0149.png"
+  ],
+  "observations": "Actual failure initial/middle/final frames show the plate remaining on the ledge; gripper reaches the edge but does not lift it. Closest-state audit shows increased vertical miss versus R5.",
+  "audit": "edge_r6_approach_audit.json"
+}

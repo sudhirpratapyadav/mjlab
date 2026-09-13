@@ -24,6 +24,7 @@ def main():
   supports={i for i in range(m.ngeom) if m.geom(i).name.startswith(cmd.base_asset_name+'/')}
   robots={i for i in range(m.ngeom) if m.geom(i).name.startswith('robot/')}
   pads=[m.geom('robot/'+n).id for n in ['left_finger_pad','right_finger_pad']]
+  dof=int(m.jnt_dofadr[m.body_jntadr[body]])
   rows=[]
   for rec in ev['records']:
     lane,end=rec['env_id'],rec['steps'];samples=[]
@@ -34,10 +35,11 @@ def main():
         if kind==mujoco.mjtJoint.mjJNT_FREE:d.qpos[adr:adr+3]-=t['origins'][lane]
       d.mocap_pos[:]-=t['origins'][lane];mujoco.mj_forward(m,d)
       goal=d.xpos[base]+d.xmat[base].reshape(3,3)@np.array([0,0,cmd.stack_height])
-      delta=d.xpos[body]-goal;held=[False,False];object_support=False;robot_support=False
+      delta=d.xpos[body]-goal;held=[False,False];object_support=False;robot_support=False;robot_object=False
       for c in d.contact:
         if c.dist>.001:continue
         a,b=c.geom
+        robot_object|=(a in robots and b in objects) or (b in robots and a in objects)
         object_support|=(a in objects and b in supports) or (b in objects and a in supports)
         robot_support|=(a in robots and b in supports) or (b in robots and a in supports)
         for i,pad in enumerate(pads):
@@ -47,6 +49,12 @@ def main():
           inward=d.geom_xpos[pads[1-i]]-d.geom_xpos[pad];inward/=np.linalg.norm(inward)
           held[i]|=bool(normal@inward>.5)
       samples.append(dict(step=step,object_height_m=float(d.xpos[body,2]),target_height_m=float(goal[2]),height_below_target_m=float(-delta[2]),xy_error_m=float(np.linalg.norm(delta[:2])),opposed_contact=all(held),object_base_contact=bool(object_support),robot_base_contact=bool(robot_support)))
+    terminal=samples[-1]
+    terminal.update(robot_object_contact=bool(robot_object),linear_speed_m_s=float(np.linalg.norm(d.qvel[dof:dof+3])),angular_speed_rad_s=float(np.linalg.norm(d.qvel[dof+3:dof+6])))
+    terminal['position_gate']=terminal['xy_error_m']<cmd.success_threshold and abs(terminal['height_below_target_m'])<cmd.height_threshold
+    terminal['settling_gate']=terminal['linear_speed_m_s']<.03 and terminal['angular_speed_rad_s']<.3
+    terminal['cpu_native_predicate']=bool(terminal['position_gate'] and terminal['settling_gate'] and not robot_object and object_support)
+    terminal['recorded_gpu_success']=rec['success']
     rows.append(dict(env_id=lane,terminal=samples[-1],max_sampled_height_m=max(v['object_height_m'] for v in samples),
       min_sampled_xy_error_m=min(v['xy_error_m'] for v in samples),ever_opposed_contact=any(v['opposed_contact'] for v in samples),
       ever_above_stack_height=any(v['object_height_m']>v['target_height_m'] for v in samples),
@@ -56,6 +64,7 @@ def main():
     terminal_opposed_contact=sum(r['terminal']['opposed_contact'] for r in rows),terminal_object_base_contact=sum(r['terminal']['object_base_contact'] for r in rows),terminal_robot_base_contact=sum(r['terminal']['robot_base_contact'] for r in rows),
     median_terminal_height_m=float(np.median([r['terminal']['object_height_m'] for r in rows])),median_terminal_height_below_target_m=float(np.median([r['terminal']['height_below_target_m'] for r in rows])),median_terminal_xy_error_m=float(np.median([r['terminal']['xy_error_m'] for r in rows])),
     held_below_target_samples=sum(r['held_below_target_samples'] for r in rows),held_object_base_contact_samples=sum(r['held_object_base_contact_samples'] for r in rows))
+  summary.update(terminal_position_gate=sum(r['terminal']['position_gate'] for r in rows),terminal_settling_gate=sum(r['terminal']['settling_gate'] for r in rows),terminal_released=sum(not r['terminal']['robot_object_contact'] for r in rows),cpu_native_successes=sum(r['terminal']['cpu_native_predicate'] for r in rows),cpu_gpu_label_agreement=sum(r['terminal']['cpu_native_predicate']==r['terminal']['recorded_gpu_success'] for r in rows))
   report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],method='CPU FK/contact queries every tenth recorded20ms state plus exact terminal. Stack target reconstructed from current base root pose and native stack_height. Contact distance<=1mm; opposed pads additionally require inward normal cosine>0.5. '+('Original friction restored. ' if 'initial_model_geom_friction' in t else 'Original friction absent; geometry only. ')+'No integration, intervention or success substitution.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 

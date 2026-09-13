@@ -1,0 +1,20 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "99831d883a4c49fb6fe9256c84f2c86301f7c64060e99c8074e111b9eedea6e2",
+  "reviewed_utc": "2026-09-13T08:24:55.491446+00:00",
+  "verdict": "not certified",
+  "validation_successes": 50,
+  "episodes": 128,
+  "finite_tensors": 76,
+  "all_checkpoint_tensors_finite": true,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "observations": "Actual success clip shows the puck sliding to overlap the yellow target. Highest-return failure passes near target but ends beyond it. Native position-only criterion preserved; no settling requirement added. Full longer-return matched samplebudget yields50/128 versus57/128 R10, no confirmation.",
+  "endpoint_audit": "strike_r11_endpoint_audit.json"
+}

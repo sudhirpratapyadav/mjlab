@@ -1,0 +1,17 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "5fffa7b9e417f9b6bcf68bbcc6cf92941899caff4fa6b2207544dce985c2af28",
+  "reviewed_utc": "2026-09-13T07:20:23.661154+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded failure moves cube onto the red support but keeps its gripper around the cube through middle/final frames. Strict0/128, no success clip or confirmation. Native CPU exact endpoint reconstruction agrees with all128 GPU outcome labels;48 position+support cases include47 robot contacts and48 unsettled objects. Training capture remains83.5% last100 but optimizer surrogate rises and strict ground terminations increase to46/128.",
+  "endpoint_audit": "stack_r10_terminal_audit.json"
+}
