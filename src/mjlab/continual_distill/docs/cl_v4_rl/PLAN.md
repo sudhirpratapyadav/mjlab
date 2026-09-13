@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current: S9–S13 are training five variants of the ONE Lift teacher on GPUs1–5. They compare completion weights, separate gradient clipping, and a soft arm target-error cost at100/1000 weight. Each has a fixed1000-update final and identified strict evaluation/video watchers. Preflights passed; success and motion are not yet established. Other23 teachers paused; GPU0 unused.**
+**Current: S9/S10 failed native success (37/128 and1/128). S9 halves upper-tail acceleration but still has fast starts and inaccurate holds. S11–S13 continue fixed optimizer/target-cost trials onGPUs3–5. Other23 teachers paused; certified baseline preserved.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

@@ -725,3 +725,8 @@ S11 separate-clipping preflight091 passed100updates/76finite tensors, maxaccepte
 2026-09-13T16:04:34.839495+00:00
 
 S12/S13 preflights092/093 passed100updates/76finite tensors, maxacceptedKL.029423/.029825,11/9backtracks, finalLR5e-6. Full S12/S13 started ORIGINALS7, neverpreflightcheckpoints. All five S9–S13 manifests/sourceSHAs/1000-updatebudgets/CPUaffinities and identified evaluation+motion watchers verified in lift_balance_launch_audit.json. Actual GPU1–5 placement verified; GPU0 unused. W&B records rollup qic127no;18/24 native-success certificates unchanged, zero motion approvals.
+
+
+### 2026-09-13T16:14:37.975866+00:00 — Quieter holds miss native goals
+
+S9/S10 completed1000updates/final25487, both76finite tensors and validKL/LR audits. Native37/128 and1/128; no confirmations25/26. Both125full20s episodes, so widespreadearlytermination doesnotexplainfailure. S9 medianacceleration16.440,p9525.197 (passeshalvingtarget), p95peak8.483 andtargetjump4.693 fail. S10 medianacceleration16.429,p9532.472,p95peak7.877,targetjump4.525; allmotiongatesfail. Actual failure endpointframes showheldraisedcube displacedfromgoal; late125active-lane goalerror .05722/.07793m versusS7 .02535m. Nativecompletionbonus50/100 didnotrestoregoalprecision. Published fixedpairedvideos /s9/ and/s10/, W&B41files each, HTTPS8hashes+encoded6clips each, browser6plays/mobile verified. S11–S13 continue originalplans onGPUs3–5; other23paused. Do not promoteS9/S10 or treatlowjitterascompletefix.
