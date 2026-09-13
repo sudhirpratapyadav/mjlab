@@ -29,3 +29,12 @@ Selective episode-reset warmstart clearing and optional standalone free-body gyr
 ## Records and resources
 
 Keep STATUS/EXPERIMENTS/LOGS, current training_wave inventory and scoped W&B records current. Publish reviewed policy summaries/videos to /v4-rl/ using PUBLICATION.md. GPU0 stays free; verify real placement, holder20277 expiry2026-09-28T08:58:54 and available disk before resource reuse. Stop only verified own steps. Full24-teacher goal remains active until every teacher is independently certified.
+
+
+### Wave22
+
+**14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Latest completed CageR8/final13095 strict99/128 and StrikeR3/final6997 strict21/128, both small improvements and below the116/128 validation gate. Place retained6300 remains96/128. New Cage/Strike actual success and failure frames reviewed; no confirmation or new certification. GPU0 remains unused.
+
+Current full PPO runs: EdgeR3 GPU1, ThrowR4 GPU2, LiftR10 GPU4, PlaceR7 GPU5 and PegR6 GPU6. GPUs3/7 are free after completed Strike/Cage runs and evaluations. Five process placements verified; GPU0 remains0MiB. PlaceR7 and LiftR10 use the recorded opt-in dense elliptic Hessian correction; PegR6 retains free-body gyro compatibility. All14 certified teachers retain their saved original backend. Holder20277 expires2026-09-28T08:58:54 scheduler time.
+
+Pivot R2 contact audit: median closest reward waypoint6.45mm, wrist error8.74deg, no sampled tilt above20deg. All363 sampled closest robot/board contacts use right pad with mean normal[0.333,-0.004,-0.943], mostly downward. A bounded32-pose IK shift audit finds no inward/upward-normal solution at0–40mm; a separately stated tipping-moment criterion passes25/32 at5mm,1/32 at10mm,0otherwise. This is collision geometry only, without integration or RL success. No new reward, physical model, success predicate or action change. Preserve this distinction before a dynamics probe/new preflight.

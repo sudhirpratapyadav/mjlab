@@ -341,3 +341,17 @@ CageR8/model12600 strict90/128, all timeouts, actual success/failure frames revi
 Final wave21 gallery includes late Cage12600 clip/rate;24-playback, navigation/filter/search/mobile checks and50 HTTPS SHA256 matches pass after the change. Final W&B rollup includes Cage review and Lift settling audit.
 
 Final wave21 scoreboard1o4fgggg finished; remote API verified172 experiment-record files including cone diagnostics/preflights, late Cage review, Lift settling audit and public checks. Seven Slurm training steps still live at handoff; next completed Cage/Peg budgets require strict evaluation. This goal turn made concrete progress through solver correction, recorded evaluations and finite-preflighted retries; full goal remains14/24, not complete.
+
+
+### Wave22
+
+**14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Latest completed CageR8/final13095 strict99/128 and StrikeR3/final6997 strict21/128, both small improvements and below the116/128 validation gate. Place retained6300 remains96/128. New Cage/Strike actual success and failure frames reviewed; no confirmation or new certification. GPU0 remains unused.
+
+Current full PPO runs: EdgeR3 GPU1, ThrowR4 GPU2, LiftR10 GPU4, PlaceR7 GPU5 and PegR6 GPU6. GPUs3/7 are free after completed Strike/Cage runs and evaluations. Five process placements verified; GPU0 remains0MiB. PlaceR7 and LiftR10 use the recorded opt-in dense elliptic Hessian correction; PegR6 retains free-body gyro compatibility. All14 certified teachers retain their saved original backend. Holder20277 expires2026-09-28T08:58:54 scheduler time.
+
+Pivot R2 contact audit: median closest reward waypoint6.45mm, wrist error8.74deg, no sampled tilt above20deg. All363 sampled closest robot/board contacts use right pad with mean normal[0.333,-0.004,-0.943], mostly downward. A bounded32-pose IK shift audit finds no inward/upward-normal solution at0–40mm; a separately stated tipping-moment criterion passes25/32 at5mm,1/32 at10mm,0otherwise. This is collision geometry only, without integration or RL success. No new reward, physical model, success predicate or action change. Preserve this distinction before a dynamics probe/new preflight.
+
+
+Wave22 refresh: reviewed final Cage13095 (99/128) and Strike6997 (21/128) clips published via untu_vps. Newest homepage card links to current RL teachers. Browser checks passed24 actual video playback,14/10 filters, search and mobile layout; all50 public files returnedHTTP200 and matched local SHA256 over verified TLS. No new certification.
+
+Wave22 scoreboard24dce44e finished; remote API verified178 experiment-record files including both new reviews, Pivot contact/shift/tipping audits, current inventory and public verification. Both new video runs finished online. This turn made progress through two strict final evaluations, actual video reviews, geometric diagnosis and verified publication; full24-teacher goal remains active at14/24. Five bounded PPO runs continue. Next: finish Peg/Lift strict evaluations, test Pivot contact dynamics and diagnose Cage/Strike residual failures before further preregistered retries.

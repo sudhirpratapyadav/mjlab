@@ -23,6 +23,7 @@ def main():
   parser.add_argument('--output',type=Path,required=True)
   parser.add_argument('--floor-clearance',type=float)
   parser.add_argument('--finger-position',type=float,default=.035)
+  parser.add_argument('--skip-ik',action='store_true')
   args=parser.parse_args()
   evaluation=json.loads(args.evaluation.read_text())
   assert evaluation['task']=='Mjlab-Pivot-Lift-Franka'
@@ -55,6 +56,8 @@ def main():
     tilt=1-abs(board[2,2]);desired=frame(tilt)
     corner=data.site_xpos[site]-.05*board[:,0]+.010*board[:,2]
     target=corner+.5*data.qpos[fingers].sum()*desired[:,1]-.005*desired[:,2]
+    if args.floor_clearance is not None:
+      target[2]=max(target[2],args.floor_clearance+(.5*data.qpos[fingers].sum()+.0152)*abs(desired[2,1])+.0119*abs(desired[2,2]))
     actual=data.site_xmat[grip].reshape(3,3)
     return target,desired,dict(distance_m=float(np.linalg.norm(data.site_xpos[grip]-target)),
       closing_alignment=float(abs(actual[:,1]@desired[:,1])),
@@ -71,7 +74,12 @@ def main():
       restore(step,lane);_,_,g=geometry();samples.append(dict(step=step,**g))
     closest=min(samples,key=lambda r:r['distance_m'])
     row=dict(env_id=lane,closest=closest,terminal=samples[-1],max_sampled_tilt_deg=max(r['tilt_deg'] for r in samples))
-    if lane%4==0:
+    restore(closest['step'],lane)
+    mujoco.mj_collision(model,data)
+    row['closest_contacts'] = [dict(geoms=[model.geom(int(i)).name for i in c.geom],
+                                    distance_m=float(c.dist),normal=c.frame[:3].tolist())
+                               for c in data.contact if any(model.geom(int(i)).name.startswith('robot/') for i in c.geom)]
+    if lane%4==0 and not args.skip_ik:
       restore(closest['step'],lane);data.qpos[fingers]=args.finger_position
       target,desired,_=geometry()
       if args.floor_clearance is not None:
@@ -95,6 +103,8 @@ def main():
   summary={k:float(np.median([r['closest'][k] for r in rows])) for k in ['distance_m','closing_alignment','approach_alignment','full_rotation_error_deg','tilt_deg','wall_gap_m','aperture_m']}
   summary.update(episodes=len(rows),sampled_tilt_over20_count=sum(r['max_sampled_tilt_deg']>20 for r in rows),endpoint_ik_cases=sum('endpoint_ik' in r for r in rows),endpoint_ik_passes=sum(r.get('endpoint_ik',{}).get('passes',False) for r in rows))
   report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],finger_position_m=args.finger_position,floor_clearance_m=args.floor_clearance,method='CPU FK every tenth recorded20ms state plus terminal,128 first episodes.32 evenly indexed closest ramp poses additionally use bounded three-seed endpoint IK at the reported opening and optional floor guard. Endpoint gate position<2cm, orientation<15deg and no robot/floor/wall penetration>3mm. No integration, policy supervision, trajectory feasibility or RL success measurement.',summary=summary,rows=rows)
+  if args.skip_ik:
+    report['method']='CPU FK every tenth recorded20ms state plus terminal,128 first episodes. Optional floor guard applied to the actual reward waypoint; recomputed closest-pose robot contacts. No IK, integration, policy supervision or RL success measurement.'
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 

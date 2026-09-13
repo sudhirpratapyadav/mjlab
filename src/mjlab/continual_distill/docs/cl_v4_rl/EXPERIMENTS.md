@@ -326,3 +326,12 @@ Lift cone preflight6aft8rzz and Throw release preflightcjcgxo02 each passed3 upd
 Preregister RL-021-R3-edge-approach: ownR2/model4998, unchanged edge_v3,2048×2000 additional updates onGPU1 after Peg evaluator exit. R2 completed normally and improved median exposed-pinch distance20.3→14.9cm and approach-axis projection into the ledge-0.425→0.366, but remains0/128 with88deg wrist error. This bounded continuation tests ongoing approach acquisition before another recipe change; preserve saved optimizer/normalizers/means/std/LR/backend. Strict evaluation at budget.
 
 Wave21 late evaluation: CageR8/model12600 strict90/128 versus bestR7/11096=97/128; no confirmation. All128 timeouts, actual clips reviewed, full bounded R8 continues. LiftR9 terminal-state audit confirms107 inside5cm but0 inside and settled; median speeds0.2848m/s and2.0058rad/s. These support retained diagnosis, not additional certification.
+
+
+### Wave22
+
+**14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Latest completed CageR8/final13095 strict99/128 and StrikeR3/final6997 strict21/128, both small improvements and below the116/128 validation gate. Place retained6300 remains96/128. New Cage/Strike actual success and failure frames reviewed; no confirmation or new certification. GPU0 remains unused.
+
+Current full PPO runs: EdgeR3 GPU1, ThrowR4 GPU2, LiftR10 GPU4, PlaceR7 GPU5 and PegR6 GPU6. GPUs3/7 are free after completed Strike/Cage runs and evaluations. Five process placements verified; GPU0 remains0MiB. PlaceR7 and LiftR10 use the recorded opt-in dense elliptic Hessian correction; PegR6 retains free-body gyro compatibility. All14 certified teachers retain their saved original backend. Holder20277 expires2026-09-28T08:58:54 scheduler time.
+
+Pivot R2 contact audit: median closest reward waypoint6.45mm, wrist error8.74deg, no sampled tilt above20deg. All363 sampled closest robot/board contacts use right pad with mean normal[0.333,-0.004,-0.943], mostly downward. A bounded32-pose IK shift audit finds no inward/upward-normal solution at0–40mm; a separately stated tipping-moment criterion passes25/32 at5mm,1/32 at10mm,0otherwise. This is collision geometry only, without integration or RL success. No new reward, physical model, success predicate or action change. Preserve this distinction before a dynamics probe/new preflight.

@@ -1,0 +1,5003 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "ca2417b987a57922818c6fa49dae37110b1285ffa46207fec6d2fe7f7c4a4696",
+  "poses": 32,
+  "method": "Every fourth closest recorded pose; bounded seven-joint IK translates hand0..40mm toward board near edge, preserving recorded wrist/finger opening and object/wall states. Contact criterion: pad-to-board normal x>0.5,z>0.1, distance[-3,+1]mm; IK<2mm/<3deg and no robot/floor/wall penetration deeper3mm. No integration, policy supervision, demonstrations or RL success claim.",
+  "valid_counts": {
+    "0.000": 0,
+    "0.005": 0,
+    "0.010": 0,
+    "0.015": 0,
+    "0.020": 0,
+    "0.025": 0,
+    "0.030": 0,
+    "0.035": 0,
+    "0.040": 0
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "source_step": 210,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00517230368642741,
+              "pad_to_board_normal": [
+                0.3441093379763427,
+                -0.0065852207171907574,
+                -0.9389064907569811
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004557722537198278,
+              "pad_to_board_normal": [
+                0.3441093379763427,
+                -0.0065852207171907574,
+                -0.9389064907569811
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00305749926840756,
+              "pad_to_board_normal": [
+                0.3441093379763427,
+                -0.0065852207171907574,
+                -0.9389064907569811
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.2333430508043027e-09,
+          "rotation_error_deg": 5.915117333884395e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002285856419101096,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0031602436532918213,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007572814097408045,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 5.4564307476003567e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.3879175517213238e-15,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.799952237739974e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 4.44051870694514e-10,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.00757119796525e-08,
+          "rotation_error_deg": 3.0015942208195386e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.757055789707267e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.2885539524777684e-15,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "source_step": 210,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00483531493317626,
+              "pad_to_board_normal": [
+                0.322646643451406,
+                -0.0010540747176851159,
+                -0.9465189022919885
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005428859597671158,
+              "pad_to_board_normal": [
+                0.322646643451406,
+                -0.0010540747176851159,
+                -0.9465189022919885
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0030664989845502768,
+              "pad_to_board_normal": [
+                0.322646643451406,
+                -0.0010540747176851159,
+                -0.9465189022919885
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.7233596339326748e-09,
+          "rotation_error_deg": 6.502146373618258e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001428365172735642,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0022856841226918095,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -2.917087862118993e-05,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.737368484507867e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.4426671568666015e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 3.585177345216695e-14,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 7.597711117884926e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 4.5268472197104186e-10,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.1409749139866663e-08,
+          "rotation_error_deg": 1.7329712313881724e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.2902188491859054e-11,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "source_step": 200,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0049148346606965754,
+              "pad_to_board_normal": [
+                0.33553709936198084,
+                -0.006771090051092294,
+                -0.9420026577941638
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0030150115420734514,
+              "pad_to_board_normal": [
+                0.33553709936198084,
+                -0.006771090051092294,
+                -0.9420026577941638
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.175612944524492e-09,
+          "rotation_error_deg": 6.830189170012755e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0017206933096843187,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002554657977484204,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0004562393994392024,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.039597590461443e-10,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.923060871795199e-15,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 4.156305251046989e-12,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 5.856926896320785e-10,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.4227670617792252e-08,
+          "rotation_error_deg": 4.090992534852077e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 3.890620484817434e-10,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.7546597922014585e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "source_step": 130,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004770604229862581,
+              "pad_to_board_normal": [
+                0.3410939370464515,
+                -0.0033880244119942537,
+                -0.9400231100354582
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004669781561172136,
+              "pad_to_board_normal": [
+                0.3410939370464515,
+                -0.0033880244119942537,
+                -0.9400231100354582
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002652618093567151,
+              "pad_to_board_normal": [
+                0.3410939370464515,
+                -0.0033880244119942537,
+                -0.9400231100354582
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.3346769575884286e-09,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020904000390469394,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0028810171338784535,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007950325825111983,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.0455387475299117e-11,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.5722110604033825e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 8.101381609705696e-13,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 2.437717886043634e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.0757818096002623e-08,
+          "rotation_error_deg": 1.6643112294063987e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 4.119468710494329e-11,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.8638604099210173e-09,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "source_step": 120,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005175500610134103,
+              "pad_to_board_normal": [
+                0.3312444500529126,
+                -0.0004180118202764108,
+                -0.9435448794706386
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00544512199265782,
+              "pad_to_board_normal": [
+                0.3312444500529126,
+                -0.0004180118202764108,
+                -0.9435448794706386
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002861416537682902,
+              "pad_to_board_normal": [
+                0.3312444500529126,
+                -0.0004180118202764108,
+                -0.9435448794706386
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.6507650709672045e-09,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0037709850407439223,
+              "pad_to_board_normal": [
+                0.4028061261019068,
+                -0.0003961320748439843,
+                -0.9152852385208419
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003982666468301086,
+              "pad_to_board_normal": [
+                0.4028061261019068,
+                -0.0003961320748439843,
+                -0.9152852385208419
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0029367625612895087,
+              "pad_to_board_normal": [
+                0.4028061261019068,
+                -0.0003961320748439843,
+                -0.9152852385208419
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 9.187551746284429e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 3.6644912982908575e-09,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.4967570313186742e-12,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 3.3424475354067324e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.0979490174398567e-08,
+          "rotation_error_deg": 2.3722005120437366e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 7.174055866229883e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 4.156967906199418e-09,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "source_step": 240,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005990614569265161,
+              "pad_to_board_normal": [
+                0.3476566716423882,
+                -0.006882217117433676,
+                -0.9375966476849656
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004277488734397644,
+              "pad_to_board_normal": [
+                0.3476566716423882,
+                -0.006882217117433676,
+                -0.9375966476849656
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0038421949418310933,
+              "pad_to_board_normal": [
+                0.3476566716423882,
+                -0.006882217117433676,
+                -0.9375966476849656
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.849108889269023e-09,
+          "rotation_error_deg": 6.273929367455621e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0025087047141703605,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003557240314333865,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00053376935686281,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.1657447839766683e-10,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.0283132862804415e-15,
+          "rotation_error_deg": 3.1945284701301985e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 4.520819598039006e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 6.546162012195717e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.669308066978399e-08,
+          "rotation_error_deg": 4.475598394030483e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 4.417139217825903e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 8.233769306587715e-13,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "source_step": 140,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005090807185187093,
+              "pad_to_board_normal": [
+                0.30856090496959565,
+                -0.00016522837441444737,
+                -0.9512045734877059
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0022159778912241076,
+              "pad_to_board_normal": [
+                0.30856090496959565,
+                -0.00016522837441444737,
+                -0.9512045734877059
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.424813158649193e-09,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.000613603573103083,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012300656071693138,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 4.645483312351903e-12,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.4955749197772076e-09,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 7.996951647769107e-14,
+          "rotation_error_deg": 3.1945284701301985e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 2.2426940356639246e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.530794694793343e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 3.306954239958512e-08,
+          "rotation_error_deg": 5.5357197921300977e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.9365962900417943e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "source_step": 130,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004907323614424257,
+              "pad_to_board_normal": [
+                0.34143914014192095,
+                -0.0028218387479437205,
+                -0.9398996493271111
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004535779771924271,
+              "pad_to_board_normal": [
+                0.34143914014192095,
+                -0.0028218387479437205,
+                -0.9398996493271111
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002790841906263167,
+              "pad_to_board_normal": [
+                0.34143914014192095,
+                -0.0028218387479437205,
+                -0.9398996493271111
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.4114535951281033e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002089667849132014,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00030133641009215395,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0029174756405031775,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011774597824074284,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.0194510194406834e-11,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.26944612639886e-09,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 7.893617447038784e-13,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 2.125212300783247e-10,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 9.146612067050094e-09,
+          "rotation_error_deg": 1.5080649355333767e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 4.910786193614938e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 5.086278780123514e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "source_step": 90,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0048455083913474415,
+              "pad_to_board_normal": [
+                0.3325796002470649,
+                -0.013372858380289726,
+                -0.9429803689145619
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005304906320861317,
+              "pad_to_board_normal": [
+                0.3325796002470649,
+                -0.013372858380289726,
+                -0.9429803689145619
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020245615169046413,
+              "pad_to_board_normal": [
+                0.3325796002470649,
+                -0.013372858380289726,
+                -0.9429803689145619
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.3549375397353066e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003418507430847628,
+              "pad_to_board_normal": [
+                0.3325795826139788,
+                -0.013372857654572143,
+                -0.942980375143864
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0038779052768382256,
+              "pad_to_board_normal": [
+                0.3325795826139788,
+                -0.013372857654572143,
+                -0.942980375143864
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020245595408675573,
+              "pad_to_board_normal": [
+                0.3325795826139788,
+                -0.013372857654572143,
+                -0.942980375143864
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.0360500726879687e-13,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0004620040750450329,
+              "pad_to_board_normal": [
+                0.9979141924089479,
+                -0.04098084312052017,
+                0.04987820251300851
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.1668171816606765e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 8.515994331693434e-13,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 3.891196771458428e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.591339341178309e-08,
+          "rotation_error_deg": 3.328622458812833e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.0321490119996778e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.0624441351926974e-15,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "source_step": 50,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.000319321730871072,
+              "pad_to_board_normal": [
+                0.3244464714128726,
+                -0.001367206094459802,
+                -0.9459030700527572
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007859979600209541,
+              "pad_to_board_normal": [
+                0.3244464714128726,
+                -0.001367206094459802,
+                -0.9459030700527572
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 6.329405611821332e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 5.782213381061862e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.6786008624288102e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.0552835797418582e-13,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 1.6111694341377328e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 7.978306761345331e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 4.924355446064519e-14,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.259268271943781e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "source_step": 140,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005971608322144881,
+              "pad_to_board_normal": [
+                0.33039913413642746,
+                -0.008796649590810602,
+                -0.9438003131583904
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005882089738280156,
+              "pad_to_board_normal": [
+                0.33039913413642746,
+                -0.008796649590810602,
+                -0.9438003131583904
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0038814112901232913,
+              "pad_to_board_normal": [
+                0.33039913413642746,
+                -0.008796649590810602,
+                -0.9438003131583904
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.6191364967730926e-09,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0027725709613725356,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003812620348617887,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00025779288001365327,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.3067007621081346e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.3503187302204567e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.5028017033304952e-14,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 6.8643298394637405e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 3.819948991639233e-10,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.0805621889126582e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.7217455557550694e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "source_step": 270,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004272691656521927,
+              "pad_to_board_normal": [
+                0.31381622449756685,
+                1.7751788731621576e-05,
+                -0.949483742318407
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00480829383829928,
+              "pad_to_board_normal": [
+                0.31381622449756685,
+                1.7751788731621576e-05,
+                -0.949483742318407
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002552718659157618,
+              "pad_to_board_normal": [
+                0.31381622449756685,
+                1.7751788731621576e-05,
+                -0.949483742318407
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.971140689087655e-09,
+          "rotation_error_deg": 6.156649318399953e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0013502255469502453,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020523970044988905,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.855377516198791e-11,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 8.669841284240558e-10,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.3433934034234985e-14,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 8.047695766997636e-12,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 4.874802011974947e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.7654536063513683e-13,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 4.784221188254053e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "source_step": 170,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 0.0,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004560433396836721,
+              "pad_to_board_normal": [
+                0.32626282640959303,
+                -0.002584395475049056,
+                -0.9452755624701468
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004554629719018792,
+              "pad_to_board_normal": [
+                0.32626282640959303,
+                -0.002584395475049056,
+                -0.9452755624701468
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0026322911793683883,
+              "pad_to_board_normal": [
+                0.32626282640959303,
+                -0.002584395475049056,
+                -0.9452755624701468
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.6822403146551974e-09,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0017609759369667404,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00251157965907146,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006308285159815187,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 3.730189420329903e-11,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 5.882563038255613e-09,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 6.816887258271291e-13,
+          "rotation_error_deg": 2.4148365394514667e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 2.1163237201585775e-10,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 8.244713668017546e-09,
+          "rotation_error_deg": 1.289169934879393e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.5180583038185575e-11,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 5.937581237821716e-10,
+          "rotation_error_deg": 1.2074182697257333e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "source_step": 190,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004967233701032994,
+              "pad_to_board_normal": [
+                0.3258883531680382,
+                -0.006839783315384269,
+                -0.9453835193367942
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004897105503408885,
+              "pad_to_board_normal": [
+                0.3258883531680382,
+                -0.006839783315384269,
+                -0.9453835193367942
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003240702875948328,
+              "pad_to_board_normal": [
+                0.3258883531680382,
+                -0.006839783315384269,
+                -0.9453835193367942
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.4044020904424458e-09,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001250691765637747,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021442601451061314,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 8.438426321008279e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 2.0176318106758973e-15,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 9.27299461067892e-13,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 3.721390400785662e-10,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.7048454354913228e-08,
+          "rotation_error_deg": 2.4950064948509156e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 7.041173209305337e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.96809704903449e-09,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "source_step": 220,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00503475780466759,
+              "pad_to_board_normal": [
+                0.34014609830500697,
+                -0.005975538286372936,
+                -0.9403536168644585
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004736047861219418,
+              "pad_to_board_normal": [
+                0.34014609830500697,
+                -0.005975538286372936,
+                -0.9403536168644585
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003028205471942216,
+              "pad_to_board_normal": [
+                0.34014609830500697,
+                -0.005975538286372936,
+                -0.9403536168644585
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.3939427669376478e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0018391490995571477,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0027222171748285074,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007199495232948763,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 6.534218673548327e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 2.8024391984094217e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.9568939403325518e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 5.736219322250323e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.2672697364968157e-08,
+          "rotation_error_deg": 3.382926572190133e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.2412065629204885e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 2.928911966334638e-15,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "source_step": 120,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005142632456153989,
+              "pad_to_board_normal": [
+                0.3451174779598464,
+                -0.004853926190531344,
+                -0.9385469438484002
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002735212407533999,
+              "pad_to_board_normal": [
+                0.3451174779598464,
+                -0.004853926190531344,
+                -0.9385469438484002
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.485696371965749e-09,
+          "rotation_error_deg": 6.037091348628668e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0036653669822433108,
+              "pad_to_board_normal": [
+                0.3451174335536864,
+                -0.004853926268535972,
+                -0.9385469601767918
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00244723613672259,
+              "pad_to_board_normal": [
+                0.3451174335536864,
+                -0.004853926268535972,
+                -0.9385469601767918
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0027352083628081917,
+              "pad_to_board_normal": [
+                0.3451174335536864,
+                -0.004853926268535972,
+                -0.9385469601767918
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 3.9435039206445864e-11,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 6.115538911959302e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 9.28477431458825e-13,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 2.1785580094004118e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.5414898922522836e-08,
+          "rotation_error_deg": 2.656320193396637e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.4304384812153917e-10,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 2.8526956611707524e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "source_step": 250,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005479639301327293,
+              "pad_to_board_normal": [
+                0.3122487992010979,
+                0.0007708430817324793,
+                -0.9500000490517966
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005799639250190465,
+              "pad_to_board_normal": [
+                0.3122487992010979,
+                0.0007708430817324793,
+                -0.9500000490517966
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0036533646630532296,
+              "pad_to_board_normal": [
+                0.3122487992010979,
+                0.0007708430817324793,
+                -0.9500000490517966
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.758221775150664e-09,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020352483816607142,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0029972625893986806,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.865100476846934e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.3944371367962746e-09,
+          "rotation_error_deg": 3.1945284701301985e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.3870081001990913e-13,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 8.020810718464146e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 4.204408438624342e-09,
+          "rotation_error_deg": 8.2776426154535e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 9.363723163999976e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 4.3476098928745485e-10,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "source_step": 240,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005365925207904525,
+              "pad_to_board_normal": [
+                0.3451094839958474,
+                -0.004561244507112362,
+                -0.9385513513413459
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004133519863713429,
+              "pad_to_board_normal": [
+                0.3451094839958474,
+                -0.004561244507112362,
+                -0.9385513513413459
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0032232010795420407,
+              "pad_to_board_normal": [
+                0.3451094839958474,
+                -0.004561244507112362,
+                -0.9385513513413459
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.514884960418349e-09,
+          "rotation_error_deg": 6.3890569402603996e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002310301461783901,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0032254415201021357,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00047094962508777453,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.1015375037534418e-10,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 5.428242195444224e-15,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 4.977214370295286e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 7.567446161753205e-10,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 3.036785495052877e-08,
+          "rotation_error_deg": 4.882211861073298e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 5.14011137651865e-10,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 2.3746673609958927e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "source_step": 170,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005024719170239042,
+              "pad_to_board_normal": [
+                0.33124162091629805,
+                -0.002772331205139089,
+                -0.9435418924204864
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005037717735478035,
+              "pad_to_board_normal": [
+                0.33124162091629805,
+                -0.002772331205139089,
+                -0.9435418924204864
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0030258597156177505,
+              "pad_to_board_normal": [
+                0.33124162091629805,
+                -0.002772331205139089,
+                -0.9435418924204864
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.0013098450201194e-09,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0019474118202314808,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0028183641823927574,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 2.1831034913694466e-11,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.0862288634278693e-09,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.042982180559557e-14,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 5.10468609479428e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 3.0309876507372273e-10,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 8.292102190064565e-09,
+          "rotation_error_deg": 1.4983666681503355e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 2.458690450153943e-11,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "source_step": 170,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004765432853495232,
+              "pad_to_board_normal": [
+                0.33407161802687707,
+                -0.003941179648211513,
+                -0.9425394533556062
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0042721249930790595,
+              "pad_to_board_normal": [
+                0.33407161802687707,
+                -0.003941179648211513,
+                -0.9425394533556062
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002735912500281571,
+              "pad_to_board_normal": [
+                0.33407161802687707,
+                -0.003941179648211513,
+                -0.9425394533556062
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.1074103492363547e-09,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0019848966358736704,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002771333998721388,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006338730713531526,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 4.821991990964071e-11,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.703756365115397e-16,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.7247920306459917e-12,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 3.5612254484706193e-10,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.4152750344716829e-08,
+          "rotation_error_deg": 2.3225154141253322e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.2174886457016845e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.5017429036008758e-15,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "source_step": 280,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005530239184985245,
+              "pad_to_board_normal": [
+                0.3358679416738567,
+                -0.005119790780015238,
+                -0.9418951711831501
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004284144691507409,
+              "pad_to_board_normal": [
+                0.3358679416738567,
+                -0.005119790780015238,
+                -0.9418951711831501
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0036935730051895774,
+              "pad_to_board_normal": [
+                0.3358679416738567,
+                -0.005119790780015238,
+                -0.9418951711831501
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.824832435604124e-09,
+          "rotation_error_deg": 7.040397847728103e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0015308066473219833,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002543854890969138,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00032429476388357416,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.3171251909692775e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 6.151805913730018e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 5.396754708845778e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 7.069422974674424e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.7159258587694433e-08,
+          "rotation_error_deg": 4.532243549498627e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 4.037162107807818e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 3.2874909314204994e-15,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "source_step": 110,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004799314304594021,
+              "pad_to_board_normal": [
+                0.3371342061928032,
+                -0.002954412079301895,
+                -0.9414519629083653
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0047886508277018855,
+              "pad_to_board_normal": [
+                0.3371342061928032,
+                -0.002954412079301895,
+                -0.9414519629083653
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0024708421135789358,
+              "pad_to_board_normal": [
+                0.3371342061928032,
+                -0.002954412079301895,
+                -0.9414519629083653
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.7684137510921444e-09,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0033296097616673983,
+              "pad_to_board_normal": [
+                0.33713417482245983,
+                -0.0029544121124254683,
+                -0.9414519741419894
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0033189460332980645,
+              "pad_to_board_normal": [
+                0.33713417482245983,
+                -0.0029544121124254683,
+                -0.9414519741419894
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002470839615917519,
+              "pad_to_board_normal": [
+                0.33713417482245983,
+                -0.0029544121124254683,
+                -0.9414519741419894
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 3.766343081137663e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 5.3796868731898996e-09,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 3.5304645038907157e-13,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 1.0443266236942914e-10,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 6.206466434149709e-09,
+          "rotation_error_deg": 1.0173887179578492e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 8.732654484478847e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 5.019504601663549e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "source_step": 140,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0045694595418513785,
+              "pad_to_board_normal": [
+                0.31908517546861653,
+                -0.0007345800812363157,
+                -0.9477257573730212
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005287629542411861,
+              "pad_to_board_normal": [
+                0.31908517546861653,
+                -0.0007345800812363157,
+                -0.9477257573730212
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002912151509146092,
+              "pad_to_board_normal": [
+                0.31908517546861653,
+                -0.0007345800812363157,
+                -0.9477257573730212
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.153400058896749e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010462872735814452,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0018631878486867802,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 6.565825065053367e-13,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.905488467375102e-09,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.9284130165001099e-13,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 3.9977108048638554e-11,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.7263772793052711e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.8337117518955718e-08,
+          "rotation_error_deg": 4.368451981412212e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 8.890339764066905e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "source_step": 290,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005565586146042458,
+              "pad_to_board_normal": [
+                0.33531774313357565,
+                -0.006488002513021721,
+                -0.9420827548380221
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00359401486984653,
+              "pad_to_board_normal": [
+                0.33531774313357565,
+                -0.006488002513021721,
+                -0.9420827548380221
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 5.618530020242529e-09,
+          "rotation_error_deg": 7.540324677666867e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0019864367231381733,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00037540505686323384,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002976133698119199,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010718866030349464,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.556657716391441e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 6.197220893272176e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 6.90295406977357e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 8.990165179090357e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 3.3854749390062514e-08,
+          "rotation_error_deg": 5.590750785517928e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 5.669484444839052e-10,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.5140811889907606e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "source_step": 80,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.1945284701301985e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0046489544545986455,
+              "pad_to_board_normal": [
+                0.3417437905288667,
+                0.002268196374860994,
+                -0.9397904218069937
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0047271109866709425,
+              "pad_to_board_normal": [
+                0.3417437905288667,
+                0.002268196374860994,
+                -0.9397904218069937
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020075172642558575,
+              "pad_to_board_normal": [
+                0.3417437905288667,
+                0.002268196374860994,
+                -0.9397904218069937
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 1.81066846408565e-09,
+          "rotation_error_deg": 3.1945284701301985e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0031509944986683066,
+              "pad_to_board_normal": [
+                0.35839288332247016,
+                0.002255738262042627,
+                -0.9335681297198933
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0032146680390327557,
+              "pad_to_board_normal": [
+                0.35839288332247016,
+                0.002255738262042627,
+                -0.9335681297198933
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002019106526257265,
+              "pad_to_board_normal": [
+                0.35839288332247016,
+                0.002255738262042627,
+                -0.9335681297198933
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.0390975448680775e-10,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.039181339472364e-15,
+          "rotation_error_deg": 2.9575586669421963e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 5.052495490704753e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 5.416615108312972e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.3183770341483255e-08,
+          "rotation_error_deg": 2.9178580924908405e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 6.849971944741417e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 2.4275006320752285e-09,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "source_step": 220,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0051981995448145985,
+              "pad_to_board_normal": [
+                0.29948698057645945,
+                -0.001339856454046268,
+                -0.9540994462056238
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002510820433346708,
+              "pad_to_board_normal": [
+                0.29948698057645945,
+                -0.001339856454046268,
+                -0.9540994462056238
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.473472839660538e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0023297138233020894,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002983420631854553,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 1.3419789730168982e-11,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 4.839495828287458e-10,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.4395256314029346e-14,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 4.323398134204551e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.6040963452765723e-09,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.779298340344807e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 8.880022528348063e-11,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "source_step": 210,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005004970548840313,
+              "pad_to_board_normal": [
+                0.3382577244481957,
+                -0.0055256590755285015,
+                -0.9410372888163941
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004528734610532616,
+              "pad_to_board_normal": [
+                0.3382577244481957,
+                -0.0055256590755285015,
+                -0.9410372888163941
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002885926249718962,
+              "pad_to_board_normal": [
+                0.3382577244481957,
+                -0.0055256590755285015,
+                -0.9410372888163941
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.676601197026174e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0023462470950202556,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0031684210956594233,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.000662127890116695,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 6.375273438367028e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 3.3585536760314524e-15,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 3.0169960720155682e-12,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 4.828232593721409e-10,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.0557900158697425e-08,
+          "rotation_error_deg": 3.295610511210791e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.752982731871585e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 4.374409920029016e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "source_step": 290,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005243845011645154,
+              "pad_to_board_normal": [
+                0.3366992383533078,
+                -0.005100944910145177,
+                -0.9415984299335498
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004878067669918929,
+              "pad_to_board_normal": [
+                0.3366992383533078,
+                -0.005100944910145177,
+                -0.9415984299335498
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0033882205310257676,
+              "pad_to_board_normal": [
+                0.3366992383533078,
+                -0.005100944910145177,
+                -0.9415984299335498
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 2.3906561341510376e-09,
+          "rotation_error_deg": 5.915117333884395e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014313277637621807,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0024012713741283624,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002499228226638035,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 5.934675547843438e-11,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 9.484036426224866e-16,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.678136591343406e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 4.717920551171182e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 1.9216429074671205e-08,
+          "rotation_error_deg": 3.033000085823612e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 2.1226806798420103e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 4.49040803201727e-15,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "source_step": 120,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004713076825217804,
+              "pad_to_board_normal": [
+                0.3195629959224081,
+                -0.0007588866491370644,
+                -0.9475647290439577
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001686248333657659,
+              "pad_to_board_normal": [
+                0.3195629959224081,
+                -0.0007588866491370644,
+                -0.9475647290439577
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.556714235879371e-09,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014193559639144727,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0019092842627679066,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 9.603381515400125e-13,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 2.280858377971536e-10,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.4430712402060965e-14,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 6.107611018921708e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 3.749878395729807e-10,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.1302598225088063e-08,
+          "rotation_error_deg": 1.628896300592164e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.3929070178156078e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "source_step": 280,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005402425736930485,
+              "pad_to_board_normal": [
+                0.34306569709835194,
+                -0.004324159185612345,
+                -0.9393014580643211
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004200133035493929,
+              "pad_to_board_normal": [
+                0.34306569709835194,
+                -0.004324159185612345,
+                -0.9393014580643211
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0034047382955615085,
+              "pad_to_board_normal": [
+                0.34306569709835194,
+                -0.004324159185612345,
+                -0.9393014580643211
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 3.6975849784196915e-09,
+          "rotation_error_deg": 6.502146373618258e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0018735992080062785,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -1.667508099264224e-05,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0028418884998039984,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007966767697616985,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 7.245044861541441e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.6934313352458652e-15,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 2.851474438703523e-12,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 5.103985871001668e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.271056615341336e-08,
+          "rotation_error_deg": 3.7740271910413986e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 3.904472558605503e-10,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 7.557474881135662e-15,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "source_step": 140,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005816250938715366,
+              "pad_to_board_normal": [
+                0.3412923743957015,
+                -0.0049597568727668025,
+                -0.93994410258861
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003732642563465911,
+              "pad_to_board_normal": [
+                0.3412923743957015,
+                -0.0049597568727668025,
+                -0.93994410258861
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 4.410010913512556e-09,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0023553714919649234,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0001206633148531091,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0033723409000425164,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0008376495815479472,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 9.727472253360874e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 3.5499004155557903e-15,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 3.321658040154942e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 4.973851915817782e-10,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.1466909901289263e-08,
+          "rotation_error_deg": 3.7215130446690066e-05,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 3.51796103060624e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 1.8969088178790466e-15,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "source_step": 60,
+      "cases": [
+        {
+          "nearward_shift_m": 0.0,
+          "position_error_m": 0.0,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.005528884085109637,
+              "pad_to_board_normal": [
+                0.34608196101130595,
+                -0.003051267620020083,
+                -0.9381993210552223
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0049544854583823805,
+              "pad_to_board_normal": [
+                0.34608196101130595,
+                -0.003051267620020083,
+                -0.9381993210552223
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003117649977213083,
+              "pad_to_board_normal": [
+                0.34608196101130595,
+                -0.003051267620020083,
+                -0.9381993210552223
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.005,
+          "position_error_m": 9.063937084024625e-10,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004054119020522622,
+              "pad_to_board_normal": [
+                0.34608194862477215,
+                -0.003051267642065157,
+                -0.938199325624282
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0036668828981395872,
+              "pad_to_board_normal": [
+                0.34608194862477215,
+                -0.003051267642065157,
+                -0.938199325624282
+              ]
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0031176490105276236,
+              "pad_to_board_normal": [
+                0.34608194862477215,
+                -0.003051267642065157,
+                -0.938199325624282
+              ]
+            }
+          ],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.01,
+          "position_error_m": 7.80019541387335e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.015,
+          "position_error_m": 1.9173579998392117e-09,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.02,
+          "position_error_m": 1.7865041809728406e-13,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.025,
+          "position_error_m": 7.684519788062565e-11,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.03,
+          "position_error_m": 2.898282781958731e-09,
+          "rotation_error_deg": 6.156649318399953e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.035,
+          "position_error_m": 1.905172136416911e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        },
+        {
+          "nearward_shift_m": 0.04,
+          "position_error_m": 7.096446112489374e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "obstacle_penetrations": [],
+          "contacts": [],
+          "inward_upward_contact": false,
+          "valid": false
+        }
+      ]
+    }
+  ]
+}
