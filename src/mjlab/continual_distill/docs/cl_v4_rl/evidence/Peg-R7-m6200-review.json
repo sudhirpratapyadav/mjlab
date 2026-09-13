@@ -1,0 +1,59 @@
+{
+  "reviewed_utc": "2026-09-13T02:52:29.053305+00:00",
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "85ae9c8c42bb8cda836f0f74bbb8a29ca65c6a19e3953cb0627020f2c5413614",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "review": "Actual initial/middle/terminal failure frames reviewed. Fingers capture upright peg and hold it low beside fixture. Retained pre-collapse checkpoint recovers opposed contact74.22%; no insertion.",
+  "all_checkpoint_tensors_finite": true,
+  "learning_rate": 0.0001,
+  "termination_counts": {
+    "time_out": 128,
+    "ee_ground_collision": 0,
+    "object_out_of_bounds": 0
+  },
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.7421875,
+    "enclosed_fraction": 0.546875,
+    "enclosed_grasp_fraction": 0.515625,
+    "opposed_grasp_fraction": 0.7421875,
+    "robot_object_contact_fraction": 0.84375,
+    "aperture_mean": 0.022534312680363655,
+    "gripper_object_distance_mean": 0.06453259289264679,
+    "gripper_goal_distance_mean": 0.2998126149177551,
+    "gripper_down_alignment_mean": 0.9389316439628601,
+    "object_height_mean": 0.0017887760186567903,
+    "gripper_action_mean": -0.963528037071228,
+    "absolute_action_max": 0.999996542930603,
+    "goal_error_mean": 0.2990821599960327
+  },
+  "videos": {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "checkpoint_sha256": "85ae9c8c42bb8cda836f0f74bbb8a29ca65c6a19e3953cb0627020f2c5413614",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-020-R7-m6200/failure.mp4",
+        "outcome": {
+          "env_id": 115,
+          "success": false,
+          "steps": 1000,
+          "return": 94.24078369140625,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

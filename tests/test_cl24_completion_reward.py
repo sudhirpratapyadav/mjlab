@@ -98,3 +98,15 @@ def test_contact_capture_prefers_light_squeeze_over_stationary_open_cage(monkeyp
   far = torch.full((2,),.20)
   assert torch.all(module.aperture_fit_score(far,width+.016,width,squeeze=True)>
                    module.aperture_fit_score(far,width-.004,width,squeeze=True))
+
+
+def test_increased_peg_lift_credit_still_requires_grasp_and_prefers_completion(monkeypatch):
+  module=load_reward(monkeypatch)
+  one,zero=torch.tensor(1.),torch.tensor(0.)
+  low=module.completion_score(one,one,one,zero,zero,zero,zero,lift_weight=4.)
+  lifted=module.completion_score(one,one,one,one,zero,zero,zero,lift_weight=4.)
+  assert lifted-low==4.
+  assert module.completion_score(zero,zero,zero,one,zero,zero,zero,lift_weight=4.)==0
+  best_carry=module.completion_score(one,one,one,one,one,zero,zero,lift_weight=4.)
+  weakest_complete=module.completion_score(zero,zero,zero,zero,zero,zero,one,lift_weight=4.)
+  assert best_carry<weakest_complete

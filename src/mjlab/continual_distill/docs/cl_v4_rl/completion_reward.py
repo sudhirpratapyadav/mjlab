@@ -20,9 +20,9 @@ def safe_grasp_target(command):
   return target
 
 
-def completion_score(approach, aperture_match, held, lift, transport, released_near_support, strict):
+def completion_score(approach, aperture_match, held, lift, transport, released_near_support, strict, lift_weight=2.):
   """Native completion dominates every physically valid noncompleted stage."""
-  return (approach*(1+0.5*aperture_match) + 2*held + 2*lift*held
+  return (approach*(1+0.5*aperture_match) + 2*held + lift_weight*lift*held
           + 5*transport*held + 6*released_near_support*(1-held) + 15*strict)
 
 
@@ -57,7 +57,7 @@ def capture_aperture_bonus(command, distance, squeeze=False, centerline=False, c
   return aperture_fit_score(distance,gap,width,squeeze=squeeze)
 
 
-def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, squeeze_capture=False, contact_geometry=False, centered_fallback=False, **kwargs):
+def completion_reward(env, command_name, object_asset_name='object', smooth_closure=False, require_enclosure=False, geometry_aperture=False, squeeze_capture=False, contact_geometry=False, centered_fallback=False, lift_weight=2., **kwargs):
   command = env.command_manager.get_term(command_name)
   robot, obj = command.robot, command.object
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -90,4 +90,4 @@ def completion_reward(env, command_name, object_asset_name='object', smooth_clos
   # including release, support, containment/bore fit and settling.
   command._update_metrics()
   strict = command.compute_success().float()
-  return completion_score(approach,aperture_match,held,lift,transport,released_near_support,strict)
+  return completion_score(approach,aperture_match,held,lift,transport,released_near_support,strict,lift_weight=lift_weight)

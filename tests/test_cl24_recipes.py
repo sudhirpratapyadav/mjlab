@@ -236,3 +236,16 @@ def test_reorient_axis_recipe_preserves_native_benchmark(monkeypatch):
   assert params.pop('continuous_orientation')
   assert params.pop('native_completion_weight')==25.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_peg_lift_recipe_preserves_interface_physics_and_native_gate(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Peg-Insertion-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'peg_v1');recipes.apply_recipe(new,'peg_v2')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['stack'].params.pop('lift_weight')==4.
+  assert repr(old.env.rewards)==repr(new.env.rewards)

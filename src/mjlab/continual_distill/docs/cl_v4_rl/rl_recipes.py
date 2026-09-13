@@ -18,7 +18,7 @@ RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
-RECIPES += ("lift_v9",)
+RECIPES += ("lift_v9", "peg_v2")
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -113,6 +113,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "lift_v9":
     apply_recipe(cfg,"lift_v8")
     cfg.env.rewards['reach_object'].params['arm_hold_weight']=15.
+    return
+  if recipe == "peg_v2":
+    apply_recipe(cfg,"peg_v1")
+    cfg.env.rewards["stack"].params["lift_weight"]=4.
     return
   if recipe == "peg_v1":
     if cfg.agent.experiment_name != "franka_peg_insertion":

@@ -1,0 +1,268 @@
+{
+  "verified_utc": "2026-09-13T02:52:29.053305+00:00",
+  "source_run": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-020-R7-peg-lift",
+  "diagnostic_sha256": "66b72a6e2869787f81b0827e099019f3d53334b915f1cf13e779e5b7bd5dd1b1",
+  "method": "200-update windows from saved training diagnostics and every100th scalar at5900-6400 from TensorBoard. Checkpoint6200 selected before strict evaluation from this training-only collapse boundary; no validation sweep.",
+  "windows": [
+    {
+      "first_iteration": 5097,
+      "last_iteration": 5296,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.34516357421875,
+        "Diagnostics/object_height_mean": 0.0012678039511229144,
+        "Diagnostics/gripper_action_mean": -0.8773112034797669,
+        "Diagnostics/action_saturation": 0.04329504648844401
+      }
+    },
+    {
+      "first_iteration": 5297,
+      "last_iteration": 5496,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.47387939453125,
+        "Diagnostics/object_height_mean": 0.0012627075068303384,
+        "Diagnostics/gripper_action_mean": -0.8950426706671715,
+        "Diagnostics/action_saturation": 0.050061607360839845
+      }
+    },
+    {
+      "first_iteration": 5497,
+      "last_iteration": 5696,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.55833740234375,
+        "Diagnostics/object_height_mean": 0.0005412154091754928,
+        "Diagnostics/gripper_action_mean": -0.8965173742175102,
+        "Diagnostics/action_saturation": 0.05096185048421224
+      }
+    },
+    {
+      "first_iteration": 5697,
+      "last_iteration": 5896,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.5641015625,
+        "Diagnostics/object_height_mean": 0.0009229394698922988,
+        "Diagnostics/gripper_action_mean": -0.8848386523127556,
+        "Diagnostics/action_saturation": 0.05118854522705078
+      }
+    },
+    {
+      "first_iteration": 5897,
+      "last_iteration": 6096,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.57009765625,
+        "Diagnostics/object_height_mean": 0.0006762442819035641,
+        "Diagnostics/gripper_action_mean": -0.8898875033855438,
+        "Diagnostics/action_saturation": 0.050748049418131505
+      }
+    },
+    {
+      "first_iteration": 6097,
+      "last_iteration": 6296,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.41391845703125,
+        "Diagnostics/object_height_mean": 0.0005440647066598103,
+        "Diagnostics/gripper_action_mean": -0.38484777422156186,
+        "Diagnostics/action_saturation": 0.08348079681396485
+      }
+    },
+    {
+      "first_iteration": 6297,
+      "last_iteration": 6496,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.0,
+        "Diagnostics/object_height_mean": -6.139998444268713e-05,
+        "Diagnostics/gripper_action_mean": 0.9637936636805534,
+        "Diagnostics/action_saturation": 0.09698355356852215
+      }
+    },
+    {
+      "first_iteration": 6497,
+      "last_iteration": 6696,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.0,
+        "Diagnostics/object_height_mean": -6.139414606877836e-05,
+        "Diagnostics/gripper_action_mean": -0.761942342557013,
+        "Diagnostics/action_saturation": 0.022396456400553388
+      }
+    },
+    {
+      "first_iteration": 6697,
+      "last_iteration": 6896,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.0,
+        "Diagnostics/object_height_mean": -6.141453006421216e-05,
+        "Diagnostics/gripper_action_mean": -0.9904804390668869,
+        "Diagnostics/action_saturation": 0.05647078196207682
+      }
+    },
+    {
+      "first_iteration": 6897,
+      "last_iteration": 7096,
+      "means": {
+        "Diagnostics/opposed_grasp_fraction": 0.0,
+        "Diagnostics/object_height_mean": -6.141334339190507e-05,
+        "Diagnostics/gripper_action_mean": -0.9979946655035019,
+        "Diagnostics/action_saturation": 0.060598894755045575
+      }
+    }
+  ],
+  "loss_samples": {
+    "Train/mean_reward": [
+      {
+        "iteration": 5900,
+        "value": 59.990814208984375
+      },
+      {
+        "iteration": 6000,
+        "value": 53.776329040527344
+      },
+      {
+        "iteration": 6100,
+        "value": 45.364051818847656
+      },
+      {
+        "iteration": 6200,
+        "value": 57.19728469848633
+      },
+      {
+        "iteration": 6300,
+        "value": -127.05198669433594
+      },
+      {
+        "iteration": 6400,
+        "value": -82.1400375366211
+      }
+    ],
+    "Episode_Reward/joint_pos_limits": [
+      {
+        "iteration": 5900,
+        "value": -0.000978692900389433
+      },
+      {
+        "iteration": 6000,
+        "value": -0.006447497755289078
+      },
+      {
+        "iteration": 6100,
+        "value": -0.02055320516228676
+      },
+      {
+        "iteration": 6200,
+        "value": -0.0019447440281510353
+      },
+      {
+        "iteration": 6300,
+        "value": -6.315883636474609
+      },
+      {
+        "iteration": 6400,
+        "value": -4.1691741943359375
+      }
+    ],
+    "Loss/value": [
+      {
+        "iteration": 5900,
+        "value": 0.03274945542216301
+      },
+      {
+        "iteration": 6000,
+        "value": 0.06469685584306717
+      },
+      {
+        "iteration": 6100,
+        "value": 0.07881874591112137
+      },
+      {
+        "iteration": 6200,
+        "value": 0.043173663318157196
+      },
+      {
+        "iteration": 6300,
+        "value": 0.33778369426727295
+      },
+      {
+        "iteration": 6400,
+        "value": 0.01747693121433258
+      }
+    ],
+    "Loss/surrogate": [
+      {
+        "iteration": 5900,
+        "value": 0.03646748140454292
+      },
+      {
+        "iteration": 6000,
+        "value": 0.03461918979883194
+      },
+      {
+        "iteration": 6100,
+        "value": 0.04375067725777626
+      },
+      {
+        "iteration": 6200,
+        "value": 0.036886680871248245
+      },
+      {
+        "iteration": 6300,
+        "value": 0.3222777545452118
+      },
+      {
+        "iteration": 6400,
+        "value": 0.7618632316589355
+      }
+    ],
+    "Loss/entropy": [
+      {
+        "iteration": 5900,
+        "value": -22.940059661865234
+      },
+      {
+        "iteration": 6000,
+        "value": -23.056303024291992
+      },
+      {
+        "iteration": 6100,
+        "value": -23.085453033447266
+      },
+      {
+        "iteration": 6200,
+        "value": -23.157678604125977
+      },
+      {
+        "iteration": 6300,
+        "value": -23.287893295288086
+      },
+      {
+        "iteration": 6400,
+        "value": -23.1446533203125
+      }
+    ],
+    "Loss/learning_rate": [
+      {
+        "iteration": 5900,
+        "value": 9.999999747378752e-05
+      },
+      {
+        "iteration": 6000,
+        "value": 9.999999747378752e-05
+      },
+      {
+        "iteration": 6100,
+        "value": 9.999999747378752e-05
+      },
+      {
+        "iteration": 6200,
+        "value": 9.999999747378752e-05
+      },
+      {
+        "iteration": 6300,
+        "value": 9.999999747378752e-05
+      },
+      {
+        "iteration": 6400,
+        "value": 9.999999747378752e-05
+      }
+    ]
+  },
+  "selected_checkpoint": "model_6200.pt",
+  "subsequent_validation_successes": 0
+}

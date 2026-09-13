@@ -1,0 +1,59 @@
+{
+  "reviewed_utc": "2026-09-13T02:52:29.053305+00:00",
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "8df42eee6744c4aaeb2507037591c0498334478e840cfe4c8e377aec979bb315",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "review": "Actual initial/middle/terminal failure frames reviewed. Hand exposes plate but presses from above without acquiring edge pinch. Closest exposed pinch error39.53mm, mostly37.75mm vertical; unchanged continuation has plateaued versus39.84mm before.",
+  "all_checkpoint_tensors_finite": true,
+  "learning_rate": 0.0001,
+  "termination_counts": {
+    "time_out": 128,
+    "ee_ground_collision": 0,
+    "object_out_of_bounds": 0
+  },
+  "last_diagnostics": {
+    "control_step": 290,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.0,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0078125,
+    "aperture_mean": 0.040153536945581436,
+    "gripper_object_distance_mean": 0.1204240545630455,
+    "gripper_goal_distance_mean": 0.0788358673453331,
+    "gripper_down_alignment_mean": 0.681172788143158,
+    "object_height_mean": 0.10364822298288345,
+    "gripper_action_mean": -0.005731561686843634,
+    "absolute_action_max": 0.959054708480835,
+    "goal_error_mean": 0.0975937694311142
+  },
+  "videos": {
+    "task": "Mjlab-Edge-Grasp-Franka",
+    "checkpoint_sha256": "8df42eee6744c4aaeb2507037591c0498334478e840cfe4c8e377aec979bb315",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-021-R4-m8996/failure.mp4",
+        "outcome": {
+          "env_id": 69,
+          "success": false,
+          "steps": 300,
+          "return": 30.383670806884766,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 150,
+        "fps": 25,
+        "simulation_seconds": 6.0,
+        "encoded_seconds": 6.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
