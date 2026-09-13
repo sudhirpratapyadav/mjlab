@@ -1,0 +1,288 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "ca2417b987a57922818c6fa49dae37110b1285ffa46207fec6d2fe7f7c4a4696",
+  "control_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot-r2-bounded-wrist-controls.npz",
+  "control_archive_sha256": "d131f1742daae05ff75a9e96b32b644fbe35b5c94b3ac25fa8d4d9b87026a1e6",
+  "sample_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/pivot_r2_gpu_path_cone_audit.npz",
+  "sample_columns": [
+    "gpu_tilt_deg",
+    "cpu_tilt_deg",
+    "gpu_wall",
+    "cpu_wall",
+    "gpu_x",
+    "gpu_y",
+    "gpu_z",
+    "cpu_x",
+    "cpu_y",
+    "cpu_z"
+  ],
+  "elliptic_hessian_compat": true,
+  "primitive_box_box_compat": false,
+  "free_body_implicitfast_compat": false,
+  "method": "All exported original states/friction, same float32-quantized physical commands on native CPU and GPU; sampled every20ms. Actual opt-in compatibility flags recorded separately; native physical model unchanged. Positive20deg+wall contact is a diagnostic mechanism, not full task success or RL evidence. No demonstrations, reset data or physical model changes.",
+  "summary": {
+    "episodes": 32,
+    "all_finite": true,
+    "gpu_pivot_count": 15,
+    "cpu_pivot_count": 28,
+    "median_terminal_board_difference_m": 0.013104724033205957
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 21.237253189086914,
+      "cpu_max_tilt_deg": 21.51235111185238,
+      "terminal_board_position_difference_m": 0.009421976411589582
+    },
+    {
+      "env_id": 4,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 9.71533203125,
+      "cpu_max_tilt_deg": 22.068624367376838,
+      "terminal_board_position_difference_m": 0.021543112909103664
+    },
+    {
+      "env_id": 8,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.209393501281738,
+      "cpu_max_tilt_deg": 22.193635427854467,
+      "terminal_board_position_difference_m": 0.022188976862622004
+    },
+    {
+      "env_id": 12,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 21.311298370361328,
+      "cpu_max_tilt_deg": 23.787504638054873,
+      "terminal_board_position_difference_m": 0.014263696996068772
+    },
+    {
+      "env_id": 16,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 19.169158935546875,
+      "cpu_max_tilt_deg": 22.075576514736678,
+      "terminal_board_position_difference_m": 0.009874459923267562
+    },
+    {
+      "env_id": 20,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 19.578887939453125,
+      "cpu_max_tilt_deg": 21.28400806245131,
+      "terminal_board_position_difference_m": 0.00871161830115447
+    },
+    {
+      "env_id": 24,
+      "gpu_pivot": false,
+      "cpu_pivot": false,
+      "gpu_max_tilt_deg": 10.540196418762207,
+      "cpu_max_tilt_deg": 10.285722160339407,
+      "terminal_board_position_difference_m": 0.0005662828956400878
+    },
+    {
+      "env_id": 28,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 24.374826431274414,
+      "cpu_max_tilt_deg": 24.037572281217336,
+      "terminal_board_position_difference_m": 0.011721765908704338
+    },
+    {
+      "env_id": 32,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 23.333118438720703,
+      "cpu_max_tilt_deg": 23.15851133885382,
+      "terminal_board_position_difference_m": 0.007847152313877
+    },
+    {
+      "env_id": 36,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 25.93914222717285,
+      "cpu_max_tilt_deg": 26.160487217283602,
+      "terminal_board_position_difference_m": 0.01223840764266583
+    },
+    {
+      "env_id": 40,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 19.48895835876465,
+      "cpu_max_tilt_deg": 21.60430511141557,
+      "terminal_board_position_difference_m": 0.004785860553577533
+    },
+    {
+      "env_id": 44,
+      "gpu_pivot": false,
+      "cpu_pivot": false,
+      "gpu_max_tilt_deg": 9.645344734191895,
+      "cpu_max_tilt_deg": 10.025774993103923,
+      "terminal_board_position_difference_m": 0.00011335882903135676
+    },
+    {
+      "env_id": 48,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 11.479554176330566,
+      "cpu_max_tilt_deg": 22.95115039934355,
+      "terminal_board_position_difference_m": 0.02350564702267737
+    },
+    {
+      "env_id": 52,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 24.65190887451172,
+      "cpu_max_tilt_deg": 24.352245506954603,
+      "terminal_board_position_difference_m": 0.010329157322906036
+    },
+    {
+      "env_id": 56,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.106375694274902,
+      "cpu_max_tilt_deg": 21.944636970480534,
+      "terminal_board_position_difference_m": 0.02142279078352365
+    },
+    {
+      "env_id": 60,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 21.14988136291504,
+      "cpu_max_tilt_deg": 21.067870272671357,
+      "terminal_board_position_difference_m": 0.01134723766284804
+    },
+    {
+      "env_id": 64,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 20.301637649536133,
+      "cpu_max_tilt_deg": 22.400633900360404,
+      "terminal_board_position_difference_m": 0.01438632956210694
+    },
+    {
+      "env_id": 68,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 21.88242530822754,
+      "cpu_max_tilt_deg": 21.172207260660546,
+      "terminal_board_position_difference_m": 0.0080764412013949
+    },
+    {
+      "env_id": 72,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 21.6193904876709,
+      "cpu_max_tilt_deg": 24.16993133444824,
+      "terminal_board_position_difference_m": 0.01641954878381757
+    },
+    {
+      "env_id": 76,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 24.836050033569336,
+      "cpu_max_tilt_deg": 24.245045042256585,
+      "terminal_board_position_difference_m": 0.011135339230368085
+    },
+    {
+      "env_id": 80,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.04455280303955,
+      "cpu_max_tilt_deg": 22.12376551913537,
+      "terminal_board_position_difference_m": 0.022020656200277995
+    },
+    {
+      "env_id": 84,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 12.756555557250977,
+      "cpu_max_tilt_deg": 24.170331008656298,
+      "terminal_board_position_difference_m": 0.02527777861787944
+    },
+    {
+      "env_id": 88,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 20.267818450927734,
+      "cpu_max_tilt_deg": 23.241653094613206,
+      "terminal_board_position_difference_m": 0.030857960657217666
+    },
+    {
+      "env_id": 92,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 22.187767028808594,
+      "cpu_max_tilt_deg": 22.06756573877861,
+      "terminal_board_position_difference_m": 0.003917860115238813
+    },
+    {
+      "env_id": 96,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 20.148588180541992,
+      "cpu_max_tilt_deg": 23.887048295005705,
+      "terminal_board_position_difference_m": 0.022680921484481833
+    },
+    {
+      "env_id": 100,
+      "gpu_pivot": false,
+      "cpu_pivot": false,
+      "gpu_max_tilt_deg": 10.20002555847168,
+      "cpu_max_tilt_deg": 9.998928613761738,
+      "terminal_board_position_difference_m": 0.001395193028191089
+    },
+    {
+      "env_id": 104,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.814140319824219,
+      "cpu_max_tilt_deg": 21.942997654317185,
+      "terminal_board_position_difference_m": 0.02148602745912886
+    },
+    {
+      "env_id": 108,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.03203296661377,
+      "cpu_max_tilt_deg": 21.925471008169676,
+      "terminal_board_position_difference_m": 0.02145026603496136
+    },
+    {
+      "env_id": 112,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 11.650157928466797,
+      "cpu_max_tilt_deg": 23.53855653172723,
+      "terminal_board_position_difference_m": 0.02415639802772461
+    },
+    {
+      "env_id": 116,
+      "gpu_pivot": false,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 10.101587295532227,
+      "cpu_max_tilt_deg": 21.54851863504284,
+      "terminal_board_position_difference_m": 0.021405766155133628
+    },
+    {
+      "env_id": 120,
+      "gpu_pivot": true,
+      "cpu_pivot": true,
+      "gpu_max_tilt_deg": 22.161298751831055,
+      "cpu_max_tilt_deg": 21.492218072524008,
+      "terminal_board_position_difference_m": 0.009372067818430882
+    },
+    {
+      "env_id": 124,
+      "gpu_pivot": false,
+      "cpu_pivot": false,
+      "gpu_max_tilt_deg": 17.28968620300293,
+      "cpu_max_tilt_deg": 19.153215071881494,
+      "terminal_board_position_difference_m": 0.013971040423746082
+    }
+  ]
+}

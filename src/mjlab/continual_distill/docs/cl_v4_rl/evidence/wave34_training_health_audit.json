@@ -1,0 +1,132 @@
+{
+  "updated_utc": "2026-09-13T06:30:21.870211+00:00",
+  "method": "Read-only completed PPO diagnostics and last50 TensorBoard training scalars. These are not strict evaluation results and do not certify policies.",
+  "runs": [
+    {
+      "run_id": "RL-005-R14-reorient-steady",
+      "gpu": 1,
+      "completed_updates": 282,
+      "last_iteration": 16875,
+      "expected_final_checkpoint": "model_18593.pt",
+      "latest_checkpoint": "model_16800.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/reorient_object/episode_success": 0.36853870838880537,
+        "Loss/surrogate": -0.004370759171433747,
+        "Loss/learning_rate": 9.999999747378752e-06,
+        "Train/mean_reward": 313.8878125
+      },
+      "guard_max_accepted_kl": 0.012366577982902527,
+      "guard_total_backtracks": 0,
+      "last50_opposed_capture": 0.945380859375
+    },
+    {
+      "run_id": "RL-021-R6-edge-capture",
+      "gpu": 2,
+      "completed_updates": 182,
+      "last_iteration": 11176,
+      "expected_final_checkpoint": "model_12994.pt",
+      "latest_checkpoint": "model_11100.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/edge_grasp/episode_success": 0.0,
+        "Loss/surrogate": -0.0032136723957955837,
+        "Loss/learning_rate": 9.999999747378752e-06,
+        "Train/mean_reward": 35.83534164428711
+      },
+      "guard_max_accepted_kl": 0.010894649662077427,
+      "guard_total_backtracks": 0,
+      "last50_opposed_capture": 0.0
+    },
+    {
+      "run_id": "RL-023-R9-strike-guard",
+      "gpu": 3,
+      "completed_updates": 1505,
+      "last_iteration": 16497,
+      "expected_final_checkpoint": "model_16992.pt",
+      "latest_checkpoint": "model_16400.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/strike_slide/episode_success": 0.5847441220283508,
+        "Loss/surrogate": -0.0029399709543213247,
+        "Loss/learning_rate": 1.249999968422344e-06,
+        "Train/mean_reward": 53.97789764404297
+      },
+      "guard_max_accepted_kl": 0.02928375080227852,
+      "guard_total_backtracks": 3,
+      "last50_opposed_capture": 0.0
+    },
+    {
+      "run_id": "RL-002-R15-lift-guard",
+      "gpu": 4,
+      "completed_updates": 921,
+      "last_iteration": 18912,
+      "expected_final_checkpoint": "model_19991.pt",
+      "latest_checkpoint": "model_18900.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/lift_object/episode_success": 0.8575218665599823,
+        "Loss/surrogate": -0.004745525410398841,
+        "Loss/learning_rate": 4.999999873689376e-06,
+        "Train/mean_reward": 635.9872216796875
+      },
+      "guard_max_accepted_kl": 0.023361600935459137,
+      "guard_total_backtracks": 1,
+      "last50_opposed_capture": 0.894775390625
+    },
+    {
+      "run_id": "RL-018-R10-stack-support",
+      "gpu": 5,
+      "completed_updates": 742,
+      "last_iteration": 12936,
+      "expected_final_checkpoint": "model_14194.pt",
+      "latest_checkpoint": "model_12900.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/stack_object/episode_success": 0.0196746039763093,
+        "Loss/surrogate": 0.00650080154009629,
+        "Loss/learning_rate": 9.999999747378752e-05,
+        "Train/mean_reward": 184.31686737060548
+      },
+      "guard_max_accepted_kl": 0,
+      "guard_total_backtracks": 0,
+      "last50_opposed_capture": 0.861796875
+    },
+    {
+      "run_id": "RL-020-R10-peg-guard",
+      "gpu": 6,
+      "completed_updates": 225,
+      "last_iteration": 8423,
+      "expected_final_checkpoint": "model_10198.pt",
+      "latest_checkpoint": "model_8400.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/stack_object/episode_success": 0.0,
+        "Loss/surrogate": -0.003091259254142642,
+        "Loss/learning_rate": 4.999999873689376e-06,
+        "Train/mean_reward": 54.810958786010744
+      },
+      "guard_max_accepted_kl": 0.018288716673851013,
+      "guard_total_backtracks": 1,
+      "last50_opposed_capture": 0.71185546875
+    },
+    {
+      "run_id": "RL-022-R3-pivot-transition",
+      "gpu": 7,
+      "completed_updates": 927,
+      "last_iteration": 4425,
+      "expected_final_checkpoint": "model_6498.pt",
+      "latest_checkpoint": "model_4400.pt",
+      "numerical_failure_present": false,
+      "last50_training_metrics": {
+        "Metrics/pivot_lift/episode_success": 0.0,
+        "Loss/surrogate": 0.005265685034391936,
+        "Loss/learning_rate": 9.999999747378752e-05,
+        "Train/mean_reward": 33.58588745117188
+      },
+      "guard_max_accepted_kl": 0,
+      "guard_total_backtracks": 0,
+      "last50_opposed_capture": 0.0
+    }
+  ]
+}

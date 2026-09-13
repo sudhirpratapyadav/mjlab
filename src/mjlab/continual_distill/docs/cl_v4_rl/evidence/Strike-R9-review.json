@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "c0e4d1d7bd028f6bb47e92909bd3f8256ba7c8f2880154283691b8c5c967450a",
+  "reviewed_utc": "2026-09-13T06:50:23.442321+00:00",
+  "verdict": "not certified",
+  "validation_successes": 59,
+  "episodes": 128,
+  "finite_checkpoint_tensors": 76,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "observations": "Recorded success moves the puck onto the yellow target and it remains overlapping the target at the final frame, with hand withdrawn. Selected failure slides beyond the target and stops offset. Full strict result59/128, below116 gate; no confirmation. Endpoint median error86.21mm versus123.71mm at R7; substantial launches121/128,30 undershoots and28 overshoots beyond8cm.",
+  "finite_model_state_tensors": 25
+}

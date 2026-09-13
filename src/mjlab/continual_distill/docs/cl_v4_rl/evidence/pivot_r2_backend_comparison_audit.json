@@ -1,0 +1,62 @@
+{
+  "recorded_utc": "2026-09-13T06:55:26.820718+00:00",
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "method": "Same32 original poses/friction/control archive, float32 physical commands. CPU20deg+wall diagnostic remains28/32 across allconditions. This is a mechanism replay, not trained policy success or certification.",
+  "conditions": [
+    {
+      "condition": "baseline",
+      "source": "src/mjlab/continual_distill/docs/cl_v4_rl/evidence/pivot_r2_gpu_path_audit.json",
+      "episodes": 32,
+      "all_finite": true,
+      "gpu_pivot_count": 14,
+      "cpu_pivot_count": 28,
+      "median_terminal_board_difference_m": 0.013332933387993205,
+      "elliptic_hessian_compat": false,
+      "primitive_box_box_compat": false,
+      "mechanism_disagreements": 14
+    },
+    {
+      "condition": "cone",
+      "source": "src/mjlab/continual_distill/docs/cl_v4_rl/evidence/pivot_r2_gpu_path_cone_audit.json",
+      "episodes": 32,
+      "all_finite": true,
+      "gpu_pivot_count": 15,
+      "cpu_pivot_count": 28,
+      "median_terminal_board_difference_m": 0.013104724033205957,
+      "elliptic_hessian_compat": true,
+      "primitive_box_box_compat": false,
+      "mechanism_disagreements": 13
+    },
+    {
+      "condition": "box",
+      "source": "src/mjlab/continual_distill/docs/cl_v4_rl/evidence/pivot_r2_gpu_path_box_audit.json",
+      "episodes": 32,
+      "all_finite": true,
+      "gpu_pivot_count": 28,
+      "cpu_pivot_count": 28,
+      "median_terminal_board_difference_m": 8.942933921202712e-05,
+      "elliptic_hessian_compat": false,
+      "primitive_box_box_compat": true,
+      "mechanism_disagreements": 0
+    },
+    {
+      "condition": "cone_box",
+      "source": "src/mjlab/continual_distill/docs/cl_v4_rl/evidence/pivot_r2_gpu_path_cone_box_audit.json",
+      "episodes": 32,
+      "all_finite": true,
+      "gpu_pivot_count": 28,
+      "cpu_pivot_count": 28,
+      "median_terminal_board_difference_m": 8.868307686790309e-05,
+      "elliptic_hessian_compat": true,
+      "primitive_box_box_compat": true,
+      "mechanism_disagreements": 0
+    }
+  ],
+  "conclusion": "Primitive box-box compatibility alone matches28/32 CPU mechanism labels and reduces median terminal board position discrepancy13.33mm to0.0894mm. Cone-only15/32 does not resolve disparity; additional cone correction is not justified. Active PivotR3 remains unchanged until fullbudget evaluation. Next bounded PPO preflight should enable primitive box-box only, preserve physical model/native success/interface and use a retained original checkpoint rather than diagnostic data.",
+  "readiness_tests": {
+    "command": "pytest tests/test_box_box_compat.py -q",
+    "passed": 2,
+    "gpu_index": 7,
+    "log": "runs/wave34-box-compat-tests.log"
+  }
+}
