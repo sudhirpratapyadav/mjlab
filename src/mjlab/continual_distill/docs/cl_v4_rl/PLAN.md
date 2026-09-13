@@ -4,15 +4,15 @@
 
 **16/24 independent PPO RL teachers certified.** Cage19092 is newest at119/128 validation and120/128 prospectively frozen confirmation20260916. Its actual videos, all-episode no-pinch aperture audit, finite checkpoint and13-file W&B teacher artifact are verified. Place7500 remains117/128+119/128. Throw9496 failed confirmation107/128 and remains uncertified.
 
-Current full runs: ReorientR11-cpu GPU1 final12596, ThrowR6 GPU2 final13099, StrikeR7 GPU3 final14993, StackR8 GPU5 final10196 and PegR8 GPU6 final8199. LiftR12 completed15993 and is evaluating onGPU4. GPU7 is free after Cage certification; GPU0 remains unused. Every new Slurm step requests8 CPUs, numerical threads1; holder20277 expires2026-09-28T08:58:54 scheduler time.
+Current full runs: ReorientR12 GPU1 final14595, ThrowR6 GPU2 final13099, StrikeR7 GPU3 final14993, LiftR13 GPU4 final17992, StackR8 GPU5 final10196, PegR8 GPU6 final8199 and EdgeR5 GPU7 final10995. GPU0 remains unused. Every new Slurm step requests8 CPUs, numerical threads1; holder20277 expires2026-09-28T08:58:54 scheduler time.
 
-StrikeR6 final12994 scored37/128 after prior42/128. Endpoint errors dominate despite121/128 substantial launches. New strike_v4 doubles fine endpoint and native-success weights while preserving the native gate and reward hierarchy;72 focused checks and finite64x3 PPO preflight passed before original12994x2000 full training. ThrowR6 and all other full runs retain their frozen budgets; Throw conditional confirmation16 remains reserved. Edge and Pivot remain in diagnosis. Native success, physical models and approved60D/8D interface stay fixed.
+StrikeR6 final12994 scored37/128 after prior42/128. Endpoint errors dominate despite121/128 substantial launches. New strike_v4 doubles fine endpoint and native-success weights while preserving the native gate and reward hierarchy;72 focused checks and finite64x3 PPO preflight passed before original12994x2000 full training. ThrowR6 and all other full runs retain their frozen budgets; Throw conditional confirmation16 remains reserved. EdgeR5 passed74 focused checks and finite64x3 before its stronger side-pinch shaping. Pivot remains in diagnosis. Native success, physical models and approved60D/8D interface stay fixed.
 
 ## Acceptance and next actions
 
 Both independent128-episode batches must exceed90% (116+), with actual first-episode video review and retained checkpoint/normalizers/config/source in W&B. Validation20260914; default confirmation20260915. ThrowR6 uses preregistered20260916, excluding retired15; Cage19092 has passed its reserved16. Do not tune on individual confirmation failures or retry old checkpoints on fresh seeds.
 
-Complete full budgets before evaluation. Review Lift15993 next, then completed Reorient12596. Continue Edge/Pivot mechanism diagnosis while the five full runs execute. StrikeR7 uses original12994 and final14993, no preflight checkpoint substitution. Update concise public gallery and scoped W&B after reviewed results. All steps use8 CPUs and UUID pinning within holder20277; leaveGPU0 unused. No shared environment/model/interface/success changes or supervised control demonstrations.
+Complete full budgets before evaluation. Lift15993 improved0→56/128 and Reorient12596 improved0→1/128 with median axis error89.87→39.63deg. Both actual videos reviewed; unchanged full continuations registered. Continue Pivot contact/dynamics diagnosis while seven full runs execute. StrikeR7 uses original12994 and final14993, no preflight checkpoint substitution. Update concise public gallery and scoped W&B after reviewed results. All steps use8 CPUs and UUID pinning within holder20277; leaveGPU0 unused. No shared environment/model/interface/success changes or supervised control demonstrations.
 
 ### Wave22
 

@@ -1,0 +1,20 @@
+{
+  "preregistered_utc": "2026-09-13T03:50:12.237320+00:00",
+  "task": "Mjlab-Reorient-Object-Franka",
+  "run_id": "RL-005-R12-reorient-axis",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-R11-reorient-axis-cpu/model_12596.pt",
+  "source_checkpoint_sha256": "cc698439662ab9f1054b85bd5da87d0ab92dfc85570f733269880c1a7d6156a2",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_14595.pt",
+  "num_envs": 2048,
+  "recipe": "reorient_v8",
+  "learning_rate": 0.0001,
+  "elliptic_hessian_compat": false,
+  "free_body_implicitfast_compat": true,
+  "primitive_box_box_compat": false,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "finite_tensors": 76,
+  "reason": "New axis shaping improves median terminal native angle89.87\u219239.63deg, episodes ever sampled under45deg6\u219282 and terminal opposed capture100\u2192116. Strict1/128 remains below target but physical orientation progress supports unchanged continuation. Preserve all learned state and complete fullbudget before evaluation."
+}
