@@ -10,7 +10,7 @@ Native first uninterrupted episode, deterministic means,60D observations and nor
 
 ## Active work
 
-- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; GPU7 CageR11-cpu final19092. Six full runs are live; evaluate after their frozen budgets. StrikeR6 completed12994 and strict37/128; GPU3 is free pending endpoint precision diagnosis.
+- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; CageR11-cpu completed19092 and is evaluating onGPU7 with conditional confirmation16. Five full runs are live; evaluate after their frozen budgets. StrikeR6 completed12994 and strict37/128; GPU3 is free pending endpoint precision diagnosis.
 - Four CPU migrations preserve the original final labels; see cpu_affinity_migration_audit.json. Every new step requests8 CPUs and keeps numerical library threads at1.
 - Cage/Throw confirmation16 is reserved; do not reuse retired15 or evaluate earlier checkpoints against a new confirmation.
 - Edge8996 plateaued39.53mm from side pinch, mainly vertical; Pivot still lacks tipping. Continue physical/contact diagnosis while full trainers run.
