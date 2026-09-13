@@ -1,0 +1,61 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T14:54:19.197152+00:00",
+  "checkpoint_sha256": "85207746d7b475e873fc786aec231534a700969fa32547993ed6852f7ba789ea",
+  "verdict": "fail_success_and_motion_quality_early_termination",
+  "validation_successes": 25,
+  "confirmation_run": false,
+  "episodes": 128,
+  "termination_counts": {
+    "time_out": 28,
+    "ee_ground_collision": 99,
+    "object_out_of_bounds": 1
+  },
+  "median_duration_s": 0.56,
+  "mean_duration_s": 5.09953125,
+  "episodes_reaching20s": 28,
+  "actual_frames_inspected": [
+    "after-0-0025.png"
+  ],
+  "visual_note": "Failure endpoint shows end effector at the table. The source native ground-collision termination occurs at0.50s. Do not label this early-failure behavior smooth despite lower median acceleration proxy.",
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 25,
+      "seconds": 0.5,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s6/",
+  "baseline_preserved": true
+}

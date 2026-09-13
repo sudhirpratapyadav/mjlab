@@ -2,7 +2,7 @@
 
 **Current: S6 rejected after widespread early ground collisions (25/128, median0.56s). S7/S8 preflights test a common survival bonus with10×/3×motion penalties on Lift only. Other23teacherspaused. See Lift-S7/S8-evaluation-plan.json.**
 
-**Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and Lift-S6-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
+**Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and Lift-S7-evaluation-plan.json / Lift-S8-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 
