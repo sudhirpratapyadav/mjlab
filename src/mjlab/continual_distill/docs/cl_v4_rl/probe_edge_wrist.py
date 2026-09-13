@@ -22,6 +22,7 @@ def main():
   parser.add_argument('--evaluation',type=Path,required=True)
   parser.add_argument('--approach-audit',type=Path,required=True)
   parser.add_argument('--output',type=Path,required=True)
+  parser.add_argument('--recorded-opening',action='store_true',help='Keep the original recorded finger positions for an aperture ablation')
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
   audit = json.loads(args.approach_audit.read_text())
@@ -57,7 +58,9 @@ def main():
       if kind==mujoco.mjtJoint.mjJNT_FREE:
         data.qpos[address:address+3] -= trace['origins'][lane]
     data.mocap_pos[:] -= trace['origins'][lane]
-    data.qpos[finger_addresses] = .035
+    if not args.recorded_opening:
+      data.qpos[finger_addresses] = .035
+    opening = data.qpos[finger_addresses].copy()
     mujoco.mj_kinematics(model,data)
     ledge_rotation = data.xmat[ledge].reshape(3,3).copy()
     target = data.site_xpos[plate]-.065*ledge_rotation[:,0]+np.array([0.,0.,.005])
@@ -90,13 +93,14 @@ def main():
                               qpos=result.x.tolist(),solver_evaluations=result.nfev))
       best = min(solutions,key=lambda row:(not row['passes_endpoint_gate'],row['position_error_m']+.001*row['orientation_error_deg']))
       cases.append(dict(heading_deg=angle,**best))
-    rows.append(dict(env_id=lane,target_m=target.tolist(),cases=cases))
+    rows.append(dict(env_id=lane,target_m=target.tolist(),finger_qpos_m=opening.tolist(),cases=cases))
     if len(rows)%8==0:
       print(f'Checked {len(rows)} exposed poses',flush=True)
   summary = {str(angle):sum(next(case for case in row['cases'] if case['heading_deg']==angle)['passes_endpoint_gate'] for row in rows) for angle in [0.,70.,-70.]}
   summary['either_angled_heading'] = sum(any(case['passes_endpoint_gate'] for case in row['cases'] if case['heading_deg']!=0) for row in rows)
   report = dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
-                method='32 evenly indexed recorded exposed-plate poses. Bounded endpoint IK, three seeds per frame; headings0,+70,-70deg in ledge frame,20deg downward pitch,35mm/finger opening. Pass: position<2cm, orientation<15deg, no recomputed robot/ledge/floor penetration deeper than3mm. No integration, trajectory feasibility, demonstrations or RL success claim.',
+                recorded_opening=args.recorded_opening,
+                method='32 evenly indexed recorded exposed-plate poses. Bounded endpoint IK, three seeds per frame; headings0,+70,-70deg in ledge frame,20deg downward pitch. Finger positions recorded in each row: original when recorded_opening is true, otherwise35mm/finger. Pass: position<2cm, orientation<15deg, no recomputed robot/ledge/floor penetration deeper than3mm. No integration, trajectory feasibility, demonstrations or RL success claim.',
                 endpoint_pass_counts=summary,poses=len(rows),rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n')
   print(json.dumps(summary,indent=2))

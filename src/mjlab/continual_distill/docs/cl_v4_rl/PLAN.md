@@ -2,20 +2,17 @@
 
 ## Current state
 
-15/24 independent PPO teachers certified. Place7500 is newly certified117/128+119/128. Current inventory and outcome table are in STATUS.md and evidence/training_wave28.json; the entries below Wave22 onward are chronological history.
+**16/24 independent PPO RL teachers certified.** Cage19092 is newest at119/128 validation and120/128 prospectively frozen confirmation20260916. Its actual videos, all-episode no-pinch aperture audit, finite checkpoint and13-file W&B teacher artifact are verified. Place7500 remains117/128+119/128. Throw9496 failed confirmation107/128 and remains uncertified.
 
-## Acceptance
+Current full runs: ReorientR11-cpu GPU1 final12596, ThrowR6 GPU2 final13099, StrikeR7 GPU3 final14993, StackR8 GPU5 final10196 and PegR8 GPU6 final8199. LiftR12 completed15993 and is evaluating onGPU4. GPU7 is free after Cage certification; GPU0 remains unused. Every new Slurm step requests8 CPUs, numerical threads1; holder20277 expires2026-09-28T08:58:54 scheduler time.
 
-Native first uninterrupted episode, deterministic means,60D observations and normalized8D absolute joint targets. Both independent128-episode batches must exceed90% (116+), followed by actual video review and retained checkpoint/normalizers/config/source in W&B. Validation seed20260914; default confirmation20260915. CageR11 and ThrowR6 prospectively use20260916 because their prior confirmation15 failed; never retest the old checkpoint on a fresh seed or tune on individual confirmation failures. Respect each preregistered full budget and backend lineage.
+StrikeR6 final12994 scored37/128 after prior42/128. Endpoint errors dominate despite121/128 substantial launches. New strike_v4 doubles fine endpoint and native-success weights while preserving the native gate and reward hierarchy;72 focused checks and finite64x3 PPO preflight passed before original12994x2000 full training. ThrowR6 and all other full runs retain their frozen budgets; Throw conditional confirmation16 remains reserved. Edge and Pivot remain in diagnosis. Native success, physical models and approved60D/8D interface stay fixed.
 
-## Active work
+## Acceptance and next actions
 
-- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; CageR11-cpu completed19092 and is evaluating onGPU7 with conditional confirmation16. Five full runs are live; evaluate after their frozen budgets. StrikeR6 completed12994 and strict37/128; GPU3 is free pending endpoint precision diagnosis.
-- Four CPU migrations preserve the original final labels; see cpu_affinity_migration_audit.json. Every new step requests8 CPUs and keeps numerical library threads at1.
-- Cage/Throw confirmation16 is reserved; do not reuse retired15 or evaluate earlier checkpoints against a new confirmation.
-- Edge8996 plateaued39.53mm from side pinch, mainly vertical; Pivot still lacks tipping. Continue physical/contact diagnosis while full trainers run.
+Both independent128-episode batches must exceed90% (116+), with actual first-episode video review and retained checkpoint/normalizers/config/source in W&B. Validation20260914; default confirmation20260915. ThrowR6 uses preregistered20260916, excluding retired15; Cage19092 has passed its reserved16. Do not tune on individual confirmation failures or retry old checkpoints on fresh seeds.
 
-Keep native success/physical models and the approved interface fixed. Record every reward/optimizer/backend change and validate it before full training. No shared environment edits, invalid-lane exclusion, state clipping, or scripted policy actions. Publish concise reviewed actual policy media; detailed records remain scoped to the project W&B. LeaveGPU0 unused and verify CPU as well as GPU placement within holder20277. Holder expires2026-09-28T08:58:54 scheduler time.
+Complete full budgets before evaluation. Review Lift15993 next, then completed Reorient12596. Continue Edge/Pivot mechanism diagnosis while the five full runs execute. StrikeR7 uses original12994 and final14993, no preflight checkpoint substitution. Update concise public gallery and scoped W&B after reviewed results. All steps use8 CPUs and UUID pinning within holder20277; leaveGPU0 unused. No shared environment/model/interface/success changes or supervised control demonstrations.
 
 ### Wave22
 

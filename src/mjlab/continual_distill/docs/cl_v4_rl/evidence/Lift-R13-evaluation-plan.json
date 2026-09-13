@@ -1,0 +1,19 @@
+{
+  "preregistered_utc": "2026-09-13T03:43:32.390129+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-R13-lift-arm-hold",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-R12-lift-arm-hold-cpu/model_15993.pt",
+  "source_checkpoint_sha256": "a96eac3226e44adb530b6423a5cca2ab45e81fdb6a84e5d8e2966eb947a84b43",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_17992.pt",
+  "num_envs": 2048,
+  "recipe": "lift_v9",
+  "learning_rate": 0.0001,
+  "elliptic_hessian_compat": true,
+  "free_body_implicitfast_compat": false,
+  "primitive_box_box_compat": false,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "reason": "Strict improvement0\u219256/128 with actual sustained lift/hold. Continue unchanged learned policy/Adam/normalizers/std after finite checkpoint verification; no preflight needed for unchanged recipe/backend. Finish full budget before evaluation."
+}

@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "a96eac3226e44adb530b6423a5cca2ab45e81fdb6a84e5d8e2966eb947a84b43",
+  "reviewed_utc": "2026-09-13T03:43:32.390129+00:00",
+  "verdict": "not certified",
+  "validation_successes": 56,
+  "episodes": 128,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success50 lifts cube from table, transports to goal and holds at10s/20s. Failure14 also lifts and holds near target but native strict predicate fails; a visually quiet frame is not a settling certificate. Native rates rise0\u219256/128 under lift_v9. Exact-control/velocity endpoint audit is retained separately.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}

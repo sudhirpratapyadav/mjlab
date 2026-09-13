@@ -125,7 +125,13 @@ def edge_side_alignment(axes, far_axis):
   return torch.stack(scores).amax(0)
 
 
-def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, **kwargs):
+def edge_side_pinch_score(distance, alignment, orientation_power=1.):
+  alignment = alignment.pow(orientation_power)
+  return (torch.exp(-distance/.15)*(.25+.75*alignment)
+          +.5*torch.exp(-distance/.04)*alignment)
+
+
+def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, pinch_weight=1., orientation_power=1., **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -148,12 +154,11 @@ def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, co
   pinch = torch.exp(-pinch_distance/.10)*(.25+.75*axes[1][:,2].abs())
   if side_wrist:
     alignment = edge_side_alignment(axes,far_axis)
-    pinch = (torch.exp(-pinch_distance/.15)*(.25+.75*alignment)
-             +.5*torch.exp(-pinch_distance/.04)*alignment)
+    pinch = edge_side_pinch_score(pinch_distance,alignment,orientation_power)
   closure = smooth_closure_bonus(pinch_distance,aperture)
   if contact_geometry:
     closure = capture_aperture_bonus(command,pinch_distance,squeeze=True,centerline=True)
-  pinch *= 1+closure
+  pinch *= pinch_weight*(1+closure)
   precursor = ((1-exposure)*push+exposure*pinch+4*exposure)*at_ledge
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
   if contact_geometry:

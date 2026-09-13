@@ -193,3 +193,33 @@ def test_strike_endpoint_recipe_keeps_success_above_all_shaping(monkeypatch):
   assert params['endpoint_precision_weight']==8.
   params['endpoint_precision_weight']=4.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_edge_pinch_precision_rewards_better_position_and_wrist(monkeypatch):
+  reward=module(monkeypatch)
+  distance=torch.tensor([.04,.04],requires_grad=True)
+  alignment=torch.tensor([.73,1.],requires_grad=True)
+  score=reward.edge_side_pinch_score(distance,alignment,2.)
+  assert score[1]>score[0]
+  assert score[0]<reward.edge_side_pinch_score(distance,alignment,1.)[0]
+  score.sum().backward()
+  assert (distance.grad<0).all() and (alignment.grad>0).all()
+  assert reward.edge_side_pinch_score(torch.zeros(1),torch.ones(1),2.)==1.5
+
+
+def test_edge_pinch_recipe_preserves_benchmark_and_native_dominance(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Edge-Grasp-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'edge_v3');recipes.apply_recipe(new,'edge_v4')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  # Side approach <=1.5, aperture bonus <=1, exposure <=4; native completion25.
+  assert 1.5*2*params['pinch_weight']+4<25
+  assert params.pop('pinch_weight')==4.
+  assert params.pop('orientation_power')==2.
+  assert repr(old.env.rewards)==repr(new.env.rewards)
