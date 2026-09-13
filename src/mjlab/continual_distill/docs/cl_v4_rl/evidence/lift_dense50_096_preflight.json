@@ -1,0 +1,27 @@
+{
+  "run_id": "PREFLIGHT-LIFT-DENSE50-096",
+  "updates": 100,
+  "finite_tensors": 76,
+  "checkpoint_sha256": "132b8f6d9c11bca3cfee3b9aec603cfdede6300ab33ad050d2e7b61d07cf0a87",
+  "max_accepted_kl": 0.029546895995736122,
+  "backtracks": 24,
+  "learning_rate_ceiling": 2.5e-05,
+  "saved_learning_rate": 2.5e-05,
+  "per_update_rate_rule_verified": true,
+  "resume_arm_std": 0.01,
+  "final_std": [
+    0.00987396202981472,
+    0.010205204598605633,
+    0.009932205080986023,
+    0.009902313351631165,
+    0.009947807528078556,
+    0.009865970350801945,
+    0.00999755784869194,
+    0.04426576569676399
+  ],
+  "last_logged_mean_reward": -1433.48,
+  "last_logged_mean_episode_steps": 981.57,
+  "last_logged_goal_error_m": 0.0915,
+  "verdict": "finite_preflight_pass_not_success_or_motion_certification",
+  "readiness_note": "Reduced arm noise improves episode retention and grasp distance relative to rejected.03 checks. Lower dense-goal side still has negative meanreturn; monitor earlyfailures in finalreview. These traininglogs are not native terminal-success evaluation."
+}

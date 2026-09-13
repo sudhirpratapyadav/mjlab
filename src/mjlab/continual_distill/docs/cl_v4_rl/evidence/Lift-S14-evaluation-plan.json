@@ -31,7 +31,7 @@
   "update_learning_rate_ceiling": 2.5e-05,
   "survival_bonus_rate": 500.0,
   "native_completion_weight": 100.0,
-  "reason": "S13 full1000-update target-cost1000 trial: native59/128, medianacceleration16.351/p9533.708,p95speed7.496. Still rejected. Its mean target-error cost is lower but median first-command excess squared error22.546rad\u00b2 remains high (S7 21.652); learned arm std.0026\u2013.0071 is narrow. Use this completed partial-progress model as TRAININGparent, neverpromotion. Both newtrials preserve S13 motioncosts,target1000,survival500/s,nativecompletion100 and separate clipping, and share arm-only exploration reset.03 (gripper mean/std untouched) withLR2.5e-5 ceiling/KL.03. VaryONLY existing dense goal-distance coefficient5\u219250 or500: continuous credit outside5cm native successregion. This comparison isolates dense goalweight under common revised exploration/optimizer; it does not isolate either common change. PriorS2 noise-only weak-cost trial failed, so no assumption noise alone solves this. Nativepredicate,60D/8D,physics/resets/20s/50Hz unchanged. Preflights094/095 x100(final25586) mustpass76finite/KL/ratechecks. Fullpilots restart ORIGINALS13,1500updates(final26986),neverpreflightmodels. No interimselection. Freshconditionalconfirmations30/20261001; fixed0/1/2 real-timevideos, all128includingfailures. Other23paused. REVISION BEFORE ANY FULL RUN: .03-arm-noise preflights094/095 are finite but cause strongly negative meanreturns(~-10379/-10359), late logged goalerrors .185/.179m and grasp disruption. Rejectfulltrainingat.03. Reduce common arm-only reset to.01 and require fresh100-updatepreflights096/097 from ORIGINALS13; all full budgets, source, rewards,LR/KL andseedplans unchanged. Historical preflight models are excluded asparents. Original common-setting statement above is superseded only forarmstd.",
+  "reason": "S13 full1000-update target-cost1000 trial: native59/128, medianacceleration16.351/p9533.708,p95speed7.496. Still rejected. Its mean target-error cost is lower but median first-command excess squared error22.546rad\u00b2 remains high (S7 21.652); learned arm std.0026\u2013.0071 is narrow. Use this completed partial-progress model as TRAININGparent, neverpromotion. Both newtrials preserve S13 motioncosts,target1000,survival500/s,nativecompletion100 and separate clipping, and share arm-only exploration reset.03 (gripper mean/std untouched) withLR2.5e-5 ceiling/KL.03. VaryONLY existing dense goal-distance coefficient5\u219250 or500: continuous credit outside5cm native successregion. This comparison isolates dense goalweight under common revised exploration/optimizer; it does not isolate either common change. PriorS2 noise-only weak-cost trial failed, so no assumption noise alone solves this. Nativepredicate,60D/8D,physics/resets/20s/50Hz unchanged. Preflights094/095 x100(final25586) mustpass76finite/KL/ratechecks. Fullpilots restart ORIGINALS13,1500updates(final26986),neverpreflightmodels. No interimselection. Freshconditionalconfirmations30/20261001; fixed0/1/2 real-timevideos, all128includingfailures. Other23paused. REVISION BEFORE ANY FULL RUN: .03-arm-noise preflights094/095 are finite but cause strongly negative meanreturns(~-10379/-10359), late logged goalerrors .185/.179m and grasp disruption. Rejectfulltrainingat.03. Reduce common arm-only reset to.01 and require fresh100-updatepreflights096/097 from ORIGINALS13; all full budgets, source, rewards,LR/KL andseedplans unchanged. Historical preflight models are excluded asparents. Original common-setting statement above is superseded only forarmstd. Fresh.01 checks096/097 passed; logged episode lengths981.57/962.81 steps and gripper-object distances.0283/.0224m improve versus.03. Gripper mean/std are unchanged only by the reset; PPO continues training all8 outputs. Full pilot starts ORIGINALS13, not anypreflight model.",
   "separate_gradient_clipping": true,
   "arm_target_error_weight": -1000.0,
   "arm_target_error_deadband_rad": 0.05,
@@ -68,5 +68,32 @@
       "reason": "Wider arm noise disrupts grasp/goal tracking and gives strongly negative stochastic returns. No strict success claim from training metrics. Do not use these models as parents or launch1500updates at this noise setting."
     }
   ],
-  "revised_before_full_training_utc": "2026-09-13T16:43:20.750976+00:00"
+  "revised_before_full_training_utc": "2026-09-13T16:43:20.750976+00:00",
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-DENSE50-096",
+    "updates": 100,
+    "finite_tensors": 76,
+    "checkpoint_sha256": "132b8f6d9c11bca3cfee3b9aec603cfdede6300ab33ad050d2e7b61d07cf0a87",
+    "max_accepted_kl": 0.029546895995736122,
+    "backtracks": 24,
+    "learning_rate_ceiling": 2.5e-05,
+    "saved_learning_rate": 2.5e-05,
+    "per_update_rate_rule_verified": true,
+    "resume_arm_std": 0.01,
+    "final_std": [
+      0.00987396202981472,
+      0.010205204598605633,
+      0.009932205080986023,
+      0.009902313351631165,
+      0.009947807528078556,
+      0.009865970350801945,
+      0.00999755784869194,
+      0.04426576569676399
+    ],
+    "last_logged_mean_reward": -1433.48,
+    "last_logged_mean_episode_steps": 981.57,
+    "last_logged_goal_error_m": 0.0915,
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification",
+    "readiness_note": "Reduced arm noise improves episode retention and grasp distance relative to rejected.03 checks. Lower dense-goal side still has negative meanreturn; monitor earlyfailures in finalreview. These traininglogs are not native terminal-success evaluation."
+  }
 }
