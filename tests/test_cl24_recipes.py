@@ -31,6 +31,8 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_smooth_goal100"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_target100"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_target1000"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_dense50"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_dense500"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -185,6 +187,33 @@ def test_target_cost_distinguishes_nearby_commands_and_excludes_gripper(monkeypa
   assert cost[2]>cost[1]>cost[0]
   torch.testing.assert_close(target,before,rtol=0,atol=0)
   assert position.count_nonzero()==0
+
+
+@pytest.mark.parametrize('recipe,weight',[
+  ('lift_smooth_dense50',50.),('lift_smooth_dense500',500.)])
+def test_dense_goal_reward_gives_credit_outside_success_region(monkeypatch,recipe,weight):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));module=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  module.apply_recipe(old,'lift_smooth_target1000');module.apply_recipe(new,recipe)
+  assert new.env.rewards['reach_object'].params.pop('goal_weight')==weight
+  assert asdict(old.agent)==asdict(new.agent) and repr(old.env)==repr(new.env)
+  position=torch.tensor([[0.,0.,.2]]*3)
+  obj=SimpleNamespace(data=SimpleNamespace(root_link_pos_w=position))
+  command=SimpleNamespace(goal=position+torch.tensor([[.08,0.,0.],[.07,0.,0.],[.07,0.,0.]]))
+  held=torch.tensor([1.,1.,0.])
+  monkeypatch.setattr(module,'grasp_components',lambda *a,**kw:(command,obj,torch.zeros(3),torch.zeros(3),held))
+  monkeypatch.setattr(module,'tracking_goal',lambda c:c.goal)
+  monkeypatch.setattr(module,'tracking_position',lambda o:o.data.root_link_pos_w)
+  env=SimpleNamespace(scene=SimpleNamespace(env_origins=torch.zeros(3,3)))
+  previous=module.lift_grasp_reward(env,'lift_object')
+  explicit=module.lift_grasp_reward(env,'lift_object',goal_weight=5.)
+  torch.testing.assert_close(previous,explicit,rtol=0,atol=0)
+  revised=module.lift_grasp_reward(env,'lift_object',goal_weight=weight)
+  expected=(weight-5.)*torch.exp(-torch.tensor([.08,.07,.07])/.12)*held
+  torch.testing.assert_close(revised-previous,expected)
+  assert revised[1]>revised[0] and revised[2]==0
 
 
 def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):

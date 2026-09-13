@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current: S9/S10 failed native success (37/128 and1/128). S9 halves upper-tail acceleration but still has fast starts and inaccurate holds. S11–S13 continue fixed optimizer/target-cost trials onGPUs3–5. Other23 teachers paused; certified baseline preserved.**
+**Current: S11–S13 finished and failed success/motion review (11/128,3/128,59/128). All training is currently complete. S14/S15 preflights are prepared from S13: wider arm exploration and a10× bracket of continuous goal reward, with existing motion costs retained. Other23 teachers paused; baseline preserved.**
 
 **Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and the current Lift evaluation plans. This supersedes the blanket pause only for Lift.**
 

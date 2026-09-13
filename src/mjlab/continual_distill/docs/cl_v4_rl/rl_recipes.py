@@ -20,6 +20,7 @@ RECIPES += ("lift_smooth_v1", "lift_smooth_v2", "lift_smooth_x10", "lift_smooth_
 RECIPES += ("lift_smooth_live_x3", "lift_smooth_live_x10")
 RECIPES += ("lift_smooth_goal50", "lift_smooth_goal100")
 RECIPES += ("lift_smooth_target100", "lift_smooth_target1000")
+RECIPES += ("lift_smooth_dense50", "lift_smooth_dense500")
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("pivot_v5",)
@@ -80,7 +81,7 @@ def lift_arm_hold_bonus(goal_error, arm_target_error_rms, held):
   return held*torch.exp(-goal_error/.05)/(1+arm_target_error_rms/.2)
 
 
-def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, quiet_weight=5., native_completion_weight=0., arm_hold_weight=0., **kwargs):
+def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, quiet_weight=5., native_completion_weight=0., arm_hold_weight=0., goal_weight=5., **kwargs):
   command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name,**kwargs)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
@@ -88,7 +89,7 @@ def lift_grasp_reward(env, command_name, object_asset_name="object", closure_wei
   goal_error = torch.linalg.vector_norm(tracking_goal(command)-tracking_position(obj),dim=-1)
   goal = torch.exp(-goal_error/0.12)*held
   grasp_bonus = 4 if kwargs.get('geometry_aperture',False) else 2
-  reward = approach + closure_weight*closing + grasp_bonus*held + 3*lift + 5*goal
+  reward = approach + closure_weight*closing + grasp_bonus*held + 3*lift + goal_weight*goal
   if settle_grip:
     finger = command.robot.joint_names.index('finger_joint1')
     actuator = env.sim.mj_model.actuator(f'{command.robot_cfg.name}/actuator8').id
@@ -136,6 +137,11 @@ def apply_recipe(cfg, recipe):
       raise ValueError("stack_v1 requires Stack-Cube")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params.update(release_weight=10.,support_open_weight=3.)
+    return
+  if recipe in ("lift_smooth_dense50", "lift_smooth_dense500"):
+    apply_recipe(cfg, "lift_smooth_target1000")
+    cfg.env.rewards['reach_object'].params['goal_weight'] = (
+      50. if recipe == "lift_smooth_dense50" else 500.)
     return
   if recipe in ("lift_smooth_target100", "lift_smooth_target1000"):
     from mjlab.tasks.manipulation.mdp.rewards import joint_target_error_penalty

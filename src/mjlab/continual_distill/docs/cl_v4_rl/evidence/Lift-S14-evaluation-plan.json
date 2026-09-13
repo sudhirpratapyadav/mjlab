@@ -1,0 +1,42 @@
+{
+  "preregistered_utc": "2026-09-13T16:37:51.579175+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S14-lift-dense50",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S13-lift-target1000/model_25487.pt",
+  "source_checkpoint_sha256": "6d1cbfedf4d9ca18744d17154437103953f529b430d73e4c6c23bf7352d9ef6b",
+  "updates": 1500,
+  "expected_final_checkpoint": "model_26986.pt",
+  "recipe": "lift_smooth_dense50",
+  "physical_gpu_index": 1,
+  "learning_rate": 2.5e-05,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260930,
+  "episodes_per_batch": 128,
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "preflight_run_id": "PREFLIGHT-LIFT-DENSE50-094",
+  "preflight_updates": 100,
+  "preflight_initial_learning_rate": 2.5e-05,
+  "update_learning_rate_ceiling": 2.5e-05,
+  "survival_bonus_rate": 500.0,
+  "native_completion_weight": 100.0,
+  "reason": "S13 full1000-update target-cost1000 trial: native59/128, medianacceleration16.351/p9533.708,p95speed7.496. Still rejected. Its mean target-error cost is lower but median first-command excess squared error22.546rad\u00b2 remains high (S7 21.652); learned arm std.0026\u2013.0071 is narrow. Use this completed partial-progress model as TRAININGparent, neverpromotion. Both newtrials preserve S13 motioncosts,target1000,survival500/s,nativecompletion100 and separate clipping, and share arm-only exploration reset.03 (gripper mean/std untouched) withLR2.5e-5 ceiling/KL.03. VaryONLY existing dense goal-distance coefficient5\u219250 or500: continuous credit outside5cm native successregion. This comparison isolates dense goalweight under common revised exploration/optimizer; it does not isolate either common change. PriorS2 noise-only weak-cost trial failed, so no assumption noise alone solves this. Nativepredicate,60D/8D,physics/resets/20s/50Hz unchanged. Preflights094/095 x100(final25586) mustpass76finite/KL/ratechecks. Fullpilots restart ORIGINALS13,1500updates(final26986),neverpreflightmodels. No interimselection. Freshconditionalconfirmations30/20261001; fixed0/1/2 real-timevideos, all128includingfailures. Other23paused.",
+  "separate_gradient_clipping": true,
+  "arm_target_error_weight": -1000.0,
+  "arm_target_error_deadband_rad": 0.05,
+  "resume_arm_std": 0.03,
+  "dense_goal_weight": 50.0,
+  "num_envs": 2048,
+  "training_seed": 20260912
+}

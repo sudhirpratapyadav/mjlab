@@ -23,9 +23,12 @@ def main():
   assert manifest['task'] == plan['task']
   assert manifest['requested_updates'] == plan['updates']
   assert manifest['resume_sha256'] == plan['source_checkpoint_sha256']
-  for key in ('recipe', 'max_update_kl', 'update_learning_rate_ceiling', 'separate_gradient_clipping'):
+  for key in ('recipe', 'max_update_kl', 'update_learning_rate_ceiling', 'separate_gradient_clipping', 'resume_arm_std', 'num_envs'):
     if key in plan:
       assert manifest.get(key) == plan[key], f'Training manifest differs from plan: {key}'
+  for planned, recorded in (('learning_rate', 'learning_rate_override'), ('training_seed', 'seed')):
+    if planned in plan:
+      assert manifest.get(recorded) == plan[planned], f'Training manifest differs from plan: {planned}'
   assert os.environ['CUDA_VISIBLE_DEVICES'] == manifest['gpu_uuid']
   assert os.environ['PYTHONPATH'] == str(Path(manifest['worktree']) / 'src')
   assert plan['validation_seed'] == 20260914 and plan['episodes_per_batch'] == 128
