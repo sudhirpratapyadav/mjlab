@@ -139,3 +139,5 @@ Pivot tracking audit: corrected hold misses its nominal hand target by median5.6
 StrikeR6/final12994 strict37/128 versus42/128 before; no confirmation. Diagnose endpoint error before another continuation.
 
 Wave34 Pivot readiness: corrected all8D-bounded32-state replay shows CPU28/32 versus baselineGPU14/32 tilt+wall mechanism; existing primitive-box compatibility restoresGPU28/32 and median endpoint parity0.0894mm. Diagnostic only. Complete currentR3 fullbudget/evaluation, then select/preregister retained-checkpoint primitive-only PPO preflight; no changes to active training or native physical model/interface. Evidence: pivot_r2_backend_comparison_audit.json.
+
+Wave34 evaluation scheduling: wait_for_final_evaluation.py is watching each of the seven identified trainer processes. It starts the existing strict evaluator only after process exit and verification of that plan's finite final checkpoint; no intermediate evaluation. Each run/evaluation-dispatch.json records progress, and per-run locks prevent duplicate dispatch. Actual video review and both independent>90% batches remain mandatory.
