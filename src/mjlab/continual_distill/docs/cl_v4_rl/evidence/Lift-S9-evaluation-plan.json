@@ -1,0 +1,35 @@
+{
+  "preregistered_utc": "2026-09-13T15:30:13.383656+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S9-lift-goal50",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S7-lift-live-x10/model_24488.pt",
+  "source_checkpoint_sha256": "431d89d6358948b51e3049f315bdf3cdae4c9a180fdb43ec62b50680358204bf",
+  "updates": 1000,
+  "expected_final_checkpoint": "model_25487.pt",
+  "recipe": "lift_smooth_goal50",
+  "physical_gpu_index": 1,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260925,
+  "episodes_per_batch": 128,
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "preflight_run_id": "PREFLIGHT-LIFT-GOAL50-086",
+  "preflight_updates": 100,
+  "preflight_initial_learning_rate": 5e-06,
+  "update_learning_rate_ceiling": 5e-06,
+  "survival_bonus_rate": 500.0,
+  "native_completion_weight": 50.0,
+  "reason": "S7 survival-aware10\u00d7motion costs yield103/128 with124full20s episodes and median accelerationproxy27.848 versus retainedR16 56.949 (51%lower), but p95acceleration53.258 andp95peak7.861 remainhigh. S8 at3\u00d7 gives112/128 butmedianacceleration53.060. Preserve S7 as a partial-motion-improvement training parent, NOT a certified replacement. Hold its motion costs, survival500/s, learned exploration, normalization and optimizer state; vary ONLY existing native_completion_weight25\u219250 or100. Native predicate and all other task/reward settings unchanged. Both100-updatepreflights from ORIGINALS7 must befinite with valid5e-6ceiling/KL.03. Full pilots restart ORIGINALS7 for1000updates,2048envs/seed20260912/final25487; no preflightparent or interimselection. Compare all128successes/failures, durations, median ANDp95motion; highinitialspeed remainsunresolved. Samefixed0/1/2real-timevideos, freshconditionalconfirmations. Hypothesis: regain native goal precision while retaining reduced typical held jitter; no guarantee this fixes speed or achieves allmotiongates. Other23 teachers paused."
+}

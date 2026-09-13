@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current: S6 rejected after widespread early ground collisions (25/128, median0.56s). S7/S8 are training1000updates each with a common survival bonus with10×/3×motion penalties on Lift only. Other23teacherspaused. See Lift-S7/S8-evaluation-plan.json.**
+**Current: S7/S8 finished at103/128 and112/128. S7 halves median acceleration proxy but still fails speed/upper-tailmotion andsuccess targets. S9/S10 preflights test stronger native-completion reward fromS7 while retaining its motion penalties. Other23teacherspaused. See Lift-S9/S10-evaluation-plan.json.**
 
 **Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and Lift-S7-evaluation-plan.json / Lift-S8-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
 
@@ -47,7 +47,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Paused | 0/128 R6 final12994 | Matched CPU7/GPU3 diagnostic held lifts; clearance waypoint reward, no backend change. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | S7/S8 training; motion unresolved | Baseline118/128 +117/128 | R16 retained; S4 111/128, S5 116/128 +118/128, both fail motion targets. |
+| Lift-Cube | 20 | on | S9/S10 preflights; motion unresolved | Baseline118/128 +117/128 | R16 retained; S4 111/128, S5 116/128 +118/128, both fail motion targets. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |

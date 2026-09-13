@@ -18,6 +18,7 @@ RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("lift_smooth_v1", "lift_smooth_v2", "lift_smooth_x10", "lift_smooth_x100")
 RECIPES += ("lift_smooth_live_x3", "lift_smooth_live_x10")
+RECIPES += ("lift_smooth_goal50", "lift_smooth_goal100")
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("pivot_v5",)
@@ -134,6 +135,11 @@ def apply_recipe(cfg, recipe):
       raise ValueError("stack_v1 requires Stack-Cube")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params.update(release_weight=10.,support_open_weight=3.)
+    return
+  if recipe in ("lift_smooth_goal50", "lift_smooth_goal100"):
+    apply_recipe(cfg, "lift_smooth_live_x10")
+    cfg.env.rewards['reach_object'].params['native_completion_weight'] = (
+      50. if recipe == "lift_smooth_goal50" else 100.)
     return
   if recipe in ("lift_smooth_live_x3", "lift_smooth_live_x10"):
     from mjlab.envs.mdp.rewards import is_alive

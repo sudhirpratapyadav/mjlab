@@ -27,6 +27,8 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_smooth_x100"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_live_x3"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_live_x10"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_goal50"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_goal100"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -141,6 +143,20 @@ def test_lift_survival_bonus_preserves_full_episode_ranking_and_native_task(monk
   assert contribution[0]*1000==10000.
   gamma=.995
   assert 10*sum(gamma**i for i in range(1000))>10*sum(gamma**i for i in range(24))
+
+
+@pytest.mark.parametrize('recipe,weight',[('lift_smooth_goal50',50.),('lift_smooth_goal100',100.)])
+def test_lift_goal_balance_keeps_motion_costs_and_native_criteria(monkeypatch,recipe,weight):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_smooth_live_x10');recipes.apply_recipe(new,recipe)
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params['native_completion_weight']==weight
+  params['native_completion_weight']=25.
+  assert repr(old.env)==repr(new.env)
 
 
 def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):
