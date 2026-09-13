@@ -244,3 +244,29 @@ def test_pivot_transition_reward_preserves_benchmark_and_tracks_early_tilt(monke
   score=reward.pivot_wall_tilt_score(tilt,torch.ones(4))
   assert torch.all(score[1:]>score[:-1]) and score[-1]==1
   assert not reward.pivot_wall_tilt_score(tilt,torch.zeros(4)).any()
+
+
+def test_edge_capture_reward_bounds_and_wide_arrival(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  reward=module(monkeypatch);recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Edge-Grasp-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'edge_v4');recipes.apply_recipe(new,'edge_v5')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params['pinch_weight']==3 and params.pop('held_weight')==14 and params.pop('wide_approach') is True
+  params['pinch_weight']=4.
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+  far=torch.full((2,),.05);aperture=torch.tensor([.02,.07]);fit=torch.zeros(2)
+  wide=reward.edge_arrival_aperture_score(far,aperture,fit)
+  assert wide[1]>wide[0]
+  at_contact=reward.edge_arrival_aperture_score(torch.zeros(2),aperture,torch.tensor([1.,0.]))
+  assert at_contact[0]>at_contact[1]
+  grid=torch.linspace(0,1,101)
+  score=reward.edge_arrival_aperture_score(grid*.1,grid*.08,1-grid)
+  assert ((score>=0)&(score<=1)).all()
+  max_pinch=reward.edge_side_pinch_score(torch.tensor(0.),torch.tensor(1.),2.).item()
+  assert 4+3*max_pinch*2<14
+  assert 14+6+4<25

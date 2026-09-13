@@ -266,3 +266,24 @@ def test_peg_lift_recipe_preserves_interface_physics_and_native_gate(monkeypatch
   assert asdict(old.agent)==asdict(new.agent)
   assert new.env.rewards['stack'].params.pop('lift_weight')==4.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_reorient_steady_actions_preserve_benchmark_and_gate_on_orientation(monkeypatch):
+  import importlib
+  from dataclasses import asdict
+  from pathlib import Path
+  import torch
+  from mjlab.scripts.train import TrainConfig
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Reorient-Object-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'reorient_v9');recipes.apply_recipe(new,'reorient_v10')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('steady_action_weight')==3.
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+  action=torch.tensor([0.,.01,.1,1.]).unsqueeze(-1).expand(4,8);previous=torch.zeros_like(action)
+  score=recipes.reorient_steady_action_score(torch.ones(4),action,previous)
+  assert score[0]==1 and torch.all(score[1:]<score[:-1])
+  assert not recipes.reorient_steady_action_score(torch.zeros(4),action,previous).any()

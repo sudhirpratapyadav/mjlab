@@ -70,9 +70,9 @@ def main():
   summary = dict(episodes=len(rows),native_successes=ev['successes'],terminal_opposed=len(captured),
     ever_root_lift_above2cm=sum(r['max_root_lift_m']>.02 for r in rows),
     median_max_root_lift_m=float(np.median([r['max_root_lift_m'] for r in rows])),
-    captured_median_tip_height_m=float(np.median([r['terminal_tip_height_m'] for r in captured])),
-    captured_median_target_fk_delta_m=np.median([r['arm_target_fk_displacement_m'] for r in captured],axis=0).tolist(),
-    captured_median_robot_force_N=np.median([r['cpu_robot_wrench_on_peg'][:3] for r in captured],axis=0).tolist(),
+    captured_median_tip_height_m=float(np.median([r['terminal_tip_height_m'] for r in captured])) if captured else None,
+    captured_median_target_fk_delta_m=np.median([r['arm_target_fk_displacement_m'] for r in captured],axis=0).tolist() if captured else None,
+    captured_median_robot_force_N=np.median([r['cpu_robot_wrench_on_peg'][:3] for r in captured],axis=0).tolist() if captured else None,
     captured_target_fk_up_above1cm=sum(r['arm_target_fk_displacement_m'][2]>.01 for r in captured),
     peg_mass_kg=float(m.body_mass[body]))
   report = dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],

@@ -1,0 +1,1299 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "af92a57c7d9455c038e12dd675349a883389194a53ed4c5a705e2242e4e2dca3",
+  "method": "Exact recorded terminal qvel/ctrl plus original-anchor orientation/drift audit. All lanes, no intervention or success substitution.",
+  "summary": {
+    "episodes": 128,
+    "orientation_and_drift_pass": 118,
+    "angle_pass": 119,
+    "drift_pass": 124,
+    "near_linear_fail": 116,
+    "near_angular_fail": 110,
+    "near_median_linear_speed": 0.11324264854192734,
+    "near_median_angular_speed": 1.4738214015960693,
+    "near_median_arm_target_rms": 0.07507280260324478,
+    "near_median_arm_target_step_rms": 0.1457354575395584
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "angle_deg": 9.328861619537365,
+      "drift_m": 0.07810901966566756,
+      "valid_drift": true,
+      "linear_speed": 0.13556809723377228,
+      "angular_speed": 1.7096881866455078,
+      "arm_target_rms": 0.16298124194145203,
+      "arm_target_step_rms": 0.1893695443868637
+    },
+    {
+      "env_id": 1,
+      "angle_deg": 6.611445569868966,
+      "drift_m": 0.041983753389019274,
+      "valid_drift": true,
+      "linear_speed": 0.14876402914524078,
+      "angular_speed": 1.5151236057281494,
+      "arm_target_rms": 0.11340939998626709,
+      "arm_target_step_rms": 0.15230287611484528
+    },
+    {
+      "env_id": 2,
+      "angle_deg": 4.519028419609758,
+      "drift_m": 0.06065198702687957,
+      "valid_drift": true,
+      "linear_speed": 0.12316664308309555,
+      "angular_speed": 1.6532472372055054,
+      "arm_target_rms": 0.02229953184723854,
+      "arm_target_step_rms": 0.1305074840784073
+    },
+    {
+      "env_id": 3,
+      "angle_deg": 4.656782681420044,
+      "drift_m": 0.0672508826784679,
+      "valid_drift": true,
+      "linear_speed": 0.12317973375320435,
+      "angular_speed": 1.3424322605133057,
+      "arm_target_rms": 0.045557212084531784,
+      "arm_target_step_rms": 0.13688598573207855
+    },
+    {
+      "env_id": 4,
+      "angle_deg": 4.674272165068824,
+      "drift_m": 0.030868534076299414,
+      "valid_drift": true,
+      "linear_speed": 0.07191136479377747,
+      "angular_speed": 1.4721448421478271,
+      "arm_target_rms": 0.05459239333868027,
+      "arm_target_step_rms": 0.13601411879062653
+    },
+    {
+      "env_id": 5,
+      "angle_deg": 5.406856040090424,
+      "drift_m": 0.11369124947352774,
+      "valid_drift": true,
+      "linear_speed": 0.14454592764377594,
+      "angular_speed": 1.6502259969711304,
+      "arm_target_rms": 0.04351690784096718,
+      "arm_target_step_rms": 0.15195389091968536
+    },
+    {
+      "env_id": 6,
+      "angle_deg": 3.9443023419623473,
+      "drift_m": 0.04489536480508669,
+      "valid_drift": true,
+      "linear_speed": 0.11903414875268936,
+      "angular_speed": 0.6584407687187195,
+      "arm_target_rms": 0.028225941583514214,
+      "arm_target_step_rms": 0.10573141276836395
+    },
+    {
+      "env_id": 7,
+      "angle_deg": 5.532487490855793,
+      "drift_m": 0.03961631086684719,
+      "valid_drift": true,
+      "linear_speed": 0.09464521706104279,
+      "angular_speed": 1.4636249542236328,
+      "arm_target_rms": 0.10213694721460342,
+      "arm_target_step_rms": 0.14517679810523987
+    },
+    {
+      "env_id": 8,
+      "angle_deg": 0.6871220427968947,
+      "drift_m": 0.14742154876947747,
+      "valid_drift": true,
+      "linear_speed": 1.2155283002357464e-07,
+      "angular_speed": 3.266681233071722e-06,
+      "arm_target_rms": 0.24062365293502808,
+      "arm_target_step_rms": 0.37305307388305664
+    },
+    {
+      "env_id": 9,
+      "angle_deg": 4.054313141505917,
+      "drift_m": 0.05965993166495213,
+      "valid_drift": true,
+      "linear_speed": 0.04607474058866501,
+      "angular_speed": 1.102130651473999,
+      "arm_target_rms": 0.041650015860795975,
+      "arm_target_step_rms": 0.1320517659187317
+    },
+    {
+      "env_id": 10,
+      "angle_deg": 8.134404549564652,
+      "drift_m": 0.06608684924943911,
+      "valid_drift": true,
+      "linear_speed": 0.02032589726150036,
+      "angular_speed": 0.8592582941055298,
+      "arm_target_rms": 0.044046588242053986,
+      "arm_target_step_rms": 0.07246869057416916
+    },
+    {
+      "env_id": 11,
+      "angle_deg": 3.4382364324120305,
+      "drift_m": 0.05486499946166879,
+      "valid_drift": true,
+      "linear_speed": 0.08456845581531525,
+      "angular_speed": 1.4518110752105713,
+      "arm_target_rms": 0.08051116019487381,
+      "arm_target_step_rms": 0.14862966537475586
+    },
+    {
+      "env_id": 12,
+      "angle_deg": 5.30325280435309,
+      "drift_m": 0.026992120564651643,
+      "valid_drift": true,
+      "linear_speed": 0.10209707170724869,
+      "angular_speed": 1.3703545331954956,
+      "arm_target_rms": 0.09143054485321045,
+      "arm_target_step_rms": 0.1399930864572525
+    },
+    {
+      "env_id": 13,
+      "angle_deg": 2.9351958955024644,
+      "drift_m": 0.08743523887618858,
+      "valid_drift": true,
+      "linear_speed": 0.08899932354688644,
+      "angular_speed": 1.1404014825820923,
+      "arm_target_rms": 0.09747663885354996,
+      "arm_target_step_rms": 0.17821988463401794
+    },
+    {
+      "env_id": 14,
+      "angle_deg": 5.051313752001621,
+      "drift_m": 0.09176962015975151,
+      "valid_drift": true,
+      "linear_speed": 0.10938508808612823,
+      "angular_speed": 0.3535013496875763,
+      "arm_target_rms": 0.02987056039273739,
+      "arm_target_step_rms": 0.10697302222251892
+    },
+    {
+      "env_id": 15,
+      "angle_deg": 4.0102362792769215,
+      "drift_m": 0.017351323864980322,
+      "valid_drift": true,
+      "linear_speed": 0.10865501314401627,
+      "angular_speed": 0.26646310091018677,
+      "arm_target_rms": 0.025251872837543488,
+      "arm_target_step_rms": 0.10802976787090302
+    },
+    {
+      "env_id": 16,
+      "angle_deg": 2.5946340577985723,
+      "drift_m": 0.08144944812284702,
+      "valid_drift": true,
+      "linear_speed": 0.10647795349359512,
+      "angular_speed": 1.3205198049545288,
+      "arm_target_rms": 0.08571987599134445,
+      "arm_target_step_rms": 0.14205831289291382
+    },
+    {
+      "env_id": 17,
+      "angle_deg": 1.2430834992736,
+      "drift_m": 0.03925243494588221,
+      "valid_drift": true,
+      "linear_speed": 0.1056995540857315,
+      "angular_speed": 1.5829569101333618,
+      "arm_target_rms": 0.0861104279756546,
+      "arm_target_step_rms": 0.15186187624931335
+    },
+    {
+      "env_id": 18,
+      "angle_deg": 4.926403019661437,
+      "drift_m": 0.039713538860691525,
+      "valid_drift": true,
+      "linear_speed": 0.15860271453857422,
+      "angular_speed": 1.619683861732483,
+      "arm_target_rms": 0.05403211712837219,
+      "arm_target_step_rms": 0.13622035086154938
+    },
+    {
+      "env_id": 19,
+      "angle_deg": 6.122427826809419,
+      "drift_m": 0.045289978237495004,
+      "valid_drift": true,
+      "linear_speed": 0.24527429044246674,
+      "angular_speed": 3.13222074508667,
+      "arm_target_rms": 0.14483880996704102,
+      "arm_target_step_rms": 0.18032699823379517
+    },
+    {
+      "env_id": 20,
+      "angle_deg": 1.7709976266979843,
+      "drift_m": 0.07554388395554548,
+      "valid_drift": true,
+      "linear_speed": 0.1439424604177475,
+      "angular_speed": 0.3447744846343994,
+      "arm_target_rms": 0.028561772778630257,
+      "arm_target_step_rms": 0.10478898137807846
+    },
+    {
+      "env_id": 21,
+      "angle_deg": 2.181197070172941,
+      "drift_m": 0.05761968523722084,
+      "valid_drift": true,
+      "linear_speed": 0.1302879899740219,
+      "angular_speed": 1.569687008857727,
+      "arm_target_rms": 0.1103242039680481,
+      "arm_target_step_rms": 0.15279285609722137
+    },
+    {
+      "env_id": 22,
+      "angle_deg": 1.7733976349642935,
+      "drift_m": 0.05194825968844447,
+      "valid_drift": true,
+      "linear_speed": 0.1643494814634323,
+      "angular_speed": 1.538535714149475,
+      "arm_target_rms": 0.12849071621894836,
+      "arm_target_step_rms": 0.15829181671142578
+    },
+    {
+      "env_id": 23,
+      "angle_deg": 2.0831031857464684,
+      "drift_m": 0.048479511852967686,
+      "valid_drift": true,
+      "linear_speed": 0.10134656727313995,
+      "angular_speed": 1.3837562799453735,
+      "arm_target_rms": 0.11154726147651672,
+      "arm_target_step_rms": 0.15624180436134338
+    },
+    {
+      "env_id": 24,
+      "angle_deg": 2.0546560185179903,
+      "drift_m": 0.08369237597319988,
+      "valid_drift": true,
+      "linear_speed": 0.1196514293551445,
+      "angular_speed": 1.4467506408691406,
+      "arm_target_rms": 0.087635837495327,
+      "arm_target_step_rms": 0.19175805151462555
+    },
+    {
+      "env_id": 25,
+      "angle_deg": 92.53737217619788,
+      "drift_m": 0.005812829079657398,
+      "valid_drift": true,
+      "linear_speed": 0.0010943072848021984,
+      "angular_speed": 0.07912199199199677,
+      "arm_target_rms": 1.3916157484054565,
+      "arm_target_step_rms": 1.4745516777038574
+    },
+    {
+      "env_id": 26,
+      "angle_deg": 6.858050409516352,
+      "drift_m": 0.03300599056130506,
+      "valid_drift": true,
+      "linear_speed": 0.10901615768671036,
+      "angular_speed": 1.7695950269699097,
+      "arm_target_rms": 0.08679883927106857,
+      "arm_target_step_rms": 0.12096891552209854
+    },
+    {
+      "env_id": 27,
+      "angle_deg": 2.294535532533203,
+      "drift_m": 0.06727345613092597,
+      "valid_drift": true,
+      "linear_speed": 0.12361495196819305,
+      "angular_speed": 1.2918469905853271,
+      "arm_target_rms": 0.08579834550619125,
+      "arm_target_step_rms": 0.14684836566448212
+    },
+    {
+      "env_id": 28,
+      "angle_deg": 4.614953034548254,
+      "drift_m": 0.017274613658814154,
+      "valid_drift": true,
+      "linear_speed": 0.18393155932426453,
+      "angular_speed": 1.5536218881607056,
+      "arm_target_rms": 0.08375892788171768,
+      "arm_target_step_rms": 0.14329300820827484
+    },
+    {
+      "env_id": 29,
+      "angle_deg": 4.419380336554489,
+      "drift_m": 0.0627257340040036,
+      "valid_drift": true,
+      "linear_speed": 0.10203346610069275,
+      "angular_speed": 1.4262608289718628,
+      "arm_target_rms": 0.04979071766138077,
+      "arm_target_step_rms": 0.1764717549085617
+    },
+    {
+      "env_id": 30,
+      "angle_deg": 5.6779311724338575,
+      "drift_m": 0.014714847693180684,
+      "valid_drift": true,
+      "linear_speed": 0.11721853166818619,
+      "angular_speed": 1.7306069135665894,
+      "arm_target_rms": 0.037096478044986725,
+      "arm_target_step_rms": 0.12619633972644806
+    },
+    {
+      "env_id": 31,
+      "angle_deg": 5.341684671353841,
+      "drift_m": 0.07812061113550481,
+      "valid_drift": true,
+      "linear_speed": 0.13551874458789825,
+      "angular_speed": 1.629502773284912,
+      "arm_target_rms": 0.15401044487953186,
+      "arm_target_step_rms": 0.19067220389842987
+    },
+    {
+      "env_id": 32,
+      "angle_deg": 2.5838675501546096,
+      "drift_m": 0.09991997049812472,
+      "valid_drift": true,
+      "linear_speed": 0.09441516548395157,
+      "angular_speed": 1.2475241422653198,
+      "arm_target_rms": 0.07825358957052231,
+      "arm_target_step_rms": 0.15906497836112976
+    },
+    {
+      "env_id": 33,
+      "angle_deg": 4.502429430379956,
+      "drift_m": 0.07824274978198235,
+      "valid_drift": true,
+      "linear_speed": 0.07527285814285278,
+      "angular_speed": 1.0766981840133667,
+      "arm_target_rms": 0.07175523042678833,
+      "arm_target_step_rms": 0.16922500729560852
+    },
+    {
+      "env_id": 34,
+      "angle_deg": 4.641916303176022,
+      "drift_m": 0.030953322430241736,
+      "valid_drift": true,
+      "linear_speed": 0.10004543513059616,
+      "angular_speed": 0.22865554690361023,
+      "arm_target_rms": 0.07500354945659637,
+      "arm_target_step_rms": 0.10420507937669754
+    },
+    {
+      "env_id": 35,
+      "angle_deg": 6.237124125940082,
+      "drift_m": 0.0941288478743367,
+      "valid_drift": true,
+      "linear_speed": 0.11013423651456833,
+      "angular_speed": 2.0750327110290527,
+      "arm_target_rms": 0.06118154525756836,
+      "arm_target_step_rms": 0.09787408262491226
+    },
+    {
+      "env_id": 36,
+      "angle_deg": 6.277562868210739,
+      "drift_m": 0.05080723346987813,
+      "valid_drift": true,
+      "linear_speed": 0.1089315414428711,
+      "angular_speed": 0.4826517105102539,
+      "arm_target_rms": 0.03701868653297424,
+      "arm_target_step_rms": 0.10725075006484985
+    },
+    {
+      "env_id": 37,
+      "angle_deg": 10.912107964462646,
+      "drift_m": 0.09536414553374971,
+      "valid_drift": true,
+      "linear_speed": 0.1457950919866562,
+      "angular_speed": 1.596781849861145,
+      "arm_target_rms": 0.021211998537182808,
+      "arm_target_step_rms": 0.17791646718978882
+    },
+    {
+      "env_id": 38,
+      "angle_deg": 3.001194815590358,
+      "drift_m": 0.037768676132495974,
+      "valid_drift": true,
+      "linear_speed": 0.21285831928253174,
+      "angular_speed": 1.549139142036438,
+      "arm_target_rms": 0.057525526732206345,
+      "arm_target_step_rms": 0.1589754819869995
+    },
+    {
+      "env_id": 39,
+      "angle_deg": 4.516628177089575,
+      "drift_m": 0.02567090162850424,
+      "valid_drift": true,
+      "linear_speed": 0.14310579001903534,
+      "angular_speed": 1.3849459886550903,
+      "arm_target_rms": 0.04950195178389549,
+      "arm_target_step_rms": 0.15167976915836334
+    },
+    {
+      "env_id": 40,
+      "angle_deg": 3.5199684873556705,
+      "drift_m": 0.037736644948465896,
+      "valid_drift": true,
+      "linear_speed": 0.13726390898227692,
+      "angular_speed": 1.5630353689193726,
+      "arm_target_rms": 0.04296807199716568,
+      "arm_target_step_rms": 0.13705399632453918
+    },
+    {
+      "env_id": 41,
+      "angle_deg": 5.813969069151708,
+      "drift_m": 0.09061575093365826,
+      "valid_drift": true,
+      "linear_speed": 0.09436268359422684,
+      "angular_speed": 0.9171105027198792,
+      "arm_target_rms": 0.0818333700299263,
+      "arm_target_step_rms": 0.18517635762691498
+    },
+    {
+      "env_id": 42,
+      "angle_deg": 1.9998819494158233,
+      "drift_m": 0.0784936254750784,
+      "valid_drift": true,
+      "linear_speed": 0.1459803432226181,
+      "angular_speed": 1.7059422731399536,
+      "arm_target_rms": 0.09900395572185516,
+      "arm_target_step_rms": 0.17863328754901886
+    },
+    {
+      "env_id": 43,
+      "angle_deg": 9.120120679691825,
+      "drift_m": 0.08512628255473943,
+      "valid_drift": true,
+      "linear_speed": 0.10590043663978577,
+      "angular_speed": 0.4481468200683594,
+      "arm_target_rms": 0.021544260904192924,
+      "arm_target_step_rms": 0.10752250999212265
+    },
+    {
+      "env_id": 44,
+      "angle_deg": 3.311024545123329,
+      "drift_m": 0.10201370360251433,
+      "valid_drift": true,
+      "linear_speed": 0.09661391377449036,
+      "angular_speed": 2.613750457763672,
+      "arm_target_rms": 0.10420864820480347,
+      "arm_target_step_rms": 0.15002316236495972
+    },
+    {
+      "env_id": 45,
+      "angle_deg": 4.945841987070745,
+      "drift_m": 0.09575647699387138,
+      "valid_drift": true,
+      "linear_speed": 0.07444757968187332,
+      "angular_speed": 1.5168355703353882,
+      "arm_target_rms": 0.07795307040214539,
+      "arm_target_step_rms": 0.12157902121543884
+    },
+    {
+      "env_id": 46,
+      "angle_deg": 88.88091201214793,
+      "drift_m": 0.09311273800513173,
+      "valid_drift": true,
+      "linear_speed": 0.61238032579422,
+      "angular_speed": 6.7843852043151855,
+      "arm_target_rms": 0.40974029898643494,
+      "arm_target_step_rms": 1.1191918849945068
+    },
+    {
+      "env_id": 47,
+      "angle_deg": 8.292594450086941,
+      "drift_m": 0.09248876237959233,
+      "valid_drift": true,
+      "linear_speed": 0.07785560935735703,
+      "angular_speed": 1.600780725479126,
+      "arm_target_rms": 0.057290345430374146,
+      "arm_target_step_rms": 0.1475244015455246
+    },
+    {
+      "env_id": 48,
+      "angle_deg": 4.024432067273715,
+      "drift_m": 0.015710471976961068,
+      "valid_drift": true,
+      "linear_speed": 0.08732976764440536,
+      "angular_speed": 0.5326107144355774,
+      "arm_target_rms": 0.05725759640336037,
+      "arm_target_step_rms": 0.09288299083709717
+    },
+    {
+      "env_id": 49,
+      "angle_deg": 2.384309864652666,
+      "drift_m": 0.09469675131262326,
+      "valid_drift": true,
+      "linear_speed": 0.13006767630577087,
+      "angular_speed": 1.8384464979171753,
+      "arm_target_rms": 0.05785144865512848,
+      "arm_target_step_rms": 0.10898850113153458
+    },
+    {
+      "env_id": 50,
+      "angle_deg": 1.9027652499362806,
+      "drift_m": 0.028809480517240655,
+      "valid_drift": true,
+      "linear_speed": 0.08278317004442215,
+      "angular_speed": 1.5673871040344238,
+      "arm_target_rms": 0.07533091306686401,
+      "arm_target_step_rms": 0.18475112318992615
+    },
+    {
+      "env_id": 51,
+      "angle_deg": 4.749650472903551,
+      "drift_m": 0.02544883087328482,
+      "valid_drift": true,
+      "linear_speed": 0.09636835753917694,
+      "angular_speed": 1.5026968717575073,
+      "arm_target_rms": 0.05387265235185623,
+      "arm_target_step_rms": 0.15585452318191528
+    },
+    {
+      "env_id": 52,
+      "angle_deg": 87.86626884777112,
+      "drift_m": 0.007717570987401919,
+      "valid_drift": true,
+      "linear_speed": 0.25498759746551514,
+      "angular_speed": 14.345600128173828,
+      "arm_target_rms": 1.387891173362732,
+      "arm_target_step_rms": 1.7696455717086792
+    },
+    {
+      "env_id": 53,
+      "angle_deg": 3.889997982326179,
+      "drift_m": 0.0824657565610221,
+      "valid_drift": true,
+      "linear_speed": 0.11295817047357559,
+      "angular_speed": 0.2592795193195343,
+      "arm_target_rms": 0.023276561871170998,
+      "arm_target_step_rms": 0.11156728863716125
+    },
+    {
+      "env_id": 54,
+      "angle_deg": 5.0731078766442295,
+      "drift_m": 0.05223558238225478,
+      "valid_drift": true,
+      "linear_speed": 0.13119664788246155,
+      "angular_speed": 1.4057340621948242,
+      "arm_target_rms": 0.11866092681884766,
+      "arm_target_step_rms": 0.1557418256998062
+    },
+    {
+      "env_id": 55,
+      "angle_deg": 99.7005903987937,
+      "drift_m": 0.2880288196414522,
+      "valid_drift": false,
+      "linear_speed": 1.5052465200424194,
+      "angular_speed": 64.4559555053711,
+      "arm_target_rms": 0.31651929020881653,
+      "arm_target_step_rms": 0.6605247259140015
+    },
+    {
+      "env_id": 56,
+      "angle_deg": 0.35221612753371906,
+      "drift_m": 0.08206440803784228,
+      "valid_drift": true,
+      "linear_speed": 0.0887204185128212,
+      "angular_speed": 0.32788580656051636,
+      "arm_target_rms": 0.08565644919872284,
+      "arm_target_step_rms": 0.11520689725875854
+    },
+    {
+      "env_id": 57,
+      "angle_deg": 1.8932071039790708,
+      "drift_m": 0.024170297774799288,
+      "valid_drift": true,
+      "linear_speed": 0.10364135354757309,
+      "angular_speed": 0.4538949429988861,
+      "arm_target_rms": 0.022712480276823044,
+      "arm_target_step_rms": 0.09746690839529037
+    },
+    {
+      "env_id": 58,
+      "angle_deg": 0.24353544839832206,
+      "drift_m": 0.05658206081023771,
+      "valid_drift": true,
+      "linear_speed": 0.13825757801532745,
+      "angular_speed": 1.5888603925704956,
+      "arm_target_rms": 0.10768137127161026,
+      "arm_target_step_rms": 0.14888456463813782
+    },
+    {
+      "env_id": 59,
+      "angle_deg": 11.399474454326414,
+      "drift_m": 0.08460317159825473,
+      "valid_drift": true,
+      "linear_speed": 0.06441652029752731,
+      "angular_speed": 2.840876817703247,
+      "arm_target_rms": 0.09442152082920074,
+      "arm_target_step_rms": 0.1681361049413681
+    },
+    {
+      "env_id": 60,
+      "angle_deg": 5.8760813675449155,
+      "drift_m": 0.038382396508182384,
+      "valid_drift": true,
+      "linear_speed": 0.12212053686380386,
+      "angular_speed": 0.44814565777778625,
+      "arm_target_rms": 0.07514205574989319,
+      "arm_target_step_rms": 0.11550186574459076
+    },
+    {
+      "env_id": 61,
+      "angle_deg": 5.810657714658383,
+      "drift_m": 0.04799170103391781,
+      "valid_drift": true,
+      "linear_speed": 0.10087262839078903,
+      "angular_speed": 1.5421720743179321,
+      "arm_target_rms": 0.11300068348646164,
+      "arm_target_step_rms": 0.14909222722053528
+    },
+    {
+      "env_id": 62,
+      "angle_deg": 5.081566833818924,
+      "drift_m": 0.05504378666364274,
+      "valid_drift": true,
+      "linear_speed": 0.08387632668018341,
+      "angular_speed": 1.3885427713394165,
+      "arm_target_rms": 0.13208571076393127,
+      "arm_target_step_rms": 0.16447582840919495
+    },
+    {
+      "env_id": 63,
+      "angle_deg": 91.32187170715106,
+      "drift_m": 0.23716547703527824,
+      "valid_drift": false,
+      "linear_speed": 0.16506420075893402,
+      "angular_speed": 11.312758445739746,
+      "arm_target_rms": 0.5771905183792114,
+      "arm_target_step_rms": 0.2980017364025116
+    },
+    {
+      "env_id": 64,
+      "angle_deg": 4.965609122482423,
+      "drift_m": 0.018247435935364046,
+      "valid_drift": true,
+      "linear_speed": 0.12094948440790176,
+      "angular_speed": 1.5949188470840454,
+      "arm_target_rms": 0.04157019779086113,
+      "arm_target_step_rms": 0.12985315918922424
+    },
+    {
+      "env_id": 65,
+      "angle_deg": 21.971254403125688,
+      "drift_m": 0.10051167015445986,
+      "valid_drift": true,
+      "linear_speed": 0.07042928040027618,
+      "angular_speed": 1.173426628112793,
+      "arm_target_rms": 0.13290195167064667,
+      "arm_target_step_rms": 0.18620054423809052
+    },
+    {
+      "env_id": 66,
+      "angle_deg": 2.653474967483294,
+      "drift_m": 0.09562513564456308,
+      "valid_drift": true,
+      "linear_speed": 0.11949436366558075,
+      "angular_speed": 1.6288682222366333,
+      "arm_target_rms": 0.12476178258657455,
+      "arm_target_step_rms": 0.16499146819114685
+    },
+    {
+      "env_id": 67,
+      "angle_deg": 2.991479134491958,
+      "drift_m": 0.0761154481933839,
+      "valid_drift": true,
+      "linear_speed": 0.12556427717208862,
+      "angular_speed": 1.65520179271698,
+      "arm_target_rms": 0.041749950498342514,
+      "arm_target_step_rms": 0.13934949040412903
+    },
+    {
+      "env_id": 68,
+      "angle_deg": 6.038257354361494,
+      "drift_m": 0.037900472145924805,
+      "valid_drift": true,
+      "linear_speed": 0.09163162112236023,
+      "angular_speed": 1.4783657789230347,
+      "arm_target_rms": 0.0880856141448021,
+      "arm_target_step_rms": 0.13255850970745087
+    },
+    {
+      "env_id": 69,
+      "angle_deg": 4.467830762928777,
+      "drift_m": 0.0673901117146769,
+      "valid_drift": true,
+      "linear_speed": 0.10044033080339432,
+      "angular_speed": 1.3576980829238892,
+      "arm_target_rms": 0.0566972941160202,
+      "arm_target_step_rms": 0.14790843427181244
+    },
+    {
+      "env_id": 70,
+      "angle_deg": 4.157614104514469,
+      "drift_m": 0.05878262864840276,
+      "valid_drift": true,
+      "linear_speed": 0.14049004018306732,
+      "angular_speed": 1.6830390691757202,
+      "arm_target_rms": 0.07838039100170135,
+      "arm_target_step_rms": 0.19855760037899017
+    },
+    {
+      "env_id": 71,
+      "angle_deg": 4.05566723043899,
+      "drift_m": 0.07691067455895054,
+      "valid_drift": true,
+      "linear_speed": 0.15269072353839874,
+      "angular_speed": 1.6050971746444702,
+      "arm_target_rms": 0.09642406553030014,
+      "arm_target_step_rms": 0.14629411697387695
+    },
+    {
+      "env_id": 72,
+      "angle_deg": 6.29327910351362,
+      "drift_m": 0.05185146449604924,
+      "valid_drift": true,
+      "linear_speed": 0.10351957380771637,
+      "angular_speed": 1.618574619293213,
+      "arm_target_rms": 0.05308305844664574,
+      "arm_target_step_rms": 0.15730907022953033
+    },
+    {
+      "env_id": 73,
+      "angle_deg": 7.681964543839597,
+      "drift_m": 0.030205623910592175,
+      "valid_drift": true,
+      "linear_speed": 0.09717557579278946,
+      "angular_speed": 0.481580525636673,
+      "arm_target_rms": 0.024268124252557755,
+      "arm_target_step_rms": 0.1086249053478241
+    },
+    {
+      "env_id": 74,
+      "angle_deg": 4.630276907552376,
+      "drift_m": 0.02310491542074832,
+      "valid_drift": true,
+      "linear_speed": 0.11685771495103836,
+      "angular_speed": 1.3448277711868286,
+      "arm_target_rms": 0.05143621563911438,
+      "arm_target_step_rms": 0.15896004438400269
+    },
+    {
+      "env_id": 75,
+      "angle_deg": 3.267730036003618,
+      "drift_m": 0.12178470784941635,
+      "valid_drift": true,
+      "linear_speed": 0.10619860142469406,
+      "angular_speed": 1.428505778312683,
+      "arm_target_rms": 0.06241892650723457,
+      "arm_target_step_rms": 0.1785804182291031
+    },
+    {
+      "env_id": 76,
+      "angle_deg": 6.493656506688742,
+      "drift_m": 0.032713793041626256,
+      "valid_drift": true,
+      "linear_speed": 0.18395084142684937,
+      "angular_speed": 1.582743525505066,
+      "arm_target_rms": 0.0889911875128746,
+      "arm_target_step_rms": 0.1441439390182495
+    },
+    {
+      "env_id": 77,
+      "angle_deg": 6.336425822577486,
+      "drift_m": 0.061718906381502986,
+      "valid_drift": true,
+      "linear_speed": 0.09542673826217651,
+      "angular_speed": 0.3540714681148529,
+      "arm_target_rms": 0.022044779732823372,
+      "arm_target_step_rms": 0.1289939135313034
+    },
+    {
+      "env_id": 78,
+      "angle_deg": 6.789870392474464,
+      "drift_m": 0.06624883286452554,
+      "valid_drift": true,
+      "linear_speed": 0.18750688433647156,
+      "angular_speed": 1.3789297342300415,
+      "arm_target_rms": 0.1090235635638237,
+      "arm_target_step_rms": 0.15341398119926453
+    },
+    {
+      "env_id": 79,
+      "angle_deg": 4.915698919867317,
+      "drift_m": 0.02468732912868516,
+      "valid_drift": true,
+      "linear_speed": 0.19210286438465118,
+      "angular_speed": 1.5041112899780273,
+      "arm_target_rms": 0.09368342906236649,
+      "arm_target_step_rms": 0.15799744427204132
+    },
+    {
+      "env_id": 80,
+      "angle_deg": 0.9760286677998631,
+      "drift_m": 0.09379830867718669,
+      "valid_drift": true,
+      "linear_speed": 0.108635313808918,
+      "angular_speed": 1.3751755952835083,
+      "arm_target_rms": 0.10200583934783936,
+      "arm_target_step_rms": 0.18807125091552734
+    },
+    {
+      "env_id": 81,
+      "angle_deg": 2.3264208087568936,
+      "drift_m": 0.0799539699317954,
+      "valid_drift": true,
+      "linear_speed": 0.13269346952438354,
+      "angular_speed": 0.241144061088562,
+      "arm_target_rms": 0.07373712211847305,
+      "arm_target_step_rms": 0.1072116568684578
+    },
+    {
+      "env_id": 82,
+      "angle_deg": 2.9083606619511633,
+      "drift_m": 0.05676898925476095,
+      "valid_drift": true,
+      "linear_speed": 0.12475704401731491,
+      "angular_speed": 1.38308584690094,
+      "arm_target_rms": 0.057693399488925934,
+      "arm_target_step_rms": 0.16096054017543793
+    },
+    {
+      "env_id": 83,
+      "angle_deg": 2.3818691284587534,
+      "drift_m": 0.06057902534827792,
+      "valid_drift": true,
+      "linear_speed": 0.1080671176314354,
+      "angular_speed": 0.24854739010334015,
+      "arm_target_rms": 0.07952699810266495,
+      "arm_target_step_rms": 0.10212954878807068
+    },
+    {
+      "env_id": 84,
+      "angle_deg": 0.7648545362138176,
+      "drift_m": 0.10636183214898576,
+      "valid_drift": true,
+      "linear_speed": 0.1371299773454666,
+      "angular_speed": 1.5660170316696167,
+      "arm_target_rms": 0.10870227217674255,
+      "arm_target_step_rms": 0.18774715065956116
+    },
+    {
+      "env_id": 85,
+      "angle_deg": 4.97014682289127,
+      "drift_m": 0.004219302750434885,
+      "valid_drift": true,
+      "linear_speed": 0.09869856387376785,
+      "angular_speed": 0.38731157779693604,
+      "arm_target_rms": 0.023955203592777252,
+      "arm_target_step_rms": 0.1253608763217926
+    },
+    {
+      "env_id": 86,
+      "angle_deg": 1.1265238931951984,
+      "drift_m": 0.09214319568409288,
+      "valid_drift": true,
+      "linear_speed": 0.11872727423906326,
+      "angular_speed": 1.5418787002563477,
+      "arm_target_rms": 0.11030621081590652,
+      "arm_target_step_rms": 0.1941550374031067
+    },
+    {
+      "env_id": 87,
+      "angle_deg": 2.128889725657862,
+      "drift_m": 0.06988946398713328,
+      "valid_drift": true,
+      "linear_speed": 0.11547081917524338,
+      "angular_speed": 1.3477693796157837,
+      "arm_target_rms": 0.07670222967863083,
+      "arm_target_step_rms": 0.1546149104833603
+    },
+    {
+      "env_id": 88,
+      "angle_deg": 4.789006359050917,
+      "drift_m": 0.04052226601060021,
+      "valid_drift": true,
+      "linear_speed": 0.09976828098297119,
+      "angular_speed": 1.3949329853057861,
+      "arm_target_rms": 0.059455931186676025,
+      "arm_target_step_rms": 0.15456679463386536
+    },
+    {
+      "env_id": 89,
+      "angle_deg": 5.793235406038928,
+      "drift_m": 0.06709395642389128,
+      "valid_drift": true,
+      "linear_speed": 0.12280048429965973,
+      "angular_speed": 1.3531432151794434,
+      "arm_target_rms": 0.051156625151634216,
+      "arm_target_step_rms": 0.14436502754688263
+    },
+    {
+      "env_id": 90,
+      "angle_deg": 3.6466728022664663,
+      "drift_m": 0.10458586093139462,
+      "valid_drift": true,
+      "linear_speed": 0.11373056471347809,
+      "angular_speed": 1.4698327779769897,
+      "arm_target_rms": 0.022243430837988853,
+      "arm_target_step_rms": 0.1332058161497116
+    },
+    {
+      "env_id": 91,
+      "angle_deg": 10.207369261478236,
+      "drift_m": 0.06429747635295863,
+      "valid_drift": true,
+      "linear_speed": 0.1000966802239418,
+      "angular_speed": 1.499854564666748,
+      "arm_target_rms": 0.06564214080572128,
+      "arm_target_step_rms": 0.11841815710067749
+    },
+    {
+      "env_id": 92,
+      "angle_deg": 5.407627051718809,
+      "drift_m": 0.07450946075945378,
+      "valid_drift": true,
+      "linear_speed": 0.11905036866664886,
+      "angular_speed": 1.3617744445800781,
+      "arm_target_rms": 0.09486497938632965,
+      "arm_target_step_rms": 0.17783598601818085
+    },
+    {
+      "env_id": 93,
+      "angle_deg": 7.622703765518118,
+      "drift_m": 0.051982393478550125,
+      "valid_drift": true,
+      "linear_speed": 0.09270932525396347,
+      "angular_speed": 1.663188099861145,
+      "arm_target_rms": 0.034635867923498154,
+      "arm_target_step_rms": 0.13797377049922943
+    },
+    {
+      "env_id": 94,
+      "angle_deg": 8.484487742846856,
+      "drift_m": 0.03553879743398552,
+      "valid_drift": true,
+      "linear_speed": 0.13730470836162567,
+      "angular_speed": 1.491999864578247,
+      "arm_target_rms": 0.057483971118927,
+      "arm_target_step_rms": 0.16086389124393463
+    },
+    {
+      "env_id": 95,
+      "angle_deg": 2.3189386184268628,
+      "drift_m": 0.08783642983300335,
+      "valid_drift": true,
+      "linear_speed": 0.12630824744701385,
+      "angular_speed": 1.5606392621994019,
+      "arm_target_rms": 0.10373961925506592,
+      "arm_target_step_rms": 0.20262891054153442
+    },
+    {
+      "env_id": 96,
+      "angle_deg": 3.056818574823495,
+      "drift_m": 0.07868300031167216,
+      "valid_drift": true,
+      "linear_speed": 0.12312674522399902,
+      "angular_speed": 1.6106922626495361,
+      "arm_target_rms": 0.0724954754114151,
+      "arm_target_step_rms": 0.1166146993637085
+    },
+    {
+      "env_id": 97,
+      "angle_deg": 5.132867875971987,
+      "drift_m": 0.01058707311294757,
+      "valid_drift": true,
+      "linear_speed": 0.12283352762460709,
+      "angular_speed": 1.6085845232009888,
+      "arm_target_rms": 0.12444465607404709,
+      "arm_target_step_rms": 0.15449686348438263
+    },
+    {
+      "env_id": 98,
+      "angle_deg": 4.0425666362977815,
+      "drift_m": 0.09377170494076163,
+      "valid_drift": true,
+      "linear_speed": 0.16699013113975525,
+      "angular_speed": 1.615175724029541,
+      "arm_target_rms": 0.05214645713567734,
+      "arm_target_step_rms": 0.13519379496574402
+    },
+    {
+      "env_id": 99,
+      "angle_deg": 5.257576712326211,
+      "drift_m": 0.012430108981632113,
+      "valid_drift": true,
+      "linear_speed": 0.14614564180374146,
+      "angular_speed": 1.6498442888259888,
+      "arm_target_rms": 0.03331167995929718,
+      "arm_target_step_rms": 0.14191628992557526
+    },
+    {
+      "env_id": 100,
+      "angle_deg": 3.3795620329924416,
+      "drift_m": 0.016727464867825347,
+      "valid_drift": true,
+      "linear_speed": 0.12643399834632874,
+      "angular_speed": 1.653357982635498,
+      "arm_target_rms": 0.12379183620214462,
+      "arm_target_step_rms": 0.1536712348461151
+    },
+    {
+      "env_id": 101,
+      "angle_deg": 6.642772020514873,
+      "drift_m": 0.027674457564213495,
+      "valid_drift": true,
+      "linear_speed": 0.09326287358999252,
+      "angular_speed": 1.490034818649292,
+      "arm_target_rms": 0.11338543891906738,
+      "arm_target_step_rms": 0.14288584887981415
+    },
+    {
+      "env_id": 102,
+      "angle_deg": 162.6208296141544,
+      "drift_m": 0.024249732695286227,
+      "valid_drift": true,
+      "linear_speed": 0.2650304138660431,
+      "angular_speed": 9.653182029724121,
+      "arm_target_rms": 1.0372322797775269,
+      "arm_target_step_rms": 0.5530399084091187
+    },
+    {
+      "env_id": 103,
+      "angle_deg": 6.531524129014912,
+      "drift_m": 0.07501415346269459,
+      "valid_drift": true,
+      "linear_speed": 0.13935494422912598,
+      "angular_speed": 1.3289794921875,
+      "arm_target_rms": 0.14203129708766937,
+      "arm_target_step_rms": 0.1887524574995041
+    },
+    {
+      "env_id": 104,
+      "angle_deg": 7.145284041280638,
+      "drift_m": 0.0739073067886951,
+      "valid_drift": true,
+      "linear_speed": 0.09305424243211746,
+      "angular_speed": 1.441169261932373,
+      "arm_target_rms": 0.048491571098566055,
+      "arm_target_step_rms": 0.14039787650108337
+    },
+    {
+      "env_id": 105,
+      "angle_deg": 1.3372071538837227,
+      "drift_m": 0.054899032178173726,
+      "valid_drift": true,
+      "linear_speed": 0.10037411004304886,
+      "angular_speed": 1.4754979610443115,
+      "arm_target_rms": 0.15168040990829468,
+      "arm_target_step_rms": 0.1782839447259903
+    },
+    {
+      "env_id": 106,
+      "angle_deg": 11.65433014695123,
+      "drift_m": 0.07801024792039041,
+      "valid_drift": true,
+      "linear_speed": 0.11242374777793884,
+      "angular_speed": 1.6088716983795166,
+      "arm_target_rms": 0.040256742388010025,
+      "arm_target_step_rms": 0.12288424372673035
+    },
+    {
+      "env_id": 107,
+      "angle_deg": 44.63042841221681,
+      "drift_m": 0.060156861449018245,
+      "valid_drift": true,
+      "linear_speed": 0.09228063374757767,
+      "angular_speed": 0.29758477210998535,
+      "arm_target_rms": 0.037025582045316696,
+      "arm_target_step_rms": 0.08353788405656815
+    },
+    {
+      "env_id": 108,
+      "angle_deg": 4.9655022082492595,
+      "drift_m": 0.08690779548424132,
+      "valid_drift": true,
+      "linear_speed": 0.1284773200750351,
+      "angular_speed": 1.8291847705841064,
+      "arm_target_rms": 0.1064678356051445,
+      "arm_target_step_rms": 0.17166796326637268
+    },
+    {
+      "env_id": 109,
+      "angle_deg": 2.2311070640667183,
+      "drift_m": 0.017415245980015058,
+      "valid_drift": true,
+      "linear_speed": 0.09196189045906067,
+      "angular_speed": 0.2623853385448456,
+      "arm_target_rms": 0.09302831441164017,
+      "arm_target_step_rms": 0.11813078820705414
+    },
+    {
+      "env_id": 110,
+      "angle_deg": 4.145628645805978,
+      "drift_m": 0.0616607098178241,
+      "valid_drift": true,
+      "linear_speed": 0.120390884578228,
+      "angular_speed": 0.6020344495773315,
+      "arm_target_rms": 0.035901788622140884,
+      "arm_target_step_rms": 0.10152575373649597
+    },
+    {
+      "env_id": 111,
+      "angle_deg": 2.945085366726611,
+      "drift_m": 0.06853184155748424,
+      "valid_drift": true,
+      "linear_speed": 0.09473034739494324,
+      "angular_speed": 0.5904653072357178,
+      "arm_target_rms": 0.05407517030835152,
+      "arm_target_step_rms": 0.09725582599639893
+    },
+    {
+      "env_id": 112,
+      "angle_deg": 6.717289985781539,
+      "drift_m": 0.049200810694533186,
+      "valid_drift": true,
+      "linear_speed": 0.09892243891954422,
+      "angular_speed": 0.37048351764678955,
+      "arm_target_rms": 0.08878142386674881,
+      "arm_target_step_rms": 0.11194632202386856
+    },
+    {
+      "env_id": 113,
+      "angle_deg": 9.039503482428543,
+      "drift_m": 0.08202924469697145,
+      "valid_drift": true,
+      "linear_speed": 0.1471502035856247,
+      "angular_speed": 1.5726536512374878,
+      "arm_target_rms": 0.03345830366015434,
+      "arm_target_step_rms": 0.16110657155513763
+    },
+    {
+      "env_id": 114,
+      "angle_deg": 4.690291170206048,
+      "drift_m": 0.04152589952544853,
+      "valid_drift": true,
+      "linear_speed": 0.11394821852445602,
+      "angular_speed": 1.509039282798767,
+      "arm_target_rms": 0.0930682048201561,
+      "arm_target_step_rms": 0.15110157430171967
+    },
+    {
+      "env_id": 115,
+      "angle_deg": 7.844386221146571,
+      "drift_m": 0.0532859102961247,
+      "valid_drift": true,
+      "linear_speed": 0.09650616347789764,
+      "angular_speed": 0.2821280360221863,
+      "arm_target_rms": 0.08745013177394867,
+      "arm_target_step_rms": 0.11034277826547623
+    },
+    {
+      "env_id": 116,
+      "angle_deg": 3.0023413280440967,
+      "drift_m": 0.03958842629116861,
+      "valid_drift": true,
+      "linear_speed": 0.09504739940166473,
+      "angular_speed": 1.9353524446487427,
+      "arm_target_rms": 0.08108722418546677,
+      "arm_target_step_rms": 0.11624302715063095
+    },
+    {
+      "env_id": 117,
+      "angle_deg": 94.05766298955423,
+      "drift_m": 0.2283476063874586,
+      "valid_drift": false,
+      "linear_speed": 0.12077834457159042,
+      "angular_speed": 18.42974090576172,
+      "arm_target_rms": 0.7137529253959656,
+      "arm_target_step_rms": 1.2862578630447388
+    },
+    {
+      "env_id": 118,
+      "angle_deg": 5.311117322508467,
+      "drift_m": 0.05792747581046718,
+      "valid_drift": true,
+      "linear_speed": 0.11496850103139877,
+      "angular_speed": 1.4771692752838135,
+      "arm_target_rms": 0.03946761041879654,
+      "arm_target_step_rms": 0.13978958129882812
+    },
+    {
+      "env_id": 119,
+      "angle_deg": 4.041055676120668,
+      "drift_m": 0.04677190336352962,
+      "valid_drift": true,
+      "linear_speed": 0.10951857268810272,
+      "angular_speed": 1.6450879573822021,
+      "arm_target_rms": 0.0778055265545845,
+      "arm_target_step_rms": 0.12779995799064636
+    },
+    {
+      "env_id": 120,
+      "angle_deg": 9.02800720687596,
+      "drift_m": 0.039187837897041444,
+      "valid_drift": true,
+      "linear_speed": 0.10073196887969971,
+      "angular_speed": 0.4165053069591522,
+      "arm_target_rms": 0.07840685546398163,
+      "arm_target_step_rms": 0.10768095403909683
+    },
+    {
+      "env_id": 121,
+      "angle_deg": 2.1656352015724596,
+      "drift_m": 0.041555287707922314,
+      "valid_drift": true,
+      "linear_speed": 0.06573881208896637,
+      "angular_speed": 1.157833456993103,
+      "arm_target_rms": 0.13999414443969727,
+      "arm_target_step_rms": 0.1773303896188736
+    },
+    {
+      "env_id": 122,
+      "angle_deg": 3.072122693900506,
+      "drift_m": 0.06482201995008299,
+      "valid_drift": true,
+      "linear_speed": 0.13082881271839142,
+      "angular_speed": 1.331229329109192,
+      "arm_target_rms": 0.06671759486198425,
+      "arm_target_step_rms": 0.1575687825679779
+    },
+    {
+      "env_id": 123,
+      "angle_deg": 4.087187874273856,
+      "drift_m": 0.07152886059679309,
+      "valid_drift": true,
+      "linear_speed": 0.11352712661027908,
+      "angular_speed": 1.5402899980545044,
+      "arm_target_rms": 0.053121715784072876,
+      "arm_target_step_rms": 0.13379807770252228
+    },
+    {
+      "env_id": 124,
+      "angle_deg": 6.1892165706915385,
+      "drift_m": 0.05972820455920254,
+      "valid_drift": true,
+      "linear_speed": 0.11141902208328247,
+      "angular_speed": 1.203590989112854,
+      "arm_target_rms": 0.037236738950014114,
+      "arm_target_step_rms": 0.175279438495636
+    },
+    {
+      "env_id": 125,
+      "angle_deg": 2.663516248311954,
+      "drift_m": 0.10399171342429075,
+      "valid_drift": true,
+      "linear_speed": 0.12829545140266418,
+      "angular_speed": 1.5496935844421387,
+      "arm_target_rms": 0.059791699051856995,
+      "arm_target_step_rms": 0.12883131206035614
+    },
+    {
+      "env_id": 126,
+      "angle_deg": 5.577064527226322,
+      "drift_m": 0.02314633215271729,
+      "valid_drift": true,
+      "linear_speed": 0.12585444748401642,
+      "angular_speed": 1.6403124332427979,
+      "arm_target_rms": 0.047541819512844086,
+      "arm_target_step_rms": 0.13063938915729523
+    },
+    {
+      "env_id": 127,
+      "angle_deg": 0.6871307823100374,
+      "drift_m": 0.18411622439946487,
+      "valid_drift": false,
+      "linear_speed": 4.037675083168324e-08,
+      "angular_speed": 1.5276442582035088e-06,
+      "arm_target_rms": 0.08878327906131744,
+      "arm_target_step_rms": 0.1707664579153061
+    }
+  ]
+}

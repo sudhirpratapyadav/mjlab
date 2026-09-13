@@ -1,0 +1,17 @@
+{
+  "preregistered_utc": "2026-09-13T06:19:35.083469+00:00",
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "run_id": "RL-020-R10-peg-guard",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-020-R8-peg-lift/model_8199.pt",
+  "source_checkpoint_sha256": "15308d586d11cbfc1826875fd081b8ce572e5bcef64180c86ece6a24e960e747",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_10198.pt",
+  "recipe": "peg_v3",
+  "physical_gpu_index": 6,
+  "max_update_kl": 0.03,
+  "initial_learning_rate": 1e-05,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "reason": "Finite2048x50 guarded preflight, all accepted KL<=.03. Full budget from original source, no probe endpoint or interim evaluation."
+}

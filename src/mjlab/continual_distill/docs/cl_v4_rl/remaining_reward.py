@@ -131,7 +131,13 @@ def edge_side_pinch_score(distance, alignment, orientation_power=1.):
           +.5*torch.exp(-distance/.04)*alignment)
 
 
-def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, pinch_weight=1., orientation_power=1., **kwargs):
+def edge_arrival_aperture_score(distance, aperture, capture_fit):
+  wide = torch.exp(-((aperture-.070)/.025).square())
+  arrival = torch.sigmoid((distance-.015)/.005)
+  return arrival*wide+(1-arrival)*capture_fit
+
+
+def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, pinch_weight=1., orientation_power=1., held_weight=8., wide_approach=False, **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -158,6 +164,8 @@ def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, co
   closure = smooth_closure_bonus(pinch_distance,aperture)
   if contact_geometry:
     closure = capture_aperture_bonus(command,pinch_distance,squeeze=True,centerline=True)
+  if wide_approach:
+    closure = edge_arrival_aperture_score(pinch_distance,aperture,closure)
   pinch *= pinch_weight*(1+closure)
   precursor = ((1-exposure)*push+exposure*pinch+4*exposure)*at_ledge
   held = (enclosed_grasp(command) if require_enclosure else grasped(command)).float()
@@ -166,7 +174,7 @@ def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, co
     held = opposed_grasp(command).float()
   lift = ((pos[:,2]-top)/.10).clamp(0,1)
   goal = torch.exp(-torch.linalg.vector_norm(pos-tracking_goal(command),dim=-1)/.15)
-  return precursor*(1-held)+8*held+6*lift*held+4*goal*held+25*native_success(command)
+  return precursor*(1-held)+held_weight*held+6*lift*held+4*goal*held+25*native_success(command)
 
 
 def pivot_ramp_target(corner, aperture, closing, approach, floor):

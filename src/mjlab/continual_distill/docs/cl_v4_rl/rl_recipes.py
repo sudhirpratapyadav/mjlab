@@ -19,6 +19,8 @@ RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("stack_v1",)
+RECIPES += ("reorient_v10",)
+RECIPES += ("edge_v5",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
 RECIPES += ("lift_v9", "peg_v2", "peg_v3", "edge_v4")
 RECIPES += ("reorient_v9",)
@@ -149,6 +151,10 @@ def apply_recipe(cfg, recipe):
     apply_recipe(cfg,"reorient_v7")
     cfg.env.rewards["reach_object"].params.update(continuous_orientation=True,native_completion_weight=25.)
     return
+  if recipe == "reorient_v10":
+    apply_recipe(cfg,"reorient_v9")
+    cfg.env.rewards["reach_object"].params["steady_action_weight"]=3.
+    return
   if recipe == "reorient_v9":
     apply_recipe(cfg,"reorient_v8")
     cfg.env.rewards["reach_object"].params["quiet_weight"]=6.
@@ -160,6 +166,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "lift_v7":
     apply_recipe(cfg, "lift_v6")
     cfg.env.rewards["reach_object"].params['settle_grip'] = True
+    return
+  if recipe == "edge_v5":
+    apply_recipe(cfg,"edge_v4")
+    cfg.env.rewards['reach_object'].params.update(pinch_weight=3.,held_weight=14.,wide_approach=True)
     return
   if recipe == "edge_v4":
     apply_recipe(cfg,"edge_v3")
@@ -335,7 +345,11 @@ def reorient_quiet_score(held_valid_orientation, linear_speed, angular_speed):
   return held_valid_orientation/(1+linear_speed/.03+angular_speed/.3)
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, continuous_orientation=False, native_completion_weight=0., quiet_weight=0., **kwargs):
+def reorient_steady_action_score(held_valid_orientation, action, previous_action):
+  return held_valid_orientation/(1+(action-previous_action).square().mean(-1).sqrt()/.01)
+
+
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, continuous_orientation=False, native_completion_weight=0., quiet_weight=0., steady_action_weight=0., **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure,contact_geometry=contact_geometry)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -372,6 +386,8 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
     reward += quiet_weight*reorient_quiet_score(orientation,
       torch.linalg.vector_norm(obj.data.root_link_lin_vel_w,dim=-1),
       torch.linalg.vector_norm(obj.data.root_link_ang_vel_w,dim=-1))
+  if steady_action_weight:
+    reward += steady_action_weight*reorient_steady_action_score(orientation,env.action_manager.action,env.action_manager.prev_action)
   if native_completion_weight:
     command._update_metrics()
     reward += native_completion_weight*command.compute_success().float()
