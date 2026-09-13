@@ -187,3 +187,8 @@ Preregister S3 from successful ORIGINAL S1/model23489, preserve its learned expl
 Records correction: the new079 preflight JSON inadvertently reused historical lift_arm_preflight.json (044). Restored044 exactfromGit; retained079 under unique lift_arm079_preflight.json and log. Runtime044 log provenance is not established; prior runW&B/runtime artifacts remain in their run directories. Future evidence writes must assert unique paths.
 
 Lift cost080 preflight passed100/100,76finitecheckpoint/Adam tensors,maxacceptedKL.02210768,onebacktrack andsavedLR5e-6. Adopt5e-6 for fullS3 per preregistered rule; originalS1parent, no noise reset and no preflightmodel parent.83 focused tests pass. Start3000updates/final26488 onverifiedemptyGPU1, then strictvalidation14/conditionalconfirmation19 and paired50fpsreview.
+
+
+### Pending decision after S11–S13 final reviews
+
+Keep their current budgets and recipes fixed. S9/S10 remain rejected. Their late holds mostly retain the object but miss its goal; native Lift requires goal error below5cm plus grasp and settled object motion. The native completion bonus is zero outside that success region. The separate dense goal term in `lift_grasp_reward` still has coefficient5; increasing the gated bonus alone did not restore accuracy. If a completed target-cost candidate reduces initial speed but loses goal accuracy, inspect its full traces and consider a preregistered dense goal-reward bracket next. This is a hypothesis, not an implemented recipe, active run or permission requirement. Select any new parent only from completed reviewed trials, document the new objective and fixed budget, and use a fresh conditional confirmation seed. Preserve the certified baseline and other23-task pause.
