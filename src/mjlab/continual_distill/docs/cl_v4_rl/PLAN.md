@@ -2,7 +2,7 @@
 
 ## Current state
 
-15/24 independent PPO teachers certified. Place7500 is newly certified117/128+119/128. Current inventory and outcome table are in STATUS.md and evidence/training_wave26.json; the entries below Wave22 onward are chronological history.
+15/24 independent PPO teachers certified. Place7500 is newly certified117/128+119/128. Current inventory and outcome table are in STATUS.md and evidence/training_wave28.json; the entries below Wave22 onward are chronological history.
 
 ## Acceptance
 
@@ -10,7 +10,7 @@ Native first uninterrupted episode, deterministic means,60D observations and nor
 
 ## Active work
 
-- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU3 StrikeR6-cpu final12994; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; GPU7 CageR11-cpu final19092. All full runs are live; evaluate after their frozen budgets.
+- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; GPU7 CageR11-cpu final19092. Six full runs are live; evaluate after their frozen budgets. StrikeR6 completed12994 and strict37/128; GPU3 is free pending endpoint precision diagnosis.
 - Four CPU migrations preserve the original final labels; see cpu_affinity_migration_audit.json. Every new step requests8 CPUs and keeps numerical library threads at1.
 - Cage/Throw confirmation16 is reserved; do not reuse retired15 or evaluate earlier checkpoints against a new confirmation.
 - Edge8996 plateaued39.53mm from side pinch, mainly vertical; Pivot still lacks tipping. Continue physical/contact diagnosis while full trainers run.
@@ -128,3 +128,15 @@ PegR7 pre-collapse6200 strict0/128, actual low capture reviewed, final opposed g
 Stack release64x3 and Peg lift64x3 preflights completed normally, all model/optimizer tensors finite. Stackstd remains~0.4 atAdam1e-4; Pegusespeg_v2 andAdam5e-5 withgyroON.71 focused reward/interface/gripper-reset checks pass. Start original-checkpoint fullR8 runs after preflight steps exit: Stack8197x2000 final10196 GPU5; Peg6200x2000 final8199 GPU6. Sourcepreflight checkpoints are not training parents.
 
 Next independent diagnostic: compare the Pivot reward near-edge target (50mm) with the compiled collider half-extent (60mm). First preregister and check actual contact geometry and dynamics; do not silently change an existing recipe or benchmark geometry. This is a candidate explanation for the persisted top-face contact, not yet a verified fix.
+
+### Wave28
+Previous goal turn made progress through CPU correction, three evaluated checkpoints, Stack/Peg diagnostics, finite pilots and seven full training runs. Current seven steps revalidated live; GPU0 is0MiB. Preregister native CPU Pivot contact-target comparison on all32 every-fourth recorded closest states fromR2/3499. Preserve source friction, original object/wall poses, wrist and finger opening. Use bounded arm IK for the existing absolute reward waypoint with50mm half-extent versus the compiled collider60mm half-extent, each with0/2/4/6mm inward pressure offsets. Report all target errors, pad contact normals/distances and obstacle penetrations. Static contact gate: IK<2mm/<3deg, side contact with positive tipping moment arm>1mm, no object/obstacle penetration deeper3mm. This is a diagnostic criterion, never an RL success rule. No dynamics, policy supervision or reward change in this first comparison; preserve all32 cases.
+
+Pivot absolute-waypoint contact audit: legacy50mm half-extent produces0/32 side-tipping contacts and32/32 >3mm penetrations. Correct60mm extent produces31/32 side-tipping contacts but only3/32 pass the penetration gate; native-target maximum penetration ranges2.65–5.38mm. No physical/reward change. Preregister a second static comparison at the60mm extent with1/2/3/4mm outward standoff, keeping all32 source poses/wrists/openings and existing contact gate. Select the standoff with most valid contacts for a subsequent separately documented dynamics comparison; do not treat the static gate as tipping or RL success.
+
+Pivot native-edge standoff grid passes27/32 at1mm,30/32 at2mm,29/32 at3mm and5/32 at4mm under the frozen contact gate. Select2mm by the preregistered maximum-pass rule. Preregister matched native CPU dynamics for all32 source states: legacy absolute target hold, corrected2mm-standoff hold, and corrected target followed after0.5s by smooth one-second press/climb to10mm inward+20mm upward or20mm inward+40mm upward. Restore source qpos/qvel/mocap/friction and keep wrist/opening; do not initialize at IK endpoints or discard the two failed static cases. Run400x5ms, record tilt with actual wall contact, warnings and obstacle penetration. These diagnostic actuator trajectories never enter training or count as RL success.
+
+Pivot matched corrected-target dynamics remain0/32 wall-contact tilts>20deg in every mode, with finite CPU state/no warnings/obstacle penetration. This does not yet show whether the hand tracked its nominal IK target under load. Preregister identical32x4 replay with actual hand-position and joint-target errors recorded at0.2s intervals; do not change controls or conclude physical infeasibility from unmeasured tracking. StrikeR6-cpu completed12994; strict evaluation is queued after actual exit.
+
+Pivot tracking audit: corrected hold misses its nominal hand target by median5.67mm at0.4s, and press/climb endpoints miss15.94/25.25mm. Native position-actuator gains are[1000,1000,750,750,300,300,300], unit gear, with affine bias−kp*q−kv*v. Preregister identical32x4 CPU dynamics with static gravity/passive compensation in the joint-position targets: q_command=q_IK+(qfrc_bias−qfrc_passive)/kp at zero velocity, clipped to the approved joint target bounds. Preserve physical model, initial states, original fingers and timing; report clipping and actual tracking. This is diagnostic target selection only, not an actuator/model change or policy-training data.
+StrikeR6/final12994 strict37/128 versus42/128 before; no confirmation. Diagnose endpoint error before another continuation.

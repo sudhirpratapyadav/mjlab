@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "a5cc2a47ad8578ab01bbfe718c1c85cb036cf2ad7464b2dae629831098e53412",
+  "reviewed_utc": "2026-09-13T03:27:05.778747+00:00",
+  "validation_successes": 37,
+  "episodes": 128,
+  "certified": false,
+  "frames_reviewed": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "source": "Exact recorded first-episode states; rendering only, no resimulation",
+  "observation": "Success example: puck moves onto the goal marker and stays there as the hand withdraws. Failure example: puck comes to rest beside the goal marker; native predicate fails. Latest 37/128 is below prior 42/128; no confirmation.",
+  "endpoint_audit": "strike_r6_endpoint_audit.json"
+}

@@ -1,0 +1,5731 @@
+{
+  "task": "Mjlab-Pivot-Lift-Franka",
+  "checkpoint_sha256": "ca2417b987a57922818c6fa49dae37110b1285ffa46207fec6d2fe7f7c4a4696",
+  "episodes": 32,
+  "standoff_grid": true,
+  "collider_half_extents_m": [
+    0.06,
+    0.1094,
+    0.01
+  ],
+  "method": "Native CPU bounded IK at absolute reward waypoints for all32 every-fourth recorded closest states; original wrist, finger opening, object/wall poses and trace friction. Compare50mm reward half-extent with60mm collider extent, each at0/2/4/6mm inward pressure, or native extent with1/2/3/4mm outward standoff when flagged. Contact gate requires IK<2mm/<3deg, inward side contact with positive tipping moment>1mm, and no robot/object/obstacle penetration>3mm. Static geometry only: no dynamics, policy demonstrations, training or RL success claim.",
+  "summary": {
+    "half_0.060_press_-0.001": {
+      "passed": 27,
+      "side_tipping_contacts": 32,
+      "upward_contacts": 0,
+      "object_penetrations_over3mm": 5,
+      "obstacle_penetrations_over3mm": 0,
+      "median_position_error_m": 6.093675807940846e-09
+    },
+    "half_0.060_press_-0.002": {
+      "passed": 30,
+      "side_tipping_contacts": 32,
+      "upward_contacts": 0,
+      "object_penetrations_over3mm": 2,
+      "obstacle_penetrations_over3mm": 0,
+      "median_position_error_m": 3.465108851134556e-09
+    },
+    "half_0.060_press_-0.003": {
+      "passed": 29,
+      "side_tipping_contacts": 29,
+      "upward_contacts": 0,
+      "object_penetrations_over3mm": 0,
+      "obstacle_penetrations_over3mm": 0,
+      "median_position_error_m": 1.567091610250276e-12
+    },
+    "half_0.060_press_-0.004": {
+      "passed": 5,
+      "side_tipping_contacts": 5,
+      "upward_contacts": 0,
+      "object_penetrations_over3mm": 0,
+      "obstacle_penetrations_over3mm": 0,
+      "median_position_error_m": 9.50076934774521e-12
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "source_step": 210,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4224703879410569,
+            -0.01259628799519174,
+            0.03223280348598646
+          ],
+          "qpos": [
+            -0.3575564728237357,
+            0.4919299427062417,
+            0.4661224044072608,
+            -2.711535234261757,
+            0.6366557906192636,
+            3.5936576864946423,
+            -1.2593495236211893
+          ],
+          "position_error_m": 6.118200059882291e-09,
+          "rotation_error_deg": 5.7905745997743736e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005287851695710522,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ],
+              "tipping_moment_arm_m": 0.020609581788066773
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002477725093704748,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ],
+              "tipping_moment_arm_m": 0.0140911406563205
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -7.47629881993105e-05,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ],
+              "tipping_moment_arm_m": 0.014125712305356697
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002477725093704748,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42147196497525163,
+            -0.012596935238753378,
+            0.0321766682704055
+          ],
+          "qpos": [
+            -0.36553403756287567,
+            0.4935677057767748,
+            0.47457078277681247,
+            -2.7134379457178515,
+            0.6413327503121746,
+            3.597563087625625,
+            -1.2650179722724166
+          ],
+          "position_error_m": 1.704109598981542e-08,
+          "rotation_error_deg": 1.3819533748532954e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014777195323615816,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ],
+              "tipping_moment_arm_m": 0.014091157568067622
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0014777195323615816,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4204735420094463,
+            -0.012597582482315017,
+            0.03212053305482454
+          ],
+          "qpos": [
+            -0.37408159750126485,
+            0.4954376409753569,
+            0.4836631191597768,
+            -2.7152234984741073,
+            0.6466351591577602,
+            3.6016510075952746,
+            -1.2713993625764084
+          ],
+          "position_error_m": 1.3973457974060005e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00047772984421266774,
+              "pad_to_board_normal": [
+                0.9984229658053,
+                0.0006472435616390308,
+                0.056135215580958506
+              ],
+              "tipping_moment_arm_m": 0.01409113453531918
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00047772984421266774,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41947511904364104,
+            -0.012598229725876656,
+            0.032064397839243586
+          ],
+          "qpos": [
+            -0.38319300212508534,
+            0.49755004848554213,
+            0.49338617648558175,
+            -2.7168921644821706,
+            0.6525380396965772,
+            3.6059281090478104,
+            -1.2784770860660926
+          ],
+          "position_error_m": 9.234549779275936e-12,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "source_step": 210,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4221753003344624,
+            0.0743008629606447,
+            0.031427259319752945
+          ],
+          "qpos": [
+            -0.22405036500811443,
+            0.5189667528262968,
+            0.5556074644784639,
+            -2.664712915829599,
+            0.7851830431347394,
+            3.58165394135033,
+            -1.2098807950633745
+          ],
+          "position_error_m": 1.704639262939464e-08,
+          "rotation_error_deg": 2.0276000680978352e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005943703570767207,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ],
+              "tipping_moment_arm_m": 0.019654339467933185
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002086732756614826,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ],
+              "tipping_moment_arm_m": 0.014521239404873418
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002086732756614826,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4211765733225087,
+            0.07430099388429068,
+            0.03137681788387956
+          ],
+          "qpos": [
+            -0.23199587687556844,
+            0.5212895099196115,
+            0.5644790475543693,
+            -2.6663461742961414,
+            0.7900037858755447,
+            3.586241344136713,
+            -1.2155931875309673
+          ],
+          "position_error_m": 3.122751107904954e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010867399128239642,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ],
+              "tipping_moment_arm_m": 0.014521214795864695
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0010867399128239642,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42017784631055494,
+            0.07430112480793667,
+            0.031326376448006184
+          ],
+          "qpos": [
+            -0.24029305431026987,
+            0.5238238569187531,
+            0.5737279770380285,
+            -2.667889948791423,
+            0.7951683354123883,
+            3.5910022493481875,
+            -1.221748709973486
+          ],
+          "position_error_m": 1.6281388166429654e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -8.673990436339945e-05,
+              "pad_to_board_normal": [
+                0.9987270119537326,
+                -0.00013092364598900932,
+                0.050441435873379445
+              ],
+              "tipping_moment_arm_m": 0.014521214798003435
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -8.673990436339945e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4191791192986012,
+            0.07430125573158267,
+            0.031275935012132806
+          ],
+          "qpos": [
+            -0.24881028677621095,
+            0.5265250847997422,
+            0.5831972041588089,
+            -2.669379648980523,
+            0.8004935181595114,
+            3.5958958796959535,
+            -1.2281483128579034
+          ],
+          "position_error_m": 6.663315854290152e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "source_step": 200,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42170503251950453,
+            -0.08249674746993894,
+            0.03140596270089327
+          ],
+          "qpos": [
+            -0.542865680828336,
+            0.49195434182706593,
+            0.4638719547214194,
+            -2.697159572229663,
+            0.5889358525370095,
+            3.558787839544969,
+            -1.4213312217144303
+          ],
+          "position_error_m": 9.625396462909227e-09,
+          "rotation_error_deg": 2.459698018859256e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00017726006133919896,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ],
+              "tipping_moment_arm_m": 0.020070529927754772
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002059628718920918,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ],
+              "tipping_moment_arm_m": 0.013547718528648257
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002059628718920918,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4207065263141087,
+            -0.08249650345505521,
+            0.03135132481803983
+          ],
+          "qpos": [
+            -0.5492365229307768,
+            0.49286292241224294,
+            0.46995648363815173,
+            -2.699451540776216,
+            0.5914481280049765,
+            3.5619101830319297,
+            -1.4250704899787194
+          ],
+          "position_error_m": 3.023256249366276e-13,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00105963622448012,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ],
+              "tipping_moment_arm_m": 0.013547695133941242
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00105963622448012,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.41970802010871283,
+            -0.0824962594401715,
+            0.0312966869351864
+          ],
+          "qpos": [
+            -0.556257114618852,
+            0.49400362708169093,
+            0.4768283564230894,
+            -2.7015996340732102,
+            0.5948892801102098,
+            3.565199406362175,
+            -1.429788087346521
+          ],
+          "position_error_m": 2.6195188213655953e-13,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -5.963622447122032e-05,
+              "pad_to_board_normal": [
+                0.9985062053958558,
+                -0.0002440148837221304,
+                0.05463788285343432
+              ],
+              "tipping_moment_arm_m": 0.013547695133911613
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -5.963622447122032e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.418709513903317,
+            -0.08249601542528777,
+            0.031242049052332965
+          ],
+          "qpos": [
+            -0.5638634234461765,
+            0.4953660120953645,
+            0.48440102859614104,
+            -2.703618837845455,
+            0.599136471962109,
+            3.568647457128314,
+            -1.4353659251588895
+          ],
+          "position_error_m": 3.379692518886955e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "source_step": 130,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42290644731962457,
+            0.0033544937868390124,
+            0.03278747948501257
+          ],
+          "qpos": [
+            -0.3630162732782502,
+            0.49149763294106186,
+            0.49152526302021626,
+            -2.7167045007203425,
+            0.6047548165424442,
+            3.585400659984638,
+            -1.2257010783732034
+          ],
+          "position_error_m": 6.156143847402645e-09,
+          "rotation_error_deg": 5.7905745997743736e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0003756117096443078,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ],
+              "tipping_moment_arm_m": 0.01982378011130276
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0023062208132299694,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ],
+              "tipping_moment_arm_m": 0.013642430786255044
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00022023667218845026,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ],
+              "tipping_moment_arm_m": 0.013157003654714339
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0023062208132299694,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4219074440043574,
+            0.0033544231714862077,
+            0.032742843500663615
+          ],
+          "qpos": [
+            -0.3720423149590478,
+            0.49358973354629104,
+            0.501500613551659,
+            -2.7183215923920567,
+            0.611802499416226,
+            3.58951778166282,
+            -1.2336356378420479
+          ],
+          "position_error_m": 1.5426984136106463e-08,
+          "rotation_error_deg": 8.872676000826597e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0013062148173427733,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ],
+              "tipping_moment_arm_m": 0.013642443519783276
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0013062148173427733,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42090844068909034,
+            0.0033543525561334033,
+            0.032698207516314665
+          ],
+          "qpos": [
+            -0.3812520555554418,
+            0.4958146091468859,
+            0.5116558854665675,
+            -2.7198981132661486,
+            0.6189671545459899,
+            3.5937280615336435,
+            -1.2417489061333173
+          ],
+          "position_error_m": 3.8797283574193584e-13,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0003062252853828487,
+              "pad_to_board_normal": [
+                0.9990033152671075,
+                7.061535280450893e-05,
+                0.044635984348956353
+              ],
+              "tipping_moment_arm_m": 0.013642425983926398
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0003062252853828487,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41990943737382325,
+            0.0033542819407805986,
+            0.03265357153196571
+          ],
+          "qpos": [
+            -0.39068825308066657,
+            0.4981925145619127,
+            0.5220404501961751,
+            -2.7214243079802913,
+            0.626302837557427,
+            3.598046632025158,
+            -1.2501027213860316
+          ],
+          "position_error_m": 3.205067418120163e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "source_step": 120,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4226494156479913,
+            0.09044459336659218,
+            0.03143619905273008
+          ],
+          "qpos": [
+            -0.06045413782814077,
+            0.5011377663419241,
+            0.4470891339614034,
+            -2.6571995504349513,
+            0.7743946427306952,
+            3.569929892833702,
+            -1.0624627322158486
+          ],
+          "position_error_m": 4.1189879912857013e-13,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0015510567746010063,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.01957690668098928
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.003144996088984758,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.01423821198156073
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.003144996088984758,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4216506935821856,
+            0.09044445421309215,
+            0.03138565980155716
+          ],
+          "qpos": [
+            -0.06835861403574454,
+            0.5028400141791223,
+            0.4561649069648155,
+            -2.6588264465681206,
+            0.7793463964503797,
+            3.574283243982752,
+            -1.0679514597128406
+          ],
+          "position_error_m": 2.0388702683704563e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005510567736424859,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.019576906680988625
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021449960879391474,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.014238211981786384
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021449960879391474,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42065197151637995,
+            0.09044431505959212,
+            0.031335120550384225
+          ],
+          "qpos": [
+            -0.076509365286262,
+            0.5046767216720852,
+            0.46549348152900005,
+            -2.6604006952280304,
+            0.7844711719400944,
+            3.5787517924027896,
+            -1.0736809435988268
+          ],
+          "position_error_m": 8.131926138182837e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011449960839486095,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.014238211982580285
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0011449960839486095,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41965324945057425,
+            0.09044417590609209,
+            0.03128458129921129
+          ],
+          "qpos": [
+            -0.0848487689321744,
+            0.5066350718272351,
+            0.47500588058336873,
+            -2.6619366697460674,
+            0.7896908221990347,
+            3.5833211728135725,
+            -1.0795685985438357
+          ],
+          "position_error_m": 2.868223725169357e-11,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0001449960697195692,
+              "pad_to_board_normal": [
+                0.9987220658056891,
+                0.00013915350002982239,
+                0.050539251172930004
+              ],
+              "tipping_moment_arm_m": 0.01423821198511937
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0001449960697195692,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "source_step": 240,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4223781422306618,
+            -0.08896530224815621,
+            0.030655665901804366
+          ],
+          "qpos": [
+            -0.4960165207799414,
+            0.498876790972622,
+            0.4237573878183001,
+            -2.6885861105743563,
+            0.6151338042305466,
+            3.5833925245320315,
+            -1.3848654726598202
+          ],
+          "position_error_m": 6.472444532401089e-09,
+          "rotation_error_deg": 1.1518036199983983e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007189883383703312,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ],
+              "tipping_moment_arm_m": 0.020030835230663742
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0027449145557816765,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ],
+              "tipping_moment_arm_m": 0.01292800882909171
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0027449145557816765,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4213800948516902,
+            -0.08896547902285247,
+            0.030593204729235764
+          ],
+          "qpos": [
+            -0.5032418416757246,
+            0.4999624462079772,
+            0.43074633427223863,
+            -2.690741875351293,
+            0.6181063997264485,
+            3.5868232874910175,
+            -1.3892530954368079
+          ],
+          "position_error_m": 4.245847561091333e-14,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0017449201682528696,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ],
+              "tipping_moment_arm_m": 0.01292799584192551
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0017449201682528696,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42038204747271857,
+            -0.08896565579754871,
+            0.030530743556667163
+          ],
+          "qpos": [
+            -0.5111429652069306,
+            0.5012779550801566,
+            0.43852167412685444,
+            -2.6927582177842133,
+            0.6219034272108143,
+            3.5904386073699706,
+            -1.394547019306434
+          ],
+          "position_error_m": 6.138893933175973e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007449201680820366,
+              "pad_to_board_normal": [
+                0.9980473789715908,
+                0.00017677469624855071,
+                0.06246117256860172
+              ],
+              "tipping_moment_arm_m": 0.012927995842016603
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0007449201680820366,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.419384000093747,
+            -0.08896583257224497,
+            0.03046828238409856
+          ],
+          "qpos": [
+            -0.5192972915402705,
+            0.502709780204439,
+            0.44657186844710256,
+            -2.694723382892502,
+            0.6259515041875555,
+            3.5941381819996865,
+            -1.400141690853101
+          ],
+          "position_error_m": 5.518735327630175e-12,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "source_step": 140,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42318351112658087,
+            0.12270024913449684,
+            0.03238776665582806
+          ],
+          "qpos": [
+            -0.12694544807267089,
+            0.5292196410136769,
+            0.5688050017730876,
+            -2.622744849163614,
+            0.8369831739384668,
+            3.5585390583413288,
+            -1.1436243732998967
+          ],
+          "position_error_m": 3.512486823041316e-09,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0009546658270153019,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ],
+              "tipping_moment_arm_m": 0.019719285785455065
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021289604873524787,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ],
+              "tipping_moment_arm_m": 0.015648031278021866
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021289604873524787,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4221845824499351,
+            0.12270019577204817,
+            0.03234149035382273
+          ],
+          "qpos": [
+            -0.1300808980670681,
+            0.5296744470520508,
+            0.572369662706895,
+            -2.625603958222422,
+            0.8356722962329415,
+            3.561471770161202,
+            -1.142227690217833
+          ],
+          "position_error_m": 1.0503908854743681e-08,
+          "rotation_error_deg": 1.3713635377634418e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001128956312127363,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ],
+              "tipping_moment_arm_m": 0.01564803254411313
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001128956312127363,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4211856537732894,
+            0.1227001424095995,
+            0.03229521405181741
+          ],
+          "qpos": [
+            -0.1337900362092715,
+            0.5303942423207599,
+            0.576615379939057,
+            -2.6282769417072913,
+            0.8352100518012087,
+            3.564637022870313,
+            -1.1417838216308358
+          ],
+          "position_error_m": 7.26244827876854e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00012896218349005934,
+              "pad_to_board_normal": [
+                0.9989286766457159,
+                5.336244866588668e-05,
+                0.046276302005323525
+              ],
+              "tipping_moment_arm_m": 0.015648028645663423
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00012896218349005934,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4201867250966437,
+            0.12270008904715085,
+            0.032248937749812086
+          ],
+          "qpos": [
+            -0.13746991465841316,
+            0.5311261839763974,
+            0.5808281284378076,
+            -2.6309489558270562,
+            0.834732773602243,
+            3.567801725703437,
+            -1.141319493905197
+          ],
+          "position_error_m": 3.0414700959959495e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "source_step": 130,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4224918578493995,
+            -0.011408166502489922,
+            0.03247000578979484
+          ],
+          "qpos": [
+            -0.37320408163008656,
+            0.4864992266346799,
+            0.4655518295006981,
+            -2.7198816055312593,
+            0.5846568771037699,
+            3.5826193310633547,
+            -1.2590008401504336
+          ],
+          "position_error_m": 6.502329411547267e-09,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -1.3143884123035816e-05,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ],
+              "tipping_moment_arm_m": 0.019703376666697824
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00201121273844934,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ],
+              "tipping_moment_arm_m": 0.013275325994430988
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002711970585940538,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ],
+              "tipping_moment_arm_m": 0.013172001548484986
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00201121273844934,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4214928714253016,
+            -0.011408283262918982,
+            0.032424993448874784
+          ],
+          "qpos": [
+            -0.3813381159879963,
+            0.4881252022339481,
+            0.47436679726002456,
+            -2.7217343392854083,
+            0.5903962975762316,
+            3.5863915084052658,
+            -1.2655768540297894
+          ],
+          "position_error_m": 1.7960985505462388e-08,
+          "rotation_error_deg": 1.4183953086968166e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001011206739658536,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ],
+              "tipping_moment_arm_m": 0.013275343728145216
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001011206739658536,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4204938850012037,
+            -0.011408400023348043,
+            0.032379981107954724
+          ],
+          "qpos": [
+            -0.3900961652874894,
+            0.4900001976449356,
+            0.48390253363586105,
+            -2.723460769500738,
+            0.5968705752393652,
+            3.5903477017866092,
+            -1.2729652457273952
+          ],
+          "position_error_m": 1.333141917840439e-12,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -1.1217717369953369e-05,
+              "pad_to_board_normal": [
+                0.9989864240978947,
+                0.00011676042906062203,
+                0.0450123409200583
+              ],
+              "tipping_moment_arm_m": 0.01327531928585566
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -1.1217717369953369e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41949489857710587,
+            -0.011408516783777103,
+            0.032334968767034664
+          ],
+          "qpos": [
+            -0.39947170065141,
+            0.4921362407511261,
+            0.49414412145664804,
+            -2.7250602967251263,
+            0.6040512742684901,
+            3.594496036361564,
+            -1.2811476141274556
+          ],
+          "position_error_m": 9.508736873351931e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "source_step": 90,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4194722564821305,
+            0.06361065889486633,
+            0.03208306957976982
+          ],
+          "qpos": [
+            -0.20399123885375625,
+            0.5053448082482288,
+            0.5123580670924173,
+            -2.688712948163945,
+            0.7340156536688839,
+            3.595068885865894,
+            -1.169498945109266
+          ],
+          "position_error_m": 5.575631482160922e-12,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0016532665760555644,
+              "pad_to_board_normal": [
+                0.9979141924089479,
+                -0.04098084312052017,
+                0.04987820251300851
+              ],
+              "tipping_moment_arm_m": 0.013991129507598728
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -8.70892627197065e-05,
+              "pad_to_board_normal": [
+                0.9979141924089479,
+                -0.04098084312052017,
+                0.04987820251300851
+              ],
+              "tipping_moment_arm_m": 0.013076659160791025
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0016532665760555644,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4184743422897216,
+            0.06365163973798686,
+            0.03203319137725681
+          ],
+          "qpos": [
+            -0.20713914699868372,
+            0.5057757422311634,
+            0.5158280010013039,
+            -2.6914463365382844,
+            0.7333362320076766,
+            3.597957527039085,
+            -1.1687733100644724
+          ],
+          "position_error_m": 3.9572194535316776e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006532665767484615,
+              "pad_to_board_normal": [
+                0.9979141924089479,
+                -0.04098084312052017,
+                0.04987820251300851
+              ],
+              "tipping_moment_arm_m": 0.013991129508200521
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0006532665767484615,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4174764280973126,
+            0.06369262058110738,
+            0.0319833131747438
+          ],
+          "qpos": [
+            -0.21055580390831558,
+            0.5063204374057113,
+            0.5196112368592855,
+            -2.6941093662661397,
+            0.7330059829088191,
+            3.6009400130697715,
+            -1.16843335163472
+          ],
+          "position_error_m": 6.605572897763658e-12,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41647851390490365,
+            0.0637336014242279,
+            0.0319334349722308
+          ],
+          "qpos": [
+            -0.21408925336526627,
+            0.5069271908415782,
+            0.5235299988563655,
+            -2.6967381898453673,
+            0.7328331490155962,
+            3.6039689579362513,
+            -1.1682671060943213
+          ],
+          "position_error_m": 2.1313649689697277e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "source_step": 50,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4223588828911059,
+            0.02040783923610912,
+            0.03767599381983836
+          ],
+          "qpos": [
+            -0.31728798266067726,
+            0.4531803262530423,
+            0.46374214722027335,
+            -2.7320880826723646,
+            0.5315251662174685,
+            3.535466969164693,
+            -1.0692678493088594
+          ],
+          "position_error_m": 4.3446871134592935e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012923973874771953,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.02008806383891947
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0029773013440538986,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.015173022016783971
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002008893825923997,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.013751707131732774
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0029773013440538986,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4213588988113361,
+            0.02041066577198787,
+            0.037671110081328646
+          ],
+          "qpos": [
+            -0.32708127565900036,
+            0.45499414746731104,
+            0.47538989536326826,
+            -2.733550514212193,
+            0.5420054239731461,
+            3.539204612783276,
+            -1.0797985908249224
+          ],
+          "position_error_m": 2.2785221786856547e-11,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00029239739050288807,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.020088063838929686
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0019773013523840524,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.015173022001574608
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0019773013523840524,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4203589147315662,
+            0.02041349230786662,
+            0.03766622634281893
+          ],
+          "qpos": [
+            -0.33919111959639703,
+            0.457591490682748,
+            0.4899299978235438,
+            -2.7345145905593733,
+            0.5559817380442301,
+            3.5434777662382624,
+            -1.0938665594846766
+          ],
+          "position_error_m": 3.963430621669549e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0009773013418459013,
+              "pad_to_board_normal": [
+                0.9999840797698206,
+                -0.0028265358787512426,
+                0.004883738509715717
+              ],
+              "tipping_moment_arm_m": 0.015173021982099046
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0009773013418459013,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4193589306517964,
+            0.02041631884374537,
+            0.037661342604309214
+          ],
+          "qpos": [
+            -0.3513771095463712,
+            0.46033884502294586,
+            0.5044800111358965,
+            -2.73544273413652,
+            0.5697936627732968,
+            3.5478601540718024,
+            -1.1078716872281158
+          ],
+          "position_error_m": 9.492801822138489e-12,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "source_step": 140,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4223031696869442,
+            0.05385083983777277,
+            0.030744932809945544
+          ],
+          "qpos": [
+            -0.14984632278488064,
+            0.4967070319961957,
+            0.45059997795069523,
+            -2.6763308454631733,
+            0.7587995851453774,
+            3.5757717610342894,
+            -1.1169640285714386
+          ],
+          "position_error_m": 7.851763702454265e-09,
+          "rotation_error_deg": 1.1262047877356564e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001684905858483388,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.020251011136588472
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0032107958931915526,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.014766970891240632
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0032107958931915526,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42130523636142425,
+            0.05385077309934721,
+            0.030680674943791925
+          ],
+          "qpos": [
+            -0.1581577777525376,
+            0.49852470745669886,
+            0.4598184312202395,
+            -2.6780057787405536,
+            0.7636316788683388,
+            3.5801858125889705,
+            -1.122562700960143
+          ],
+          "position_error_m": 5.304265632613668e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006849028133868512,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.020251011180402637
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002210796055314677,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.014766962596392014
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002210796055314677,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42030730303590425,
+            0.05385070636092164,
+            0.03061641707763831
+          ],
+          "qpos": [
+            -0.16656817310663857,
+            0.5004331247657777,
+            0.46911860854635506,
+            -2.679663244309336,
+            0.7684650630883718,
+            3.584667520567547,
+            -1.1282097757149214
+          ],
+          "position_error_m": 2.9961896389040944e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012107960537850629,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.014766962596697426
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0012107960537850629,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4193093697103843,
+            0.05385063962249607,
+            0.030552159211484693
+          ],
+          "qpos": [
+            -0.17563831909697156,
+            0.5026170716886903,
+            0.47914302856929064,
+            -2.6811706733838374,
+            0.7739623737987431,
+            3.589400539771492,
+            -1.1346508542440856
+          ],
+          "position_error_m": 1.3574193601466582e-11,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00021079604723450067,
+              "pad_to_board_normal": [
+                0.9979333255199802,
+                6.673842556846542e-05,
+                0.0642578661536168
+              ],
+              "tipping_moment_arm_m": 0.014766962598527389
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00021079604723450067,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "source_step": 270,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4220503676726167,
+            0.07594641323871819,
+            0.031890988111431325
+          ],
+          "qpos": [
+            -0.19398407440636053,
+            0.5072694611751453,
+            0.5357045928021699,
+            -2.659047175964673,
+            0.8080444771103881,
+            3.559383755698123,
+            -1.2109341633100292
+          ],
+          "position_error_m": 6.781314046735408e-09,
+          "rotation_error_deg": 6.830189170012755e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006449517311397533,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ],
+              "tipping_moment_arm_m": 0.01959936538249312
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020253468298318373,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ],
+              "tipping_moment_arm_m": 0.014767861345200955
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0020253468298318373,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42105140104361966,
+            0.07594642601425759,
+            0.03184553842510737
+          ],
+          "qpos": [
+            -0.2021435127531676,
+            0.5094486749818864,
+            0.5448611112182806,
+            -2.660649440594483,
+            0.8130674122560151,
+            3.563956032195638,
+            -1.2167632586219614
+          ],
+          "position_error_m": 2.3272022632692274e-08,
+          "rotation_error_deg": 1.823161606110081e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010253386968546575,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ],
+              "tipping_moment_arm_m": 0.014767884326242604
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0010253386968546575,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42005243441462253,
+            0.07594643878979698,
+            0.03180008873878343
+          ],
+          "qpos": [
+            -0.2109997285894127,
+            0.5119675003498546,
+            0.554796547236283,
+            -2.6620665398964127,
+            0.8188877754144464,
+            3.5688268364983773,
+            -1.2235397673567199
+          ],
+          "position_error_m": 1.7368374230945515e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -2.535048210820269e-05,
+              "pad_to_board_normal": [
+                0.9989666289971053,
+                -1.2775539395029385e-05,
+                0.04544968632395068
+              ],
+              "tipping_moment_arm_m": 0.014767851951046667
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -2.535048210820269e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4190534677856254,
+            0.07594645156533637,
+            0.031754639052459475
+          ],
+          "qpos": [
+            -0.22075750832352586,
+            0.5149267246155832,
+            0.5657375974599645,
+            -2.663243695981491,
+            0.8257321227380044,
+            3.574087766004411,
+            -1.231540999326651
+          ],
+          "position_error_m": 1.0052222364451833e-11,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "source_step": 170,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4216658394104528,
+            0.018080157603379297,
+            0.03245605988782185
+          ],
+          "qpos": [
+            -0.3111320322750078,
+            0.48498167872372133,
+            0.48817344058238565,
+            -2.707712057829959,
+            0.6563954071993047,
+            3.563968508056347,
+            -1.2384603312634623
+          ],
+          "position_error_m": 1.4167089276917708e-08,
+          "rotation_error_deg": 1.1581149199548762e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00013231624498382917,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ],
+              "tipping_moment_arm_m": 0.01987229986023873
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0018213868706924725,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ],
+              "tipping_moment_arm_m": 0.014194923723186387
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0018213868706924725,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4206667698545498,
+            0.018080075766776157,
+            0.03241293198768215
+          ],
+          "qpos": [
+            -0.31960510864318353,
+            0.4868508111995471,
+            0.49758301502737434,
+            -2.7093864766537825,
+            0.6626818361641555,
+            3.568037355776273,
+            -1.2454616774092127
+          ],
+          "position_error_m": 1.3226019186249644e-12,
+          "rotation_error_deg": 0.0,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0008213964593976318,
+              "pad_to_board_normal": [
+                0.9990695559030461,
+                8.183660314038668e-05,
+                0.04312790013970738
+              ],
+              "tipping_moment_arm_m": 0.014194906291057801
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0008213964593976318,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.41966770029864675,
+            0.018079993930173018,
+            0.03236980408754244
+          ],
+          "qpos": [
+            -0.3283796837716584,
+            0.48888267119559725,
+            0.5073183809711216,
+            -2.710993122058397,
+            0.6692596008508201,
+            3.5722282540384347,
+            -1.2528184484612765
+          ],
+          "position_error_m": 1.0469843435284834e-11,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4186686307427437,
+            0.018079912093569874,
+            0.03232667618740273
+          ],
+          "qpos": [
+            -0.3378188027070598,
+            0.4912107308211388,
+            0.5178119942388614,
+            -2.712446684356331,
+            0.6766199514005491,
+            3.57665073327958,
+            -1.2610598687245993
+          ],
+          "position_error_m": 5.7006111240005824e-11,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "source_step": 190,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4221505618484108,
+            0.012419444670568816,
+            0.031980061753858945
+          ],
+          "qpos": [
+            -0.33511101479143995,
+            0.4928131853702271,
+            0.506424190796189,
+            -2.699893800935403,
+            0.6929604612043131,
+            3.569625138498346,
+            -1.2627174186894436
+          ],
+          "position_error_m": 8.632440051688467e-09,
+          "rotation_error_deg": 8.537736462515945e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005156910495872926,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ],
+              "tipping_moment_arm_m": 0.020100213393427102
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021203559714635073,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ],
+              "tipping_moment_arm_m": 0.014507427073781243
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021203559714635073,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4211519144504184,
+            0.012419626895254984,
+            0.03192806808811874
+          ],
+          "qpos": [
+            -0.34312284232382556,
+            0.4946565716074421,
+            0.515094842164275,
+            -2.7016966171360464,
+            0.697983714854347,
+            3.573702326791185,
+            -1.268614177477941
+          ],
+          "position_error_m": 7.318615538040355e-13,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011203623199933753,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ],
+              "tipping_moment_arm_m": 0.014507417845600109
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0011203623199933753,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42015326705242595,
+            0.012419809119941151,
+            0.03187607442237853
+          ],
+          "qpos": [
+            -0.3519434942984692,
+            0.4968428251637017,
+            0.524699135037907,
+            -2.703306792765141,
+            0.7040085921025971,
+            3.578055827800412,
+            -1.2756296045132778
+          ],
+          "position_error_m": 5.895350102285183e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00012036231723847783,
+              "pad_to_board_normal": [
+                0.9986473979924343,
+                -0.00018222468616762398,
+                0.051993665740206634
+              ],
+              "tipping_moment_arm_m": 0.014507417846518014
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00012036231723847783,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4191546196544335,
+            0.01241999134462732,
+            0.031824080756638326
+          ],
+          "qpos": [
+            -0.3609316553878963,
+            0.499158888148753,
+            0.5344634407197559,
+            -2.704879399913189,
+            0.7101313908443174,
+            3.5825049256755355,
+            -1.2828054882700168
+          ],
+          "position_error_m": 3.585207254269558e-11,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "source_step": 220,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42241847308246433,
+            -0.020389736711431322,
+            0.032216187405190354
+          ],
+          "qpos": [
+            -0.4506651105516446,
+            0.5007794115618186,
+            0.5228382011930146,
+            -2.712137895725684,
+            0.627075635724781,
+            3.5883704135777506,
+            -1.3186716268670706
+          ],
+          "position_error_m": 4.869322102901715e-09,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00027130623829616646,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ],
+              "tipping_moment_arm_m": 0.019961208612428328
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021877581881185717,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ],
+              "tipping_moment_arm_m": 0.013679909352853882
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00018549066497505328,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ],
+              "tipping_moment_arm_m": 0.013485411090834695
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021877581881185717,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42141967446422185,
+            -0.020389633596335784,
+            0.03216718424647311
+          ],
+          "qpos": [
+            -0.45851873699085505,
+            0.5026154851599395,
+            0.5311033090584857,
+            -2.714030315801476,
+            0.6320156082757479,
+            3.592227586200736,
+            -1.324693167324704
+          ],
+          "position_error_m": 1.4295209600449158e-08,
+          "rotation_error_deg": 1.2663509647306462e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011877534380043482,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ],
+              "tipping_moment_arm_m": 0.013679924101919053
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0011877534380043482,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4204208758459794,
+            -0.020389530481240245,
+            0.032118181087755854
+          ],
+          "qpos": [
+            -0.46676318845297954,
+            0.5046475511948585,
+            0.5398090488061554,
+            -2.715835935405615,
+            0.6374035173132758,
+            3.596225410532331,
+            -1.3312330573822306
+          ],
+          "position_error_m": 1.1306417830854893e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00018776180805453978,
+              "pad_to_board_normal": [
+                0.998798618242441,
+                -0.00010311509553887657,
+                0.049003158717247836
+              ],
+              "tipping_moment_arm_m": 0.013679903896788574
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00018776180805453978,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.419422077227737,
+            -0.020389427366144706,
+            0.03206917792903861
+          ],
+          "qpos": [
+            -0.4754164843803533,
+            0.5068916777437125,
+            0.5489730069224174,
+            -2.717549620944564,
+            0.6432533899183087,
+            3.600375331013321,
+            -1.338313831338318
+          ],
+          "position_error_m": 7.664788832828194e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "source_step": 120,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42237457489634067,
+            -0.05175382273970707,
+            0.031742510425045896
+          ],
+          "qpos": [
+            -0.39941419246156756,
+            0.48305957503140995,
+            0.4097879994441321,
+            -2.7097370038241313,
+            0.591272168607921,
+            3.5779909574985624,
+            -1.265046165962546
+          ],
+          "position_error_m": 7.634541431056664e-09,
+          "rotation_error_deg": 6.3890569402603996e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0009561793513823344,
+              "pad_to_board_normal": [
+                0.9986255902634253,
+                0.0001409847161391902,
+                0.05241097780365467
+              ],
+              "tipping_moment_arm_m": 0.019917334440998007
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002948190122479131,
+              "pad_to_board_normal": [
+                0.9986255902634253,
+                0.0001409847161391902,
+                0.05241097780365467
+              ],
+              "tipping_moment_arm_m": 0.013210911874862721
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002948190122479131,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42137594930607725,
+            -0.05175396372442321,
+            0.03169009944724224
+          ],
+          "qpos": [
+            -0.4087292137594797,
+            0.4846708986302215,
+            0.4196729183336802,
+            -2.7114484332180706,
+            0.5977333908109504,
+            3.5819160134654964,
+            -1.27266674657344
+          ],
+          "position_error_m": 1.6255423841424568e-08,
+          "rotation_error_deg": 9.035490975690211e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001948184818174175,
+              "pad_to_board_normal": [
+                0.9986255902634253,
+                0.0001409847161391902,
+                0.05241097780365467
+              ],
+              "tipping_moment_arm_m": 0.013210924896732175
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001948184818174175,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4203773237158138,
+            -0.051754104709139354,
+            0.03163768846943858
+          ],
+          "qpos": [
+            -0.4180878884455711,
+            0.4863543708680582,
+            0.4295683017550021,
+            -2.7131526223606253,
+            0.6041149097968201,
+            3.5858862392205277,
+            -1.2802518447071831
+          ],
+          "position_error_m": 3.8869570189956544e-13,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0009481957800095498,
+              "pad_to_board_normal": [
+                0.9986255902634253,
+                0.0001409847161391902,
+                0.05241097780365467
+              ],
+              "tipping_moment_arm_m": 0.01321090663779029
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0009481957800095498,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4193786981255504,
+            -0.05175424569385549,
+            0.03158527749163493
+          ],
+          "qpos": [
+            -0.4275731159776597,
+            0.4881349200923196,
+            0.43957369997178064,
+            -2.7148326828839955,
+            0.6105281620995268,
+            3.5899221117271307,
+            -1.287919698594556
+          ],
+          "position_error_m": 3.340323991125883e-12,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "source_step": 250,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42233607959658137,
+            0.09457483943115226,
+            0.03079242658661538
+          ],
+          "qpos": [
+            -0.04872948010885517,
+            0.49835873807235714,
+            0.4529745145332216,
+            -2.6388715371240137,
+            0.8395045128305701,
+            3.5402493667429997,
+            -1.0831494117448073
+          ],
+          "position_error_m": 2.0015530226592502e-09,
+          "rotation_error_deg": 5.915117333884395e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0018854285429545402,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.019630101513018965
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0031354521618903826,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.015045054276204058
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0031354521618903826,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4213376228541333,
+            0.09457471310968035,
+            0.03073689175517716
+          ],
+          "qpos": [
+            -0.052424553370869015,
+            0.49867620107307986,
+            0.45707731302749116,
+            -2.6417106803149086,
+            0.8383404079899225,
+            3.5432509739157307,
+            -1.0819698717941104
+          ],
+          "position_error_m": 8.87045089248228e-09,
+          "rotation_error_deg": 1.9014441926092368e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0008854281304493433,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.01963010151118623
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021354466860948017,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.01504506906135164
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021354466860948017,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42033916611168526,
+            0.09457458678820843,
+            0.030681356923738936
+          ],
+          "qpos": [
+            -0.055849602796115734,
+            0.49892816082210206,
+            0.46086889288500993,
+            -2.6446138248213527,
+            0.8368529552412851,
+            3.5461695320928444,
+            -1.0804257085232958
+          ],
+          "position_error_m": 2.1295149140485628e-12,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011354538068949578,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.015045050082064557
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0011354538068949578,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4193407093692372,
+            0.09457446046673652,
+            0.030625822092300716
+          ],
+          "qpos": [
+            -0.05917807426192989,
+            0.49916871793101336,
+            0.46455235745830853,
+            -2.647530904097801,
+            0.835281438824506,
+            3.5490617824196944,
+            -1.0787798187102529
+          ],
+          "position_error_m": 1.4256129958652487e-11,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00013545380149572244,
+              "pad_to_board_normal": [
+                0.9984567424480714,
+                0.00012632147191520812,
+                0.05553483143822165
+              ],
+              "tipping_moment_arm_m": 0.015045050089041155
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00013545380149572244,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "source_step": 240,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4226621279176067,
+            -0.06250902489945366,
+            0.031730375173881976
+          ],
+          "qpos": [
+            -0.48246347840909004,
+            0.4975376101340823,
+            0.4687691594579383,
+            -2.6989564584849735,
+            0.6326331460696976,
+            3.5857872889228206,
+            -1.363498220813483
+          ],
+          "position_error_m": 5.246936151184692e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006015173508256244,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ],
+              "tipping_moment_arm_m": 0.01987258242468943
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0026266257007918053,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ],
+              "tipping_moment_arm_m": 0.013058774216378823
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0026266257007918053,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4216635556553943,
+            -0.06250932969167855,
+            0.031676958470111094
+          ],
+          "qpos": [
+            -0.4903691483809331,
+            0.4990200843546149,
+            0.4767333814156823,
+            -2.7009506663127576,
+            0.636735747059185,
+            3.589493947275516,
+            -1.3689372524698724
+          ],
+          "position_error_m": 1.4030471033897337e-08,
+          "rotation_error_deg": 1.010198601586461e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0016266208943994573,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ],
+              "tipping_moment_arm_m": 0.013058787797647074
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0016266208943994573,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.420664983393182,
+            -0.06250963448390344,
+            0.03162354176634021
+          ],
+          "qpos": [
+            -0.4986338235958345,
+            0.5006636891923401,
+            0.4850986556442592,
+            -2.7028689852428043,
+            0.6412307125685082,
+            3.5933204333023774,
+            -1.374830995755368
+          ],
+          "position_error_m": 7.822926652989455e-13,
+          "rotation_error_deg": 4.00455336570039e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006266297544106304,
+              "pad_to_board_normal": [
+                0.9985722622123817,
+                0.0003047922248888019,
+                0.053416703770883436
+              ],
+              "tipping_moment_arm_m": 0.013058769718645391
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0006266297544106304,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4196664111309696,
+            -0.06250993927612833,
+            0.03157012506256932
+          ],
+          "qpos": [
+            -0.5073751626240881,
+            0.502514278651775,
+            0.4940016415922606,
+            -2.7046856261139447,
+            0.6462613318811614,
+            3.5973035048370354,
+            -1.38134013277402
+          ],
+          "position_error_m": 6.152542987014085e-12,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "source_step": 170,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4232643118525651,
+            0.06240357118974518,
+            0.03240057383128793
+          ],
+          "qpos": [
+            -0.1505182272774849,
+            0.49617506976756537,
+            0.4694679264324732,
+            -2.671488742222867,
+            0.7696205192675214,
+            3.573299679017929,
+            -1.1417669494960365
+          ],
+          "position_error_m": 6.069151555999401e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012562926130585245,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ],
+              "tipping_moment_arm_m": 0.01964950987601301
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0029167548888359117,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ],
+              "tipping_moment_arm_m": 0.014124649811221385
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0029167548888359117,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42226536048401886,
+            0.06240346897175204,
+            0.03235479006963488
+          ],
+          "qpos": [
+            -0.16013799502555942,
+            0.49843047724563694,
+            0.48027658038869336,
+            -2.672836701212692,
+            0.7762012901405747,
+            3.578125471722307,
+            -1.149255740536926
+          ],
+          "position_error_m": 2.3754135740735648e-08,
+          "rotation_error_deg": 1.2948118433879161e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002562914926477959,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ],
+              "tipping_moment_arm_m": 0.019649509887457228
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001916745990061103,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ],
+              "tipping_moment_arm_m": 0.01412467248349811
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001916745990061103,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42126640911547264,
+            0.062403366753758883,
+            0.03230900630798183
+          ],
+          "qpos": [
+            -0.1711553167016074,
+            0.5012320402913676,
+            0.4926496976510094,
+            -2.6738537236956,
+            0.7842968905105132,
+            3.583464866937647,
+            -1.158515327499091
+          ],
+          "position_error_m": 8.585361103882879e-13,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0009167586561640915,
+              "pad_to_board_normal": [
+                0.9989513685462266,
+                0.00010221799315007837,
+                0.045783761653048524
+              ],
+              "tipping_moment_arm_m": 0.014124643365230668
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0009167586561640915,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4202674577469264,
+            0.06240326453576574,
+            0.03226322254632878
+          ],
+          "qpos": [
+            -0.17871110811834764,
+            0.5029544911345355,
+            0.5009922634860994,
+            -2.6757228347419244,
+            0.7880479199807925,
+            3.587717266994417,
+            -1.1629710850512345
+          ],
+          "position_error_m": 3.00972437635181e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "source_step": 170,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4220799466574527,
+            -0.02253561240590424,
+            0.032416470120715225
+          ],
+          "qpos": [
+            -0.40476037520886127,
+            0.48527399878419186,
+            0.4769465391403374,
+            -2.7131437374226484,
+            0.6181796603043753,
+            3.5702447040037506,
+            -1.2917663639413328
+          ],
+          "position_error_m": 6.250075848844961e-09,
+          "rotation_error_deg": 5.663293681020318e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002457709227874287,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ],
+              "tipping_moment_arm_m": 0.01985889226852106
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020955081335760437,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ],
+              "tipping_moment_arm_m": 0.013703119064151573
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0020955081335760437,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42108097669099,
+            -0.02253583449632965,
+            0.03237109439172478
+          ],
+          "qpos": [
+            -0.41288800600701964,
+            0.4868900378240677,
+            0.485619920098742,
+            -2.7150064344221496,
+            0.6236016811333104,
+            3.5740315877300293,
+            -1.2981204777836963
+          ],
+          "position_error_m": 1.8452217612054766e-08,
+          "rotation_error_deg": 1.6333651602943885e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010955024802556481,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ],
+              "tipping_moment_arm_m": 0.013703137994505815
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0010955024802556481,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42008200672452733,
+            -0.02253605658675506,
+            0.032325718662734336
+          ],
+          "qpos": [
+            -0.4215901645214192,
+            0.48874461693081583,
+            0.4949568682011968,
+            -2.7167449434578064,
+            0.6297181357105156,
+            3.577997338520339,
+            -1.3052425866581674
+          ],
+          "position_error_m": 1.8112136929361446e-12,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -9.551265175244137e-05,
+              "pad_to_board_normal": [
+                0.9989699664626704,
+                0.0002220904254085187,
+                0.04537572899044467
+              ],
+              "tipping_moment_arm_m": 0.013703111919766156
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -9.551265175244137e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41908303675806463,
+            -0.022536278677180468,
+            0.03228034293374389
+          ],
+          "qpos": [
+            -0.4308712723195821,
+            0.4908520499289024,
+            0.5049561236927955,
+            -2.7183568279011125,
+            0.6365158614866097,
+            3.5821520245015654,
+            -1.3131296235247247
+          ],
+          "position_error_m": 1.2421609366524284e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "source_step": 280,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4219701357875348,
+            -0.08875093633900097,
+            0.03109823950209998
+          ],
+          "qpos": [
+            -0.567124979580673,
+            0.49954502858240407,
+            0.48084287993523206,
+            -2.6875215482066204,
+            0.6226210005128233,
+            3.5622097961958783,
+            -1.461689982313006
+          ],
+          "position_error_m": 4.818095511723301e-09,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00010994180707843437,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ],
+              "tipping_moment_arm_m": 0.019869687259720017
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020043571618859725,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ],
+              "tipping_moment_arm_m": 0.013246853698955882
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0020043571618859725,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42097170733595946,
+            -0.0887511345704978,
+            0.031042198554667826
+          ],
+          "qpos": [
+            -0.5743763821792222,
+            0.5007893118002454,
+            0.48789364060700613,
+            -2.6896329747121004,
+            0.6260467462529835,
+            3.5656003672327126,
+            -1.4665225408171683
+          ],
+          "position_error_m": 1.4222583829238301e-08,
+          "rotation_error_deg": 1.1706354451251847e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010043524561043076,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ],
+              "tipping_moment_arm_m": 0.013246867946926533
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0010043524561043076,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.41997327888438407,
+            -0.08875133280199461,
+            0.03098615760723567
+          ],
+          "qpos": [
+            -0.5820629740352432,
+            0.5022153409505921,
+            0.49545506916943455,
+            -2.691644223676304,
+            0.630049362111252,
+            3.5691225640725586,
+            -1.4719869517556359
+          ],
+          "position_error_m": 1.0888776347894373e-12,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -4.3608644237705385e-06,
+              "pad_to_board_normal": [
+                0.9984284515753646,
+                0.00019823149681838688,
+                0.056040947432154674
+              ],
+              "tipping_moment_arm_m": 0.01324684915328576
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -4.3608644237705385e-06,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4189748504328087,
+            -0.08875153103349143,
+            0.030930116659803514
+          ],
+          "qpos": [
+            -0.590141887926292,
+            0.5038162286330108,
+            0.5034702455428437,
+            -2.693565063994427,
+            0.6345512447499486,
+            3.572769843895679,
+            -1.4780079924834721
+          ],
+          "position_error_m": 8.290319256617674e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "source_step": 110,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4220618964252874,
+            0.03346342702164077,
+            0.03236407390016486
+          ],
+          "qpos": [
+            -0.262003872978204,
+            0.49407566811623504,
+            0.48487160075120883,
+            -2.7031219298331264,
+            0.6714551247399722,
+            3.5867128041006286,
+            -1.1899346354076625
+          ],
+          "position_error_m": 3.29466703546479e-13,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005197413108168876,
+              "pad_to_board_normal": [
+                0.9989639394056793,
+                8.173733170614871e-05,
+                0.04550869242348035
+              ],
+              "tipping_moment_arm_m": 0.019888324985705967
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002351750525263607,
+              "pad_to_board_normal": [
+                0.9989639394056793,
+                8.173733170614871e-05,
+                0.04550869242348035
+              ],
+              "tipping_moment_arm_m": 0.013929404168139602
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00013917410603580616,
+              "pad_to_board_normal": [
+                0.9989639394056793,
+                8.173733170614871e-05,
+                0.04550869242348035
+              ],
+              "tipping_moment_arm_m": 0.013314193335401323
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002351750525263607,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4210629324858817,
+            0.03346334528430907,
+            0.03231856520774138
+          ],
+          "qpos": [
+            -0.2706553156443557,
+            0.4960922602576648,
+            0.49450104855696186,
+            -2.704748958421988,
+            0.6775641827724681,
+            3.59098561612374,
+            -1.1968350344392642
+          ],
+          "position_error_m": 3.849177026328251e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001351750523172612,
+              "pad_to_board_normal": [
+                0.9989639394056793,
+                8.173733170614871e-05,
+                0.04550869242348035
+              ],
+              "tipping_moment_arm_m": 0.01392940416887577
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001351750523172612,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42006396854647604,
+            0.03346326354697736,
+            0.0322730565153179
+          ],
+          "qpos": [
+            -0.27999865922195427,
+            0.49840783453229476,
+            0.5049088564464628,
+            -2.7062240332316225,
+            0.6844284725016895,
+            3.5955009676532486,
+            -1.2046095795270386
+          ],
+          "position_error_m": 2.5155359498126934e-11,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0003517505108451761,
+              "pad_to_board_normal": [
+                0.9989639394056793,
+                8.173733170614871e-05,
+                0.04550869242348035
+              ],
+              "tipping_moment_arm_m": 0.013929404173495388
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0003517505108451761,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41906500460707036,
+            0.03346318180964565,
+            0.032227547822894415
+          ],
+          "qpos": [
+            -0.28947732744761323,
+            0.5008488037152444,
+            0.515432230669573,
+            -2.707670157144338,
+            0.6913203029143703,
+            3.6001082738712795,
+            -1.212478341220391
+          ],
+          "position_error_m": 1.2832686742365952e-10,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "source_step": 140,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42323894042842514,
+            0.10095760341373043,
+            0.032066965283915436
+          ],
+          "qpos": [
+            -0.12917536813855807,
+            0.520513887551941,
+            0.538149113628819,
+            -2.63405929166118,
+            0.8501064208857195,
+            3.570214090799371,
+            -1.1713005516380584
+          ],
+          "position_error_m": 9.676673036865201e-09,
+          "rotation_error_deg": 1.4235251457258534e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00101126193410643,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ],
+              "tipping_moment_arm_m": 0.01962313545330636
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0024106526287966373,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ],
+              "tipping_moment_arm_m": 0.014824008970334182
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0024106526287966373,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42224009781238303,
+            0.10095745113057217,
+            0.03201886741298471
+          ],
+          "qpos": [
+            -0.13728411973623253,
+            0.5227901636419571,
+            0.5473051499442032,
+            -2.6356373009841545,
+            0.8546348956730286,
+            3.5749902590175555,
+            -1.176715579003865
+          ],
+          "position_error_m": 1.5784486626572995e-12,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -1.1259465761181368e-05,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ],
+              "tipping_moment_arm_m": 0.01962313545713966
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014106548643055146,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ],
+              "tipping_moment_arm_m": 0.01482399645579911
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0014106548643055146,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.421241255196341,
+            0.10095729884741389,
+            0.031970769542053974
+          ],
+          "qpos": [
+            -0.14559031644414314,
+            0.5252137276446427,
+            0.5566566328445568,
+            -2.6371683461694913,
+            0.8592865919864717,
+            3.579888299254082,
+            -1.1823298838695906
+          ],
+          "position_error_m": 7.888139128078227e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0004106548603987296,
+              "pad_to_board_normal": [
+                0.9988426160420723,
+                0.00015228315827128488,
+                0.0480978709307314
+              ],
+              "tipping_moment_arm_m": 0.014823996456753257
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0004106548603987296,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4202424125802989,
+            0.10095714656425563,
+            0.03192267167112325
+          ],
+          "qpos": [
+            -0.15366008064251954,
+            0.5276142780081647,
+            0.5657075907871145,
+            -2.638771561327037,
+            0.8635316300173455,
+            3.5847404384010164,
+            -1.187528595820638
+          ],
+          "position_error_m": 3.1466689101658246e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "source_step": 290,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42117598196383144,
+            -0.08561312486003521,
+            0.0312988888304949
+          ],
+          "qpos": [
+            -0.4868312395203999,
+            0.4873980714727188,
+            0.4152068824942894,
+            -2.6963258079748766,
+            0.5958016505870093,
+            3.566545612853844,
+            -1.4281237591904263
+          ],
+          "position_error_m": 7.11204311234825e-10,
+          "rotation_error_deg": 4.517745487845102e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0017055085272988215,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ],
+              "tipping_moment_arm_m": 0.013274148859631386
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0017055085272988215,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4201774752091471,
+            -0.08561474003347859,
+            0.03124428432459472
+          ],
+          "qpos": [
+            -0.4927426447031215,
+            0.4880250838563948,
+            0.42069433866187467,
+            -2.6987503988794868,
+            0.5973164735343997,
+            3.5695728069447274,
+            -1.4308391968215932
+          ],
+          "position_error_m": 1.469008933229873e-09,
+          "rotation_error_deg": 4.9783130603797145e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0007055083158129826,
+              "pad_to_board_normal": [
+                0.9985067546842862,
+                0.0016151734433811201,
+                0.05460450590017701
+              ],
+              "tipping_moment_arm_m": 0.013274149207222662
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0007055083158129826,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.41917896845446284,
+            -0.08561635520692197,
+            0.031189679818694544
+          ],
+          "qpos": [
+            -0.4988980780741696,
+            0.4887427349607854,
+            0.42646376743925285,
+            -2.7011238138330658,
+            0.5991359937503157,
+            3.5726647033418635,
+            -1.4338852854894235
+          ],
+          "position_error_m": 3.1008351448672623e-09,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41818046169977857,
+            -0.08561797038036535,
+            0.031135075312794365
+          ],
+          "qpos": [
+            -0.5054393458999494,
+            0.48959383542061063,
+            0.43268538020947717,
+            -2.7034171145977255,
+            0.6014478692532818,
+            3.575856575423115,
+            -1.437460978481446
+          ],
+          "position_error_m": 5.4602622197815915e-09,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "source_step": 80,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4239908674533573,
+            0.11569093205551599,
+            0.03265952824896242
+          ],
+          "qpos": [
+            0.10263937224212247,
+            0.49466262464053373,
+            0.3624293580837791,
+            -2.631330140486083,
+            0.8129534657453902,
+            3.5544803537850123,
+            -0.9544037282636345
+          ],
+          "position_error_m": 1.745200790558134e-14,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002652417412007717,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.019627899271457694
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004375924450043081,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.014162816334347893
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00020466803380297677,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.012730473715047659
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.004375924450043081,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42299185311663373,
+            0.11569090179950627,
+            0.032615139578050185
+          ],
+          "qpos": [
+            0.10154189894817131,
+            0.4941864748921451,
+            0.363897035711002,
+            -2.6345947919712125,
+            0.8097060140947577,
+            3.5566726900182526,
+            -0.9505470656104685
+          ],
+          "position_error_m": 2.35553282285678e-09,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0016524156954771695,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.019627899272029556
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0033759220139622783,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.014162818446182068
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0033759220139622783,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4219928387799102,
+            0.11569087154349653,
+            0.032570750907137944
+          ],
+          "qpos": [
+            0.1003346509354145,
+            0.4937511311910855,
+            0.3655013220093246,
+            -2.6378136883454038,
+            0.8066584808739131,
+            3.5589039445342276,
+            -0.9468980595053239
+          ],
+          "position_error_m": 2.9606545044992706e-09,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006524195052676895,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.01962789927336587
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0023759256234771762,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.014162819083773238
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0023759256234771762,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4209938244431866,
+            0.1156908412874868,
+            0.03252636223622571
+          ],
+          "qpos": [
+            0.09879652713071249,
+            0.49341248097678536,
+            0.367495822606225,
+            -2.6409340312098784,
+            0.8040704455536374,
+            3.561241315299341,
+            -0.943746182165642
+          ],
+          "position_error_m": 1.158707234349057e-09,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001375924303201948,
+              "pad_to_board_normal": [
+                0.9990143367235622,
+                3.0256009728585704e-05,
+                0.04438867091223908
+              ],
+              "tipping_moment_arm_m": 0.014162817991566067
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001375924303201948,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "source_step": 220,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.42097593338861994,
+            0.09771017696363905,
+            0.030895623346760392
+          ],
+          "qpos": [
+            -0.1415457620880751,
+            0.5133661485770435,
+            0.5400758175275565,
+            -2.6363262897462016,
+            0.8599276565828554,
+            3.5448489315595135,
+            -1.1601584222510943
+          ],
+          "position_error_m": 1.1575682742946394e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014177875318263562,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ],
+              "tipping_moment_arm_m": 0.01966776522059362
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0025034562771557994,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ],
+              "tipping_moment_arm_m": 0.015630310949895452
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0025034562771557994,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4199772415768472,
+            0.09771022651541747,
+            0.030844489574724666
+          ],
+          "qpos": [
+            -0.149166853855172,
+            0.5154192830965327,
+            0.5486775107036053,
+            -2.638025388651909,
+            0.8640193977248097,
+            3.5493941506746345,
+            -1.1649837603426785
+          ],
+          "position_error_m": 6.250616858551504e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0004177875292647301,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ],
+              "tipping_moment_arm_m": 0.01966776522058737
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0015034562743511423,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ],
+              "tipping_moment_arm_m": 0.01563031095066379
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0015034562743511423,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.41897854976507437,
+            0.09771027606719587,
+            0.030793355802688945
+          ],
+          "qpos": [
+            -0.15700906507090073,
+            0.5176213395692582,
+            0.5575084319616499,
+            -2.63966665693621,
+            0.868299311160122,
+            3.5540638646058316,
+            -1.170067710229318
+          ],
+          "position_error_m": 2.7037385987133665e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0005034562613479912,
+              "pad_to_board_normal": [
+                0.9986918117727911,
+                -4.955177841426687e-05,
+                0.05113377203572475
+              ],
+              "tipping_moment_arm_m": 0.015630310953423692
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0005034562613479912,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4179798579533016,
+            0.09771032561897429,
+            0.03074222203065322
+          ],
+          "qpos": [
+            -0.16505297397297744,
+            0.5199704422469079,
+            0.5665432163534372,
+            -2.641256628457742,
+            0.8727304458834048,
+            3.5588554733620827,
+            -1.1753744628517127
+          ],
+          "position_error_m": 9.611440604489327e-11,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "source_step": 210,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4224911662384697,
+            -0.041625486393282896,
+            0.03192976845207139
+          ],
+          "qpos": [
+            -0.496925374982457,
+            0.49710369394515413,
+            0.5117225085095087,
+            -2.709870603870972,
+            0.6062381733471163,
+            3.5744580702679207,
+            -1.3239697713503467
+          ],
+          "position_error_m": 6.540693700062694e-09,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0006503760568052079,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ],
+              "tipping_moment_arm_m": 0.020006577141380533
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0024953391870542155,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ],
+              "tipping_moment_arm_m": 0.01380783315859401
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0024953391870542155,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42149251681165983,
+            -0.04162566474447401,
+            0.031877813755237135
+          ],
+          "qpos": [
+            -0.5056221911794014,
+            0.49910618732581735,
+            0.5209303632570987,
+            -2.711590329801896,
+            0.612541339214137,
+            3.5783821155076523,
+            -1.3314682002253158
+          ],
+          "position_error_m": 1.6645760649825984e-08,
+          "rotation_error_deg": 1.1581149199548762e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014953334852688869,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ],
+              "tipping_moment_arm_m": 0.013807848588541855
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0014953334852688869,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42049386738484995,
+            -0.04162584309566512,
+            0.031825859058402885
+          ],
+          "qpos": [
+            -0.5144255372308214,
+            0.5012090980251196,
+            0.5302301400204064,
+            -2.7132854966449997,
+            0.6188818508323294,
+            3.582372458380068,
+            -1.3390539682552633
+          ],
+          "position_error_m": 8.614549047981061e-13,
+          "rotation_error_deg": 3.4150945850063763e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.000495343811412168,
+              "pad_to_board_normal": [
+                0.9986494268098859,
+                0.00017835119110955826,
+                0.051954696834253106
+              ],
+              "tipping_moment_arm_m": 0.013807826711393531
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.000495343811412168,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41949521795804007,
+            -0.041626021446856225,
+            0.03177390436156863
+          ],
+          "qpos": [
+            -0.5233725860641694,
+            0.5034291723682559,
+            0.5396666134674375,
+            -2.7149470137666056,
+            0.6253142964143263,
+            3.586440867942398,
+            -1.3467866133973536
+          ],
+          "position_error_m": 5.822098203022925e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "source_step": 290,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4227273239811777,
+            -0.031195460804939533,
+            0.03211075595286781
+          ],
+          "qpos": [
+            -0.46920629229202104,
+            0.49526938200112747,
+            0.5103665243492719,
+            -2.7112752974077137,
+            0.6098021021636423,
+            3.5742572260016763,
+            -1.320859118488154
+          ],
+          "position_error_m": 3.1975372887106366e-09,
+          "rotation_error_deg": 5.533085616490783e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00030464617815206016,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ],
+              "tipping_moment_arm_m": 0.019911850193928077
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0021527342907861555,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ],
+              "tipping_moment_arm_m": 0.013732247839449964
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -1.3857684225881614e-06,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ],
+              "tipping_moment_arm_m": 0.013558608148014739
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0021527342907861555,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42172858853044676,
+            -0.031195661167318558,
+            0.0320604821096873
+          ],
+          "qpos": [
+            -0.476812853093521,
+            0.4969018818830506,
+            0.5183232594713199,
+            -2.713227723772392,
+            0.6146081021518349,
+            3.577930217940482,
+            -1.3267023815899979
+          ],
+          "position_error_m": 1.0976595135762925e-08,
+          "rotation_error_deg": 1.1891690845819462e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0011527310431402905,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ],
+              "tipping_moment_arm_m": 0.013732259975733876
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0011527310431402905,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4207298530797158,
+            -0.03119586152969758,
+            0.03201020826650679
+          ],
+          "qpos": [
+            -0.48495457969193606,
+            0.49877074861616844,
+            0.5269050526370435,
+            -2.7150608511316574,
+            0.6200982435659147,
+            3.5817720876695316,
+            -1.333299535284821
+          ],
+          "position_error_m": 9.56167732101334e-13,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00015273637903147428,
+              "pad_to_board_normal": [
+                0.9987354507309625,
+                0.00020036237902246922,
+                0.0502738431805092
+              ],
+              "tipping_moment_arm_m": 0.013732243659693926
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.00015273637903147428,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4197311176289848,
+            -0.0311960618920766,
+            0.03195993442332628
+          ],
+          "qpos": [
+            -0.49363649727669384,
+            0.5008897530689914,
+            0.5361120156750537,
+            -2.7167722734448208,
+            0.6262621122738025,
+            3.585792577589517,
+            -1.3406495108136678
+          ],
+          "position_error_m": 6.49038044589561e-12,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "source_step": 120,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4229361662116822,
+            0.10829763664301865,
+            0.03285227174002066
+          ],
+          "qpos": [
+            -0.19113273654546256,
+            0.5362836974278671,
+            0.5986449516697606,
+            -2.638080474400623,
+            0.8242587613390012,
+            3.583663283754991,
+            -1.1910941798643482
+          ],
+          "position_error_m": 9.173097717690356e-09,
+          "rotation_error_deg": 8.2776426154535e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.000696002852084034,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ],
+              "tipping_moment_arm_m": 0.019685470778491896
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020942792953505063,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ],
+              "tipping_moment_arm_m": 0.015064608406832741
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0020942792953505063,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42193704169861423,
+            0.10829775180616893,
+            0.03281043641853103
+          ],
+          "qpos": [
+            -0.19845892825433442,
+            0.5386907072814928,
+            0.6069883798399354,
+            -2.639741070928256,
+            0.8285261036282456,
+            3.5882884109149003,
+            -1.1962076191500772
+          ],
+          "position_error_m": 8.905293465445563e-13,
+          "rotation_error_deg": 3.6222548091772e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.001094285461922753,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ],
+              "tipping_moment_arm_m": 0.015064596540113478
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.001094285461922753,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42093791718554624,
+            0.1082978669693192,
+            0.032768601097041404
+          ],
+          "qpos": [
+            -0.20552530140239406,
+            0.5410454026806577,
+            0.615005641755229,
+            -2.641478147525361,
+            0.8323675217490205,
+            3.5928501197447242,
+            -1.200873648537089
+          ],
+          "position_error_m": 5.22309895487468e-12,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -9.428545892389275e-05,
+              "pad_to_board_normal": [
+                0.9991245130679702,
+                -0.0001151631502770259,
+                0.04183532148962544
+              ],
+              "tipping_moment_arm_m": 0.015064596540981471
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -9.428545892389275e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4199387926724783,
+            0.10829798213246948,
+            0.03272676577555178
+          ],
+          "qpos": [
+            -0.21278183934028527,
+            0.5435524408491854,
+            0.6232191497034559,
+            -2.6431631863776786,
+            0.8363710118237105,
+            3.597532353853882,
+            -1.205775510103297
+          ],
+          "position_error_m": 2.2112698675193692e-11,
+          "rotation_error_deg": 4.676310850554341e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "source_step": 280,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4223568829671375,
+            -0.06906169566247006,
+            0.03152357215270146
+          ],
+          "qpos": [
+            -0.4913249412808682,
+            0.49345173496256844,
+            0.4508958765450001,
+            -2.7035170592410656,
+            0.5895765443114827,
+            3.579408780032829,
+            -1.3855138539913536
+          ],
+          "position_error_m": 5.285040059167867e-09,
+          "rotation_error_deg": 5.263014220319208e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -5.3403013930107546e-06,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ],
+              "tipping_moment_arm_m": 0.019908439651322066
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0020540017885603773,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ],
+              "tipping_moment_arm_m": 0.013020462242740458
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -8.790152861331505e-06,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ],
+              "tipping_moment_arm_m": 0.013733780137444532
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0020540017885603773,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.42135835091472856,
+            -0.06906198513664845,
+            0.03146940891316835
+          ],
+          "qpos": [
+            -0.49899567699848024,
+            0.49477425049945134,
+            0.4586335926936459,
+            -2.7055449567512597,
+            0.5938105929395088,
+            3.5829291493420143,
+            -1.3910074029560109
+          ],
+          "position_error_m": 1.461866527277984e-08,
+          "rotation_error_deg": 9.659346157805877e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0010539964703177654,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ],
+              "tipping_moment_arm_m": 0.013020475955046167
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0010539964703177654,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.42035981886231966,
+            -0.06906227461082683,
+            0.03141524567363524
+          ],
+          "qpos": [
+            -0.5069268995239912,
+            0.4962178736779822,
+            0.4666591606229114,
+            -2.707520080521032,
+            0.5983185967553541,
+            3.586534060855154,
+            -1.3968201638877398
+          ],
+          "position_error_m": 7.690615674921155e-13,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -5.4006080523584434e-05,
+              "pad_to_board_normal": [
+                0.9985320524089244,
+                0.0002894741783831774,
+                0.054163239533111675
+              ],
+              "tipping_moment_arm_m": 0.013020457986378138
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -5.4006080523584434e-05,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41936128680991075,
+            -0.06906256408500522,
+            0.03136108243410213
+          ],
+          "qpos": [
+            -0.5155135458169766,
+            0.49791059251024455,
+            0.47544757779570135,
+            -2.7093603517557314,
+            0.6036292289327408,
+            3.5903246662605843,
+            -1.4035157761976347
+          ],
+          "position_error_m": 6.430541935040143e-12,
+          "rotation_error_deg": 5.122641877509565e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "source_step": 140,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4215510391515741,
+            -0.09725659988672013,
+            0.030720177238451957
+          ],
+          "qpos": [
+            -0.5039083279567019,
+            0.49203437808713946,
+            0.40446481029328063,
+            -2.689798066117265,
+            0.5858851662098014,
+            3.5686493875773952,
+            -1.4077073096355142
+          ],
+          "position_error_m": 1.7800468352056904e-08,
+          "rotation_error_deg": 4.602465589042646e-05,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00024254228097213672,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ],
+              "tipping_moment_arm_m": 0.01989576911377556
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002234117636750452,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ],
+              "tipping_moment_arm_m": 0.012893261129788586
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002234117636750452,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.420552789324956,
+            -0.09725696467626196,
+            0.03066104052747231
+          ],
+          "qpos": [
+            -0.5102912932167589,
+            0.49277118730443425,
+            0.41046019729183963,
+            -2.6921159255999783,
+            0.5880220159578187,
+            3.571763860762766,
+            -1.4111563469705979
+          ],
+          "position_error_m": 1.7233230657378312e-12,
+          "rotation_error_deg": 4.353408482428142e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012341294228672495,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ],
+              "tipping_moment_arm_m": 0.012893217055824167
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0012341294228672495,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4195545394983379,
+            -0.09725732946580379,
+            0.03060190381649266
+          ],
+          "qpos": [
+            -0.5173685664019695,
+            0.4937227822694294,
+            0.4172836301717092,
+            -2.6942908099010734,
+            0.5910783813742545,
+            3.5750467191502273,
+            -1.4155835842394657
+          ],
+          "position_error_m": 6.276489218049058e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0002341294232211656,
+              "pad_to_board_normal": [
+                0.9982498266181166,
+                0.00036478954183454844,
+                0.059136710979648184
+              ],
+              "tipping_moment_arm_m": 0.012893217055388873
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0002341294232211656,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.41855628967171976,
+            -0.09725769425534563,
+            0.030542767105513013
+          ],
+          "qpos": [
+            -0.5250659122929288,
+            0.49487828287678903,
+            0.42483743362750886,
+            -2.6963393779234894,
+            0.5949230662731627,
+            3.578488132714249,
+            -1.4208607864149996
+          ],
+          "position_error_m": 6.160139091869415e-12,
+          "rotation_error_deg": 3.818191820832846e-06,
+          "contacts": [],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": 0.0,
+          "side_tipping_contact": false,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "source_step": 60,
+      "cases": [
+        {
+          "label": "half_0.060_press_-0.001",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.001,
+          "target_m": [
+            0.4245410539620555,
+            0.015787123209601503,
+            0.03237274244966383
+          ],
+          "qpos": [
+            -0.1830554160074706,
+            0.4725036252648622,
+            0.3650301092795546,
+            -2.7102938310155342,
+            0.601459190353094,
+            3.5697328597761224,
+            -1.0032825015343223
+          ],
+          "position_error_m": 1.29629828530948e-09,
+          "rotation_error_deg": 5.399738656763834e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0024365910398838533,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.019800196554720026
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.004247015440106661,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.013755191889991428
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.004247015440106661,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.002",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.002,
+          "target_m": [
+            0.4235425109639595,
+            0.015786427695515876,
+            0.032318785084887044
+          ],
+          "qpos": [
+            -0.1877553488983294,
+            0.4729069705490559,
+            0.3700228388246393,
+            -2.7127812322401352,
+            0.6028187032025762,
+            3.5727528422969383,
+            -1.004952185461476
+          ],
+          "position_error_m": 4.574684879412332e-09,
+          "rotation_error_deg": 7.73124918760008e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0014365895280356452,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.01980019655944182
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0032470121908186656,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.013755196751146668
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0032470121908186656,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": false
+        },
+        {
+          "label": "half_0.060_press_-0.003",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.003,
+          "target_m": [
+            0.4225439679658636,
+            0.01578573218143025,
+            0.03226482772011026
+          ],
+          "qpos": [
+            -0.19283632727395317,
+            0.4734220562168639,
+            0.3754632185348203,
+            -2.7151933996452806,
+            0.6046434835586084,
+            3.5758664107306743,
+            -1.0071131333779788
+          ],
+          "position_error_m": 1.8387706762449978e-13,
+          "rotation_error_deg": 4.829673078902934e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.00043659170784407053,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.019800196552749675
+            },
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.002247016671264703,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.013755190237975645
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.002247016671264703,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        },
+        {
+          "label": "half_0.060_press_-0.004",
+          "half_extent_m": 0.06,
+          "pressure_m": -0.004,
+          "target_m": [
+            0.4215454249677676,
+            0.015785036667344623,
+            0.032210870355333474
+          ],
+          "qpos": [
+            -0.19755843324762887,
+            0.47387273862684354,
+            0.3804621189627559,
+            -2.717674882345733,
+            0.605970412679102,
+            3.5789086965686123,
+            -1.008762835444419
+          ],
+          "position_error_m": 9.67001551482661e-13,
+          "rotation_error_deg": 4.182619578303747e-06,
+          "contacts": [
+            {
+              "geoms": [
+                "robot/right_finger_pad",
+                "board/board_geom"
+              ],
+              "distance_m": -0.0012470166715434152,
+              "pad_to_board_normal": [
+                0.9985429980959768,
+                0.0006955140856266312,
+                0.05395736477678468
+              ],
+              "tipping_moment_arm_m": 0.01375519023872454
+            }
+          ],
+          "min_obstacle_distance_m": 0.0,
+          "min_object_distance_m": -0.0012470166715434152,
+          "side_tipping_contact": true,
+          "upward_contact": false,
+          "passes_contact_gate": true
+        }
+      ]
+    }
+  ]
+}

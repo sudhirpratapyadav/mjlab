@@ -2,7 +2,7 @@
 
 Checked2026-09-13. **15/24 independent PPO RL teachers certified.** Place7500 is the newest certificate at117/128+119/128. Cage17093 passes117/128 validation but fails confirmation115/128; Throw9496 passes116/128 validation but fails confirmation107/128. Neither is certified. Latest Stack8197, Peg6200 and Edge8996 strict evaluations remain0/128, with actual videos reviewed. Stack now transports above the base in117/128 sampled trajectories; Peg6200 preserves74.2% opposed capture before its later training collapse. These diagnostic improvements are not success rates.
 
-Seven full runs: ReorientR11-cpu onGPU1, ThrowR6 onGPU2, StrikeR6-cpu onGPU3, LiftR12-cpu onGPU4, StackR8 onGPU5, PegR8 onGPU6 and CageR11-cpu onGPU7. GPU0 remains unused. Recent one-CPU launches had shared one physical core; four were migrated from verified checkpoints into documented8-CPU overlap steps, retaining original final labels and all learned state. Affinity0-3,128-131 verified for all seven. Holder20277 expires2026-09-28T08:58:54 scheduler time.
+Six full runs: ReorientR11-cpu onGPU1, ThrowR6 onGPU2, LiftR12-cpu onGPU4, StackR8 onGPU5, PegR8 onGPU6 and CageR11-cpu onGPU7. StrikeR6-cpu completed12994 with37/128 strict validation, below its prior42/128; GPU3 is free pending diagnosis. GPU0 remains unused. Recent one-CPU launches had shared one physical core; four were migrated from verified checkpoints into documented8-CPU overlap steps, retaining original final labels and all learned state. Affinity0-3,128-131 verified for all seven. Holder20277 expires2026-09-28T08:58:54 scheduler time.
 
 ThrowR6 passed the reproduced-failure cone replay and finite64x3/2048x100 PPO gates before starting original11100x2000; finish13099 before evaluation. CageR11 finishes19092. Both use prospectively frozen confirmation20260916 only after116+ validation; retired15 remains excluded. StackR8 tests gripper std0.4 after near-base transport, with policy means retained; PegR8 tests doubled held-lift shaping andAdam5e-5 from pre-collapse6200. Both passed finite preflights and71 focused checks. Edge plateaued at39.53mm side-pinch error and remains queued for diagnosis, along with Pivot. Native success, physical models and60D/8D interface stay fixed.
 
@@ -50,7 +50,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training R8 | 0/128 R7 final8197 |117/128 sampled lifts above base; test gripper release exploration with learned means retained. |
-| Strike-Slide | 4 | on | Training R6 | 42/128 R5 final10995 | Unchanged precision refinement onGPU3. |
+| Strike-Slide | 4 | on | Endpoint precision diagnosis | 37/128 R6 final12994 | Prior42/128; 51 undershoots and31 overshoots beyond8cm, no confirmation. |
 | Throw-To-Bin | 5 | on | Training R6 | 116/128 +107/128 R4 | Cone correction passes failure replay and full-world stress; evaluate new13099 only after budget. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |
