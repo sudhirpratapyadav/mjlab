@@ -1,5 +1,7 @@
 # Plan — certify all24 independent RL teachers
 
+**Current scope: Lift-only motion correction; other23 teachers paused. S3 is complete and rejected (117/128 validation,114/128 confirmation; all motion targets fail). No training is currently active. Preserve R16 and complete diagnosis/preregistration before the next Lift trial. See STATUS.md for current results; running budgets below are historical.**
+
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 
 Latest completed results:18/24certified; Reorient109/128, Stack101/128, Strike57/128; Edge/Peg/Pivot0/128. Earlier running descriptions below are historical snapshots.
