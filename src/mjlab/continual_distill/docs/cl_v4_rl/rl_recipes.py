@@ -19,6 +19,7 @@ RECIPES += ("lift_v7",)
 RECIPES += ("lift_smooth_v1", "lift_smooth_v2", "lift_smooth_x10", "lift_smooth_x100")
 RECIPES += ("lift_smooth_live_x3", "lift_smooth_live_x10")
 RECIPES += ("lift_smooth_goal50", "lift_smooth_goal100")
+RECIPES += ("lift_smooth_target100", "lift_smooth_target1000")
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("pivot_v5",)
@@ -135,6 +136,17 @@ def apply_recipe(cfg, recipe):
       raise ValueError("stack_v1 requires Stack-Cube")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params.update(release_weight=10.,support_open_weight=3.)
+    return
+  if recipe in ("lift_smooth_target100", "lift_smooth_target1000"):
+    from mjlab.tasks.manipulation.mdp.rewards import joint_target_error_penalty
+    from mjlab.managers.manager_term_config import RewardTermCfg
+    from mjlab.managers.scene_entity_config import SceneEntityCfg
+    apply_recipe(cfg, "lift_smooth_goal100")
+    cfg.env.rewards['arm_target_error'] = RewardTermCfg(
+      func=joint_target_error_penalty,
+      weight=-100. if recipe == "lift_smooth_target100" else -1000.,
+      params={'max_error': .05, 'robot_asset_cfg': SceneEntityCfg(
+        'robot', joint_names=tuple(f'joint{i}' for i in range(1, 8)))})
     return
   if recipe in ("lift_smooth_goal50", "lift_smooth_goal100"):
     apply_recipe(cfg, "lift_smooth_live_x10")

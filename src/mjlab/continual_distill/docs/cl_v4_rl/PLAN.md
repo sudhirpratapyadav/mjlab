@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current: S9/S10 are training on GPUs 1/2 from S7, with completion reward 50/100 and its motion costs retained. Frozen 1000 updates; final model25487 only. S7 reduced median acceleration by 51%, but still failed native success, peak speed and upper-tail motion targets. Other 23 teachers remain paused.**
+**Current: Lift-only S9/S10 completion-weight trials and S11 separate-gradient-clipping trial are training. S12/S13 preflights test a soft target-error cost at100/1000 weight. All start from partial-motion S7, preserve the certified baseline and require strict success/motion review. Other23 teachers paused.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

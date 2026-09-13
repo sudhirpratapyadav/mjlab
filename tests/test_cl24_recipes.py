@@ -29,6 +29,8 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_smooth_live_x10"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_goal50"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_goal100"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_target100"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_target1000"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -157,6 +159,32 @@ def test_lift_goal_balance_keeps_motion_costs_and_native_criteria(monkeypatch,re
   assert params['native_completion_weight']==weight
   params['native_completion_weight']=25.
   assert repr(old.env)==repr(new.env)
+
+
+@pytest.mark.parametrize('recipe,weight',[
+  ('lift_smooth_target100',-100.),('lift_smooth_target1000',-1000.)])
+def test_target_cost_distinguishes_nearby_commands_and_excludes_gripper(monkeypatch,recipe,weight):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_smooth_goal100');recipes.apply_recipe(new,recipe)
+  term=new.env.rewards.pop('arm_target_error')
+  assert asdict(old.agent)==asdict(new.agent) and repr(old.env)==repr(new.env)
+  assert term.weight==weight
+  assert tuple(term.params['robot_asset_cfg'].joint_names)==tuple(f'joint{i}' for i in range(1,8))
+  target=torch.tensor([[.04]*7+[100.,100.],[1.]*7+[0.,0.],[1.01]*7+[0.,0.]])
+  position=torch.zeros_like(target)
+  before=target.clone()
+  env=SimpleNamespace(scene={'robot':SimpleNamespace(data=SimpleNamespace(
+    joint_pos_target=target,joint_pos=position))})
+  select=SimpleNamespace(name='robot',joint_ids=list(range(7)))
+  cost=term.func(env,max_error=.05,robot_asset_cfg=select)
+  torch.testing.assert_close(cost,torch.tensor([0.,7*.95**2,7*.96**2]))
+  # Nearby commands remain distinguishable even if actuator force is clamped.
+  assert cost[2]>cost[1]>cost[0]
+  torch.testing.assert_close(target,before,rtol=0,atol=0)
+  assert position.count_nonzero()==0
 
 
 def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):

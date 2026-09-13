@@ -153,6 +153,24 @@ def joint_velocity_penalty(
   return (excess**2).sum(dim=-1)
 
 
+def joint_target_error_penalty(
+  env: ManagerBasedRlEnv,
+  max_error: float,
+  robot_asset_cfg: SceneEntityCfg = _DEFAULT_ASSET_CFG,
+) -> torch.Tensor:
+  """Soft cost for physical position targets far from current joint positions.
+
+  This provides command-dependent reward even when nearby commands produce the
+  same force-limited motion. It never modifies targets, velocities or physics.
+  Select arm joints explicitly to exclude the gripper. Units are radians squared.
+  """
+  robot: Entity = env.scene[robot_asset_cfg.name]
+  target = robot.data.joint_pos_target[:, robot_asset_cfg.joint_ids]
+  position = robot.data.joint_pos[:, robot_asset_cfg.joint_ids]
+  excess = ((target - position).abs() - max_error).clamp_min(0.)
+  return excess.square().sum(dim=-1)
+
+
 def reach_object_reward(
   env: ManagerBasedRlEnv,
   object_asset_name: str = "object",

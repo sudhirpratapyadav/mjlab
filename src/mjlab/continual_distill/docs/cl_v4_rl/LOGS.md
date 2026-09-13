@@ -888,3 +888,8 @@ Preflights086/087 completed 100 finite updates; max accepted KL .029743/.028657,
 ### 2026-09-13T15:52:33.099072+00:00 — Measured shared gradient clipping
 
 Gradient probes088–090 finished one update each. Each first minibatch is critic-dominated (>99.999% squared gradient norm); common clipping multipliers 2.293e-5 / 1.875e-6 / 1.842e-7. Byte-identical rollout pairing FAILED despite same seed and source; archived fingerprints forbid treating ratios as matched causal effects. Adam parameter effects are not inferred from clipped gradient magnitude alone. Prepared opt-in separate actor/noise versus critic clipping, preserving each .5 bound, objective and all default runs; tests cover independence from critic scale and scoped restoration. S11 is preregistered against S10 with only this optimizer difference, same originalS7/goal100 and1000updates; first run finite100-update preflight091 onGPU3. S9/S10 continue unchanged.
+
+
+### 2026-09-13T15:58:30.916945+00:00 — Command-distance reward bracket
+
+S11 separate-clipping preflight091 passed100updates/76finite tensors, maxacceptedKL.0296502 with9within-updatebacktracks, finalLR5e-6. S11 full1000update pilot active onGPU3 fromoriginalS7; trainer2416485. Prepared complementary S12/S13 target-error reward bracket100/1000 onGPUs4/5, matched toS11 exceptnewsoftcost. S7 recordedtargets start farfromactualpose (median first-step squared excess21.652rad²); localforceprobes showed small commands mayproduceidentical saturatedmotion. The newreward is command-dependent and never modifiesaction orphysics. Preflights092/093 x100 required, thenoriginalS7×1000 final25487; freshconditionalconfirmations28/29. Tests101passed; S9/S10 continue their frozenplans. All experiments remain Lift-only.

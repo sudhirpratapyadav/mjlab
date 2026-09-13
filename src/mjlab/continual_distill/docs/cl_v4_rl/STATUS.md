@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current: S9/S10 are training on GPUs 1/2 from S7, with completion reward 50/100 and its motion costs retained. Frozen 1000 updates; final model25487 only. S7 reduced median acceleration by 51%, but still failed native success, peak speed and upper-tail motion targets. Other 23 teachers remain paused.**
+**Current: Lift-only S9/S10 completion-weight trials and S11 separate-gradient-clipping trial are training. S12/S13 preflights test a soft target-error cost at100/1000 weight. All start from partial-motion S7, preserve the certified baseline and require strict success/motion review. Other23 teachers paused.**
 
 **Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and Lift-S7-evaluation-plan.json / Lift-S8-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
 
