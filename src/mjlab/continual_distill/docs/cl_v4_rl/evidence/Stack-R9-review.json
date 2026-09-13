@@ -1,0 +1,16 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "556ea3eae85b54367a7b5e69b15f73cdbb04376fa2d794458215eb741dc33ec5",
+  "reviewed_utc": "2026-09-13T05:39:40.242271+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Reviewed recorded initial, middle and final frames. The selected failure moves the cube above the support, with the fingers still around the cube at the middle and terminal frames. It does not satisfy the native stack success predicate. Frames alone do not establish the exact contact or settling failure.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}

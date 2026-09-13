@@ -1,0 +1,16 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "3aa44d746c1ef0d9ac9af9de0781929474c4e166b22c0e529d3250ac8ac11aa1",
+  "reviewed_utc": "2026-09-13T05:41:46.671779+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded failure frames show hand moving beside the cube with open fingers; cube stays on floor. Latest full-budget result regressed from90/128 to0/128, all timeouts. Diagnostic samples report zero opposing grasp and no robot/object contact throughout sampled evaluation. Requires training/normalizer/optimizer diagnosis before another continuation.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}

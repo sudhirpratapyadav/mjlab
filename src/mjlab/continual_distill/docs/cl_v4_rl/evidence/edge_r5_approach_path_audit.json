@@ -1,0 +1,3907 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "476eaef82d0625fda26ab8b80d2127afae628a8d96030759e8b229b81c8abb72",
+  "sample_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/edge_r5_approach_path_audit-samples.npz",
+  "sample_columns": [
+    "time_s",
+    "hand_error_m",
+    "plate_lift_m",
+    "opposed_contact",
+    "robot_plate_contact",
+    "hand_x",
+    "hand_y",
+    "hand_z",
+    "plate_x",
+    "plate_y",
+    "plate_z"
+  ],
+  "method": "32 every-fourth closest exposed recorded states, all retained; native CPU, original velocities/friction/wrist. Frozen actual controls versus1.5s direct or three0.5s outward/lower/approach segments,0.5s close3mm/finger,1s50mm lift,0.5s hold. Staged open retains original finger position. Bounded gravity-compensated IK controls, no IK initialization, policy supervision or certification. Frozen case hand error is relative to the direct nominal path, not a tracking instruction.",
+  "summary": {
+    "frozen_recorded": {
+      "episodes": 32,
+      "ever_opposed": 0,
+      "held_lift_above2cm": 0,
+      "median_terminal_hand_error_m": 0.4747428756203564,
+      "max_waypoint_ik_error_m": 0.0,
+      "clipped_cases": 0,
+      "obstacle_penetrations_over3mm": 4,
+      "all_finite": true,
+      "warnings": 0
+    },
+    "direct_close_lift": {
+      "episodes": 32,
+      "ever_opposed": 0,
+      "held_lift_above2cm": 0,
+      "median_terminal_hand_error_m": 1.2552122533898911e-06,
+      "max_waypoint_ik_error_m": 1.1446955780657224e-08,
+      "clipped_cases": 0,
+      "obstacle_penetrations_over3mm": 0,
+      "all_finite": true,
+      "warnings": 0
+    },
+    "staged_close_lift": {
+      "episodes": 32,
+      "ever_opposed": 3,
+      "held_lift_above2cm": 1,
+      "median_terminal_hand_error_m": 1.1980158079879382e-06,
+      "max_waypoint_ik_error_m": 3.685476271010773e-08,
+      "clipped_cases": 0,
+      "obstacle_penetrations_over3mm": 0,
+      "all_finite": true,
+      "warnings": 0
+    },
+    "staged_open_lift": {
+      "episodes": 32,
+      "ever_opposed": 2,
+      "held_lift_above2cm": 0,
+      "median_terminal_hand_error_m": 1.1880512762158443e-06,
+      "max_waypoint_ik_error_m": 3.685476271010773e-08,
+      "clipped_cases": 0,
+      "obstacle_penetrations_over3mm": 0,
+      "all_finite": true,
+      "warnings": 0
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "source_step": 270,
+      "opening_m": 0.010058938525617123,
+      "target_m": [
+        0.255255495299807,
+        -0.011246278530538164,
+        0.11302484303712845
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0050589445003593365,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.44558301342409756,
+            "plate_lift_m": 0.0015532807480939104,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.15835641647301962,
+              -0.07962354847349287,
+              0.012048165212786066
+            ],
+            "plate_position_m": [
+              0.3741077005968697,
+              0.08312442659543348,
+              0.10957812378522236
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 9.469722536493417e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.171911276960599e-07,
+            "plate_lift_m": -0.03438194748689742,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.25525586625284896,
+              -0.0112471170220107,
+              0.1630248192578123
+            ],
+            "plate_position_m": [
+              0.27593299276182337,
+              -0.0005109589669414342,
+              0.07364289555023103
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.8945542970346154e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.726966847464718e-07,
+            "plate_lift_m": 0.0015549398047040724,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2552560065146299,
+              -0.011247090934802847,
+              0.16302500050952642
+            ],
+            "plate_position_m": [
+              0.34106124059628357,
+              0.009005468620899256,
+              0.10957978284183252
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.8945542970346154e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.727295785970637e-07,
+            "plate_lift_m": 0.0015546791349363293,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2552560065247712,
+              -0.01124709097208898,
+              0.163025000487424
+            ],
+            "plate_position_m": [
+              0.34076930252152354,
+              0.00904008483628116,
+              0.10957952217206478
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "source_step": 140,
+      "opening_m": 0.010569777339696884,
+      "target_m": [
+        0.2726189424176894,
+        -0.06618345771754945,
+        0.11284899443387986
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4346334656688429,
+            "plate_lift_m": -0.032969640527973035,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.14965349961025223,
+              -0.11299286790029182,
+              0.07119140717885948
+            ],
+            "plate_position_m": [
+              -0.23151040448583735,
+              2.0843615613271878,
+              0.07487935390590682
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.3152567242292489e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1834836871345124e-06,
+            "plate_lift_m": -0.03370880731358099,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2726187471338666,
+              -0.06618441889919739,
+              0.16284833214413516
+            ],
+            "plate_position_m": [
+              0.29396050321068523,
+              -0.05183352957747483,
+              0.07414018712029886
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5215093980325136e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": true,
+          "held_lift_above2cm": true,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.00014890701723470912,
+            "plate_lift_m": 0.0281744418468603,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.2725209776782381,
+              -0.0661612004187754,
+              0.16273908164000556
+            ],
+            "plate_position_m": [
+              0.3570889157304851,
+              -0.05111481356493346,
+              0.13602343628074015
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5215093980325136e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": true,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 7.483315863183364e-07,
+            "plate_lift_m": 0.0017303856223896685,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27261949229101723,
+              -0.06618338931297119,
+              0.16284949738546808
+            ],
+            "plate_position_m": [
+              0.35460020562653327,
+              -0.051580302298335476,
+              0.10957938005626952
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "source_step": 50,
+      "opening_m": 0.006498225964605808,
+      "target_m": [
+        0.26047605893684034,
+        0.0010103855707055704,
+        0.11384162783622742
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.42863635649260007,
+            "plate_lift_m": -0.03641885830876132,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.116855355932943,
+              0.1819274479444759,
+              0.07100227194841408
+            ],
+            "plate_position_m": [
+              0.2655553776402849,
+              0.3722613286462557,
+              0.0724227695274661
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 8.406178195678458e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.0008056662306702616,
+            "plate_lift_m": -0.03330319383431633,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.2598824886623281,
+              0.001406831962053337,
+              0.1634679934383928
+            ],
+            "plate_position_m": [
+              0.2785648933572028,
+              0.021921386636649682,
+              0.07553843400191108
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 6.841181980161159e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1238199477898055e-06,
+            "plate_lift_m": 0.0007369760287632698,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.26047686616340443,
+              0.0010100301382407195,
+              0.1638423242730962
+            ],
+            "plate_position_m": [
+              0.3492447334970218,
+              -0.008355077191438482,
+              0.10957860386499069
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 6.841181980161159e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.123839245903262e-06,
+            "plate_lift_m": 0.0007369775111273347,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2604768661793999,
+              0.0010100301332700012,
+              0.1638423242831601
+            ],
+            "plate_position_m": [
+              0.34958489107924484,
+              -0.008350110237198366,
+              0.10957860534735475
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "source_step": 100,
+      "opening_m": 0.010236277244985104,
+      "target_m": [
+        0.2879609954626511,
+        -0.05051724768822083,
+        0.11241908103227616
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.007040412742126266,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.6064943389477948,
+            "plate_lift_m": -0.05892221485319319,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.3106898220735273,
+              -0.003929081939822457,
+              0.07708371526176117
+            ],
+            "plate_position_m": [
+              0.3024246361537183,
+              0.24448942908557447,
+              0.04849686617908296
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.141810874798456e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.0011946420199058462,
+            "plate_lift_m": -0.03191377254704257,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.2870041909177211,
+              -0.0500484346549666,
+              0.16187879503544017
+            ],
+            "plate_position_m": [
+              0.3008556209255294,
+              -0.05178730611066656,
+              0.07550530848523358
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1293596561037141e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.471603012681328e-06,
+            "plate_lift_m": 0.002159622475958717,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2879606807108906,
+              -0.05051830413727512,
+              0.16241810611579158
+            ],
+            "plate_position_m": [
+              0.37468734752596694,
+              -0.06223529545886945,
+              0.10957870350823487
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1293596561037141e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.4717548967638972e-06,
+            "plate_lift_m": 0.0021596547005206107,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2879606806176907,
+              -0.05051830418403558,
+              0.16241810596729345
+            ],
+            "plate_position_m": [
+              0.37364923151040275,
+              -0.06309305031331951,
+              0.10957873573279676
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "source_step": 80,
+      "opening_m": 0.012370318174362183,
+      "target_m": [
+        0.23678277378952878,
+        0.024747660030143632,
+        0.11286599665880204
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5279138482610553,
+            "plate_lift_m": -0.0580653710022518,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.26665684408162654,
+              0.18346863604854954,
+              0.15584929406383544
+            ],
+            "plate_position_m": [
+              0.5550467319928999,
+              0.22621439785212769,
+              0.04980062565655023
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 7.019888287546373e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 8.225025863408712e-07,
+            "plate_lift_m": -0.034523091148878624,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2367830354530759,
+              0.024746913377308097,
+              0.16286577182055834
+            ],
+            "plate_position_m": [
+              0.2734839298510037,
+              0.05453745808910319,
+              0.07334290550992341
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 5.724876562807992e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.8564444528561394e-07,
+            "plate_lift_m": 0.0003149567364270911,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.23678295232483004,
+              0.024747657979968654,
+              0.16286621962447675
+            ],
+            "plate_position_m": [
+              0.3236505247691176,
+              0.02193952779246884,
+              0.10818095339522912
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 5.724876562807992e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.8566050893565845e-07,
+            "plate_lift_m": 0.0003154701886399769,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.23678295234246938,
+              0.02474765794503571,
+              0.16286621963060763
+            ],
+            "plate_position_m": [
+              0.3236723818659266,
+              0.021904245634583604,
+              0.10818146684744201
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "source_step": 250,
+      "opening_m": 0.012820587493479252,
+      "target_m": [
+        0.25033954173001777,
+        -0.027281410024554198,
+        0.11285708576440812
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.30606521380875906,
+            "plate_lift_m": 0.0017312025437133949,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.08669798498671409,
+              -0.26788190028751874,
+              0.25777157409812157
+            ],
+            "plate_position_m": [
+              0.31595142277951566,
+              -0.028486914619083696,
+              0.1095882883081215
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 9.421143682508255e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.4136687762866394e-06,
+            "plate_lift_m": -0.03487276962692229,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2503412456731375,
+              -0.027280738571935248,
+              0.1628586578732424
+            ],
+            "plate_position_m": [
+              0.2702068913376507,
+              -0.018539148710982375,
+              0.07298431613748582
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5489926358505215e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": true,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1804814018788201e-06,
+            "plate_lift_m": 0.0017219808567271594,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2503394868920101,
+              -0.027282392099177724,
+              0.16285643303278874
+            ],
+            "plate_position_m": [
+              0.33244664847262695,
+              -0.02516017962784457,
+              0.10957906662113527
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5489926358505215e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1801179263880143e-06,
+            "plate_lift_m": 0.0017227579028547407,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.25033948668409883,
+              -0.0272823918885413,
+              0.16285643339075917
+            ],
+            "plate_position_m": [
+              0.33337319889607714,
+              -0.025694028921364215,
+              0.10957984366726285
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "source_step": 50,
+      "opening_m": 0.009455250576138496,
+      "target_m": [
+        0.2951574799271959,
+        -0.024279121383836557,
+        0.11329418152570725
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.023660283166503,
+            "plate_lift_m": 0.0012996678005883222,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.6600294803234222,
+              -0.20849162271339466,
+              0.481985255535659
+            ],
+            "plate_position_m": [
+              0.35926786489422463,
+              -0.01134292249271924,
+              0.10959384932629557
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.963616220573847e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.3444182751723614e-06,
+            "plate_lift_m": -0.03564673170541574,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2951574258766301,
+              -0.024280217411935062,
+              0.16329340482663923
+            ],
+            "plate_position_m": [
+              0.31627253764638974,
+              -0.016978725799354402,
+              0.0726474498202915
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.4842233290115514e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.6746864752742544e-06,
+            "plate_lift_m": 0.0012852279482591517,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.29515757448453206,
+              -0.024280540592201638,
+              0.1632932975113877
+            ],
+            "plate_position_m": [
+              0.3824321235611181,
+              -0.008293761756032686,
+              0.1095794094739664
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.4842233290115514e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.6748151490277611e-06,
+            "plate_lift_m": 0.0012852977715875347,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.29515757440745605,
+              -0.024280540661370156,
+              0.1632932973704344
+            ],
+            "plate_position_m": [
+              0.38244880925179336,
+              -0.008287966540779308,
+              0.10957947929729478
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "source_step": 230,
+      "opening_m": 0.011299221776425838,
+      "target_m": [
+        0.27574330175903816,
+        -0.11278962784703611,
+        0.11271477222442627
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4990122082146719,
+            "plate_lift_m": 0.0018648615590548256,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.1363569118887485,
+              0.16464644951702892,
+              0.11564226607091656
+            ],
+            "plate_position_m": [
+              0.36958239493451284,
+              0.03895768172631469,
+              0.1095796337834811
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 8.409795694238546e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0011142784542906e-06,
+            "plate_lift_m": -0.03819280477633695,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2757433680551935,
+              -0.11279062502638178,
+              0.16271471333494597
+            ],
+            "plate_position_m": [
+              0.2945445819495754,
+              -0.10875215545138747,
+              0.06952196744808932
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.8963873473546978e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0439764096106264e-06,
+            "plate_lift_m": 0.0018650236941939319,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27574312338391793,
+              -0.11279056500013461,
+              0.16271434818064281
+            ],
+            "plate_position_m": [
+              0.36263532909616636,
+              -0.10177046647884552,
+              0.1095797959186202
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.8963873473546978e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0441336359258701e-06,
+            "plate_lift_m": 0.0018650967078927966,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2757431232856439,
+              -0.11279056508877273,
+              0.1627143480308097
+            ],
+            "plate_position_m": [
+              0.36222370601715675,
+              -0.101550881922116,
+              0.10957986893231907
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "source_step": 100,
+      "opening_m": 0.011495424434542656,
+      "target_m": [
+        0.24837917423087946,
+        0.028045920823113232,
+        0.11242761939764023
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4472586665541718,
+            "plate_lift_m": -0.06477127545305394,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.18006600801399095,
+              0.020820154173215755,
+              0.03427603370594123
+            ],
+            "plate_position_m": [
+              0.6037208138133956,
+              -0.07572315545219871,
+              0.04265634394458628
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.604403005852317e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2562260927936357e-06,
+            "plate_lift_m": -0.03284254542041852,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.24837909933948715,
+              0.028044977671184468,
+              0.1624267929838729
+            ],
+            "plate_position_m": [
+              0.27643483070818825,
+              0.05507574986280729,
+              0.07458507397722171
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 6.462190944172629e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5435778665335665e-06,
+            "plate_lift_m": 0.002151158339558326,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2483800437248269,
+              0.02804634972033318,
+              0.16242882050549556
+            ],
+            "plate_position_m": [
+              0.3350076919986374,
+              0.0131880571216308,
+              0.10957877773719855
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 6.462190944172629e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5444846169343962e-06,
+            "plate_lift_m": 0.00215097471937091,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2483800446070003,
+              0.028046349783046376,
+              0.16242882100968908
+            ],
+            "plate_position_m": [
+              0.3360533773239689,
+              0.012577072039593188,
+              0.10957859411701114
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "source_step": 200,
+      "opening_m": 0.01031617633998394,
+      "target_m": [
+        0.2750137169596868,
+        -0.037559068965307356,
+        0.11269660025835038
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.7148928947832188,
+            "plate_lift_m": 0.0018893283371273356,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.35358710740985366,
+              -0.3024620239950929,
+              0.376610786393707
+            ],
+            "plate_position_m": [
+              0.33889306422264837,
+              -0.04916878148083476,
+              0.10958592859547771
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.9448030600990298e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.585483805469732e-07,
+            "plate_lift_m": -0.03238943400012337,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27501371882981035,
+              -0.03755993896367307,
+              0.16269619787253534
+            ],
+            "plate_position_m": [
+              0.29720673846333895,
+              -0.020917837660232953,
+              0.075307166258227
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.9705528409355052e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.528799482193462e-07,
+            "plate_lift_m": 0.0018829200083964187,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2750139385363248,
+              -0.03755998203476056,
+              0.16269644155055962
+            ],
+            "plate_position_m": [
+              0.356809743267398,
+              -0.057702661707341334,
+              0.10957952026674679
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.9705528409355052e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.529554747506335e-07,
+            "plate_lift_m": 0.001882712221084798,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27501393848532574,
+              -0.037559982109430456,
+              0.16269644145552106
+            ],
+            "plate_position_m": [
+              0.3569223151063714,
+              -0.057757991778987744,
+              0.10957931247943517
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "source_step": 190,
+      "opening_m": 0.009830687195062637,
+      "target_m": [
+        0.2543421666496848,
+        -0.04571983919638626,
+        0.12002144485712052
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.44342014886345116,
+            "plate_lift_m": -0.10550276033660944,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.16512502439031096,
+              0.06760435383924504,
+              0.08155488997945011
+            ],
+            "plate_position_m": [
+              0.15792440625477155,
+              -0.0451658951113326,
+              0.00951868452051108
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 9.528130974956622e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2541984139861465e-06,
+            "plate_lift_m": -0.043763323463584025,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.25434301075996746,
+              -0.045720009515311036,
+              0.17002235671399316
+            ],
+            "plate_position_m": [
+              0.2696892865748844,
+              -0.044387479886634384,
+              0.07125812139353649
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.7551737599684195e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2312029373673158e-06,
+            "plate_lift_m": -0.005443123663888785,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2543429316060529,
+              -0.045720522979287984,
+              0.17002212540349743
+            ],
+            "plate_position_m": [
+              0.34263516377700337,
+              -0.04534010671650874,
+              0.10957832119323173
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.7551737599684195e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2312343519214803e-06,
+            "plate_lift_m": -0.005443315419895942,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2543429316256404,
+              -0.04572052300473739,
+              0.1700221254127432
+            ],
+            "plate_position_m": [
+              0.34269283911876947,
+              -0.04535715812435122,
+              0.10957812943722457
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "source_step": 50,
+      "opening_m": 0.009096072055399418,
+      "target_m": [
+        0.2859615627295208,
+        0.012788894226458519,
+        0.11284237086772919
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.6222163938665687,
+            "plate_lift_m": 0.001765314061161899,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.23810250673207478,
+              -0.3225738365698796,
+              0.16931776185914754
+            ],
+            "plate_position_m": [
+              0.34018987302254367,
+              0.006814873255290368,
+              0.10960768492889109
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.443840721878778e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.318665874934872e-06,
+            "plate_lift_m": -0.033327036649900416,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2859612281208371,
+              0.012788060981195448,
+              0.16284140514569356
+            ],
+            "plate_position_m": [
+              0.3075598359678569,
+              0.01733546762051086,
+              0.07451533421782877
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.0696652713763906e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.6818985396938013e-06,
+            "plate_lift_m": 0.0017374001548875473,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28596144490858666,
+              0.012787683262905913,
+              0.16284120963209436
+            ],
+            "plate_position_m": [
+              0.37125436692653596,
+              0.005981461539614439,
+              0.10957977102261673
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.0696652713763906e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.6820632422606359e-06,
+            "plate_lift_m": 0.0017364098011393575,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28596144481957547,
+              0.012787683191869015,
+              0.16284120947665862
+            ],
+            "plate_position_m": [
+              0.3709036365641922,
+              0.0060546764111444815,
+              0.10957878066886854
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "source_step": 170,
+      "opening_m": 0.009793516248464584,
+      "target_m": [
+        0.2584574993538806,
+        -0.049095385989159045,
+        0.11367467522621155
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.3399505781211097,
+            "plate_lift_m": 0.0009031253647482224,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.31436244352874687,
+              0.24478262281524904,
+              0.32515764251018864
+            ],
+            "plate_position_m": [
+              0.41395184748066516,
+              -0.05181144503610922,
+              0.10957780059095977
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.9862861790077462e-13,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 4.241532315381259e-05,
+            "plate_lift_m": -0.03351747570947253,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.25842756108815973,
+              -0.04907377157583313,
+              0.16365380474417485
+            ],
+            "plate_position_m": [
+              0.27549506939083396,
+              -0.04253736098497965,
+              0.07515719951673902
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.6419563384046712e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2733982954671453e-06,
+            "plate_lift_m": 0.0009046840486625768,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2584582744848621,
+              -0.04909615122465624,
+              0.1636753348699141
+            ],
+            "plate_position_m": [
+              0.3420308118260277,
+              -0.06817044095834955,
+              0.10957935927487412
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.6419563384046712e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2734055623744375e-06,
+            "plate_lift_m": 0.0009048098009922928,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2584582744852716,
+              -0.04909615124984032,
+              0.16367533485424515
+            ],
+            "plate_position_m": [
+              0.34192487650971876,
+              -0.06786268763033097,
+              0.10957948502720384
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "source_step": 180,
+      "opening_m": 0.008576514199376106,
+      "target_m": [
+        0.2838256441692411,
+        0.05500836287197571,
+        0.11287394642829895
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5803838831286952,
+            "plate_lift_m": 0.00013152781062006347,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.20203988649090143,
+              -0.25200424585908937,
+              0.24364148936496977
+            ],
+            "plate_position_m": [
+              0.3500761909995871,
+              0.05312925748254522,
+              0.10800547423891901
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.597121154143761e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5170909783432967e-06,
+            "plate_lift_m": -0.0352173684139325,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2838252979884658,
+              0.05500745121603785,
+              0.16287278427195906
+            ],
+            "plate_position_m": [
+              0.30744792157611545,
+              0.10364794248439435,
+              0.07265657801436645
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.77855980622903e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0437523115825789e-06,
+            "plate_lift_m": 0.0017055170373034556,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28382523974196816,
+              0.05500779423265306,
+              0.1628731702151906
+            ],
+            "plate_position_m": [
+              0.3705717366824596,
+              0.04466622568467578,
+              0.1095794634656024
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.77855980622903e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0436822209977954e-06,
+            "plate_lift_m": 0.0017053408930605696,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2838252397341725,
+              0.055007794297514095,
+              0.16287317026598647
+            ],
+            "plate_position_m": [
+              0.37072706984998255,
+              0.04559187022641948,
+              0.10957928732135952
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "source_step": 70,
+      "opening_m": 0.01132579892873764,
+      "target_m": [
+        0.2915848050132895,
+        -0.02369584358913207,
+        0.11268609493970871
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.009118173317930032,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.23749848986002714,
+            "plate_lift_m": -0.03280686684481883,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.12003789744682342,
+              0.03883042357017088,
+              0.010805690985481481
+            ],
+            "plate_position_m": [
+              0.3024268507999399,
+              -0.022562788106432235,
+              0.07487922809488988
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.511567472946287e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0333612746954401e-06,
+            "plate_lift_m": -0.03264558136146452,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2915856089096711,
+              -0.023695838898713087,
+              0.16268674421941084
+            ],
+            "plate_position_m": [
+              0.3141501082422993,
+              -0.010137596528771876,
+              0.07504051357824419
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.191904527714333e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.8510719414580786e-07,
+            "plate_lift_m": -0.03415368533744868,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2915850487246554,
+              -0.02369595549015599,
+              0.16268619173352628
+            ],
+            "plate_position_m": [
+              0.30947494306898427,
+              -0.014023759135447436,
+              0.07353240960226003
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.191904527714333e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.851260569857271e-07,
+            "plate_lift_m": -0.03406199627606317,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2915850487385605,
+              -0.023695955490952436,
+              0.16268619175315424
+            ],
+            "plate_position_m": [
+              0.30967970633216335,
+              -0.014225646836343208,
+              0.07362409866364554
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "source_step": 240,
+      "opening_m": 0.009956937283277512,
+      "target_m": [
+        0.2553975644235859,
+        -0.030815074321894252,
+        0.11362071812152863
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5197088244985596,
+            "plate_lift_m": 0.0009676031516704375,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.221779336815024,
+              -0.1970743907583609,
+              0.28510037437751024
+            ],
+            "plate_position_m": [
+              0.3203650542999779,
+              -0.039143305054344164,
+              0.10958832127319906
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 8.89736933974597e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.3003070308870508e-06,
+            "plate_lift_m": -0.034640204040358946,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2553984470519741,
+              -0.03081570652796624,
+              0.16362143371986948
+            ],
+            "plate_position_m": [
+              0.2778400593731056,
+              -0.021915780661196014,
+              0.07398051408116968
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.594288097254144e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2892127675812663e-06,
+            "plate_lift_m": 0.000958467976921229,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.25539840544216597,
+              -0.03081579341781958,
+              0.16362137967905316
+            ],
+            "plate_position_m": [
+              0.3395989869303594,
+              -0.04439635048682235,
+              0.10957918609844985
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.594288097254144e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.289242003113123e-06,
+            "plate_lift_m": 0.0009584400259981529,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2553984054615084,
+              -0.03081579344170214,
+              0.16362137968547674
+            ],
+            "plate_position_m": [
+              0.339413248723313,
+              -0.04518618853374626,
+              0.10957915814752678
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "source_step": 290,
+      "opening_m": 0.012326667085289955,
+      "target_m": [
+        0.2664916513507544,
+        -0.03088054527474171,
+        0.11260332643985749
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5001805098032397,
+            "plate_lift_m": 0.0019821938856949828,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.19555822799264863,
+              -0.20638245351967907,
+              0.23934661010794822
+            ],
+            "plate_position_m": [
+              0.3296911208802696,
+              -0.046281004511699246,
+              0.10958552032555247
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.4595198500927146e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.182234207361825e-06,
+            "plate_lift_m": -0.03272409740859891,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2664922998976892,
+              -0.030881473350877126,
+              0.1626036666446213
+            ],
+            "plate_position_m": [
+              0.2980159482734246,
+              0.008103629138422646,
+              0.07487922903125857
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.4060654116998563e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2520983156208523e-06,
+            "plate_lift_m": 0.0019756874466888286,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.26649239686292214,
+              -0.03088142613975639,
+              0.16260381227792275
+            ],
+            "plate_position_m": [
+              0.35029334878350954,
+              -0.05006160554359567,
+              0.10957901388654631
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.4060654116998563e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2521026047225906e-06,
+            "plate_lift_m": 0.0019754327430629853,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2664923969070719,
+              -0.030881426048579033,
+              0.1626038123865189
+            ],
+            "plate_position_m": [
+              0.3500053479862932,
+              -0.050859076348047975,
+              0.10957875918292047
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "source_step": 270,
+      "opening_m": 0.011775932274758816,
+      "target_m": [
+        0.28124386920636946,
+        -0.09189627543777355,
+        0.11200151324272156
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4532690952993128,
+            "plate_lift_m": -0.047295699468180956,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.14898442535228024,
+              0.01474126973562493,
+              0.06721268861658387
+            ],
+            "plate_position_m": [
+              0.2524824235455162,
+              0.2008846707301089,
+              0.0597058137745406
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.583445710448158e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5189410163850662e-06,
+            "plate_lift_m": -0.032038006680159006,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28124455895093703,
+              -0.0918974946830393,
+              0.1620021005035024
+            ],
+            "plate_position_m": [
+              0.30169353367163154,
+              -0.09380902695022085,
+              0.07496350656256255
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.036639747791603e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": true,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.4045219890017382e-06,
+            "plate_lift_m": 0.0025784251501207306,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2812444389052675,
+              -0.09189748784043074,
+              0.16200193538603844
+            ],
+            "plate_position_m": [
+              0.36458691849068636,
+              -0.09655110430054845,
+              0.10957993839284229
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.036639747791603e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": true,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.3918408017848502e-06,
+            "plate_lift_m": 0.0025779683532151515,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2812444426632153,
+              -0.0918974679262904,
+              0.16200194491296682
+            ],
+            "plate_position_m": [
+              0.36672422401024984,
+              -0.09830074631512502,
+              0.10957948159593671
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "source_step": 140,
+      "opening_m": 0.009029564447700977,
+      "target_m": [
+        0.28732917306606165,
+        -0.00769214918918758,
+        0.11256873339414597
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.8755519388792874,
+            "plate_lift_m": 0.0020176488105040358,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.5734062779244229,
+              -0.15641184573709838,
+              0.2226364696773127
+            ],
+            "plate_position_m": [
+              0.3523718350245979,
+              -0.002365190316799327,
+              0.10958638220465
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1446955780657224e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 3.68882453539752e-05,
+            "plate_lift_m": -0.032412796534813396,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.2873005039714317,
+              -0.007677246613687572,
+              0.1625509362342079
+            ],
+            "plate_position_m": [
+              0.3051548892453525,
+              -0.00922973798305694,
+              0.07515593685933257
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.3170986009985715e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.195969960107849e-06,
+            "plate_lift_m": 0.002010367522947698,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28732988740900817,
+              -0.007693064089028756,
+              0.16256902152012684
+            ],
+            "plate_position_m": [
+              0.3741416298164964,
+              -0.003506748021003433,
+              0.10957910091709366
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.3170986009985715e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1959846260436743e-06,
+            "plate_lift_m": 0.002010865396341266,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2873298874066491,
+              -0.007693064118067472,
+              0.16256902149464159
+            ],
+            "plate_position_m": [
+              0.37414362656753253,
+              -0.003446859478174481,
+              0.10957959879048723
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "source_step": 280,
+      "opening_m": 0.010922949761152267,
+      "target_m": [
+        0.2772067779519934,
+        -0.12212821821931395,
+        0.11256540298461915
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.551158046777437,
+            "plate_lift_m": -0.09804671846407374,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.21723289612617547,
+              0.10070187502021691,
+              0.06432411445553125
+            ],
+            "plate_position_m": [
+              0.6913478397807757,
+              0.31703258203153717,
+              0.009518684520545398
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.748920583916364e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.0491655234707504e-06,
+            "plate_lift_m": -0.03704529185191591,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2772069026414794,
+              -0.12212925882890785,
+              0.16256545128059005
+            ],
+            "plate_position_m": [
+              0.29567601579223524,
+              -0.11482041471636527,
+              0.07052011113270323
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 7.527353914453025e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2000616558680276e-06,
+            "plate_lift_m": 0.002013667593174437,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27720649949504084,
+              -0.1221292482314675,
+              0.16256485372633106
+            ],
+            "plate_position_m": [
+              0.3616239436898625,
+              -0.1019926290469127,
+              0.10957907057779358
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 7.527353914453025e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2001983784135556e-06,
+            "plate_lift_m": 0.0020144583879435074,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2772064994015464,
+              -0.1221292482914163,
+              0.1625648535874404
+            ],
+            "plate_position_m": [
+              0.36212665044347747,
+              -0.10194383620392641,
+              0.10957986137256265
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "source_step": 120,
+      "opening_m": 0.009802637621760368,
+      "target_m": [
+        0.28285968383581933,
+        0.0264224068987244,
+        0.11235330730676651
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.3323622369129979,
+            "plate_lift_m": 0.002237207758921972,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.16603798535019004,
+              -0.2751719723624969,
+              0.23889204055198718
+            ],
+            "plate_position_m": [
+              0.3476903328664611,
+              0.03219472620134137,
+              0.10959051506568848
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 6.047061976635991e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2435485589325852e-06,
+            "plate_lift_m": -0.03300591497642978,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28286059421920673,
+              0.026422649000491308,
+              0.16235411909605002
+            ],
+            "plate_position_m": [
+              0.3054628112894902,
+              0.05250691629962543,
+              0.07434739233033673
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.796812553103978e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 3.451460917725518e-07,
+            "plate_lift_m": 0.0022263929627765744,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2828599614923012,
+              0.026422487917739823,
+              0.16235349563791604
+            ],
+            "plate_position_m": [
+              0.3718435574095739,
+              0.030582428599391198,
+              0.10957970026954308
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.796812553103978e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 3.4517625617909744e-07,
+            "plate_lift_m": 0.002225640851818103,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2828599615084707,
+              0.026422487924543367,
+              0.1623534956664309
+            ],
+            "plate_position_m": [
+              0.37147325804062126,
+              0.03204730222559352,
+              0.10957894815858461
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "source_step": 200,
+      "opening_m": 0.00808747299015522,
+      "target_m": [
+        0.2854221733168126,
+        0.015832386033825172,
+        0.1132926094532013
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5629194441376653,
+            "plate_lift_m": -0.08005003457223088,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.2632273324353767,
+              -0.020005777413376433,
+              0.042554684728332376
+            ],
+            "plate_position_m": [
+              0.48078801277407307,
+              -0.1535188577055354,
+              0.028242574880970418
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1136248745651532e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1962128477926492e-06,
+            "plate_lift_m": -0.03323996136628454,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28542305216192715,
+              0.015832521716227135,
+              0.1632934095449008
+            ],
+            "plate_position_m": [
+              0.3122911462718749,
+              0.018772075747915534,
+              0.07505264808691675
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 7.300587106191743e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.562476898245871e-07,
+            "plate_lift_m": 0.0012877991967308877,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.285422404465631,
+              0.015832375379491434,
+              0.16329271954219918
+            ],
+            "plate_position_m": [
+              0.37412659138246823,
+              0.02329947725513622,
+              0.10958040864993218
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 7.300587106191743e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.562558534102485e-07,
+            "plate_lift_m": 0.0012870750695145872,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2854224044710931,
+              0.015832375378998717,
+              0.16329271954968472
+            ],
+            "plate_position_m": [
+              0.3739874257684138,
+              0.02335725993748393,
+              0.10957968452271588
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "source_step": 50,
+      "opening_m": 0.009367289021611214,
+      "target_m": [
+        0.2610272002971318,
+        -0.05286145956575169,
+        0.11301950097084046
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5534127946234446,
+            "plate_lift_m": -0.059102637434501136,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.2807784703854094,
+              0.042786085677456176,
+              0.10332122998983775
+            ],
+            "plate_position_m": [
+              0.5373531382210424,
+              0.2729844156541288,
+              0.04891686353633932
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.1359035194033796e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.363672899045481e-06,
+            "plate_lift_m": -0.03314026574535889,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2610290082415329,
+              -0.05286095915374328,
+              0.16302093898142384
+            ],
+            "plate_position_m": [
+              0.2842451028249145,
+              -0.011364968130832738,
+              0.07487923522548157
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.7508407567296016e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.5114512721139986e-06,
+            "plate_lift_m": 0.001559619753152483,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2610290749591984,
+              -0.05286080386252187,
+              0.16302103820306185
+            ],
+            "plate_position_m": [
+              0.34343251042798617,
+              -0.07183044873405932,
+              0.10957912072399294
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.7508407567296016e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.511582648212418e-06,
+            "plate_lift_m": 0.001559625853107205,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2610290750461789,
+              -0.052860803857245287,
+              0.16302103830937303
+            ],
+            "plate_position_m": [
+              0.343274254295775,
+              -0.07199888407618951,
+              0.10957912682394766
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "source_step": 300,
+      "opening_m": 0.011219877749681473,
+      "target_m": [
+        0.25726930970709777,
+        -0.0029433123726731823,
+        0.11236695677042008
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.009272931543479749,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4262271626842236,
+            "plate_lift_m": -0.03870145253317832,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.10775031615771677,
+              -0.2068873805468446,
+              0.07968029521050832
+            ],
+            "plate_position_m": [
+              0.27092476385385883,
+              0.07199690788558598,
+              0.06866550423724176
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5480284076414238e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 3.747735122750315e-05,
+            "plate_lift_m": -0.032224926308425786,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.25724116164977506,
+              -0.002923166306833841,
+              0.16235259102104233
+            ],
+            "plate_position_m": [
+              0.273862922537321,
+              0.001658319521736022,
+              0.07514203046199429
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.0186066556646105e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.700618247910797e-07,
+            "plate_lift_m": 0.0022113633199197374,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.257269388864352,
+              -0.002944174035742708,
+              0.16236651826063953
+            ],
+            "plate_position_m": [
+              0.3397597719895443,
+              -0.019416532567260784,
+              0.10957832009033981
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.0186066556646105e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.701936646975413e-07,
+            "plate_lift_m": 0.00221201158853708,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.25726938879358874,
+              -0.002944174121504342,
+              0.16236651812474762
+            ],
+            "plate_position_m": [
+              0.3396303506518243,
+              -0.019107472482930567,
+              0.10957896835895715
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "source_step": 300,
+      "opening_m": 0.008469361811876297,
+      "target_m": [
+        0.2631722298055472,
+        0.0017954571658892874,
+        0.11204302787780762
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": -0.0004725374964704397,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.36323240575223,
+            "plate_lift_m": -0.03608585168756437,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.05340603456354793,
+              -0.14629992838242592,
+              0.06313023852830132
+            ],
+            "plate_position_m": [
+              0.6754769674612772,
+              0.5516184591383564,
+              0.07095717619024325
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.7973408663279235e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 4.1127608568123596e-05,
+            "plate_lift_m": -0.031925240935515076,
+            "opposed_contact": false,
+            "robot_plate_contact": true,
+            "hand_position_m": [
+              0.2631412306845799,
+              0.0018163937515427858,
+              0.16202593419280525
+            ],
+            "plate_position_m": [
+              0.28049406731301074,
+              0.003786097041224121,
+              0.07511778694229254
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.414636500351464e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.52668700000188e-06,
+            "plate_lift_m": -0.032007915376969065,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2631738667160977,
+              0.001796386352969831,
+              0.16204471348820595
+            ],
+            "plate_position_m": [
+              0.2789751400063942,
+              0.01211798975349449,
+              0.07503511250083855
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.414636500351464e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.5267775294719666e-06,
+            "plate_lift_m": -0.0320044171091899,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2631738667743948,
+              0.0017963863555890552,
+              0.16204471356585032
+            ],
+            "plate_position_m": [
+              0.27899098783983084,
+              0.01212074653429692,
+              0.07503861076861772
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "source_step": 80,
+      "opening_m": 0.0036073920782655478,
+      "target_m": [
+        0.2804255284054208,
+        -0.04305897358637215,
+        0.11337296396493912
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.4261730558458746,
+            "plate_lift_m": -0.03349388570166158,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.13265345232581682,
+              -0.09581949285418861,
+              0.0727884354093233
+            ],
+            "plate_position_m": [
+              -1.0408138135499845,
+              5.079186592104777,
+              0.07487907826327754
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.2288518530961903e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2081893226200956e-06,
+            "plate_lift_m": 0.0012148120337327761,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28042627541505916,
+              -0.04305978401417497,
+              0.16337345884352614
+            ],
+            "plate_position_m": [
+              0.33527874717809203,
+              -0.03128043951316187,
+              0.1095877759986719
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.1563722719509256e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1593607096519923e-06,
+            "plate_lift_m": -0.044185435854307786,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2804261058967469,
+              -0.043059955255670385,
+              0.1633731806361469
+            ],
+            "plate_position_m": [
+              0.26383844567770187,
+              -0.036015690785118744,
+              0.06418752811063133
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.1563722719509256e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.159260676647651e-06,
+            "plate_lift_m": -0.044748758101791644,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2804261058405745,
+              -0.043059955173823036,
+              0.16337318062143213
+            ],
+            "plate_position_m": [
+              0.2624427209960435,
+              -0.03625600094904044,
+              0.06362420586314747
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "source_step": 290,
+      "opening_m": 0.009054768830537796,
+      "target_m": [
+        0.2837031513599453,
+        -0.01956294464203226,
+        0.11234990239143372
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.5812449838739233,
+            "plate_lift_m": -0.03368137571821342,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.27668441977723335,
+              0.12431734570767256,
+              0.10658285618621008
+            ],
+            "plate_position_m": [
+              -0.7404167780382435,
+              1.3783736784202425,
+              0.0736685266732203
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.3417575659701237e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.2536002661889545e-06,
+            "plate_lift_m": 0.0022574336129364547,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2837038834169467,
+              -0.01956389711875345,
+              0.16235026071289507
+            ],
+            "plate_position_m": [
+              0.3408450299665362,
+              -0.014718087918631162,
+              0.10960733600437017
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.685476271010773e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1572268530599835e-06,
+            "plate_lift_m": 0.002229172565207521,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2837037662354766,
+              -0.019563906785853208,
+              0.1623500904907113
+            ],
+            "plate_position_m": [
+              0.3721854946914476,
+              -0.015166852363163291,
+              0.10957907495664124
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.685476271010773e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1572431041037317e-06,
+            "plate_lift_m": 0.002229172565207521,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.28370376622917415,
+              -0.019563906815388693,
+              0.1623500904602125
+            ],
+            "plate_position_m": [
+              0.3721854946914476,
+              -0.015166852363163291,
+              0.10957907495664124
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "source_step": 110,
+      "opening_m": 0.007221581414341927,
+      "target_m": [
+        0.27818338430257933,
+        0.015959731104152712,
+        0.1156538325548172
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.43592770793133995,
+            "plate_lift_m": -0.03524443137571685,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.04804429259450348,
+              0.3025445586433397,
+              0.12721419164938416
+            ],
+            "plate_position_m": [
+              3.6585374663182444,
+              1.7894525679190654,
+              0.07540940117910035
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.5751009214382038e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.1287690437251567e-06,
+            "plate_lift_m": -0.03757700128468537,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27818472925045884,
+              0.01596045104820283,
+              0.16565531729499905
+            ],
+            "plate_position_m": [
+              0.3004685950180357,
+              0.02441502744025308,
+              0.07307683127013183
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.7908241581502423e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.833850181881158e-06,
+            "plate_lift_m": -0.0010742788335191683,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2781837344352943,
+              0.01595819570764212,
+              0.16565289288938378
+            ],
+            "plate_position_m": [
+              0.3644858939694225,
+              0.03158685774206682,
+              0.10957955372129803
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.7908241581502423e-08,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.833912048779119e-06,
+            "plate_lift_m": -0.001073591361589521,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27818373439247474,
+              0.015958195671436484,
+              0.16565289281185142
+            ],
+            "plate_position_m": [
+              0.36444750177494806,
+              0.03155632714408894,
+              0.10958024119322768
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "source_step": 70,
+      "opening_m": 0.010424187406897545,
+      "target_m": [
+        0.2704498336567537,
+        -0.05576223166992886,
+        0.11330760002136231
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.38690913057601983,
+            "plate_lift_m": 0.0013094054331222321,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.02423073579108942,
+              0.18844698730344422,
+              0.10652824918497418
+            ],
+            "plate_position_m": [
+              0.34115774817404393,
+              0.021438975519461778,
+              0.10961700545448454
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.289497894900624e-11,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1347883945754458e-06,
+            "plate_lift_m": -0.03533412210653129,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27044978801011943,
+              -0.05576322961126905,
+              0.1633070617146033
+            ],
+            "plate_position_m": [
+              0.2915786831835515,
+              -0.054667921351889893,
+              0.07297347791483101
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1074284052472443e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5240054560930527e-06,
+            "plate_lift_m": 0.001271558278137075,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2704502217599042,
+              -0.055763673465090924,
+              0.16330729474233352
+            ],
+            "plate_position_m": [
+              0.3563763602399479,
+              -0.060296923222414096,
+              0.10957915829949938
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.1074284052472443e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.5240908822299117e-06,
+            "plate_lift_m": 0.0012713852922358881,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2704502216756542,
+              -0.05576367354868919,
+              0.16330729460363091
+            ],
+            "plate_position_m": [
+              0.35667765539337165,
+              -0.060272316039462065,
+              0.10957898531359819
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "source_step": 110,
+      "opening_m": 0.009850971400737762,
+      "target_m": [
+        0.2624324380806178,
+        -0.028716575322367852,
+        0.11279553651809693
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.656026052359301,
+            "plate_lift_m": 0.0017955255909148649,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.30971427995347983,
+              -0.3010944552100747,
+              0.33258542127221624
+            ],
+            "plate_position_m": [
+              0.32666611903953297,
+              -0.03896129538273063,
+              0.10959106210901179
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.7250062042911774e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 2.4436660662909185e-06,
+            "plate_lift_m": -0.03374733423071834,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2624341790274811,
+              -0.02871586769995446,
+              0.16279709852910285
+            ],
+            "plate_position_m": [
+              0.2858665915565618,
+              -0.014132488461625872,
+              0.07404820228737859
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.436407050864994e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.3361123240074622e-06,
+            "plate_lift_m": 0.001783538662152584,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2624333006841292,
+              -0.028717374994995354,
+              0.16279617026490228
+            ],
+            "plate_position_m": [
+              0.346049387239387,
+              -0.04430433010587838,
+              0.10957907518024951
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 2.436407050864994e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.3361615417121672e-06,
+            "plate_lift_m": 0.0017835784180840752,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.26243330072272014,
+              -0.028717374999394252,
+              0.16279617031058838
+            ],
+            "plate_position_m": [
+              0.3460652297793732,
+              -0.04389862895194063,
+              0.109579114936181
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "source_step": 140,
+      "opening_m": 0.008351416327059269,
+      "target_m": [
+        0.27627180047621136,
+        -0.02861907281947724,
+        0.11186347633600235
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.49621665594139996,
+            "plate_lift_m": -0.09734479181545622,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.21881906062289724,
+              -0.007577624005066147,
+              0.13591610032995166
+            ],
+            "plate_position_m": [
+              0.6328764706602152,
+              -0.010982698787104396,
+              0.009518684520546137
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.498711159629095e-12,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.408781570273402e-07,
+            "plate_lift_m": -0.03261089993884145,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27627191288998565,
+              -0.028619953558251032,
+              0.16186316502576792
+            ],
+            "plate_position_m": [
+              0.29751503471117696,
+              -0.02575829011475884,
+              0.0742525763971609
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.8451486876927264e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.659217859078176e-07,
+            "plate_lift_m": 0.0027158789109212184,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.276272132420579,
+              -0.028619978180403516,
+              0.16186342030541748
+            ],
+            "plate_position_m": [
+              0.36095017222948367,
+              -0.043819303135437374,
+              0.10957935524692357
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 3.8451486876927264e-10,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.659472624900853e-07,
+            "plate_lift_m": 0.0027164020850531656,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.27627213240130655,
+              -0.02861997821202686,
+              0.16186342026304817
+            ],
+            "plate_position_m": [
+              0.3606749759855563,
+              -0.043661220130218954,
+              0.10957987842105552
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "source_step": 200,
+      "opening_m": 0.010517539456486702,
+      "target_m": [
+        0.2688221472334631,
+        0.028357443105607207,
+        0.11255453258752823
+      ],
+      "cases": [
+        {
+          "mode": "frozen_recorded",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 0.0,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 0.45029526568658307,
+            "plate_lift_m": 0.0020361827053995835,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              -0.05947084351901455,
+              -0.2675326475022361,
+              0.24880180966122112
+            ],
+            "plate_position_m": [
+              0.3323724140611794,
+              0.01493494609734817,
+              0.10959071529292781
+            ]
+          }
+        },
+        {
+          "mode": "direct_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 4.970970435920473e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 1.1283929825435157e-06,
+            "plate_lift_m": -0.03413030543565369,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.26882217790508545,
+              0.0283565302180879,
+              0.16255387004216998
+            ],
+            "plate_position_m": [
+              0.29690254963844037,
+              0.06131945774081882,
+              0.07342422715187454
+            ]
+          }
+        },
+        {
+          "mode": "staged_close_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.6160323939324546e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.46002568674588e-07,
+            "plate_lift_m": 0.002024510904240967,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.2688225999895581,
+              0.02835662049779493,
+              0.16255441748250854
+            ],
+            "plate_position_m": [
+              0.35103554448666974,
+              0.008478393479975846,
+              0.1095790434917692
+            ]
+          }
+        },
+        {
+          "mode": "staged_open_lift",
+          "finite": true,
+          "warnings": 0,
+          "max_waypoint_ik_error_m": 1.6160323939324546e-09,
+          "clipped_targets": 0,
+          "min_robot_obstacle_distance_m": 0.0,
+          "ever_opposed": false,
+          "held_lift_above2cm": false,
+          "terminal": {
+            "time_s": 3.5,
+            "hand_error_m": 9.460116265098464e-07,
+            "plate_lift_m": 0.0020245538468247337,
+            "opposed_contact": false,
+            "robot_plate_contact": false,
+            "hand_position_m": [
+              0.268822599894424,
+              0.028356620450888964,
+              0.16255441736918533
+            ],
+            "plate_position_m": [
+              0.3513616082709539,
+              0.009578152754110243,
+              0.10957908643435296
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

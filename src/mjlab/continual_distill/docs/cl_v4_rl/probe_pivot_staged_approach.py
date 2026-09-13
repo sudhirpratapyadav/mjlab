@@ -20,7 +20,12 @@ def main():
   p.add_argument('--output',type=Path,required=True)
   p.add_argument('--extended-climb',action='store_true')
   p.add_argument('--incremental-climb',action='store_true')
+  p.add_argument('--wrist-transition',action='store_true')
+  p.add_argument('--wrist-angles',type=float,nargs='+',default=[0.,-30.,-45.])
   args=p.parse_args()
+  if sum([args.extended_climb,args.incremental_climb,args.wrist_transition])>1:p.error('Select one diagnostic variant')
+  if not all(np.isfinite(a) for a in args.wrist_angles):p.error('Wrist angles must be finite')
+  if not args.wrist_transition and args.wrist_angles!=[0.,-30.,-45.]:p.error('Wrist angles require wrist transition')
   if args.output.exists():p.error('Output exists')
   ev=json.loads(args.evaluation.read_text());audit=json.loads(args.standoff_audit.read_text())
   assert ev['task']=='Mjlab-Pivot-Lift-Franka' and ev['checkpoint_sha256']==audit['checkpoint_sha256']
@@ -52,19 +57,26 @@ def main():
     restore();rotation=d.site_xmat[grip].reshape(3,3).copy();axis=d.xmat[board].reshape(3,3)[:,0].copy();start_hand=d.site_xpos[grip].copy()
     target=np.asarray(corrected['target_m']);cases=[];kp=m.actuator_gainprm[:7,0]
     assert np.allclose(m.actuator_gear[:7,0],1) and np.allclose(m.actuator_gear[:7,1:],0) and np.allclose(m.actuator_biasprm[:7,1],-kp) and (kp>0).all()
-    for press,climb in ([(.04,.08),(.06,.12)] if args.extended_climb or args.incremental_climb else [(.01,.02),(.02,.04)]):
+    modes=[(.02,.04,angle) for angle in args.wrist_angles] if args.wrist_transition else [(p,c,0.) for p,c in ([(.04,.08),(.06,.12)] if args.extended_climb or args.incremental_climb else [(.01,.02),(.02,.04)])]
+    for press,climb,wrist_angle in modes:
       positions=[start_hand,target-.03*axis+np.array([0.,0.,.03]),target-.03*axis,target]
       increments=round(press/.02) if args.incremental_climb else 1
       positions.extend(target+press*k/increments*axis+np.array([0.,0.,climb*k/increments]) for k in range(1,increments+1))
-      times=np.array([0.,.5,1.,1.5,*[1.5+k for k in range(1,increments+1)],2.+increments]);commands=[];ik_errors=[];clipped=0;seed=initial['qpos'][arm].copy()
+      times=np.array([0.,.5,1.,1.5,*[1.5+k for k in range(1,increments+1)],2.+increments]);commands=[];ik_errors=[];rotation_errors=[];clipped=0;seed=initial['qpos'][arm].copy()
+      if args.wrist_transition:
+        positions.extend([positions[-1].copy(),target+2*press*axis+np.array([0.,0.,2*climb])])
+        times=np.array([0.,.5,1.,1.5,2.5,3.5,4.5,5.])
       for i,position in enumerate(positions):
         d.qpos[:]=initial['qpos']
+        angle=np.deg2rad(wrist_angle) if args.wrist_transition and i>=5 else 0.
+        rotated=np.array([[np.cos(angle),0,np.sin(angle)],[0,1,0],[-np.sin(angle),0,np.cos(angle)]])@rotation
         if i:
           def residual(q):
             d.qpos[arm]=q;mujoco.mj_kinematics(m,d)
-            return np.r_[d.site_xpos[grip]-position,.08*(d.site_xmat[grip].reshape(3,3)-rotation).ravel()]
+            return np.r_[d.site_xpos[grip]-position,.08*(d.site_xmat[grip].reshape(3,3)-rotated).ravel()]
           result=least_squares(residual,np.clip(seed,*bounds),bounds=bounds,max_nfev=120);seed=result.x;residual(seed)
           ik_errors.append(float(np.linalg.norm(d.site_xpos[grip]-position)))
+          rotation_errors.append(float(np.rad2deg(np.arccos(np.clip((np.trace(rotated.T@d.site_xmat[grip].reshape(3,3))-1)/2,-1,1)))))
         else:d.qpos[arm]=seed
         d.qvel[:]=0;mujoco.mj_forward(m,d)
         raw=seed+(d.qfrc_bias[dof]-d.qfrc_passive[dof])/kp
@@ -89,13 +101,23 @@ def main():
           pivoted|=tilt>20 and contact
           nominal=(1-fraction)*positions[phase]+fraction*positions[phase+1]
           samples.append(dict(time_s=time,tilt_deg=tilt,wall_contact=contact,robot_wrench=force.tolist(),hand_error_m=float(np.linalg.norm(d.site_xpos[grip]-nominal)),hand_position_m=d.site_xpos[grip].tolist(),board_position_m=d.xpos[board].tolist()))
-      cases.append(dict(press_m=press,climb_m=climb,waypoint_times_s=times.tolist(),waypoints_m=[v.tolist() for v in positions],finite=finite,warnings=d.warning.number.tolist(),max_tilt_deg=maximum,pivoted_with_wall_contact=bool(pivoted),min_robot_obstacle_distance_m=minimum,max_waypoint_ik_error_m=max(ik_errors),clipped_targets=clipped,samples=samples))
+      cases.append(dict(press_m=press,climb_m=climb,wrist_transition_deg=wrist_angle,waypoint_times_s=times.tolist(),waypoints_m=[v.tolist() for v in positions],finite=finite,warnings=d.warning.number.tolist(),max_tilt_deg=maximum,pivoted_with_wall_contact=bool(pivoted),min_robot_obstacle_distance_m=minimum,max_waypoint_ik_error_m=max(ik_errors),max_waypoint_rotation_error_deg=max(rotation_errors),clipped_targets=clipped,samples=samples))
     rows.append(dict(env_id=lane,source_step=step,cases=cases))
   summary={}
-  for i in range(2):
+  for i in range(len(rows[0]['cases'])):
     c=[r['cases'][i] for r in rows]
-    summary[str(c[0]['press_m'])]=dict(pivoted_with_wall_contact=sum(x['pivoted_with_wall_contact'] for x in c),tilted_over20=sum(x['max_tilt_deg']>20 for x in c),median_max_tilt_deg=float(np.median([x['max_tilt_deg'] for x in c])),all_finite=all(x['finite'] for x in c),warning_cases=sum(any(x['warnings']) for x in c),obstacle_penetrations_over3mm=sum(x['min_robot_obstacle_distance_m']<-.003 for x in c),max_waypoint_ik_error_m=max(x['max_waypoint_ik_error_m'] for x in c),clipped_cases=sum(x['clipped_targets']>0 for x in c))
+    key=str(c[0]['wrist_transition_deg'] if args.wrist_transition else c[0]['press_m'])
+    summary[key]=dict(pivoted_with_wall_contact=sum(x['pivoted_with_wall_contact'] for x in c),tilted_over20=sum(x['max_tilt_deg']>20 for x in c),median_max_tilt_deg=float(np.median([x['max_tilt_deg'] for x in c])),all_finite=all(x['finite'] for x in c),warning_cases=sum(any(x['warnings']) for x in c),obstacle_penetrations_over3mm=sum(x['min_robot_obstacle_distance_m']<-.003 for x in c),max_waypoint_ik_error_m=max(x['max_waypoint_ik_error_m'] for x in c),max_waypoint_rotation_error_deg=max(x['max_waypoint_rotation_error_deg'] for x in c),clipped_cases=sum(x['clipped_targets']>0 for x in c))
   report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],episodes=len(rows),incremental_climb=args.incremental_climb,method='Native CPU from32 original recorded poses/velocities/friction, no IK reset. Withdraw30mm outward+30mm up0.5s, lower outside0.5s, side approach0.5s, press/climb1s per recorded segment, hold0.5s. Explicit waypoint positions/times recorded per case. Original wrist/fingers, bounded native joint-position controls with static gravity compensation. Wrenches every20ms; positive20deg+wall contact is a mechanism diagnostic, not RL success. No policy supervision or model change.',summary=summary,rows=rows)
+  if args.wrist_transition:
+    archive=Path(__file__).resolve().parent/'runs'/f'{args.output.stem}-samples.npz';arrays={}
+    for row in rows:
+      for case in row['cases']:
+        arrays[f"lane{row['env_id']}_wrist{case['wrist_transition_deg']}"]=np.asarray([
+          [v['time_s'],v['tilt_deg'],v['wall_contact'],*v['robot_wrench'],v['hand_error_m'],*v['hand_position_m'],*v['board_position_m']]
+          for v in case.pop('samples')])
+    archive.parent.mkdir(parents=True,exist_ok=True);np.savez_compressed(archive,**arrays)
+    report.update(wrist_transition=True,wrist_angles_deg=args.wrist_angles,sample_archive=str(archive),sample_columns=['time_s','tilt_deg','wall_contact','force_x','force_y','force_z','torque_x','torque_y','torque_z','hand_error_m','hand_x','hand_y','hand_z','board_x','board_y','board_z'],method=report['method'].replace('Original wrist/fingers','Original fingers; after first20/40mm climb, apply each reported wrist angle around worldY in1s at fixed hand target, then another20/40mm climb in1s. Same first segment and bounds/friction; wrist commands are diagnostic only'))
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 
