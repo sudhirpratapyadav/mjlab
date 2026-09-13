@@ -1,0 +1,61 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "0517a21569ce48ee67ed57696999fa5ffb40e6296cd706384d04b655a3f47230",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual recorded frames show the fingers closing around the upright peg, then holding it low without transport to the bore. Strict0/128, but final active-episode opposing contact rises from0% at3900 to50.4%, aperture21.82mm versus41.44mm. This is capture progress, not completed insertion. No confirmation. Continue the same bounded recipe to test lift acquisition.",
+  "termination_counts": {
+    "time_out": 123,
+    "ee_ground_collision": 0,
+    "object_out_of_bounds": 5
+  },
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 123,
+    "grasped_fraction": 0.5040650367736816,
+    "enclosed_fraction": 0.5853658318519592,
+    "enclosed_grasp_fraction": 0.4796747863292694,
+    "opposed_grasp_fraction": 0.5040650367736816,
+    "robot_object_contact_fraction": 0.6260162591934204,
+    "aperture_mean": 0.021823976188898087,
+    "gripper_object_distance_mean": 0.06310541182756424,
+    "gripper_goal_distance_mean": 0.297107994556427,
+    "gripper_down_alignment_mean": 0.9259123802185059,
+    "object_height_mean": 0.00471337977796793,
+    "gripper_action_mean": -0.8136391639709473,
+    "absolute_action_max": 0.997443437576294,
+    "goal_error_mean": 0.3035583794116974
+  },
+  "videos": {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "checkpoint_sha256": "0517a21569ce48ee67ed57696999fa5ffb40e6296cd706384d04b655a3f47230",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-020-R6-m5097/failure.mp4",
+        "outcome": {
+          "env_id": 62,
+          "success": false,
+          "steps": 1000,
+          "return": 61.61958312988281,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

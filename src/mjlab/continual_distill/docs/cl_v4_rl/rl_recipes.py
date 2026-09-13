@@ -17,7 +17,7 @@ RECIPES += ("strike_v2", "strike_v3")
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
-RECIPES += ("peg_v1",)
+RECIPES += ("peg_v1", "lift_v8")
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -47,7 +47,7 @@ def grasp_components(env, command_name, object_asset_name="object", require_encl
   return command, obj, approach, closing, held
 
 
-def lift_settling_bonus(goal_error, linear_speed, angular_speed, finger_position, finger_target, held):
+def lift_settling_bonus(goal_error, linear_speed, angular_speed, finger_position, finger_target, held, quiet_weight=5.):
   """Credit a mild loaded grasp and quiet object near the native goal.
 
   This scores the existing position actuator command; it never changes it.
@@ -56,10 +56,10 @@ def lift_settling_bonus(goal_error, linear_speed, angular_speed, finger_position
   loaded_closure = finger_position-finger_target
   gentle = torch.exp(-(loaded_closure-.002).abs()/.01)
   quiet = 1/(1+linear_speed/.10+angular_speed/.5)
-  return held*(2*gentle+5*torch.exp(-goal_error/.05)*quiet)
+  return held*(2*gentle+quiet_weight*torch.exp(-goal_error/.05)*quiet)
 
 
-def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, **kwargs):
+def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, quiet_weight=5., native_completion_weight=0., **kwargs):
   command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name,**kwargs)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
@@ -74,7 +74,10 @@ def lift_grasp_reward(env, command_name, object_asset_name="object", closure_wei
     reward += lift_settling_bonus(goal_error,
                                   torch.linalg.vector_norm(obj.data.root_link_lin_vel_w,dim=-1),
                                   torch.linalg.vector_norm(obj.data.root_link_ang_vel_w,dim=-1),
-                                  command.robot.data.joint_pos[:,finger],env.sim.data.ctrl[:,actuator],held)
+                                  command.robot.data.joint_pos[:,finger],env.sim.data.ctrl[:,actuator],held,quiet_weight=quiet_weight)
+  if native_completion_weight:
+    command._update_metrics()
+    reward += native_completion_weight*command.compute_success().float()
   return reward
 
 
@@ -102,6 +105,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "pivot_v3":
     apply_recipe(cfg, "pivot_v2")
     cfg.env.rewards["reach_object"].params.update(ramp_geometry=True,contact_geometry=True)
+    return
+  if recipe == "lift_v8":
+    apply_recipe(cfg,"lift_v7")
+    cfg.env.rewards["reach_object"].params.update(quiet_weight=15.,native_completion_weight=25.)
     return
   if recipe == "lift_v7":
     apply_recipe(cfg, "lift_v6")

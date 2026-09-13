@@ -159,3 +159,21 @@ def test_lift_settling_recipe_preserves_native_environment_and_agent(monkeypatch
   assert asdict(old.agent)==asdict(new.agent)
   assert new.env.rewards['reach_object'].params.pop('settle_grip')
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_lift_completion_recipe_preserves_native_benchmark(monkeypatch):
+  import importlib
+  from dataclasses import asdict
+  from pathlib import Path
+  from mjlab.scripts.train import TrainConfig
+  monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'))
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_v7');recipes.apply_recipe(new,'lift_v8')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params.pop('quiet_weight')==15.
+  assert params.pop('native_completion_weight')==25.
+  assert repr(old.env.rewards)==repr(new.env.rewards)

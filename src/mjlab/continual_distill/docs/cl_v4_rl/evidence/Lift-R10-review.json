@@ -1,0 +1,61 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "checkpoint_sha256": "d930f51caecd5fe69c3d3e289d2d5877626ffeb8da9059d0873dcbde1b357c01",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual frames show the cube grasped and held near the airborne goal; changing cube orientation remains visible. Strict0/128 despite115 terminal positions inside5cm;0 settled. Median error11.70mm, linear speed0.3187m/s, angular2.0946rad/s. Dense cone correction alone did not resolve settling; no confirmation.",
+  "termination_counts": {
+    "time_out": 123,
+    "ee_ground_collision": 4,
+    "object_out_of_bounds": 1
+  },
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 123,
+    "grasped_fraction": 0.9512194991111755,
+    "enclosed_fraction": 0.6178861856460571,
+    "enclosed_grasp_fraction": 0.6016259789466858,
+    "opposed_grasp_fraction": 0.9512194991111755,
+    "robot_object_contact_fraction": 0.9674796462059021,
+    "aperture_mean": 0.046323664486408234,
+    "gripper_object_distance_mean": 0.02269371785223484,
+    "gripper_goal_distance_mean": 0.030121657997369766,
+    "gripper_down_alignment_mean": 0.5976459383964539,
+    "object_height_mean": 0.2216944843530655,
+    "gripper_action_mean": -0.6654375195503235,
+    "absolute_action_max": 0.9963000416755676,
+    "goal_error_mean": 0.02137644588947296
+  },
+  "videos": {
+    "task": "Mjlab-Lift-Cube-Franka",
+    "checkpoint_sha256": "d930f51caecd5fe69c3d3e289d2d5877626ffeb8da9059d0873dcbde1b357c01",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-002-R10-m11995/failure.mp4",
+        "outcome": {
+          "env_id": 27,
+          "success": false,
+          "steps": 1000,
+          "return": 325.7098083496094,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
