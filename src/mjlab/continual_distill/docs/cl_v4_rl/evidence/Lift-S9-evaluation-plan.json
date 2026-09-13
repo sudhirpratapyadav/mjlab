@@ -31,5 +31,17 @@
   "update_learning_rate_ceiling": 5e-06,
   "survival_bonus_rate": 500.0,
   "native_completion_weight": 50.0,
-  "reason": "S7 survival-aware10\u00d7motion costs yield103/128 with124full20s episodes and median accelerationproxy27.848 versus retainedR16 56.949 (51%lower), but p95acceleration53.258 andp95peak7.861 remainhigh. S8 at3\u00d7 gives112/128 butmedianacceleration53.060. Preserve S7 as a partial-motion-improvement training parent, NOT a certified replacement. Hold its motion costs, survival500/s, learned exploration, normalization and optimizer state; vary ONLY existing native_completion_weight25\u219250 or100. Native predicate and all other task/reward settings unchanged. Both100-updatepreflights from ORIGINALS7 must befinite with valid5e-6ceiling/KL.03. Full pilots restart ORIGINALS7 for1000updates,2048envs/seed20260912/final25487; no preflightparent or interimselection. Compare all128successes/failures, durations, median ANDp95motion; highinitialspeed remainsunresolved. Samefixed0/1/2real-timevideos, freshconditionalconfirmations. Hypothesis: regain native goal precision while retaining reduced typical held jitter; no guarantee this fixes speed or achieves allmotiongates. Other23 teachers paused."
+  "reason": "S7 survival-aware10\u00d7motion costs yield103/128 with124full20s episodes and median accelerationproxy27.848 versus retainedR16 56.949 (51%lower), but p95acceleration53.258 andp95peak7.861 remainhigh. S8 at3\u00d7 gives112/128 butmedianacceleration53.060. Preserve S7 as a partial-motion-improvement training parent, NOT a certified replacement. Hold its motion costs, survival500/s, learned exploration, normalization and optimizer state; vary ONLY existing native_completion_weight25\u219250 or100. Native predicate and all other task/reward settings unchanged. Both100-updatepreflights from ORIGINALS7 must befinite with valid5e-6ceiling/KL.03. Full pilots restart ORIGINALS7 for1000updates,2048envs/seed20260912/final25487; no preflightparent or interimselection. Compare all128successes/failures, durations, median ANDp95motion; highinitialspeed remainsunresolved. Samefixed0/1/2real-timevideos, freshconditionalconfirmations. Hypothesis: regain native goal precision while retaining reduced typical held jitter; no guarantee this fixes speed or achieves allmotiongates. Other23 teachers paused.",
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-GOAL50-086",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.029743019491434097,
+    "backtracks": 27,
+    "learning_rate_ceiling": 5e-06,
+    "saved_learning_rate": 2.5e-06,
+    "checkpoint_sha256": "58b643b83e704644098962f0f2bcfe3dfc984b7e6f44af9ae2e04a06bf35f09d",
+    "per_update_rate_rule_verified": true,
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  }
 }
