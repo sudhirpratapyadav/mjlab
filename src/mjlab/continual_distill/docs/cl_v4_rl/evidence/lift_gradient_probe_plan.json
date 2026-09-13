@@ -1,0 +1,25 @@
+{
+  "preregistered_utc": "2026-09-13T15:47:18.740458+00:00",
+  "purpose": "Read-only measurement of actor/critic gradient norms before original shared clipping. No causal conclusion about Adam parameter changes from clipping alone.",
+  "source_checkpoint": "RL-002-S1-lift-smooth/model_23489.pt",
+  "source_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "recipes": [
+    "lift_smooth_v2",
+    "lift_smooth_x10",
+    "lift_smooth_x100"
+  ],
+  "run_ids": [
+    "PROBE-LIFT-GRAD-088",
+    "PROBE-LIFT-GRAD-089",
+    "PROBE-LIFT-GRAD-090"
+  ],
+  "updates_each": 1,
+  "envs": 2048,
+  "seed": 20260912,
+  "physical_gpu": 3,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "update_learning_rate_ceiling": 5e-06,
+  "rollout_pairing": "Verify identical first rollout observation/action fingerprints. Records include rejected KL attempts; compare first minibatch before update to separate scales.",
+  "scope": "Diagnostic checkpoints are never evaluated, selected, promoted or used as training parents. Main S9/S10 unchanged. Original clip invoked exactly once; toy Adam update equivalence verified."
+}

@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current scope: Lift-only motion correction; other23 teachers paused. S6 failed with25/128 and widespread early ground collisions. S7/S8 test a common native survival bonus500/s with10×/3×motion penalties and per-updateLRretry. Preflights084/085 precede1000updates each from originalS1. See Lift-S7/S8-evaluation-plan.json; historical budgets below are superseded.**
+**Current: S9/S10 are training on GPUs 1/2 from S7, with completion reward 50/100 and its motion costs retained. Frozen 1000 updates; final model25487 only. S7 reduced median acceleration by 51%, but still failed native success, peak speed and upper-tail motion targets. Other 23 teachers remain paused.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

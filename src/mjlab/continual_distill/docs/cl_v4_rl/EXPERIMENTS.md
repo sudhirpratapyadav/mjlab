@@ -703,3 +703,10 @@ S7/S8 full pilots active from originalS1 after finite084/085 preflights. Trainer
 
 
 S7/S8 completed1000updates, both76finite tensors and validper-updateLR/KL. S7 native103/128,124timeouts/2groundcollisions/2escapes; medianaccelerationproxy27.848 vsR16 56.949 (51.1%lower), butp9553.258 andp95peak7.861 failtargets. S8 native112/128,124timeouts/3groundcollisions/1escape; medianacceleration53.060,p9555.647,p95peak7.881. No confirmations23/24. Both rejected as teacher replacements; survival bonus reduces widespread earlyfailure but does not establishacceptablemotion or >90%success. S7 offers a partial typical-jitter improvement and becomes the explicit next TRAININGparent. Preregister S9/S10 nativecompletioncredit50/100 (was25), holding S7motioncosts/survival/optimizer/noise fixed. Preflights086/087×100, thenoriginalS7/model24488×1000/final25487, GPUs1/2, freshconfirmations25/26. Initialspeed andupper-tailmotion remainunresolved; no certificate or otherteacher changes.
+
+
+### 2026-09-13T15:43:38.319624+00:00 — Completion balance pilots
+
+S7/S8 failed reviews are published at /v4-rl/lift-smooth-review/s7/ and /s8/. Each has three fixed paired real-time videos, all 128 motion measurements, 41 remotely verified W&B artifact files, six verified browser playbacks and eight HTTPS content hashes. W&B reviews: jhesafvs / ez0wumt6. S7 native 103/128 and median acceleration 27.848 (51.1% below reference); p95 acceleration 53.258 and peak speed 7.861 remain unacceptable. S8 native 112/128, median acceleration 53.060, p95 55.647. Neither is promoted.
+
+Preflights086/087 completed 100 finite updates; max accepted KL .029743/.028657, 27/9 within-update backtracks, correct per-update LR retry. Full S9/S10 restart ORIGINAL S7/model24488, 1000 updates, final25487, completion weights50/100; all other S7 settings retained. Trainer PIDs2415088/2415103; evaluator PIDs2415429/2415444; identified motion watchers attached. Actual GPU UUIDs1/2, CPU affinity0–3,128–131 and source SHA verified. Holder20277 expires2026-09-28T08:58:54 scheduler time. GPU0 and other23 teachers untouched. No interim checkpoint selection.

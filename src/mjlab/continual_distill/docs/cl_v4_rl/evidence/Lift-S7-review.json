@@ -1,0 +1,61 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T15:34:42.087012+00:00",
+  "checkpoint_sha256": "431d89d6358948b51e3049f315bdf3cdae4c9a180fdb43ec62b50680358204bf",
+  "verdict": "fail_success_and_motion_quality",
+  "validation_successes": 103,
+  "confirmation_run": false,
+  "episodes": 128,
+  "termination_counts": {
+    "time_out": 124,
+    "ee_ground_collision": 2,
+    "object_out_of_bounds": 2
+  },
+  "median_duration_s": 20.0,
+  "mean_duration_s": 19.59203125,
+  "episodes_reaching20s": 124,
+  "actual_frames_inspected": [
+    "after-0-1000.png"
+  ],
+  "visual_note": "Cube visibly raised at inspected endpoint; S7/env0 still fails the native terminal gate. Static frames do not demonstrate smoothness. S7 median acceleration improvement is partial progress; peak speed and upper-tail metrics remain high.",
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s7/",
+  "baseline_preserved": true
+}
