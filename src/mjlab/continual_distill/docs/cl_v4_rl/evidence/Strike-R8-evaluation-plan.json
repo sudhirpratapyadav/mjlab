@@ -1,0 +1,16 @@
+{
+  "preregistered_in": "LOGS.md and EXPERIMENTS.md before preflight054",
+  "recorded_utc": "2026-09-13T04:51:09.523550+00:00",
+  "task": "Mjlab-Strike-Slide-Franka",
+  "run_id": "RL-023-R8-strike-noise",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-023-R7-strike-endpoint/model_14993.pt",
+  "source_checkpoint_sha256": "741bacc60b348d29fa99d17b5e97a45dc1e211bf4bf5a82bad828c1b3a3fac8c",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_16992.pt",
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "recipe": "strike_v4",
+  "resume_noise_scale": 0.5,
+  "reason": "Finite64x3 gate and state-preservation tests passed. Scale learned noise once, preserve all means/normalizers and other Adam state; noise trainable. Fullbudget before strict evaluation, original14993 parent only."
+}

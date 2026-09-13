@@ -1,0 +1,94 @@
+{
+  "legacy": [
+    {
+      "tick": 0,
+      "median_cpu_gpu_arm_distance_rad": 0.0,
+      "median_gpu_arm_motion_rad": 0.0,
+      "median_cpu_arm_motion_rad": 0.0
+    },
+    {
+      "tick": 1,
+      "median_cpu_gpu_arm_distance_rad": 7.540783368093216e-07,
+      "median_gpu_arm_motion_rad": 0.017218321561813354,
+      "median_cpu_arm_motion_rad": 0.017236896424102498
+    },
+    {
+      "tick": 4,
+      "median_cpu_gpu_arm_distance_rad": 4.948120022424591e-05,
+      "median_gpu_arm_motion_rad": 0.08807980269193649,
+      "median_cpu_arm_motion_rad": 0.08812298565294897
+    },
+    {
+      "tick": 20,
+      "median_cpu_gpu_arm_distance_rad": 0.0006131984847879456,
+      "median_gpu_arm_motion_rad": 0.4913260340690613,
+      "median_cpu_arm_motion_rad": 0.4916133949320889
+    },
+    {
+      "tick": 400,
+      "median_cpu_gpu_arm_distance_rad": 1.0670519635397737e-06,
+      "median_gpu_arm_motion_rad": 0.6049984097480774,
+      "median_cpu_arm_motion_rad": 0.6049655978168964
+    }
+  ],
+  "cone": [
+    {
+      "tick": 0,
+      "median_cpu_gpu_arm_distance_rad": 0.0,
+      "median_gpu_arm_motion_rad": 0.0,
+      "median_cpu_arm_motion_rad": 0.0
+    },
+    {
+      "tick": 1,
+      "median_cpu_gpu_arm_distance_rad": 7.534674466608457e-07,
+      "median_gpu_arm_motion_rad": 0.017218321561813354,
+      "median_cpu_arm_motion_rad": 0.017236896424102498
+    },
+    {
+      "tick": 4,
+      "median_cpu_gpu_arm_distance_rad": 4.955974261461141e-05,
+      "median_gpu_arm_motion_rad": 0.08807948231697083,
+      "median_cpu_arm_motion_rad": 0.08812298565294897
+    },
+    {
+      "tick": 20,
+      "median_cpu_gpu_arm_distance_rad": 0.0006146545573551883,
+      "median_gpu_arm_motion_rad": 0.4913259446620941,
+      "median_cpu_arm_motion_rad": 0.4916133949320889
+    },
+    {
+      "tick": 400,
+      "median_cpu_gpu_arm_distance_rad": 1.0670519635397737e-06,
+      "median_gpu_arm_motion_rad": 0.6049966812133789,
+      "median_cpu_arm_motion_rad": 0.6049655978168964
+    }
+  ],
+  "policy_last100": {
+    "arm_target_error_rms_median_rad": 0.7437020540237427,
+    "arm_target_step_rms_median_rad": 1.6769500970840454,
+    "per_joint_target_step_median_abs_rad": [
+      2.0774459838867188,
+      0.017187878489494324,
+      3.1678733825683594,
+      0.13736939430236816,
+      2.203873634338379,
+      0.33959734439849854,
+      0.7084623575210571
+    ],
+    "per_joint_actual_step_median_abs_rad": [
+      0.0032030194997787476,
+      0.0016314014792442322,
+      0.005617156624794006,
+      0.006326198577880859,
+      0.00621563196182251,
+      0.011658549308776855,
+      0.007369637489318848
+    ],
+    "normalized_action_delta_squared_sum_median": 2.3730401664542846,
+    "old_action_rate_weight": -0.005,
+    "old_median_action_rate_penalty": -0.011865200832271423,
+    "proposed_action_rate_weight": -0.2,
+    "proposed_median_action_rate_penalty": -0.47460803329085693
+  },
+  "method": "Matched32 actual-control interventions, CPU/GPU same source states and friction, gyroON. Compare every listed physics tick without exclusions. Policy variation uses all128 last100 actual recorded control states. No success substitution."
+}

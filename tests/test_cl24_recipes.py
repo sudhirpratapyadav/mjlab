@@ -60,6 +60,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Stack-Cube-Franka","completion_v6"),
   ("Mjlab-Place-In-Container-Franka","completion_v6"),
   ("Mjlab-Peg-Insertion-Franka","completion_v6"),
+  ("Mjlab-Peg-Insertion-Franka","peg_v3"),
 ])
 def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   stage=Path(__file__).resolve().parents[1]/"src/mjlab/continual_distill/docs/cl_v4_rl"
