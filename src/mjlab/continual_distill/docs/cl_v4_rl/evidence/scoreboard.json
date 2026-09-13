@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-09-13T03:28:44.678996+00:00",
-  "certified_count": 15,
+  "updated_utc": "2026-09-13T03:53:16.322558+00:00",
+  "certified_count": 16,
   "active_tasks": 24,
   "interface": "franka_shared_60_v2",
   "criterion": "Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review",
@@ -19,13 +19,13 @@
     },
     {
       "task": "Mjlab-Cage-Drag-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": 0.9140625,
+      "certified": true,
+      "validation_successes": 119,
+      "validation_episodes": 128,
+      "confirmation_successes": 120,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/agn4ftsg",
+      "best_measured_validation_rate": 0.9296875,
       "latest_training_run": "RL-013-R11-cage-refine-cpu",
       "latest_preflight_run": "PREFLIGHT-CAGE-REFINE-037"
     },
@@ -50,8 +50,8 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-021-R4-edge-approach",
-      "latest_preflight_run": "PREFLIGHT-EDGE-WRIST-025"
+      "latest_training_run": "RL-021-R5-edge-pinch",
+      "latest_preflight_run": "PREFLIGHT-EDGE-PINCH-050"
     },
     {
       "task": "Mjlab-Flip-Switch-Franka",
@@ -73,8 +73,8 @@
       "confirmation_successes": null,
       "confirmation_episodes": null,
       "retained_run_url": null,
-      "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-002-R12-lift-arm-hold-cpu",
+      "best_measured_validation_rate": 0.4375,
+      "latest_training_run": "RL-002-R13-lift-arm-hold",
       "latest_preflight_run": "PREFLIGHT-LIFT-ARM-044"
     },
     {
@@ -205,8 +205,8 @@
       "confirmation_successes": null,
       "confirmation_episodes": null,
       "retained_run_url": null,
-      "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-005-R11-reorient-axis-cpu",
+      "best_measured_validation_rate": 0.0078125,
+      "latest_training_run": "RL-005-R12-reorient-axis",
       "latest_preflight_run": "PREFLIGHT-REORIENT-AXIS-040"
     },
     {
@@ -254,8 +254,8 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.328125,
-      "latest_training_run": "RL-023-R6-strike-precision-cpu",
-      "latest_preflight_run": "PREFLIGHT-STRIKE-PRECISION-038"
+      "latest_training_run": "RL-023-R7-strike-endpoint",
+      "latest_preflight_run": "PREFLIGHT-STRIKE-ENDPOINT-049"
     },
     {
       "task": "Mjlab-Throw-To-Bin-Franka",
