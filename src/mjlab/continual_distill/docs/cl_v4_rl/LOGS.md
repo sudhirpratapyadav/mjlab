@@ -383,3 +383,10 @@ Lift completion preflightwxlnwsna finished finite at11997 withAdam1e-4, coneON/g
 Wave23 gallery refresh includes reviewed Place7400 (105/128), Peg5097 and Lift11995 clips. Newest homepage card/navigation,24 actual video playback,14/10 filters, search/mobile layout and50/50 HTTPS SHA256 matches passed. Full details remain in scoped W&B; fourteen certified teachers remain unchanged.
 
 Wave23 scoreboardrjmyos4m finished; remote API verified189 experiment-record files, including all new reviews/audits/preflights, seven-run inventory and public checks. Full goal remains14/24 and active. This turn made progress through Place105/128, Peg capture acquisition, native Lift settling diagnosis, finite-preflighted Cage/Strike/Lift continuations and unchanged Peg continuation. Next bounded completions are Edge/Throw/Place; verify actual live steps before reuse.
+
+
+### Wave24
+
+Previous turn made progress: Place105/128, actual Peg capture acquisition and Lift settling diagnosis, finite-preflighted Cage/Strike/Lift retries and unchanged Peg continuation; public/W&B records verified. Seven full trainers revalidated live, GPU0 at0MiB.
+
+ReorientR9 actual trajectory/contact audit:12643 sampled states,6723 opposing-contact states within drift bound;6562 (97.6%) have nonpositive axis cosine and zero old orientation credit.124/128 terminal axes remain beyond90deg, median92.54deg; no sampled episode reaches45deg. This is a reward plateau, not a success-rate replacement. Preregister reorient_v8: preserve contact/approach/lift terms, replace max(dot,0)^2 with(1+clamp(dot,-1,1))/2 for the current directed axis (absolute cosine for symmetric variants), still gated by held+valid drift; add25×refreshed unchanged native success. No model/60D/8D/predicate change. PREFLIGHT-REORIENT-AXIS-040: originalR9/8598,64×3, preserve arm/gripper/Adam1e-4/normalizers/noise and gyroON/coneOFF. Tiny preflight may co-locate onGPU1 with its sole2048-world Edge trainer (about4.6GB on80GB). After finite preflight and EdgeR3 final evaluation, launch RL-005-R10-reorient-axis from original8598,2048×2000 onGPU1. No second full trainer per GPU.

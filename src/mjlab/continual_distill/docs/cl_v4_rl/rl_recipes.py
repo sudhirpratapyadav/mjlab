@@ -17,7 +17,7 @@ RECIPES += ("strike_v2", "strike_v3")
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
-RECIPES += ("peg_v1", "lift_v8")
+RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -105,6 +105,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "pivot_v3":
     apply_recipe(cfg, "pivot_v2")
     cfg.env.rewards["reach_object"].params.update(ramp_geometry=True,contact_geometry=True)
+    return
+  if recipe == "reorient_v8":
+    apply_recipe(cfg,"reorient_v7")
+    cfg.env.rewards["reach_object"].params.update(continuous_orientation=True,native_completion_weight=25.)
     return
   if recipe == "lift_v8":
     apply_recipe(cfg,"lift_v7")
@@ -269,7 +273,13 @@ def bounded_initialization(cfg):
   cfg.agent.algorithm.max_grad_norm = 0.5
 
 
-def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
+def reorient_axis_score(alignment, symmetric=False):
+  """Continuous credit over the native directed or symmetric axis domain."""
+  alignment = alignment.clamp(-1,1)
+  return alignment.abs() if symmetric else (1+alignment)/2
+
+
+def reorient_endface_reward(env, command_name, object_asset_name='object', smooth_closure=False, closure_weight=1.0, require_enclosure=False, geometry_aperture=False, contact_geometry=False, continuous_orientation=False, native_completion_weight=0., **kwargs):
   command, obj, _, _, held = grasp_components(env,command_name,object_asset_name,require_enclosure=require_enclosure,contact_geometry=contact_geometry)
   robot = command.robot
   gripper = robot.data.site_pos_w[:,command.robot_cfg.site_ids].squeeze(1)
@@ -297,9 +307,15 @@ def reorient_endface_reward(env, command_name, object_asset_name='object', smoot
   aligned = (object_axis*command.target_axis).sum(-1).clamp(0,1)
   valid = torch.linalg.vector_norm(tracking_position(obj)[:,:2]-command.target_pos[:,:2],dim=-1)<command.cfg.max_drift
   orientation = aligned.square()*held*valid.float()
+  if continuous_orientation:
+    orientation = reorient_axis_score((object_axis*command.target_axis).sum(-1),command.cfg.symmetric_axis)*held*valid.float()
   # Actual contact must still dominate the maximum noncontact closure score.
   grasp_bonus = max(2.,1+closure_weight)+(2 if geometry_aperture else 0)
-  return approach*(1-held)*(1+closure_weight*aperture_score) + grasp_bonus*held + 3*lift + 6*orientation
+  reward = approach*(1-held)*(1+closure_weight*aperture_score) + grasp_bonus*held + 3*lift + 6*orientation
+  if native_completion_weight:
+    command._update_metrics()
+    reward += native_completion_weight*command.compute_success().float()
+  return reward
 
 
 def cage_approach_reward(env, command_name, object_asset_name='cube', transport_guidance=False, **kwargs):

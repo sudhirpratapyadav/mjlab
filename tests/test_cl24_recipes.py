@@ -177,3 +177,37 @@ def test_lift_completion_recipe_preserves_native_benchmark(monkeypatch):
   assert params.pop('quiet_weight')==15.
   assert params.pop('native_completion_weight')==25.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_reorient_axis_score_has_progress_beyond_ninety_degrees(monkeypatch):
+  import importlib
+  from pathlib import Path
+  import torch
+  monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'))
+  recipes=importlib.import_module('rl_recipes')
+  angles=torch.deg2rad(torch.tensor([170.,135.,95.,85.,45.,10.],requires_grad=True))
+  angles.retain_grad()
+  score=recipes.reorient_axis_score(angles.cos())
+  assert (score[1:]>score[:-1]).all()
+  score.sum().backward()
+  assert (angles.grad<0).all()
+  assert recipes.reorient_axis_score(torch.tensor([-1.,1.]),True).tolist()==[1.,1.]
+  assert recipes.reorient_axis_score(torch.tensor([-1.,1.])).tolist()==[0.,1.]
+
+
+def test_reorient_axis_recipe_preserves_native_benchmark(monkeypatch):
+  import importlib
+  from dataclasses import asdict
+  from pathlib import Path
+  from mjlab.scripts.train import TrainConfig
+  monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'))
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Reorient-Object-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'reorient_v7');recipes.apply_recipe(new,'reorient_v8')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  assert params.pop('continuous_orientation')
+  assert params.pop('native_completion_weight')==25.
+  assert repr(old.env.rewards)==repr(new.env.rewards)
