@@ -416,3 +416,11 @@ Place matched-state/friction constant-control replay: all30 failed timeout state
 
 
 Wave24 final evaluations: Cage R9/final15094 improves99→108/128 (124timeouts,4ground); Strike R4/final8996 improves21→34/128 (126timeouts,1ground,1bounds). Actual beginning/middle/final success and failure frames reviewed. Neither reaches116, so no confirmation or new certification. Both final checkpoints and optimizer tensors finite with saved Adam5e-5. Preregister unchanged bounded continuations: RL-013-R10-cage-refine from original15094, cage_v4,2048×2000 onGPU7; RL-023-R5-strike-precision from original8996, strike_v3,2048×2000 onGPU3. Preserve all learned means/std, Adam moments, normalizers and legacy backend (coneOFF/gyroOFF); no initialization or reward change, so no new preflight is needed after the finite full budget. Finish each budget then strict128 validation and conditional independent confirmation. These improve the same measured behavior, with no tuning on confirmation.
+
+
+Wave24 full inventory reverified: one trainer each onGPUs1–7, GPU0 at0MiB. Strike R5 and Cage R10 started from original8996/15094 after evaluator exit; online scoped W&B runs xrj4q2ac and vqg8ok1l. No numerical-failure artifacts in current runs. See training_wave24.json for exact steps/PIDs/manifests.
+
+
+Wave24 final gallery refresh published via untu_vps: latest reviewed Edge6997, Place8299, Throw9496, Cage15094 and Strike8996 clips. Still14 certified/10 in progress. Throw displays both116/128 validation and107/128 failed confirmation with in-progress status. Newest homepage card/navigation, all24 actual video playback, filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed. Full results and retained policies remain in scoped W&B.
+
+Wave24 scoreboard4eezws4a finished; remote API verified14/24 and206 experiment-record files, including prospective Throw seed plan, latest reviews/audits/preflights, training_wave24 inventory and public verification. Full24-task goal remains active. Next: finish bounded training and diagnose Place contact settling; do not retest Throw9496 or tune on its retired confirmation batch.

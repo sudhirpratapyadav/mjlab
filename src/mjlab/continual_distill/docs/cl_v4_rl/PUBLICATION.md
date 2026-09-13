@@ -34,3 +34,6 @@ Wave22 refresh: reviewed final Cage13095 (99/128) and Strike6997 (21/128) clips 
 
 
 Wave23 gallery refresh includes reviewed Place7400 (105/128), Peg5097 and Lift11995 clips. Newest homepage card/navigation,24 actual video playback,14/10 filters, search/mobile layout and50/50 HTTPS SHA256 matches passed. Full details remain in scoped W&B; fourteen certified teachers remain unchanged.
+
+
+Wave24 final gallery refresh published via untu_vps: latest reviewed Edge6997, Place8299, Throw9496, Cage15094 and Strike8996 clips. Still14 certified/10 in progress. Throw displays both116/128 validation and107/128 failed confirmation with in-progress status. Newest homepage card/navigation, all24 actual video playback, filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed. Full results and retained policies remain in scoped W&B.

@@ -2,7 +2,7 @@
 
 Checked2026-09-13. **14/24 independent PPO RL teachers certified.** All 24 have RL training evidence. Throw R4/final9496 reached 116/128 validation but 107/128 confirmation and is not certified. Best other unfinished validations: Place105/128, Cage108/128 and Strike34/128. Edge R3/final6997 remains0/128 despite closer approach; Place R7/final8299 regressed to97/128, so best7400 remains retained. GPU0 remains unused.
 
-Current full PPO runs: Reorient R10 onGPU1, Throw R5 onGPU2, Lift R11 onGPU4, Stack R7 onGPU5 and Peg R7 onGPU6. Strike R4/final8996 scored34/128 and Cage R9/final15094 scored108/128. Unchanged bounded continuations Strike R5 and Cage R10 are preregistered forGPUs3/7. Throw R5 passed its finite preflight at5e-5; finish its2000-update budget before validation and use preregistered fresh confirmation20260916 only if validation passes. Never retest9496 on that new seed. Holder20277 expires2026-09-28T08:58:54 scheduler time.
+Current full PPO runs, one per GPU1–7: Reorient R10, Throw R5, Strike R5, Lift R11, Stack R7, Peg R7 and Cage R10. Strike R4/final8996 scored34/128 and Cage R9/final15094 scored108/128. Unchanged bounded continuations Strike R5 and Cage R10 are running onGPUs3/7. Throw R5 passed its finite preflight at5e-5; finish its2000-update budget before validation and use preregistered fresh confirmation20260916 only if validation passes. Never retest9496 on that new seed. Holder20277 expires2026-09-28T08:58:54 scheduler time.
 
 ## Readiness
 
