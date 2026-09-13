@@ -30,5 +30,17 @@
   "preflight_initial_learning_rate": 5e-06,
   "update_learning_rate_ceiling": 5e-06,
   "survival_bonus_rate": 500.0,
-  "reason": "S6 restores optimizer proposals but reaches25/128:99ground collisions,1object escape, medianepisode0.56s. Add native is_alive reward500/s, same for every uninterrupted full episode and independent of success. No termination, duration, physics, interface or reset changes. Controlled3\u00d7/10\u00d7S3 motion-cost bracket with common survival bonus and5e-6per-updateLRceiling/KL.03; original successfulS1/model23489, original exploration/normalizers/Adam,2048envs/seed20260912,1000updates/final24488. Preflights084/085\u00d7100 require76finite tensors and validper-updateLR/acceptedKL. Keep5e-6ceiling if both pass; ORIGINALS1 full parents. Fixed-trajectory bonus calculation is undiscounted, not a new rollout or causal proof. Hypothesis: discourage widespread earlyfailure and expose task/motion tradeoff. Report all128durations, terminations, native success and motion; unchanged gates and fixedreal-time0/1/2pairs. Other23teacherspaused."
+  "reason": "S6 restores optimizer proposals but reaches25/128:99ground collisions,1object escape, medianepisode0.56s. Add native is_alive reward500/s, same for every uninterrupted full episode and independent of success. No termination, duration, physics, interface or reset changes. Controlled3\u00d7/10\u00d7S3 motion-cost bracket with common survival bonus and5e-6per-updateLRceiling/KL.03; original successfulS1/model23489, original exploration/normalizers/Adam,2048envs/seed20260912,1000updates/final24488. Preflights084/085\u00d7100 require76finite tensors and validper-updateLR/acceptedKL. Keep5e-6ceiling if both pass; ORIGINALS1 full parents. Fixed-trajectory bonus calculation is undiscounted, not a new rollout or causal proof. Hypothesis: discourage widespread earlyfailure and expose task/motion tradeoff. Report all128durations, terminations, native success and motion; unchanged gates and fixedreal-time0/1/2pairs. Other23teacherspaused.",
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-LIVE10-084",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.017015259712934494,
+    "backtracks": 0,
+    "learning_rate_ceiling": 5e-06,
+    "saved_learning_rate": 5e-06,
+    "checkpoint_sha256": "0f406721a068d46a2e428526ace7da49110a0cbfd13ad918cdf758353d9ef3ca",
+    "per_update_rate_rule_verified": true,
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  }
 }
