@@ -47,7 +47,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
 | Edge-Grasp | 6 | on | Paused | 0/128 R6 final12994 | Matched CPU7/GPU3 diagnostic held lifts; clearance waypoint reward, no backend change. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
-| Lift-Cube | 20 | on | S3 rejected; motion unresolved | Baseline118/128 +117/128 | R16/model21990 retained; S3 117/128 +114/128, all motion targets fail. |
+| Lift-Cube | 20 | on | S6 preflight; motion unresolved | Baseline118/128 +117/128 | R16 retained; S4 111/128, S5 116/128 +118/128, both fail motion targets. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
 | Open-Drawer | 3 | off | Certified | 128/128 + 128/128 | model1000 retained; stopped only own training step20277.1635 after certification. |
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |

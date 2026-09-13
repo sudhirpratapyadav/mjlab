@@ -1,0 +1,61 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T14:11:49.502272+00:00",
+  "checkpoint_sha256": "2c161d672c4cc8a9bf931d410a9dc2732757d36492e051e0f1959691c5989ec5",
+  "verdict": "fail_motion_quality",
+  "validation_successes": 116,
+  "confirmation_successes": 118,
+  "episodes": 128,
+  "motion_gates": {
+    "p95_episode_peak_speed_under3": false,
+    "p95_episode_acceleration_halved": false,
+    "p95_episode_max_target_jump_under025": false
+  },
+  "duration_mean_s": 19.7359375,
+  "duration_min_s": 0.9,
+  "episodes_reaching20s": 126,
+  "actual_frames_inspected": [
+    "after-0-1000.png"
+  ],
+  "visual_note": "Cube remains raised in inspected endpoint. Static frame does not demonstrate smoothness; full trajectory audit used for motion claims.",
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s5/",
+  "baseline_preserved": true
+}
