@@ -1,0 +1,1309 @@
+{
+  "checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "evaluation": "src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-002-S1-m23489-val-20260914.json",
+  "method": "All recorded deterministic first episodes. Invert applied8D controls through the approved affine mapping. Existing action_rate_l2 compares the first action with reset-zero action history; later terms compare consecutive actions. These are unweighted squared distances, not a rerun or an exact stochastic-training reward audit. Initial-pose comparison is diagnostic only, never applied to the policy or reward.",
+  "summary": {
+    "first_action_squared_distance_from_zero": {
+      "median": 4.594436654594938,
+      "p95": 7.780363510553889
+    },
+    "subsequent_action_change_squared_sum": {
+      "median": 16.68585786656825,
+      "p95": 31.522529295138515
+    },
+    "first_fraction_of_total": {
+      "median": 0.19963839135539968,
+      "p95": 0.31857771326133655
+    },
+    "measured_initial_pose_squared_distance_from_zero": {
+      "median": 0.9316805586031847,
+      "p95": 0.9823760277986469
+    },
+    "first_action_squared_distance_from_initial_pose": {
+      "median": 4.220821505851221,
+      "p95": 6.357321573519049
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.9424146383647365,
+      "subsequent_action_change_squared_sum": 19.879163998721353,
+      "first_fraction_of_total": 0.1654976229084615,
+      "measured_initial_pose_squared_distance_from_zero": 0.9047309709230269,
+      "first_action_squared_distance_from_initial_pose": 2.9150102795543784
+    },
+    {
+      "env_id": 1,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.424434397821064,
+      "subsequent_action_change_squared_sum": 17.707432359497616,
+      "first_fraction_of_total": 0.19991239086770524,
+      "measured_initial_pose_squared_distance_from_zero": 0.9409317540521974,
+      "first_action_squared_distance_from_initial_pose": 3.1164056778917963
+    },
+    {
+      "env_id": 2,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.3216619180359688,
+      "subsequent_action_change_squared_sum": 12.52228819917946,
+      "first_fraction_of_total": 0.15640458905499802,
+      "measured_initial_pose_squared_distance_from_zero": 0.9507584789867127,
+      "first_action_squared_distance_from_initial_pose": 2.7979168480597725
+    },
+    {
+      "env_id": 3,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.190191432553427,
+      "subsequent_action_change_squared_sum": 12.890129148925933,
+      "first_fraction_of_total": 0.24532276268262565,
+      "measured_initial_pose_squared_distance_from_zero": 0.9412815782796575,
+      "first_action_squared_distance_from_initial_pose": 3.9543228314403533
+    },
+    {
+      "env_id": 4,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.7148549193682,
+      "subsequent_action_change_squared_sum": 16.621991954311707,
+      "first_fraction_of_total": 0.2209724308039261,
+      "measured_initial_pose_squared_distance_from_zero": 0.9686790371336488,
+      "first_action_squared_distance_from_initial_pose": 4.243032999022338
+    },
+    {
+      "env_id": 5,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.356660583072056,
+      "subsequent_action_change_squared_sum": 21.490327752442347,
+      "first_fraction_of_total": 0.25502352264673145,
+      "measured_initial_pose_squared_distance_from_zero": 0.9862116411074531,
+      "first_action_squared_distance_from_initial_pose": 5.334681344994669
+    },
+    {
+      "env_id": 6,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.488349637809465,
+      "subsequent_action_change_squared_sum": 16.251358874808577,
+      "first_fraction_of_total": 0.2524573700987733,
+      "measured_initial_pose_squared_distance_from_zero": 0.9159537187836787,
+      "first_action_squared_distance_from_initial_pose": 3.650678114367649
+    },
+    {
+      "env_id": 7,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.734400780405243,
+      "subsequent_action_change_squared_sum": 23.59741405339937,
+      "first_fraction_of_total": 0.22202432717279405,
+      "measured_initial_pose_squared_distance_from_zero": 0.9541000193451384,
+      "first_action_squared_distance_from_initial_pose": 4.8049562442070854
+    },
+    {
+      "env_id": 8,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.81395174340373,
+      "subsequent_action_change_squared_sum": 41.56285779945857,
+      "first_fraction_of_total": 0.158251450746746,
+      "measured_initial_pose_squared_distance_from_zero": 0.9144295483436025,
+      "first_action_squared_distance_from_initial_pose": 6.133290588569032
+    },
+    {
+      "env_id": 9,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.071340439577341,
+      "subsequent_action_change_squared_sum": 11.714704024258008,
+      "first_fraction_of_total": 0.20771886944405052,
+      "measured_initial_pose_squared_distance_from_zero": 0.9321841808668319,
+      "first_action_squared_distance_from_initial_pose": 6.033065858107823
+    },
+    {
+      "env_id": 10,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.660511542296315,
+      "subsequent_action_change_squared_sum": 39.66698772045305,
+      "first_fraction_of_total": 0.1618617434182872,
+      "measured_initial_pose_squared_distance_from_zero": 0.9670684197753692,
+      "first_action_squared_distance_from_initial_pose": 6.000131769909189
+    },
+    {
+      "env_id": 11,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.291793262329351,
+      "subsequent_action_change_squared_sum": 15.796336101220067,
+      "first_fraction_of_total": 0.21364822899423144,
+      "measured_initial_pose_squared_distance_from_zero": 0.9508191614116194,
+      "first_action_squared_distance_from_initial_pose": 3.941932567263538
+    },
+    {
+      "env_id": 12,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.269271818901654,
+      "subsequent_action_change_squared_sum": 18.5657207202352,
+      "first_fraction_of_total": 0.18696182236909237,
+      "measured_initial_pose_squared_distance_from_zero": 0.9439315917057548,
+      "first_action_squared_distance_from_initial_pose": 3.939113235394592
+    },
+    {
+      "env_id": 13,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.598604832054253,
+      "subsequent_action_change_squared_sum": 16.780207084971217,
+      "first_fraction_of_total": 0.21510104723789897,
+      "measured_initial_pose_squared_distance_from_zero": 0.9139317738136672,
+      "first_action_squared_distance_from_initial_pose": 4.075077535861869
+    },
+    {
+      "env_id": 14,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 3.456864143429484,
+      "subsequent_action_change_squared_sum": 14.301322351557907,
+      "first_fraction_of_total": 0.19466312871560695,
+      "measured_initial_pose_squared_distance_from_zero": 0.9635646668046156,
+      "first_action_squared_distance_from_initial_pose": 3.0314452759943586
+    },
+    {
+      "env_id": 15,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.6809633032176725,
+      "subsequent_action_change_squared_sum": 13.157277587885881,
+      "first_fraction_of_total": 0.169271532214388,
+      "measured_initial_pose_squared_distance_from_zero": 0.98183034097961,
+      "first_action_squared_distance_from_initial_pose": 3.3942267507524466
+    },
+    {
+      "env_id": 16,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.7100648988052853,
+      "subsequent_action_change_squared_sum": 22.25822025183121,
+      "first_fraction_of_total": 0.10854028950947797,
+      "measured_initial_pose_squared_distance_from_zero": 0.9620717603534287,
+      "first_action_squared_distance_from_initial_pose": 4.5908903676421176
+    },
+    {
+      "env_id": 17,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.719606775783348,
+      "subsequent_action_change_squared_sum": 14.737576381020986,
+      "first_fraction_of_total": 0.2425637224950963,
+      "measured_initial_pose_squared_distance_from_zero": 0.9220371487153128,
+      "first_action_squared_distance_from_initial_pose": 4.063477748741327
+    },
+    {
+      "env_id": 18,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.052623387564708,
+      "subsequent_action_change_squared_sum": 12.92060804819181,
+      "first_fraction_of_total": 0.281119363850891,
+      "measured_initial_pose_squared_distance_from_zero": 0.9174969482616211,
+      "first_action_squared_distance_from_initial_pose": 4.812635447958396
+    },
+    {
+      "env_id": 19,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.6684500584293076,
+      "subsequent_action_change_squared_sum": 20.84578425148151,
+      "first_fraction_of_total": 0.11348232833184811,
+      "measured_initial_pose_squared_distance_from_zero": 0.8872645788627381,
+      "first_action_squared_distance_from_initial_pose": 2.2438322171357106
+    },
+    {
+      "env_id": 20,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.449516875812362,
+      "subsequent_action_change_squared_sum": 27.021312554087405,
+      "first_fraction_of_total": 0.1926906797849161,
+      "measured_initial_pose_squared_distance_from_zero": 0.881993236803068,
+      "first_action_squared_distance_from_initial_pose": 5.107056611935211
+    },
+    {
+      "env_id": 21,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 7.859571215196384,
+      "subsequent_action_change_squared_sum": 25.13706658159382,
+      "first_fraction_of_total": 0.2381930929932787,
+      "measured_initial_pose_squared_distance_from_zero": 0.9221670427853476,
+      "first_action_squared_distance_from_initial_pose": 5.882207970495548
+    },
+    {
+      "env_id": 22,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.834664965159783,
+      "subsequent_action_change_squared_sum": 20.98386406722408,
+      "first_fraction_of_total": 0.27186207027970927,
+      "measured_initial_pose_squared_distance_from_zero": 0.9094646472146608,
+      "first_action_squared_distance_from_initial_pose": 6.580918944891001
+    },
+    {
+      "env_id": 23,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.6755814652612102,
+      "subsequent_action_change_squared_sum": 11.187122858458086,
+      "first_fraction_of_total": 0.13026665490330652,
+      "measured_initial_pose_squared_distance_from_zero": 0.9430717999579349,
+      "first_action_squared_distance_from_initial_pose": 1.7681592206181755
+    },
+    {
+      "env_id": 24,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.3602937811046107,
+      "subsequent_action_change_squared_sum": 27.90439851701149,
+      "first_fraction_of_total": 0.077988362077335,
+      "measured_initial_pose_squared_distance_from_zero": 0.9826698591627436,
+      "first_action_squared_distance_from_initial_pose": 4.551381608922689
+    },
+    {
+      "env_id": 25,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.2489977142205926,
+      "subsequent_action_change_squared_sum": 15.355951178775394,
+      "first_fraction_of_total": 0.12774803993411998,
+      "measured_initial_pose_squared_distance_from_zero": 0.8943159881494829,
+      "first_action_squared_distance_from_initial_pose": 2.7228481570570424
+    },
+    {
+      "env_id": 26,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.631017464191272,
+      "subsequent_action_change_squared_sum": 15.910891607760973,
+      "first_fraction_of_total": 0.14189571602263587,
+      "measured_initial_pose_squared_distance_from_zero": 0.9654926193121843,
+      "first_action_squared_distance_from_initial_pose": 3.6847251338128575
+    },
+    {
+      "env_id": 27,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.199183050568728,
+      "subsequent_action_change_squared_sum": 12.39228053348753,
+      "first_fraction_of_total": 0.0882306046845061,
+      "measured_initial_pose_squared_distance_from_zero": 0.9296253185373027,
+      "first_action_squared_distance_from_initial_pose": 2.3401948315272727
+    },
+    {
+      "env_id": 28,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.72753911413788,
+      "subsequent_action_change_squared_sum": 17.70739544002491,
+      "first_fraction_of_total": 0.30381596216347084,
+      "measured_initial_pose_squared_distance_from_zero": 0.9217429185259949,
+      "first_action_squared_distance_from_initial_pose": 6.36153227401518
+    },
+    {
+      "env_id": 29,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.777718004106985,
+      "subsequent_action_change_squared_sum": 16.648873564551316,
+      "first_fraction_of_total": 0.3184119234255571,
+      "measured_initial_pose_squared_distance_from_zero": 0.9629007971821804,
+      "first_action_squared_distance_from_initial_pose": 6.165196884594245
+    },
+    {
+      "env_id": 30,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.6382957094099875,
+      "subsequent_action_change_squared_sum": 14.072586516065583,
+      "first_fraction_of_total": 0.20542713022938036,
+      "measured_initial_pose_squared_distance_from_zero": 0.9170283297449164,
+      "first_action_squared_distance_from_initial_pose": 3.2484301253151724
+    },
+    {
+      "env_id": 31,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 4.504339228084055,
+      "subsequent_action_change_squared_sum": 27.114204559577157,
+      "first_fraction_of_total": 0.14245878173054333,
+      "measured_initial_pose_squared_distance_from_zero": 0.9311147469478342,
+      "first_action_squared_distance_from_initial_pose": 3.9617086020559364
+    },
+    {
+      "env_id": 32,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.8140978790794762,
+      "subsequent_action_change_squared_sum": 19.137205980083383,
+      "first_fraction_of_total": 0.08658639535152832,
+      "measured_initial_pose_squared_distance_from_zero": 0.9248315476877474,
+      "first_action_squared_distance_from_initial_pose": 2.1635899981006053
+    },
+    {
+      "env_id": 33,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.703977059958691,
+      "subsequent_action_change_squared_sum": 12.964532777184814,
+      "first_fraction_of_total": 0.26623507603735697,
+      "measured_initial_pose_squared_distance_from_zero": 0.8824693649742111,
+      "first_action_squared_distance_from_initial_pose": 4.1986100126801045
+    },
+    {
+      "env_id": 34,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.8852773326504275,
+      "subsequent_action_change_squared_sum": 13.724997121311755,
+      "first_fraction_of_total": 0.17370437440076006,
+      "measured_initial_pose_squared_distance_from_zero": 0.9668293792555573,
+      "first_action_squared_distance_from_initial_pose": 2.6998681124632746
+    },
+    {
+      "env_id": 35,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.079112329872716,
+      "subsequent_action_change_squared_sum": 12.944998788066973,
+      "first_fraction_of_total": 0.23960794790479392,
+      "measured_initial_pose_squared_distance_from_zero": 0.9843559403605221,
+      "first_action_squared_distance_from_initial_pose": 3.335935820052824
+    },
+    {
+      "env_id": 36,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.184988432903593,
+      "subsequent_action_change_squared_sum": 12.960403486895022,
+      "first_fraction_of_total": 0.2440882338811389,
+      "measured_initial_pose_squared_distance_from_zero": 0.9344530184950725,
+      "first_action_squared_distance_from_initial_pose": 3.45021095863465
+    },
+    {
+      "env_id": 37,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.69841388547334,
+      "subsequent_action_change_squared_sum": 35.31482157617754,
+      "first_fraction_of_total": 0.1594358018817085,
+      "measured_initial_pose_squared_distance_from_zero": 0.9242783536353699,
+      "first_action_squared_distance_from_initial_pose": 5.34961583421304
+    },
+    {
+      "env_id": 38,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.2676385433180446,
+      "subsequent_action_change_squared_sum": 11.136734154690151,
+      "first_fraction_of_total": 0.10219287780038992,
+      "measured_initial_pose_squared_distance_from_zero": 0.8965131279258629,
+      "first_action_squared_distance_from_initial_pose": 2.1567144776753366
+    },
+    {
+      "env_id": 39,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.2578945846143093,
+      "subsequent_action_change_squared_sum": 16.224064775374885,
+      "first_fraction_of_total": 0.16722622834873405,
+      "measured_initial_pose_squared_distance_from_zero": 0.9676077302005364,
+      "first_action_squared_distance_from_initial_pose": 3.0257854582587433
+    },
+    {
+      "env_id": 40,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.772809399530487,
+      "subsequent_action_change_squared_sum": 11.271433290074253,
+      "first_fraction_of_total": 0.29747801076474917,
+      "measured_initial_pose_squared_distance_from_zero": 0.9285279090105785,
+      "first_action_squared_distance_from_initial_pose": 3.9101317574106083
+    },
+    {
+      "env_id": 41,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.214439774352847,
+      "subsequent_action_change_squared_sum": 37.62364098961994,
+      "first_fraction_of_total": 0.16089983450294373,
+      "measured_initial_pose_squared_distance_from_zero": 0.9278402158810848,
+      "first_action_squared_distance_from_initial_pose": 5.720671731807222
+    },
+    {
+      "env_id": 42,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.577073783774932,
+      "subsequent_action_change_squared_sum": 27.27480983012329,
+      "first_fraction_of_total": 0.21740787005134346,
+      "measured_initial_pose_squared_distance_from_zero": 0.9582337930121915,
+      "first_action_squared_distance_from_initial_pose": 5.918943897222725
+    },
+    {
+      "env_id": 43,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.962669494386364,
+      "subsequent_action_change_squared_sum": 16.636583905292746,
+      "first_fraction_of_total": 0.15116236491104657,
+      "measured_initial_pose_squared_distance_from_zero": 0.9183413892370138,
+      "first_action_squared_distance_from_initial_pose": 2.8221728669415462
+    },
+    {
+      "env_id": 44,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.2047746966891144,
+      "subsequent_action_change_squared_sum": 18.194881418193773,
+      "first_fraction_of_total": 0.1497582334727463,
+      "measured_initial_pose_squared_distance_from_zero": 0.9536519053965029,
+      "first_action_squared_distance_from_initial_pose": 6.259023426599422
+    },
+    {
+      "env_id": 45,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.643599521931984,
+      "subsequent_action_change_squared_sum": 15.18414889835681,
+      "first_fraction_of_total": 0.23419701639851398,
+      "measured_initial_pose_squared_distance_from_zero": 0.9276791082504572,
+      "first_action_squared_distance_from_initial_pose": 3.0336490036624504
+    },
+    {
+      "env_id": 46,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.723329645317467,
+      "subsequent_action_change_squared_sum": 15.059734258976327,
+      "first_fraction_of_total": 0.15314175667219573,
+      "measured_initial_pose_squared_distance_from_zero": 0.9547050451222703,
+      "first_action_squared_distance_from_initial_pose": 4.820357131270647
+    },
+    {
+      "env_id": 47,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.554054350942512,
+      "subsequent_action_change_squared_sum": 20.131392985122755,
+      "first_fraction_of_total": 0.11258558463081673,
+      "measured_initial_pose_squared_distance_from_zero": 0.9333907130388669,
+      "first_action_squared_distance_from_initial_pose": 2.6382910418984173
+    },
+    {
+      "env_id": 48,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.0456232666497565,
+      "subsequent_action_change_squared_sum": 11.537336995413684,
+      "first_fraction_of_total": 0.15060216824480335,
+      "measured_initial_pose_squared_distance_from_zero": 0.963589612531904,
+      "first_action_squared_distance_from_initial_pose": 2.7394894997126276
+    },
+    {
+      "env_id": 49,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.669297820293794,
+      "subsequent_action_change_squared_sum": 51.42030122927495,
+      "first_fraction_of_total": 0.12979099441612757,
+      "measured_initial_pose_squared_distance_from_zero": 0.9446694057755588,
+      "first_action_squared_distance_from_initial_pose": 5.912253614963755
+    },
+    {
+      "env_id": 50,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.571145107950161,
+      "subsequent_action_change_squared_sum": 19.820465693483893,
+      "first_fraction_of_total": 0.2194088886883662,
+      "measured_initial_pose_squared_distance_from_zero": 0.9657990329760713,
+      "first_action_squared_distance_from_initial_pose": 4.328355058900028
+    },
+    {
+      "env_id": 51,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.357738982882937,
+      "subsequent_action_change_squared_sum": 20.48626905295569,
+      "first_fraction_of_total": 0.23684015346720622,
+      "measured_initial_pose_squared_distance_from_zero": 0.9627506194390625,
+      "first_action_squared_distance_from_initial_pose": 4.474265192972991
+    },
+    {
+      "env_id": 52,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.3692964348554897,
+      "subsequent_action_change_squared_sum": 20.322631456503792,
+      "first_fraction_of_total": 0.14221284356028752,
+      "measured_initial_pose_squared_distance_from_zero": 0.9377959805355891,
+      "first_action_squared_distance_from_initial_pose": 3.1404687949164245
+    },
+    {
+      "env_id": 53,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.530394013888615,
+      "subsequent_action_change_squared_sum": 15.163678750961495,
+      "first_fraction_of_total": 0.14300800316111115,
+      "measured_initial_pose_squared_distance_from_zero": 0.9556624983843314,
+      "first_action_squared_distance_from_initial_pose": 2.9853384025494223
+    },
+    {
+      "env_id": 54,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.60118626630841,
+      "subsequent_action_change_squared_sum": 13.851879585678674,
+      "first_fraction_of_total": 0.3543170155143281,
+      "measured_initial_pose_squared_distance_from_zero": 0.9295696012582616,
+      "first_action_squared_distance_from_initial_pose": 5.622905636694995
+    },
+    {
+      "env_id": 55,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.114895995789735,
+      "subsequent_action_change_squared_sum": 12.858361725962885,
+      "first_fraction_of_total": 0.1412448803787895,
+      "measured_initial_pose_squared_distance_from_zero": 0.9309019506122408,
+      "first_action_squared_distance_from_initial_pose": 3.1531156534416716
+    },
+    {
+      "env_id": 56,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.767656357205153,
+      "subsequent_action_change_squared_sum": 15.98567999650593,
+      "first_fraction_of_total": 0.22972963363322577,
+      "measured_initial_pose_squared_distance_from_zero": 0.9063138344855749,
+      "first_action_squared_distance_from_initial_pose": 3.5815375038374335
+    },
+    {
+      "env_id": 57,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.6815108077944645,
+      "subsequent_action_change_squared_sum": 12.041946462978515,
+      "first_fraction_of_total": 0.18212507826659965,
+      "measured_initial_pose_squared_distance_from_zero": 0.922620054330914,
+      "first_action_squared_distance_from_initial_pose": 2.9626020774792137
+    },
+    {
+      "env_id": 58,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.671216367107627,
+      "subsequent_action_change_squared_sum": 31.55333132801941,
+      "first_fraction_of_total": 0.19557182473414836,
+      "measured_initial_pose_squared_distance_from_zero": 0.9469672421810219,
+      "first_action_squared_distance_from_initial_pose": 6.214448201456272
+    },
+    {
+      "env_id": 59,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.314761220337377,
+      "subsequent_action_change_squared_sum": 18.25658919198528,
+      "first_fraction_of_total": 0.19116096917186512,
+      "measured_initial_pose_squared_distance_from_zero": 0.9492950560772258,
+      "first_action_squared_distance_from_initial_pose": 4.136967892908082
+    },
+    {
+      "env_id": 60,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.259271865882767,
+      "subsequent_action_change_squared_sum": 27.87067861388554,
+      "first_fraction_of_total": 0.2066405379666975,
+      "measured_initial_pose_squared_distance_from_zero": 0.912079017193151,
+      "first_action_squared_distance_from_initial_pose": 5.710033031138156
+    },
+    {
+      "env_id": 61,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.991365872420182,
+      "subsequent_action_change_squared_sum": 23.087585336412168,
+      "first_fraction_of_total": 0.11470422443242556,
+      "measured_initial_pose_squared_distance_from_zero": 0.9135710058626024,
+      "first_action_squared_distance_from_initial_pose": 2.579006061146378
+    },
+    {
+      "env_id": 62,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.781788014025299,
+      "subsequent_action_change_squared_sum": 22.17964303587605,
+      "first_fraction_of_total": 0.25972684686070496,
+      "measured_initial_pose_squared_distance_from_zero": 0.9470611013165026,
+      "first_action_squared_distance_from_initial_pose": 5.743089094249282
+    },
+    {
+      "env_id": 63,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.0386567322188665,
+      "subsequent_action_change_squared_sum": 12.337071261343565,
+      "first_fraction_of_total": 0.28998248212021094,
+      "measured_initial_pose_squared_distance_from_zero": 0.9227826692860625,
+      "first_action_squared_distance_from_initial_pose": 4.462235594905229
+    },
+    {
+      "env_id": 64,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.21521331260739,
+      "subsequent_action_change_squared_sum": 19.53170986830536,
+      "first_fraction_of_total": 0.10186329781822563,
+      "measured_initial_pose_squared_distance_from_zero": 0.8901090056535276,
+      "first_action_squared_distance_from_initial_pose": 2.1316376081809167
+    },
+    {
+      "env_id": 65,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.685029687910642,
+      "subsequent_action_change_squared_sum": 26.816593540650743,
+      "first_fraction_of_total": 0.2227440035791929,
+      "measured_initial_pose_squared_distance_from_zero": 0.9126249638053046,
+      "first_action_squared_distance_from_initial_pose": 6.026466078416293
+    },
+    {
+      "env_id": 66,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.492041341914344,
+      "subsequent_action_change_squared_sum": 23.101680217627003,
+      "first_fraction_of_total": 0.2193722519437991,
+      "measured_initial_pose_squared_distance_from_zero": 0.9259995885560343,
+      "first_action_squared_distance_from_initial_pose": 4.992603741154724
+    },
+    {
+      "env_id": 67,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.4172626974154845,
+      "subsequent_action_change_squared_sum": 12.875186583459747,
+      "first_fraction_of_total": 0.25544459467062325,
+      "measured_initial_pose_squared_distance_from_zero": 0.9635099832009314,
+      "first_action_squared_distance_from_initial_pose": 4.136532936432191
+    },
+    {
+      "env_id": 68,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.894622770769489,
+      "subsequent_action_change_squared_sum": 18.47310722129131,
+      "first_fraction_of_total": 0.20946077228864077,
+      "measured_initial_pose_squared_distance_from_zero": 0.9365337475375309,
+      "first_action_squared_distance_from_initial_pose": 4.400527056285817
+    },
+    {
+      "env_id": 69,
+      "steps": 106,
+      "success": false,
+      "first_action_squared_distance_from_zero": 7.762197383741848,
+      "subsequent_action_change_squared_sum": 12.094655207329456,
+      "first_fraction_of_total": 0.39090774069764433,
+      "measured_initial_pose_squared_distance_from_zero": 0.9833139927202916,
+      "first_action_squared_distance_from_initial_pose": 6.599572134930905
+    },
+    {
+      "env_id": 70,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.7060946632160325,
+      "subsequent_action_change_squared_sum": 17.44119835910587,
+      "first_fraction_of_total": 0.306438337373957,
+      "measured_initial_pose_squared_distance_from_zero": 0.9217157505542494,
+      "first_action_squared_distance_from_initial_pose": 5.900621883063712
+    },
+    {
+      "env_id": 71,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.68121567671143,
+      "subsequent_action_change_squared_sum": 22.81542619694231,
+      "first_fraction_of_total": 0.19936439184309415,
+      "measured_initial_pose_squared_distance_from_zero": 0.8936297060356626,
+      "first_action_squared_distance_from_initial_pose": 4.068750125305845
+    },
+    {
+      "env_id": 72,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.9792613739189735,
+      "subsequent_action_change_squared_sum": 12.300939255510434,
+      "first_fraction_of_total": 0.13860179035860357,
+      "measured_initial_pose_squared_distance_from_zero": 0.9243148140705816,
+      "first_action_squared_distance_from_initial_pose": 4.493289515144864
+    },
+    {
+      "env_id": 73,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.2908060329686175,
+      "subsequent_action_change_squared_sum": 11.758847733325206,
+      "first_fraction_of_total": 0.16305071079149533,
+      "measured_initial_pose_squared_distance_from_zero": 0.9516379988922593,
+      "first_action_squared_distance_from_initial_pose": 4.465996232970914
+    },
+    {
+      "env_id": 74,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.842652619485971,
+      "subsequent_action_change_squared_sum": 19.28694075950478,
+      "first_fraction_of_total": 0.2890810971593606,
+      "measured_initial_pose_squared_distance_from_zero": 0.8920396828786832,
+      "first_action_squared_distance_from_initial_pose": 6.605901430165729
+    },
+    {
+      "env_id": 75,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.9993045479393519,
+      "subsequent_action_change_squared_sum": 11.226007324022946,
+      "first_fraction_of_total": 0.1511725823402232,
+      "measured_initial_pose_squared_distance_from_zero": 0.9038101842532434,
+      "first_action_squared_distance_from_initial_pose": 1.4710532224062136
+    },
+    {
+      "env_id": 76,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.145546808646706,
+      "subsequent_action_change_squared_sum": 19.219824735732754,
+      "first_fraction_of_total": 0.2111827763132825,
+      "measured_initial_pose_squared_distance_from_zero": 0.9759094042481666,
+      "first_action_squared_distance_from_initial_pose": 3.5767558880860673
+    },
+    {
+      "env_id": 77,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.773958266011507,
+      "subsequent_action_change_squared_sum": 12.523848418937646,
+      "first_fraction_of_total": 0.1240720556026888,
+      "measured_initial_pose_squared_distance_from_zero": 0.9354625054421136,
+      "first_action_squared_distance_from_initial_pose": 1.4160109652557291
+    },
+    {
+      "env_id": 78,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.123476884706783,
+      "subsequent_action_change_squared_sum": 21.800310793561213,
+      "first_fraction_of_total": 0.15906151276510833,
+      "measured_initial_pose_squared_distance_from_zero": 0.9127792702696165,
+      "first_action_squared_distance_from_initial_pose": 3.63474864608893
+    },
+    {
+      "env_id": 79,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.281827211588423,
+      "subsequent_action_change_squared_sum": 16.267991933521035,
+      "first_fraction_of_total": 0.3092094748889239,
+      "measured_initial_pose_squared_distance_from_zero": 0.9855001481595126,
+      "first_action_squared_distance_from_initial_pose": 6.038125034890074
+    },
+    {
+      "env_id": 80,
+      "steps": 84,
+      "success": false,
+      "first_action_squared_distance_from_zero": 7.64675137025492,
+      "subsequent_action_change_squared_sum": 7.293464838306539,
+      "first_fraction_of_total": 0.5118233406738094,
+      "measured_initial_pose_squared_distance_from_zero": 0.8900875137617671,
+      "first_action_squared_distance_from_initial_pose": 6.342093070236558
+    },
+    {
+      "env_id": 81,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.8449169673095245,
+      "subsequent_action_change_squared_sum": 12.24352349055115,
+      "first_fraction_of_total": 0.28352013627322353,
+      "measured_initial_pose_squared_distance_from_zero": 0.938926216159117,
+      "first_action_squared_distance_from_initial_pose": 4.781745891527081
+    },
+    {
+      "env_id": 82,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 6.856964678429681,
+      "subsequent_action_change_squared_sum": 19.10882409087136,
+      "first_fraction_of_total": 0.2640768874518677,
+      "measured_initial_pose_squared_distance_from_zero": 0.9260251359255167,
+      "first_action_squared_distance_from_initial_pose": 5.158440007688302
+    },
+    {
+      "env_id": 83,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.009600649903512,
+      "subsequent_action_change_squared_sum": 13.988788355500983,
+      "first_fraction_of_total": 0.22277553000435335,
+      "measured_initial_pose_squared_distance_from_zero": 0.9124213594521601,
+      "first_action_squared_distance_from_initial_pose": 3.6914086982767835
+    },
+    {
+      "env_id": 84,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.0698859018078988,
+      "subsequent_action_change_squared_sum": 12.415889807475862,
+      "first_fraction_of_total": 0.14289092578461873,
+      "measured_initial_pose_squared_distance_from_zero": 0.8731161815827339,
+      "first_action_squared_distance_from_initial_pose": 1.8428634521257923
+    },
+    {
+      "env_id": 85,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.564062444055043,
+      "subsequent_action_change_squared_sum": 15.782620761336494,
+      "first_fraction_of_total": 0.26065231729535043,
+      "measured_initial_pose_squared_distance_from_zero": 0.9354330363940069,
+      "first_action_squared_distance_from_initial_pose": 5.2268655991539426
+    },
+    {
+      "env_id": 86,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.1735108910171395,
+      "subsequent_action_change_squared_sum": 16.76767796350457,
+      "first_fraction_of_total": 0.1992967505336249,
+      "measured_initial_pose_squared_distance_from_zero": 0.970088513160976,
+      "first_action_squared_distance_from_initial_pose": 3.583442982923149
+    },
+    {
+      "env_id": 87,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.103129346310054,
+      "subsequent_action_change_squared_sum": 11.012320079363803,
+      "first_fraction_of_total": 0.160355110835403,
+      "measured_initial_pose_squared_distance_from_zero": 0.9157108086776361,
+      "first_action_squared_distance_from_initial_pose": 1.833121901564441
+    },
+    {
+      "env_id": 88,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.1407636895250493,
+      "subsequent_action_change_squared_sum": 26.836728694008023,
+      "first_fraction_of_total": 0.10477072762931636,
+      "measured_initial_pose_squared_distance_from_zero": 0.909742827324202,
+      "first_action_squared_distance_from_initial_pose": 6.135916185499388
+    },
+    {
+      "env_id": 89,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.9001728465140793,
+      "subsequent_action_change_squared_sum": 12.692265690923513,
+      "first_fraction_of_total": 0.1859986710578167,
+      "measured_initial_pose_squared_distance_from_zero": 0.9376195965700023,
+      "first_action_squared_distance_from_initial_pose": 2.5419027154018945
+    },
+    {
+      "env_id": 90,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.743625532975783,
+      "subsequent_action_change_squared_sum": 26.92780227332835,
+      "first_fraction_of_total": 0.20027738567454537,
+      "measured_initial_pose_squared_distance_from_zero": 0.9631464030879479,
+      "first_action_squared_distance_from_initial_pose": 5.268506721030732
+    },
+    {
+      "env_id": 91,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.97822375070854,
+      "subsequent_action_change_squared_sum": 26.20190853600026,
+      "first_fraction_of_total": 0.15966012282861974,
+      "measured_initial_pose_squared_distance_from_zero": 0.9102786720912875,
+      "first_action_squared_distance_from_initial_pose": 3.6136108132051317
+    },
+    {
+      "env_id": 92,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.912614914617445,
+      "subsequent_action_change_squared_sum": 55.08877996216173,
+      "first_fraction_of_total": 0.0969258969661388,
+      "measured_initial_pose_squared_distance_from_zero": 0.9294205659765951,
+      "first_action_squared_distance_from_initial_pose": 4.670573027559254
+    },
+    {
+      "env_id": 93,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.6082137163986996,
+      "subsequent_action_change_squared_sum": 13.914122398842071,
+      "first_fraction_of_total": 0.15785986304883326,
+      "measured_initial_pose_squared_distance_from_zero": 0.9391978916930581,
+      "first_action_squared_distance_from_initial_pose": 2.25776485677341
+    },
+    {
+      "env_id": 94,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.7396193310386883,
+      "subsequent_action_change_squared_sum": 29.57534692618773,
+      "first_fraction_of_total": 0.055552329731067294,
+      "measured_initial_pose_squared_distance_from_zero": 0.94531663143456,
+      "first_action_squared_distance_from_initial_pose": 1.6179096653902048
+    },
+    {
+      "env_id": 95,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.3487803173395845,
+      "subsequent_action_change_squared_sum": 15.043988664854997,
+      "first_fraction_of_total": 0.13504349535971474,
+      "measured_initial_pose_squared_distance_from_zero": 0.9061030995928296,
+      "first_action_squared_distance_from_initial_pose": 4.5491579027255575
+    },
+    {
+      "env_id": 96,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.1810674084000716,
+      "subsequent_action_change_squared_sum": 13.524513820859864,
+      "first_fraction_of_total": 0.13887212300915563,
+      "measured_initial_pose_squared_distance_from_zero": 0.9371143064365223,
+      "first_action_squared_distance_from_initial_pose": 4.661471539993737
+    },
+    {
+      "env_id": 97,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.90869851504014,
+      "subsequent_action_change_squared_sum": 14.95070320881716,
+      "first_fraction_of_total": 0.31605158285279156,
+      "measured_initial_pose_squared_distance_from_zero": 0.8967989943917508,
+      "first_action_squared_distance_from_initial_pose": 5.361646145134642
+    },
+    {
+      "env_id": 98,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 5.711624515832056,
+      "subsequent_action_change_squared_sum": 24.043716263902624,
+      "first_fraction_of_total": 0.19195291891000768,
+      "measured_initial_pose_squared_distance_from_zero": 0.9283005556126511,
+      "first_action_squared_distance_from_initial_pose": 4.46951494382933
+    },
+    {
+      "env_id": 99,
+      "steps": 31,
+      "success": false,
+      "first_action_squared_distance_from_zero": 4.872697422148573,
+      "subsequent_action_change_squared_sum": 3.604200849928467,
+      "first_fraction_of_total": 0.5748207971539863,
+      "measured_initial_pose_squared_distance_from_zero": 0.9132562293839882,
+      "first_action_squared_distance_from_initial_pose": 4.4977949896155565
+    },
+    {
+      "env_id": 100,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.2580018980840024,
+      "subsequent_action_change_squared_sum": 12.998776473163405,
+      "first_fraction_of_total": 0.20040882785523337,
+      "measured_initial_pose_squared_distance_from_zero": 0.8911516320367958,
+      "first_action_squared_distance_from_initial_pose": 6.349501701169091
+    },
+    {
+      "env_id": 101,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.590268477135624,
+      "subsequent_action_change_squared_sum": 13.754033631074023,
+      "first_fraction_of_total": 0.250228569615703,
+      "measured_initial_pose_squared_distance_from_zero": 0.9715196715710465,
+      "first_action_squared_distance_from_initial_pose": 4.580887216129334
+    },
+    {
+      "env_id": 102,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.1878534162910865,
+      "subsequent_action_change_squared_sum": 14.132336887935313,
+      "first_fraction_of_total": 0.228592244226031,
+      "measured_initial_pose_squared_distance_from_zero": 0.9937126429131167,
+      "first_action_squared_distance_from_initial_pose": 3.625772913296623
+    },
+    {
+      "env_id": 103,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.6878703829681503,
+      "subsequent_action_change_squared_sum": 18.04499444066238,
+      "first_fraction_of_total": 0.16969094562067416,
+      "measured_initial_pose_squared_distance_from_zero": 0.9441772741898412,
+      "first_action_squared_distance_from_initial_pose": 3.3500908907125395
+    },
+    {
+      "env_id": 104,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.5544740308744025,
+      "subsequent_action_change_squared_sum": 17.126095789541736,
+      "first_fraction_of_total": 0.21007169408368362,
+      "measured_initial_pose_squared_distance_from_zero": 0.9557770020390912,
+      "first_action_squared_distance_from_initial_pose": 4.018603114885931
+    },
+    {
+      "env_id": 105,
+      "steps": 1000,
+      "success": false,
+      "first_action_squared_distance_from_zero": 7.774957248731917,
+      "subsequent_action_change_squared_sum": 21.519601728175143,
+      "first_fraction_of_total": 0.2654061887349431,
+      "measured_initial_pose_squared_distance_from_zero": 0.9273834890337246,
+      "first_action_squared_distance_from_initial_pose": 6.100751500528983
+    },
+    {
+      "env_id": 106,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.853986395129277,
+      "subsequent_action_change_squared_sum": 17.76000245777578,
+      "first_fraction_of_total": 0.17830981691337724,
+      "measured_initial_pose_squared_distance_from_zero": 0.9105086486639966,
+      "first_action_squared_distance_from_initial_pose": 3.45229860258309
+    },
+    {
+      "env_id": 107,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.847910121969794,
+      "subsequent_action_change_squared_sum": 13.379672567017217,
+      "first_fraction_of_total": 0.17549811186003403,
+      "measured_initial_pose_squared_distance_from_zero": 0.9969938603799595,
+      "first_action_squared_distance_from_initial_pose": 2.893865497422464
+    },
+    {
+      "env_id": 108,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.936533880212717,
+      "subsequent_action_change_squared_sum": 18.17521498816245,
+      "first_fraction_of_total": 0.27622663465499764,
+      "measured_initial_pose_squared_distance_from_zero": 0.8759835580453779,
+      "first_action_squared_distance_from_initial_pose": 5.3066538217388155
+    },
+    {
+      "env_id": 109,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.993495109532869,
+      "subsequent_action_change_squared_sum": 21.759364112172086,
+      "first_fraction_of_total": 0.18665276365980274,
+      "measured_initial_pose_squared_distance_from_zero": 0.9024468914572746,
+      "first_action_squared_distance_from_initial_pose": 3.566727141186901
+    },
+    {
+      "env_id": 110,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 5.394246929090638,
+      "subsequent_action_change_squared_sum": 26.85263940299707,
+      "first_fraction_of_total": 0.16727962115595074,
+      "measured_initial_pose_squared_distance_from_zero": 0.9014608818835005,
+      "first_action_squared_distance_from_initial_pose": 4.080937968690874
+    },
+    {
+      "env_id": 111,
+      "steps": 46,
+      "success": false,
+      "first_action_squared_distance_from_zero": 7.80020363510298,
+      "subsequent_action_change_squared_sum": 3.666383775045805,
+      "first_fraction_of_total": 0.680255018873289,
+      "measured_initial_pose_squared_distance_from_zero": 0.9365715401456262,
+      "first_action_squared_distance_from_initial_pose": 6.25986209013204
+    },
+    {
+      "env_id": 112,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 2.7515004701626276,
+      "subsequent_action_change_squared_sum": 18.510332659565837,
+      "first_fraction_of_total": 0.12941031252453286,
+      "measured_initial_pose_squared_distance_from_zero": 0.9778278372295532,
+      "first_action_squared_distance_from_initial_pose": 5.937845816546767
+    },
+    {
+      "env_id": 113,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.041711827927291,
+      "subsequent_action_change_squared_sum": 31.465325519788287,
+      "first_fraction_of_total": 0.18286817976519915,
+      "measured_initial_pose_squared_distance_from_zero": 0.8912759670225623,
+      "first_action_squared_distance_from_initial_pose": 5.498748463111699
+    },
+    {
+      "env_id": 114,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.70906543226647,
+      "subsequent_action_change_squared_sum": 17.44717077203557,
+      "first_fraction_of_total": 0.21253905170735263,
+      "measured_initial_pose_squared_distance_from_zero": 0.8986657283895758,
+      "first_action_squared_distance_from_initial_pose": 3.91286289633627
+    },
+    {
+      "env_id": 115,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.113054443204944,
+      "subsequent_action_change_squared_sum": 20.727889020605645,
+      "first_fraction_of_total": 0.2277511016498776,
+      "measured_initial_pose_squared_distance_from_zero": 0.9140769047511915,
+      "first_action_squared_distance_from_initial_pose": 4.797772063534546
+    },
+    {
+      "env_id": 116,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.8214581857738406,
+      "subsequent_action_change_squared_sum": 16.72284216858518,
+      "first_fraction_of_total": 0.3186669847113716,
+      "measured_initial_pose_squared_distance_from_zero": 0.9573554225207115,
+      "first_action_squared_distance_from_initial_pose": 6.684628347955396
+    },
+    {
+      "env_id": 117,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.723736351062323,
+      "subsequent_action_change_squared_sum": 22.49558602247739,
+      "first_fraction_of_total": 0.25558932975364435,
+      "measured_initial_pose_squared_distance_from_zero": 0.9554785009123485,
+      "first_action_squared_distance_from_initial_pose": 6.211176247078864
+    },
+    {
+      "env_id": 118,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.59494297483729,
+      "subsequent_action_change_squared_sum": 18.827388470241544,
+      "first_fraction_of_total": 0.28744408836987206,
+      "measured_initial_pose_squared_distance_from_zero": 0.954847343915327,
+      "first_action_squared_distance_from_initial_pose": 5.8669984338080035
+    },
+    {
+      "env_id": 119,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.8505679849282228,
+      "subsequent_action_change_squared_sum": 10.282985104896115,
+      "first_fraction_of_total": 0.15251657706761756,
+      "measured_initial_pose_squared_distance_from_zero": 0.9720305556847256,
+      "first_action_squared_distance_from_initial_pose": 1.7803551937003048
+    },
+    {
+      "env_id": 120,
+      "steps": 37,
+      "success": false,
+      "first_action_squared_distance_from_zero": 4.658141147456178,
+      "subsequent_action_change_squared_sum": 11.182842631570113,
+      "first_fraction_of_total": 0.29405630435804303,
+      "measured_initial_pose_squared_distance_from_zero": 0.9681252376859589,
+      "first_action_squared_distance_from_initial_pose": 3.4521874748216437
+    },
+    {
+      "env_id": 121,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 7.713625698541009,
+      "subsequent_action_change_squared_sum": 14.8921142553232,
+      "first_fraction_of_total": 0.34122420740412207,
+      "measured_initial_pose_squared_distance_from_zero": 0.8968645088071324,
+      "first_action_squared_distance_from_initial_pose": 6.559865455323276
+    },
+    {
+      "env_id": 122,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 1.026325194005319,
+      "subsequent_action_change_squared_sum": 11.121640726087792,
+      "first_fraction_of_total": 0.08448535341276728,
+      "measured_initial_pose_squared_distance_from_zero": 0.91427686326329,
+      "first_action_squared_distance_from_initial_pose": 2.4830158559725994
+    },
+    {
+      "env_id": 123,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.508388653091645,
+      "subsequent_action_change_squared_sum": 18.995091128711884,
+      "first_fraction_of_total": 0.2551961029935732,
+      "measured_initial_pose_squared_distance_from_zero": 0.9548318718186775,
+      "first_action_squared_distance_from_initial_pose": 4.994444927711303
+    },
+    {
+      "env_id": 124,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.926055142134193,
+      "subsequent_action_change_squared_sum": 13.69868732657075,
+      "first_fraction_of_total": 0.26448983927758557,
+      "measured_initial_pose_squared_distance_from_zero": 0.9083337087752708,
+      "first_action_squared_distance_from_initial_pose": 4.559509162877896
+    },
+    {
+      "env_id": 125,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 6.364178590469997,
+      "subsequent_action_change_squared_sum": 29.981544048397,
+      "first_fraction_of_total": 0.17510117087792718,
+      "measured_initial_pose_squared_distance_from_zero": 0.9509141090271842,
+      "first_action_squared_distance_from_initial_pose": 4.570885434121092
+    },
+    {
+      "env_id": 126,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 3.4882166273186037,
+      "subsequent_action_change_squared_sum": 13.524123385188378,
+      "first_fraction_of_total": 0.2050403780287819,
+      "measured_initial_pose_squared_distance_from_zero": 0.9469586761741168,
+      "first_action_squared_distance_from_initial_pose": 6.680249975626774
+    },
+    {
+      "env_id": 127,
+      "steps": 1000,
+      "success": true,
+      "first_action_squared_distance_from_zero": 4.56281860057142,
+      "subsequent_action_change_squared_sum": 16.392039686464162,
+      "first_fraction_of_total": 0.21774514234698303,
+      "measured_initial_pose_squared_distance_from_zero": 0.9311769363395375,
+      "first_action_squared_distance_from_initial_pose": 3.5218720376376766
+    }
+  ]
+}
