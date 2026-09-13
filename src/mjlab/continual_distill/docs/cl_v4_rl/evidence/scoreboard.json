@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-09-13T04:34:56.339672+00:00",
-  "certified_count": 16,
+  "updated_utc": "2026-09-13T05:12:09.420574+00:00",
+  "certified_count": 17,
   "active_tasks": 24,
   "interface": "franka_shared_60_v2",
   "criterion": "Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review",
@@ -73,8 +73,8 @@
       "confirmation_successes": null,
       "confirmation_episodes": null,
       "retained_run_url": null,
-      "best_measured_validation_rate": 0.4375,
-      "latest_training_run": "RL-002-R13-lift-arm-hold",
+      "best_measured_validation_rate": 0.703125,
+      "latest_training_run": "RL-002-R14-lift-arm-hold",
       "latest_preflight_run": "PREFLIGHT-LIFT-ARM-044"
     },
     {
@@ -122,8 +122,8 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-020-R8-peg-lift",
-      "latest_preflight_run": "PREFLIGHT-PEG-LIFT-048"
+      "latest_training_run": "RL-020-R9-peg-smooth",
+      "latest_preflight_run": "PREFLIGHT-PEG-SMOOTH-055"
     },
     {
       "task": "Mjlab-Pivot-Lift-Franka",
@@ -206,8 +206,8 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0078125,
-      "latest_training_run": "RL-005-R12-reorient-axis",
-      "latest_preflight_run": "PREFLIGHT-REORIENT-AXIS-040"
+      "latest_training_run": "RL-005-R13-reorient-quiet",
+      "latest_preflight_run": "PREFLIGHT-REORIENT-QUIET-056"
     },
     {
       "task": "Mjlab-Rotate-Valve-Franka",
@@ -254,18 +254,18 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.328125,
-      "latest_training_run": "RL-023-R7-strike-endpoint",
-      "latest_preflight_run": "PREFLIGHT-STRIKE-ENDPOINT-049"
+      "latest_training_run": "RL-023-R8-strike-noise",
+      "latest_preflight_run": "PREFLIGHT-STRIKE-NOISE-054"
     },
     {
       "task": "Mjlab-Throw-To-Bin-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": 0.90625,
+      "certified": true,
+      "validation_successes": 125,
+      "validation_episodes": 128,
+      "confirmation_successes": 126,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/1dibcaqx",
+      "best_measured_validation_rate": 0.9765625,
       "latest_training_run": "RL-024-R7-throw-box",
       "latest_preflight_run": "PREFLIGHT-THROW-BOX-STRESS-052"
     },

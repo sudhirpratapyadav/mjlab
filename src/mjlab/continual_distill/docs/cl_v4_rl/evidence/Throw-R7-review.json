@@ -1,0 +1,30 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "checkpoint_sha256": "8ed4e7961ba0c5ece6fc4d69f76e76fca4cc087e9748ebcb1e0caec2e0934992",
+  "reviewed_utc": "2026-09-13T05:04:40.674234+00:00",
+  "verdict": "pass",
+  "validation_successes": 125,
+  "confirmation_successes": 126,
+  "episodes_per_batch": 128,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260916,
+  "retired_confirmation_seed": 20260915,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0062.png",
+    "success-0124.png",
+    "failure-0000.png",
+    "failure-0062.png",
+    "failure-0124.png",
+    "success-time0.8.png",
+    "success-time1.2.png",
+    "success-time1.6.png"
+  ],
+  "observations": "Actual success66 moves from cube to bin; cube is occluded at terminal by bin walls. Exact-state native CPU endpoint reconstruction independently matches all128 recorded labels, including125 released/contained/contacting/settled successes. Failure69 visibly leaves cube on floor outside bin; all3 failures miss containment/contact. No visual claim of terminal visibility or unmeasured flight. Both strict batches exceed90%; original frozen1000-update budget and reservedconfirmation16 honored.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "endpoint_audit": "throw_r7_endpoint_audit.json",
+  "elliptic_hessian_compat": true,
+  "primitive_box_box_compat": true,
+  "free_body_implicitfast_compat": false
+}

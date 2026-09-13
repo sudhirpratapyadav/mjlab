@@ -1,0 +1,68 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "certified_utc": "2026-09-13T05:04:42.017746+00:00",
+  "elliptic_hessian_compat": true,
+  "free_body_implicitfast_compat": false,
+  "primitive_box_box_compat": true,
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Throw-To-Bin-Franka/model.pt",
+  "checkpoint_sha256": "8ed4e7961ba0c5ece6fc4d69f76e76fca4cc087e9748ebcb1e0caec2e0934992",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Throw-To-Bin-Franka/normalizers.pt",
+  "normalizers_sha256": "4eb91f8c0b9a3b053f0a468db3a0ed293ca7451300048a4497f5f600bb503be3",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 125,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-024-R7-m14098-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 126,
+    "episodes": 128,
+    "seed": 20260916,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-024-R7-m14098-confirm-20260916.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Throw-R7-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-R7-m14098/success.mp4",
+      "outcome": {
+        "env_id": 66,
+        "success": true,
+        "steps": 250,
+        "return": 114.39067077636719,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 125,
+      "fps": 25,
+      "simulation_seconds": 5.0,
+      "encoded_seconds": 5.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    },
+    "failure": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-R7-m14098/failure.mp4",
+      "outcome": {
+        "env_id": 69,
+        "success": false,
+        "steps": 250,
+        "return": 10.363293647766113,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 125,
+      "fps": 25,
+      "simulation_seconds": 5.0,
+      "encoded_seconds": 5.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/1dibcaqx",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Throw-To-Bin-Franka-teacher:v0"
+}
