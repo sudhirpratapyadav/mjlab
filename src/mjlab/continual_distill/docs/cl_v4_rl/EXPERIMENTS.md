@@ -691,3 +691,6 @@ S4/S5 penalty bracket completed1000updates each. S4(10×):111/128, no confirmati
 
 
 S4/S5 paired publications verified: 12actual50fps videos,1000frames/20s each; all6fixedpairs match initialposes and randomizedfriction; two browser audits verify12playbacks andmobilelayout,16HTTPSfiles matchlocalSHA256. S4meanepisode19.612s (125/128full20s); S5mean19.736s (126/128full20s), so no widespread early-termination shortcut explains their motion. MotionreviewW&B jt1nv9ep/z0du3i8x retain41/42remoteartifactfiles includingmodels,fulltraces,configs,metrics,videos. Rootmotionreview now presents the10×/100×comparison, source motion_penalty_bracket.html, with links toboth trials. No teacher certificate replaced.
+
+
+S6 preflight083 passed100updates,76finite tensors,maxacceptedKL.01775953 and1within-updatebacktrack; finalLR returns5e-6. Attempted/accepted LR rule verified at everyupdate. Launch fullS6 originalS1×1000 atsame5e-6 ceiling, GPU1only; trainerPID2409890, identified evaluatorPID2410083 and motionwatcher active. Actualmanifest confirms x10recipe/ceiling5e-6/no explorationreset. Frozenfinal24488 andconditionalconfirmation22. Other23 teachers remainpaused.
