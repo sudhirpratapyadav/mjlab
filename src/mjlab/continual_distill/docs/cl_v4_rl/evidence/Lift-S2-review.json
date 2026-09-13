@@ -1,0 +1,56 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T11:37:51.357126+00:00",
+  "checkpoint_sha256": "c11116da9129ed1d13de5706ed1fd18ad97ae8829babe6e1ca930d59e3d116f0",
+  "verdict": "fail_success_and_motion_quality",
+  "validation_successes": 39,
+  "episodes": 128,
+  "confirmation_run": false,
+  "reason": "Increased arm exploration harms deterministic native success; all motion gates also fail. Reject and return to successful S1 source.",
+  "actual_frames_inspected": [
+    "after-0-1000.png",
+    "after-1-1000.png",
+    "after-2-1000.png"
+  ],
+  "visual_note": "Cubes remain visibly raised in inspected frames; those static frames do not establish native settling or motion quality.",
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s2/",
+  "baseline_preserved": true
+}

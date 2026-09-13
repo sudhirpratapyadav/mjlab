@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current authorization: ONE Lift-Cube motion-quality trial only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See Lift-S1-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
+**Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See Lift-S1-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 
@@ -8,7 +8,9 @@ Latest completed results:18/24certified; Reorient109/128, Stack101/128, Strike57
 
 **18/24 independent PPO RL teachers certified.** Lift R16/model21990 is newest:118/128 validation and117/128 independent confirmation. Actual success/failure frames reviewed; all76 checkpoint tensors finite and13 W&B teacher files remotely verified (28m72bwp). The optional post-integration terminal recomputation agrees126/128 labels and passes116/128; its cached-velocity limitation is explicit in lift_r16_terminal_audit.json. The native measured rates remain authoritative. Six tasks remain unfinished.
 
-Current live trial: **RL-002-S2-lift-arm-exploration**, GPU1 only, from S1/model23489. Same lift_smooth_v1 motion rewards; arm-only exploration0.03, Adam2.5e-5,1,500updates/final24988, unchanged native physics/60D8D and KLguard.03. Preflight079 passed2048×100,76finite tensors,maxacceptedKL.0058514,no backtracks. TrainerPID2400361, strict-watcherPID2400548, motion-review-watcherPID2400581. Validation14/conditionalunusedconfirmation18 after fullbudget. W&B run lf3qu3jd. Otherteachers remain paused.
+Current trial: **RL-002-S3-lift-strong-motion**, GPU1 only, from successful S1/model23489. lift_smooth_v2 strengthens only motioncosts: velocity−10, nativeacceleration−.001, normalizedactionchange−50. Preserve learned exploration, deterministic policy/normalizers/Adam; no noise reset. Cost080 preflight passes2048×100,76finite tensors,maxacceptedKL.02210768;onebacktrack reducesLR1e-5→5e-6. Fullbudget3000updates/final26488 at5e-6, KLguard.03; validation14/conditionalfreshconfirmation19, then same fixed paired videos. Otherteachers remain paused.
+
+S2 completed but is rejected:39/128 strictvalidation, no confirmation18. Allmotiongatesfail (p95peak7.431rad/s,acceleration55.988rad/s²,max-target-jump5.064rad). S2/model24988 is not a training parent. Its videos/results are archived at https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s2/ and W&B4j9o7w5o. Sixplaybacks/mobile and8HTTPScontenthashes verified. S1 preserved successes while its motion remained insufficient; S3 returns to that successfulsource.
 
 S1 finished but **did not fix motion quality**:117/128 validation and119/128 confirmation; all three motion gates fail (p95peak7.785rad/s,p95accelerationproxy58.423rad/s²,p95max-target-step4.624rad). Original certifiedR16 checkpoint remains preserved. Three fixed paired real-time50fps video pairs published at https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s1/; browser6playbacks/mobile and HTTPS8contenthashes verified. W&B motion-review pbyye5xz retains candidate,full traces,configs,metrics,videos; remote candidate digest verified. User visual approval has not been requested for this insufficient result.
 

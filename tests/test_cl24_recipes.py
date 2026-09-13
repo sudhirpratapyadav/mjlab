@@ -22,6 +22,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_v5"),
   ("Mjlab-Lift-Cube-Franka","lift_v6"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_v1"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -80,18 +81,20 @@ def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   assert cfg.agent.clip_actions==1.0
 
 
-def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch):
+@pytest.mark.parametrize('recipe,velocity_weight,acceleration_weight,action_weight',[
+  ('lift_smooth_v1',-2.,-.0002,-5.),('lift_smooth_v2',-10.,-.001,-50.)])
+def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch,recipe,velocity_weight,acceleration_weight,action_weight):
   from dataclasses import asdict
   stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
   monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
   old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
-  recipes.apply_recipe(old,'lift_v9');recipes.apply_recipe(new,'lift_smooth_v1')
+  recipes.apply_recipe(old,'lift_v9');recipes.apply_recipe(new,recipe)
   assert asdict(old.agent)==asdict(new.agent)
   vel=new.env.rewards['joint_vel_penalty'];acc=new.env.rewards['smooth_arm_acceleration']
   arm=tuple(f'joint{i}' for i in range(1,8))
   assert tuple(vel.params['robot_asset_cfg'].joint_names)==arm
   assert tuple(acc.params['asset_cfg'].joint_names)==arm
-  assert vel.weight==-2 and vel.params['max_vel']==1 and acc.weight==-.0002
+  assert vel.weight==velocity_weight and vel.params['max_vel']==1 and acc.weight==acceleration_weight
   # Large finger velocities/accelerations must not enter an arm-only metric.
   robot=SimpleNamespace(data=SimpleNamespace(joint_vel=torch.tensor([[.5]*7+[100.,100.],[2.]*7+[0.,0.]]),joint_acc=torch.tensor([[0.]*7+[10000.,10000.],[10.]*7+[0.,0.]])))
   env=SimpleNamespace(scene={'robot':robot})
@@ -104,7 +107,8 @@ def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch):
   change=new.env.rewards['action_rate_l2']
   actions=torch.tensor([[0.]*8,[.5]*8])
   env.action_manager=SimpleNamespace(action=actions,prev_action=torch.zeros_like(actions))
-  torch.testing.assert_close(change.weight*change.func(env),torch.tensor([0.,-10.]))
+  assert change.weight==action_weight
+  torch.testing.assert_close(change.weight*change.func(env),torch.tensor([0.,2*action_weight]))
   for name in ['joint_vel_penalty','action_rate_l2']:new.env.rewards[name]=old.env.rewards[name]
   del new.env.rewards['smooth_arm_acceleration']
   assert repr(old.env)==repr(new.env)

@@ -1,0 +1,59 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T11:02:30.943655+00:00",
+  "checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "verdict": "fail_motion_quality",
+  "validation_successes": 117,
+  "confirmation_successes": 119,
+  "episodes_per_batch": 128,
+  "reason": "All three preregistered motion gates fail; task success is retained but the reported speed/smoothness concern is not fixed.",
+  "actual_frames_inspected": [
+    "before-0-0500.png",
+    "after-0-0500.png",
+    "after-1-1000.png",
+    "after-2-1000.png"
+  ],
+  "visual_note": "Held cubes visible in inspected paired trial frames; numerical motion audit, not static images, establishes continued fast/jerky behavior.",
+  "paired_initial_states_verified": true,
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s1/",
+  "baseline_preserved": true,
+  "other_teachers_paused": true
+}

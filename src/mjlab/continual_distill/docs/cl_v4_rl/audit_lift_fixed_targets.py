@@ -13,8 +13,11 @@ HERE = Path(__file__).resolve().parent
 def main():
   parser = argparse.ArgumentParser(description=__doc__)
   parser.add_argument('--recorded-replay', action='store_true')
+  parser.add_argument('--endpoints', action='store_true', help='Save fixed-target task geometry as an additional diagnostic')
   args = parser.parse_args()
   stem = 'lift_s1_recorded_target_audit' if args.recorded_replay else 'lift_s1_fixed_target_audit'
+  if args.endpoints:
+    stem = stem.removesuffix('_audit') + '_endpoint_audit'
   output = HERE / 'evidence' / (stem + '.json')
   assert not output.exists()
   ev = json.loads((HERE / 'evidence/RL-002-S1-m23489-val-20260914.json').read_text())
@@ -60,6 +63,21 @@ def main():
       expected = trace['qvel'][start+1:start+101, lane][:, dofs]
       rows[mode]['velocity_rmse_to_original_gpu'] = float(np.sqrt(np.mean((v[3::4] - expected)**2)))
     archived[mode] = v
+    if args.endpoints:
+      mujoco.mj_forward(m, d)
+      body = m.body('cube/cube').id; goal = m.body('mocap_goal/mocap_goal').id
+      cube_dof = int(m.jnt_dofadr[m.body_jntadr[body]])
+      pads = [m.geom('robot/' + n).id for n in ['left_finger_pad', 'right_finger_pad']]
+      objects = {i for i in range(m.ngeom) if m.geom(i).name.startswith('cube/')}
+      touches = [any(c.dist <= .001 and ((c.geom[0] == pad and c.geom[1] in objects) or
+                 (c.geom[1] == pad and c.geom[0] in objects)) for c in d.contact) for pad in pads]
+      rows[mode]['endpoint'] = dict(cube_height_m=float(d.xpos[body, 2]),
+        goal_error_m=float(np.linalg.norm(d.xpos[body]-d.xpos[goal])),
+        linear_speed_m_s=float(np.linalg.norm(d.qvel[cube_dof:cube_dof+3])),
+        angular_speed_rad_s=float(np.linalg.norm(d.qvel[cube_dof+3:cube_dof+6])),
+        pad_contacts=[bool(v) for v in touches])
+      for field in ['qpos', 'qvel', 'ctrl', 'mocap_pos', 'mocap_quat']:
+        archived[mode + '_' + field] = getattr(d, field).copy()
   np.savez_compressed(HERE / 'runs' / (stem + '.npz'), **archived)
   report = dict(checkpoint_sha256=ev['checkpoint_sha256'], env_id=lane, source_step=start,
     source_success=ev['records'][lane]['success'], rows=rows,

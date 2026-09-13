@@ -1,0 +1,49 @@
+{
+  "preregistered_utc": "2026-09-13T11:35:44.613509+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S3-lift-strong-motion",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S1-lift-smooth/model_23489.pt",
+  "source_checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "updates": 3000,
+  "expected_final_checkpoint": "model_26488.pt",
+  "recipe": "lift_smooth_v2",
+  "physical_gpu_index": 1,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260919,
+  "episodes_per_batch": 128,
+  "reason": "S2 arm exploration0.03 harms native success39/128 while all motion gates stillfail; reject and return to successful S1/model23489. Retain original S1 exploration/actor/critic/normalizers/Adam state; no noise reset. Native CPU replay reproduces policy hold vibration with15microrad/s velocityRMSE, while two fixed-target diagnostics remain quiet and holdcube within12.2mm goalerror. Hypothesis: motion costs remain too weak relative to task reward. lift_smooth_v2 changes only velocityweight-2\u2192-10, nativeaccelerationweight-.0002\u2192-.001, actionchangeweight-5\u2192-50. Preserve threshold1rad/s, arm selection/native task/physical models/interfaces. PREFLIGHT-LIFT-COST-080 originalS1\u00d7100/2048envs,LR1e-5/KLguard.03; adopt reduced accepted preflightLR if necessary. FullS3 originalS1\u00d73000(final26488), no preflightparent/intermediateeval. Seed19 verifiedunused. S2confirmation18 notrun. Only Lift; allotherteacherspaused.",
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-COST-080",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.0221076812595129,
+    "backtracks": 1,
+    "saved_learning_rate": 5e-06,
+    "checkpoint_sha256": "bf98d22235f6219b2fa58c86e2070a467d9f3fd2a6f3d197211db23e2bc0b63a",
+    "final_std": [
+      0.0035595959052443504,
+      0.00480896420776844,
+      0.0033319885842502117,
+      0.003872934030368924,
+      0.005781854037195444,
+      0.0024968034122139215,
+      0.007049768231809139,
+      0.04431232064962387
+    ],
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  }
+}

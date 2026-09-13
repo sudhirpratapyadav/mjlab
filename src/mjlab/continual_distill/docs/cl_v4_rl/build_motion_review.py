@@ -23,8 +23,11 @@ def main():
   validation=f'{data["successes"]}/{data["episodes"]}'
   confirmation=f'{confirm["successes"]}/{confirm["episodes"]}' if confirm else 'Not qualified / not run'
   motion_pass=all(data['provisional_motion_gates'].values())
-  review_status='awaiting_user' if motion_pass else 'motion_targets_not_met'
-  verdict='Ready for your visual review' if motion_pass else 'Motion targets not met — further Lift tuning needed'
+  rate_pass=data['successes']/data['episodes']>.9 and confirm is not None and confirm['successes']/confirm['episodes']>.9
+  review_status='awaiting_user' if motion_pass and rate_pass else ('motion_targets_not_met' if not motion_pass else 'task_success_not_met')
+  verdict=('Ready for your visual review' if motion_pass and rate_pass else
+           'Motion targets not met — further Lift tuning needed' if not motion_pass else
+           'Task success below target — further Lift tuning needed')
   pairs=[]
   for lane in [0,1,2]:
     cards=[]

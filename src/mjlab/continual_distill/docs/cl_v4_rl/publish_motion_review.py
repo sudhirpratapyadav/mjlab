@@ -16,6 +16,8 @@ def main():
   parser.add_argument('--baseline', type=Path, required=True)
   parser.add_argument('--confirmation', type=Path)
   parser.add_argument('--audit', type=Path, required=True)
+  parser.add_argument('--plan', type=Path, required=True)
+  parser.add_argument('--preflight', type=Path, required=True)
   parser.add_argument('--review-dir', type=Path, required=True)
   parser.add_argument('--public-url', required=True)
   parser.add_argument('--output', type=Path, required=True)
@@ -28,6 +30,8 @@ def main():
   videos = json.loads((args.review_dir / 'videos.json').read_text())
   summary = json.loads((args.review_dir / 'summary.json').read_text())
   checkpoint = Path(validation['checkpoint'])
+  plan = json.loads(args.plan.read_text())
+  assert plan['run_id'] == checkpoint.parent.name and plan['expected_final_checkpoint'] == checkpoint.name
   sha = hashlib.sha256(checkpoint.read_bytes()).hexdigest()
   assert sha == validation['checkpoint_sha256'] == audit['checkpoint_sha256']
   assert baseline['checkpoint_sha256'] == audit['baseline']['checkpoint_sha256']
@@ -72,9 +76,8 @@ def main():
       artifact.add_file(str(Path(evaluation['trace_dir']) / 'trace.npz'), name=f'traces/{label}.npz')
     artifact.add_file(str(checkpoint.parent / 'diagnostics.jsonl'), name='candidate/diagnostics.jsonl')
     artifact.add_dir(str(args.review_dir), name='review')
-    for name in ['Lift-S1-evaluation-plan.json', 'lift_smooth_preflight.json',
-                 'lift_smooth_baseline_full_audit.json']:
-      artifact.add_file(str(HERE / 'evidence' / name), name='evidence/' + name)
+    for record in [args.plan, args.preflight, HERE / 'evidence/lift_smooth_baseline_full_audit.json']:
+      artifact.add_file(str(record), name='evidence/' + record.name)
     retained = run.log_artifact(artifact)
     retained.wait()
     receipt = {'published_utc': datetime.now(timezone.utc).isoformat(),
