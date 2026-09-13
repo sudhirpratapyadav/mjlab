@@ -1,0 +1,28 @@
+{
+  "checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "env_id": 0,
+  "source_step": 500,
+  "source_success": true,
+  "rows": {
+    "recorded_policy_11_to_12s": {
+      "speed_rms": 0.5618682503700256,
+      "speed_max": 1.1260894536972046,
+      "acceleration_rms": 56.184417724609375
+    },
+    "replay_recorded_targets": {
+      "native_5ms": {
+        "speed_rms": 0.34710236285973267,
+        "speed_max": 1.1260889399442646,
+        "acceleration_rms": 56.725799987089545
+      },
+      "sampled_20ms": {
+        "speed_rms": 0.561868453798797,
+        "speed_max": 1.1260889399442646,
+        "acceleration_rms": 56.184437815666556
+      },
+      "warnings": 0,
+      "velocity_rmse_to_original_gpu": 1.4832806541996032e-05
+    }
+  },
+  "method": "Preregistered single native CPU cold-state diagnostic. Same recorded state/friction; two fixed arm-target interventions keeping original finger target, or replay original full controls at20ms boundaries for2s. Analyze last1s. No policy rerun, training data, success claim or backend-general conclusion."
+}
