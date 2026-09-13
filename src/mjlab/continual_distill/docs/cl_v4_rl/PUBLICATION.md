@@ -53,3 +53,5 @@ Wave30 public refresh verified via untu_vps:16 certified/8 unfinished, all24 act
 Wave31 gallery published via untu_vps:17 certified/7 unfinished, newly certified Throw14098 success video and latest reviewed Lift17992, Reorient14595 and Edge10995 failure clips. Newest homepage card/navigation,24 actual video playbacks,17/7 filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed. Full results remain in scoped W&B.
 
 Wave32 gallery refreshed through untu_vps with reviewed latest Stack12195, Strike16992 and Lift19991 failure videos and0/128 rates. Still17 certified/7 unfinished. Newest homepage-card navigation, all24 actual video playbacks,17/7 filters, search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Full results remain in scoped W&B; gallery is a point-in-time summary.
+
+Wave33 public gallery refreshed via untu_vps with reviewed Reorient16594 (1/128) and Peg10198 (0/128) actual clips. Still17 certified/7 unfinished. Newest homepage-card navigation,24 video playbacks,17/7 filters, search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Full results remain in scoped W&B.

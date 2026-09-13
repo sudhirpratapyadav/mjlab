@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "af92a57c7d9455c038e12dd675349a883389194a53ed4c5a705e2242e4e2dca3",
+  "reviewed_utc": "2026-09-13T06:21:13.283337+00:00",
+  "verdict": "not certified",
+  "validation_successes": 1,
+  "episodes": 128,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded success is upright on floor with hand aside; recorded failure is upright held between end-face contacts. Both initial/middle/final frame sets reviewed. Strict1/128. Orientation/drift118/128 pass, but116 fail linear and110 fail angular settling. Fixed recorded-control diagnostic settles30/31 GPU cases; this intervention is not an RL evaluation or certificate.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}

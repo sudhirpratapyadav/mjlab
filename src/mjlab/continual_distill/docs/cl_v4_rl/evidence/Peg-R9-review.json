@@ -1,0 +1,16 @@
+{
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "6a5eb18eac095f7a52f8e24f657e0189f13ea931179e2ba9c32336538487305e",
+  "reviewed_utc": "2026-09-13T06:21:13.291141+00:00",
+  "verdict": "not certified",
+  "validation_successes": 0,
+  "episodes": 128,
+  "inspected_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded failure lowers hand near peg; peg lies beside hand at middle and final frames, without insertion. Strict0/128. Native cold terminal capture audit finds0/128 opposing grasps and no recorded root lift above2cm. Training capture collapsed from63.9% to0%; guarded retry uses original pre-collapse8199, not this endpoint.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76
+}
