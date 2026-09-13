@@ -893,3 +893,8 @@ Gradient probes088–090 finished one update each. Each first minibatch is criti
 ### 2026-09-13T15:58:30.916945+00:00 — Command-distance reward bracket
 
 S11 separate-clipping preflight091 passed100updates/76finite tensors, maxacceptedKL.0296502 with9within-updatebacktracks, finalLR5e-6. S11 full1000update pilot active onGPU3 fromoriginalS7; trainer2416485. Prepared complementary S12/S13 target-error reward bracket100/1000 onGPUs4/5, matched toS11 exceptnewsoftcost. S7 recordedtargets start farfromactualpose (median first-step squared excess21.652rad²); localforceprobes showed small commands mayproduceidentical saturatedmotion. The newreward is command-dependent and never modifiesaction orphysics. Preflights092/093 x100 required, thenoriginalS7×1000 final25487; freshconditionalconfirmations28/29. Tests101passed; S9/S10 continue their frozenplans. All experiments remain Lift-only.
+
+
+2026-09-13T16:04:34.835033+00:00
+
+S12/S13 preflights092/093 passed100updates/76finite tensors, maxacceptedKL.029423/.029825,11/9backtracks, finalLR5e-6. Full S12/S13 started ORIGINALS7, neverpreflightcheckpoints. All five S9–S13 manifests/sourceSHAs/1000-updatebudgets/CPUaffinities and identified evaluation+motion watchers verified in lift_balance_launch_audit.json. Actual GPU1–5 placement verified; GPU0 unused. W&B records rollup qic127no;18/24 native-success certificates unchanged, zero motion approvals.

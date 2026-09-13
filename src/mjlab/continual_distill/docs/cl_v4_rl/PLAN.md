@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current: Lift-only S9/S10 completion-weight trials and S11 separate-gradient-clipping trial are training. S12/S13 preflights test a soft target-error cost at100/1000 weight. All start from partial-motion S7, preserve the certified baseline and require strict success/motion review. Other23 teachers paused.**
+**Current: S9–S13 are training five variants of the ONE Lift teacher on GPUs1–5. They compare completion weights, separate gradient clipping, and a soft arm target-error cost at100/1000 weight. Each has a fixed1000-update final and identified strict evaluation/video watchers. Preflights passed; success and motion are not yet established. Other23 teachers paused; GPU0 unused.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 
