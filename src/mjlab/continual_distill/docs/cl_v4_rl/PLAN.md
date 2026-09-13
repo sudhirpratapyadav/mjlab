@@ -2,34 +2,20 @@
 
 ## Current state
 
-**14/24 independent PPO RL teachers certified.** All24 have RL training evidence. Best current unfinished validations include Cage97/128, Place96/128 and Strike20/128. CageR8/model12600 latest90/128; full budget continues. Latest completed LiftR9/final10496, ThrowR3/final7497 and PivotR2/final3499 each0/128; actual failure clips reviewed. No confirmation for failed validations. GPU0 remains unused.
-
-Current full PPO runs: EdgeR3 GPU1, ThrowR4 GPU2, StrikeR3 GPU3, LiftR10 GPU4, PlaceR7 GPU5, PegR6 GPU6 and CageR8 GPU7. All seven process placements verified; GPU0 remains0MiB. Lift/Throw preflights passed before launch. Peg3900 strict0/128 with narrower opening but no capture; full R6 budget continues. Place6329/lane995 failure was traced to an incorrect small-denominator guard in the installed dense elliptic-contact Hessian. An opt-in normalized outer-product implementation passes the original2048-world warmstart replay,24 focused checks,64×3 PPO preflight and2048×100 stress. PlaceR7 restores original6300 with this recorded correction and inherited Adam5e-5. Native model, forces, predicates,60D/8D and integration settings remain fixed; every new compatibility lineage requires its own strict evaluation.
+15/24 independent PPO teachers certified. Place7500 is newly certified117/128+119/128. Current inventory and outcome table are in STATUS.md and evidence/training_wave26.json; the entries below Wave22 onward are chronological history.
 
 ## Acceptance
 
-Deterministic policy means,60D observations and normalized8D absolute joint targets. Use native terminal success in the first uninterrupted episode. Validation seed20260914 and confirmation seed20260915,128 episodes each, both strictly>90% (116+). Review actual recorded success/failure videos, then retain policy/optimizer/normalizers/configs, hashes and W&B artifacts. Restore each checkpoint's recorded backend compatibility setting. Never count a training contact fraction or a selected successful clip as a measured success rate.
+Native first uninterrupted episode, deterministic means,60D observations and normalized8D absolute joint targets. Both independent128-episode batches must exceed90% (116+), followed by actual video review and retained checkpoint/normalizers/config/source in W&B. Validation seed20260914; default confirmation20260915. CageR11 and ThrowR6 prospectively use20260916 because their prior confirmation15 failed; never retest the old checkpoint on a fresh seed or tune on individual confirmation failures. Respect each preregistered full budget and backend lineage.
 
 ## Active work
 
-- GPU1: Edge R3 edge_v3,2048 ×2000 from4998 unchanged. Continue measured side-approach improvement; strict evaluation at budget.
-- GPU2: Throw R4 throw_v4,2048 ×2000 from7497, gripper mean-0.4/std0.3 initialization after finite preflight. Test release exploration with retained transport policy.
-- GPU3: Strike R3 strike_v2,2048 ×2000 from4998, verified Adam5e-5. Refine launch endpoint while retaining learned contact.
-- GPU4: Lift R10 lift_v7,2048 ×1500 from10496, cone compatibility after finite preflight. Test stable contact arithmetic with retained policy and no new initialization reset.
-- GPU5: Place R7 completion_v6,2048 ×2000 from6300, cone compatibility and inherited Adam5e-5. Improve96/128 containment after diagnosed numerical failure.
-- GPU6: Peg R6 peg_v1,2048 ×2000 from3098, recorded gripper mean-0.25/std0.15 initialization and gyro compatibility.3900 strict0/128, smaller opening but no capture; finish bounded budget before next width/approach diagnosis.
-- GPU7: Cage R8 cage_v4,2048 ×2000 from11096 unchanged. Latest12600 strict90/128; best11096 remains97/128. Finish budget with native no-pinch history intact.
+- GPU1 ReorientR11 final12596, GPU3 StrikeR6 final12994, GPU4 LiftR12 final15993, GPU6 EdgeR4 final8996 and GPU7 CageR11 final19092: existing full runs.
+- GPU2 Throw cone2048x100 stability gate. Only after finite11199 and actual exit, fullR6 from original11100 for2000 updates, final13099.
+- GPU5 StackR7 completed8197; strict128 evaluation now reports0 and actual render/review is pending. Audit capture/clearance before the next training choice.
+- PegR7 capture improves until~6200 then collapses with large joint-limit penalties and PPO surrogate loss. Diagnose the last checkpoint before collapse; retainR6/5097. Pivot remains under contact/dynamics diagnosis.
 
-Stack, Reorient and Pivot need further trajectory-based diagnosis. Stack has opposing capture but stays low beside its base. Reorient remains near the floor after its gyro-enabled budget. Pivot R2 learns wide opening/contact but no tipping or opposed capture. Prioritize the next completed checkpoints, confirm only qualifying validation rates, and use recorded state evidence before shaping changes. Never loosen predicates or import scripted policy actions.
-
-## Numerical readiness
-
-Selective episode-reset warmstart clearing and optional standalone free-body gyro compatibility are retained. New dense elliptic Hessian compatibility corrects a small-T denominator defect; the original2048-world Place failure passes with its warmstart retained,24 focused checks pass, and100 full-size PPO stress updates are finite. Only PlaceR7/LiftR10 opt in; all14 certified configurations preserve their saved backend. Persist and restore both compatibility fields in training/evaluation/certification. No shared-venv edits, physical state clipping, dropped invalid lanes, new observations, or altered success tests. Keep8-state captures and diagnose any new failure independently.
-
-## Records and resources
-
-Keep STATUS/EXPERIMENTS/LOGS, current training_wave inventory and scoped W&B records current. Publish reviewed policy summaries/videos to /v4-rl/ using PUBLICATION.md. GPU0 stays free; verify real placement, holder20277 expiry2026-09-28T08:58:54 and available disk before resource reuse. Stop only verified own steps. Full24-teacher goal remains active until every teacher is independently certified.
-
+Keep native success/physical models and the approved interface fixed. Record every reward/optimizer/backend change and validate it before full training. No shared environment edits, invalid-lane exclusion, state clipping, or scripted policy actions. Publish concise reviewed actual policy media; detailed records remain scoped to the project W&B. LeaveGPU0 unused and verify CPU as well as GPU placement within holder20277. Holder expires2026-09-28T08:58:54 scheduler time.
 
 ### Wave22
 
@@ -125,3 +111,8 @@ ThrowR5 full2048-world replay reproduces GPU nonfinite state at the first physic
 ThrowR5 matched full2048-world replay with existing cone Hessian compatibility stays finite across all4 substeps; baseline fails lane224 in substep1, CPU finite/no warnings. Original latest11100 checkpoint and optimizer are finite atAdam5e-5. Preregister PREFLIGHT-THROW-CONE-045 original11100,64x3, then PREFLIGHT-THROW-CONE-STRESS-046 original11100,2048x100. Preserve throw_v4/means/std/Adam moments/normalizers;coneON/gyroOFF/primitiveOFF. If both gates pass, RL-024-R6-throw-cone original11100,2048x2000 onGPU2, final13099, no interim evaluation. Prospective validation14 and unusedconfirmation16; retired15 remains excluded. See Throw-R6-evaluation-plan.json.
 
 Throw cone64x3 preflight completed with finite11102 model/optimizer and savedAdam5e-5. Proceed to preregistered2048x100 stress from original11100. No strict evaluation/confirmation has occurred for this backend or incompleteR5.
+
+### Wave27
+Previous turn made progress: Place15th certification, reviewed Cage/Strike/Reorient results, six new/current trainers, reproduced Throw solver failure, finite small preflight and verified site/W&B. Current stress step20277.2022 remains live; do not restart on observation timeouts. StackR7 completed8197 and strict128 validation is0; render/review pending. PegR7 training captures improve from34% to57% in200-update windows before catastrophic collapse near6200–6300, with joint-limit penalty~−6.3 and PPO surrogate loss0.32 versus~0.04. Preregister one diagnostic strict evaluation of last saved pre-collapse6200 after Stack evaluation exits onGPU5; no new confirmation unless validation qualifies. Select from training evidence, not a validation sweep.
+
+CPU affinity audit proves recent1-CPU steps bound to0,128 (one physical core), while holder20277 permits0-3,128-131. Preregister verified-checkpoint migration of only own ReorientR11/StrikeR6/LiftR12/CageR11 steps to new -cpu continuation runs with documented --cpus-per-task=8. Preserve original final labels12596/12994/15993/19092, all learned state, recipes, backends and evaluation seeds; environment/RNG restart is explicitly recorded. Check exact PID command and step identity immediately before cancelling only that step, then verify GPU exit before one replacement trainer. No cgroup alteration, holder cancellation or GPU0 use. Throw stress is near completion, so let it finish; all future steps request8 CPUs. See cpu_affinity_migration_audit.json.

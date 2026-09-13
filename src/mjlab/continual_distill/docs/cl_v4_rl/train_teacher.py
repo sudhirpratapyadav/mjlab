@@ -126,6 +126,8 @@ def main():
       "free_body_implicitfast_compat": cfg.env.sim.free_body_implicitfast_compat,
       "primitive_box_box_compat": cfg.env.sim.primitive_box_box_compat,
       "learning_rate_override": args.learning_rate,
+      "cpu_affinity": sorted(os.sched_getaffinity(0)),
+      "slurm_cpus_per_task": os.environ.get("SLURM_CPUS_PER_TASK"),
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
       "wandb_entity": args.wandb_entity, "wandb_project": args.wandb_project,
       "resume_checkpoint": str(checkpoint) if checkpoint else None,
