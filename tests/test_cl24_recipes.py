@@ -161,6 +161,31 @@ def test_lift_settling_recipe_preserves_native_environment_and_agent(monkeypatch
   assert repr(old.env.rewards)==repr(new.env.rewards)
 
 
+def test_lift_arm_hold_score_has_signal_at_recorded_error_and_preserves_inputs(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  distance=torch.tensor([.013,.013,.013,.3,.013])
+  error=torch.tensor([0.,.05,1.046,0.,0.])
+  held=torch.tensor([1.,1.,1.,1.,0.]);before=[v.clone() for v in (distance,error,held)]
+  score=recipes.lift_arm_hold_bonus(distance,error,held)
+  assert score[0]>score[1]>score[2]>.1
+  assert score[3]<.003 and score[4]==0
+  for value,saved in zip((distance,error,held),before):torch.testing.assert_close(value,saved)
+
+
+def test_lift_arm_recipe_only_changes_opt_in_reward(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_v8');recipes.apply_recipe(new,'lift_v9')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('arm_hold_weight')==15.
+  assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
 def test_lift_completion_recipe_preserves_native_benchmark(monkeypatch):
   import importlib
   from dataclasses import asdict

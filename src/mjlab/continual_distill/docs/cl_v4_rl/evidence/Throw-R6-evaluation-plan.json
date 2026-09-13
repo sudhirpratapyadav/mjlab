@@ -1,0 +1,19 @@
+{
+  "preregistered_utc": "2026-09-13T02:28:17.635312+00:00",
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "run_id": "RL-024-R6-throw-cone",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-024-R5-throw-refine/model_11100.pt",
+  "source_checkpoint_sha256": "3842ec6602ec233b92006ec79256489403bccb2c4dae276493c375db1d010074",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_13099.pt",
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260916,
+  "retired_confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "minimum_successes_per_batch": 116,
+  "schedule": "After finite64x3 and2048x100 preflights, restart from original11100 and finish2000 updates before validation. Conditional confirmation20260916 only after116+ validation. No substitute checkpoint evaluation or reuse of retired15.",
+  "reason": "Full2048-world recorded-state replay reproduces lane224 GPU failure in substep1 with CPU finite/no warning; existing elliptic Hessian compatibility makes all4 substeps finite. Continue acquired policy under this previously tested numerical correction; native physical model/reward/success/60D8D unchanged. R5 planned11495 was never reached or evaluated.",
+  "elliptic_hessian_compat": true,
+  "free_body_implicitfast_compat": false,
+  "primitive_box_box_compat": false
+}

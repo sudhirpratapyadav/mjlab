@@ -62,7 +62,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
     # predicate after physics/reward computation, immediately before reset.
     original_reset = env._reset_idx
     terminal_success = torch.zeros(episodes, dtype=torch.bool, device=device)
-    fields = ("qpos", "qvel", "mocap_pos", "mocap_quat")
+    fields = ("qpos", "qvel", "mocap_pos", "mocap_quat", "ctrl")
     terminal_states = {}
     if trace_dir is not None:
       trace_dir.mkdir(parents=True, exist_ok=False)
@@ -177,6 +177,7 @@ def evaluate(task: str, checkpoint: Path, episodes: int, seed: int, trace_dir: P
       "agent_config_sha256": hashlib.sha256(agent_path.read_bytes()).hexdigest() if agent_path.exists() else None,
       "termination_counts": {name: sum(name in terms for terms in termination_terms) for name in env.termination_manager.active_terms},
       "trace_dir": str(trace_dir.resolve()) if trace_dir is not None else None,
+      "trace_fields": list(fields) if trace_dir is not None else [],
       "trace_initial_model_fields": sorted(model_snapshot),
       "diagnostic_samples": diagnostic_samples,
     }

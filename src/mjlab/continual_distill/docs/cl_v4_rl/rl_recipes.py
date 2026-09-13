@@ -18,6 +18,7 @@ RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
+RECIPES += ("lift_v9",)
 
 
 def grasp_components(env, command_name, object_asset_name="object", require_enclosure=False, geometry_aperture=False, contact_geometry=False, **kwargs):
@@ -59,7 +60,15 @@ def lift_settling_bonus(goal_error, linear_speed, angular_speed, finger_position
   return held*(2*gentle+quiet_weight*torch.exp(-goal_error/.05)*quiet)
 
 
-def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, quiet_weight=5., native_completion_weight=0., **kwargs):
+def lift_arm_hold_bonus(goal_error, arm_target_error_rms, held):
+  """Credit near-goal arm equilibrium without changing actuator targets.
+
+  The broad tail preserves signal at the measured one-radian target error.
+  """
+  return held*torch.exp(-goal_error/.05)/(1+arm_target_error_rms/.2)
+
+
+def lift_grasp_reward(env, command_name, object_asset_name="object", closure_weight=0.5, settle_grip=False, quiet_weight=5., native_completion_weight=0., arm_hold_weight=0., **kwargs):
   command, obj, approach, closing, held = grasp_components(env,command_name,object_asset_name,**kwargs)
   # Height relative to the scene's floor; above 12cm is an unmistakable lift.
   height = obj.data.root_link_pos_w[:,2] - env.scene.env_origins[:,2]
@@ -78,6 +87,11 @@ def lift_grasp_reward(env, command_name, object_asset_name="object", closure_wei
   if native_completion_weight:
     command._update_metrics()
     reward += native_completion_weight*command.compute_success().float()
+  if arm_hold_weight:
+    joints=[command.robot.joint_names.index(f'joint{i}') for i in range(1,8)]
+    actuators=[env.sim.mj_model.actuator(f'{command.robot_cfg.name}/actuator{i}').id for i in range(1,8)]
+    error=env.sim.data.ctrl[:,actuators]-command.robot.data.joint_pos[:,joints]
+    reward += arm_hold_weight*lift_arm_hold_bonus(goal_error,error.square().mean(-1).sqrt(),held)
   return reward
 
 
@@ -95,6 +109,10 @@ def reorient_grasp_reward(env, command_name, object_asset_name="object", **kwarg
 
 def apply_recipe(cfg, recipe):
   if recipe == "baseline":
+    return
+  if recipe == "lift_v9":
+    apply_recipe(cfg,"lift_v8")
+    cfg.env.rewards['reach_object'].params['arm_hold_weight']=15.
     return
   if recipe == "peg_v1":
     if cfg.agent.experiment_name != "franka_peg_insertion":

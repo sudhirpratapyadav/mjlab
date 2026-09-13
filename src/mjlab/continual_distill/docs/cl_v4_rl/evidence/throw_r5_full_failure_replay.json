@@ -1,0 +1,92 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "failure": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-024-R5-throw-refine/numerical_failure.pt",
+  "failure_sha256": "972adcd36e151efe6ba7d0e9d169492d195ec10e38e9ce2db03ab4f07d67c4a6",
+  "source_lane": 224,
+  "num_envs": 2048,
+  "zero_warmstart_ablation": false,
+  "full_hessian_ablation": false,
+  "physics_changed": false,
+  "initial_state_restored": [
+    "qpos",
+    "qvel",
+    "ctrl",
+    "qacc_warmstart",
+    "mocap_pos",
+    "mocap_quat",
+    "actions"
+  ],
+  "elliptic_hessian_compat": false,
+  "free_body_implicitfast_compat": false,
+  "primitive_box_box_compat": false,
+  "limitations": "Derived solver caches and actuator histories not captured; CPU arithmetic differs. CPU warnings are reported because MuJoCo may reset invalid state.",
+  "physics_timestep": 0.005,
+  "control_substeps": 4,
+  "samples": [
+    {
+      "substep": 1,
+      "gpu_finite": false,
+      "nonfinite_lanes": [
+        224
+      ],
+      "cpu_finite": true,
+      "cpu_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "gpu_qpos": null,
+      "gpu_qvel": null,
+      "cpu_qpos": [
+        0.6295457436233786,
+        1.3227132643175088,
+        -0.7454178144682861,
+        -1.3518099868306852,
+        1.5587514273657093,
+        3.4561145999856064,
+        -2.418923030840004,
+        0.04152339559985442,
+        0.042335577014224066,
+        47.13913523686847,
+        54.92875054926093,
+        0.026458611423358716,
+        0.5013174562794739,
+        0.5015563921098097,
+        0.4988429319237541,
+        0.4982747463327651
+      ],
+      "cpu_qvel": [
+        0.621925862432065,
+        0.3280179681770671,
+        -0.8987865875048744,
+        -0.25055575389338614,
+        0.5576060679294506,
+        -0.2310614024148352,
+        1.8286445644211033,
+        0.0046622995401287975,
+        0.08632236781444783,
+        -0.0011691790400381278,
+        -0.0004699817985432589,
+        0.006962509867628208,
+        -0.051953099309818396,
+        -8.90854894594553e-08,
+        0.021233038316740692
+      ],
+      "applied_ctrl": [
+        2.1104824542999268,
+        0.6332500576972961,
+        0.530236542224884,
+        -0.9133901596069336,
+        1.8133244514465332,
+        3.3341164588928223,
+        -2.2531325817108154,
+        0.0359325148165226
+      ],
+      "maximum_qpos_difference": null
+    }
+  ]
+}

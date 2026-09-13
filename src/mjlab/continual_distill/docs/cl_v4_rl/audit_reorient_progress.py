@@ -29,6 +29,8 @@ def main():
   rows=[]
   for record in ev['records']:
     lane,end=record['env_id'],record['steps'];samples=[]
+    if 'initial_model_geom_friction' in trace:
+      m.geom_friction[:]=trace['initial_model_geom_friction'][lane]
     anchor=trace['qpos'][0,lane,qadr:qadr+3]-trace['origins'][lane]
     for step in sorted(set(range(0,end+1,10))|{end}):
       for field in ['qpos','qvel','mocap_pos','mocap_quat']:getattr(d,field)[:]=trace[field][step,lane]
@@ -56,7 +58,7 @@ def main():
     episodes_ever_sampled_under45deg=sum(any(v['angle_deg']<45 for v in r['samples']) for r in rows),
     median_old_held_orientation_credit=float(np.median([v['old_orientation_credit'] for v in held])) if held else None)
   report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],symmetric_axis=cmd.symmetric_axis,body_axis=cmd.body_axis,target_axis=cmd.target_axis,
-    method='CPU forward/collision queries every tenth recorded20ms state plus exact terminal. Opposed pad normals use cosine>0.5 and distance<=1mm. Drift anchored to original free-body spawn XY. Original friction absent, so contact geometry only; no integration or new native success measurement. Old orientation score is max(dot,0)^2 gated by opposing contact and valid drift.',summary=summary,rows=rows)
+    method='CPU forward/collision queries every tenth recorded20ms state plus exact terminal. Opposed pad normals use cosine>0.5 and distance<=1mm. Drift anchored to original free-body spawn XY. '+('Original friction restored from trace. ' if 'initial_model_geom_friction' in trace else 'Original friction absent; contact geometry only. ')+'No integration or new native success measurement. Old orientation score is max(dot,0)^2 gated by opposing contact and valid drift.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 

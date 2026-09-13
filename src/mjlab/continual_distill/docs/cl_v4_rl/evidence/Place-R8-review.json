@@ -1,0 +1,23 @@
+{
+  "task": "Mjlab-Place-In-Container-Franka",
+  "verdict": "pass",
+  "checkpoint_sha256": "3162d3f555b195edd6f107566ddfcc9aedaca36268d8df62b11eac5a632a9f45",
+  "reviewed_utc": "2026-09-13T02:08:37.960870+00:00",
+  "validation_successes": 117,
+  "confirmation_successes": 119,
+  "episodes_per_batch": 128,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-t1.png",
+    "success-t2.png",
+    "success-t3.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Recorded success frames show actual cube lifted above the basket at1s, lowered at2s and released inside by3s; the hand remains above the basket while the cube rests inside at10s and20s. The basket occludes the final cube, so endpoint geometry independently checks all full support corners inside XY/below rim/above floor, settled, released and floor contact. Selected failure attempts placement but ends with cube on the table outside; it correctly fails. Native CPU endpoint reconstruction agrees with authoritative GPU outcomes on all128 validation episodes (117 successes), with no reclassification. Success example46 has bottom0.00397259m on the4mm floor, XY extent0.03754m, linear1.11e-7m/s and angular4.79e-9rad/s; no robot contact. Both independent seeds14/15 exceed90%. All checkpoint/optimizer tensors finite; coneON/primitiveON/gyroOFF matched across training/evaluation. No physical model,60D/8D or success-gate change.",
+  "endpoint_audit": "place_r8_endpoint_audit.json",
+  "all_checkpoint_tensors_finite": true
+}

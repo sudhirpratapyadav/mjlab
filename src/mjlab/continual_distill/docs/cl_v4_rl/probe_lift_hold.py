@@ -28,9 +28,10 @@ def main():
   parser.add_argument('--fixed-only',action='store_true',help='Run only the fixed-grip current-arm intervention')
   parser.add_argument('--save-state',type=Path,help='Save matched CPU/GPU trajectory and final contact buffers for diagnosis')
   parser.add_argument('--primitive-box-box',action='store_true',help='Diagnostic GPU primitive box-box dispatch; CPU benchmark model remains unchanged')
+  parser.add_argument('--use-trace-controls',action='store_true',help='Freeze actual recorded terminal actuator targets instead of re-querying the policy')
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
-  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka')
+  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka')
   assert args.stride>=1
   assert not args.fixed_only or args.fixed_grip_target is not None
   assert not args.save_state or args.fixed_only, 'State recording requires one fixed-control case'
@@ -58,7 +59,8 @@ def main():
       values = trace['initial_model_geom_friction'][[r['env_id'] for r in records]]
       env.sim.model.geom_friction[:] = torch.as_tensor(values,device=env.device)
     command = env.command_manager.get_term(next(iter(cfg.env.commands)))
-    joint = next(i for i in range(model.njnt) if model.joint(i).name.startswith('cube/') and model.jnt_type[i]==mujoco.mjtJoint.mjJNT_FREE)
+    object_prefix=command.cfg.asset_name+'/'
+    joint = next(i for i in range(model.njnt) if model.joint(i).name.startswith(object_prefix) and model.jnt_type[i]==mujoco.mjtJoint.mjJNT_FREE)
     qadr,vadr = int(model.jnt_qposadr[joint]),int(model.jnt_dofadr[joint])
     local = {name:values.copy() for name,values in initial.items()}
     for address,kind in zip(model.jnt_qposadr,model.jnt_type):
@@ -74,21 +76,29 @@ def main():
       for name,values in placed.items():
         getattr(env.sim.data,name)[:]=torch.as_tensor(values,device=env.device)
       env.sim.data.qacc_warmstart.zero_()
-      command.target_pos[:]=torch.as_tensor(placed['mocap_pos'][:,1],device=env.device)
+      if evaluation['task']=='Mjlab-Reorient-Object-Franka':
+        anchor=np.stack([trace['qpos'][0,r['env_id'],qadr:qadr+3] for r in records])-source_origins
+        command.target_pos[:]=torch.as_tensor(anchor,device=env.device)+env.scene.env_origins
+      else:
+        command.target_pos[:]=torch.as_tensor(placed['mocap_pos'][:,1],device=env.device)
       env.sim.forward()
       env.scene.update(dt=env.physics_dt)
     restore()
-    agent = yaml.load((checkpoint.parent/'params/agent.yaml').read_text(),Loader=yaml.FullLoader)
-    agent['policy'].setdefault('class_name',cfg.agent.policy.class_name)
-    agent['algorithm'].setdefault('class_name',cfg.agent.algorithm.class_name)
-    runner = OnPolicyRunner(wrapped,agent,None,device=env.device)
-    runner.load(str(checkpoint),load_optimizer=False,map_location=env.device)
-    with torch.inference_mode():
-      action = runner.get_inference_policy()(wrapped.get_observations())
-    env.action_manager.process_action(action)
-    env.action_manager.apply_action()
-    env.scene.write_data_to_sim()
-    policy_ctrl = env.sim.data.ctrl.cpu().numpy().copy()
+    if args.use_trace_controls:
+      assert 'ctrl' in trace, 'This trace predates actual control recording'
+      policy_ctrl=np.stack([trace['ctrl'][r['steps'],r['env_id']] for r in records])
+    else:
+      agent = yaml.load((checkpoint.parent/'params/agent.yaml').read_text(),Loader=yaml.FullLoader)
+      agent['policy'].setdefault('class_name',cfg.agent.policy.class_name)
+      agent['algorithm'].setdefault('class_name',cfg.agent.algorithm.class_name)
+      runner = OnPolicyRunner(wrapped,agent,None,device=env.device)
+      runner.load(str(checkpoint),load_optimizer=False,map_location=env.device)
+      with torch.inference_mode():
+        action = runner.get_inference_policy()(wrapped.get_observations())
+      env.action_manager.process_action(action)
+      env.action_manager.apply_action()
+      env.scene.write_data_to_sim()
+      policy_ctrl = env.sim.data.ctrl.cpu().numpy().copy()
     randomized_fields = {event.params.get('field') for event in cfg.env.events.values()
                          if event.domain_randomization}
     assert randomized_fields<={'geom_friction'},randomized_fields
@@ -98,14 +108,15 @@ def main():
       cpu_model.geom_friction[:] = friction[lane]
     assert model.nu==8 and all(model.actuator_trnid[i,0]==model.joint(f'robot/joint{i+1}').id for i in range(7))
     cases = []
-    modes = ['frozen_policy_targets','hold_current_arm','hold_current_arm_gentle_grip']
+    frozen_mode='frozen_recorded_targets' if args.use_trace_controls else 'frozen_policy_targets'
+    modes = [frozen_mode,'hold_current_arm','hold_current_arm_gentle_grip']
     if args.fixed_grip_target is not None:
       modes.append('hold_current_arm_fixed_grip')
     if args.fixed_only:
       modes=['hold_current_arm_fixed_grip']
     for mode in modes:
       ctrl = policy_ctrl.copy()
-      if mode!='frozen_policy_targets':
+      if mode!=frozen_mode:
         ctrl[:,:7]=local['qpos'][:,:7]
       if mode=='hold_current_arm_gentle_grip':
         ctrl[:,7]=np.maximum(local['qpos'][:,7]-.002,0)
@@ -147,7 +158,7 @@ def main():
       for name,vel in [('gpu',gpu_qvel),('cpu',cpu_v)]:
         linear=np.linalg.norm(vel[:,vadr:vadr+3],axis=1)
         angular=np.linalg.norm(vel[:,vadr+3:vadr+6],axis=1)
-        native_linear=.1 if evaluation['task']=='Mjlab-Lift-Cube-Franka' else command.cfg.settle_speed
+        native_linear=.1 if evaluation['task']=='Mjlab-Lift-Cube-Franka' else getattr(command.cfg,'settle_speed',.03)
         native_angular=.5 if evaluation['task']=='Mjlab-Lift-Cube-Franka' else .3
         summary[name]=dict(settled=int(((linear<.1)&(angular<.5)).sum()),
                            native_settled=int(((linear<native_linear)&(angular<native_angular)).sum()),
@@ -164,7 +175,7 @@ def main():
                              positions_local_m=positions.tolist(),
                              goal_errors_m=np.linalg.norm(positions-local['mocap_pos'][:,1],axis=1).tolist())
       pads = [model.geom('robot/'+name).id for name in ['left_finger_pad','right_finger_pad']]
-      object_ids = {i for i in range(model.ngeom) if model.geom(i).name.startswith('cube/')}
+      object_ids = {i for i in range(model.ngeom) if model.geom(i).name.startswith(object_prefix)}
       cpu_grasp = []
       for cpu in cpus:
         cpu_grasp.append(all(any(contact.dist<=.001 and ((contact.geom[0]==pad and contact.geom[1] in object_ids) or (contact.geom[1]==pad and contact.geom[0] in object_ids)) for contact in cpu.contact) for pad in pads))
@@ -203,7 +214,8 @@ def main():
                 fixed_grip_target=args.fixed_grip_target,failures_only=args.failures_only,stride=args.stride,
                 state_archive=str(args.save_state) if args.save_state else None,
                 gpu_primitive_box_box=cfg.env.sim.primitive_box_box_compat,
-                method=f'Every {args.stride}th timeout terminal state, failed-only={args.failures_only}, cold solver cache,400 native steps with constant XML position-actuator controls. Policy queried once from restored observations; alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
+                actual_recorded_controls=args.use_trace_controls,
+                method=f'Every {args.stride}th timeout terminal state, failed-only={args.failures_only}, cold solver cache,400 native steps with constant XML position-actuator controls. '+('Actual applied terminal controls restored from trace; ' if args.use_trace_controls else 'Policy queried once from restored observations; ')+'alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
     args.output.write_text(json.dumps(report,indent=2)+'\n')
   finally:
     wrapped.close()

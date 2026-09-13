@@ -47,6 +47,11 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
       self.num_envs = 4
       self.max_episode_length = 4
       self.cfg = cfg
+      self.sim = SimpleNamespace(
+        data=SimpleNamespace(qpos=torch.zeros(4,3),qvel=torch.zeros(4,3),
+                             mocap_pos=torch.zeros(4,1,3),mocap_quat=torch.zeros(4,1,4),ctrl=torch.zeros(4,8)),
+        model=SimpleNamespace(geom_friction=torch.ones(4,1,3)))
+      self.scene = SimpleNamespace(env_origins=torch.zeros(4,3))
       self.lengths = torch.tensor([1, 3, 4, 2])
       self.steps = torch.zeros(4, dtype=torch.long)
       self.episode = torch.zeros(4, dtype=torch.long)
@@ -62,6 +67,7 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
       self.reset_time_outs = self.terms["time_out"]
 
     def _reset_idx(self, ids):
+      self.sim.data.ctrl[ids] = 999.
       self.steps[ids] = 0
       self.episode[ids] += 1
       # Deliberately make reset states report success: the terminal snapshot
@@ -71,6 +77,7 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
 
     def step(self, action):
       self.steps += 1
+      self.sim.data.ctrl[:] = self.steps[:,None].float()
       done = self.steps >= self.lengths
       first = self.episode == 0
       expected = torch.tensor([False, True, False, True])
@@ -113,7 +120,15 @@ def test_terminal_capture_subset_resets_and_retry_exclusion(monkeypatch, tmp_pat
                                                   'elliptic_hessian_compat':cone_compat,
                                                   'primitive_box_box_compat':box_compat,
                                                   'free_body_implicitfast_compat':gyro_compat}))
-  result = evaluation.evaluate("Mjlab-Reach-Target-Franka",checkpoint,4,123)
+  trace_dir=tmp_path/'trace'
+  result = evaluation.evaluate("Mjlab-Reach-Target-Franka",checkpoint,4,123,trace_dir)
+  import numpy as np
+  with np.load(trace_dir/'trace.npz') as archive:
+    controls=archive['ctrl']
+  assert 'ctrl' in result['trace_fields']
+  np.testing.assert_array_equal(controls[0],0)
+  for row in result['records']:
+    np.testing.assert_array_equal(controls[row['steps'],row['env_id']],row['steps'])
   assert result['free_body_implicitfast_compat'] is gyro_compat
   assert result['elliptic_hessian_compat'] is cone_compat
   assert result['primitive_box_box_compat'] is box_compat
