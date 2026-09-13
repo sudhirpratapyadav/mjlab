@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current scope: Lift-only motion correction; other23 teachers paused. S3 is complete and rejected (117/128 validation,114/128 confirmation; all motion targets fail). No training is currently active. Preserve R16 and complete diagnosis/preregistration before the next Lift trial. See STATUS.md for current results; running budgets below are historical.**
+**Current scope: Lift-only motion correction; other23 teachers paused. S4/S5 compare10×/100×S3 motion penalties from the same S1 parent,1000updates each on GPUs1/2. Both preflights passed and full pilots are running. Frozen final24488, validation14 and fresh conditional confirmations20/21; paired motion audit/videos follow automatically. See STATUS.md and Lift-S4/S5-evaluation-plan.json. Historical budgets below are superseded.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current: Lift-only10×/100× penalty bracket S4/S5 in preflight; no change to the other23 teachers. See Lift-S4-evaluation-plan.json and Lift-S5-evaluation-plan.json.**
+**Current: Lift-only10×/100× penalty bracket S4/S5 training on GPUs1/2 (1000 updates each); no change to the other23 teachers. See Lift-S4-evaluation-plan.json and Lift-S5-evaluation-plan.json.**
 
 **Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and Lift-S3-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
 

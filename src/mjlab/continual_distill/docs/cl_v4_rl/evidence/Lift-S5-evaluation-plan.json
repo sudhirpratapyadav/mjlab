@@ -28,5 +28,26 @@
   "preflight_run_id": "PREFLIGHT-LIFT-X100-082",
   "preflight_updates": 100,
   "preflight_initial_learning_rate": 5e-06,
-  "reason": "User requested increasing motion penalties by factors of10 to establish speed/success balance. Controlled coarse bracket: same successfulS1 parent, same1000update pilot budget and seed20260912, original exploration/normalizers/Adam; ONLY existing three motion costs scaled relative to S3. No new reward term, physics, filter, observation/action change. Preflight100updates2048envs, requirefinite and acceptedKL<=.03. Adopt lower of both preflight final LRs for BOTH full pilots, from ORIGINAL S1. These1000update pilots measure finite-budget response, not convergence. No interim checkpoints evaluated. If one setting slows motion but loses success, next preregistered test uses an intermediate scale; if neither slows, audit optimizer response before interpreting reward scale. All23other teachers remain paused. Validation metrics use all128 including early terminations; report episode duration to identify termination avoidance of penalties."
+  "reason": "User requested increasing motion penalties by factors of10 to establish speed/success balance. Controlled coarse bracket: same successfulS1 parent, same1000update pilot budget and seed20260912, original exploration/normalizers/Adam; ONLY existing three motion costs scaled relative to S3. No new reward term, physics, filter, observation/action change. Preflight100updates2048envs, requirefinite and acceptedKL<=.03. Adopt lower of both preflight final LRs for BOTH full pilots, from ORIGINAL S1. These1000update pilots measure finite-budget response, not convergence. No interim checkpoints evaluated. If one setting slows motion but loses success, next preregistered test uses an intermediate scale; if neither slows, audit optimizer response before interpreting reward scale. All23other teachers remain paused. Validation metrics use all128 including early terminations; report episode duration to identify termination avoidance of penalties.",
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-X100-082",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.027256019413471222,
+    "backtracks": 0,
+    "saved_learning_rate": 5e-06,
+    "checkpoint_sha256": "bed7a56b368c3d26161419a3c833e069b38f265d8c88399eb678d5b996ca83d0",
+    "final_std": [
+      0.003558519994840026,
+      0.004811774007976055,
+      0.0033353189937770367,
+      0.0038758735172450542,
+      0.005790304858237505,
+      0.0024994302075356245,
+      0.007049808744341135,
+      0.04431639984250069
+    ],
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  },
+  "common_learning_rate_rule": "Minimum saved LR across081/082; both full pilots start from originalS1, not the preflight models."
 }
