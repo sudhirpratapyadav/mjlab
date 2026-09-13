@@ -48,6 +48,7 @@ def main():
   parser.add_argument("--update-kl-diagnostics", action="store_true", help="Record rollout distribution drift before and after PPO updates without changing optimization")
   parser.add_argument("--max-update-kl", type=float, help="Opt in to PPO update rollback and LR halving above this rollout KL")
   parser.add_argument("--update-learning-rate-ceiling", type=float, help="Retry this LR on each new PPO update, with the same KL rollback guard")
+  parser.add_argument("--separate-gradient-clipping", action="store_true", help="Opt in to separate actor/noise and critic gradient norm bounds")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -148,6 +149,7 @@ def main():
       "update_kl_diagnostics": args.update_kl_diagnostics,
       "max_update_kl": args.max_update_kl,
       "update_learning_rate_ceiling": args.update_learning_rate_ceiling,
+      "separate_gradient_clipping": args.separate_gradient_clipping,
       "cpu_affinity": sorted(os.sched_getaffinity(0)),
       "slurm_cpus_per_task": os.environ.get("SLURM_CPUS_PER_TASK"),
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
@@ -169,7 +171,8 @@ def main():
                        resume_noise_scale=args.resume_noise_scale,
                        resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step,
                        learning_rate_override=args.learning_rate, update_kl_diagnostics=args.update_kl_diagnostics,
-                       max_update_kl=args.max_update_kl, update_learning_rate_ceiling=args.update_learning_rate_ceiling)
+                       max_update_kl=args.max_update_kl, update_learning_rate_ceiling=args.update_learning_rate_ceiling,
+                       separate_gradient_clipping=args.separate_gradient_clipping)
       run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys

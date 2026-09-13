@@ -1,0 +1,95 @@
+{
+  "first_rollout_identical": false,
+  "fingerprints": [
+    {
+      "obs/policy": "dc5c870ed3ace23373e945165e9f5ac594bb4d0895321d2f9cf695783de37c9e",
+      "obs/critic": "dc5c870ed3ace23373e945165e9f5ac594bb4d0895321d2f9cf695783de37c9e",
+      "actions": "d634305576951443155a113cd855a5b7ba5aa4a3d7ae164a1f5949c746fc5281",
+      "old_mean": "8c2531b6174e56835a44ed8345ba70cb5300f63a23207cc0c87cee44d80b2f30",
+      "old_std": "06f1b2ee542570f9e155f9f1abbdd278c59632ddd72ac7e582dbc8570c9d756e"
+    },
+    {
+      "obs/policy": "132eeff1637e93823752281d089c248b970ebc454c28c4873aec4bf1bdee3a72",
+      "obs/critic": "132eeff1637e93823752281d089c248b970ebc454c28c4873aec4bf1bdee3a72",
+      "actions": "0c1fcb7a2015671c57aded0390ffc093a5a23752d2847caf3d115afb366f0051",
+      "old_mean": "dc3c0f2f24a6415e6042273338235194b370c8c85009cdb02748e4e127a20287",
+      "old_std": "06f1b2ee542570f9e155f9f1abbdd278c59632ddd72ac7e582dbc8570c9d756e"
+    },
+    {
+      "obs/policy": "f412741b98c75f38c506abfb3d7718f0264070ccc33cb5e8e6615b0f79d664bd",
+      "obs/critic": "f412741b98c75f38c506abfb3d7718f0264070ccc33cb5e8e6615b0f79d664bd",
+      "actions": "ab8464809d6f888490469d42d4616a9a6dc5a20a6e288ec67a256560b6810ba9",
+      "old_mean": "f730bb46f319f36231e4124edc45f1400478372641429ab3fdea6b28cd42305b",
+      "old_std": "06f1b2ee542570f9e155f9f1abbdd278c59632ddd72ac7e582dbc8570c9d756e"
+    }
+  ],
+  "rows": [
+    {
+      "run_id": "PROBE-LIFT-GRAD-088",
+      "recipe": "lift_smooth_v2",
+      "first_minibatch": {
+        "update": 1,
+        "attempted_minibatch": 0,
+        "pre_clip_l2": {
+          "actor": 60.59673309326172,
+          "critic": 21805.009765625,
+          "exploration": 0.03277461230754852,
+          "other": 0.0
+        },
+        "total_norm_returned": 21805.09375,
+        "max_norm": 0.5,
+        "common_clip_multiplier": 2.2930421933043492e-05
+      },
+      "critic_fraction_squared_norm": 0.9999922770606546,
+      "actor_norm_after_common_clip": 0.0013895086575925108,
+      "attempted_minibatches": 20,
+      "accepted_kl": 0.01043875515460968,
+      "checkpoint_sha256": "3ecd74fe3aff354b28828a8d35a86f4ee10353f34a70c7e4b4a162b09e288bb4"
+    },
+    {
+      "run_id": "PROBE-LIFT-GRAD-089",
+      "recipe": "lift_smooth_x10",
+      "first_minibatch": {
+        "update": 1,
+        "attempted_minibatch": 0,
+        "pre_clip_l2": {
+          "actor": 54.19065475463867,
+          "critic": 266619.09375,
+          "exploration": 0.03204738348722458,
+          "other": 0.0
+        },
+        "total_norm_returned": 266619.09375,
+        "max_norm": 0.5,
+        "common_clip_multiplier": 1.875334556747681e-06
+      },
+      "critic_fraction_squared_norm": 0.999999958688931,
+      "actor_norm_after_common_clip": 0.00010162560751415692,
+      "attempted_minibatches": 20,
+      "accepted_kl": 0.009475626051425934,
+      "checkpoint_sha256": "e1959fca2b48786c2716c6429fe3c0499d13a115a1ae8993a715ff2c9d55ddbe"
+    },
+    {
+      "run_id": "PROBE-LIFT-GRAD-090",
+      "recipe": "lift_smooth_x100",
+      "first_minibatch": {
+        "update": 1,
+        "attempted_minibatch": 0,
+        "pre_clip_l2": {
+          "actor": 54.38908004760742,
+          "critic": 2714842.5,
+          "exploration": 0.03180059418082237,
+          "other": 0.0
+        },
+        "total_norm_returned": 2714842.5,
+        "max_norm": 0.5,
+        "common_clip_multiplier": 1.8417274666939828e-07
+      },
+      "critic_fraction_squared_norm": 0.9999999995986398,
+      "actor_norm_after_common_clip": 1.0016986261189625e-05,
+      "attempted_minibatches": 20,
+      "accepted_kl": 0.00903325341641903,
+      "checkpoint_sha256": "447014b03a8128a236be66888dbd8dfcdab5bd518ceb8f5877e4ed09ef3cebc8"
+    }
+  ],
+  "interpretation": "Pairing check FAILED: same requested seed/parent does not yield byte-identical rollout fingerprints. Do not treat cross-recipe gradient ratios as matched causal effects. Each individual gradient observation remains valid. Shared clipping magnitude does not establish reduced Adam parameter updates or explain full-run behavior by itself. All attempted minibatches archived per run; no teacher candidates."
+}

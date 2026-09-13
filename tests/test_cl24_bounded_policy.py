@@ -10,6 +10,40 @@ from tensordict import TensorDict
 from mjlab.scripts.train import TrainConfig
 
 
+def test_separate_clipping_protects_actor_from_critic_scale_and_restores_patch(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage))
+  module=importlib.import_module('teacher_runner')
+  class Policy(torch.nn.Module):
+    def __init__(self):
+      super().__init__()
+      self.actor=torch.nn.Linear(1,1,bias=False)
+      self.critic=torch.nn.Linear(1,1,bias=False)
+      self.log_std=torch.nn.Parameter(torch.zeros(1))
+  policy=Policy()
+  original=torch.nn.utils.clip_grad_norm_
+  def update(critic_gradient):
+    policy.actor.weight.grad=torch.full_like(policy.actor.weight,3.)
+    policy.log_std.grad=torch.full_like(policy.log_std,4.)
+    policy.critic.weight.grad=torch.full_like(policy.critic.weight,critic_gradient)
+    return torch.nn.utils.clip_grad_norm_(policy.parameters(),.5)
+  for magnitude in (10.,1e6):
+    combined=module.separately_clipped_update(policy,lambda:update(magnitude))
+    assert float(combined)==pytest.approx((25.+magnitude**2)**.5)
+    torch.testing.assert_close(policy.actor.weight.grad,torch.tensor([[.3]]))
+    torch.testing.assert_close(policy.log_std.grad,torch.tensor([.4]))
+    torch.testing.assert_close(policy.critic.weight.grad,torch.tensor([[.5]]))
+    assert torch.nn.utils.clip_grad_norm_ is original
+  # Default clipping still applies the library's shared bound after the context.
+  update(1e6)
+  assert float(policy.actor.weight.grad)<2e-6
+  def fail():
+    raise RuntimeError('synthetic update failure')
+  with pytest.raises(RuntimeError,match='synthetic'):
+    module.separately_clipped_update(policy,fail)
+  assert torch.nn.utils.clip_grad_norm_ is original
+
+
 @pytest.mark.parametrize('override,expected', [(None,1e-4),(5e-5,5e-5)])
 def test_resume_learning_rate_survives_adam_restore(monkeypatch,override,expected):
   stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'

@@ -5,9 +5,43 @@ import json
 import math
 from collections import deque
 from pathlib import Path
+from unittest.mock import patch
 
 import torch
 from rsl_rl.runners import OnPolicyRunner
+
+
+def separately_clipped_update(policy, update):
+  """Bound actor/noise and critic gradients independently for one PPO update.
+
+  The optional intervention is confined to this process and update. The shared
+  library, objective, Adam state and KL rollback logic are unchanged.
+  """
+  groups = [[], []]
+  for name, parameter in policy.named_parameters():
+    if name.startswith('actor.') or name in ('log_std', 'std'):
+      groups[0].append(parameter)
+    elif name.startswith('critic.'):
+      groups[1].append(parameter)
+    else:
+      raise ValueError(f'Unclassified PPO parameter: {name}')
+  expected = {id(parameter) for group in groups for parameter in group}
+  if not all(groups):
+    raise ValueError('Separate clipping requires disjoint actor and critic parameters')
+  original = torch.nn.utils.clip_grad_norm_
+
+  def clip(parameters, max_norm, norm_type=2., **kwargs):
+    values = list(parameters)
+    if len(values) != len(expected) or {id(p) for p in values} != expected:
+      raise ValueError('Separate clipping expects exactly this policy parameter set')
+    if norm_type != 2.:
+      raise ValueError('Separate PPO clipping currently requires L2 norm')
+    norms = [original(group, max_norm, norm_type=norm_type, **kwargs) for group in groups]
+    # Preserve the normal API's pre-clipping combined norm return value.
+    return torch.stack(norms).norm(2)
+
+  with patch('torch.nn.utils.clip_grad_norm_', clip):
+    return update()
 
 
 def scale_policy_exploration(policy, optimizer, factor):
@@ -139,7 +173,7 @@ def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8, learn
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, resume_arm_std=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, update_learning_rate_ceiling=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, resume_arm_std=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, update_learning_rate_ceiling=None, separate_gradient_clipping=False, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
     self.resume_noise_scale = resume_noise_scale
@@ -149,6 +183,9 @@ class TeacherRunner(OnPolicyRunner):
     update_kl_diagnostics |= max_update_kl is not None
     original_step = self.env.step
     original_update = self.alg.update
+    if separate_gradient_clipping:
+      shared_update = original_update
+      original_update = lambda: separately_clipped_update(self.alg.policy, shared_update)
     original_log = self.logger.log
     self._saturation = []
     self._update_metrics = {}
