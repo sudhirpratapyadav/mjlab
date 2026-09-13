@@ -1,0 +1,19 @@
+{
+  "preregistered_utc": "2026-09-13T04:23:14.234126+00:00",
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "run_id": "RL-024-R7-throw-box",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-024-R6-throw-cone/model_13099.pt",
+  "source_checkpoint_sha256": "5f1ec4f904b864525e8eb1ecabb065c400d903751d6b46a461574b222ce758fe",
+  "updates": 1000,
+  "expected_final_checkpoint": "model_14098.pt",
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260916,
+  "retired_confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "recipe": "throw_v4",
+  "learning_rate": 5e-05,
+  "elliptic_hessian_compat": true,
+  "primitive_box_box_compat": true,
+  "free_body_implicitfast_compat": false,
+  "reason": "Reproduced released-container angular contact artifact resolved18/18 in matched native/GPU replay;2 native parity tests and finite64x3/2048x100 PPO gates passed. All learned state retained, original13099 parent only. Full1000 updates before strict evaluation; confirmation16 only if116+ validation."
+}

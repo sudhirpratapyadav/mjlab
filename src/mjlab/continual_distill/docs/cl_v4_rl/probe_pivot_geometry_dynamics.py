@@ -12,6 +12,22 @@ from mjlab.tasks.registry import load_env_cfg
 from mjlab.tasks.manipulation.franka_interface import LOWER, UPPER
 
 
+def contact_wrench(model, data, index, body_geoms, origin):
+  """World wrench on the selected geom side, about origin.
+
+  MuJoCo contact force acts geom0 -> geom1; frame axes are stored as rows.
+  https://mujoco.readthedocs.io/en/latest/computation/#contact
+  """
+  contact=data.contact[index]
+  assert (contact.geom[0] in body_geoms) != (contact.geom[1] in body_geoms)
+  local=np.zeros(6);mujoco.mj_contactForce(model,data,index,local)
+  rotation=contact.frame.reshape(3,3).T
+  sign=1 if contact.geom[1] in body_geoms else -1
+  force=sign*(rotation@local[:3])
+  torque=sign*(rotation@local[3:])+np.cross(contact.pos-origin,force)
+  return np.r_[force,torque]
+
+
 def main():
   p=argparse.ArgumentParser(description=__doc__)
   p.add_argument('--evaluation',type=Path,required=True)
@@ -19,6 +35,7 @@ def main():
   p.add_argument('--standoff-audit',type=Path,required=True)
   p.add_argument('--output',type=Path,required=True)
   p.add_argument('--gravity-compensate',action='store_true')
+  p.add_argument('--contact-wrenches',action='store_true')
   args=p.parse_args()
   if args.output.exists():p.error('Output exists')
   ev=json.loads(args.evaluation.read_text());old=json.loads(args.legacy_audit.read_text());new=json.loads(args.standoff_audit.read_text())
@@ -27,6 +44,7 @@ def main():
   cfg=load_env_cfg(ev['task']);cfg.scene.num_envs=1
   template=Scene(cfg.scene,'cpu').compile();cfg.sim.mujoco.apply(template)
   board=template.body('board/board').id;grip=template.site('robot/gripper').id
+  wall_body=template.body('wall/wall_base').id
   joints=[template.joint(f'robot/joint{i}').id for i in range(1,8)];arm=template.jnt_qposadr[joints]
   arm_dof=template.jnt_dofadr[joints]
   fingers=[template.jnt_qposadr[template.joint('robot/'+n).id] for n in ['finger_joint1','finger_joint2']]
@@ -77,7 +95,7 @@ def main():
           value=nominal+(d.qfrc_bias[arm_dof]-d.qfrc_passive[arm_dof])/kp
           bounded=np.clip(value,np.asarray(LOWER[:7]),np.asarray(UPPER[:7]));clipped+=int(np.count_nonzero(value!=bounded));commands.append(bounded)
         control_start,control_finish=commands
-      restore();maximum=0.;minimum_obstacle=0.;minimum_object=0.;pivoted=False;finite=True;samples=[]
+      restore();maximum=0.;minimum_obstacle=0.;minimum_object=0.;pivoted=False;finite=True;samples=[];wrench_history=[]
       for tick in range(400):
         fraction=np.clip(((tick+1)*m.opt.timestep-.5)/1.,0,1) if press else 0.
         d.ctrl[:7]=(1-fraction)*control_start+fraction*control_finish;d.ctrl[7]=initial['qpos'][fingers].mean()
@@ -86,20 +104,30 @@ def main():
         if not finite:break
         if tick%4==3:
           mujoco.mj_forward(m,d);tilt=float(np.rad2deg(np.arccos(np.clip(abs(d.xmat[board].reshape(3,3)[2,2]),0,1))));maximum=max(maximum,tilt);contact=False
-          for c in d.contact:
+          origin=np.array([d.xpos[wall_body,0]-.0525,d.xpos[board,1],0.])
+          wrenches={name:np.zeros(6) for name in ('robot','wall','floor')}
+          for index,c in enumerate(d.contact):
             a,b=c.geom
             if (a in robot and b in obstacle) or (b in robot and a in obstacle):minimum_obstacle=min(minimum_obstacle,float(c.dist))
             if (a in robot and b in objects) or (b in robot and a in objects):minimum_object=min(minimum_object,float(c.dist))
             if c.dist<=.001 and ((a in wall and b in objects) or (b in wall and a in objects)):contact=True
+            if args.contact_wrenches and ((a in objects) != (b in objects)):
+              other=b if a in objects else a
+              category='robot' if other in robot else 'wall' if other in wall else 'floor' if other in obstacle else None
+              if category:wrenches[category]+=contact_wrench(m,d,index,objects,origin)
+          if args.contact_wrenches:
+            weight=m.body_mass[board]*m.opt.gravity
+            wrenches['gravity']=np.r_[weight,np.cross(d.xipos[board]-origin,weight)]
+            wrench_history.append(dict(time_s=(tick+1)*m.opt.timestep,**{k:v.tolist() for k,v in wrenches.items()}))
           pivoted|=contact and tilt>20
           if tick%40==39:samples.append(dict(time_s=(tick+1)*m.opt.timestep,tilt_deg=tilt,wall_contact=contact,board_position_m=d.xpos[board].tolist(),hand_position_m=d.site_xpos[grip].tolist(),nominal_hand_target_m=((1-fraction)*start_hand+fraction*finish_hand).tolist(),hand_target_error_m=float(np.linalg.norm(d.site_xpos[grip]-((1-fraction)*start_hand+fraction*finish_hand))),arm_target_rms_error_rad=float(np.sqrt(np.mean((d.ctrl[:7]-d.qpos[arm])**2)))))
-      cases.append(dict(mode=label,gravity_target_clipped_values=clipped,start_bias_rad=(control_start-start).tolist(),finish_bias_rad=(control_finish-finish).tolist(),finite=finite,warnings=d.warning.number.tolist(),max_tilt_deg=maximum,pivoted_with_wall_contact=bool(pivoted),min_robot_obstacle_distance_m=minimum_obstacle,min_robot_object_distance_m=minimum_object,finish_ik_error_m=ik_error,samples=samples))
+      cases.append(dict(mode=label,gravity_target_clipped_values=clipped,start_bias_rad=(control_start-start).tolist(),finish_bias_rad=(control_finish-finish).tolist(),finite=finite,warnings=d.warning.number.tolist(),max_tilt_deg=maximum,pivoted_with_wall_contact=bool(pivoted),min_robot_obstacle_distance_m=minimum_obstacle,min_robot_object_distance_m=minimum_object,finish_ik_error_m=ik_error,samples=samples,contact_wrenches=wrench_history))
     rows.append(dict(env_id=lane,source_step=step,corrected_static_gate=corrected['passes_contact_gate'],cases=cases))
   summary={}
   for i in range(len(modes)):
     cases=[r['cases'][i] for r in rows]
     summary[modes[i][0]]=dict(tilted_over20=sum(c['max_tilt_deg']>20 for c in cases),pivoted_with_wall_contact=sum(c['pivoted_with_wall_contact'] for c in cases),median_max_tilt_deg=float(np.median([c['max_tilt_deg'] for c in cases])),all_finite=all(c['finite'] for c in cases),warning_cases=sum(any(c['warnings']) for c in cases),gravity_target_clipped_cases=sum(c['gravity_target_clipped_values']>0 for c in cases),obstacle_penetrations_over3mm=sum(c['min_robot_obstacle_distance_m']<-.003 for c in cases),max_finish_ik_error_m=max(c['finish_ik_error_m'] for c in cases),median_hand_error_at04s_m=float(np.median([c['samples'][1]['hand_target_error_m'] for c in cases])),median_final_hand_error_m=float(np.median([c['samples'][-1]['hand_target_error_m'] for c in cases])))
-  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],episodes=len(rows),gravity_compensated_targets=args.gravity_compensate,method='Native CPU400x5ms steps from all32 original recorded states and velocities with source friction/cold solver cache. Restore original hand state, never IK endpoint initialization. Compare legacy absolute hold, corrected60mm extent+2mm outward hold, and corrected hold followed after0.5s by one-second linear joint-target interpolation to10mm press/20mm climb or20mm press/40mm climb. Optional flagged gravity compensation changes only bounded joint-position targets using native zero-velocity bias/passive forces divided by verified actuator kp. Keep original wrist and finger target. Report20deg tilt with actual wall contact as a mechanism diagnostic only; these controls never enter training or RL evaluation.',summary=summary,rows=rows)
+  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],episodes=len(rows),gravity_compensated_targets=args.gravity_compensate,contact_wrenches=args.contact_wrenches,wrench_convention='World forceXYZ and torqueXYZ on board about wall near-face/floor point at boardY; contact-frame force acts geom0 toward geom1, axes stored as rows. Recomputed native solver forces every20ms, grouped by robot/wall/floor; gravity reported separately. https://mujoco.readthedocs.io/en/latest/computation/#contact',method='Native CPU400x5ms steps from all32 original recorded states and velocities with source friction/cold solver cache. Restore original hand state, never IK endpoint initialization. Compare legacy absolute hold, corrected60mm extent+2mm outward hold, and corrected hold followed after0.5s by one-second linear joint-target interpolation to10mm press/20mm climb or20mm press/40mm climb. Optional flagged gravity compensation changes only bounded joint-position targets using native zero-velocity bias/passive forces divided by verified actuator kp. Keep original wrist and finger target. Report20deg tilt with actual wall contact as a mechanism diagnostic only; these controls never enter training or RL evaluation.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 

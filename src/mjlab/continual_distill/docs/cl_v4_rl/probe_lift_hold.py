@@ -29,18 +29,21 @@ def main():
   parser.add_argument('--save-state',type=Path,help='Save matched CPU/GPU trajectory and final contact buffers for diagnosis')
   parser.add_argument('--primitive-box-box',action='store_true',help='Diagnostic GPU primitive box-box dispatch; CPU benchmark model remains unchanged')
   parser.add_argument('--use-trace-controls',action='store_true',help='Freeze actual recorded terminal actuator targets instead of re-querying the policy')
+  parser.add_argument('--recorded-only',action='store_true',help='Run only the actual recorded terminal-control hold')
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
   assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka', 'Mjlab-Reorient-Object-Franka')
   assert args.stride>=1
   assert not args.fixed_only or args.fixed_grip_target is not None
-  assert not args.save_state or args.fixed_only, 'State recording requires one fixed-control case'
+  assert not args.recorded_only or args.use_trace_controls
+  assert not args.save_state or args.fixed_only or args.recorded_only, 'State recording requires one control case'
   checkpoint = Path(evaluation['checkpoint'])
   manifest = json.loads((checkpoint.parent/'manifest.json').read_text())
   cfg = TrainConfig.from_task(evaluation['task'])
   apply_recipe(cfg,manifest['recipe'])
   cfg.env.sim.free_body_implicitfast_compat = args.gyro or manifest.get('free_body_implicitfast_compat', False)
   cfg.env.sim.elliptic_hessian_compat = manifest.get('elliptic_hessian_compat', False)
+  cfg.env.sim.primitive_box_box_compat = args.primitive_box_box or manifest.get('primitive_box_box_compat', False)
   records = [r for r in evaluation['records'] if r['reason']=='timeout' and (not args.failures_only or not r['success'])][::args.stride]
   assert records, 'No selected episodes'
   cfg.env.scene.num_envs = len(records)
@@ -114,6 +117,8 @@ def main():
       modes.append('hold_current_arm_fixed_grip')
     if args.fixed_only:
       modes=['hold_current_arm_fixed_grip']
+    if args.recorded_only:
+      modes=[frozen_mode]
     for mode in modes:
       ctrl = policy_ctrl.copy()
       if mode!=frozen_mode:

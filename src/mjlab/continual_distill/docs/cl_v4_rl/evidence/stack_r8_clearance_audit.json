@@ -1,0 +1,2452 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "9c9ab52ed86fecf4b54e51c824ce60938b0e48427650b3e1bf26942c872a85e1",
+  "method": "CPU FK/contact queries every tenth recorded20ms state plus exact terminal. Stack target reconstructed from current base root pose and native stack_height. Contact distance<=1mm; opposed pads additionally require inward normal cosine>0.5. Original friction restored. No integration, intervention or success substitution.",
+  "summary": {
+    "episodes": 128,
+    "ever_opposed_contact": 128,
+    "ever_above_stack_height": 128,
+    "terminal_opposed_contact": 105,
+    "terminal_object_base_contact": 34,
+    "terminal_robot_base_contact": 1,
+    "median_terminal_height_m": 0.055823907256126404,
+    "median_terminal_height_below_target_m": -0.0032603130128564285,
+    "median_terminal_xy_error_m": 0.011315183366464586,
+    "held_below_target_samples": 96,
+    "held_object_base_contact_samples": 2813
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.052458085119724274,
+        "target_height_m": 0.052488075748958286,
+        "height_below_target_m": 2.999062923401269e-05,
+        "xy_error_m": 0.016848808004370133,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06792248785495758,
+      "min_sampled_xy_error_m": 0.0023356001959324336,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 1,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05562455207109451,
+        "target_height_m": 0.05252374857227219,
+        "height_below_target_m": -0.003100803498822323,
+        "xy_error_m": 0.005706342005273797,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0578581765294075,
+      "min_sampled_xy_error_m": 0.0015109414697093073,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 32
+    },
+    {
+      "env_id": 2,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05670576170086861,
+        "target_height_m": 0.05253869628083388,
+        "height_below_target_m": -0.004167065420034727,
+        "xy_error_m": 0.02456054593877718,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.062278613448143005,
+      "min_sampled_xy_error_m": 0.004038121116733643,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 31
+    },
+    {
+      "env_id": 3,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05744441598653793,
+        "target_height_m": 0.05253879500207493,
+        "height_below_target_m": -0.004905620984463004,
+        "xy_error_m": 0.005607331009679843,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06013856828212738,
+      "min_sampled_xy_error_m": 0.0010408512492722565,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 34
+    },
+    {
+      "env_id": 4,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05534251779317856,
+        "target_height_m": 0.05244943260562583,
+        "height_below_target_m": -0.002893085187552727,
+        "xy_error_m": 0.017160438896732362,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.058897119015455246,
+      "min_sampled_xy_error_m": 0.0022888901498189433,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 19
+    },
+    {
+      "env_id": 5,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05545144900679588,
+        "target_height_m": 0.052392390653327126,
+        "height_below_target_m": -0.0030590583534687577,
+        "xy_error_m": 0.005278128930589725,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06681884080171585,
+      "min_sampled_xy_error_m": 0.0011793979561801617,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 34
+    },
+    {
+      "env_id": 6,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.059416692703962326,
+        "target_height_m": 0.05253833958958566,
+        "height_below_target_m": -0.006878353114376665,
+        "xy_error_m": 0.0009644108803518461,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06408382207155228,
+      "min_sampled_xy_error_m": 0.0002323246078217544,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 38
+    },
+    {
+      "env_id": 7,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05671968311071396,
+        "target_height_m": 0.05253476233263632,
+        "height_below_target_m": -0.004184920778077639,
+        "xy_error_m": 0.007783485869181143,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06646618247032166,
+      "min_sampled_xy_error_m": 0.002897675171630588,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 8,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.054679613560438156,
+        "target_height_m": 0.052518857469112515,
+        "height_below_target_m": -0.0021607560913256413,
+        "xy_error_m": 0.01646134460200736,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06315910816192627,
+      "min_sampled_xy_error_m": 0.0008354348263681331,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 42
+    },
+    {
+      "env_id": 9,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05662863701581955,
+        "target_height_m": 0.05248951538035345,
+        "height_below_target_m": -0.004139121635466099,
+        "xy_error_m": 0.000714275308720218,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06103942170739174,
+      "min_sampled_xy_error_m": 0.00019268156458275234,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 10,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.026358842849731445,
+        "target_height_m": 0.05253879779603233,
+        "height_below_target_m": 0.026179954946300883,
+        "xy_error_m": 0.3548680848311046,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0752084031701088,
+      "min_sampled_xy_error_m": 0.002191739398487638,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 8
+    },
+    {
+      "env_id": 11,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0553436353802681,
+        "target_height_m": 0.052499775083129835,
+        "height_below_target_m": -0.002843860297138262,
+        "xy_error_m": 0.008997396609285063,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06304235011339188,
+      "min_sampled_xy_error_m": 0.0070076713179259426,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 34
+    },
+    {
+      "env_id": 12,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05416768044233322,
+        "target_height_m": 0.05224919287318813,
+        "height_below_target_m": -0.0019184875691450887,
+        "xy_error_m": 0.016785253955016,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06012815609574318,
+      "min_sampled_xy_error_m": 0.0025750755508005285,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 12
+    },
+    {
+      "env_id": 13,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05741395428776741,
+        "target_height_m": 0.05244713537539653,
+        "height_below_target_m": -0.004966818912370878,
+        "xy_error_m": 0.005551240615388863,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06740058958530426,
+      "min_sampled_xy_error_m": 0.0003750637330802426,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 5
+    },
+    {
+      "env_id": 14,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0525958389043808,
+        "target_height_m": 0.05200176778815023,
+        "height_below_target_m": -0.0005940711162305684,
+        "xy_error_m": 0.012506972084423066,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06676153838634491,
+      "min_sampled_xy_error_m": 0.0008910014437306794,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 15
+    },
+    {
+      "env_id": 15,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0550958551466465,
+        "target_height_m": 0.05251878182858042,
+        "height_below_target_m": -0.0025770733180660796,
+        "xy_error_m": 0.012093195307963106,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06550099700689316,
+      "min_sampled_xy_error_m": 0.002046526940460405,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 19
+    },
+    {
+      "env_id": 16,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05627238750457764,
+        "target_height_m": 0.05253651413475928,
+        "height_below_target_m": -0.003735873369818357,
+        "xy_error_m": 0.0075677912667703115,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06233932450413704,
+      "min_sampled_xy_error_m": 0.001557499783520131,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 16
+    },
+    {
+      "env_id": 17,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.058110084384679794,
+        "target_height_m": 0.052477679205062425,
+        "height_below_target_m": -0.00563240517961737,
+        "xy_error_m": 0.007640451328466055,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.060625091195106506,
+      "min_sampled_xy_error_m": 0.004510144397602352,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 45
+    },
+    {
+      "env_id": 18,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05440005287528038,
+        "target_height_m": 0.052478362604497356,
+        "height_below_target_m": -0.0019216902707830247,
+        "xy_error_m": 0.012748677461713345,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0754375159740448,
+      "min_sampled_xy_error_m": 0.008053942067642017,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 3,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 19,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.047881416976451874,
+        "target_height_m": 0.05253879779604582,
+        "height_below_target_m": 0.004657380819593944,
+        "xy_error_m": 0.07706110693658745,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06895483285188675,
+      "min_sampled_xy_error_m": 0.00813903478601486,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 11
+    },
+    {
+      "env_id": 20,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.055786699056625366,
+        "target_height_m": 0.052521160371674154,
+        "height_below_target_m": -0.003265538684951212,
+        "xy_error_m": 0.014396611101839612,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06471007317304611,
+      "min_sampled_xy_error_m": 0.0021791729139563607,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 21
+    },
+    {
+      "env_id": 21,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.052500851452350616,
+        "target_height_m": 0.05250782575922896,
+        "height_below_target_m": 6.9743068783420514e-06,
+        "xy_error_m": 0.014651247799383487,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06699925661087036,
+      "min_sampled_xy_error_m": 0.0006232698223431743,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 22,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05493945628404617,
+        "target_height_m": 0.0524969214788825,
+        "height_below_target_m": -0.002442534805163675,
+        "xy_error_m": 0.015237686883419007,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06231440603733063,
+      "min_sampled_xy_error_m": 0.004307756430695452,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 22
+    },
+    {
+      "env_id": 23,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05389540269970894,
+        "target_height_m": 0.052125194218385365,
+        "height_below_target_m": -0.0017702084813235736,
+        "xy_error_m": 0.010500719498243308,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.057791709899902344,
+      "min_sampled_xy_error_m": 0.0013654858821743167,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 38
+    },
+    {
+      "env_id": 24,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05730690434575081,
+        "target_height_m": 0.05251732136662526,
+        "height_below_target_m": -0.004789582979125552,
+        "xy_error_m": 0.009723390137815983,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06418119370937347,
+      "min_sampled_xy_error_m": 0.007652476685330271,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 7
+    },
+    {
+      "env_id": 25,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05773419141769409,
+        "target_height_m": 0.052530584733395315,
+        "height_below_target_m": -0.005203606684298777,
+        "xy_error_m": 0.018009243425104817,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06366129219532013,
+      "min_sampled_xy_error_m": 0.0064399700357225,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 28
+    },
+    {
+      "env_id": 26,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.021768363192677498,
+        "target_height_m": 0.05253879593339746,
+        "height_below_target_m": 0.030770432740719965,
+        "xy_error_m": 0.11690106331875066,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06595224887132645,
+      "min_sampled_xy_error_m": 0.006364095049441118,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 18
+    },
+    {
+      "env_id": 27,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05569035932421684,
+        "target_height_m": 0.05253879593339697,
+        "height_below_target_m": -0.0031515633908198726,
+        "xy_error_m": 0.0020554226771309055,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06124941632151604,
+      "min_sampled_xy_error_m": 0.0003524578184170928,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 28
+    },
+    {
+      "env_id": 28,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05724966898560524,
+        "target_height_m": 0.052521053720713334,
+        "height_below_target_m": -0.0047286152648919055,
+        "xy_error_m": 0.008550563396271542,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.059700705111026764,
+      "min_sampled_xy_error_m": 0.0020334445293806085,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 8,
+      "held_object_base_contact_samples": 38
+    },
+    {
+      "env_id": 29,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05642174929380417,
+        "target_height_m": 0.05245609164042578,
+        "height_below_target_m": -0.0039656576533783905,
+        "xy_error_m": 0.004426917861507813,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06753890961408615,
+      "min_sampled_xy_error_m": 0.0014469378215904122,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 53
+    },
+    {
+      "env_id": 30,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05836762860417366,
+        "target_height_m": 0.05252916091982157,
+        "height_below_target_m": -0.005838467684352089,
+        "xy_error_m": 0.0036490903664091077,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0615059994161129,
+      "min_sampled_xy_error_m": 0.0011512071176170498,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 3
+    },
+    {
+      "env_id": 31,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05267633497714996,
+        "target_height_m": 0.052614069137191515,
+        "height_below_target_m": -6.226583995844887e-05,
+        "xy_error_m": 0.020932169845598887,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05752289295196533,
+      "min_sampled_xy_error_m": 0.004772007124269365,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 26
+    },
+    {
+      "env_id": 32,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.059236157685518265,
+        "target_height_m": 0.05241269982711122,
+        "height_below_target_m": -0.006823457858407045,
+        "xy_error_m": 0.0003959506375894892,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07160566002130508,
+      "min_sampled_xy_error_m": 0.0003423489885738056,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 2,
+      "held_object_base_contact_samples": 3
+    },
+    {
+      "env_id": 33,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05773255601525307,
+        "target_height_m": 0.05227947898760711,
+        "height_below_target_m": -0.005453077027645956,
+        "xy_error_m": 0.003598318877436021,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05935138463973999,
+      "min_sampled_xy_error_m": 0.0012616754819309373,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 5
+    },
+    {
+      "env_id": 34,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05682552978396416,
+        "target_height_m": 0.05251233441496125,
+        "height_below_target_m": -0.00431319536900291,
+        "xy_error_m": 0.037105586167764174,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07991275936365128,
+      "min_sampled_xy_error_m": 0.018237897667753796,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 11
+    },
+    {
+      "env_id": 35,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05721880868077278,
+        "target_height_m": 0.052517298457238036,
+        "height_below_target_m": -0.004701510223534745,
+        "xy_error_m": 0.0038909897141241145,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0751648023724556,
+      "min_sampled_xy_error_m": 0.0009567781531272747,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 22
+    },
+    {
+      "env_id": 36,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05225532501935959,
+        "target_height_m": 0.052863263062108846,
+        "height_below_target_m": 0.0006079380427492578,
+        "xy_error_m": 0.012163923071992187,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06292115896940231,
+      "min_sampled_xy_error_m": 0.0010948752689846498,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 37,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.055751681327819824,
+        "target_height_m": 0.052538797796042286,
+        "height_below_target_m": -0.0032128835317775384,
+        "xy_error_m": 0.006821533293392826,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06555982679128647,
+      "min_sampled_xy_error_m": 0.0007436315780490977,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 28
+    },
+    {
+      "env_id": 38,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05585497245192528,
+        "target_height_m": 0.05253121561260335,
+        "height_below_target_m": -0.0033237568393219286,
+        "xy_error_m": 0.006613628569779609,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.057754263281822205,
+      "min_sampled_xy_error_m": 0.00021264785788808118,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 39,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.057073235511779785,
+        "target_height_m": 0.05244135627388707,
+        "height_below_target_m": -0.004631879237892718,
+        "xy_error_m": 0.007184077909303397,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06586239486932755,
+      "min_sampled_xy_error_m": 0.002653576877832514,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 7
+    },
+    {
+      "env_id": 40,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0573306679725647,
+        "target_height_m": 0.05253879313939451,
+        "height_below_target_m": -0.004791874833170187,
+        "xy_error_m": 0.005539729205835655,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06277628988027573,
+      "min_sampled_xy_error_m": 0.004490011371741576,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 9
+    },
+    {
+      "env_id": 41,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05283951014280319,
+        "target_height_m": 0.052507726987458654,
+        "height_below_target_m": -0.000331783155344538,
+        "xy_error_m": 0.019010836646719848,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06329624354839325,
+      "min_sampled_xy_error_m": 0.0068800869263693845,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 42,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0604504756629467,
+        "target_height_m": 0.05244709294024554,
+        "height_below_target_m": -0.00800338272270116,
+        "xy_error_m": 0.005677811383106953,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06299052387475967,
+      "min_sampled_xy_error_m": 0.0003530014029653378,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 2,
+      "held_object_base_contact_samples": 48
+    },
+    {
+      "env_id": 43,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.06343638896942139,
+        "target_height_m": 0.0525378981386921,
+        "height_below_target_m": -0.010898490830729288,
+        "xy_error_m": 0.017088027460317182,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0670410767197609,
+      "min_sampled_xy_error_m": 0.00845372671957505,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 54
+    },
+    {
+      "env_id": 44,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05737447366118431,
+        "target_height_m": 0.052493556260181026,
+        "height_below_target_m": -0.004880917401003285,
+        "xy_error_m": 0.015134740679811633,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06825084984302521,
+      "min_sampled_xy_error_m": 0.005520150433578605,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 6
+    },
+    {
+      "env_id": 45,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05639491230249405,
+        "target_height_m": 0.05244506868862013,
+        "height_below_target_m": -0.0039498436138739185,
+        "xy_error_m": 0.0023784501162854806,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07453851401805878,
+      "min_sampled_xy_error_m": 0.0012137102809793802,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 21
+    },
+    {
+      "env_id": 46,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056503936648368835,
+        "target_height_m": 0.05252665650278324,
+        "height_below_target_m": -0.003977280145585599,
+        "xy_error_m": 0.009867331783656806,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06737274676561356,
+      "min_sampled_xy_error_m": 0.004011309893944004,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 3
+    },
+    {
+      "env_id": 47,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05448012053966522,
+        "target_height_m": 0.05223038391925295,
+        "height_below_target_m": -0.0022497366204122723,
+        "xy_error_m": 0.028869340617562116,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07807033509016037,
+      "min_sampled_xy_error_m": 0.002669282704462947,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 2
+    },
+    {
+      "env_id": 48,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05908691883087158,
+        "target_height_m": 0.052512024697461496,
+        "height_below_target_m": -0.006574894133410086,
+        "xy_error_m": 0.003747436881243311,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06558279693126678,
+      "min_sampled_xy_error_m": 0.000885177021603716,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 8
+    },
+    {
+      "env_id": 49,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05410866066813469,
+        "target_height_m": 0.05253755259076234,
+        "height_below_target_m": -0.0015711080773723463,
+        "xy_error_m": 0.007158054029059557,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05842549353837967,
+      "min_sampled_xy_error_m": 0.0005102688874810226,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 50,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05523345246911049,
+        "target_height_m": 0.052476294391217614,
+        "height_below_target_m": -0.0027571580778928753,
+        "xy_error_m": 0.010395379423775298,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06876087933778763,
+      "min_sampled_xy_error_m": 0.0013394195558689387,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 51,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05451991781592369,
+        "target_height_m": 0.052532406602609626,
+        "height_below_target_m": -0.001987511213314065,
+        "xy_error_m": 0.00660693206551044,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06330657005310059,
+      "min_sampled_xy_error_m": 0.0007505576946242572,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 52,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05348270758986473,
+        "target_height_m": 0.0524285748379822,
+        "height_below_target_m": -0.0010541327518825278,
+        "xy_error_m": 0.01846713588508275,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.060284439474344254,
+      "min_sampled_xy_error_m": 0.01014039592407243,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 30
+    },
+    {
+      "env_id": 53,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.06358089298009872,
+        "target_height_m": 0.052538795002066124,
+        "height_below_target_m": -0.0110420979780326,
+        "xy_error_m": 0.038573636392159036,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06358089298009872,
+      "min_sampled_xy_error_m": 0.003737391230816781,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 3,
+      "held_object_base_contact_samples": 41
+    },
+    {
+      "env_id": 54,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05151659995317459,
+        "target_height_m": 0.052291397871599476,
+        "height_below_target_m": 0.0007747979184248854,
+        "xy_error_m": 0.016514353608100194,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06070134416222572,
+      "min_sampled_xy_error_m": 0.0013702572622358558,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 29
+    },
+    {
+      "env_id": 55,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056376174092292786,
+        "target_height_m": 0.05249051921196353,
+        "height_below_target_m": -0.003885654880329256,
+        "xy_error_m": 0.00653051719648201,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06085151433944702,
+      "min_sampled_xy_error_m": 0.0003838037296859932,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 56,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05602825805544853,
+        "target_height_m": 0.05248579257686525,
+        "height_below_target_m": -0.0035424654785832788,
+        "xy_error_m": 0.010732570899367763,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06007685512304306,
+      "min_sampled_xy_error_m": 0.0004882126318160443,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 8
+    },
+    {
+      "env_id": 57,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05351962894201279,
+        "target_height_m": 0.05337893091752157,
+        "height_below_target_m": -0.0001406980244912162,
+        "xy_error_m": 0.017967640851254685,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06572012603282928,
+      "min_sampled_xy_error_m": 0.003108559691952005,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 26
+    },
+    {
+      "env_id": 58,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.06535401940345764,
+        "target_height_m": 0.05250047170608369,
+        "height_below_target_m": -0.01285354769737395,
+        "xy_error_m": 0.058084782293927384,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07106998562812805,
+      "min_sampled_xy_error_m": 0.006365332081066876,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 59,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05740978941321373,
+        "target_height_m": 0.05207015782196319,
+        "height_below_target_m": -0.005339631591250539,
+        "xy_error_m": 0.011918199652450629,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06560726463794708,
+      "min_sampled_xy_error_m": 0.0018750999640288065,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 8
+    },
+    {
+      "env_id": 60,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05554682016372681,
+        "target_height_m": 0.05261385732384572,
+        "height_below_target_m": -0.0029329628398810856,
+        "xy_error_m": 0.008894277014235666,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06297711282968521,
+      "min_sampled_xy_error_m": 0.00031330302826925436,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 5
+    },
+    {
+      "env_id": 61,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05264109745621681,
+        "target_height_m": 0.052713945811852306,
+        "height_below_target_m": 7.284835563549363e-05,
+        "xy_error_m": 0.012922275776450562,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07102622091770172,
+      "min_sampled_xy_error_m": 0.0008711541081380493,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 62,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05577544495463371,
+        "target_height_m": 0.05253494212473513,
+        "height_below_target_m": -0.0032405028298985797,
+        "xy_error_m": 0.008134966822679994,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06349050998687744,
+      "min_sampled_xy_error_m": 0.0026457179936677246,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 3
+    },
+    {
+      "env_id": 63,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.031294841319322586,
+        "target_height_m": 0.05253879593339816,
+        "height_below_target_m": 0.02124395461407557,
+        "xy_error_m": 0.1292928142757368,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07652692496776581,
+      "min_sampled_xy_error_m": 0.008006691371726975,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 5,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 64,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056174032390117645,
+        "target_height_m": 0.05246022481560638,
+        "height_below_target_m": -0.0037138075745112645,
+        "xy_error_m": 0.007142954533454064,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.061951469630002975,
+      "min_sampled_xy_error_m": 0.00037720736813876444,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 52
+    },
+    {
+      "env_id": 65,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.06062048301100731,
+        "target_height_m": 0.05330862123276659,
+        "height_below_target_m": -0.007311861778240718,
+        "xy_error_m": 0.019327121845659052,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07243422418832779,
+      "min_sampled_xy_error_m": 0.0013812036705241274,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 5
+    },
+    {
+      "env_id": 66,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056740231812000275,
+        "target_height_m": 0.0525387959333974,
+        "height_below_target_m": -0.004201435878602874,
+        "xy_error_m": 0.0043920710807895755,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06586098670959473,
+      "min_sampled_xy_error_m": 0.0031903476833739677,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 39
+    },
+    {
+      "env_id": 67,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05633063241839409,
+        "target_height_m": 0.0525387977960301,
+        "height_below_target_m": -0.0037918346223639876,
+        "xy_error_m": 0.004693907334668485,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06372934579849243,
+      "min_sampled_xy_error_m": 0.0007191656223568369,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 32
+    },
+    {
+      "env_id": 68,
+      "terminal": {
+        "step": 421,
+        "object_height_m": 0.03128870204091072,
+        "target_height_m": 0.052538795933397324,
+        "height_below_target_m": 0.021250093892486603,
+        "xy_error_m": 0.6470799364963224,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0626467764377594,
+      "min_sampled_xy_error_m": 0.0015162052079439562,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 69,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05500808358192444,
+        "target_height_m": 0.052453282356747774,
+        "height_below_target_m": -0.0025548012251766644,
+        "xy_error_m": 0.0169751304785411,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06247784569859505,
+      "min_sampled_xy_error_m": 0.0011682798590622124,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 12
+    },
+    {
+      "env_id": 70,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05664122849702835,
+        "target_height_m": 0.05249494196627877,
+        "height_below_target_m": -0.004146286530749582,
+        "xy_error_m": 0.006840869927345601,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0692208781838417,
+      "min_sampled_xy_error_m": 0.00042842535581973036,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 26
+    },
+    {
+      "env_id": 71,
+      "terminal": {
+        "step": 847,
+        "object_height_m": 0.0951937735080719,
+        "target_height_m": 0.05253879313955578,
+        "height_below_target_m": -0.04265498036851612,
+        "xy_error_m": 0.7292446983576609,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0951937735080719,
+      "min_sampled_xy_error_m": 0.0023026235910993615,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 32
+    },
+    {
+      "env_id": 72,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.022538794204592705,
+        "target_height_m": 0.05253879593339733,
+        "height_below_target_m": 0.030000001728804626,
+        "xy_error_m": 0.07517593570393709,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05910050496459007,
+      "min_sampled_xy_error_m": 0.006976327691784485,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 6
+    },
+    {
+      "env_id": 73,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.057405151426792145,
+        "target_height_m": 0.05221271188030391,
+        "height_below_target_m": -0.005192439546488237,
+        "xy_error_m": 0.01114037686833166,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06060878187417984,
+      "min_sampled_xy_error_m": 0.001914434948460495,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 7
+    },
+    {
+      "env_id": 74,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05579284206032753,
+        "target_height_m": 0.052537754719565885,
+        "height_below_target_m": -0.003255087340761645,
+        "xy_error_m": 0.0037009218758551695,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07035017013549805,
+      "min_sampled_xy_error_m": 0.0011798837305123475,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 12
+    },
+    {
+      "env_id": 75,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.022538403049111366,
+        "target_height_m": 0.052538795933401536,
+        "height_below_target_m": 0.03000039288429017,
+        "xy_error_m": 0.08705609855775953,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06111400946974754,
+      "min_sampled_xy_error_m": 0.004496595358859416,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 76,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05244055390357971,
+        "target_height_m": 0.052164174537790826,
+        "height_below_target_m": -0.0002763793657888855,
+        "xy_error_m": 0.021157093860931276,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.059582583606243134,
+      "min_sampled_xy_error_m": 0.002150855582011482,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 51
+    },
+    {
+      "env_id": 77,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056656159460544586,
+        "target_height_m": 0.05747957409343074,
+        "height_below_target_m": 0.0008234146328861547,
+        "xy_error_m": 0.00979723990209102,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06519140303134918,
+      "min_sampled_xy_error_m": 0.0018332199510553496,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 12
+    },
+    {
+      "env_id": 78,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.053944166749715805,
+        "target_height_m": 0.05347839741453763,
+        "height_below_target_m": -0.0004657693351781747,
+        "xy_error_m": 0.028812771489736294,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.058227475732564926,
+      "min_sampled_xy_error_m": 0.0002474846128598779,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 16
+    },
+    {
+      "env_id": 79,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056186240166425705,
+        "target_height_m": 0.05252702815880783,
+        "height_below_target_m": -0.0036592120076178736,
+        "xy_error_m": 0.004118615250877853,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05860227346420288,
+      "min_sampled_xy_error_m": 0.002274810644965104,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 29
+    },
+    {
+      "env_id": 80,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0568477027118206,
+        "target_height_m": 0.052511070003189206,
+        "height_below_target_m": -0.004336632708631397,
+        "xy_error_m": 0.012321358383849294,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07339184731245041,
+      "min_sampled_xy_error_m": 0.005135173408161514,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 6
+    },
+    {
+      "env_id": 81,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.055518776178359985,
+        "target_height_m": 0.05252487247214173,
+        "height_below_target_m": -0.0029939037062182566,
+        "xy_error_m": 0.008403302397356125,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06372828781604767,
+      "min_sampled_xy_error_m": 0.0023399096605178334,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 17
+    },
+    {
+      "env_id": 82,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056725915521383286,
+        "target_height_m": 0.052507455167786404,
+        "height_below_target_m": -0.004218460353596881,
+        "xy_error_m": 0.0032671708149840735,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.059531304985284805,
+      "min_sampled_xy_error_m": 0.000611197312728667,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 10
+    },
+    {
+      "env_id": 83,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05700899660587311,
+        "target_height_m": 0.05253575144382963,
+        "height_below_target_m": -0.0044732451620434766,
+        "xy_error_m": 0.010966906799442344,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.061629701405763626,
+      "min_sampled_xy_error_m": 0.005963873632988131,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 2,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 84,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.055593714118003845,
+        "target_height_m": 0.052507954781412944,
+        "height_below_target_m": -0.0030857593365909014,
+        "xy_error_m": 0.012932902565547905,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06137346476316452,
+      "min_sampled_xy_error_m": 0.0009228167144141809,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 32
+    },
+    {
+      "env_id": 85,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05842157080769539,
+        "target_height_m": 0.052459023103652434,
+        "height_below_target_m": -0.0059625477040429545,
+        "xy_error_m": 0.01148998986459751,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05931217595934868,
+      "min_sampled_xy_error_m": 0.001980820089480086,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 17
+    },
+    {
+      "env_id": 86,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05360102280974388,
+        "target_height_m": 0.05237691684337151,
+        "height_below_target_m": -0.0012241059663723741,
+        "xy_error_m": 0.015338874807672168,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07334303110837936,
+      "min_sampled_xy_error_m": 0.0027474109359552534,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 30
+    },
+    {
+      "env_id": 87,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0559300072491169,
+        "target_height_m": 0.05203172482128684,
+        "height_below_target_m": -0.003898282427830059,
+        "xy_error_m": 0.008896585475794534,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.059232935309410095,
+      "min_sampled_xy_error_m": 0.0011665821901935976,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 9
+    },
+    {
+      "env_id": 88,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.036249227821826935,
+        "target_height_m": 0.0506620969916786,
+        "height_below_target_m": 0.014412869169851662,
+        "xy_error_m": 0.03374920747903954,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.061374980956315994,
+      "min_sampled_xy_error_m": 0.00942208083693849,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 37
+    },
+    {
+      "env_id": 89,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05472811311483383,
+        "target_height_m": 0.05253315762591656,
+        "height_below_target_m": -0.002194955488917273,
+        "xy_error_m": 0.012837168480877719,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06751681119203568,
+      "min_sampled_xy_error_m": 0.002295271805875112,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 90,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.059498582035303116,
+        "target_height_m": 0.05253737380607523,
+        "height_below_target_m": -0.006961208229227883,
+        "xy_error_m": 0.006171654664248028,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06066598743200302,
+      "min_sampled_xy_error_m": 0.00016990980691007862,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 8
+    },
+    {
+      "env_id": 91,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.051914144307374954,
+        "target_height_m": 0.052413073547596556,
+        "height_below_target_m": 0.0004989292402216017,
+        "xy_error_m": 0.021970034065875187,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05986928939819336,
+      "min_sampled_xy_error_m": 0.001543528597993412,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 9
+    },
+    {
+      "env_id": 92,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05213546380400658,
+        "target_height_m": 0.052445638920441066,
+        "height_below_target_m": 0.00031017511643448986,
+        "xy_error_m": 0.0407389631771097,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05870649591088295,
+      "min_sampled_xy_error_m": 0.011144872070991187,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 2,
+      "held_object_base_contact_samples": 30
+    },
+    {
+      "env_id": 93,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056254785507917404,
+        "target_height_m": 0.05253879779604223,
+        "height_below_target_m": -0.003715987711875174,
+        "xy_error_m": 0.09743516814360101,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06902803480625153,
+      "min_sampled_xy_error_m": 0.0052494349653180875,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 19
+    },
+    {
+      "env_id": 94,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05397519841790199,
+        "target_height_m": 0.05203648717152294,
+        "height_below_target_m": -0.0019387112463790518,
+        "xy_error_m": 0.01604580562026934,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06110449880361557,
+      "min_sampled_xy_error_m": 0.0012610051448498822,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 28
+    },
+    {
+      "env_id": 95,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.057861972600221634,
+        "target_height_m": 0.052527895036941795,
+        "height_below_target_m": -0.005334077563279839,
+        "xy_error_m": 0.013648243697522574,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06516987085342407,
+      "min_sampled_xy_error_m": 0.004588735106347551,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 33
+    },
+    {
+      "env_id": 96,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05659995600581169,
+        "target_height_m": 0.05243918002523512,
+        "height_below_target_m": -0.00416077598057657,
+        "xy_error_m": 0.0018455407010443267,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.061105258762836456,
+      "min_sampled_xy_error_m": 0.00032157634609423255,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 3
+    },
+    {
+      "env_id": 97,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.057175856083631516,
+        "target_height_m": 0.05245954027841216,
+        "height_below_target_m": -0.004716315805219355,
+        "xy_error_m": 0.011027446663258354,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.058971259742975235,
+      "min_sampled_xy_error_m": 0.0058413083059049836,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 39
+    },
+    {
+      "env_id": 98,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05340473726391792,
+        "target_height_m": 0.0525133974044819,
+        "height_below_target_m": -0.0008913398594360203,
+        "xy_error_m": 0.015379092907370669,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06535488367080688,
+      "min_sampled_xy_error_m": 0.0005842513977402104,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 41
+    },
+    {
+      "env_id": 99,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.06253812462091446,
+        "target_height_m": 0.05253879593339698,
+        "height_below_target_m": -0.009999328687517482,
+        "xy_error_m": 0.007401070572230853,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0672263577580452,
+      "min_sampled_xy_error_m": 0.0008031515020693652,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 22
+    },
+    {
+      "env_id": 100,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05386219546198845,
+        "target_height_m": 0.05269102107970043,
+        "height_below_target_m": -0.0011711743822880177,
+        "xy_error_m": 0.02051769333522297,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05895189195871353,
+      "min_sampled_xy_error_m": 0.0029152853928445296,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 40
+    },
+    {
+      "env_id": 101,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05606630817055702,
+        "target_height_m": 0.052536638023069904,
+        "height_below_target_m": -0.0035296701474871184,
+        "xy_error_m": 0.008641919528041666,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06639506667852402,
+      "min_sampled_xy_error_m": 0.003498778954878677,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 30
+    },
+    {
+      "env_id": 102,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.02249903976917267,
+        "target_height_m": 0.052538795933391065,
+        "height_below_target_m": 0.030039756164218397,
+        "xy_error_m": 0.1379943348937228,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06102888658642769,
+      "min_sampled_xy_error_m": 0.004237487463572409,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 27
+    },
+    {
+      "env_id": 103,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05692669749259949,
+        "target_height_m": 0.052443479137976326,
+        "height_below_target_m": -0.004483218354623161,
+        "xy_error_m": 0.005200777658539646,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06599190086126328,
+      "min_sampled_xy_error_m": 0.00258682535983532,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 14
+    },
+    {
+      "env_id": 104,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05474265664815903,
+        "target_height_m": 0.05346779633909583,
+        "height_below_target_m": -0.0012748603090631944,
+        "xy_error_m": 0.014767217449550965,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05965178832411766,
+      "min_sampled_xy_error_m": 0.0035357936758481996,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 47
+    },
+    {
+      "env_id": 105,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.056754522025585175,
+        "target_height_m": 0.05253795867374278,
+        "height_below_target_m": -0.004216563351842395,
+        "xy_error_m": 0.0034563459336048766,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06688699126243591,
+      "min_sampled_xy_error_m": 0.002310938265192415,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 18
+    },
+    {
+      "env_id": 106,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05930425599217415,
+        "target_height_m": 0.05247077521606308,
+        "height_below_target_m": -0.006833480776111067,
+        "xy_error_m": 0.0038046162199305315,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06122962757945061,
+      "min_sampled_xy_error_m": 0.0013564555257337347,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 13
+    },
+    {
+      "env_id": 107,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05538713186979294,
+        "target_height_m": 0.05253879593339674,
+        "height_below_target_m": -0.002848335936396197,
+        "xy_error_m": 0.009271275138478408,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06438207626342773,
+      "min_sampled_xy_error_m": 0.0034594826302488174,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 24
+    },
+    {
+      "env_id": 108,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05915573611855507,
+        "target_height_m": 0.0525128390661177,
+        "height_below_target_m": -0.006642897052437369,
+        "xy_error_m": 0.007589364419136302,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06858865916728973,
+      "min_sampled_xy_error_m": 0.004235425702718969,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 5,
+      "held_object_base_contact_samples": 9
+    },
+    {
+      "env_id": 109,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05795703083276749,
+        "target_height_m": 0.05246875546252966,
+        "height_below_target_m": -0.005488275370237827,
+        "xy_error_m": 0.007797393473104887,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06697636097669601,
+      "min_sampled_xy_error_m": 0.0001672860684068539,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 31
+    },
+    {
+      "env_id": 110,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.058396514505147934,
+        "target_height_m": 0.052483669147784746,
+        "height_below_target_m": -0.0059128453573631876,
+        "xy_error_m": 0.003455858144554609,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06844016909599304,
+      "min_sampled_xy_error_m": 0.00022550084923168913,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 9
+    },
+    {
+      "env_id": 111,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05478199943900108,
+        "target_height_m": 0.052395029313212375,
+        "height_below_target_m": -0.002386970125788708,
+        "xy_error_m": 0.00869547251307232,
+        "opposed_contact": false,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0709114745259285,
+      "min_sampled_xy_error_m": 0.0003899247333309642,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 19
+    },
+    {
+      "env_id": 112,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0577424056828022,
+        "target_height_m": 0.052513553845492715,
+        "height_below_target_m": -0.005228851837309485,
+        "xy_error_m": 0.01746043482406968,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.061800360679626465,
+      "min_sampled_xy_error_m": 0.0020522599206581524,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 113,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.022938793525099754,
+        "target_height_m": 0.05253879779603738,
+        "height_below_target_m": 0.029600004270937626,
+        "xy_error_m": 0.18024367151196974,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0631963312625885,
+      "min_sampled_xy_error_m": 0.0022754866789725177,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 32
+    },
+    {
+      "env_id": 114,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05558323487639427,
+        "target_height_m": 0.052446689347512176,
+        "height_below_target_m": -0.0031365455288820954,
+        "xy_error_m": 0.01618785560595312,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.05791892483830452,
+      "min_sampled_xy_error_m": 0.004028856470860665,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 42
+    },
+    {
+      "env_id": 115,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05855188146233559,
+        "target_height_m": 0.052517620943040556,
+        "height_below_target_m": -0.00603426051929503,
+        "xy_error_m": 0.00931029691193487,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.059902388602495193,
+      "min_sampled_xy_error_m": 0.003606016356220027,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 116,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.022938793525099754,
+        "target_height_m": 0.05253879779604222,
+        "height_below_target_m": 0.02960000427094247,
+        "xy_error_m": 0.20208623419679228,
+        "opposed_contact": false,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06944294273853302,
+      "min_sampled_xy_error_m": 0.0022030610716150334,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 25
+    },
+    {
+      "env_id": 117,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.054492052644491196,
+        "target_height_m": 0.0523417143873909,
+        "height_below_target_m": -0.002150338257100294,
+        "xy_error_m": 0.014139855854935315,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06291650235652924,
+      "min_sampled_xy_error_m": 0.0034627119491181593,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 5,
+      "held_object_base_contact_samples": 31
+    },
+    {
+      "env_id": 118,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.07014971226453781,
+        "target_height_m": 0.0525387940707882,
+        "height_below_target_m": -0.01761091819374961,
+        "xy_error_m": 0.03409528302951583,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.07214895635843277,
+      "min_sampled_xy_error_m": 0.0025220446630137357,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 30
+    },
+    {
+      "env_id": 119,
+      "terminal": {
+        "step": 131,
+        "object_height_m": 0.06468723714351654,
+        "target_height_m": 0.04062887576779124,
+        "height_below_target_m": -0.0240583613757253,
+        "xy_error_m": 0.010570765003906623,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": true
+      },
+      "max_sampled_height_m": 0.07293470203876495,
+      "min_sampled_xy_error_m": 0.006012069279389726,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 1
+    },
+    {
+      "env_id": 120,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05429815500974655,
+        "target_height_m": 0.0524574368698265,
+        "height_below_target_m": -0.0018407181399200528,
+        "xy_error_m": 0.012052827958026369,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06574909389019012,
+      "min_sampled_xy_error_m": 0.0014057068427058396,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 49
+    },
+    {
+      "env_id": 121,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05301273241639137,
+        "target_height_m": 0.052435490506129286,
+        "height_below_target_m": -0.0005772419102620871,
+        "xy_error_m": 0.015285926487623624,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0563516765832901,
+      "min_sampled_xy_error_m": 0.000782817002465091,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 45
+    },
+    {
+      "env_id": 122,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05533585324883461,
+        "target_height_m": 0.05256142185315136,
+        "height_below_target_m": -0.002774431395683251,
+        "xy_error_m": 0.014596898609713629,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.0590231753885746,
+      "min_sampled_xy_error_m": 0.0008449163040195464,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 2,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 123,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05493186414241791,
+        "target_height_m": 0.05251261645843726,
+        "height_below_target_m": -0.0024192476839806493,
+        "xy_error_m": 0.008187497461172049,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06953806430101395,
+      "min_sampled_xy_error_m": 0.002605030120264349,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 35
+    },
+    {
+      "env_id": 124,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.055015526711940765,
+        "target_height_m": 0.05250027957427484,
+        "height_below_target_m": -0.0025152471376659255,
+        "xy_error_m": 0.006927662478985179,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06072145327925682,
+      "min_sampled_xy_error_m": 0.0017026244264141993,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 4
+    },
+    {
+      "env_id": 125,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05287374183535576,
+        "target_height_m": 0.05234446351609813,
+        "height_below_target_m": -0.0005292783192576284,
+        "xy_error_m": 0.024398636161676753,
+        "opposed_contact": true,
+        "object_base_contact": true,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06474847346544266,
+      "min_sampled_xy_error_m": 0.0023303938315454797,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 47
+    },
+    {
+      "env_id": 126,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.05767296627163887,
+        "target_height_m": 0.05252415610795425,
+        "height_below_target_m": -0.005148810163684618,
+        "xy_error_m": 0.002834624824392911,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06348975002765656,
+      "min_sampled_xy_error_m": 0.001060289832374694,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 1,
+      "held_object_base_contact_samples": 6
+    },
+    {
+      "env_id": 127,
+      "terminal": {
+        "step": 1000,
+        "object_height_m": 0.0577833391726017,
+        "target_height_m": 0.05247563120936194,
+        "height_below_target_m": -0.005307707963239761,
+        "xy_error_m": 0.015992060119512874,
+        "opposed_contact": true,
+        "object_base_contact": false,
+        "robot_base_contact": false
+      },
+      "max_sampled_height_m": 0.06487924605607986,
+      "min_sampled_xy_error_m": 0.004280263527740972,
+      "ever_opposed_contact": true,
+      "ever_above_stack_height": true,
+      "held_below_target_samples": 0,
+      "held_object_base_contact_samples": 13
+    }
+  ]
+}

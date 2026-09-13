@@ -1,0 +1,21 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "9c9ab52ed86fecf4b54e51c824ce60938b0e48427650b3e1bf26942c872a85e1",
+  "reviewed_utc": "2026-09-13T04:18:20.133844+00:00",
+  "verdict": "not certified",
+  "validation_successes": 2,
+  "episodes": 128,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success clip places cube on support with fingers surrounding it; native success confirms release/support/settling. Failure transports cube above support but keeps it held and fails. Audit128/128 ever opposed and above stack height, median terminal XY error11.32mm versus37.49mm.105 remain opposed at terminal. Only2/128 strict success, no confirmation.",
+  "all_checkpoint_tensors_finite": true,
+  "finite_tensors": 76,
+  "clearance_audit": "stack_r8_clearance_audit.json",
+  "release_audit": "stack_r8_release_exploration_audit.json"
+}

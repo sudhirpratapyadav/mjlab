@@ -27,6 +27,7 @@ def main():
   rows=[]
   for rec in ev['records']:
     lane,end=rec['env_id'],rec['steps'];samples=[]
+    if 'initial_model_geom_friction' in t:m.geom_friction[:]=t['initial_model_geom_friction'][lane]
     for step in sorted(set(range(0,end+1,10))|{end}):
       for field in ['qpos','qvel','mocap_pos','mocap_quat']:getattr(d,field)[:]=t[field][step,lane]
       for adr,kind in zip(m.jnt_qposadr,m.jnt_type):
@@ -55,7 +56,7 @@ def main():
     terminal_opposed_contact=sum(r['terminal']['opposed_contact'] for r in rows),terminal_object_base_contact=sum(r['terminal']['object_base_contact'] for r in rows),terminal_robot_base_contact=sum(r['terminal']['robot_base_contact'] for r in rows),
     median_terminal_height_m=float(np.median([r['terminal']['object_height_m'] for r in rows])),median_terminal_height_below_target_m=float(np.median([r['terminal']['height_below_target_m'] for r in rows])),median_terminal_xy_error_m=float(np.median([r['terminal']['xy_error_m'] for r in rows])),
     held_below_target_samples=sum(r['held_below_target_samples'] for r in rows),held_object_base_contact_samples=sum(r['held_object_base_contact_samples'] for r in rows))
-  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],method='CPU FK/contact queries every tenth recorded20ms state plus exact terminal. Stack target reconstructed from current base root pose and native stack_height. Contact distance<=1mm; opposed pads additionally require inward normal cosine>0.5. Original friction absent, so geometry only; no integration, intervention or success substitution.',summary=summary,rows=rows)
+  report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],method='CPU FK/contact queries every tenth recorded20ms state plus exact terminal. Stack target reconstructed from current base root pose and native stack_height. Contact distance<=1mm; opposed pads additionally require inward normal cosine>0.5. '+('Original friction restored. ' if 'initial_model_geom_friction' in t else 'Original friction absent; geometry only. ')+'No integration, intervention or success substitution.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 

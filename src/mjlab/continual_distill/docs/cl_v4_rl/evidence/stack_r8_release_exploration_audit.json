@@ -1,0 +1,959 @@
+{
+  "task": "Mjlab-Stack-Cube-Franka",
+  "checkpoint_sha256": "9c9ab52ed86fecf4b54e51c824ce60938b0e48427650b3e1bf26942c872a85e1",
+  "method": "All CPU-audited terminal opposed grasps, original ctrl mapping q=.02*(action+1). Gaussian probabilities describe targets2mm wider than current loaded fingers, not actual release/success. Proposed comparison changes only the bounded gripper mean to0, preserving measured std.",
+  "gripper_std": 0.118074432015419,
+  "finite_tensors": 76,
+  "opposed_cases": 105,
+  "median_mean": -0.9999700114130974,
+  "median_current_opening_probability": 6.308781968102412e-26,
+  "median_mean_zero_probability": 0.02300774204282724,
+  "median_bounded_mean_derivative": 5.997627448994791e-05,
+  "rows": [
+    {
+      "env_id": 0,
+      "normalized_mean": -0.999974574893713,
+      "actual_finger_position_m": 0.02288392372429371,
+      "required_mean_2mm_wider": 0.24419618621468553,
+      "current_tail_probability": 2.911129390247637e-26,
+      "mean_zero_same_std_probability": 0.019312741327975308,
+      "bounded_mean_derivative": 5.08495661379893e-05
+    },
+    {
+      "env_id": 1,
+      "normalized_mean": -0.9999492429196835,
+      "actual_finger_position_m": 0.02329852432012558,
+      "required_mean_2mm_wider": 0.2649262160062791,
+      "current_tail_probability": 4.445104999439845e-27,
+      "mean_zero_same_std_probability": 0.012425142691537421,
+      "bounded_mean_derivative": 0.00010151158435189878
+    },
+    {
+      "env_id": 2,
+      "normalized_mean": -0.9999755993485451,
+      "actual_finger_position_m": 0.02253682166337967,
+      "required_mean_2mm_wider": 0.22684108316898355,
+      "current_tail_probability": 1.3739158734565843e-25,
+      "mean_zero_same_std_probability": 0.02735512527498756,
+      "bounded_mean_derivative": 4.880070751811516e-05
+    },
+    {
+      "env_id": 3,
+      "normalized_mean": -0.9999702908098698,
+      "actual_finger_position_m": 0.022296706214547157,
+      "required_mean_2mm_wider": 0.21483531072735795,
+      "current_tail_probability": 3.97129787540881e-25,
+      "mean_zero_same_std_probability": 0.03441831325157266,
+      "bounded_mean_derivative": 5.941749762450321e-05
+    },
+    {
+      "env_id": 4,
+      "normalized_mean": -0.9999919906258583,
+      "actual_finger_position_m": 0.02234654687345028,
+      "required_mean_2mm_wider": 0.21732734367251405,
+      "current_tail_probability": 3.1829268466666833e-25,
+      "mean_zero_same_std_probability": 0.03284038199559253,
+      "bounded_mean_derivative": 1.60186841333676e-05
+    },
+    {
+      "env_id": 5,
+      "normalized_mean": -0.9999459832906723,
+      "actual_finger_position_m": 0.023196687921881676,
+      "required_mean_2mm_wider": 0.2598343960940839,
+      "current_tail_probability": 7.07878116237799e-27,
+      "mean_zero_same_std_probability": 0.01388223650985559,
+      "bounded_mean_derivative": 0.00010803050085050891
+    },
+    {
+      "env_id": 6,
+      "normalized_mean": -0.9999305233359337,
+      "actual_finger_position_m": 0.022823987528681755,
+      "required_mean_2mm_wider": 0.24119937643408784,
+      "current_tail_probability": 3.826636233121068e-26,
+      "mean_zero_same_std_probability": 0.02053740914829442,
+      "bounded_mean_derivative": 0.00013894850112583512
+    },
+    {
+      "env_id": 7,
+      "normalized_mean": -0.999983049929142,
+      "actual_finger_position_m": 0.022509723901748657,
+      "required_mean_2mm_wider": 0.22548619508743295,
+      "current_tail_probability": 1.5484427630303573e-25,
+      "mean_zero_same_std_probability": 0.028086224305451966,
+      "bounded_mean_derivative": 3.389985441115684e-05
+    },
+    {
+      "env_id": 8,
+      "normalized_mean": -0.9999434687197208,
+      "actual_finger_position_m": 0.023266784846782684,
+      "required_mean_2mm_wider": 0.2633392423391343,
+      "current_tail_probability": 5.1420739763960144e-27,
+      "mean_zero_same_std_probability": 0.012864374384551699,
+      "bounded_mean_derivative": 0.00011305936477268297
+    },
+    {
+      "env_id": 9,
+      "normalized_mean": -0.999993946403265,
+      "actual_finger_position_m": 0.022389888763427734,
+      "required_mean_2mm_wider": 0.2194944381713868,
+      "current_tail_probability": 2.628706296251969e-25,
+      "mean_zero_same_std_probability": 0.03151712930139461,
+      "bounded_mean_derivative": 1.2107156823981668e-05
+    },
+    {
+      "env_id": 11,
+      "normalized_mean": -0.9998737126588821,
+      "actual_finger_position_m": 0.023349231109023094,
+      "required_mean_2mm_wider": 0.2674615554511548,
+      "current_tail_probability": 3.548429963143608e-27,
+      "mean_zero_same_std_probability": 0.011750372876622856,
+      "bounded_mean_derivative": 0.00025255873374319115
+    },
+    {
+      "env_id": 12,
+      "normalized_mean": -0.9999773688614368,
+      "actual_finger_position_m": 0.022377075627446175,
+      "required_mean_2mm_wider": 0.21885378137230882,
+      "current_tail_probability": 2.785688163680534e-25,
+      "mean_zero_same_std_probability": 0.031903652098004734,
+      "bounded_mean_derivative": 4.526176495789347e-05
+    },
+    {
+      "env_id": 13,
+      "normalized_mean": -0.9999959953129292,
+      "actual_finger_position_m": 0.022391313686966896,
+      "required_mean_2mm_wider": 0.2195656843483449,
+      "current_tail_probability": 2.611752322968592e-25,
+      "mean_zero_same_std_probability": 0.03147438504962467,
+      "bounded_mean_derivative": 8.009358104188458e-06
+    },
+    {
+      "env_id": 15,
+      "normalized_mean": -0.9999719671905041,
+      "actual_finger_position_m": 0.0232035331428051,
+      "required_mean_2mm_wider": 0.26017665714025506,
+      "current_tail_probability": 6.84510906206006e-27,
+      "mean_zero_same_std_probability": 0.013779868968820195,
+      "bounded_mean_derivative": 5.606483315345745e-05
+    },
+    {
+      "env_id": 16,
+      "normalized_mean": -0.9999498017132282,
+      "actual_finger_position_m": 0.02287115342915058,
+      "required_mean_2mm_wider": 0.24355767145752916,
+      "current_tail_probability": 3.090220321212842e-26,
+      "mean_zero_same_std_probability": 0.01956833956507316,
+      "bounded_mean_derivative": 0.00010039405367556764
+    },
+    {
+      "env_id": 17,
+      "normalized_mean": -0.9999559484422207,
+      "actual_finger_position_m": 0.02320694364607334,
+      "required_mean_2mm_wider": 0.26034718230366716,
+      "current_tail_probability": 6.749358713453597e-27,
+      "mean_zero_same_std_probability": 0.01372910972223561,
+      "bounded_mean_derivative": 8.810117501889536e-05
+    },
+    {
+      "env_id": 18,
+      "normalized_mean": -0.9999706633388996,
+      "actual_finger_position_m": 0.022811459377408028,
+      "required_mean_2mm_wider": 0.24057296887040147,
+      "current_tail_probability": 4.033481095521841e-26,
+      "mean_zero_same_std_probability": 0.020801543757011102,
+      "bounded_mean_derivative": 5.8672461561104505e-05
+    },
+    {
+      "env_id": 19,
+      "normalized_mean": -0.9998368322849274,
+      "actual_finger_position_m": 0.024744652211666107,
+      "required_mean_2mm_wider": 0.33723261058330545,
+      "current_tail_probability": 4.993186997360228e-30,
+      "mean_zero_same_std_probability": 0.0021443872673502,
+      "bounded_mean_derivative": 0.00032630880644202165
+    },
+    {
+      "env_id": 20,
+      "normalized_mean": -0.9997381120920181,
+      "actual_finger_position_m": 0.02279265783727169,
+      "required_mean_2mm_wider": 0.2396328918635846,
+      "current_tail_probability": 4.481026393310085e-26,
+      "mean_zero_same_std_probability": 0.02120333596849446,
+      "bounded_mean_derivative": 0.000523707230687398
+    },
+    {
+      "env_id": 22,
+      "normalized_mean": -0.9999916180968285,
+      "actual_finger_position_m": 0.022341076284646988,
+      "required_mean_2mm_wider": 0.21705381423234948,
+      "current_tail_probability": 3.260678891860685e-25,
+      "mean_zero_same_std_probability": 0.03301061115675582,
+      "bounded_mean_derivative": 1.6763736086833347e-05
+    },
+    {
+      "env_id": 23,
+      "normalized_mean": -0.9999145977199078,
+      "actual_finger_position_m": 0.022455701604485512,
+      "required_mean_2mm_wider": 0.22278508022427568,
+      "current_tail_probability": 1.9791014275640714e-25,
+      "mean_zero_same_std_probability": 0.029592338203555245,
+      "bounded_mean_derivative": 0.00017079726663504768
+    },
+    {
+      "env_id": 24,
+      "normalized_mean": -0.9999484047293663,
+      "actual_finger_position_m": 0.02369588613510132,
+      "required_mean_2mm_wider": 0.284794306755066,
+      "current_tail_probability": 7.116460833821991e-28,
+      "mean_zero_same_std_probability": 0.007932866173944923,
+      "bounded_mean_derivative": 0.00010318787919549877
+    },
+    {
+      "env_id": 25,
+      "normalized_mean": -0.9999934807419777,
+      "actual_finger_position_m": 0.022274114191532135,
+      "required_mean_2mm_wider": 0.21370570957660684,
+      "current_tail_probability": 4.376947028082534e-25,
+      "mean_zero_same_std_probability": 0.03515381229593107,
+      "bounded_mean_derivative": 1.3038473543947049e-05
+    },
+    {
+      "env_id": 27,
+      "normalized_mean": -0.9999020248651505,
+      "actual_finger_position_m": 0.022320207208395004,
+      "required_mean_2mm_wider": 0.2160103604197503,
+      "current_tail_probability": 3.6028120219736234e-25,
+      "mean_zero_same_std_probability": 0.03366668788370414,
+      "bounded_mean_derivative": 0.0001959406705720479
+    },
+    {
+      "env_id": 28,
+      "normalized_mean": -0.9999847263097763,
+      "actual_finger_position_m": 0.02335021272301674,
+      "required_mean_2mm_wider": 0.26751063615083703,
+      "current_tail_probability": 3.496725644726616e-27,
+      "mean_zero_same_std_probability": 0.01173763036798138,
+      "bounded_mean_derivative": 3.0547147161774646e-05
+    },
+    {
+      "env_id": 29,
+      "normalized_mean": -0.9999833293259144,
+      "actual_finger_position_m": 0.023605715483427048,
+      "required_mean_2mm_wider": 0.2802857741713525,
+      "current_tail_probability": 1.0776585729749086e-27,
+      "mean_zero_same_std_probability": 0.008802903259711664,
+      "bounded_mean_derivative": 3.334107025987354e-05
+    },
+    {
+      "env_id": 30,
+      "normalized_mean": -0.9999944120645523,
+      "actual_finger_position_m": 0.022468414157629013,
+      "required_mean_2mm_wider": 0.22342070788145074,
+      "current_tail_probability": 1.8576356775776898e-25,
+      "mean_zero_same_std_probability": 0.029232018253598342,
+      "bounded_mean_derivative": 1.1175839670363175e-05
+    },
+    {
+      "env_id": 31,
+      "normalized_mean": -0.9999266117811203,
+      "actual_finger_position_m": 0.022730987519025803,
+      "required_mean_2mm_wider": 0.23654937595129022,
+      "current_tail_probability": 5.807842468646942e-26,
+      "mean_zero_same_std_probability": 0.022567613173182115,
+      "bounded_mean_derivative": 0.00014677105192872908
+    },
+    {
+      "env_id": 32,
+      "normalized_mean": -0.9999865889549255,
+      "actual_finger_position_m": 0.021862011402845383,
+      "required_mean_2mm_wider": 0.19310057014226922,
+      "current_tail_probability": 2.637276078546121e-24,
+      "mean_zero_same_std_probability": 0.05098115276618634,
+      "bounded_mean_derivative": 2.6821910292795792e-05
+    },
+    {
+      "env_id": 33,
+      "normalized_mean": -0.9998466111719608,
+      "actual_finger_position_m": 0.02144796960055828,
+      "required_mean_2mm_wider": 0.17239848002791414,
+      "current_tail_probability": 1.5722164959461236e-23,
+      "mean_zero_same_std_probability": 0.07213362148598933,
+      "bounded_mean_derivative": 0.00030675412794578527
+    },
+    {
+      "env_id": 34,
+      "normalized_mean": -0.9999954365193844,
+      "actual_finger_position_m": 0.022441640496253967,
+      "required_mean_2mm_wider": 0.22208202481269845,
+      "current_tail_probability": 2.0911171141561363e-25,
+      "mean_zero_same_std_probability": 0.029995166746929855,
+      "bounded_mean_derivative": 9.126940405890238e-06
+    },
+    {
+      "env_id": 35,
+      "normalized_mean": -0.9999457970261574,
+      "actual_finger_position_m": 0.022782720625400543,
+      "required_mean_2mm_wider": 0.23913603127002725,
+      "current_tail_probability": 4.59875409720402e-26,
+      "mean_zero_same_std_probability": 0.021418334628888265,
+      "bounded_mean_derivative": 0.00010840300972292383
+    },
+    {
+      "env_id": 36,
+      "normalized_mean": -0.9999857507646084,
+      "actual_finger_position_m": 0.022136900573968887,
+      "required_mean_2mm_wider": 0.20684502869844446,
+      "current_tail_probability": 7.98982393596541e-25,
+      "mean_zero_same_std_probability": 0.03990247146774906,
+      "bounded_mean_derivative": 2.8498267742538275e-05
+    },
+    {
+      "env_id": 37,
+      "normalized_mean": -0.9999875202775002,
+      "actual_finger_position_m": 0.02284150756895542,
+      "required_mean_2mm_wider": 0.24207537844777116,
+      "current_tail_probability": 3.518931880194897e-26,
+      "mean_zero_same_std_probability": 0.020172798570347587,
+      "bounded_mean_derivative": 2.4959289256276662e-05
+    },
+    {
+      "env_id": 38,
+      "normalized_mean": -0.9999407678842545,
+      "actual_finger_position_m": 0.023079149425029755,
+      "required_mean_2mm_wider": 0.2539574712514878,
+      "current_tail_probability": 1.2085186094217674e-26,
+      "mean_zero_same_std_probability": 0.015744997161732853,
+      "bounded_mean_derivative": 0.00011846072304755317
+    },
+    {
+      "env_id": 39,
+      "normalized_mean": -0.9999727122485638,
+      "actual_finger_position_m": 0.022304443642497063,
+      "required_mean_2mm_wider": 0.21522218212485322,
+      "current_tail_probability": 3.837617323939199e-25,
+      "mean_zero_same_std_probability": 0.034169341388606354,
+      "bounded_mean_derivative": 5.457475825110247e-05
+    },
+    {
+      "env_id": 40,
+      "normalized_mean": -0.9999213963747025,
+      "actual_finger_position_m": 0.022450540214776993,
+      "required_mean_2mm_wider": 0.22252701073884973,
+      "current_tail_probability": 2.02360261198914e-25,
+      "mean_zero_same_std_probability": 0.029739679161473954,
+      "bounded_mean_derivative": 0.00015720107206518286
+    },
+    {
+      "env_id": 42,
+      "normalized_mean": -0.9992361292243004,
+      "actual_finger_position_m": 0.022730620577931404,
+      "required_mean_2mm_wider": 0.2365310288965703,
+      "current_tail_probability": 6.188053297169549e-26,
+      "mean_zero_same_std_probability": 0.022575947114019283,
+      "bounded_mean_derivative": 0.0015271580528373185
+    },
+    {
+      "env_id": 43,
+      "normalized_mean": -0.9997349455952644,
+      "actual_finger_position_m": 0.02223808877170086,
+      "required_mean_2mm_wider": 0.21190443858504304,
+      "current_tail_probability": 5.244531040543773e-25,
+      "mean_zero_same_std_probability": 0.036353283102464405,
+      "bounded_mean_derivative": 0.0005300385556337162
+    },
+    {
+      "env_id": 44,
+      "normalized_mean": -0.999973364174366,
+      "actual_finger_position_m": 0.0235215462744236,
+      "required_mean_2mm_wider": 0.27607731372118005,
+      "current_tail_probability": 1.5916659907685627e-27,
+      "mean_zero_same_std_probability": 0.009689387044815503,
+      "bounded_mean_derivative": 5.327094180085368e-05
+    },
+    {
+      "env_id": 45,
+      "normalized_mean": -0.9999528750777245,
+      "actual_finger_position_m": 0.022506412118673325,
+      "required_mean_2mm_wider": 0.22532060593366632,
+      "current_tail_probability": 1.5755635716434165e-25,
+      "mean_zero_same_std_probability": 0.028176681989283792,
+      "bounded_mean_derivative": 9.424762379284246e-05
+    },
+    {
+      "env_id": 46,
+      "normalized_mean": -0.999964889138937,
+      "actual_finger_position_m": 0.02284185029566288,
+      "required_mean_2mm_wider": 0.24209251478314409,
+      "current_tail_probability": 3.5206702450582335e-26,
+      "mean_zero_same_std_probability": 0.02016572115975371,
+      "bounded_mean_derivative": 7.022048935345637e-05
+    },
+    {
+      "env_id": 48,
+      "normalized_mean": -0.9999838881194592,
+      "actual_finger_position_m": 0.02224796451628208,
+      "required_mean_2mm_wider": 0.21239822581410417,
+      "current_tail_probability": 4.913639508691544e-25,
+      "mean_zero_same_std_probability": 0.0360211831744145,
+      "bounded_mean_derivative": 3.222350148901487e-05
+    },
+    {
+      "env_id": 49,
+      "normalized_mean": -0.9998799525201321,
+      "actual_finger_position_m": 0.022583290934562683,
+      "required_mean_2mm_wider": 0.22916454672813424,
+      "current_tail_probability": 1.1271175729408888e-25,
+      "mean_zero_same_std_probability": 0.026138347399314397,
+      "bounded_mean_derivative": 0.0002400805483384616
+    },
+    {
+      "env_id": 50,
+      "normalized_mean": -0.9999808147549629,
+      "actual_finger_position_m": 0.025964349508285522,
+      "required_mean_2mm_wider": 0.3982174754142762,
+      "current_tail_probability": 1.1883837180774358e-32,
+      "mean_zero_same_std_probability": 0.0003723142609465345,
+      "bounded_mean_derivative": 3.837012200058609e-05
+    },
+    {
+      "env_id": 53,
+      "normalized_mean": -0.9999860301613808,
+      "actual_finger_position_m": 0.022666912525892258,
+      "required_mean_2mm_wider": 0.23334562629461297,
+      "current_tail_probability": 7.692351494065875e-26,
+      "mean_zero_same_std_probability": 0.024062740981827025,
+      "bounded_mean_derivative": 2.793948208212882e-05
+    },
+    {
+      "env_id": 54,
+      "normalized_mean": -0.9999464489519596,
+      "actual_finger_position_m": 0.02257869951426983,
+      "required_mean_2mm_wider": 0.22893497571349153,
+      "current_tail_probability": 1.143586165595039e-25,
+      "mean_zero_same_std_probability": 0.026256521015913088,
+      "bounded_mean_derivative": 0.00010709922836604768
+    },
+    {
+      "env_id": 55,
+      "normalized_mean": -0.9999783933162689,
+      "actual_finger_position_m": 0.02245333604514599,
+      "required_mean_2mm_wider": 0.2226668022572995,
+      "current_tail_probability": 1.9886674138695861e-25,
+      "mean_zero_same_std_probability": 0.02965979188213863,
+      "bounded_mean_derivative": 4.321290061337635e-05
+    },
+    {
+      "env_id": 56,
+      "normalized_mean": -0.9999761581420898,
+      "actual_finger_position_m": 0.022977963089942932,
+      "required_mean_2mm_wider": 0.2488981544971467,
+      "current_tail_probability": 1.9046263573794135e-26,
+      "mean_zero_same_std_probability": 0.017516501375411078,
+      "bounded_mean_derivative": 4.768314738612389e-05
+    },
+    {
+      "env_id": 57,
+      "normalized_mean": -0.9999881722033024,
+      "actual_finger_position_m": 0.022642701864242554,
+      "required_mean_2mm_wider": 0.23213509321212777,
+      "current_tail_probability": 8.568020209748953e-26,
+      "mean_zero_same_std_probability": 0.02464893361404609,
+      "bounded_mean_derivative": 2.3655453498472312e-05
+    },
+    {
+      "env_id": 58,
+      "normalized_mean": -0.9999937601387501,
+      "actual_finger_position_m": 0.02460358291864395,
+      "required_mean_2mm_wider": 0.33017914593219766,
+      "current_tail_probability": 9.707275952746099e-30,
+      "mean_zero_same_std_probability": 0.002584054131979183,
+      "bounded_mean_derivative": 1.2479683563992872e-05
+    },
+    {
+      "env_id": 59,
+      "normalized_mean": -0.9999926425516605,
+      "actual_finger_position_m": 0.02319706231355667,
+      "required_mean_2mm_wider": 0.25985311567783365,
+      "current_tail_probability": 7.036724835489824e-27,
+      "mean_zero_same_std_probability": 0.013876620727771518,
+      "bounded_mean_derivative": 1.471484254689237e-05
+    },
+    {
+      "env_id": 60,
+      "normalized_mean": -0.9999428167939186,
+      "actual_finger_position_m": 0.022328414022922516,
+      "required_mean_2mm_wider": 0.21642070114612588,
+      "current_tail_probability": 3.4625233370496614e-25,
+      "mean_zero_same_std_probability": 0.03340741513242865,
+      "bounded_mean_derivative": 0.00011436314224377853
+    },
+    {
+      "env_id": 62,
+      "normalized_mean": -0.9998584389686584,
+      "actual_finger_position_m": 0.022299116477370262,
+      "required_mean_2mm_wider": 0.2149558238685132,
+      "current_tail_probability": 3.9682740488251377e-25,
+      "mean_zero_same_std_probability": 0.03434059742804159,
+      "bounded_mean_derivative": 0.000283102023157511
+    },
+    {
+      "env_id": 64,
+      "normalized_mean": -0.9999051913619041,
+      "actual_finger_position_m": 0.023428775370121002,
+      "required_mean_2mm_wider": 0.2714387685060502,
+      "current_tail_probability": 2.455719582683535e-27,
+      "mean_zero_same_std_probability": 0.010755920915457361,
+      "bounded_mean_derivative": 0.00018960828751390935
+    },
+    {
+      "env_id": 65,
+      "normalized_mean": -0.9999920837581158,
+      "actual_finger_position_m": 0.024051038548350334,
+      "required_mean_2mm_wider": 0.3025519274175168,
+      "current_tail_probability": 1.345924444175319e-28,
+      "mean_zero_same_std_probability": 0.005197829094920341,
+      "bounded_mean_derivative": 1.5832421101591443e-05
+    },
+    {
+      "env_id": 66,
+      "normalized_mean": -0.9999719671905041,
+      "actual_finger_position_m": 0.022345419973134995,
+      "required_mean_2mm_wider": 0.21727099865674981,
+      "current_tail_probability": 3.2044188131313224e-25,
+      "mean_zero_same_std_probability": 0.0328753886234837,
+      "bounded_mean_derivative": 5.606483315345745e-05
+    },
+    {
+      "env_id": 67,
+      "normalized_mean": -0.9998577870428562,
+      "actual_finger_position_m": 0.022638821974396706,
+      "required_mean_2mm_wider": 0.23194109871983537,
+      "current_tail_probability": 8.819449937039552e-26,
+      "mean_zero_same_std_probability": 0.024743979111766647,
+      "bounded_mean_derivative": 0.00028440568976240144
+    },
+    {
+      "env_id": 69,
+      "normalized_mean": -0.9999780207872391,
+      "actual_finger_position_m": 0.022230304777622223,
+      "required_mean_2mm_wider": 0.21151523888111123,
+      "current_tail_probability": 5.312183332860568e-25,
+      "mean_zero_same_std_probability": 0.03661680447082995,
+      "bounded_mean_derivative": 4.3957942436056996e-05
+    },
+    {
+      "env_id": 70,
+      "normalized_mean": -0.9999692663550377,
+      "actual_finger_position_m": 0.022772418335080147,
+      "required_mean_2mm_wider": 0.23862091675400743,
+      "current_tail_probability": 4.8059875304634033e-26,
+      "mean_zero_same_std_probability": 0.021643174981090776,
+      "bounded_mean_derivative": 6.146634536774442e-05
+    },
+    {
+      "env_id": 73,
+      "normalized_mean": -0.9999702908098698,
+      "actual_finger_position_m": 0.02318090759217739,
+      "required_mean_2mm_wider": 0.25904537960886964,
+      "current_tail_probability": 7.589592755810847e-27,
+      "mean_zero_same_std_probability": 0.014120726281911265,
+      "bounded_mean_derivative": 5.941749762450321e-05
+    },
+    {
+      "env_id": 74,
+      "normalized_mean": -0.9999611638486385,
+      "actual_finger_position_m": 0.022733481600880623,
+      "required_mean_2mm_wider": 0.23667408004403123,
+      "current_tail_probability": 5.725656963104334e-26,
+      "mean_zero_same_std_probability": 0.022511036460533453,
+      "bounded_mean_derivative": 7.767079447629222e-05
+    },
+    {
+      "env_id": 76,
+      "normalized_mean": -0.9999522231519222,
+      "actual_finger_position_m": 0.022904707118868828,
+      "required_mean_2mm_wider": 0.24523535594344148,
+      "current_tail_probability": 2.656364683655664e-26,
+      "mean_zero_same_std_probability": 0.018902827441082435,
+      "bounded_mean_derivative": 9.555141352834973e-05
+    },
+    {
+      "env_id": 77,
+      "normalized_mean": -0.9999517574906349,
+      "actual_finger_position_m": 0.022913120687007904,
+      "required_mean_2mm_wider": 0.2456560343503953,
+      "current_tail_probability": 2.5576513804735126e-26,
+      "mean_zero_same_std_probability": 0.01873900254971125,
+      "bounded_mean_derivative": 9.648269139050925e-05
+    },
+    {
+      "env_id": 78,
+      "normalized_mean": -0.9999851919710636,
+      "actual_finger_position_m": 0.02183453179895878,
+      "required_mean_2mm_wider": 0.191726589947939,
+      "current_tail_probability": 2.9698522135708558e-24,
+      "mean_zero_same_std_probability": 0.05221166641057322,
+      "bounded_mean_derivative": 2.9615838595065114e-05
+    },
+    {
+      "env_id": 79,
+      "normalized_mean": -0.9999634921550751,
+      "actual_finger_position_m": 0.022622641175985336,
+      "required_mean_2mm_wider": 0.2311320587992669,
+      "current_tail_probability": 9.390002572612378e-26,
+      "mean_zero_same_std_probability": 0.02514368039424219,
+      "bounded_mean_derivative": 7.301435702711245e-05
+    },
+    {
+      "env_id": 80,
+      "normalized_mean": -0.9997997656464577,
+      "actual_finger_position_m": 0.022399522364139557,
+      "required_mean_2mm_wider": 0.21997611820697793,
+      "current_tail_probability": 2.562823038926718e-25,
+      "mean_zero_same_std_probability": 0.031229076916352013,
+      "bounded_mean_derivative": 0.00040042861328837276
+    },
+    {
+      "env_id": 81,
+      "normalized_mean": -0.9999598599970341,
+      "actual_finger_position_m": 0.02374267578125,
+      "required_mean_2mm_wider": 0.2871337890625001,
+      "current_tail_probability": 5.718864454024645e-28,
+      "mean_zero_same_std_probability": 0.007511932674360875,
+      "bounded_mean_derivative": 8.027839471203002e-05
+    },
+    {
+      "env_id": 82,
+      "normalized_mean": -0.9999700114130974,
+      "actual_finger_position_m": 0.02269165590405464,
+      "required_mean_2mm_wider": 0.23458279520273217,
+      "current_tail_probability": 6.897593164634223e-26,
+      "mean_zero_same_std_probability": 0.023475797021240054,
+      "bounded_mean_derivative": 5.997627448994791e-05
+    },
+    {
+      "env_id": 83,
+      "normalized_mean": -0.9997646547853947,
+      "actual_finger_position_m": 0.022680824622511864,
+      "required_mean_2mm_wider": 0.23404123112559327,
+      "current_tail_probability": 7.373469647107221e-26,
+      "mean_zero_same_std_probability": 0.023731229458650246,
+      "bounded_mean_derivative": 0.0004706350418406391
+    },
+    {
+      "env_id": 84,
+      "normalized_mean": -0.9999919906258583,
+      "actual_finger_position_m": 0.022432908415794373,
+      "required_mean_2mm_wider": 0.22164542078971872,
+      "current_tail_probability": 2.174108487997915e-25,
+      "mean_zero_same_std_probability": 0.030247608227234803,
+      "bounded_mean_derivative": 1.60186841333676e-05
+    },
+    {
+      "env_id": 85,
+      "normalized_mean": -0.9998799525201321,
+      "actual_finger_position_m": 0.023420128971338272,
+      "required_mean_2mm_wider": 0.2710064485669137,
+      "current_tail_probability": 2.561239974587066e-27,
+      "mean_zero_same_std_probability": 0.010860344510642392,
+      "bounded_mean_derivative": 0.0002400805483384616
+    },
+    {
+      "env_id": 86,
+      "normalized_mean": -0.9999796040356159,
+      "actual_finger_position_m": 0.022750429809093475,
+      "required_mean_2mm_wider": 0.23752149045467386,
+      "current_tail_probability": 5.298589424439485e-26,
+      "mean_zero_same_std_probability": 0.02212973602619485,
+      "bounded_mean_derivative": 4.079151277280868e-05
+    },
+    {
+      "env_id": 87,
+      "normalized_mean": -0.9999511055648327,
+      "actual_finger_position_m": 0.022897422313690186,
+      "required_mean_2mm_wider": 0.24487111568450937,
+      "current_tail_probability": 2.7452550297180994e-26,
+      "mean_zero_same_std_probability": 0.019045656219661016,
+      "bounded_mean_derivative": 9.778647966884879e-05
+    },
+    {
+      "env_id": 89,
+      "normalized_mean": -0.9999518506228924,
+      "actual_finger_position_m": 0.02303425781428814,
+      "required_mean_2mm_wider": 0.25171289071440706,
+      "current_tail_probability": 1.479713679873233e-26,
+      "mean_zero_same_std_probability": 0.01651101319307677,
+      "bounded_mean_derivative": 9.62964358527385e-05
+    },
+    {
+      "env_id": 90,
+      "normalized_mean": -0.9999519437551498,
+      "actual_finger_position_m": 0.02282702922821045,
+      "required_mean_2mm_wider": 0.24135146141052255,
+      "current_tail_probability": 3.767462198660974e-26,
+      "mean_zero_same_std_probability": 0.020473710545227328,
+      "bounded_mean_derivative": 9.611018029764828e-05
+    },
+    {
+      "env_id": 91,
+      "normalized_mean": -0.9999741092324257,
+      "actual_finger_position_m": 0.022629428654909134,
+      "required_mean_2mm_wider": 0.23147143274545678,
+      "current_tail_probability": 9.10165570046007e-26,
+      "mean_zero_same_std_probability": 0.024975360676479434,
+      "bounded_mean_derivative": 5.178086481683053e-05
+    },
+    {
+      "env_id": 93,
+      "normalized_mean": -0.9999629333615303,
+      "actual_finger_position_m": 0.02271176315844059,
+      "required_mean_2mm_wider": 0.23558815792202958,
+      "current_tail_probability": 6.308781968102412e-26,
+      "mean_zero_same_std_probability": 0.02300774204282724,
+      "bounded_mean_derivative": 7.413190300376016e-05
+    },
+    {
+      "env_id": 94,
+      "normalized_mean": -0.9999271705746651,
+      "actual_finger_position_m": 0.022879330441355705,
+      "required_mean_2mm_wider": 0.24396652206778535,
+      "current_tail_probability": 2.9846524847190705e-26,
+      "mean_zero_same_std_probability": 0.019404347542932403,
+      "bounded_mean_derivative": 0.00014565354654472173
+    },
+    {
+      "env_id": 95,
+      "normalized_mean": -0.9996379017829895,
+      "actual_finger_position_m": 0.022585464641451836,
+      "required_mean_2mm_wider": 0.22927323207259187,
+      "current_tail_probability": 1.1405682282526857e-25,
+      "mean_zero_same_std_probability": 0.026082556017976006,
+      "bounded_mean_derivative": 0.0007240653189022339
+    },
+    {
+      "env_id": 96,
+      "normalized_mean": -0.9999702908098698,
+      "actual_finger_position_m": 0.021630119532346725,
+      "required_mean_2mm_wider": 0.18150597661733636,
+      "current_tail_probability": 7.15734883463306e-24,
+      "mean_zero_same_std_probability": 0.06212013862494771,
+      "bounded_mean_derivative": 5.941749762450321e-05
+    },
+    {
+      "env_id": 97,
+      "normalized_mean": -0.9999777413904667,
+      "actual_finger_position_m": 0.022481560707092285,
+      "required_mean_2mm_wider": 0.22407803535461435,
+      "current_tail_probability": 1.755153014514697e-25,
+      "mean_zero_same_std_probability": 0.028863237747435256,
+      "bounded_mean_derivative": 4.4516723620935394e-05
+    },
+    {
+      "env_id": 98,
+      "normalized_mean": -0.9999715946614742,
+      "actual_finger_position_m": 0.022299088537693024,
+      "required_mean_2mm_wider": 0.21495442688465127,
+      "current_tail_probability": 3.9294609508304494e-25,
+      "mean_zero_same_std_probability": 0.034341497480126826,
+      "bounded_mean_derivative": 5.6809870188301304e-05
+    },
+    {
+      "env_id": 99,
+      "normalized_mean": -0.9999738298356533,
+      "actual_finger_position_m": 0.022858839482069016,
+      "required_mean_2mm_wider": 0.24294197410345086,
+      "current_tail_probability": 3.259164918723733e-26,
+      "mean_zero_same_std_probability": 0.019817518934542925,
+      "bounded_mean_derivative": 5.233964381590184e-05
+    },
+    {
+      "env_id": 101,
+      "normalized_mean": -0.9999267049133778,
+      "actual_finger_position_m": 0.022763555869460106,
+      "required_mean_2mm_wider": 0.23817779347300538,
+      "current_tail_probability": 5.019791609901816e-26,
+      "mean_zero_same_std_probability": 0.021838184788539515,
+      "bounded_mean_derivative": 0.00014658480107476723
+    },
+    {
+      "env_id": 103,
+      "normalized_mean": -0.9999732710421085,
+      "actual_finger_position_m": 0.023038268089294434,
+      "required_mean_2mm_wider": 0.25191340446472177,
+      "current_tail_probability": 1.4502667033978114e-26,
+      "mean_zero_same_std_probability": 0.016441309319494342,
+      "bounded_mean_derivative": 5.345720134575238e-05
+    },
+    {
+      "env_id": 105,
+      "normalized_mean": -0.9999791383743286,
+      "actual_finger_position_m": 0.023222623392939568,
+      "required_mean_2mm_wider": 0.26113116964697847,
+      "current_tail_probability": 6.270315539065497e-27,
+      "mean_zero_same_std_probability": 0.013497814947349552,
+      "bounded_mean_derivative": 4.1722816135347784e-05
+    },
+    {
+      "env_id": 106,
+      "normalized_mean": -0.9999713152647018,
+      "actual_finger_position_m": 0.02420930005609989,
+      "required_mean_2mm_wider": 0.31046500280499467,
+      "current_tail_probability": 6.386061259122608e-29,
+      "mean_zero_same_std_probability": 0.004276774501431907,
+      "bounded_mean_derivative": 5.736864778227435e-05
+    },
+    {
+      "env_id": 107,
+      "normalized_mean": -0.9999198131263256,
+      "actual_finger_position_m": 0.02237781509757042,
+      "required_mean_2mm_wider": 0.21889075487852105,
+      "current_tail_probability": 2.790751441956463e-25,
+      "mean_zero_same_std_probability": 0.031881239179228076,
+      "bounded_mean_derivative": 0.0001603673174140896
+    },
+    {
+      "env_id": 108,
+      "normalized_mean": -0.9999918043613434,
+      "actual_finger_position_m": 0.02285386249423027,
+      "required_mean_2mm_wider": 0.2426931247115136,
+      "current_tail_probability": 3.327544194293933e-26,
+      "mean_zero_same_std_probability": 0.019918992443197732,
+      "bounded_mean_derivative": 1.6391210144739432e-05
+    },
+    {
+      "env_id": 109,
+      "normalized_mean": -0.9999146908521652,
+      "actual_finger_position_m": 0.022306889295578003,
+      "required_mean_2mm_wider": 0.21534446477890024,
+      "current_tail_probability": 3.8159833156951546e-25,
+      "mean_zero_same_std_probability": 0.03409095478678371,
+      "bounded_mean_derivative": 0.00017061101801885137
+    },
+    {
+      "env_id": 110,
+      "normalized_mean": -0.9999715946614742,
+      "actual_finger_position_m": 0.022304251790046692,
+      "required_mean_2mm_wider": 0.21521258950233468,
+      "current_tail_probability": 3.841234787926561e-25,
+      "mean_zero_same_std_probability": 0.034175496790604415,
+      "bounded_mean_derivative": 5.6809870188301304e-05
+    },
+    {
+      "env_id": 114,
+      "normalized_mean": -0.9999623745679855,
+      "actual_finger_position_m": 0.023693561553955078,
+      "required_mean_2mm_wider": 0.284678077697754,
+      "current_tail_probability": 7.184398817985319e-28,
+      "mean_zero_same_std_probability": 0.007954309310601055,
+      "bounded_mean_derivative": 7.524944835579639e-05
+    },
+    {
+      "env_id": 115,
+      "normalized_mean": -0.9999934807419777,
+      "actual_finger_position_m": 0.022756563499569893,
+      "required_mean_2mm_wider": 0.23782817497849473,
+      "current_tail_probability": 5.1486181637847397e-26,
+      "mean_zero_same_std_probability": 0.02199309039736889,
+      "bounded_mean_derivative": 1.3038473543947049e-05
+    },
+    {
+      "env_id": 117,
+      "normalized_mean": -0.9998157843947411,
+      "actual_finger_position_m": 0.0219232439994812,
+      "required_mean_2mm_wider": 0.19616219997406015,
+      "current_tail_probability": 2.053779775581102e-24,
+      "mean_zero_same_std_probability": 0.04832223074757918,
+      "bounded_mean_derivative": 0.0003683972751287179
+    },
+    {
+      "env_id": 118,
+      "normalized_mean": -0.9999996274709702,
+      "actual_finger_position_m": 0.0227314792573452,
+      "required_mean_2mm_wider": 0.23657396286726007,
+      "current_tail_probability": 5.757336163088978e-26,
+      "mean_zero_same_std_probability": 0.02255644891352455,
+      "bounded_mean_derivative": 7.450579209145047e-07
+    },
+    {
+      "env_id": 119,
+      "normalized_mean": -0.9999921768903732,
+      "actual_finger_position_m": 0.022289015352725983,
+      "required_mean_2mm_wider": 0.21445076763629922,
+      "current_tail_probability": 4.099978467417367e-25,
+      "mean_zero_same_std_probability": 0.034667261998417714,
+      "bounded_mean_derivative": 1.5646158052495807e-05
+    },
+    {
+      "env_id": 120,
+      "normalized_mean": -0.9999349936842918,
+      "actual_finger_position_m": 0.022772010415792465,
+      "required_mean_2mm_wider": 0.23860052078962335,
+      "current_tail_probability": 4.8295951777005775e-26,
+      "mean_zero_same_std_probability": 0.021652118429039628,
+      "bounded_mean_derivative": 0.00013000840559529436
+    },
+    {
+      "env_id": 121,
+      "normalized_mean": -0.9998840503394604,
+      "actual_finger_position_m": 0.022407444193959236,
+      "required_mean_2mm_wider": 0.2203722096979619,
+      "current_tail_probability": 2.456371746331453e-25,
+      "mean_zero_same_std_probability": 0.030993842458464854,
+      "bounded_mean_derivative": 0.00023188587675548877
+    },
+    {
+      "env_id": 122,
+      "normalized_mean": -0.9999783933162689,
+      "actual_finger_position_m": 0.022941965609788895,
+      "required_mean_2mm_wider": 0.24709828048944482,
+      "current_tail_probability": 2.2403154444166917e-26,
+      "mean_zero_same_std_probability": 0.018186490219614482,
+      "bounded_mean_derivative": 4.321290061337635e-05
+    },
+    {
+      "env_id": 123,
+      "normalized_mean": -0.9999259598553181,
+      "actual_finger_position_m": 0.022493679076433182,
+      "required_mean_2mm_wider": 0.22468395382165918,
+      "current_tail_probability": 1.671042727173294e-25,
+      "mean_zero_same_std_probability": 0.02852673275655869,
+      "bounded_mean_derivative": 0.00014807480742085044
+    },
+    {
+      "env_id": 124,
+      "normalized_mean": -0.9999428167939186,
+      "actual_finger_position_m": 0.02399774268269539,
+      "required_mean_2mm_wider": 0.29988713413476953,
+      "current_tail_probability": 1.7374891822399711e-28,
+      "mean_zero_same_std_probability": 0.005545566597899768,
+      "bounded_mean_derivative": 0.00011436314224377853
+    },
+    {
+      "env_id": 125,
+      "normalized_mean": -0.9999153427779675,
+      "actual_finger_position_m": 0.022341633215546608,
+      "required_mean_2mm_wider": 0.2170816607773305,
+      "current_tail_probability": 3.2746207491462455e-25,
+      "mean_zero_same_std_probability": 0.03299324787363683,
+      "bounded_mean_derivative": 0.0001693072772198656
+    },
+    {
+      "env_id": 126,
+      "normalized_mean": -0.9999780207872391,
+      "actual_finger_position_m": 0.022625692188739777,
+      "required_mean_2mm_wider": 0.23128460943698892,
+      "current_tail_probability": 9.251239031558137e-26,
+      "mean_zero_same_std_probability": 0.025067902399791654,
+      "bounded_mean_derivative": 4.3957942436056996e-05
+    },
+    {
+      "env_id": 127,
+      "normalized_mean": -0.9999954365193844,
+      "actual_finger_position_m": 0.022428283467888832,
+      "required_mean_2mm_wider": 0.2214141733944417,
+      "current_tail_probability": 2.2183445298026513e-25,
+      "mean_zero_same_std_probability": 0.03038202563100261,
+      "bounded_mean_derivative": 9.126940405890238e-06
+    }
+  ]
+}

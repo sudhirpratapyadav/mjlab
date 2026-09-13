@@ -1,0 +1,19 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "checkpoint_sha256": "5f1ec4f904b864525e8eb1ecabb065c400d903751d6b46a461574b222ce758fe",
+  "reviewed_utc": "2026-09-13T04:08:25.355303+00:00",
+  "verdict": "not certified",
+  "validation_successes": 110,
+  "episodes": 128,
+  "confirmation_seed_reserved": 20260916,
+  "confirmation_run": false,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0062.png",
+    "success-0124.png",
+    "failure-0000.png",
+    "failure-0062.png",
+    "failure-0124.png"
+  ],
+  "observations": "Actual success47 lifts/transports/releases cube into the container, which occludes the terminal cube. Failure15 also reaches container region, with cube occluded in final view; native outcome remains false. Endpoint subcondition audit required to distinguish containment/release/settling. No confirmation consumed because110/128 fails validation. Training/evaluation coneON/gyroOFF/primitiveOFF matched."
+}
