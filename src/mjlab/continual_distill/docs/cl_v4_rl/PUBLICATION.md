@@ -37,3 +37,5 @@ Wave23 gallery refresh includes reviewed Place7400 (105/128), Peg5097 and Lift11
 
 
 Wave24 final gallery refresh published via untu_vps: latest reviewed Edge6997, Place8299, Throw9496, Cage15094 and Strike8996 clips. Still14 certified/10 in progress. Throw displays both116/128 validation and107/128 failed confirmation with in-progress status. Newest homepage card/navigation, all24 actual video playback, filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed. Full results and retained policies remain in scoped W&B.
+
+Wave25 gallery includes latest reviewed Lift13994 and Peg7096 actual failure videos. Still14 certified/10 in progress. Newest homepage card/navigation,24 video playback, filters/search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Native success counts are unchanged by contact/control diagnostics.

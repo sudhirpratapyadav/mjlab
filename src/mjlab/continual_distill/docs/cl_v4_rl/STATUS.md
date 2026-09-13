@@ -2,7 +2,7 @@
 
 Checked2026-09-13. **14/24 independent PPO RL teachers certified.** All24 have RL training evidence. ThrowR4=116/128 validation but107/128 confirmation, so not certified. Best other unfinished validations: Cage108/128, Place105/128, Strike34/128. Latest LiftR11/final13994 and PegR7/final7096 remain0/128, with actual video reviews. Peg lost capture; retainR6/5097 for diagnosis. GPU0 remains unused.
 
-Current full continuations: ReorientR10 GPU1, ThrowR5 GPU2, StrikeR5 GPU3, StackR7 GPU5, EdgeR4 GPU6, CageR10 GPU7. Place's GPU4 slot is running the preregistered2048-world100-update primitive-box stability gate; fullR8 follows only after finite checks. Holder20277 expiry2026-09-28T08:58:54 scheduler time. ThrowR5 must finish all2000 updates before validation and use fresh confirmation20260916 only if it passes; do not retest9496 on that seed.
+Current full continuations, one per GPU1–7: ReorientR10, ThrowR5, StrikeR5, PlaceR8, StackR7, EdgeR4 and CageR10. Place passed its2048-world100-update stability gate and started from original best7400 with coneON/primitiveON/gyroOFF. First prospective candidate7500; full maximum9399. Holder20277 expiry2026-09-28T08:58:54 scheduler time. ThrowR5 must finish all2000 updates before validation and use fresh confirmation20260916 only if it passes; do not retest9496 on that seed.
 
 Place contact diagnosis:17/30 failed replay states rock on one GPU floor contact, with no robot contact; native CPU at identical poses finds four contacts. Opt-in primitive_box_box_compat settles30/30 versus13/30 baseline under matched controls/friction, with32 synthetic GPU support cases and16 native CPU support comparisons passing. The13 focused checks include strict evaluation/backend restoration. Native model/60D/8D/success predicates are unchanged, and all14 certificates retain their original backends. Short Place64×3 preflight is finite atAdam5e-5. No new RL rate has been claimed from these interventions.
 
@@ -41,7 +41,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Open-Lid | 5 | on | Certified | 128/128 +128/128 | Bounded lid_v2 model700; actual lid opening reviewed; artifact retained. |
 | Peg-Insertion | 20 | on | Capture regression diagnosis | 0/128 R7 final7096 | Lost acquired capture; retainR6/5097, do not continue7096 unchanged. |
 | Pivot-Lift | 6 | on | Retry diagnosis | 0/128 R2 final3499 | Small side/height target shifts did not produce tipping in CPU dynamics; no reward change. |
-| Place-In-Container | 20 | on | Box-contact stability gate | Best105/128 at7400; final8299=97/128 | Primitive contact replay30/30 settled; full-world PPO preflight beforeR8. |
+| Place-In-Container | 20 | on | Training R8 | Best105/128 at7400; final8299=97/128 | Primitive contacts passed full-world PPO gate; first candidate7500 onGPU4. |
 | Push-Button | 3 | off | Certified | 128/128 + 128/128 | model700 retained; stopped only own training step20277.1632 after certification. |
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
