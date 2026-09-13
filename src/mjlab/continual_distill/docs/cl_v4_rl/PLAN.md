@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current: S11–S13 finished and failed success/motion review (11/128,3/128,59/128). All training is currently complete. S14/S15 preflights are prepared from S13: wider arm exploration and a10× bracket of continuous goal reward, with existing motion costs retained. Other23 teachers paused; baseline preserved.**
+**Current: S13 remains a failed partial improvement (59/128, fast start). S14/S15 full runs have NOT started: .03 arm-exploration preflights were finite but disrupted grasping. Fresh preflights reduce this to.01, retaining the10× dense-goal reward bracket. Other23 teachers paused; baseline preserved.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

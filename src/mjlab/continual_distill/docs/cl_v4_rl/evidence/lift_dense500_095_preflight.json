@@ -1,0 +1,27 @@
+{
+  "run_id": "PREFLIGHT-LIFT-DENSE500-095",
+  "updates": 100,
+  "finite_tensors": 76,
+  "checkpoint_sha256": "322a60dcd15499e7f7a4a4168fada9267504a18d95e92c9bdc7ce7007387506e",
+  "max_accepted_kl": 0.013449819758534431,
+  "backtracks": 0,
+  "learning_rate_ceiling": 2.5e-05,
+  "saved_learning_rate": 2.5e-05,
+  "per_update_rate_rule_verified": true,
+  "resume_arm_std": 0.03,
+  "final_std": [
+    0.02951314114034176,
+    0.0300400722771883,
+    0.029313798993825912,
+    0.02902233600616455,
+    0.03022962622344494,
+    0.029508264735341072,
+    0.030312515795230865,
+    0.044667597860097885
+  ],
+  "last_logged_mean_reward": -10358.9,
+  "last_logged_mean_episode_steps": 817.99,
+  "last_logged_goal_error_m": 0.1793,
+  "verdict": "finite_optimizer_pass_full_launch_rejected_for_exploration_disruption",
+  "reason": "Wider arm noise disrupts grasp/goal tracking and gives strongly negative stochastic returns. No strict success claim from training metrics. Do not use these models as parents or launch1500updates at this noise setting."
+}

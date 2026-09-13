@@ -1,6 +1,6 @@
 # Status — RL teachers
 
-**Current: S11–S13 finished and failed success/motion review (11/128,3/128,59/128). All training is currently complete. S14/S15 preflights are prepared from S13: wider arm exploration and a10× bracket of continuous goal reward, with existing motion costs retained. Other23 teachers paused; baseline preserved.**
+**Current: S13 remains a failed partial improvement (59/128, fast start). S14/S15 full runs have NOT started: .03 arm-exploration preflights were finite but disrupted grasping. Fresh preflights reduce this to.01, retaining the10× dense-goal reward bracket. Other23 teachers paused; baseline preserved.**
 
 **Current authorization: motion-quality work on ONE teacher, Lift-Cube, only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See STATUS.md and the current Lift evaluation plans. This supersedes the blanket pause only for Lift.**
 

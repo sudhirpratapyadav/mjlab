@@ -1,0 +1,62 @@
+{
+  "task": "Mjlab-Lift-Cube-Franka",
+  "reviewed_utc": "2026-09-13T16:39:46.701848+00:00",
+  "checkpoint_sha256": "6d1cbfedf4d9ca18744d17154437103953f529b430d73e4c6c23bf7352d9ef6b",
+  "verdict": "fail_success_and_motion_quality",
+  "validation_successes": 59,
+  "confirmation_run": false,
+  "episodes": 128,
+  "termination_counts": {
+    "time_out": 124,
+    "ee_ground_collision": 3,
+    "object_out_of_bounds": 1
+  },
+  "median_duration_s": 20.0,
+  "mean_duration_s": 19.4446875,
+  "episodes_reaching20s": 124,
+  "actual_frames_inspected": [
+    "after-0-1000.png"
+  ],
+  "visual_note": "Both inspected endpoints hold a raised cube. S12/env0 fails the native goal; S13/env0 passes, but fixed env1/2 fail. Static frame does not demonstrate smoothness. All three motion gates and the native success gate fail. Stronger target cost improves some outcomes but leaves median initial target-error cost high; do not call this a smooth teacher.",
+  "encoded_video_verification": [
+    {
+      "video": "before-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "before-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-0.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-1.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    },
+    {
+      "video": "after-2.mp4",
+      "frames": 1000,
+      "seconds": 20.0,
+      "real_time": true
+    }
+  ],
+  "public_url": "https://cl.sudhirpratapyadav.com/v4-rl/lift-smooth-review/s13/",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/m74k8gs0",
+  "baseline_preserved": true
+}

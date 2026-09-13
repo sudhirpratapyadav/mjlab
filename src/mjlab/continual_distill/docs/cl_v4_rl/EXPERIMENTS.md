@@ -735,3 +735,8 @@ S9/S10 completed1000updates/final25487, both76finite tensors and validKL/LR audi
 ### 2026-09-13T16:37:51.587907+00:00 — Dense goal balance after target-cost trials
 
 S11/S12/S13 rejected at11/128,3/128,59/128. All76finite and valid1000-updateKL/LR audits. S11 medianacceleration16.295/p9527.023,p95speed8.371; S12 15.969/31.558,8.197; S13 16.351/33.708,7.496. S11 passesaccelerationgateonly; S12/S13 failall3motiongates. Allfull-duration medians20s,126/126/124timeouts. Actual endpointsinspected; heldcube usuallymissesgoal. Directtargetcost doesnotfixinitialcommands: S13 initialcostmedian22.546rad² versusS7 21.652, thoughfullepisodemean.09489 versus.11302. Next preregister S14/S15 fromcompletedS13: densegoal50/500 withcommon armstd.03,LRceiling2.5e-5/KL.03, separateclipping andexistingstrongmotioncosts. Preflights094/095x100, thenoriginalS13x1500/final26986, GPU1/2. This is a new combined optimization setting, not proof of an isolated exploration effect.105testspassed. Other23 remainpaused; noapprovedsmoothteacher.
+
+
+### 2026-09-13T16:43:20.819226+00:00 — Reject disruptive exploration before full pilots
+
+Preflights094/095 passedfinite/KL checks but are rejectedforfulltraining: final logged stochasticmeanreturn−10379.56/−10358.90, episode859/818steps, goalerror.1852/.1793m. These are traininglogs, notstrictsuccessbatches. Widerarmnoise.03 disruptsgrasp/hold andaddslargecosts; nofullS14/S15runwasstarted. Revisebothcommonarmstdto.01 beforefulltraining, withfresh100-updatepreflights096/097 fromORIGINALS13 andexplicitpreflighthistory. Full1500budgets/final26986, densegoal50/500, LR2.5e-5ceiling/KL.03 andfreshseedsunchanged. Preserved allfailedmodels/evidence; neverresume094/095.
