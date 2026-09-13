@@ -633,3 +633,15 @@ Saved checkpoints (SHA256 in evidence/user_pause_20260913.json):
 - Edge: model_14500.pt; planned final 14993, last observed update 14551.
 - Stack: model_16500.pt; planned final 18192, last observed update 16550.
 - Pivot: model_9200.pt; planned final 10496, last observed update 9255.
+
+## One-teacher motion trial — 2026-09-13T10:03:47.688518+00:00
+
+User authorizes fixing ONE teacher first, then waits to verify speed/smoothness before similar work on others. Lift selected because its successful traces show aggressive speed and target jumps; other23teachers remain paused. Preserve R16 certified21990 as immutable baseline. All128baseline episodes: median peakjointspeed6.103rad/s,p95peak8.067; median acceleration proxyRMS56.949rad/s²,p9558.917; p95maximumconsecutive targetjump4.557rad/20ms. Exclude initialresetctrl from jump metrics.
+
+Preregister lift_smooth_v1 fromlift_v9: change only motion penalties. Arm joint velocity hinge threshold1.0rad/s, weight−2.0 (previousthreshold.5/weight−.001); normalized8Daction-change weight−5.0(previous−.005); add arm-only native joint_acc_l2 weight−.0002. Keep task shaping/native predicates/20sepisode/50Hzcontrol/60D8D/model/actuators unchanged, coneONonly. No actionfilter/clipping/rate limiter or demos. This tests learned slow/smooth control under existing action semantics.
+
+PREFLIGHT-LIFT-SMOOTH-078 original21990,2048×50,Adam5e-6/max_update_kl.03, preservepolicy/Adam/normalizers/noise. Require native config/agent invariance, penalty direction/joint selection and finite optimizer/model/acceptedKL<=.03 before full RL-002-S1-lift-smooth from ORIGINAL21990×1500final23489, GPU1 only; adopt any reduced accepted preflightLR explicitly. Fullbudget then128validation14,conditionalfreshconfirmation17. No intermediate checkpoint sweeps. Quantitative motion targets and fixed pairedvideoenvs0/1/2 are in Lift-S1-evaluation-plan.json. Publicreview at50fpsreal-time before/after; user approval needed before applying to otherteachers. Existing certificates remain historical success certifications.
+
+Lift smooth078 preflight passes50updates/2048worlds:76finite tensors,maxacceptedKL0.01197158,backtracks1,savedAdam2.5e-06;92focusedchecks passed. Start fullS1 from ORIGINAL21990,1500updates/final23489, GPU1only, unchangedconeonly/backend. No preflightparent.
+
+LiftS1 fulltrainerPID2398012 and identified final-evaluatorPID2398240 verified onGPU1. Remaining GPUs empty. Automatic post-evaluation CPU motion audit and paired50fps video rendering are queued behind that identified evaluator; no background work on otherteachers. Motion audit regression test passes: exclude resetctrl/after-terminalstates, keepfailed episodes and arm-only quantities.

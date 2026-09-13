@@ -16,6 +16,7 @@ RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
 RECIPES += ("strike_v2", "strike_v3", "strike_v4")
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
+RECIPES += ("lift_smooth_v1",)
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("pivot_v5",)
@@ -132,6 +133,17 @@ def apply_recipe(cfg, recipe):
       raise ValueError("stack_v1 requires Stack-Cube")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params.update(release_weight=10.,support_open_weight=3.)
+    return
+  if recipe == "lift_smooth_v1":
+    from mjlab.envs.mdp.rewards import joint_acc_l2
+    from mjlab.managers.manager_term_config import RewardTermCfg
+    from mjlab.managers.scene_entity_config import SceneEntityCfg
+    apply_recipe(cfg,"lift_v9")
+    arm=tuple(f"joint{i}" for i in range(1,8))
+    cfg.env.rewards['action_rate_l2'].weight=-5.
+    cfg.env.rewards['joint_vel_penalty'].weight=-2.
+    cfg.env.rewards['joint_vel_penalty'].params.update(max_vel=1.,robot_asset_cfg=SceneEntityCfg('robot',joint_names=arm))
+    cfg.env.rewards['smooth_arm_acceleration']=RewardTermCfg(func=joint_acc_l2,weight=-.0002,params={'asset_cfg':SceneEntityCfg('robot',joint_names=arm)})
     return
   if recipe == "lift_v9":
     apply_recipe(cfg,"lift_v8")

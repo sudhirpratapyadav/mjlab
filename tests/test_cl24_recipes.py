@@ -21,6 +21,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_v4"),
   ("Mjlab-Lift-Cube-Franka","lift_v5"),
   ("Mjlab-Lift-Cube-Franka","lift_v6"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_v1"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -77,6 +78,36 @@ def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
   recipes.apply_recipe(cfg,recipe)
   assert before=={field:repr(getattr(cfg.env,field)) for field in fields}
   assert cfg.agent.clip_actions==1.0
+
+
+def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'lift_v9');recipes.apply_recipe(new,'lift_smooth_v1')
+  assert asdict(old.agent)==asdict(new.agent)
+  vel=new.env.rewards['joint_vel_penalty'];acc=new.env.rewards['smooth_arm_acceleration']
+  arm=tuple(f'joint{i}' for i in range(1,8))
+  assert tuple(vel.params['robot_asset_cfg'].joint_names)==arm
+  assert tuple(acc.params['asset_cfg'].joint_names)==arm
+  assert vel.weight==-2 and vel.params['max_vel']==1 and acc.weight==-.0002
+  # Large finger velocities/accelerations must not enter an arm-only metric.
+  robot=SimpleNamespace(data=SimpleNamespace(joint_vel=torch.tensor([[.5]*7+[100.,100.],[2.]*7+[0.,0.]]),joint_acc=torch.tensor([[0.]*7+[10000.,10000.],[10.]*7+[0.,0.]])))
+  env=SimpleNamespace(scene={'robot':robot})
+  select=SimpleNamespace(name='robot',joint_ids=list(range(7)))
+  vp=vel.func(env,max_vel=1.,robot_asset_cfg=select)
+  ap=acc.func(env,asset_cfg=select)
+  torch.testing.assert_close(vp,torch.tensor([0.,7.]))
+  torch.testing.assert_close(ap,torch.tensor([0.,700.]))
+  assert (vel.weight*vp)[1]<0 and (acc.weight*ap)[1]<0
+  change=new.env.rewards['action_rate_l2']
+  actions=torch.tensor([[0.]*8,[.5]*8])
+  env.action_manager=SimpleNamespace(action=actions,prev_action=torch.zeros_like(actions))
+  torch.testing.assert_close(change.weight*change.func(env),torch.tensor([0.,-10.]))
+  for name in ['joint_vel_penalty','action_rate_l2']:new.env.rewards[name]=old.env.rewards[name]
+  del new.env.rewards['smooth_arm_acceleration']
+  assert repr(old.env)==repr(new.env)
 
 
 def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):

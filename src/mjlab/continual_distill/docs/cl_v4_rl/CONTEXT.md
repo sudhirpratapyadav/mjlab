@@ -1,5 +1,7 @@
 # Context — read before resuming
 
+**Current authorization: ONE Lift-Cube motion-quality trial only. All other teachers remain paused. Preserve the certified baseline and await user video review before applying changes elsewhere. See Lift-S1-evaluation-plan.json. This supersedes the blanket pause only for Lift.**
+
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 
 Latest completed results:18/24certified; Reorient109/128, Stack101/128, Strike57/128; Edge/Peg/Pivot0/128. Earlier running descriptions below are historical snapshots.
