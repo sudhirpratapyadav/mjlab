@@ -1,0 +1,2327 @@
+{
+  "task": "Mjlab-Place-In-Container-Franka",
+  "checkpoint_sha256": "669cea46955627165d0f373907781571dff79063f3db10ee154457dfdb1074ea",
+  "method": "Exact recorded terminal poses/velocities with CPU FK/collision and native support corners/container dimensions. Contact distance<=1mm; native linear settle threshold and angular0.3. Reconstructed subconditions are diagnostic only; disagreement with authoritative GPU evaluation is reported, never reclassified. No integration or new success measurement.",
+  "summary": {
+    "episodes": 128,
+    "native_successes": 105,
+    "reconstructed_successes": 107,
+    "disagreements": 4,
+    "failed_native_episodes": 23,
+    "failure_condition_counts": {
+      "inside_xy": 8,
+      "below_rim": 0,
+      "above_floor": 7,
+      "linear_settled": 3,
+      "angular_settled": 13,
+      "released": 1,
+      "container_contact": 7
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.848455900281549e-06,
+      "angular_speed_rad_s": 0.0002501159883869787,
+      "min_corner_height_local_m": 0.003972539128779994,
+      "max_corner_xy_extent_m": 0.07172541276975632
+    },
+    {
+      "env_id": 1,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.003760123875787958,
+      "angular_speed_rad_s": 0.000227462424559206,
+      "min_corner_height_local_m": 0.003911953262712579,
+      "max_corner_xy_extent_m": 0.07823782845881112
+    },
+    {
+      "env_id": 2,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.23495459212332e-06,
+      "angular_speed_rad_s": 0.0002044959761104034,
+      "min_corner_height_local_m": 0.003972559898287691,
+      "max_corner_xy_extent_m": 0.060446727593283706
+    },
+    {
+      "env_id": 3,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.105872808122045e-06,
+      "angular_speed_rad_s": 0.00023078061229774504,
+      "min_corner_height_local_m": 0.003972547324526816,
+      "max_corner_xy_extent_m": 0.07661204161558101
+    },
+    {
+      "env_id": 4,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.452670598730305e-06,
+      "angular_speed_rad_s": 0.0002448206614607426,
+      "min_corner_height_local_m": 0.003972542986032866,
+      "max_corner_xy_extent_m": 0.05488868010051347
+    },
+    {
+      "env_id": 5,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.815634312123834e-06,
+      "angular_speed_rad_s": 0.000253379910142394,
+      "min_corner_height_local_m": 0.003972537272335465,
+      "max_corner_xy_extent_m": 0.038679588961653376
+    },
+    {
+      "env_id": 6,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029461390527499624,
+      "angular_speed_rad_s": 1.333561552135167,
+      "min_corner_height_local_m": 0.0033813932511496426,
+      "max_corner_xy_extent_m": 0.04493867238636366
+    },
+    {
+      "env_id": 7,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.02930386255317113,
+      "angular_speed_rad_s": 1.300758263234137,
+      "min_corner_height_local_m": 0.003397228198284863,
+      "max_corner_xy_extent_m": 0.05389708450083179
+    },
+    {
+      "env_id": 8,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.749929742747372e-06,
+      "angular_speed_rad_s": 0.00024116146787783353,
+      "min_corner_height_local_m": 0.003972555734618479,
+      "max_corner_xy_extent_m": 0.06326375095037472
+    },
+    {
+      "env_id": 9,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.12965787694694e-06,
+      "angular_speed_rad_s": 0.00021137238660783676,
+      "min_corner_height_local_m": 0.0039725632534557,
+      "max_corner_xy_extent_m": 0.07710343879131933
+    },
+    {
+      "env_id": 10,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.5961254532468704e-06,
+      "angular_speed_rad_s": 0.00015638554138497067,
+      "min_corner_height_local_m": 0.0039727026130376795,
+      "max_corner_xy_extent_m": 0.08049729877803337
+    },
+    {
+      "env_id": 11,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 2.2821838610498847e-07,
+      "angular_speed_rad_s": 7.334585922779307e-06,
+      "min_corner_height_local_m": -6.143809413901996e-05,
+      "max_corner_xy_extent_m": 0.5345209141150159
+    },
+    {
+      "env_id": 12,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 1.7197653114053204e-05,
+      "angular_speed_rad_s": 0.00021119163498857697,
+      "min_corner_height_local_m": 0.003972401065796705,
+      "max_corner_xy_extent_m": 0.0783377479318552
+    },
+    {
+      "env_id": 13,
+      "native_success": true,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.026164518075908992,
+      "angular_speed_rad_s": 0.8140682181080195,
+      "min_corner_height_local_m": 0.0038536779934578947,
+      "max_corner_xy_extent_m": 0.05803546606396285
+    },
+    {
+      "env_id": 14,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.005531845968121717,
+      "angular_speed_rad_s": 8.768227876555493e-05,
+      "min_corner_height_local_m": 0.0038836335946380446,
+      "max_corner_xy_extent_m": 0.06905898659630534
+    },
+    {
+      "env_id": 15,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.014798649812746301,
+      "angular_speed_rad_s": 0.6653341563925831,
+      "min_corner_height_local_m": 0.0036700715384075516,
+      "max_corner_xy_extent_m": 0.07015106369800307
+    },
+    {
+      "env_id": 16,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.768457083808543e-06,
+      "angular_speed_rad_s": 0.0002147433486959938,
+      "min_corner_height_local_m": 0.00397263651264457,
+      "max_corner_xy_extent_m": 0.048026086980628074
+    },
+    {
+      "env_id": 17,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.262962047410316e-06,
+      "angular_speed_rad_s": 0.00020938325871261375,
+      "min_corner_height_local_m": 0.00397256168484425,
+      "max_corner_xy_extent_m": 0.04591402421764031
+    },
+    {
+      "env_id": 18,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 1.130545757300961e-07,
+      "angular_speed_rad_s": 2.121498897621124e-07,
+      "min_corner_height_local_m": -6.144383779040433e-05,
+      "max_corner_xy_extent_m": 0.5089418896154914
+    },
+    {
+      "env_id": 19,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 1.5653863744031886e-07,
+      "angular_speed_rad_s": 2.860507878751792e-07,
+      "min_corner_height_local_m": -6.144967666065274e-05,
+      "max_corner_xy_extent_m": 0.226658363227092
+    },
+    {
+      "env_id": 20,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029483189296621193,
+      "angular_speed_rad_s": 1.3081585392068604,
+      "min_corner_height_local_m": 0.0033940204545645156,
+      "max_corner_xy_extent_m": 0.07743833387756768
+    },
+    {
+      "env_id": 21,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.887920257268341e-06,
+      "angular_speed_rad_s": 0.00022643586324521133,
+      "min_corner_height_local_m": 0.003972552431672403,
+      "max_corner_xy_extent_m": 0.07438082479435118
+    },
+    {
+      "env_id": 22,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.807956016692884e-06,
+      "angular_speed_rad_s": 0.00022834826082735555,
+      "min_corner_height_local_m": 0.003972553513313018,
+      "max_corner_xy_extent_m": 0.07356620753338207
+    },
+    {
+      "env_id": 23,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.128474261465331e-06,
+      "angular_speed_rad_s": 0.00013377823489499723,
+      "min_corner_height_local_m": 0.0039726451273127406,
+      "max_corner_xy_extent_m": 0.06601524413100808
+    },
+    {
+      "env_id": 24,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.559453931210809e-06,
+      "angular_speed_rad_s": 0.00021502663879932905,
+      "min_corner_height_local_m": 0.003972550322523689,
+      "max_corner_xy_extent_m": 0.07590595113696494
+    },
+    {
+      "env_id": 25,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.720314496415088e-06,
+      "angular_speed_rad_s": 0.00012792782544877694,
+      "min_corner_height_local_m": 0.0039727833482726925,
+      "max_corner_xy_extent_m": 0.06704383828424697
+    },
+    {
+      "env_id": 26,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.000574874767239882,
+      "angular_speed_rad_s": 0.00020921083382473383,
+      "min_corner_height_local_m": 0.00396334840490619,
+      "max_corner_xy_extent_m": 0.0343472277254969
+    },
+    {
+      "env_id": 27,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0007486464795162749,
+      "angular_speed_rad_s": 0.00016898184893247584,
+      "min_corner_height_local_m": 0.003960551870082186,
+      "max_corner_xy_extent_m": 0.07921770342190909
+    },
+    {
+      "env_id": 28,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029408510918996777,
+      "angular_speed_rad_s": 1.3061646139873795,
+      "min_corner_height_local_m": 0.0033953128959439936,
+      "max_corner_xy_extent_m": 0.032246974231730584
+    },
+    {
+      "env_id": 29,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.026370298929626695,
+      "angular_speed_rad_s": 0.9966437104717828,
+      "min_corner_height_local_m": 0.0035943090834098766,
+      "max_corner_xy_extent_m": 0.05687107568559856
+    },
+    {
+      "env_id": 30,
+      "native_success": false,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0135840385852894,
+      "angular_speed_rad_s": 0.00045967867846417,
+      "min_corner_height_local_m": 0.0037923538188882116,
+      "max_corner_xy_extent_m": 0.07924930433287526
+    },
+    {
+      "env_id": 31,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.858448806433676e-06,
+      "angular_speed_rad_s": 0.0002522494789721525,
+      "min_corner_height_local_m": 0.003972537212475504,
+      "max_corner_xy_extent_m": 0.04788738098774068
+    },
+    {
+      "env_id": 32,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.91248077972255e-06,
+      "angular_speed_rad_s": 0.0002272076218459396,
+      "min_corner_height_local_m": 0.003972547404328849,
+      "max_corner_xy_extent_m": 0.03755825697648175
+    },
+    {
+      "env_id": 33,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.464612935057296e-06,
+      "angular_speed_rad_s": 0.0002456787126650796,
+      "min_corner_height_local_m": 0.0039725421886132135,
+      "max_corner_xy_extent_m": 0.07458247558574896
+    },
+    {
+      "env_id": 34,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 1.790486279169015e-05,
+      "angular_speed_rad_s": 0.00022912430967407386,
+      "min_corner_height_local_m": 0.003972387402669653,
+      "max_corner_xy_extent_m": 0.0813367193758572
+    },
+    {
+      "env_id": 35,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.555716972110878e-06,
+      "angular_speed_rad_s": 0.0002471702781795214,
+      "min_corner_height_local_m": 0.003972538861751595,
+      "max_corner_xy_extent_m": 0.03985069674438097
+    },
+    {
+      "env_id": 36,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.335843979455075e-06,
+      "angular_speed_rad_s": 0.00023848518059731578,
+      "min_corner_height_local_m": 0.003972538659383815,
+      "max_corner_xy_extent_m": 0.07022692562914876
+    },
+    {
+      "env_id": 37,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.014690513126801997,
+      "angular_speed_rad_s": 0.6488803084963649,
+      "min_corner_height_local_m": 0.0036776013785842247,
+      "max_corner_xy_extent_m": 0.07016455552062123
+    },
+    {
+      "env_id": 38,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.7447500068060836e-05,
+      "angular_speed_rad_s": 0.00023125773177146874,
+      "min_corner_height_local_m": 0.00397206645528655,
+      "max_corner_xy_extent_m": 0.07328966784191575
+    },
+    {
+      "env_id": 39,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.308970165483482e-06,
+      "angular_speed_rad_s": 0.00014166312278791402,
+      "min_corner_height_local_m": 0.0039726882774305935,
+      "max_corner_xy_extent_m": 0.06374589175276145
+    },
+    {
+      "env_id": 40,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.743110581752925e-06,
+      "angular_speed_rad_s": 0.00024906434500127615,
+      "min_corner_height_local_m": 0.003972533973027847,
+      "max_corner_xy_extent_m": 0.06947264098852508
+    },
+    {
+      "env_id": 41,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.471360300898651e-06,
+      "angular_speed_rad_s": 0.0001939634235443523,
+      "min_corner_height_local_m": 0.003972684795180717,
+      "max_corner_xy_extent_m": 0.07708677685584396
+    },
+    {
+      "env_id": 42,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.28252922154129e-05,
+      "angular_speed_rad_s": 0.00019389398007476448,
+      "min_corner_height_local_m": 0.003971171152413528,
+      "max_corner_xy_extent_m": 0.06568547029210535
+    },
+    {
+      "env_id": 43,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.420100651267012e-06,
+      "angular_speed_rad_s": 0.00021556256106440528,
+      "min_corner_height_local_m": 0.00397255961542815,
+      "max_corner_xy_extent_m": 0.06499422595440806
+    },
+    {
+      "env_id": 44,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.8175577236991145e-06,
+      "angular_speed_rad_s": 0.00013260528643825926,
+      "min_corner_height_local_m": 0.003972647751794657,
+      "max_corner_xy_extent_m": 0.06139045638670912
+    },
+    {
+      "env_id": 45,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": false,
+        "angular_settled": false,
+        "released": false,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.06724116277336448,
+      "angular_speed_rad_s": 0.9851965065407263,
+      "min_corner_height_local_m": 0.03767724476387302,
+      "max_corner_xy_extent_m": 0.08393924413267377
+    },
+    {
+      "env_id": 46,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.72524012612047e-06,
+      "angular_speed_rad_s": 0.00024919947713996444,
+      "min_corner_height_local_m": 0.003972535440621858,
+      "max_corner_xy_extent_m": 0.058040796125069495
+    },
+    {
+      "env_id": 47,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.202824941757794e-06,
+      "angular_speed_rad_s": 0.00022961704707379096,
+      "min_corner_height_local_m": 0.003972543945707108,
+      "max_corner_xy_extent_m": 0.08062884022924845
+    },
+    {
+      "env_id": 48,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.435824758379178e-06,
+      "angular_speed_rad_s": 0.00021298784761582053,
+      "min_corner_height_local_m": 0.0039725546440191085,
+      "max_corner_xy_extent_m": 0.07438071018325544
+    },
+    {
+      "env_id": 49,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.00012131569501903431,
+      "angular_speed_rad_s": 0.00024439734466862625,
+      "min_corner_height_local_m": 0.003970698730685104,
+      "max_corner_xy_extent_m": 0.04454806319711042
+    },
+    {
+      "env_id": 50,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.609019732122263e-06,
+      "angular_speed_rad_s": 0.0002243487872518649,
+      "min_corner_height_local_m": 0.003972557058954432,
+      "max_corner_xy_extent_m": 0.06473753776542981
+    },
+    {
+      "env_id": 51,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.226482528138695e-06,
+      "angular_speed_rad_s": 0.00023311829680976292,
+      "min_corner_height_local_m": 0.003972541540183293,
+      "max_corner_xy_extent_m": 0.04817973946407025
+    },
+    {
+      "env_id": 52,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 7.45658765248323e-06,
+      "angular_speed_rad_s": 0.00019014751088436215,
+      "min_corner_height_local_m": 0.003972572092227885,
+      "max_corner_xy_extent_m": 0.07706290137572974
+    },
+    {
+      "env_id": 53,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.452977940400175e-06,
+      "angular_speed_rad_s": 0.00011536720348754677,
+      "min_corner_height_local_m": 0.003972653470338296,
+      "max_corner_xy_extent_m": 0.04186191753411599
+    },
+    {
+      "env_id": 54,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.887681241575891e-06,
+      "angular_speed_rad_s": 0.00022932892135567236,
+      "min_corner_height_local_m": 0.003972549920103835,
+      "max_corner_xy_extent_m": 0.07490976370573754
+    },
+    {
+      "env_id": 55,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.38771651679659e-06,
+      "angular_speed_rad_s": 0.00022882057653522076,
+      "min_corner_height_local_m": 0.00397256210720832,
+      "max_corner_xy_extent_m": 0.07545482526154032
+    },
+    {
+      "env_id": 56,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.939779589347532e-06,
+      "angular_speed_rad_s": 0.00023194349193815435,
+      "min_corner_height_local_m": 0.003972549100670766,
+      "max_corner_xy_extent_m": 0.08137487871665945
+    },
+    {
+      "env_id": 57,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0007552770880709924,
+      "angular_speed_rad_s": 0.02409180487663905,
+      "min_corner_height_local_m": 0.003940705359368912,
+      "max_corner_xy_extent_m": 0.08150796470953314
+    },
+    {
+      "env_id": 58,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 7.587141283503943e-06,
+      "angular_speed_rad_s": 0.00019021539765649246,
+      "min_corner_height_local_m": 0.003972572584843383,
+      "max_corner_xy_extent_m": 0.07810436306787924
+    },
+    {
+      "env_id": 59,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.006453282732763e-06,
+      "angular_speed_rad_s": 0.00023404130132022188,
+      "min_corner_height_local_m": 0.0039725513840683105,
+      "max_corner_xy_extent_m": 0.05632312454391229
+    },
+    {
+      "env_id": 60,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.324716678766982e-06,
+      "angular_speed_rad_s": 0.00023930108155906035,
+      "min_corner_height_local_m": 0.003972545881192144,
+      "max_corner_xy_extent_m": 0.06372386757959425
+    },
+    {
+      "env_id": 61,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.07995903011876e-06,
+      "angular_speed_rad_s": 0.00020628473367938696,
+      "min_corner_height_local_m": 0.003972567404794941,
+      "max_corner_xy_extent_m": 0.06811533181667531
+    },
+    {
+      "env_id": 62,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.779695533530346e-06,
+      "angular_speed_rad_s": 0.00025200034536030817,
+      "min_corner_height_local_m": 0.003972533423774592,
+      "max_corner_xy_extent_m": 0.07325310343552792
+    },
+    {
+      "env_id": 63,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.647716440512154e-06,
+      "angular_speed_rad_s": 0.00011378440145552439,
+      "min_corner_height_local_m": 0.003972759250450705,
+      "max_corner_xy_extent_m": 0.059707120517602866
+    },
+    {
+      "env_id": 64,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.101656201277822e-06,
+      "angular_speed_rad_s": 0.00017469433766643377,
+      "min_corner_height_local_m": 0.003971119979794741,
+      "max_corner_xy_extent_m": 0.07054221323617635
+    },
+    {
+      "env_id": 65,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": false,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.03004347913337835,
+      "angular_speed_rad_s": 1.3559731002330424,
+      "min_corner_height_local_m": 0.003374423643116189,
+      "max_corner_xy_extent_m": 0.04970682872663166
+    },
+    {
+      "env_id": 66,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.411388952491493e-05,
+      "angular_speed_rad_s": 0.0002286102547605967,
+      "min_corner_height_local_m": 0.003971138412315506,
+      "max_corner_xy_extent_m": 0.06493767274347978
+    },
+    {
+      "env_id": 67,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.595219127746604e-06,
+      "angular_speed_rad_s": 0.00021780107153579112,
+      "min_corner_height_local_m": 0.003972553431962923,
+      "max_corner_xy_extent_m": 0.06690626355728861
+    },
+    {
+      "env_id": 68,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 1.5954192138038314e-07,
+      "angular_speed_rad_s": 1.121484259672714e-06,
+      "min_corner_height_local_m": -6.144521525184786e-05,
+      "max_corner_xy_extent_m": 0.5844249468212817
+    },
+    {
+      "env_id": 69,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0001962060295462591,
+      "angular_speed_rad_s": 0.00018109871744817222,
+      "min_corner_height_local_m": 0.0039695111603873096,
+      "max_corner_xy_extent_m": 0.08148121704154443
+    },
+    {
+      "env_id": 70,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.9593098933424045e-05,
+      "angular_speed_rad_s": 0.0002366268648488441,
+      "min_corner_height_local_m": 0.003971705285080169,
+      "max_corner_xy_extent_m": 0.055574607510528194
+    },
+    {
+      "env_id": 71,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.967746333732359e-06,
+      "angular_speed_rad_s": 0.00025523845343620896,
+      "min_corner_height_local_m": 0.00397253158253319,
+      "max_corner_xy_extent_m": 0.07686650500500045
+    },
+    {
+      "env_id": 72,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.595060007544908e-06,
+      "angular_speed_rad_s": 0.00019357074857271126,
+      "min_corner_height_local_m": 0.003972674749623393,
+      "max_corner_xy_extent_m": 0.06894977562824312
+    },
+    {
+      "env_id": 73,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0007508793882548115,
+      "angular_speed_rad_s": 0.00023117070545357758,
+      "min_corner_height_local_m": 0.0039604944591371425,
+      "max_corner_xy_extent_m": 0.07404719762634408
+    },
+    {
+      "env_id": 74,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.432056376885863e-06,
+      "angular_speed_rad_s": 0.00021061854384660383,
+      "min_corner_height_local_m": 0.003972554171796577,
+      "max_corner_xy_extent_m": 0.08060159059002175
+    },
+    {
+      "env_id": 75,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.323207373682445e-06,
+      "angular_speed_rad_s": 0.0002404445532260362,
+      "min_corner_height_local_m": 0.003972544669378443,
+      "max_corner_xy_extent_m": 0.07209795401865085
+    },
+    {
+      "env_id": 76,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029480193423957288,
+      "angular_speed_rad_s": 1.3347971031507326,
+      "min_corner_height_local_m": 0.003380142169086625,
+      "max_corner_xy_extent_m": 0.07424931969951874
+    },
+    {
+      "env_id": 77,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 3.692758236582931e-07,
+      "angular_speed_rad_s": 1.479622644298959e-05,
+      "min_corner_height_local_m": -6.145466359948683e-05,
+      "max_corner_xy_extent_m": 0.6190993644303261
+    },
+    {
+      "env_id": 78,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.366722053434258e-06,
+      "angular_speed_rad_s": 0.0002424687935705187,
+      "min_corner_height_local_m": 0.003972540667005323,
+      "max_corner_xy_extent_m": 0.04969775223115109
+    },
+    {
+      "env_id": 79,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.4765655026603065e-06,
+      "angular_speed_rad_s": 0.00015374963836501212,
+      "min_corner_height_local_m": 0.0039727065876097025,
+      "max_corner_xy_extent_m": 0.06728121577045135
+    },
+    {
+      "env_id": 80,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0009819007256211159,
+      "angular_speed_rad_s": 0.00019958285252736382,
+      "min_corner_height_local_m": 0.00395678155045378,
+      "max_corner_xy_extent_m": 0.05565331834119711
+    },
+    {
+      "env_id": 81,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.5187400951239e-05,
+      "angular_speed_rad_s": 0.004027970943366168,
+      "min_corner_height_local_m": 0.003922131957053947,
+      "max_corner_xy_extent_m": 0.08151964452854776
+    },
+    {
+      "env_id": 82,
+      "native_success": false,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.00407205496512096,
+      "angular_speed_rad_s": 0.22065761902078407,
+      "min_corner_height_local_m": 0.003941229203273527,
+      "max_corner_xy_extent_m": 0.08152538046297551
+    },
+    {
+      "env_id": 83,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.51407725376322e-06,
+      "angular_speed_rad_s": 0.000248081259890267,
+      "min_corner_height_local_m": 0.003972542964633549,
+      "max_corner_xy_extent_m": 0.06774104188664783
+    },
+    {
+      "env_id": 84,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.138036156217974e-06,
+      "angular_speed_rad_s": 0.00020782695076442575,
+      "min_corner_height_local_m": 0.003972566108945592,
+      "max_corner_xy_extent_m": 0.08107921109175283
+    },
+    {
+      "env_id": 85,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.235462321689216e-06,
+      "angular_speed_rad_s": 0.00023753989631732623,
+      "min_corner_height_local_m": 0.003972547708554806,
+      "max_corner_xy_extent_m": 0.06350606602177314
+    },
+    {
+      "env_id": 86,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.008729997132453846,
+      "angular_speed_rad_s": 0.00018219072902816974,
+      "min_corner_height_local_m": 0.0038317136509137166,
+      "max_corner_xy_extent_m": 0.06830934427982151
+    },
+    {
+      "env_id": 87,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.291446439057535e-06,
+      "angular_speed_rad_s": 0.00020670768384627769,
+      "min_corner_height_local_m": 0.00397265570709929,
+      "max_corner_xy_extent_m": 0.05882431761090495
+    },
+    {
+      "env_id": 88,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 1.0780610242937252e-07,
+      "angular_speed_rad_s": 5.38228479895652e-07,
+      "min_corner_height_local_m": -6.144561468948011e-05,
+      "max_corner_xy_extent_m": 0.2269567281639941
+    },
+    {
+      "env_id": 89,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.810768618659944e-06,
+      "angular_speed_rad_s": 0.00024857841578724193,
+      "min_corner_height_local_m": 0.003972534562765088,
+      "max_corner_xy_extent_m": 0.04981072779523509
+    },
+    {
+      "env_id": 90,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.93472731105328e-06,
+      "angular_speed_rad_s": 0.00013844438682797798,
+      "min_corner_height_local_m": 0.003972650534704022,
+      "max_corner_xy_extent_m": 0.07976458302528824
+    },
+    {
+      "env_id": 91,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.96150178610874e-06,
+      "angular_speed_rad_s": 0.00023487685806352642,
+      "min_corner_height_local_m": 0.003972546593271352,
+      "max_corner_xy_extent_m": 0.04307864244690612
+    },
+    {
+      "env_id": 92,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.5771503110718607e-06,
+      "angular_speed_rad_s": 0.00015642252627161827,
+      "min_corner_height_local_m": 0.00397271480360247,
+      "max_corner_xy_extent_m": 0.06301839948930175
+    },
+    {
+      "env_id": 93,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.2385631273144964e-06,
+      "angular_speed_rad_s": 0.00021173957575012118,
+      "min_corner_height_local_m": 0.0039726602487519524,
+      "max_corner_xy_extent_m": 0.07733125165405683
+    },
+    {
+      "env_id": 94,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.423694602415208e-06,
+      "angular_speed_rad_s": 0.00021430617747456802,
+      "min_corner_height_local_m": 0.003972556454962361,
+      "max_corner_xy_extent_m": 0.07702702294568853
+    },
+    {
+      "env_id": 95,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.145873207096488e-06,
+      "angular_speed_rad_s": 0.000212551666275654,
+      "min_corner_height_local_m": 0.003972559954009697,
+      "max_corner_xy_extent_m": 0.036763209946846086
+    },
+    {
+      "env_id": 96,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.956030801654755e-06,
+      "angular_speed_rad_s": 0.00021038544890029964,
+      "min_corner_height_local_m": 0.0039726728069218835,
+      "max_corner_xy_extent_m": 0.08143815254891067
+    },
+    {
+      "env_id": 97,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.5717044174139758e-06,
+      "angular_speed_rad_s": 0.00014782339461235036,
+      "min_corner_height_local_m": 0.0039726755953647976,
+      "max_corner_xy_extent_m": 0.08149976051068634
+    },
+    {
+      "env_id": 98,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.23166553992424e-06,
+      "angular_speed_rad_s": 0.00012835597222930073,
+      "min_corner_height_local_m": 0.003972793090136116,
+      "max_corner_xy_extent_m": 0.08005409935170861
+    },
+    {
+      "env_id": 99,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029980830811902136,
+      "angular_speed_rad_s": 1.3531113228990341,
+      "min_corner_height_local_m": 0.0033741355974735913,
+      "max_corner_xy_extent_m": 0.07775113287200994
+    },
+    {
+      "env_id": 100,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.107770422140417e-06,
+      "angular_speed_rad_s": 0.00022952525892598892,
+      "min_corner_height_local_m": 0.003972545764584885,
+      "max_corner_xy_extent_m": 0.04155683505267634
+    },
+    {
+      "env_id": 101,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.9411275054144415e-06,
+      "angular_speed_rad_s": 0.00017981043747900783,
+      "min_corner_height_local_m": 0.003972642051749697,
+      "max_corner_xy_extent_m": 0.07554483199557377
+    },
+    {
+      "env_id": 102,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 5.01603043597911e-06,
+      "angular_speed_rad_s": 0.00020331298538762234,
+      "min_corner_height_local_m": 0.003972661589240627,
+      "max_corner_xy_extent_m": 0.03754707638761361
+    },
+    {
+      "env_id": 103,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.327392981641846e-06,
+      "angular_speed_rad_s": 0.00024085220109969736,
+      "min_corner_height_local_m": 0.003972541166041513,
+      "max_corner_xy_extent_m": 0.07171277664386651
+    },
+    {
+      "env_id": 104,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.90307702380001e-06,
+      "angular_speed_rad_s": 0.00023036763828728429,
+      "min_corner_height_local_m": 0.00397254934718735,
+      "max_corner_xy_extent_m": 0.07007425231349686
+    },
+    {
+      "env_id": 105,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.86476625735367e-06,
+      "angular_speed_rad_s": 0.0002236283404977705,
+      "min_corner_height_local_m": 0.003972549498684129,
+      "max_corner_xy_extent_m": 0.06908751486561138
+    },
+    {
+      "env_id": 106,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.518680326794931e-06,
+      "angular_speed_rad_s": 0.00024707255900208673,
+      "min_corner_height_local_m": 0.003972537093900815,
+      "max_corner_xy_extent_m": 0.06457046053646388
+    },
+    {
+      "env_id": 107,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 1.0147167650281496e-05,
+      "angular_speed_rad_s": 0.00023613989013166403,
+      "min_corner_height_local_m": 0.003972526385577009,
+      "max_corner_xy_extent_m": 0.049901521135659016
+    },
+    {
+      "env_id": 108,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.383291122176826e-06,
+      "angular_speed_rad_s": 0.0002450952811087443,
+      "min_corner_height_local_m": 0.003972543477245873,
+      "max_corner_xy_extent_m": 0.043069613244652326
+    },
+    {
+      "env_id": 109,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.070444911837007e-06,
+      "angular_speed_rad_s": 0.00020508329672023343,
+      "min_corner_height_local_m": 0.003972563269862161,
+      "max_corner_xy_extent_m": 0.074828391443408
+    },
+    {
+      "env_id": 110,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.0007562636134295038,
+      "angular_speed_rad_s": 0.0002463393722656582,
+      "min_corner_height_local_m": 0.003960404302418264,
+      "max_corner_xy_extent_m": 0.06333309205812063
+    },
+    {
+      "env_id": 111,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.254025796630331e-06,
+      "angular_speed_rad_s": 0.000240817241662139,
+      "min_corner_height_local_m": 0.00397254272610268,
+      "max_corner_xy_extent_m": 0.04949113960940998
+    },
+    {
+      "env_id": 112,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.016540089676527e-06,
+      "angular_speed_rad_s": 0.00023351282733463554,
+      "min_corner_height_local_m": 0.003972546485665696,
+      "max_corner_xy_extent_m": 0.060674188331524465
+    },
+    {
+      "env_id": 113,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.956543182924487e-06,
+      "angular_speed_rad_s": 0.00010265859989681898,
+      "min_corner_height_local_m": 0.003972767510175042,
+      "max_corner_xy_extent_m": 0.03613882984355007
+    },
+    {
+      "env_id": 114,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.040293525399977e-06,
+      "angular_speed_rad_s": 0.000204809958118268,
+      "min_corner_height_local_m": 0.0039725636982514325,
+      "max_corner_xy_extent_m": 0.07684051677982978
+    },
+    {
+      "env_id": 115,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.564713910498919e-06,
+      "angular_speed_rad_s": 0.00022237816359301033,
+      "min_corner_height_local_m": 0.003972554312202208,
+      "max_corner_xy_extent_m": 0.07853763868359621
+    },
+    {
+      "env_id": 116,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.082334158517246e-06,
+      "angular_speed_rad_s": 0.0002370898540817095,
+      "min_corner_height_local_m": 0.003972544874115522,
+      "max_corner_xy_extent_m": 0.07952017807719779
+    },
+    {
+      "env_id": 117,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": false,
+        "below_rim": true,
+        "above_floor": false,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": false
+      },
+      "linear_speed_m_s": 3.3183927727206075e-07,
+      "angular_speed_rad_s": 1.2708788285234877e-05,
+      "min_corner_height_local_m": -6.141101815625509e-05,
+      "max_corner_xy_extent_m": 0.5319128623562523
+    },
+    {
+      "env_id": 118,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.029485364992201946,
+      "angular_speed_rad_s": 1.33667615855667,
+      "min_corner_height_local_m": 0.003377796487953069,
+      "max_corner_xy_extent_m": 0.06981352404563222
+    },
+    {
+      "env_id": 119,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.07788098636723e-06,
+      "angular_speed_rad_s": 0.00023807459866099357,
+      "min_corner_height_local_m": 0.003972554548451113,
+      "max_corner_xy_extent_m": 0.06471837562548849
+    },
+    {
+      "env_id": 120,
+      "native_success": false,
+      "reconstructed_success": false,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": false,
+        "angular_settled": false,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.030032340524704985,
+      "angular_speed_rad_s": 1.3558771578001618,
+      "min_corner_height_local_m": 0.003373458612237232,
+      "max_corner_xy_extent_m": 0.07190277784849972
+    },
+    {
+      "env_id": 121,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.958543616983146e-06,
+      "angular_speed_rad_s": 0.0002304345770137243,
+      "min_corner_height_local_m": 0.003972551584940588,
+      "max_corner_xy_extent_m": 0.0678219359615022
+    },
+    {
+      "env_id": 122,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.582865788777887e-06,
+      "angular_speed_rad_s": 0.00024483290494829377,
+      "min_corner_height_local_m": 0.003972538805232439,
+      "max_corner_xy_extent_m": 0.04753460941959476
+    },
+    {
+      "env_id": 123,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 3.7131855406758814e-06,
+      "angular_speed_rad_s": 0.0001522813243798955,
+      "min_corner_height_local_m": 0.003972672107123951,
+      "max_corner_xy_extent_m": 0.0573873034558113
+    },
+    {
+      "env_id": 124,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 8.934889219280751e-06,
+      "angular_speed_rad_s": 0.00022723294037025373,
+      "min_corner_height_local_m": 0.003972549397175147,
+      "max_corner_xy_extent_m": 0.06270353604808598
+    },
+    {
+      "env_id": 125,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 9.367138983231753e-06,
+      "angular_speed_rad_s": 0.00024385441618557374,
+      "min_corner_height_local_m": 0.003972540182300334,
+      "max_corner_xy_extent_m": 0.05828898835072187
+    },
+    {
+      "env_id": 126,
+      "native_success": false,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 0.013446641648677588,
+      "angular_speed_rad_s": 0.0004657179861808644,
+      "min_corner_height_local_m": 0.003794458880354779,
+      "max_corner_xy_extent_m": 0.07893950214393339
+    },
+    {
+      "env_id": 127,
+      "native_success": true,
+      "reconstructed_success": true,
+      "conditions": {
+        "inside_xy": true,
+        "below_rim": true,
+        "above_floor": true,
+        "linear_settled": true,
+        "angular_settled": true,
+        "released": true,
+        "container_contact": true
+      },
+      "linear_speed_m_s": 4.88798320093845e-06,
+      "angular_speed_rad_s": 0.0001966117452330786,
+      "min_corner_height_local_m": 0.003972659016405507,
+      "max_corner_xy_extent_m": 0.0797023448980641
+    }
+  ]
+}

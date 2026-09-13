@@ -23,16 +23,20 @@ def main():
   parser.add_argument('--gyro',action='store_true')
   parser.add_argument('--use-trace-friction',action='store_true')
   parser.add_argument('--fixed-grip-target',type=float)
+  parser.add_argument('--failures-only',action='store_true')
+  parser.add_argument('--stride',type=int,default=4)
   args = parser.parse_args()
   evaluation = json.loads(args.evaluation.read_text())
-  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka')
+  assert evaluation['task'] in ('Mjlab-Lift-Cube-Franka', 'Mjlab-Throw-To-Bin-Franka', 'Mjlab-Place-In-Container-Franka')
+  assert args.stride>=1
   checkpoint = Path(evaluation['checkpoint'])
   manifest = json.loads((checkpoint.parent/'manifest.json').read_text())
   cfg = TrainConfig.from_task(evaluation['task'])
   apply_recipe(cfg,manifest['recipe'])
   cfg.env.sim.free_body_implicitfast_compat = args.gyro or manifest.get('free_body_implicitfast_compat', False)
   cfg.env.sim.elliptic_hessian_compat = manifest.get('elliptic_hessian_compat', False)
-  records = [r for r in evaluation['records'] if r['reason']=='timeout'][::4]
+  records = [r for r in evaluation['records'] if r['reason']=='timeout' and (not args.failures_only or not r['success'])][::args.stride]
+  assert records, 'No selected episodes'
   cfg.env.scene.num_envs = len(records)
   cfg.env.seed = 20260914
   with np.load(Path(evaluation['trace_dir'])/'trace.npz') as archive:
@@ -154,8 +158,8 @@ def main():
                 episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
                 source_episode_randomization_reconstructed=args.use_trace_friction,physics_dt=env.physics_dt,
-                fixed_grip_target=args.fixed_grip_target,
-                method='Every fourth timeout terminal state, cold solver cache,400 native steps with constant XML position-actuator controls. Policy queried once from restored observations; alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
+                fixed_grip_target=args.fixed_grip_target,failures_only=args.failures_only,stride=args.stride,
+                method=f'Every {args.stride}th timeout terminal state, failed-only={args.failures_only}, cold solver cache,400 native steps with constant XML position-actuator controls. Policy queried once from restored observations; alternatives hold current arm joints, optionally reduce gripper closure to2mm or use the reported fixed finger target. CPU and GPU receive identical local state/controls and matched per-world friction. '+('Original evaluation friction is restored from the trace. ' if args.use_trace_friction else 'This probe resamples the registered friction distribution. ')+'No policy training, no first-episode success evaluation; steady-control intervention only.',cases=cases)
     args.output.write_text(json.dumps(report,indent=2)+'\n')
   finally:
     wrapped.close()

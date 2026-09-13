@@ -17,6 +17,7 @@ def main():
   p.add_argument('--audit', type=Path, required=True)
   p.add_argument('--output', type=Path, required=True)
   p.add_argument('--grid', action='store_true')
+  p.add_argument('--press-climb-grid', action='store_true')
   args = p.parse_args()
   if args.output.exists():
     p.error('Output exists')
@@ -40,6 +41,8 @@ def main():
   modes = [('hold_actual',(0.,0.),(0.,0.)),('near_5mm',(.005,0.),(.005,0.)),('near_10mm',(.010,0.),(.010,0.)),('near_5mm_then_push_10mm',(.005,0.),(-.005,0.))]
   if args.grid:
     modes = [(f'near_{x:.3f}_z_{z:.3f}',(x,z),(x,z)) for x in [-.005,0.,.003,.005,.007] for z in [-.002,.002,.005,.010]]
+  if args.press_climb_grid:
+    modes = [(f'press_{-x:.3f}_climb_{z:.3f}',(x,z),(x,z)) for x in [-.01,-.02,-.03,-.04] for z in [.01,.02,.03,.04]]
   rows = []
   for record in audit['rows'][::4]:
     lane = record['env_id']; step = record['closest']['step']
@@ -106,8 +109,8 @@ def main():
       final_over20=sum(c['final_tilt_deg'] is not None and c['final_tilt_deg']>20 for c in cases),
       all_finite=all(c['finite'] for c in cases),warning_episodes=sum(any(c['warnings']) for c in cases),
       robot_obstacle_penetration_over3mm=sum(c['min_robot_obstacle_distance_m']<-.003 for c in cases))
-  report = dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],episodes=len(rows),grid=args.grid,
-    method='Native CPU400×5ms steps from every fourth recorded closest approach state, preserving initial velocities and exact trace friction, cold solver cache. Bounded IK produces constant joint actuator targets at0/5/10mm outward hand shifts with original wrist/opening; one staged diagnostic returns inward after0.5s. No policy actions, demonstrations, training, first-episode evaluation or RL success claim. Optional grid varies outward shift[-5,0,3,5,7]mm and vertical shift[-2,2,5,10]mm. Max tilt is diagnostic only; obstacle penetration reported separately.',summary=summary,rows=rows)
+  report = dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],episodes=len(rows),grid=args.grid,press_climb_grid=args.press_climb_grid,
+    method='Native CPU400×5ms steps from every fourth recorded closest approach state, preserving initial velocities and exact trace friction, cold solver cache. Bounded IK produces constant joint actuator targets at0/5/10mm outward hand shifts with original wrist/opening; one staged diagnostic returns inward after0.5s. No policy actions, demonstrations, training, first-episode evaluation or RL success claim. Optional grid varies outward shift[-5,0,3,5,7]mm and vertical shift[-2,2,5,10]mm. Press/climb grid instead varies inward10–40mm and upward10–40mm offsets, testing combined compression and upward friction. Max tilt is diagnostic only; obstacle penetration reported separately.',summary=summary,rows=rows)
   args.output.write_text(json.dumps(report,indent=2)+'\n')
   print(json.dumps(summary,indent=2))
 

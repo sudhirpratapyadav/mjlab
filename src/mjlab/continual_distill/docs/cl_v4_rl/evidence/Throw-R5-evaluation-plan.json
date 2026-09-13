@@ -1,0 +1,18 @@
+{
+  "preregistered_utc": "2026-09-13T01:06:17.013095+00:00",
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "run_id": "RL-024-R5-throw-refine",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-024-R4-throw-release/model_9496.pt",
+  "source_checkpoint_sha256": "6239492f94d58b93c7556bfb8f80f190afd4add087a70b000515279972c4fc2e",
+  "source_validation_successes": 116,
+  "source_confirmation_successes": 107,
+  "updates": 2000,
+  "expected_final_checkpoint": "model_11495.pt",
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260916,
+  "episodes_per_batch": 128,
+  "minimum_successes_per_batch": 116,
+  "retired_confirmation_seed": 20260915,
+  "reason": "Improve borderline validation margin using lower LR and the unchanged reward. Previous confirmation failed; retire that batch before further training to preserve an independent confirmation. Do not retest model9496 against another seed.",
+  "schedule": "Finish the full2000-update budget, then one validation at20260914; only if116+ evaluate the frozen candidate once at20260916. No interim confirmation or confirmation-failure-driven tuning."
+}

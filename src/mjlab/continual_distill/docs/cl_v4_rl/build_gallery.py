@@ -27,6 +27,7 @@ def main():
     data = json.loads(path.read_text())
     if isinstance(data, dict) and data.get('first_episode_only') and data.get('episodes') == 128 and data.get('seed') == 20260914:
       evaluations.append((path.stat().st_mtime_ns, path.name, data))
+  confirmations = [json.loads(path.read_text()) for path in (HERE/'evidence').glob('*-confirm-*.json')]
   rows = []
   for task in tasks:
     certificate = HERE/'evidence'/f'{task}-certificate.json'
@@ -43,7 +44,8 @@ def main():
       videos = json.loads((Path(evaluation['trace_dir'])/'videos.json').read_text())
       # Show the failure example for an unfinished policy, even when some trials pass.
       clip = videos['clips'].get('failure') or videos['clips']['success']
-      confirmation = None
+      matches = [item for item in confirmations if item.get('checkpoint_sha256')==evaluation['checkpoint_sha256'] and item.get('first_episode_only') and item.get('episodes')==128]
+      confirmation = matches[-1]['successes'] if matches else None
     assert clip['source'] == 'exact first-episode states; rendering only, no resimulation'
     assert clip.get('seed', 20260914) == 20260914
     video = Path(clip['path'])
@@ -70,7 +72,7 @@ def main():
     state = 'certified' if row['certified'] else 'progress'
     status = 'Certified' if row['certified'] else 'In progress'
     rate = f"{100*row['validation']/128:.1f}%"
-    if row['certified']:
+    if row['confirmation'] is not None:
       rate += f" / {100*row['confirmation']/128:.1f}%"
       detail = 'Validation / confirmation · 128 episodes each'
     else:

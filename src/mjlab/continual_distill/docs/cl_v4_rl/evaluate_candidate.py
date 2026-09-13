@@ -13,14 +13,17 @@ def main():
   parser.add_argument('--checkpoint',type=Path,required=True)
   parser.add_argument('--label',required=True)
   parser.add_argument('--diagnostics',action='store_true')
+  parser.add_argument('--confirmation-seed',type=int,default=20260915,help='Preregister before training/evaluation; use a fresh seed after a failed confirmation')
   args = parser.parse_args()
+  if args.confirmation_seed<0 or args.confirmation_seed==20260914:
+    parser.error('Confirmation seed must be nonnegative and distinct from validation20260914')
   if Path(args.label).name != args.label:
     parser.error('label must be a single path component')
   if not args.checkpoint.is_file():
     parser.error('checkpoint does not exist')
   trace = HERE/'runs/verified'/args.label
   results = []
-  for kind,seed in [('val',20260914),('confirm',20260915)]:
+  for kind,seed in [('val',20260914),('confirm',args.confirmation_seed)]:
     output = HERE/'evidence'/f'{args.label}-{kind}-{seed}.json'
     cmd = [sys.executable,str(HERE/'evaluate_teacher.py'),'--task',args.task,'--checkpoint',str(args.checkpoint.resolve()),'--seed',str(seed),'--episodes','128','--output',str(output)]
     if kind == 'val':

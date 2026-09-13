@@ -1,0 +1,84 @@
+{
+  "task": "Mjlab-Throw-To-Bin-Franka",
+  "checkpoint_sha256": "6239492f94d58b93c7556bfb8f80f190afd4add087a70b000515279972c4fc2e",
+  "successes": 116,
+  "episodes": 128,
+  "confirmation_successes": 107,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0062.png",
+    "success-0124.png",
+    "failure-0000.png",
+    "failure-0062.png",
+    "failure-0124.png"
+  ],
+  "review": "Actual validation frames reviewed. The hand moves toward the bin and releases the cube; success ends with the cube occluded inside, selected failure shows the cube outside the far side of the bin. Validation116/128 passes the first rate gate, but independent confirmation107/128 fails; not certified. No individual confirmation failures were inspected or used for tuning. Preserve candidate9496 and improve validation robustness through a preregistered smaller-LR continuation.",
+  "termination_counts": {
+    "time_out": 127,
+    "ee_ground_collision": 1,
+    "object_out_of_bounds": 0
+  },
+  "last_diagnostics": {
+    "control_step": 240,
+    "active_episodes": 127,
+    "grasped_fraction": 0.007874015718698502,
+    "enclosed_fraction": 0.0,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.007874015718698502,
+    "robot_object_contact_fraction": 0.007874015718698502,
+    "aperture_mean": 0.07008321583271027,
+    "gripper_object_distance_mean": 0.13782504200935364,
+    "gripper_goal_distance_mean": 0.1514996886253357,
+    "gripper_down_alignment_mean": 0.531466007232666,
+    "object_height_mean": 0.030681774020195007,
+    "gripper_action_mean": 0.7491814494132996,
+    "absolute_action_max": 0.9999353885650635,
+    "goal_error_mean": 0.057325370609760284
+  },
+  "videos": {
+    "task": "Mjlab-Throw-To-Bin-Franka",
+    "checkpoint_sha256": "6239492f94d58b93c7556bfb8f80f190afd4add087a70b000515279972c4fc2e",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-R4-m9496/success.mp4",
+        "outcome": {
+          "env_id": 69,
+          "success": true,
+          "steps": 250,
+          "return": 103.77943420410156,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 125,
+        "fps": 25,
+        "simulation_seconds": 5.0,
+        "encoded_seconds": 5.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-024-R4-m9496/failure.mp4",
+        "outcome": {
+          "env_id": 86,
+          "success": false,
+          "steps": 250,
+          "return": 89.96839904785156,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 125,
+        "fps": 25,
+        "simulation_seconds": 5.0,
+        "encoded_seconds": 5.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
