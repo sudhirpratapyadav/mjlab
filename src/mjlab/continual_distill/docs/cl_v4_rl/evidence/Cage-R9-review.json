@@ -1,0 +1,62 @@
+{
+  "reviewed_utc": "2026-09-13T01:18:21.753978+00:00",
+  "task": "Mjlab-Cage-Drag-Franka",
+  "checkpoint_sha256": "44e9cd5eeffeeabb7cbe62ed48be27a228d10e0208a2be4934acaf3254cdbe09",
+  "successes": 108,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "review": "Actual beginning, middle and final success/failure frames reviewed. Hand descends around the cube and transports it near the goal. Selected failure ends with cube tilted under the hand; success cube remains upright at the goal. Native predicate remains authoritative; strict108/128 improves prior99/128,124 timeouts and4 ground collisions. Below116, no confirmation or certification.",
+  "videos": {
+    "task": "Mjlab-Cage-Drag-Franka",
+    "checkpoint_sha256": "44e9cd5eeffeeabb7cbe62ed48be27a228d10e0208a2be4934acaf3254cdbe09",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R9-m15094/success.mp4",
+        "outcome": {
+          "env_id": 123,
+          "success": true,
+          "steps": 200,
+          "return": 111.74201965332031,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R9-m15094/failure.mp4",
+        "outcome": {
+          "env_id": 64,
+          "success": false,
+          "steps": 200,
+          "return": 63.47859573364258,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

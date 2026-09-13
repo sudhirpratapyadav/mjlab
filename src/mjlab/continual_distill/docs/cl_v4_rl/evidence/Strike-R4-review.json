@@ -1,0 +1,62 @@
+{
+  "reviewed_utc": "2026-09-13T01:18:21.686928+00:00",
+  "task": "Mjlab-Strike-Slide-Franka",
+  "checkpoint_sha256": "2774821ec221adc6505fe126a676f30da33c96036e33cec7aa38c8a26e3e8ab8",
+  "successes": 34,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "review": "Actual beginning, middle and final success/failure frames reviewed. Success puck overlaps the target at middle and end; selected failure moves past the target and ends offset to its far side. Strict34/128 improves prior21/128;126 timeouts,1 ground collision and1 bounds termination. Below116, no confirmation or certification.",
+  "videos": {
+    "task": "Mjlab-Strike-Slide-Franka",
+    "checkpoint_sha256": "2774821ec221adc6505fe126a676f30da33c96036e33cec7aa38c8a26e3e8ab8",
+    "clips": {
+      "success": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-023-R4-m8996/success.mp4",
+        "outcome": {
+          "env_id": 30,
+          "success": true,
+          "steps": 200,
+          "return": 89.52156066894531,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      },
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-023-R4-m8996/failure.mp4",
+        "outcome": {
+          "env_id": 46,
+          "success": false,
+          "steps": 200,
+          "return": 34.185176849365234,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 100,
+        "fps": 25,
+        "simulation_seconds": 4.0,
+        "encoded_seconds": 4.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}

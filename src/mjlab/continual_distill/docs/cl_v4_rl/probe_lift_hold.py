@@ -131,7 +131,10 @@ def main():
       for name,vel in [('gpu',gpu_qvel),('cpu',cpu_v)]:
         linear=np.linalg.norm(vel[:,vadr:vadr+3],axis=1)
         angular=np.linalg.norm(vel[:,vadr+3:vadr+6],axis=1)
+        native_linear=.1 if evaluation['task']=='Mjlab-Lift-Cube-Franka' else command.cfg.settle_speed
+        native_angular=.5 if evaluation['task']=='Mjlab-Lift-Cube-Franka' else .3
         summary[name]=dict(settled=int(((linear<.1)&(angular<.5)).sum()),
+                           native_settled=int(((linear<native_linear)&(angular<native_angular)).sum()),
                            median_linear_speed_m_s=float(np.median(linear)),
                            median_angular_speed_rad_s=float(np.median(angular)),
                            linear_speeds=linear.tolist(),angular_speeds=angular.tolist())
@@ -155,6 +158,8 @@ def main():
     report=dict(task=evaluation['task'],checkpoint_sha256=evaluation['checkpoint_sha256'],
                 gyro_correction=cfg.env.sim.free_body_implicitfast_compat,
                 elliptic_hessian_compat=cfg.env.sim.elliptic_hessian_compat,
+                diagnostic_settle_limits=dict(linear_m_s=.1,angular_rad_s=.5),
+                native_settle_limits=dict(linear_m_s=native_linear,angular_rad_s=native_angular),
                 episodes=len(records),lanes=[r['env_id'] for r in records],
                 model_parameters_matched_between_cpu_gpu=['geom_friction'],
                 source_episode_randomization_reconstructed=args.use_trace_friction,physics_dt=env.physics_dt,
