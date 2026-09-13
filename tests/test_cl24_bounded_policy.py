@@ -241,3 +241,41 @@ def test_kl_guard_rolls_back_rejected_adam_updates_and_rng(monkeypatch):
   for k,v in before.items():torch.testing.assert_close(policy.state_dict()[k],v,rtol=0,atol=0)
   for k,v in adam['state'].items():
     for n,t in v.items():torch.testing.assert_close(optimizer.state_dict()['state'][k][n],t,rtol=0,atol=0)
+
+
+def test_kl_guard_ceiling_retries_larger_step_without_losing_rollback(monkeypatch):
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));module=importlib.import_module('teacher_runner')
+  policy=torch.nn.Linear(1,1,bias=False)
+  with torch.no_grad():policy.weight.zero_()
+  optimizer=torch.optim.Adam(policy.parameters(),lr=.2)
+  algorithm=SimpleNamespace(policy=policy,optimizer=optimizer,storage=SimpleNamespace(step=24),learning_rate=.2,schedule='fixed')
+  def update():
+    optimizer.zero_grad();(policy(torch.ones(1,1))-1).square().mean().backward();optimizer.step()
+    algorithm.storage.step=0
+    return {'value':1.}
+  anchor=policy.weight.detach().clone()
+  measure=lambda:{'kl_mean':float((policy.weight.detach()-anchor).square().sum())}
+  _,first=module.guarded_update(algorithm,update,measure,.003,learning_rate_ceiling=.2)
+  assert first['Diagnostics/kl_guard_backtracks']==2
+  assert algorithm.learning_rate==pytest.approx(.05)
+  # A fresh rollout that admits a larger step starts at the ceiling again.
+  anchor=policy.weight.detach().clone();algorithm.storage.step=24
+  _,second=module.guarded_update(algorithm,update,measure,.05,learning_rate_ceiling=.2)
+  assert second['Diagnostics/kl_guard_backtracks']==0
+  assert second['Diagnostics/kl_guard_accepted_kl']<=.05
+  assert algorithm.learning_rate==pytest.approx(.2)
+  assert optimizer.state[policy.weight]['step']==2
+  # A failed attempt with a different ceiling restores the previous accepted LR,
+  # parameters, optimizer moments and rollout, rather than retaining the ceiling.
+  algorithm.storage.step=24;before=copy.deepcopy(policy.state_dict());adam=copy.deepcopy(optimizer.state_dict())
+  with pytest.raises(RuntimeError,match='exhausted'):
+    module.guarded_update(algorithm,update,lambda:{'kl_mean':1.},.03,max_attempts=2,learning_rate_ceiling=.4)
+  assert algorithm.learning_rate==pytest.approx(.2) and algorithm.storage.step==24
+  assert optimizer.param_groups[0]['lr']==pytest.approx(.2)
+  for k,v in before.items():torch.testing.assert_close(policy.state_dict()[k],v,rtol=0,atol=0)
+  for k,v in adam['state'].items():
+    for n,t in v.items():torch.testing.assert_close(optimizer.state_dict()['state'][k][n],t,rtol=0,atol=0)
+  for invalid in [0.,-1.,float('nan'),float('inf')]:
+    with pytest.raises(ValueError,match='ceiling'):
+      module.guarded_update(algorithm,update,measure,.03,learning_rate_ceiling=invalid)

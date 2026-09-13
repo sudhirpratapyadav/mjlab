@@ -1,0 +1,33 @@
+{
+  "preregistered_utc": "2026-09-13T14:13:54.234278+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S6-lift-x10-lr-retry",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S1-lift-smooth/model_23489.pt",
+  "source_checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "updates": 1000,
+  "expected_final_checkpoint": "model_24488.pt",
+  "recipe": "lift_smooth_x10",
+  "physical_gpu_index": 1,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260922,
+  "episodes_per_batch": 128,
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "preflight_run_id": "PREFLIGHT-LIFT-LRRETRY-083",
+  "preflight_updates": 100,
+  "preflight_initial_learning_rate": 5e-06,
+  "reason": "S4/S5 tested10\u00d7/100\u00d7S3 motion penalties for1000updates each from sameS1. S4native111/128 and allmotiongatesfail; S5native116/128+118/128 and allmotiongatesfail. Their permanent guard halvings reduceLR16\u00d7/64\u00d7. Before further penalty escalation, isolate optimizer-step adaptation: same S4 x10 reward and originalS1/seed2048envs/1000updates/final24488, no explorationreset; retry5e-6 ceiling independently each new PPO update and backtrack within that update until unchanged meanKL<=.03. Preserve rollback of rejected Adam/normalizer/policy/RNG/storage state. Exhausted attempts restore prior accepted state and stop. Only opt-in LR proposal rule differs from S4; no reward/interface/physics/filter/reset changes. Preflight083\u00d7100 from originalS1 must have76finite tensors, all acceptedKL<=.03, attemptedLR5e-6 everyupdate, and acceptedLR=ceiling/2**within_update_backtracks. Fullrun restarts ORIGINALS1 with same ceiling if preflight passes; no preflightparent. This is a hypothesis about reduced adaptation, not proof of the cause. All23other teachers paused; paired real-time0/1/2 videos and full128 motion with durations required.",
+  "update_learning_rate_ceiling": 5e-06
+}

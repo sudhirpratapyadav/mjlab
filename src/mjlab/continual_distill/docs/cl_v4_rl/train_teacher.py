@@ -47,6 +47,7 @@ def main():
   parser.add_argument("--learning-rate", type=float, help="Explicit optimizer LR override, including after checkpoint load")
   parser.add_argument("--update-kl-diagnostics", action="store_true", help="Record rollout distribution drift before and after PPO updates without changing optimization")
   parser.add_argument("--max-update-kl", type=float, help="Opt in to PPO update rollback and LR halving above this rollout KL")
+  parser.add_argument("--update-learning-rate-ceiling", type=float, help="Retry this LR on each new PPO update, with the same KL rollback guard")
   parser.add_argument("--recipe", choices=RECIPES, default="baseline")
   parser.add_argument("--wandb-offline", action="store_true", help="Save W&B locally until this entity is accessible")
   parser.add_argument("--dry-run", action="store_true")
@@ -59,6 +60,9 @@ def main():
     parser.error("--learning-rate must be finite and positive")
   if args.max_update_kl is not None and (not math.isfinite(args.max_update_kl) or args.max_update_kl <= 0):
     parser.error("--max-update-kl must be finite and positive")
+  if args.update_learning_rate_ceiling is not None:
+    if args.max_update_kl is None or not math.isfinite(args.update_learning_rate_ceiling) or args.update_learning_rate_ceiling <= 0:
+      parser.error("--update-learning-rate-ceiling requires --max-update-kl and a finite positive value")
   if args.resume_gripper_std is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_std) or args.resume_gripper_std <= 0):
     parser.error("--resume-gripper-std requires a resume checkpoint and a finite positive value")
   if args.resume_gripper_mean is not None and (not args.resume_checkpoint or not math.isfinite(args.resume_gripper_mean) or not -1 < args.resume_gripper_mean < 1):
@@ -143,6 +147,7 @@ def main():
       "learning_rate_override": args.learning_rate,
       "update_kl_diagnostics": args.update_kl_diagnostics,
       "max_update_kl": args.max_update_kl,
+      "update_learning_rate_ceiling": args.update_learning_rate_ceiling,
       "cpu_affinity": sorted(os.sched_getaffinity(0)),
       "slurm_cpus_per_task": os.environ.get("SLURM_CPUS_PER_TASK"),
       "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "slurm_step_id": os.environ.get("SLURM_STEP_ID"),
@@ -164,7 +169,7 @@ def main():
                        resume_noise_scale=args.resume_noise_scale,
                        resume_gripper_mean=args.resume_gripper_mean, capture_pre_step=args.capture_pre_step,
                        learning_rate_override=args.learning_rate, update_kl_diagnostics=args.update_kl_diagnostics,
-                       max_update_kl=args.max_update_kl)
+                       max_update_kl=args.max_update_kl, update_learning_rate_ceiling=args.update_learning_rate_ceiling)
       run_train(args.task, cfg, run, runner_cls_override=runner)
     finally:
       import sys

@@ -1,6 +1,6 @@
 # Plan — certify all24 independent RL teachers
 
-**Current scope: Lift-only motion correction; other23 teachers paused. S4/S5 compare10×/100×S3 motion penalties from the same S1 parent,1000updates each on GPUs1/2. Both preflights passed and full pilots are running. Frozen final24488, validation14 and fresh conditional confirmations20/21; paired motion audit/videos follow automatically. See STATUS.md and Lift-S4/S5-evaluation-plan.json. Historical budgets below are superseded.**
+**Current scope: Lift-only motion correction; other23 teachers paused. S4/S5 final results fail motion targets (111/128 and116/128+118/128). S6 keeps10×penalties and tests retrying the original LR ceiling for each update under unchangedKLguard. Preflight083 precedes1000updates fromoriginalS1. See Lift-S6-evaluation-plan.json; historical budgets below are superseded.**
 
 **PAUSED BY USER. All training and evaluation watchers stopped on 2026-09-13T09:49:28.168542+00:00. Do not resume automatically. Latest checkpoint/resume inventory: `evidence/user_pause_20260913.json`. Shared holder20277 remains intact.**
 

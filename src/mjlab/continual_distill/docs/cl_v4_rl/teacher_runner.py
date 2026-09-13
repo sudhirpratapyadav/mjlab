@@ -83,16 +83,22 @@ def distribution_drift(policy, observations, old_mean, old_std):
           "mean_step_in_old_std_rms": float(((mean-old_mean)/old_std).square().mean().sqrt())}
 
 
-def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8):
+def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8, learning_rate_ceiling=None):
   """Backtrack a fixed-schedule PPO update, retaining only an accepted state."""
   if algorithm.schedule != 'fixed' or not math.isfinite(maximum_kl) or maximum_kl <= 0:
     raise ValueError('KL guard requires a fixed schedule and positive finite limit')
+  if learning_rate_ceiling is not None and (not math.isfinite(learning_rate_ceiling) or learning_rate_ceiling <= 0):
+    raise ValueError('Learning rate ceiling must be finite and positive')
   state = copy.deepcopy(algorithm.policy.state_dict())
   optimizer = copy.deepcopy(algorithm.optimizer.state_dict())
   storage_step = algorithm.storage.step
   cpu_rng = torch.random.get_rng_state()
   cuda_rng = torch.cuda.get_rng_state_all() if torch.cuda.is_initialized() else None
   rates = [group['lr'] for group in algorithm.optimizer.param_groups]
+  if learning_rate_ceiling is not None:
+    # Retry the explicit ceiling for each new rollout; retain the same within-update
+    # rollback/KL acceptance rule. Failed updates restore the pre-call LR as well.
+    rates = [learning_rate_ceiling] * len(rates)
   saved_rate = algorithm.learning_rate
   distribution = getattr(algorithm.policy, 'distribution', None)
   def restore():
@@ -124,6 +130,8 @@ def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8):
     attempted.append(kl)
     if math.isfinite(kl) and kl <= maximum_kl:
       return loss, {'Diagnostics/kl_guard_backtracks': attempt,
+                    'Diagnostics/kl_guard_attempted_learning_rate': rates[0],
+                    'Diagnostics/kl_guard_accepted_learning_rate': algorithm.learning_rate,
                     'Diagnostics/kl_guard_first_kl': attempted[0],
                     'Diagnostics/kl_guard_accepted_kl': kl}
   restore()
@@ -131,7 +139,7 @@ def guarded_update(algorithm, update, measure, maximum_kl, max_attempts=8):
 
 
 class TeacherRunner(OnPolicyRunner):
-  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, resume_arm_std=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, **kwargs):
+  def __init__(self, *args, resume_gripper_std=None, resume_gripper_mean=None, resume_noise_scale=None, resume_arm_std=None, capture_pre_step=False, learning_rate_override=None, update_kl_diagnostics=False, max_update_kl=None, update_learning_rate_ceiling=None, **kwargs):
     self.resume_gripper_std = resume_gripper_std
     self.resume_gripper_mean = resume_gripper_mean
     self.resume_noise_scale = resume_noise_scale
@@ -205,7 +213,8 @@ class TeacherRunner(OnPolicyRunner):
           loss = original_update()
         else:
           measure = lambda: distribution_drift(self.alg.policy, observations, old_mean, old_std)
-          loss, guard_metrics = guarded_update(self.alg, original_update, measure, max_update_kl)
+          loss, guard_metrics = guarded_update(self.alg, original_update, measure, max_update_kl,
+                                               learning_rate_ceiling=update_learning_rate_ceiling)
       except (RuntimeError, ValueError):
         fail("ppo_update_exception")
       policy = self.alg.policy
