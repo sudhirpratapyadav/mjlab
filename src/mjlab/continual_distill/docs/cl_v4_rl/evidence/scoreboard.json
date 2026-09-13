@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-09-13T01:52:43.717689+00:00",
-  "certified_count": 14,
+  "updated_utc": "2026-09-13T02:31:44.217136+00:00",
+  "certified_count": 15,
   "active_tasks": 24,
   "interface": "franka_shared_60_v2",
   "criterion": "Two independent terminal-first-episode batches, each strictly >90%, plus retained checkpoint/normalizers and video review",
@@ -25,8 +25,8 @@
       "confirmation_successes": null,
       "confirmation_episodes": null,
       "retained_run_url": null,
-      "best_measured_validation_rate": 0.84375,
-      "latest_training_run": "RL-013-R10-cage-refine",
+      "best_measured_validation_rate": 0.9140625,
+      "latest_training_run": "RL-013-R11-cage-refine",
       "latest_preflight_run": "PREFLIGHT-CAGE-REFINE-037"
     },
     {
@@ -74,8 +74,8 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-002-R11-lift-completion",
-      "latest_preflight_run": "PREFLIGHT-LIFT-COMPLETION-039"
+      "latest_training_run": "RL-002-R12-lift-arm-hold",
+      "latest_preflight_run": "PREFLIGHT-LIFT-ARM-044"
     },
     {
       "task": "Mjlab-Open-Door-Franka",
@@ -139,13 +139,13 @@
     },
     {
       "task": "Mjlab-Place-In-Container-Franka",
-      "certified": false,
-      "validation_successes": null,
-      "validation_episodes": null,
-      "confirmation_successes": null,
-      "confirmation_episodes": null,
-      "retained_run_url": null,
-      "best_measured_validation_rate": 0.8203125,
+      "certified": true,
+      "validation_successes": 117,
+      "validation_episodes": 128,
+      "confirmation_successes": 119,
+      "confirmation_episodes": 128,
+      "retained_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/7kg8bpkt",
+      "best_measured_validation_rate": 0.9140625,
       "latest_training_run": "RL-019-R8-place-box",
       "latest_preflight_run": "PREFLIGHT-PLACE-BOX-STRESS-043"
     },
@@ -206,7 +206,7 @@
       "confirmation_episodes": null,
       "retained_run_url": null,
       "best_measured_validation_rate": 0.0,
-      "latest_training_run": "RL-005-R10-reorient-axis",
+      "latest_training_run": "RL-005-R11-reorient-axis",
       "latest_preflight_run": "PREFLIGHT-REORIENT-AXIS-040"
     },
     {
@@ -253,8 +253,8 @@
       "confirmation_successes": null,
       "confirmation_episodes": null,
       "retained_run_url": null,
-      "best_measured_validation_rate": 0.265625,
-      "latest_training_run": "RL-023-R5-strike-precision",
+      "best_measured_validation_rate": 0.328125,
+      "latest_training_run": "RL-023-R6-strike-precision",
       "latest_preflight_run": "PREFLIGHT-STRIKE-PRECISION-038"
     },
     {
@@ -267,7 +267,7 @@
       "retained_run_url": null,
       "best_measured_validation_rate": 0.90625,
       "latest_training_run": "RL-024-R5-throw-refine",
-      "latest_preflight_run": "PREFLIGHT-THROW-REFINE-041"
+      "latest_preflight_run": "PREFLIGHT-THROW-CONE-STRESS-046"
     },
     {
       "task": "Mjlab-Topple-Block-Franka",
