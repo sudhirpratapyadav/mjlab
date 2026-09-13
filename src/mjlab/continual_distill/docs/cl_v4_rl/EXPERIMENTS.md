@@ -355,3 +355,6 @@ Strike precision tests65 pass (plus10 affected tests after preserving the disabl
 
 
 LiftR10/final11995 strict0/128 (123timeouts,4ground,1bounds), actual near-goal hold reviewed. Exact terminal audit115 inside5cm,0settled; median error11.70mm, linear0.3187m/s, angular2.0946rad/s. The opt-in cone correction alone did not solve policy settling. Existing lift_v7 has only5×continuous quiet credit and position/grasp shaping, no explicit native completion bonus. Preregister lift_v8: retain all existing terms, increase near-goal quiet weight5→15 and add25×the unchanged refreshed native Lift predicate. No success/model/action/backend change. PREFLIGHT-LIFT-COMPLETION-039 from original11995,64×3, preserve Adam1e-4/normalizers/gripper/arm/noise, coneON/gyroOFF. After finite PPO gate launch RL-002-R11-lift-completion, original11995,2048×2000 onGPU4 after evaluator exits.
+
+
+Lift completion preflightwxlnwsna finished finite at11997 withAdam1e-4, coneON/gyroOFF;71 focused checks passed. FullR11 launched from original11995. Seven full training processes verified onGPUs1–7, GPU0 remains0MiB; current manifests/PIDs in training_wave23.json. No new certification.

@@ -31,3 +31,6 @@ Wave21 final refresh also includes Cage12600 latest90/128 (best97/128 remains in
 
 
 Wave22 refresh: reviewed final Cage13095 (99/128) and Strike6997 (21/128) clips published via untu_vps. Newest homepage card links to current RL teachers. Browser checks passed24 actual video playback,14/10 filters, search and mobile layout; all50 public files returnedHTTP200 and matched local SHA256 over verified TLS. No new certification.
+
+
+Wave23 gallery refresh includes reviewed Place7400 (105/128), Peg5097 and Lift11995 clips. Newest homepage card/navigation,24 actual video playback,14/10 filters, search/mobile layout and50/50 HTTPS SHA256 matches passed. Full details remain in scoped W&B; fourteen certified teachers remain unchanged.
