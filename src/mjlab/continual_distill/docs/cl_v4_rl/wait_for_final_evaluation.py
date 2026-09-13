@@ -23,6 +23,9 @@ def main():
   assert manifest['task'] == plan['task']
   assert manifest['requested_updates'] == plan['updates']
   assert manifest['resume_sha256'] == plan['source_checkpoint_sha256']
+  for key in ('recipe', 'max_update_kl', 'update_learning_rate_ceiling'):
+    if key in plan:
+      assert manifest.get(key) == plan[key], f'Training manifest differs from plan: {key}'
   assert os.environ['CUDA_VISIBLE_DEVICES'] == manifest['gpu_uuid']
   assert os.environ['PYTHONPATH'] == str(Path(manifest['worktree']) / 'src')
   assert plan['validation_seed'] == 20260914 and plan['episodes_per_batch'] == 128
