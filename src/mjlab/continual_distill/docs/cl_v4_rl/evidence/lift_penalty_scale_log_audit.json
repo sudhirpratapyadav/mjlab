@@ -1,0 +1,105 @@
+{
+  "audited_utc": "2026-09-13T13:35:28.917123+00:00",
+  "source": "Training stdout Episode_Reward entries; last100 logged values, not independent episodes.",
+  "units": "Weighted reward sums divided by configured20s episode length; not directly comparable to runner mean episode return. Negative terms enter the scalar reward without reward clipping in RewardManager.compute.",
+  "runtime_config_curriculum": {},
+  "reports": {
+    "S1": {
+      "reach_object": {
+        "last": 44.6331,
+        "last100mean": 44.253668,
+        "samples": 100
+      },
+      "move_object_to_goal": {
+        "last": 0.8413,
+        "last100mean": 0.832269,
+        "samples": 100
+      },
+      "action_rate_l2": {
+        "last": -0.1298,
+        "last100mean": -0.134298,
+        "samples": 100
+      },
+      "joint_pos_limits": {
+        "last": -4.0559,
+        "last100mean": -3.969896,
+        "samples": 100
+      },
+      "joint_vel_penalty": {
+        "last": -3.5867,
+        "last100mean": -3.911866,
+        "samples": 100
+      },
+      "smooth_arm_acceleration": {
+        "last": -3.8303,
+        "last100mean": -3.7929199999999996,
+        "samples": 100
+      }
+    },
+    "S2": {
+      "reach_object": {
+        "last": 20.9402,
+        "last100mean": 21.498116,
+        "samples": 100
+      },
+      "move_object_to_goal": {
+        "last": 0.78,
+        "last100mean": 0.80124,
+        "samples": 100
+      },
+      "action_rate_l2": {
+        "last": -0.1918,
+        "last100mean": -0.190898,
+        "samples": 100
+      },
+      "joint_pos_limits": {
+        "last": -0.8804,
+        "last100mean": -0.875161,
+        "samples": 100
+      },
+      "joint_vel_penalty": {
+        "last": -4.1987,
+        "last100mean": -3.623572,
+        "samples": 100
+      },
+      "smooth_arm_acceleration": {
+        "last": -3.5695,
+        "last100mean": -3.6275869999999997,
+        "samples": 100
+      }
+    },
+    "S3": {
+      "reach_object": {
+        "last": 41.6762,
+        "last100mean": 42.34716,
+        "samples": 100
+      },
+      "move_object_to_goal": {
+        "last": 0.7878,
+        "last100mean": 0.8148380000000001,
+        "samples": 100
+      },
+      "action_rate_l2": {
+        "last": -1.2528,
+        "last100mean": -1.159877,
+        "samples": 100
+      },
+      "joint_pos_limits": {
+        "last": -4.2807,
+        "last100mean": -4.214309,
+        "samples": 100
+      },
+      "joint_vel_penalty": {
+        "last": -16.2655,
+        "last100mean": -17.351092,
+        "samples": 100
+      },
+      "smooth_arm_acceleration": {
+        "last": -17.2371,
+        "last100mean": -16.928475000000002,
+        "samples": 100
+      }
+    }
+  },
+  "counterfactual_note": "Multiplying fixed-trajectory motion contributions scales costs exactly; this is not a prediction of behavior after training."
+}

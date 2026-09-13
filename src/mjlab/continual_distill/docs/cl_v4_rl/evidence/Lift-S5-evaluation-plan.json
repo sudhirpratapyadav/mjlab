@@ -1,0 +1,32 @@
+{
+  "preregistered_utc": "2026-09-13T13:35:28.917123+00:00",
+  "task": "Mjlab-Lift-Cube-Franka",
+  "run_id": "RL-002-S5-lift-penalty-x100",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-002-S1-lift-smooth/model_23489.pt",
+  "source_checkpoint_sha256": "8d7da134c1b8b0098f06364b42ea19db4a4471f06779f3772c5ad9ef67760141",
+  "updates": 1000,
+  "expected_final_checkpoint": "model_24488.pt",
+  "recipe": "lift_smooth_x100",
+  "physical_gpu_index": 2,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260921,
+  "episodes_per_batch": 128,
+  "motion_review": {
+    "paired_env_ids": [
+      0,
+      1,
+      2
+    ],
+    "real_time_fps": 50,
+    "p95_episode_peak_joint_speed_rad_s_target": 3.0,
+    "p95_episode_acceleration_rms_ratio_target": 0.5,
+    "p95_episode_max_consecutive_target_jump_rad_target": 0.25,
+    "scope": "Provisional engineering targets for this trial, not manufacturer hardware limits. Report all128, alloutliers, successes and failures; user visual approval required."
+  },
+  "preflight_run_id": "PREFLIGHT-LIFT-X100-082",
+  "preflight_updates": 100,
+  "preflight_initial_learning_rate": 5e-06,
+  "reason": "User requested increasing motion penalties by factors of10 to establish speed/success balance. Controlled coarse bracket: same successfulS1 parent, same1000update pilot budget and seed20260912, original exploration/normalizers/Adam; ONLY existing three motion costs scaled relative to S3. No new reward term, physics, filter, observation/action change. Preflight100updates2048envs, requirefinite and acceptedKL<=.03. Adopt lower of both preflight final LRs for BOTH full pilots, from ORIGINAL S1. These1000update pilots measure finite-budget response, not convergence. No interim checkpoints evaluated. If one setting slows motion but loses success, next preregistered test uses an intermediate scale; if neither slows, audit optimizer response before interpreting reward scale. All23other teachers remain paused. Validation metrics use all128 including early terminations; report episode duration to identify termination avoidance of penalties."
+}

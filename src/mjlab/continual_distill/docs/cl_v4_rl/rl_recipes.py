@@ -16,7 +16,7 @@ RECIPES += ("reorient_v7", "throw_v4", "cage_v4")
 RECIPES += ("strike_v2", "strike_v3", "strike_v4")
 RECIPES += ("edge_v3",)
 RECIPES += ("lift_v7",)
-RECIPES += ("lift_smooth_v1", "lift_smooth_v2")
+RECIPES += ("lift_smooth_v1", "lift_smooth_v2", "lift_smooth_x10", "lift_smooth_x100")
 RECIPES += ("pivot_v3",)
 RECIPES += ("pivot_v4",)
 RECIPES += ("pivot_v5",)
@@ -133,6 +133,12 @@ def apply_recipe(cfg, recipe):
       raise ValueError("stack_v1 requires Stack-Cube")
     apply_recipe(cfg,"completion_v6")
     cfg.env.rewards["stack"].params.update(release_weight=10.,support_open_weight=3.)
+    return
+  if recipe in ("lift_smooth_x10", "lift_smooth_x100"):
+    apply_recipe(cfg, "lift_smooth_v2")
+    scale = 10. if recipe == "lift_smooth_x10" else 100.
+    for name in ("action_rate_l2", "joint_vel_penalty", "smooth_arm_acceleration"):
+      cfg.env.rewards[name].weight *= scale
     return
   if recipe == "lift_smooth_v2":
     apply_recipe(cfg,"lift_smooth_v1")

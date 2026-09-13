@@ -23,6 +23,8 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Lift-Cube-Franka","lift_v6"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_v1"),
   ("Mjlab-Lift-Cube-Franka","lift_smooth_v2"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_x10"),
+  ("Mjlab-Lift-Cube-Franka","lift_smooth_x100"),
   ("Mjlab-Reorient-Object-Franka","reorient_v2"),
   ("Mjlab-Reorient-Object-Franka","reorient_v3"),
   ("Mjlab-Reorient-Object-Franka","reorient_v4"),
@@ -82,13 +84,15 @@ def test_recipes_preserve_benchmark(task,recipe,monkeypatch):
 
 
 @pytest.mark.parametrize('recipe,velocity_weight,acceleration_weight,action_weight',[
-  ('lift_smooth_v1',-2.,-.0002,-5.),('lift_smooth_v2',-10.,-.001,-50.)])
+  ('lift_smooth_v1',-2.,-.0002,-5.),('lift_smooth_v2',-10.,-.001,-50.),
+  ('lift_smooth_x10',-100.,-.01,-500.),('lift_smooth_x100',-1000.,-.1,-5000.)])
 def test_lift_smoothing_preserves_task_and_penalizes_arm_motion(monkeypatch,recipe,velocity_weight,acceleration_weight,action_weight):
   from dataclasses import asdict
   stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
   monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
   old,new=(TrainConfig.from_task('Mjlab-Lift-Cube-Franka') for _ in range(2))
   recipes.apply_recipe(old,'lift_v9');recipes.apply_recipe(new,recipe)
+  assert not new.env.curriculum  # No schedule may overwrite the tested weights.
   assert asdict(old.agent)==asdict(new.agent)
   vel=new.env.rewards['joint_vel_penalty'];acc=new.env.rewards['smooth_arm_acceleration']
   arm=tuple(f'joint{i}' for i in range(1,8))
