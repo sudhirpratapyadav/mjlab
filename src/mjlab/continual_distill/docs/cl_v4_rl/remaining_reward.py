@@ -57,7 +57,7 @@ def strike_endpoint_precision(prediction_error, actual_error, speed):
   return torch.exp(-prediction_error/.05)+torch.exp(-actual_error/.05)/(1+speed/.05)
 
 
-def strike_reward(env, command_name, contact_drive=0., precision_weight=0., endpoint_precision_weight=0., **kwargs):
+def strike_reward(env, command_name, contact_drive=0., precision_weight=0., endpoint_precision_weight=0., native_weight=20., **kwargs):
   from mjlab.tasks.manipulation.config.franka.env_cfgs import STRIKE_PUCK_MU
   command = env.command_manager.get_term(command_name)
   pos, goal = tracking_position(command.object), tracking_goal(command)
@@ -77,7 +77,7 @@ def strike_reward(env, command_name, contact_drive=0., precision_weight=0., endp
   predicted = sliding_endpoint(pos[:,:2],velocity[:,:2],STRIKE_PUCK_MU)
   prediction_error = torch.linalg.vector_norm(predicted-goal[:,:2],dim=-1)
   actual_error = torch.linalg.vector_norm(pos-goal,dim=-1)
-  reward = approach+4*torch.exp(-prediction_error/.25)+3*torch.exp(-actual_error/.20)+20*native_success(command)
+  reward = approach+4*torch.exp(-prediction_error/.25)+3*torch.exp(-actual_error/.20)+native_weight*native_success(command)
   if endpoint_precision_weight:
     reward += endpoint_precision_weight*strike_endpoint_precision(prediction_error,actual_error,torch.linalg.vector_norm(velocity[:,:2],dim=-1))
   return reward

@@ -1,0 +1,22 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "verdict": "pass",
+  "checkpoint_sha256": "b03a9315e957a73d430ee906ff739afcdabefe46fd2aaf98fe209c62fb8856e7",
+  "reviewed_utc": "2026-09-13T03:33:59.848265+00:00",
+  "validation_successes": 119,
+  "confirmation_successes": 120,
+  "episodes_per_batch": 128,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260916,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0050.png",
+    "success-0099.png",
+    "failure-0000.png",
+    "failure-0050.png",
+    "failure-0099.png"
+  ],
+  "observations": "Actual recorded success122 shows open fingers descending around the cube, transporting it onto the goal and holding position. Failure111 finishes offset from the goal and correctly fails. Both independent first-episode batches exceed90%; no individual confirmation failure tuning. Native goal gate includes open-gripper history and caged transport. All128 validation traces retain aperture above55mm; native cumulative minima agree. Model/optimizer/normalizer tensors finite in final checkpoint audit. Fixed60D/8D and all backend compatibility flags OFF.",
+  "aperture_audit": "cage_r11_aperture_audit.json",
+  "all_checkpoint_tensors_finite": true
+}

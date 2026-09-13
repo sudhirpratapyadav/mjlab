@@ -173,3 +173,23 @@ def test_strike_precision_recipe_preserves_native_benchmark(monkeypatch):
   assert asdict(old.agent)==asdict(new.agent)
   assert new.env.rewards['reach_object'].params.pop('endpoint_precision_weight')==4.
   assert repr(old.env.rewards)==repr(new.env.rewards)
+
+
+def test_strike_endpoint_recipe_keeps_success_above_all_shaping(monkeypatch):
+  from dataclasses import asdict
+  from mjlab.scripts.train import TrainConfig
+  module(monkeypatch)
+  recipes=importlib.import_module('rl_recipes')
+  old,new=(TrainConfig.from_task('Mjlab-Strike-Slide-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'strike_v3');recipes.apply_recipe(new,'strike_v4')
+  for field in ('observations','actions','commands','terminations','events','scene','sim','episode_length_s'):
+    assert repr(getattr(old.env,field))==repr(getattr(new.env,field))
+  assert asdict(old.agent)==asdict(new.agent)
+  params=new.env.rewards['reach_object'].params
+  # Both endpoint exponentials are <=1, orientation factors <=1, wedge <=1.5.
+  max_uncompleted=(1+params['precision_weight'])*1.5+4+3+2*params['endpoint_precision_weight']
+  assert max_uncompleted < params['native_weight']
+  assert params.pop('native_weight')==40.
+  assert params['endpoint_precision_weight']==8.
+  params['endpoint_precision_weight']=4.
+  assert repr(old.env.rewards)==repr(new.env.rewards)

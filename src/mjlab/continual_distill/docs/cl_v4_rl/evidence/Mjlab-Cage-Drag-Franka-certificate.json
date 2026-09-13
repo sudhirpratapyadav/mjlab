@@ -1,0 +1,68 @@
+{
+  "task": "Mjlab-Cage-Drag-Franka",
+  "certified_utc": "2026-09-13T03:34:01.868525+00:00",
+  "elliptic_hessian_compat": false,
+  "free_body_implicitfast_compat": false,
+  "primitive_box_box_compat": false,
+  "checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Cage-Drag-Franka/model.pt",
+  "checkpoint_sha256": "b03a9315e957a73d430ee906ff739afcdabefe46fd2aaf98fe209c62fb8856e7",
+  "normalizers": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/teachers/Mjlab-Cage-Drag-Franka/normalizers.pt",
+  "normalizers_sha256": "9962663797a3196895380c2d851aefdaed2914bfc9fd065310f0d5145624073e",
+  "interface": "franka_shared_60_v2",
+  "validation": {
+    "successes": 119,
+    "episodes": 128,
+    "seed": 20260914,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-013-R11-m19092-val-20260914.json"
+  },
+  "confirmation": {
+    "successes": 120,
+    "episodes": 128,
+    "seed": 20260916,
+    "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/RL-013-R11-m19092-confirm-20260916.json"
+  },
+  "review": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/evidence/Cage-R11-review.json",
+  "videos": {
+    "success": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R11-m19092/success.mp4",
+      "outcome": {
+        "env_id": 122,
+        "success": true,
+        "steps": 200,
+        "return": 111.79588317871094,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 100,
+      "fps": 25,
+      "simulation_seconds": 4.0,
+      "encoded_seconds": 4.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    },
+    "failure": {
+      "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-013-R11-m19092/failure.mp4",
+      "outcome": {
+        "env_id": 111,
+        "success": false,
+        "steps": 200,
+        "return": 33.50415802001953,
+        "reason": "timeout",
+        "termination_terms": [
+          "time_out"
+        ]
+      },
+      "seed": 20260914,
+      "frames": 100,
+      "fps": 25,
+      "simulation_seconds": 4.0,
+      "encoded_seconds": 4.0,
+      "source": "exact first-episode states; rendering only, no resimulation"
+    }
+  },
+  "criterion": "Both independent measured rates strictly >90%; not a statistical lower-confidence-bound guarantee",
+  "wandb_run_url": "https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/runs/agn4ftsg",
+  "wandb_artifact": "sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl24-rl-teachers-20260912/Mjlab-Cage-Drag-Franka-teacher:v0"
+}
