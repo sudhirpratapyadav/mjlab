@@ -1,0 +1,57 @@
+{
+  "reviewed_utc": "2026-09-13T01:46:07.100088+00:00",
+  "task": "Mjlab-Peg-Insertion-Franka",
+  "checkpoint_sha256": "62298f69c40f386177b0fe772391115d2f0e933c4c3d3ca6874bed3eb52d42b7",
+  "successes": 0,
+  "episodes": 128,
+  "certified": false,
+  "reviewed_frames": [
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "review": "Actual beginning/middle/final failure frames reviewed. Fingers close and arm retracts without peg; selected endpoint has empty closed hand and upright peg near fixture. Strict0/128, alltimeouts. Continuation lost acquired capture; preserveR6/5097 for diagnosis rather than continuing from7096.",
+  "last_diagnostics": {
+    "control_step": 990,
+    "active_episodes": 128,
+    "grasped_fraction": 0.0,
+    "enclosed_fraction": 0.0,
+    "enclosed_grasp_fraction": 0.0,
+    "opposed_grasp_fraction": 0.0,
+    "robot_object_contact_fraction": 0.0,
+    "aperture_mean": 6.176834722282365e-05,
+    "gripper_object_distance_mean": 0.5477815866470337,
+    "gripper_goal_distance_mean": 0.4593830108642578,
+    "gripper_down_alignment_mean": 0.7104805707931519,
+    "object_height_mean": -6.12054718658328e-05,
+    "gripper_action_mean": -0.9990311861038208,
+    "absolute_action_max": 0.9997786283493042,
+    "goal_error_mean": 0.28791043162345886
+  },
+  "videos": {
+    "task": "Mjlab-Peg-Insertion-Franka",
+    "checkpoint_sha256": "62298f69c40f386177b0fe772391115d2f0e933c4c3d3ca6874bed3eb52d42b7",
+    "clips": {
+      "failure": {
+        "path": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/verified/RL-020-R7-m7096/failure.mp4",
+        "outcome": {
+          "env_id": 115,
+          "success": false,
+          "steps": 1000,
+          "return": 1.4222378730773926,
+          "reason": "timeout",
+          "termination_terms": [
+            "time_out"
+          ]
+        },
+        "seed": 20260914,
+        "frames": 500,
+        "fps": 25,
+        "simulation_seconds": 20.0,
+        "encoded_seconds": 20.0,
+        "source": "exact first-episode states; rendering only, no resimulation"
+      }
+    },
+    "all_measured_succeeded": false
+  }
+}
