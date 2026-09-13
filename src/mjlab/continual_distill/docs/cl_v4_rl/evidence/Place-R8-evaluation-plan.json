@@ -1,0 +1,23 @@
+{
+  "preregistered_utc": "2026-09-13T01:49:00.945494+00:00",
+  "task": "Mjlab-Place-In-Container-Franka",
+  "run_id": "RL-019-R8-place-box",
+  "resume_checkpoint": "RL-019-R7-place-cone/model_7400.pt",
+  "maximum_updates": 2000,
+  "first_candidate_checkpoint": "model_7500.pt",
+  "first_candidate_note": "RSL labels start at saved7400; model7500 is after101 updates. Evaluate this candidate before the remaining full budget completes.",
+  "validation": {
+    "seed": 20260914,
+    "episodes": 128,
+    "required_successes": 116
+  },
+  "confirmation": {
+    "seed": 20260915,
+    "episodes": 128,
+    "required_successes": 116,
+    "only_if_validation_passes": true
+  },
+  "resource_note": "128-world evaluation may co-locate onGPU4 with its sole full2048-world trainer; keepGPU0unused. Continue training while reviewing; stop only own trainer after full certification.",
+  "reason": "Matched-control contact correction restored resting support; original best validation105/128 already acquired transport. Test transfer after a short learning interval rather than assume2000 additional updates are necessary.",
+  "no_success_reclassification": true
+}
