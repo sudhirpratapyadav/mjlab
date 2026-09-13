@@ -1,0 +1,5697 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "476eaef82d0625fda26ab8b80d2127afae628a8d96030759e8b229b81c8abb72",
+  "source_controls": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/edge-r5-staged-controls.npz",
+  "source_replay": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/edge_r5_baseline_replay_audit.npz",
+  "method": "All32 diagnostic cases at1.5/2s, both CPU/GPU-generated qpos/qvel states. Identical local states, original friction/mocap/controls; CPU/GPU forward queries only, no integration. Native model and all compatibility flagsOFF. Opposed grasp is training geometry, not native task success. No policy actions, demonstrations or reset data.",
+  "summary": {
+    "cpu_states": {
+      "cases": 64,
+      "cpu_opposed": 2,
+      "gpu_opposed": 2,
+      "label_agreement": 64
+    },
+    "gpu_states": {
+      "cases": 64,
+      "cpu_opposed": 0,
+      "gpu_opposed": 0,
+      "label_agreement": 64
+    }
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00021193759622131924,
+          "position_m": [
+            0.265864734821262,
+            -0.024608337890542467,
+            0.06384266723416482
+          ],
+          "normal": [
+            -0.9101030919800942,
+            -0.3814067164215486,
+            0.16199160051312805
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00021234355517663062,
+          "position_m": [
+            0.2658653259277344,
+            -0.02460765838623047,
+            0.06384268403053284
+          ],
+          "normal": [
+            -0.9125615358352661,
+            -0.37576064467430115,
+            0.16135479509830475
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008082180041939941,
+          "position_m": [
+            0.27480347946684314,
+            -0.08444680874941851,
+            0.0639177912642429
+          ],
+          "normal": [
+            -0.8774257182268042,
+            -0.08064951953326169,
+            0.4728845144358516
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008097310783341527,
+          "position_m": [
+            0.27480316162109375,
+            -0.08444786071777344,
+            0.06391814351081848
+          ],
+          "normal": [
+            -0.8773813247680664,
+            -0.08126082271337509,
+            0.4728621542453766
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006279161685608727,
+          "position_m": [
+            0.25563262617255667,
+            -0.004500150562229772,
+            0.07040167680711892
+          ],
+          "normal": [
+            -0.9665300037046357,
+            0.08460644616050451,
+            0.2422013649978189
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006273677572607994,
+          "position_m": [
+            0.2556324005126953,
+            -0.0044994354248046875,
+            0.07040157914161682
+          ],
+          "normal": [
+            -0.9664677977561951,
+            0.08447080850601196,
+            0.24249684810638428
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.003266723334370492,
+          "position_m": [
+            0.28002509697639877,
+            -0.054702855789152384,
+            0.07137752271729417
+          ],
+          "normal": [
+            -0.984985562177454,
+            -0.13198781740185217,
+            0.1112773937485075
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.001655360244179319,
+          "position_m": [
+            0.2820990851309123,
+            -0.018903038496277134,
+            0.14577220946480957
+          ],
+          "normal": [
+            -0.06436241455363378,
+            0.18244301821252176,
+            0.9811075500159662
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0032665380276739597,
+          "position_m": [
+            0.2800254821777344,
+            -0.0547032356262207,
+            0.07137753069400787
+          ],
+          "normal": [
+            -0.9849907159805298,
+            -0.13195489346981049,
+            0.11127079278230667
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0016553509049117565,
+          "position_m": [
+            0.2821006774902344,
+            -0.018903732299804688,
+            0.14577236771583557
+          ],
+          "normal": [
+            -0.06452494859695435,
+            0.1823405921459198,
+            0.9811158776283264
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 20,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -1.4149702356603455e-07,
+          "position_m": [
+            0.25441193649754346,
+            -0.039339606898691634,
+            0.06297039181095324
+          ],
+          "normal": [
+            -0.9864098819874911,
+            0.11268374453865866,
+            0.11957390365029544
+          ]
+        }
+      ],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 24,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 28,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 32,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0027610420739886225,
+          "position_m": [
+            0.24143049299255184,
+            0.03051408193945014,
+            0.06987042981259675
+          ],
+          "normal": [
+            -0.9262285010450284,
+            -0.3656540935761126,
+            -0.09163977140364155
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010986986312236133,
+          "position_m": [
+            0.24142501282315895,
+            0.059515421995496684,
+            0.14770523708279354
+          ],
+          "normal": [
+            0.00894600293011576,
+            0.16492840820723123,
+            0.9862649690614603
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002760720206424594,
+          "position_m": [
+            0.24143028259277344,
+            0.03051280975341797,
+            0.06987043470144272
+          ],
+          "normal": [
+            -0.9262158274650574,
+            -0.36568424105644226,
+            -0.09164778143167496
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.001099137938581407,
+          "position_m": [
+            0.2414255142211914,
+            0.05951547622680664,
+            0.14770543575286865
+          ],
+          "normal": [
+            0.008676550351083279,
+            0.16485446691513062,
+            0.9862797856330872
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0007331820082095182,
+          "position_m": [
+            0.27037171989243114,
+            -0.051795139907220164,
+            0.06276980601019362
+          ],
+          "normal": [
+            -0.9142099556969158,
+            0.16648022005218918,
+            0.36946514481885606
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0007315473631024361,
+          "position_m": [
+            0.2703695297241211,
+            -0.05179595947265625,
+            0.06276953220367432
+          ],
+          "normal": [
+            -0.9144038558006287,
+            0.1660776138305664,
+            0.3691665232181549
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001773710789534231,
+          "position_m": [
+            0.25546930611508434,
+            -0.0664840280459158,
+            0.07266066050029288
+          ],
+          "normal": [
+            -0.8390098578940323,
+            -0.00024001495709946992,
+            0.5441161647566229
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0017747547244653106,
+          "position_m": [
+            0.25547027587890625,
+            -0.06648445129394531,
+            0.07266099005937576
+          ],
+          "normal": [
+            -0.8389519453048706,
+            -0.000537445186637342,
+            0.5442052483558655
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 48,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0016518442959091717,
+          "position_m": [
+            0.24838961925376213,
+            -0.05891361808812366,
+            0.06240246676910045
+          ],
+          "normal": [
+            -0.8502475022967856,
+            0.16255742722757993,
+            0.5006538401842412
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001652247505262494,
+          "position_m": [
+            0.24838829040527344,
+            -0.05891227722167969,
+            0.062402643263339996
+          ],
+          "normal": [
+            -0.8502863049507141,
+            0.16220669448375702,
+            0.5007017850875854
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 56,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011317625424306292,
+          "position_m": [
+            0.29211579190940207,
+            -0.032285536388387034,
+            0.06455794632283954
+          ],
+          "normal": [
+            -0.9052071761449179,
+            0.08408067241776958,
+            0.4165698126143077
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001131707802414894,
+          "position_m": [
+            0.2921161651611328,
+            -0.03228569030761719,
+            0.06455786526203156
+          ],
+          "normal": [
+            -0.9051955342292786,
+            0.08386122435331345,
+            0.4166393578052521
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 64,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0004863872979437604,
+          "position_m": [
+            0.26698283033062165,
+            -0.04012027257210993,
+            0.0620865118148059
+          ],
+          "normal": [
+            -0.9471998432809376,
+            0.18941262795513292,
+            0.2587185985964244
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0004860516346525401,
+          "position_m": [
+            0.2669811248779297,
+            -0.04012022912502289,
+            0.06208644434809685
+          ],
+          "normal": [
+            -0.9472501873970032,
+            0.18932285904884338,
+            0.25860002636909485
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00026688575401742,
+          "position_m": [
+            0.2856056759688937,
+            -0.11007501491349175,
+            0.06325761441352473
+          ],
+          "normal": [
+            -0.9901668435584131,
+            0.07009087372238443,
+            0.12106564887862346
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00026714062551036477,
+          "position_m": [
+            0.28560638427734375,
+            -0.11007499694824219,
+            0.06325763463973999
+          ],
+          "normal": [
+            -0.9902160167694092,
+            0.06990283727645874,
+            0.120771624147892
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006322380964945831,
+          "position_m": [
+            0.2879241926246803,
+            -0.01686709870001737,
+            0.06702186769315899
+          ],
+          "normal": [
+            -0.8728010782943355,
+            -0.0449189190003676,
+            0.486004700022627
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006328827585093677,
+          "position_m": [
+            0.28792381286621094,
+            -0.01686692237854004,
+            0.06702196598052979
+          ],
+          "normal": [
+            -0.8730728626251221,
+            -0.04515894129872322,
+            0.48549389839172363
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 80,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 84,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 88,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0013352905227012593,
+          "position_m": [
+            0.25477666664142534,
+            -0.06315719815753044,
+            0.059926420865938926
+          ],
+          "normal": [
+            -0.9698696069115423,
+            -0.014773991701366689,
+            0.24317622161399416
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001334718894213438,
+          "position_m": [
+            0.2547760009765625,
+            -0.06315803527832031,
+            0.059926316142082214
+          ],
+          "normal": [
+            -0.9698708653450012,
+            -0.015003526583313942,
+            0.2431570440530777
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002103949507258232,
+          "position_m": [
+            0.25392184870271484,
+            -0.006052752862419881,
+            0.07146478048280618
+          ],
+          "normal": [
+            -0.91823911428124,
+            -0.37600153900078537,
+            0.12433733016694938
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0009913164403334903,
+          "position_m": [
+            0.25003523654046966,
+            0.028300411619602995,
+            0.14847261116730615
+          ],
+          "normal": [
+            0.13894570640469284,
+            -0.012403413477452569,
+            0.9902223215045237
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0021046651527285576,
+          "position_m": [
+            0.2539215087890625,
+            -0.006051063537597656,
+            0.07146482169628143
+          ],
+          "normal": [
+            -0.9182103276252747,
+            -0.37607428431510925,
+            0.12433035671710968
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0009913059184327722,
+          "position_m": [
+            0.25003528594970703,
+            0.02830219268798828,
+            0.1484725922346115
+          ],
+          "normal": [
+            0.13948668539524078,
+            -0.012505702674388885,
+            0.9901450276374817
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011012138584260082,
+          "position_m": [
+            0.2626584947227153,
+            -0.010191528282125844,
+            0.06198786663347598
+          ],
+          "normal": [
+            -0.9569887011202901,
+            0.050372524610757315,
+            0.2857188035331924
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011009122245013714,
+          "position_m": [
+            0.26265859603881836,
+            -0.010190963745117188,
+            0.06198775768280029
+          ],
+          "normal": [
+            -0.9570354223251343,
+            0.049800485372543335,
+            0.28566262125968933
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0021849060835004972,
+          "position_m": [
+            0.2837840302767999,
+            -0.06017906895904307,
+            0.07954523850696382
+          ],
+          "normal": [
+            -0.9292774130680191,
+            -0.052878268561880735,
+            0.3655781425024041
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002184491604566574,
+          "position_m": [
+            0.283782958984375,
+            -0.060179710388183594,
+            0.07954515516757965
+          ],
+          "normal": [
+            -0.9292933940887451,
+            -0.05303388833999634,
+            0.3655150532722473
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0016160226744725548,
+          "position_m": [
+            0.28520785567737206,
+            -0.031182121918018547,
+            0.05833081864615868
+          ],
+          "normal": [
+            -0.9147597787393515,
+            -0.33922377828667194,
+            0.2194123411425336
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0016160226744725548,
+          "position_m": [
+            0.28663339838962776,
+            -0.02586607866290477,
+            0.0724977306970209
+          ],
+          "normal": [
+            -0.9149925635975541,
+            -0.3392236086747789,
+            0.21843981294360357
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0002708176838232459,
+          "position_m": [
+            0.29303844792154987,
+            0.0038226724977828003,
+            0.14864339964071294
+          ],
+          "normal": [
+            -0.023859007305858097,
+            0.059197527438478274,
+            0.9979611217455066
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0016166233690455556,
+          "position_m": [
+            0.28520870208740234,
+            -0.03118276596069336,
+            0.058330830186605453
+          ],
+          "normal": [
+            -0.9147054553031921,
+            -0.33936429023742676,
+            0.2194216400384903
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00027108172071166337,
+          "position_m": [
+            0.29303550720214844,
+            0.0038241147994995117,
+            0.148643359541893
+          ],
+          "normal": [
+            -0.022866856306791306,
+            0.06244410574436188,
+            0.9977864623069763
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 108,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 112,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0004725801326652699,
+          "position_m": [
+            0.2729437932014528,
+            -0.07288067737025045,
+            0.06546727433331032
+          ],
+          "normal": [
+            -0.879182686506028,
+            0.031089665932538285,
+            0.4754694905251511
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0004725513863377273,
+          "position_m": [
+            0.27294349670410156,
+            -0.07288074493408203,
+            0.0654672384262085
+          ],
+          "normal": [
+            -0.8791167140007019,
+            0.031288884580135345,
+            0.4755784273147583
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 116,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001972503594787735,
+          "position_m": [
+            0.2603509276404611,
+            -0.03454782384234523,
+            0.07194706545640187
+          ],
+          "normal": [
+            -0.9714647445618342,
+            -0.17479350543488895,
+            0.16032305052984078
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019369814541783211,
+          "position_m": [
+            0.272832787955575,
+            -0.0009989194830589466,
+            0.14554305834229747
+          ],
+          "normal": [
+            0.1060520695262162,
+            0.2845216256469418,
+            0.9527856018477758
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019369814541783211,
+          "position_m": [
+            0.27315372285582284,
+            -0.0011109821497358881,
+            0.14554075022784868
+          ],
+          "normal": [
+            0.10584206435702065,
+            0.28103149864060817,
+            0.9538441980661508
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019369814541783211,
+          "position_m": [
+            0.2724757906029266,
+            -0.0008743856812741177,
+            0.14554541113870573
+          ],
+          "normal": [
+            0.10625360495942908,
+            0.28799811040722323,
+            0.9517180569028807
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019369814541783211,
+          "position_m": [
+            0.2727696010648549,
+            -0.000977015393237369,
+            0.1455435238310659
+          ],
+          "normal": [
+            0.10580092259077459,
+            0.2847993286070821,
+            0.952730553306598
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019369814541783211,
+          "position_m": [
+            0.2728968933073027,
+            -0.0010211491242198673,
+            0.14554257461284545
+          ],
+          "normal": [
+            0.10630392894960924,
+            0.28422381719565815,
+            0.9528464180698826
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0019720045384019613,
+          "position_m": [
+            0.26035118103027344,
+            -0.03454756736755371,
+            0.07194697111845016
+          ],
+          "normal": [
+            -0.9714516401290894,
+            -0.17484678328037262,
+            0.16034424304962158
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00019366365449968725,
+          "position_m": [
+            0.27274036407470703,
+            -0.0009670257568359375,
+            0.1455436646938324
+          ],
+          "normal": [
+            0.1083514392375946,
+            0.2831912636756897,
+            0.9529232382774353
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0013452237448358369,
+          "position_m": [
+            0.27223592455282597,
+            -0.03852304682476744,
+            0.06229626337973468
+          ],
+          "normal": [
+            -0.8689494412096189,
+            0.1106602198631479,
+            0.4823703808914171
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0013459461042657495,
+          "position_m": [
+            0.2722358703613281,
+            -0.038523197174072266,
+            0.062296465039253235
+          ],
+          "normal": [
+            -0.8688961863517761,
+            0.11056101322174072,
+            0.48248907923698425
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "state_source": "cpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0015016977375517935,
+          "position_m": [
+            0.2587328632571091,
+            0.02463484328092186,
+            0.06160901411415723
+          ],
+          "normal": [
+            -0.8830070917693472,
+            -0.0023662207448435202,
+            0.4693536799519381
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0015016114339232445,
+          "position_m": [
+            0.2587318420410156,
+            0.024633407592773438,
+            0.06160897761583328
+          ],
+          "normal": [
+            -0.8830308318138123,
+            -0.0019051366252824664,
+            0.46931105852127075
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 0,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 4,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 8,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 12,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0020173206247660106,
+          "position_m": [
+            0.28116253042525974,
+            -0.05347856822837864,
+            0.0695651622746858
+          ],
+          "normal": [
+            -0.9881119102894893,
+            -0.10364209854114804,
+            0.11354808740812493
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0020173206247660106,
+          "position_m": [
+            0.2802032342439102,
+            -0.059625281593482175,
+            0.055698598063487495
+          ],
+          "normal": [
+            -0.9879972533588234,
+            -0.10364204672011158,
+            0.11454149251292021
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0016786729723605853,
+          "position_m": [
+            0.2853482320739896,
+            -0.018777803305474117,
+            0.1454001741732609
+          ],
+          "normal": [
+            -0.062030787758605176,
+            0.17238837893861925,
+            0.9830739688227749
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00201730290427804,
+          "position_m": [
+            0.2811622619628906,
+            -0.05347776412963867,
+            0.06956514716148376
+          ],
+          "normal": [
+            -0.9881219267845154,
+            -0.10354004800319672,
+            0.1135535016655922
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0016781700542196631,
+          "position_m": [
+            0.2853536605834961,
+            -0.01878833770751953,
+            0.145402193069458
+          ],
+          "normal": [
+            -0.0662018284201622,
+            0.1639418601989746,
+            0.9842460751533508
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014960806331989332,
+          "position_m": [
+            0.2339688767485013,
+            0.04194242760109125,
+            0.12192242283761655
+          ],
+          "normal": [
+            -0.13480475756140814,
+            0.06015685024798862,
+            0.9890444027985048
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014952014316804707,
+          "position_m": [
+            0.23396873474121094,
+            0.041944026947021484,
+            0.12192242592573166
+          ],
+          "normal": [
+            -0.13707418739795685,
+            0.060567665845155716,
+            0.9887073636054993
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 24,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.232347154637546e-05,
+          "position_m": [
+            0.2895431371391538,
+            -0.0038073097579363196,
+            0.12246935064927729
+          ],
+          "normal": [
+            0.010951042086768841,
+            0.03610787261145322,
+            0.999287894559265
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.229954255511984e-05,
+          "position_m": [
+            0.28954315185546875,
+            -0.003807276953011751,
+            0.12246936559677124
+          ],
+          "normal": [
+            0.011587964370846748,
+            0.0361020527780056,
+            0.9992808699607849
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": true,
+      "gpu_opposed": true,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00012069399959534922,
+          "position_m": [
+            0.27866890769233155,
+            -0.1295378521398002,
+            0.10127729527135941
+          ],
+          "normal": [
+            -0.005012175149955743,
+            -0.007750216604193437,
+            -0.9999574052142693
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.430893286081582e-05,
+          "position_m": [
+            0.275799028205589,
+            -0.09071326297896751,
+            0.12008908045217596
+          ],
+          "normal": [
+            0.005012175150470773,
+            0.007750216604148439,
+            0.9999574052142671
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00012069856893504038,
+          "position_m": [
+            0.2786684036254883,
+            -0.1295379400253296,
+            0.10127729177474976
+          ],
+          "normal": [
+            -0.003950707148760557,
+            -0.007901414297521114,
+            -0.9999610185623169
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.431629976257682e-05,
+          "position_m": [
+            0.2757987976074219,
+            -0.09071338176727295,
+            0.1200890839099884
+          ],
+          "normal": [
+            0.005655414890497923,
+            0.00848312210291624,
+            0.9999480247497559
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002379792294299381,
+          "position_m": [
+            0.24367955735287467,
+            0.03160718842565899,
+            0.06858153737936944
+          ],
+          "normal": [
+            -0.9422331602942855,
+            -0.32631861405955354,
+            -0.07558329021745207
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0009982204304750325,
+          "position_m": [
+            0.24649932273481995,
+            0.060048233301544664,
+            0.14804709129640842
+          ],
+          "normal": [
+            0.0073907943142940535,
+            0.15582320126446747,
+            0.987757311340745
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0009982204304750325,
+          "position_m": [
+            0.24650751900445222,
+            0.060036503209325714,
+            0.14804889733638854
+          ],
+          "normal": [
+            0.0038873121854043433,
+            0.13758745018617155,
+            0.9904819949677233
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002380042802542448,
+          "position_m": [
+            0.24368000030517578,
+            0.031607627868652344,
+            0.06858142465353012
+          ],
+          "normal": [
+            -0.9422188997268677,
+            -0.3263607323169708,
+            -0.07557985931634903
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0009982982883229852,
+          "position_m": [
+            0.24649906158447266,
+            0.06004810333251953,
+            0.14804702997207642
+          ],
+          "normal": [
+            0.00764245493337512,
+            0.15571501851081848,
+            0.9877723455429077
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 40,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 44,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 48,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 52,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -3.645725131622782e-05,
+          "position_m": [
+            0.2796419018127055,
+            0.07195684175574936,
+            0.12126422037985841
+          ],
+          "normal": [
+            0.0022354986069321216,
+            0.016765808479057485,
+            0.9998569448736265
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -3.63885446859058e-05,
+          "position_m": [
+            0.2796449661254883,
+            0.07195663452148438,
+            0.12126422673463821
+          ],
+          "normal": [
+            0.0,
+            0.02620975486934185,
+            0.9996564388275146
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 60,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 64,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -3.6811861024005916e-05,
+          "position_m": [
+            0.27609230382230654,
+            -0.03271386213634618,
+            0.0861380644891276
+          ],
+          "normal": [
+            -0.977230710515383,
+            0.17937366126322568,
+            0.11333679045493368
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -3.686010677483864e-05,
+          "position_m": [
+            0.276092529296875,
+            -0.03271365165710449,
+            0.086138054728508
+          ],
+          "normal": [
+            -0.9769166707992554,
+            0.18115010857582092,
+            0.11321881413459778
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 68,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 72,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -8.517370802772124e-06,
+          "position_m": [
+            0.2968007297266402,
+            -0.010981067973999722,
+            0.08310014344508876
+          ],
+          "normal": [
+            -0.9569069271682337,
+            -0.0761514581789715,
+            0.2802322039928051
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -8.74305533216102e-06,
+          "position_m": [
+            0.2968008518218994,
+            -0.010981082916259766,
+            0.08310016989707947
+          ],
+          "normal": [
+            -0.9594188928604126,
+            -0.06662631034851074,
+            0.27400070428848267
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": true,
+      "gpu_opposed": true,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00012615763641793897,
+          "position_m": [
+            0.2799042733033626,
+            -0.1378136192219323,
+            0.10135187904848203
+          ],
+          "normal": [
+            -0.00447440467659749,
+            -0.009130105654717629,
+            -0.9999483091007875
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -9.676067681514309e-05,
+          "position_m": [
+            0.2777961984760656,
+            -0.10106401455686481,
+            0.12011529439618665
+          ],
+          "normal": [
+            0.00447440467685771,
+            0.009130105654467527,
+            0.9999483091007885
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -9.67481973930262e-05,
+          "position_m": [
+            0.27779626846313477,
+            -0.10106492042541504,
+            0.12011530250310898
+          ],
+          "normal": [
+            0.007393154315650463,
+            0.00985753908753395,
+            0.9999241232872009
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0001261777797481045,
+          "position_m": [
+            0.279904842376709,
+            -0.13781380653381348,
+            0.10135190188884735
+          ],
+          "normal": [
+            -0.0018897436093539,
+            -0.0075589744374156,
+            -0.9999696612358093
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -7.564012914333783e-05,
+          "position_m": [
+            0.2774675921099574,
+            0.04459294468251777,
+            0.12111737061343432
+          ],
+          "normal": [
+            0.004467881593621508,
+            0.02427406312752952,
+            0.99969535754316
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -7.566065323771909e-05,
+          "position_m": [
+            0.2774677276611328,
+            0.044592857360839844,
+            0.12111736088991165
+          ],
+          "normal": [
+            0.009452837519347668,
+            0.02520756609737873,
+            0.9996376037597656
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 84,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 88,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 92,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0019061861222666688,
+          "position_m": [
+            0.2542298854648623,
+            -0.005458259988054979,
+            0.06986072096084156
+          ],
+          "normal": [
+            -0.9248218755467664,
+            -0.35987153914423675,
+            0.1232760066846725
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.001372385175698425,
+          "position_m": [
+            0.25078973552724976,
+            0.028957129728273308,
+            0.1477775136797388
+          ],
+          "normal": [
+            0.14132414096009283,
+            -0.02416778312602464,
+            0.9896683310284641
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0019059693440794945,
+          "position_m": [
+            0.2542300224304199,
+            -0.005458831787109375,
+            0.06986068189144135
+          ],
+          "normal": [
+            -0.9248547554016113,
+            -0.3597838878631592,
+            0.12328477948904037
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.001372061436995864,
+          "position_m": [
+            0.2507898807525635,
+            0.02895641326904297,
+            0.1477772742509842
+          ],
+          "normal": [
+            0.14162035286426544,
+            -0.025022491812705994,
+            0.9896047711372375
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 100,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0007192721971737035,
+          "position_m": [
+            0.29263298247978226,
+            -0.04763693135007961,
+            0.09366341751507634
+          ],
+          "normal": [
+            -0.9946570065195021,
+            -0.0828963165009962,
+            0.061527555552208124
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0007193930214270949,
+          "position_m": [
+            0.292633056640625,
+            -0.047636985778808594,
+            0.09366342425346375
+          ],
+          "normal": [
+            -0.9946595430374146,
+            -0.08286067098379135,
+            0.06153440847992897
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 108,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -9.724648850598941e-05,
+          "position_m": [
+            0.27337166535120805,
+            0.03462882163749424,
+            0.12331339862718474
+          ],
+          "normal": [
+            0.009764610457757577,
+            0.04924833664038449,
+            0.9987388315874997
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -9.729954763315618e-05,
+          "position_m": [
+            0.27337169647216797,
+            0.03462839126586914,
+            0.12331339716911316
+          ],
+          "normal": [
+            0.009800832718610764,
+            0.0502292700111866,
+            0.998689591884613
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 116,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0016895398625083335,
+          "position_m": [
+            0.2619442262363594,
+            -0.03339596593456231,
+            0.0712216701371929
+          ],
+          "normal": [
+            -0.9758961518827967,
+            -0.13778783126900768,
+            0.1692371540015161
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022910852267808801,
+          "position_m": [
+            0.26986997220019165,
+            0.0016685297009304775,
+            0.14528141895885519
+          ],
+          "normal": [
+            0.117902290211068,
+            0.3197273272413076,
+            0.940145460116739
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022910852267808801,
+          "position_m": [
+            0.27057443058289665,
+            0.0014268662759487549,
+            0.14527493915890283
+          ],
+          "normal": [
+            0.11763233641629912,
+            0.3159967592049346,
+            0.9414396855886316
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022910852267808801,
+          "position_m": [
+            0.2696143958379129,
+            0.0017564332951404953,
+            0.14528349318828815
+          ],
+          "normal": [
+            0.1181605175589934,
+            0.3233873206196803,
+            0.9388603372986928
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022910852267808801,
+          "position_m": [
+            0.2699151874236499,
+            0.001652990749801607,
+            0.14528105714806502
+          ],
+          "normal": [
+            0.11767209848079849,
+            0.3200963451049337,
+            0.940048725912433
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022910852267808801,
+          "position_m": [
+            0.27012430699198337,
+            0.0015815552648508501,
+            0.14527908651542673
+          ],
+          "normal": [
+            0.11812493129112266,
+            0.31931166688601403,
+            0.9402587728907095
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001689471653662622,
+          "position_m": [
+            0.2619441747665405,
+            -0.033396244049072266,
+            0.07122164219617844
+          ],
+          "normal": [
+            -0.9758914709091187,
+            -0.13781026005744934,
+            0.16924625635147095
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00022920247283764184,
+          "position_m": [
+            0.27006101608276367,
+            0.0016026496887207031,
+            0.14527973532676697
+          ],
+          "normal": [
+            0.11756204813718796,
+            0.31939423084259033,
+            0.9403012990951538
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 124,
+      "state_source": "cpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 0,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011058127840244585,
+          "position_m": [
+            0.26407713679723516,
+            -0.020319300526922497,
+            0.07331523705921461
+          ],
+          "normal": [
+            -0.8901856092030508,
+            -0.4363348742535324,
+            0.1310780632979722
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004323432482237141,
+          "position_m": [
+            0.2580432339660476,
+            0.012937552923183764,
+            0.14720445888392364
+          ],
+          "normal": [
+            -0.03754562833031334,
+            0.28500462036032825,
+            0.957790526245978
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011062389239668846,
+          "position_m": [
+            0.2640770673751831,
+            -0.020318031311035156,
+            0.0733153223991394
+          ],
+          "normal": [
+            -0.8902142643928528,
+            -0.4362696409225464,
+            0.13110049068927765
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004322041932027787,
+          "position_m": [
+            0.2580435276031494,
+            0.012941360473632812,
+            0.1472044587135315
+          ],
+          "normal": [
+            -0.037241362035274506,
+            0.2846895158290863,
+            0.9578961133956909
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005227240879704194,
+          "position_m": [
+            0.27693714048774953,
+            -0.0826798056059197,
+            0.07195221730463636
+          ],
+          "normal": [
+            -0.8169909248605343,
+            -0.46963715778064635,
+            0.3346143582203929
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010449656637735991,
+          "position_m": [
+            0.28625952500824686,
+            -0.04530556537018886,
+            0.14638873528730645
+          ],
+          "normal": [
+            -0.8143626901891441,
+            -0.46949926003229114,
+            0.34115077847929853
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010449656637735991,
+          "position_m": [
+            0.2862622058194234,
+            -0.04529529324172709,
+            0.14640949401835163
+          ],
+          "normal": [
+            -0.8137921138942327,
+            -0.4697012879036655,
+            0.3422325167268507
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010449656637735991,
+          "position_m": [
+            0.28624521736500275,
+            -0.04536310510803723,
+            0.14627423510966803
+          ],
+          "normal": [
+            -0.8146809876451737,
+            -0.4695465756025245,
+            0.34032470041039803
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010449656637735991,
+          "position_m": [
+            0.2862513216808475,
+            -0.04534219206531219,
+            0.14631804455936953
+          ],
+          "normal": [
+            -0.813434708218302,
+            -0.470340312342999,
+            0.34220456754826667
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005228194640949368,
+          "position_m": [
+            0.27693724632263184,
+            -0.08267879486083984,
+            0.07195234298706055
+          ],
+          "normal": [
+            -0.8166049122810364,
+            -0.47040820121765137,
+            0.33447355031967163
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010446847882121801,
+          "position_m": [
+            0.2862548828125,
+            -0.045325279235839844,
+            0.14635083079338074
+          ],
+          "normal": [
+            -0.8143982291221619,
+            -0.4692832827568054,
+            0.3413630723953247
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 8,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0002755015868137529,
+          "position_m": [
+            0.2645225751951781,
+            -0.010899946826399668,
+            0.06609692244404614
+          ],
+          "normal": [
+            -0.992637807961278,
+            0.12111170784968844,
+            -0.0014616523392302304
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0002755464520305395,
+          "position_m": [
+            0.26452261209487915,
+            -0.010898590087890625,
+            0.06609690934419632
+          ],
+          "normal": [
+            -0.9926321506500244,
+            0.12115823477506638,
+            -0.0014603894669562578
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 12,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00019340695125988526,
+          "position_m": [
+            0.2927591247362511,
+            -0.06232264205649324,
+            0.065922519298201
+          ],
+          "normal": [
+            -0.9849867617642263,
+            0.1533830763898413,
+            0.07921307358265961
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00019358465215191245,
+          "position_m": [
+            0.2927590608596802,
+            -0.06232261657714844,
+            0.06592246890068054
+          ],
+          "normal": [
+            -0.985086977481842,
+            0.15273621678352356,
+            0.07921651005744934
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 20,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006939034046009888,
+          "position_m": [
+            0.2529990640967369,
+            -0.03262262119840742,
+            0.07304992294132859
+          ],
+          "normal": [
+            -0.9531480178813806,
+            -0.2881545742513832,
+            0.092064093689123
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006938639562577009,
+          "position_m": [
+            0.2529990077018738,
+            -0.0326228141784668,
+            0.0730498805642128
+          ],
+          "normal": [
+            -0.9530189037322998,
+            -0.2885853946208954,
+            0.09205100685358047
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00020591797325977213,
+          "position_m": [
+            0.30683055214951094,
+            -0.03488617049068558,
+            0.07530758727234067
+          ],
+          "normal": [
+            -0.8781542604682114,
+            -0.47482293407214893,
+            0.0582089005277093
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00040985843901698144,
+          "position_m": [
+            0.29728896937150806,
+            0.004163874603322184,
+            0.14651848057572298
+          ],
+          "normal": [
+            -0.08564444427149473,
+            0.27573904427909524,
+            0.9574095302562421
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00040985843901698144,
+          "position_m": [
+            0.2975367109213769,
+            0.004097383161860369,
+            0.14655955216971173
+          ],
+          "normal": [
+            -0.08535344180238792,
+            0.27345842079807364,
+            0.9580893914803097
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00040985843901698144,
+          "position_m": [
+            0.29704266061038054,
+            0.004229927807621724,
+            0.14647742639340183
+          ],
+          "normal": [
+            -0.08593530806914089,
+            0.2780178021910684,
+            0.956724215483182
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00040985843901698144,
+          "position_m": [
+            0.2972205688376848,
+            0.004181794944451657,
+            0.14650722455626486
+          ],
+          "normal": [
+            -0.08602161682605988,
+            0.27540285710665624,
+            0.9574724788400559
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00040985843901698144,
+          "position_m": [
+            0.2973574332829858,
+            0.004145932995000144,
+            0.1465297303063406
+          ],
+          "normal": [
+            -0.08526728958821696,
+            0.2760752009941293,
+            0.9573463180700758
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00020602137374226004,
+          "position_m": [
+            0.3068305253982544,
+            -0.03488588333129883,
+            0.07530763000249863
+          ],
+          "normal": [
+            -0.8782787919044495,
+            -0.47458887100219727,
+            0.05823842063546181
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004097566707059741,
+          "position_m": [
+            0.29728901386260986,
+            0.004163980484008789,
+            0.1465185284614563
+          ],
+          "normal": [
+            -0.08568362891674042,
+            0.2755259871482849,
+            0.9574673175811768
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 32,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0018675005018524015,
+          "position_m": [
+            0.24678685006601886,
+            0.02911650407213133,
+            0.07138780084782961
+          ],
+          "normal": [
+            -0.9859616100631132,
+            -0.15489434506331584,
+            0.06234938130535209
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003689333988664399,
+          "position_m": [
+            0.25139801401733336,
+            0.05584952132294542,
+            0.14653893241812765
+          ],
+          "normal": [
+            0.01631684339192575,
+            0.2822439296267137,
+            0.9592039015822414
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0018675407627597451,
+          "position_m": [
+            0.24678689241409302,
+            0.029116392135620117,
+            0.07138779014348984
+          ],
+          "normal": [
+            -0.9859476089477539,
+            -0.15498386323451996,
+            0.062347814440727234
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00036895243101753294,
+          "position_m": [
+            0.25139808654785156,
+            0.05585002899169922,
+            0.14653894305229187
+          ],
+          "normal": [
+            0.016315260902047157,
+            0.282367080450058,
+            0.9591676592826843
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0017550232803249827,
+          "position_m": [
+            0.27171179705137316,
+            -0.04511806816426882,
+            0.07263165062003797
+          ],
+          "normal": [
+            -0.9923930196110667,
+            -0.08713097787898558,
+            0.08697291142120601
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007570293610314566,
+          "position_m": [
+            0.2907704511834102,
+            -0.010368722292789699,
+            0.14466319040079356
+          ],
+          "normal": [
+            0.059635031690469506,
+            0.27698233181740417,
+            0.959022653984915
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0017550626071169972,
+          "position_m": [
+            0.2717118263244629,
+            -0.045118093490600586,
+            0.0726315826177597
+          ],
+          "normal": [
+            -0.9923860430717468,
+            -0.08721286803483963,
+            0.08697089552879333
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007564449915662408,
+          "position_m": [
+            0.2907702922821045,
+            -0.010367393493652344,
+            0.14466246962547302
+          ],
+          "normal": [
+            0.05933711305260658,
+            0.28021615743637085,
+            0.9581012725830078
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0012478854154783254,
+          "position_m": [
+            0.26000331073705046,
+            -0.057679640311066135,
+            0.08346470680173193
+          ],
+          "normal": [
+            -0.945047603768408,
+            -0.316353147857367,
+            0.08249674207097475
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -1.2665394553184857e-05,
+          "position_m": [
+            0.2497626315967364,
+            -0.012857799107224704,
+            0.14559473947932094
+          ],
+          "normal": [
+            -0.03793910651729146,
+            0.3482506688826693,
+            0.9366333838911804
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001248095533810556,
+          "position_m": [
+            0.26000332832336426,
+            -0.05767965316772461,
+            0.08346472680568695
+          ],
+          "normal": [
+            -0.9450522065162659,
+            -0.3163386583328247,
+            0.08249925076961517
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -1.2607119970198255e-05,
+          "position_m": [
+            0.24976247549057007,
+            -0.012857437133789062,
+            0.14559471607208252
+          ],
+          "normal": [
+            -0.037901896983385086,
+            0.34111708402633667,
+            0.9392563700675964
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003209740886584735,
+          "position_m": [
+            0.28841876858181753,
+            0.0040863631413765545,
+            0.060276196144004604
+          ],
+          "normal": [
+            -0.9762800738530364,
+            -0.12395981588242795,
+            0.17751389084774286
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003210399590898305,
+          "position_m": [
+            0.28841888904571533,
+            0.004085540771484375,
+            0.06027619540691376
+          ],
+          "normal": [
+            -0.9761786460876465,
+            -0.12476075440645218,
+            0.17751023173332214
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 48,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0024784299116952374,
+          "position_m": [
+            0.25064095014825516,
+            -0.04969138724188815,
+            0.07214599979189662
+          ],
+          "normal": [
+            -0.9585231703351934,
+            -0.16360827302305947,
+            0.2333788013701805
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00021954141262069463,
+          "position_m": [
+            0.2617859744992582,
+            -0.01690607636495805,
+            0.14618932543009072
+          ],
+          "normal": [
+            0.13826288132140563,
+            0.2389063416386963,
+            0.9611488623379406
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.002478394191712141,
+          "position_m": [
+            0.2506410479545593,
+            -0.04969215393066406,
+            0.07214590907096863
+          ],
+          "normal": [
+            -0.9584740996360779,
+            -0.16391406953334808,
+            0.23336593806743622
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0002189630758948624,
+          "position_m": [
+            0.26178550720214844,
+            -0.016904830932617188,
+            0.1461888998746872
+          ],
+          "normal": [
+            0.13918602466583252,
+            0.23969414830207825,
+            0.9608194231987
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 52,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00046583771147773017,
+          "position_m": [
+            0.2872984584280809,
+            0.05312357227548914,
+            0.07455891809160602
+          ],
+          "normal": [
+            -0.9687326147803895,
+            -0.24039624470745802,
+            0.061373989533853875
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014102788273343046,
+          "position_m": [
+            0.2930697323471556,
+            0.07421773285249211,
+            0.1453765128142454
+          ],
+          "normal": [
+            -0.025302177235353003,
+            0.34180220174666054,
+            0.9394312400108303
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014102788273343046,
+          "position_m": [
+            0.2930788359024791,
+            0.074255736131577,
+            0.14536292906734588
+          ],
+          "normal": [
+            -0.026421033540778852,
+            0.3422407462863691,
+            0.9392407575100147
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014102788273343046,
+          "position_m": [
+            0.29306063158837714,
+            0.07417973696471519,
+            0.14539008412022109
+          ],
+          "normal": [
+            -0.024183282175529498,
+            0.3413631510128376,
+            0.9396203318329194
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014102788273343046,
+          "position_m": [
+            0.29311064399763254,
+            0.07438576655137442,
+            0.14531639645567895
+          ],
+          "normal": [
+            -0.02585345526871866,
+            0.3428577941461565,
+            0.9390314860769581
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00014102788273343046,
+          "position_m": [
+            0.29302880069765247,
+            0.07404953825462232,
+            0.14543649869796482
+          ],
+          "normal": [
+            -0.024750853019892976,
+            0.34074606801476254,
+            0.9398295124155587
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.000465379940578714,
+          "position_m": [
+            0.28729867935180664,
+            0.05312347412109375,
+            0.07455891370773315
+          ],
+          "normal": [
+            -0.9688522815704346,
+            -0.23990628123283386,
+            0.061402298510074615
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0001411084085702896,
+          "position_m": [
+            0.2930741310119629,
+            0.07423591613769531,
+            0.14536993205547333
+          ],
+          "normal": [
+            -0.025377804413437843,
+            0.3383707106113434,
+            0.9406706094741821
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0002521218335205592,
+          "position_m": [
+            0.2950449478846597,
+            -0.03341947018233114,
+            0.06466176838506357
+          ],
+          "normal": [
+            -0.9124839636867899,
+            0.0869730249359104,
+            0.3997608146729028
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0002523737493902445,
+          "position_m": [
+            0.2950453758239746,
+            -0.03341865539550781,
+            0.06466174125671387
+          ],
+          "normal": [
+            -0.9122007489204407,
+            0.09065349400043488,
+            0.399589478969574
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 60,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00012382621786204007,
+          "position_m": [
+            0.25807080650173153,
+            -0.04939802388421373,
+            0.0654172689564785
+          ],
+          "normal": [
+            -0.9772301197751823,
+            -0.03692032296909376,
+            0.2089454061616112
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0001237567194039002,
+          "position_m": [
+            0.2580704689025879,
+            -0.04939842224121094,
+            0.06541740894317627
+          ],
+          "normal": [
+            -0.9769920110702515,
+            -0.04239413142204285,
+            0.20901992917060852
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 64,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 68,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00023205648921873317,
+          "position_m": [
+            0.283239015933768,
+            -0.10660526807485876,
+            0.06551428822931223
+          ],
+          "normal": [
+            -0.9055656981655396,
+            0.06309281043744001,
+            0.41948785867658267
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00023228324425872415,
+          "position_m": [
+            0.28323936462402344,
+            -0.10660505294799805,
+            0.06551426649093628
+          ],
+          "normal": [
+            -0.9055467844009399,
+            0.06262851506471634,
+            0.41959822177886963
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 72,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003561245257979508,
+          "position_m": [
+            0.2916634352050008,
+            -0.018464063431654465,
+            0.0652609589753246
+          ],
+          "normal": [
+            -0.925005251451852,
+            -0.07129681546605322,
+            0.37320510298078174
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003558352473191917,
+          "position_m": [
+            0.29166316986083984,
+            -0.01846403256058693,
+            0.06526095420122147
+          ],
+          "normal": [
+            -0.9249522686004639,
+            -0.0713193491101265,
+            0.3733321726322174
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 76,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 80,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 84,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0012741220227777722,
+          "position_m": [
+            0.2847355930100336,
+            0.01659297520260649,
+            0.07273610514981649
+          ],
+          "normal": [
+            -0.8883732534046194,
+            -0.4339321282493926,
+            0.14998623506257097
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003087313580445313,
+          "position_m": [
+            0.29074338983219133,
+            0.043147493827780756,
+            0.14795708020888038
+          ],
+          "normal": [
+            0.06094249980387634,
+            0.2123634782301819,
+            0.9752885546501783
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003087313580445313,
+          "position_m": [
+            0.2911890606487326,
+            0.042987743116988414,
+            0.14796360101819206
+          ],
+          "normal": [
+            0.061088667744925364,
+            0.21010078079475183,
+            0.9757693562428501
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003087313580445313,
+          "position_m": [
+            0.29050028192053917,
+            0.04323471900444756,
+            0.14795308758464062
+          ],
+          "normal": [
+            0.060761533968715385,
+            0.21462656879289108,
+            0.9748043249585832
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003087313580445313,
+          "position_m": [
+            0.2907175317740702,
+            0.0431565386903037,
+            0.14795673871370768
+          ],
+          "normal": [
+            0.06051942330102434,
+            0.21220294215447472,
+            0.9753498401826373
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003087313580445313,
+          "position_m": [
+            0.2908369877578243,
+            0.0431142452186001,
+            0.14795848322929658
+          ],
+          "normal": [
+            0.061361014426987985,
+            0.21250884998080571,
+            0.9752306468668458
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001274033566005528,
+          "position_m": [
+            0.28473615646362305,
+            0.016592025756835938,
+            0.07273617386817932
+          ],
+          "normal": [
+            -0.8884228467941284,
+            -0.433824360370636,
+            0.15000441670417786
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00030878910911269486,
+          "position_m": [
+            0.2907419204711914,
+            0.04314756393432617,
+            0.14795717597007751
+          ],
+          "normal": [
+            0.0609879195690155,
+            0.21307171881198883,
+            0.9751312136650085
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.000646703701568141,
+          "position_m": [
+            0.26108992111736745,
+            -0.06768680627789414,
+            0.06346568813792186
+          ],
+          "normal": [
+            -0.9512565775768215,
+            0.12863223625586848,
+            0.2802939018470565
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006466902559623122,
+          "position_m": [
+            0.2610898017883301,
+            -0.0676870346069336,
+            0.06346558034420013
+          ],
+          "normal": [
+            -0.9511991739273071,
+            0.12903864681720734,
+            0.28030189871788025
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 92,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0017833367312118204,
+          "position_m": [
+            0.24255298481316165,
+            -0.005900931660377728,
+            0.060982570763448735
+          ],
+          "normal": [
+            -0.8763066394480122,
+            0.04684201770984384,
+            0.47947106172969634
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0017837246414273977,
+          "position_m": [
+            0.2425529956817627,
+            -0.005901336669921875,
+            0.06098256632685661
+          ],
+          "normal": [
+            -0.8763176798820496,
+            0.046515949070453644,
+            0.4794826805591583
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 96,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00027017104355958876,
+          "position_m": [
+            0.2657719697182335,
+            -0.008837399655812834,
+            0.0635246939810562
+          ],
+          "normal": [
+            -0.9526526725080504,
+            0.06432130777249416,
+            0.29717949951116285
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00027081058942712843,
+          "position_m": [
+            0.26577186584472656,
+            -0.008838653564453125,
+            0.06352473795413971
+          ],
+          "normal": [
+            -0.952482283115387,
+            0.06690263748168945,
+            0.29715555906295776
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00010210309115153027,
+          "position_m": [
+            0.2957966258943295,
+            -0.06299883181307633,
+            0.07912488144776664
+          ],
+          "normal": [
+            -0.9940388018849833,
+            -0.1086172544558906,
+            0.009442053883103737
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00010166057472815737,
+          "position_m": [
+            0.29579639434814453,
+            -0.06299972534179688,
+            0.07912489771842957
+          ],
+          "normal": [
+            -0.994664192199707,
+            -0.10273526608943939,
+            0.009412535466253757
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 108,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003453184397222761,
+          "position_m": [
+            0.2869569451143432,
+            0.009189981477396903,
+            0.07883220082141312
+          ],
+          "normal": [
+            -0.8975037356068527,
+            -0.41388501036904846,
+            0.15227029507936674
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00012553667320079232,
+          "position_m": [
+            0.2843827279733824,
+            0.03942891486466453,
+            0.1469724552327396
+          ],
+          "normal": [
+            -0.024311548198395445,
+            0.3239074732148446,
+            0.9457763464053075
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0003455916594248265,
+          "position_m": [
+            0.286956787109375,
+            0.009190797805786133,
+            0.07883214950561523
+          ],
+          "normal": [
+            -0.8973624110221863,
+            -0.41416725516319275,
+            0.15233589708805084
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0001254962116945535,
+          "position_m": [
+            0.28438282012939453,
+            0.0394291877746582,
+            0.14697235822677612
+          ],
+          "normal": [
+            -0.026604562997817993,
+            0.3230554163455963,
+            0.9460060000419617
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 112,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 116,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008068314206264289,
+          "position_m": [
+            0.2628216804093409,
+            -0.03410609564750566,
+            0.07271935451628828
+          ],
+          "normal": [
+            -0.9889050655043302,
+            -0.11201248987817786,
+            0.09757035170156743
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003544386515135948,
+          "position_m": [
+            0.2747192482649602,
+            -0.0015709873716790376,
+            0.1445485124454417
+          ],
+          "normal": [
+            0.05166858997124114,
+            0.3564862993939711,
+            0.9328707708759966
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008072149357758462,
+          "position_m": [
+            0.26282167434692383,
+            -0.034106142818927765,
+            0.07271939516067505
+          ],
+          "normal": [
+            -0.9889043569564819,
+            -0.11201509088277817,
+            0.09757418930530548
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0003545957151800394,
+          "position_m": [
+            0.27471923828125,
+            -0.0015713423490524292,
+            0.14454875886440277
+          ],
+          "normal": [
+            0.05244548246264458,
+            0.3544663190841675,
+            0.9335968494415283
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0002894213309586705,
+          "position_m": [
+            0.27664310879903403,
+            -0.037496450460584356,
+            0.0642927347041604
+          ],
+          "normal": [
+            -0.8681068431975434,
+            0.09829349279852133,
+            0.48654794015293423
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.00028938939794898033,
+          "position_m": [
+            0.2766427993774414,
+            -0.037496328353881836,
+            0.06429269909858704
+          ],
+          "normal": [
+            -0.8681449890136719,
+            0.09842820465564728,
+            0.486452579498291
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 124,
+      "state_source": "gpu",
+      "time_s": 1.5,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0014370149962086621,
+          "position_m": [
+            0.2682627783619679,
+            0.02722828427508802,
+            0.0722201536053863
+          ],
+          "normal": [
+            -0.9883087015476242,
+            -0.1312148721847776,
+            0.07764385206042831
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00012100730133603994,
+          "position_m": [
+            0.2751758740643659,
+            0.056113133767384846,
+            0.1459574416640475
+          ],
+          "normal": [
+            0.03327062067751702,
+            0.3125289828427161,
+            0.9493253924145452
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0014370254939422011,
+          "position_m": [
+            0.2682628631591797,
+            0.027228355407714844,
+            0.07222011685371399
+          ],
+          "normal": [
+            -0.9883244037628174,
+            -0.13109071552753448,
+            0.07765361666679382
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0001208545800182037,
+          "position_m": [
+            0.2751755714416504,
+            0.056113243103027344,
+            0.14595748484134674
+          ],
+          "normal": [
+            0.031551554799079895,
+            0.3076276481151581,
+            0.9509835243225098
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 0,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011608018320905346,
+          "position_m": [
+            0.26483095672355805,
+            -0.019136059058001833,
+            0.07274911723156502
+          ],
+          "normal": [
+            -0.8989869332203998,
+            -0.41696157920211374,
+            0.13403557500999477
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006672743787269464,
+          "position_m": [
+            0.26004696936421084,
+            0.013682222853280251,
+            0.14696340638685385
+          ],
+          "normal": [
+            -0.039578179750384655,
+            0.27701807537350914,
+            0.9600492454056735
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011602594750002027,
+          "position_m": [
+            0.2648305892944336,
+            -0.01913595199584961,
+            0.07274903357028961
+          ],
+          "normal": [
+            -0.8991175889968872,
+            -0.4166842997074127,
+            0.13402137160301208
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.000667230982799083,
+          "position_m": [
+            0.26004791259765625,
+            0.013681411743164062,
+            0.14696332812309265
+          ],
+          "normal": [
+            -0.03930266574025154,
+            0.27726244926452637,
+            0.9599899649620056
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 4,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 8,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 12,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005593823418654191,
+          "position_m": [
+            0.2978365215162372,
+            -0.05529423689542899,
+            0.08432196130169475
+          ],
+          "normal": [
+            -0.9892815738183968,
+            0.14601749290934668,
+            -0.0009270748971216166
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.000559590058401227,
+          "position_m": [
+            0.2978363037109375,
+            -0.05529594421386719,
+            0.08432198315858841
+          ],
+          "normal": [
+            -0.9892030358314514,
+            0.14654859900474548,
+            -0.0009319042437709868
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 16,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.299852766439758e-05,
+          "position_m": [
+            0.2345255895437589,
+            0.041758046820247696,
+            0.12192413952740895
+          ],
+          "normal": [
+            -0.13479746552677024,
+            0.05986112995304545,
+            0.9890633389264328
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -8.320486813317984e-05,
+          "position_m": [
+            0.23452520370483398,
+            0.04175758361816406,
+            0.12192405760288239
+          ],
+          "normal": [
+            -0.1374438852071762,
+            0.06299511343240738,
+            0.9885042905807495
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 20,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006258123140036168,
+          "position_m": [
+            0.2551257260424091,
+            -0.03193063641091938,
+            0.07296103250263279
+          ],
+          "normal": [
+            -0.9635511919578015,
+            -0.24132062645171376,
+            0.11547058381099719
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0005167218412837594,
+          "position_m": [
+            0.26447313330780553,
+            -0.0020917622974084516,
+            0.1449817384209518
+          ],
+          "normal": [
+            0.024728877147036674,
+            0.34930062412171026,
+            0.9366843420401725
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0006260360241867602,
+          "position_m": [
+            0.2551259994506836,
+            -0.03193092346191406,
+            0.0729609951376915
+          ],
+          "normal": [
+            -0.9635191559791565,
+            -0.24145105481147766,
+            0.1154652088880539
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0005168000934645534,
+          "position_m": [
+            0.26447010040283203,
+            -0.002094268798828125,
+            0.14498195052146912
+          ],
+          "normal": [
+            0.025835298001766205,
+            0.34785380959510803,
+            0.9371927380561829
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 24,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005443636815268216,
+          "position_m": [
+            0.30712115186992184,
+            -0.034224124151814445,
+            0.07469096026275623
+          ],
+          "normal": [
+            -0.8837479048968265,
+            -0.4641923230872965,
+            0.05928851302983517
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007479395660736889,
+          "position_m": [
+            0.29753453296385485,
+            0.0049711204179524095,
+            0.1459026490296548
+          ],
+          "normal": [
+            -0.08315165709972637,
+            0.28044431211408155,
+            0.956261883442203
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007479395660736889,
+          "position_m": [
+            0.2978261086185858,
+            0.0048945541661190054,
+            0.14595042985050788
+          ],
+          "normal": [
+            -0.0828628161011894,
+            0.2780995418403394,
+            0.9569714721641256
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007479395660736889,
+          "position_m": [
+            0.29716131976164006,
+            0.005068722625827577,
+            0.14584105603659256
+          ],
+          "normal": [
+            -0.08345366467299536,
+            0.282792788924775,
+            0.9555436799983532
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007479395660736889,
+          "position_m": [
+            0.2973127535949512,
+            0.0050280468413210705,
+            0.14586637030691835
+          ],
+          "normal": [
+            -0.08354311734968575,
+            0.2801400314932483,
+            0.956316950753493
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007479395660736889,
+          "position_m": [
+            0.2976124467022992,
+            0.0049514426054136935,
+            0.14591521793699364
+          ],
+          "normal": [
+            -0.0827838857471604,
+            0.2807775733595688,
+            0.9561959958914873
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005441338289529085,
+          "position_m": [
+            0.30712127685546875,
+            -0.03422403335571289,
+            0.07469089329242706
+          ],
+          "normal": [
+            -0.8835508227348328,
+            -0.4645653963088989,
+            0.05930330976843834
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0007480024360120296,
+          "position_m": [
+            0.29753541946411133,
+            0.004971504211425781,
+            0.14590266346931458
+          ],
+          "normal": [
+            -0.0828733965754509,
+            0.2804945707321167,
+            0.9562712907791138
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 28,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00011545966731282733,
+          "position_m": [
+            0.27593974491308304,
+            -0.0900566292436634,
+            0.12119465373081684
+          ],
+          "normal": [
+            0.007906980842539268,
+            0.025249198902775116,
+            0.9996499175254925
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00011544142762431875,
+          "position_m": [
+            0.27593994140625,
+            -0.0900564193725586,
+            0.12119466811418533
+          ],
+          "normal": [
+            0.008261642418801785,
+            0.02478492632508278,
+            0.9996587038040161
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 32,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0014461713408691751,
+          "position_m": [
+            0.2493099415363389,
+            0.03004049384741301,
+            0.07114058708524003
+          ],
+          "normal": [
+            -0.9913374501384637,
+            -0.11128478083496081,
+            0.0697549819545812
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006055100778606731,
+          "position_m": [
+            0.2514139704324556,
+            0.057211837970376614,
+            0.1464234578475148
+          ],
+          "normal": [
+            0.03367543595324236,
+            0.29812889143163085,
+            0.9539314069193373
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006055100778606731,
+          "position_m": [
+            0.2519903351401971,
+            0.0570625598842268,
+            0.14644934182985347
+          ],
+          "normal": [
+            0.03335373068787072,
+            0.29356594860520824,
+            0.9553567723467111
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006055100778606731,
+          "position_m": [
+            0.2508094032724757,
+            0.05736580814985046,
+            0.14639663626116778
+          ],
+          "normal": [
+            0.03182554845631378,
+            0.2953337331879955,
+            0.954863927743999
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006055100778606731,
+          "position_m": [
+            0.25144912645099304,
+            0.05720291814451373,
+            0.14642489937069209
+          ],
+          "normal": [
+            0.03385663745741235,
+            0.29752106553858887,
+            0.9541147434459128
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0014461908722296357,
+          "position_m": [
+            0.24931049346923828,
+            0.03004043735563755,
+            0.07114051282405853
+          ],
+          "normal": [
+            -0.9913394451141357,
+            -0.1112712174654007,
+            0.06974734365940094
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006059433799237013,
+          "position_m": [
+            0.2510719299316406,
+            0.05729933828115463,
+            0.1464082896709442
+          ],
+          "normal": [
+            0.03383777290582657,
+            0.29828760027885437,
+            0.9538760185241699
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 36,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0015312184439549377,
+          "position_m": [
+            0.2727489820237338,
+            -0.04424978739181128,
+            0.07144759477190821
+          ],
+          "normal": [
+            -0.9936545673902886,
+            -0.06437534920200748,
+            0.09223022888152405
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010676235748303753,
+          "position_m": [
+            0.29187260052274056,
+            -0.009291127288534064,
+            0.1440886494068479
+          ],
+          "normal": [
+            0.06886171668475148,
+            0.30016191966943995,
+            0.9513994355451267
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0015311442548409104,
+          "position_m": [
+            0.2727494239807129,
+            -0.0442500114440918,
+            0.07144761085510254
+          ],
+          "normal": [
+            -0.9936511516571045,
+            -0.06440042704343796,
+            0.09224952757358551
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0010674941586330533,
+          "position_m": [
+            0.291872501373291,
+            -0.009295940399169922,
+            0.14409010112285614
+          ],
+          "normal": [
+            0.06968260556459427,
+            0.2911258935928345,
+            0.9541436433792114
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 40,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011604670207369786,
+          "position_m": [
+            0.2614171619639111,
+            -0.05689942553055899,
+            0.08267371078328858
+          ],
+          "normal": [
+            -0.9545869093432987,
+            -0.28044777743303945,
+            0.10056279950000042
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0005836067831897386,
+          "position_m": [
+            0.25464971384124435,
+            -0.01321003162902101,
+            0.14587546709005983
+          ],
+          "normal": [
+            -0.052838248756147815,
+            0.312634750736534,
+            0.9484026740263276
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011606579646468163,
+          "position_m": [
+            0.2614173889160156,
+            -0.0568995475769043,
+            0.08267372846603394
+          ],
+          "normal": [
+            -0.9545822739601135,
+            -0.28045734763145447,
+            0.10058068484067917
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0005842360551469028,
+          "position_m": [
+            0.2546501159667969,
+            -0.013210535049438477,
+            0.1458757519721985
+          ],
+          "normal": [
+            -0.05305180326104164,
+            0.3125975430011749,
+            0.948403000831604
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 44,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 48,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 52,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005577784299477449,
+          "position_m": [
+            0.2892216471779724,
+            0.053791828014425086,
+            0.07455184059537473
+          ],
+          "normal": [
+            -0.9740085761559227,
+            -0.21355645786332858,
+            0.07550452224589221
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004302118323655116,
+          "position_m": [
+            0.29456127006118804,
+            0.07378464461886206,
+            0.1456500406629429
+          ],
+          "normal": [
+            -0.0007382994293796642,
+            0.33633126461876933,
+            0.9417434551691305
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004302118323655116,
+          "position_m": [
+            0.29457079104436495,
+            0.07382644793407583,
+            0.14563511783437444
+          ],
+          "normal": [
+            -0.0018488782063246715,
+            0.33677845215691554,
+            0.9415821025339057
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004302118323655116,
+          "position_m": [
+            0.2945516724230294,
+            0.07374251679706784,
+            0.14566506662811346
+          ],
+          "normal": [
+            0.00037228356987075085,
+            0.33588363548773076,
+            0.9419034158641156
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004302118323655116,
+          "position_m": [
+            0.2946046343178119,
+            0.0739663648792912,
+            0.14558508853015828
+          ],
+          "normal": [
+            -0.0012022806153518884,
+            0.3373485516531232,
+            0.9413790465157286
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0004302118323655116,
+          "position_m": [
+            0.29452561112013426,
+            0.07363505255207049,
+            0.14570333863876428
+          ],
+          "normal": [
+            -0.00024768542927067373,
+            0.3352862722233934,
+            0.9421162636906704
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0005580137367360294,
+          "position_m": [
+            0.28922176361083984,
+            0.053791046142578125,
+            0.0745517760515213
+          ],
+          "normal": [
+            -0.9739567637443542,
+            -0.21377453207969666,
+            0.07555593550205231
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00042922733700834215,
+          "position_m": [
+            0.294522762298584,
+            0.0736246109008789,
+            0.1457071751356125
+          ],
+          "normal": [
+            0.0,
+            0.33754947781562805,
+            0.941307783126831
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 56,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 60,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 64,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 68,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 72,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 76,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00010268189347043352,
+          "position_m": [
+            0.2779321604262881,
+            -0.10088500343523699,
+            0.12069667545973675
+          ],
+          "normal": [
+            0.005809156459139003,
+            0.0185326537681366,
+            0.999811379433913
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.00010271214705426246,
+          "position_m": [
+            0.27793216705322266,
+            -0.10088498890399933,
+            0.12069666385650635
+          ],
+          "normal": [
+            0.0,
+            0.018497886136174202,
+            0.9998289346694946
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 80,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 84,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008648637122469289,
+          "position_m": [
+            0.2871870080154276,
+            0.012592333236021751,
+            0.05876993104950967
+          ],
+          "normal": [
+            -0.9194920945880543,
+            -0.3357546581798267,
+            0.20445805804766076
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008648637122469289,
+          "position_m": [
+            0.28860227324747934,
+            0.01743969529756355,
+            0.07310572295134012
+          ],
+          "normal": [
+            -0.9197086932192218,
+            -0.3357544903025071,
+            0.2034817973645189
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006314492492262029,
+          "position_m": [
+            0.2954503094478754,
+            0.04341214071367618,
+            0.14851548264704303
+          ],
+          "normal": [
+            0.0474970979664402,
+            0.19175064316809629,
+            0.9802936889164328
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008639565785415471,
+          "position_m": [
+            0.2871866226196289,
+            0.012592315673828125,
+            0.058769796043634415
+          ],
+          "normal": [
+            -0.9195505976676941,
+            -0.3357352018356323,
+            0.20422685146331787
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006314615602605045,
+          "position_m": [
+            0.29545021057128906,
+            0.043412208557128906,
+            0.1485154926776886
+          ],
+          "normal": [
+            0.04832559451460838,
+            0.19179220497608185,
+            0.980245053768158
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 88,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 92,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 96,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -1.0293269463437403e-05,
+          "position_m": [
+            0.2729423130971117,
+            -0.00041881563860222997,
+            0.08548196307857106
+          ],
+          "normal": [
+            -0.9907572387459536,
+            0.052466489131594504,
+            0.12508941358363568
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -1.0058006409963127e-05,
+          "position_m": [
+            0.27294158935546875,
+            -0.0004177093505859375,
+            0.08548196405172348
+          ],
+          "normal": [
+            -0.9864604473114014,
+            0.09864604473114014,
+            0.13101427257061005
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 100,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0010638749249255116,
+          "position_m": [
+            0.29354354748949474,
+            -0.04789629888801883,
+            0.09507850083459421
+          ],
+          "normal": [
+            -0.9961228870392806,
+            -0.08794382320244629,
+            -0.0022534145347914585
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0010645284783095121,
+          "position_m": [
+            0.29354286193847656,
+            -0.047896385192871094,
+            0.09507860243320465
+          ],
+          "normal": [
+            -0.99612957239151,
+            -0.08786741644144058,
+            -0.0022555252071470022
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 104,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 108,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 112,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 116,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008343677319883091,
+          "position_m": [
+            0.2650843808219876,
+            -0.03361528447271987,
+            0.0724572148235075
+          ],
+          "normal": [
+            -0.9903618433975363,
+            -0.06793394454380276,
+            0.12069962021876145
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006097044950657275,
+          "position_m": [
+            0.27674627048546285,
+            -0.0009481737198170937,
+            0.14431776368602933
+          ],
+          "normal": [
+            0.08807608069216673,
+            0.36356297258306985,
+            0.9273966621551261
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0008345287060365081,
+          "position_m": [
+            0.26508522033691406,
+            -0.0336151123046875,
+            0.07245726883411407
+          ],
+          "normal": [
+            -0.9903661608695984,
+            -0.06796630471944809,
+            0.12064554542303085
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006094247219152749,
+          "position_m": [
+            0.2767467498779297,
+            -0.0009493827819824219,
+            0.14431825280189514
+          ],
+          "normal": [
+            0.08918927609920502,
+            0.3587130308151245,
+            0.9291772246360779
+          ]
+        }
+      ]
+    },
+    {
+      "env_id": 120,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [],
+      "gpu_contacts": []
+    },
+    {
+      "env_id": 124,
+      "state_source": "gpu",
+      "time_s": 2.0,
+      "cpu_opposed": false,
+      "gpu_opposed": false,
+      "cpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.0011874619085079177,
+          "position_m": [
+            0.27033136395489843,
+            0.027678463124874816,
+            0.07174392457574635
+          ],
+          "normal": [
+            -0.9913259909475095,
+            -0.09254866014551662,
+            0.09331412099574334
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.000670672253979712,
+          "position_m": [
+            0.27694890315621556,
+            0.056694198253357336,
+            0.1457401059960598
+          ],
+          "normal": [
+            0.060109959568602225,
+            0.31211935760596393,
+            0.9481393881536098
+          ]
+        }
+      ],
+      "gpu_contacts": [
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/left_finger_pad"
+          ],
+          "distance_m": -0.001186962123028934,
+          "position_m": [
+            0.27033138275146484,
+            0.027678489685058594,
+            0.07174397259950638
+          ],
+          "normal": [
+            -0.9913238883018494,
+            -0.09258515387773514,
+            0.09330062568187714
+          ]
+        },
+        {
+          "geoms": [
+            "plate/plate_geom",
+            "robot/right_finger_pad"
+          ],
+          "distance_m": -0.0006710230954922736,
+          "position_m": [
+            0.2769479751586914,
+            0.056694746017456055,
+            0.1457403004169464
+          ],
+          "normal": [
+            0.05969174578785896,
+            0.31267106533050537,
+            0.947983980178833
+          ]
+        }
+      ]
+    }
+  ]
+}

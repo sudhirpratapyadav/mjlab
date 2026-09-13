@@ -137,7 +137,13 @@ def edge_arrival_aperture_score(distance, aperture, capture_fit):
   return arrival*wide+(1-arrival)*capture_fit
 
 
-def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, pinch_weight=1., orientation_power=1., held_weight=8., wide_approach=False, **kwargs):
+def edge_clearance_waypoint(pinch_target, hand_position, far_axis, clearance):
+  """Training waypoint: clear the exposed rim before descending into the pinch."""
+  high = torch.sigmoid((hand_position[:,2]-pinch_target[:,2]-.020)/.005)
+  return pinch_target-clearance*high[:,None]*far_axis
+
+
+def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, contact_geometry=False, pinch_weight=1., orientation_power=1., held_weight=8., wide_approach=False, arrival_clearance=0., **kwargs):
   command = env.command_manager.get_term(command_name)
   obj = command.object
   pos = tracking_position(obj)
@@ -154,6 +160,8 @@ def edge_reward(env, command_name, require_enclosure=False, side_wrist=False, co
   pinch_target = pos-.065*far_axis
   if side_wrist:
     pinch_target[:,2] += .005
+  if arrival_clearance:
+    pinch_target = edge_clearance_waypoint(pinch_target,grip,far_axis,arrival_clearance)
   push_distance = torch.linalg.vector_norm(grip-push_target,dim=-1)
   pinch_distance = torch.linalg.vector_norm(grip-pinch_target,dim=-1)
   push = torch.exp(-push_distance/.15)*(.25+.75*(-axes[2][:,2]).clamp(0,1))

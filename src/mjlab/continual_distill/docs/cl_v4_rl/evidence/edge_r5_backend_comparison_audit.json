@@ -1,0 +1,58 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "rows": [
+    {
+      "condition": "baseline",
+      "episodes": 32,
+      "completed_ticks": 700,
+      "requested_ticks": 700,
+      "all_finite": true,
+      "gpu_held_lift_count": 3,
+      "cpu_held_lift_count": 7,
+      "gpu_ever_opposed": 3,
+      "cpu_ever_opposed": 7,
+      "median_terminal_position_difference_m": 0.0131734540451118,
+      "cpu_warning_count": 0
+    },
+    {
+      "condition": "gyro",
+      "episodes": 32,
+      "completed_ticks": 700,
+      "requested_ticks": 700,
+      "all_finite": true,
+      "gpu_held_lift_count": 3,
+      "cpu_held_lift_count": 7,
+      "gpu_ever_opposed": 3,
+      "cpu_ever_opposed": 7,
+      "median_terminal_position_difference_m": 0.012836933686007511,
+      "cpu_warning_count": 0
+    },
+    {
+      "condition": "cone",
+      "episodes": 32,
+      "completed_ticks": 700,
+      "requested_ticks": 700,
+      "all_finite": true,
+      "gpu_held_lift_count": 3,
+      "cpu_held_lift_count": 7,
+      "gpu_ever_opposed": 3,
+      "cpu_ever_opposed": 7,
+      "median_terminal_position_difference_m": 0.01177074130800108,
+      "cpu_warning_count": 0
+    },
+    {
+      "condition": "gyro_cone",
+      "episodes": 32,
+      "completed_ticks": 700,
+      "requested_ticks": 700,
+      "all_finite": true,
+      "gpu_held_lift_count": 3,
+      "cpu_held_lift_count": 7,
+      "gpu_ever_opposed": 3,
+      "cpu_ever_opposed": 7,
+      "median_terminal_position_difference_m": 0.013311905066851999,
+      "cpu_warning_count": 0
+    }
+  ],
+  "conclusion": "Allexistingcone/gyroconditionsretainCPU7/GPU3heldlifts; no readiness improvement supports enablingthese flags. Platecylinder/contactgeometry needs finer diagnosis; originalnative7casefeasibility is not a policy result."
+}

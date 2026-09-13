@@ -24,6 +24,7 @@ RECIPES += ("edge_v5",)
 RECIPES += ("peg_v1", "lift_v8", "reorient_v8")
 RECIPES += ("lift_v9", "peg_v2", "peg_v3", "edge_v4")
 RECIPES += ("peg_v4",)
+RECIPES += ("edge_v6",)
 RECIPES += ("reorient_v9",)
 
 
@@ -188,6 +189,10 @@ def apply_recipe(cfg, recipe):
   if recipe == "edge_v4":
     apply_recipe(cfg,"edge_v3")
     cfg.env.rewards['reach_object'].params.update(pinch_weight=4.,orientation_power=2.)
+    return
+  if recipe == "edge_v6":
+    apply_recipe(cfg,"edge_v5")
+    cfg.env.rewards['reach_object'].params['arrival_clearance']=.03
     return
   if recipe == "edge_v3":
     apply_recipe(cfg, "edge_v2")

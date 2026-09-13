@@ -2,9 +2,9 @@
 
 **18/24 independent PPO RL teachers certified.** Lift R16/model21990 is newest:118/128 validation and117/128 independent confirmation. Actual success/failure frames reviewed; all76 checkpoint tensors finite and13 W&B teacher files remotely verified (28m72bwp). The optional post-integration terminal recomputation agrees126/128 labels and passes116/128; its cached-velocity limitation is explicit in lift_r16_terminal_audit.json. The native measured rates remain authoritative. Six tasks remain unfinished.
 
-Current full budgets: ReorientR15 GPU1 final20592, StackR12 GPU5 final16193, PegR11 GPU6 final12197 and PivotR4 GPU7 final8497. Their identified-process watchers start strict evaluation only after verified final checkpoint and trainer exit. Peg073 and Pivot074 passed50-update2048-world finite preflights with acceptedKL<=.03; full runs start from original retained parents. GPUs2/3 are available for Edge/Strike diagnosis; GPU4 is free after Lift certification. GPU0 stays unused; holder20277 expires2026-09-28T08:58:54 scheduler time.
+Current full budgets: ReorientR16 GPU1 final22591, EdgeR7 GPU2 final14993, StrikeR12 GPU3 final18991, StackR12 GPU5 final16193, PegR11 GPU6 final12197 and PivotR4 GPU7 final8497. Each has a frozen final-checkpoint evaluation plan and identified-process watcher. Edge076 passed50-update2048-world finite preflight with maximumacceptedKL.01016 and no backtracks; fullR7 starts from originalR6. GPU4 is free; GPU0 stays unused. Holder20277 expires2026-09-28T08:58:54 scheduler time.
 
-Latest reviewed strict results: ReorientR14 4/128, StrikeR11 50/128, StackR11 85/128; EdgeR6/PegR10/PivotR3 all0/128. Reorient now reaches orientation/drift in123/128 but fails settling. Strike has125 substantial launches but poor endpoint calibration; longer96-step returns/lambda.99 completed a matched sample budget but decreased57→50/128. Stack improved0→85/128 with primitive-only contact compatibility and protected optimizer steps; all128 native CPU/GPU terminal labels agree. Unchanged R12 continues from reviewed14194. PegR10 preserves100/128 opposed grasps but presses down; stronger lifting/native-completion weights passed preflight and are training. PivotR3 tips108/128 boards beyond20deg but fails grasp/lift; matched replay supports primitive contacts, while earlier closing failed0/32. Edge's canonical-wrist diagnostic did not improve7/32 held lifts (6/32 with correction), so no tighter-wrist recipe is justified. All diagnostics remain separate from policy data, actions and resets. Native physical models/success and60D/8D remain fixed.
+Latest reviewed strict results: ReorientR15 109/128 (up from4), StackR11 85/128 (up from0), StrikeR11 50/128; EdgeR6/PegR10/PivotR3 all0/128. Reorient now has122orientation/driftpasses and near-median linear0.00972m/s/angular0.03969rad/s; unchanged refinement retains acquired settling. Stack native CPU/GPU terminal labels agree128/128; unchanged refinement retains release. Strike returns did not improve; a preregistered once-only0.5 exploration-noise refinement from retainedR9 passed50-update preflight. Edge matched staged controls yieldCPU7/GPU3heldlifts; gyro/cone/both do not improve, and all128identical-state arrival/closure contact labels agree. A bounded30mm outward training waypoint while high above the plate is being tested; it changes no actions, initial states or native rules. Peg/Pivot finish their frozen full budgets before further decisions. Native physical models, success and60D/8D remain fixed; diagnostic controls never become policy actions, demonstrations or reset data.
 
 ## Readiness
 
@@ -33,7 +33,7 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Axial-Extract | 4 | off | Certified | 128/128 +128/128 | model200 retained; plug visibly extracted from socket. |
 | Cage-Drag | 4 | on | Certified | 119/128 +120/128 | model19092 retained; open-gripper transport reviewed and no-pinch audit passed. |
 | Drag-Pull | 3 | on | Certified | 122/128 + 120/128 | model1300 retained; later training simulator failure archived separately. |
-| Edge-Grasp | 6 | on | Diagnosis after R6 | 0/128 R6 final12994 | Reviewed; wider arrival worsened vertical miss; canonical-wrist diagnostic negative. |
+| Edge-Grasp | 6 | on | Training R7 | 0/128 R6 final12994 | Matched CPU7/GPU3 diagnostic held lifts; clearance waypoint reward, no backend change. |
 | Flip-Switch | 3 | on | Certified | 128/128 +128/128 | model800 retained; physical switch review passed. |
 | Lift-Cube | 20 | on | Certified | 118/128 +117/128 | R16/model21990, actual videos reviewed;13 W&B retention files verified. |
 | Open-Door | 3 | off | Certified | 128/128 +128/128 | model900 retained; physical door review passed. |
@@ -46,11 +46,11 @@ Every row has 60D observations and 8D actions. Rates below are deterministic fir
 | Push-Cuboid | 3 | on | Certified | 126/128 +125/128 | model1998 retained; moving endpoint is valid under unchanged position-only predicate. |
 | Push-Flap | 3 | off | Certified | 128/128 +128/128 | model900 retained with physical video review. |
 | Reach-Target | 20 | on | Certified | 128/128 + 128/128 | model499 retained with normalizers, reviewed video and W&B artifact. |
-| Reorient-Object | 20 | on | Training R15 | 4/128 R14 final18593 |123 orientation/drift passes; stronger quiet/steady/native completion weights. |
+| Reorient-Object | 20 | on | Training R16 | 109/128 R15 final20592 | Reviewed settling improvement4→109; unchanged guarded continuation from20592. |
 | Rotate-Valve | 8 | off | Certified | 127/128 +128/128 | model1999 retained; sole validation failure was ground collision. |
 | Slide-Window | 3 | off | Certified | 128/128 +128/128 | model300 retained; physical slide review passed. |
 | Stack-Cube | 20 | on | Training R12 | 85/128 R11 final14194 |124 ever captured;100 supported/104 released terminal cubes. Native CPU/GPU labels agree128/128; unchanged guarded continuation. |
-| Strike-Slide | 4 | on | Diagnosis after R11 | 50/128 R11 final19490 | Longer returns did not improve matched-budget result;125 launches, median endpoint103.11mm. |
+| Strike-Slide | 4 | on | Training R12 | 50/128 R11 final19490 | RetainedR9 source; preregistered0.5 noise refinement after finite50-update preflight. |
 | Throw-To-Bin | 5 | on | Certified | 125/128 +126/128 | model14098, reserved confirmation16; actual videos and native endpoint audit passed. |
 | Topple-Block | 4 | on | Certified | 123/128 + 118/128 | model499 retained; highest-return failure correctly fails settling predicate. |
 | Turn-Lever | 3 | off | Certified | 128/128 +128/128 | model1000 retained with physical video review. |

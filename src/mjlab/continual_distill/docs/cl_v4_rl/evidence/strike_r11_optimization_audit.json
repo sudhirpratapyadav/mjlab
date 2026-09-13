@@ -1,0 +1,81 @@
+{
+  "task": "Mjlab-Strike-Slide-Franka",
+  "method": "Saved policy standard deviations/Adam LR plus last100 actual PPO TensorBoard and optimizer diagnostics. Training episode-success is a reporting latch, not strict terminal success; differing GAE changes value-target scale so raw critic losses are not directly comparable.",
+  "rows": [
+    {
+      "run": "RL-023-R9-strike-guard",
+      "iteration": 16992,
+      "policy_std": [
+        0.005010942928493023,
+        0.0036471730563789606,
+        0.004131878260523081,
+        0.006288035307079554,
+        0.00632119458168745,
+        0.004604454152286053,
+        0.007502589374780655,
+        0.019446497783064842
+      ],
+      "saved_learning_rate": 1.25e-06,
+      "last100_training_metrics": {
+        "Metrics/strike_slide/episode_success": 0.589529715180397,
+        "Loss/value": 148.41183280944824,
+        "Loss/surrogate": -0.002881877243053168,
+        "Loss/entropy": -29.39217918395996,
+        "Loss/learning_rate": 1.249999968422344e-06,
+        "Train/mean_reward": 56.14959674835205
+      },
+      "maximum_accepted_kl": 0.00848156213760376,
+      "backtracks": 0
+    },
+    {
+      "run": "RL-023-R10-strike-guard",
+      "iteration": 18991,
+      "policy_std": [
+        0.004966980777680874,
+        0.0036092502996325493,
+        0.004090446513146162,
+        0.006242979317903519,
+        0.006264975294470787,
+        0.004562759306281805,
+        0.007458970881998539,
+        0.019366495311260223
+      ],
+      "saved_learning_rate": 1.25e-06,
+      "last100_training_metrics": {
+        "Metrics/strike_slide/episode_success": 0.5921772444248199,
+        "Loss/value": 151.66125328063964,
+        "Loss/surrogate": -0.00295415582600981,
+        "Loss/entropy": -29.457140045166014,
+        "Loss/learning_rate": 1.249999968422344e-06,
+        "Train/mean_reward": 56.773217086791995
+      },
+      "maximum_accepted_kl": 0.008408531546592712,
+      "backtracks": 0
+    },
+    {
+      "run": "RL-023-R11-strike-returns",
+      "iteration": 19490,
+      "policy_std": [
+        0.004951728042215109,
+        0.003596218302845955,
+        0.004074370954185724,
+        0.006229841150343418,
+        0.006245045457035303,
+        0.004546674434095621,
+        0.007440715096890926,
+        0.01933867298066616
+      ],
+      "saved_learning_rate": 1.25e-06,
+      "last100_training_metrics": {
+        "Metrics/strike_slide/episode_success": 0.6090320116281509,
+        "Loss/value": 540.0888021850586,
+        "Loss/surrogate": -0.0012550640827976168,
+        "Loss/entropy": -29.478839588165282,
+        "Loss/learning_rate": 1.249999968422344e-06,
+        "Train/mean_reward": 58.08007286071777
+      },
+      "maximum_accepted_kl": 0.006272231228649616,
+      "backtracks": 0
+    }
+  ]
+}

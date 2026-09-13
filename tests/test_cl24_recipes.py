@@ -38,6 +38,7 @@ from mjlab.tasks.manipulation.mdp.rewards import articulation_task_reward
   ("Mjlab-Strike-Slide-Franka","strike_v1"),
   ("Mjlab-Throw-To-Bin-Franka","throw_v1"),
   ("Mjlab-Edge-Grasp-Franka","edge_v2"),
+  ("Mjlab-Edge-Grasp-Franka","edge_v6"),
   ("Mjlab-Pivot-Lift-Franka","pivot_v2"),
   ("Mjlab-Throw-To-Bin-Franka","throw_v2"),
   ("Mjlab-Throw-To-Bin-Franka","throw_v3"),
@@ -89,6 +90,28 @@ def test_peg_lift_credit_changes_only_two_reward_weights(monkeypatch):
   assert params['lift_weight']==12. and params.pop('native_completion_weight')==30.
   params['lift_weight']=4.
   assert repr(old.env)==repr(new.env)
+
+
+def test_edge_clearance_preserves_benchmark_and_bounded_waypoint(monkeypatch):
+  from dataclasses import asdict
+  stage=Path(__file__).resolve().parents[1]/'src/mjlab/continual_distill/docs/cl_v4_rl'
+  monkeypatch.syspath_prepend(str(stage));recipes=importlib.import_module('rl_recipes')
+  reward=importlib.import_module('remaining_reward')
+  old,new=(TrainConfig.from_task('Mjlab-Edge-Grasp-Franka') for _ in range(2))
+  recipes.apply_recipe(old,'edge_v5');recipes.apply_recipe(new,'edge_v6')
+  assert asdict(old.agent)==asdict(new.agent)
+  assert new.env.rewards['reach_object'].params.pop('arrival_clearance')==.03
+  assert repr(old.env)==repr(new.env)
+  heights=torch.tensor([-.05,0.,.020,.053,.10])
+  target=torch.zeros(5,3);hand=torch.stack([torch.zeros(5),torch.zeros(5),heights],dim=1)
+  axis=torch.tensor([1.,0.,0.]).expand(5,3)
+  out=reward.edge_clearance_waypoint(target,hand,axis,.03)
+  assert torch.isfinite(out).all() and (out[:,0]>=-.03).all() and (out[:,0]<=0).all()
+  assert (out[1:,0]<out[:-1,0]).all() and abs(out[1,0])<.00054
+  assert abs(out[3,0]+.03)<.00005 and not out[:,1:].any()
+  assert not target.any()  # Inputs must remain unchanged.
+  shift=torch.tensor([3.,-4.,.7])
+  torch.testing.assert_close(reward.edge_clearance_waypoint(target+shift,hand+shift,axis,.03),out+shift)
 
 
 def test_reorient_quiet_score_requires_axis_progress_and_both_speeds(monkeypatch):

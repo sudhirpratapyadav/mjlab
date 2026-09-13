@@ -1,0 +1,17 @@
+{
+  "preregistered_utc": "2026-09-13T08:50:54.723087+00:00",
+  "task": "Mjlab-Reorient-Object-Franka",
+  "run_id": "RL-005-R16-reorient-refine",
+  "source_checkpoint": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-005-R15-reorient-settle/model_20592.pt",
+  "source_checkpoint_sha256": "1f73b057aeded7d39dcf1458408a7549291c9424a31c8e03d482d4138d0c3058",
+  "updates": 2000,
+  "expected_final_checkpoint": "model_22591.pt",
+  "recipe": "reorient_v11",
+  "physical_gpu_index": 1,
+  "learning_rate": 5e-06,
+  "max_update_kl": 0.03,
+  "validation_seed": 20260914,
+  "confirmation_seed": 20260915,
+  "episodes_per_batch": 128,
+  "reason": "Unchanged continuation of reviewed4\u2192109/128 improvement. Same recipe/backend/acceptedLR/guard and policy/Adam/normalizers/noise; fullbudget before strict evaluation."
+}

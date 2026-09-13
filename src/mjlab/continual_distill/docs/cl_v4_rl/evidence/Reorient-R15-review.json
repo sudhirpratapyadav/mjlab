@@ -1,0 +1,20 @@
+{
+  "task": "Mjlab-Reorient-Object-Franka",
+  "checkpoint_sha256": "1f73b057aeded7d39dcf1458408a7549291c9424a31c8e03d482d4138d0c3058",
+  "reviewed_utc": "2026-09-13T08:50:54.721958+00:00",
+  "verdict": "not certified",
+  "validation_successes": 109,
+  "episodes": 128,
+  "finite_tensors": 76,
+  "all_checkpoint_tensors_finite": true,
+  "inspected_frames": [
+    "success-0000.png",
+    "success-0250.png",
+    "success-0499.png",
+    "failure-0000.png",
+    "failure-0250.png",
+    "failure-0499.png"
+  ],
+  "observations": "Actual success110 lifts the bottle and holds it upright in the air at middle/final frames. Highest-return failure6 also holds bottle upright but fails native terminal criteria; visible stillness is not a velocity measurement. Settling audit:122orientation/driftpasses,11near linear failures and13angular failures; mediannear linear0.00972m/s/angular0.03969rad/s, actiontarget stepRMS0.001479rad. Strict109/128 improves4/128; no confirmation below116.",
+  "settling_audit": "reorient_r15_settling_audit.json"
+}

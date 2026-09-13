@@ -1,0 +1,293 @@
+{
+  "task": "Mjlab-Edge-Grasp-Franka",
+  "checkpoint_sha256": "476eaef82d0625fda26ab8b80d2127afae628a8d96030759e8b229b81c8abb72",
+  "control_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/edge-r5-staged-controls.npz",
+  "control_archive_sha256": "7592d86fc7054d3d00a0f9d2c16eeb6513cb86a6b840e9724c6675e1b88e10c8",
+  "sample_archive": "/ihub/homedirs/svs_ald/sudhir/mjlab-rl-teachers-24-codex/src/mjlab/continual_distill/docs/cl_v4_rl/runs/edge_r5_baseline_replay_audit.npz",
+  "sample_columns": [
+    "gpu_lift_m",
+    "cpu_lift_m",
+    "gpu_opposed",
+    "cpu_opposed",
+    "gpu_x",
+    "gpu_y",
+    "gpu_z",
+    "cpu_x",
+    "cpu_y",
+    "cpu_z"
+  ],
+  "free_body_implicitfast_compat": false,
+  "elliptic_hessian_compat": false,
+  "primitive_box_box_compat": false,
+  "method": "All32 original diagnostic states/friction/recorded wrist and identical float32 physical8D commands. Native CPU versus GPU, full3.5s path, forward/contact samples every20ms. Initial cold caches matched. Held lift is a diagnostic mechanism, never task success, demonstrations, policy actions or reset training data.",
+  "summary": {
+    "episodes": 32,
+    "completed_ticks": 700,
+    "requested_ticks": 700,
+    "all_finite": true,
+    "gpu_held_lift_count": 3,
+    "cpu_held_lift_count": 7,
+    "gpu_ever_opposed": 3,
+    "cpu_ever_opposed": 7,
+    "median_terminal_position_difference_m": 0.0131734540451118,
+    "cpu_warning_count": 0
+  },
+  "rows": [
+    {
+      "env_id": 0,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.01372055542333034
+    },
+    {
+      "env_id": 4,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.03873086031237886
+    },
+    {
+      "env_id": 8,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.0020294157508244236
+    },
+    {
+      "env_id": 12,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.013027949353438746
+    },
+    {
+      "env_id": 16,
+      "gpu_held_lift": true,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": true,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.0006032198235659015
+    },
+    {
+      "env_id": 20,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.014771261437913774
+    },
+    {
+      "env_id": 24,
+      "gpu_held_lift": false,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.0790592348231517
+    },
+    {
+      "env_id": 28,
+      "gpu_held_lift": true,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": true,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.005332526165137896
+    },
+    {
+      "env_id": 32,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.008539082345012433
+    },
+    {
+      "env_id": 36,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.006697102160091162
+    },
+    {
+      "env_id": 40,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.01724161392079502
+    },
+    {
+      "env_id": 44,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.003930319745676349
+    },
+    {
+      "env_id": 48,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.013318958736784858
+    },
+    {
+      "env_id": 52,
+      "gpu_held_lift": false,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.08030413301846116
+    },
+    {
+      "env_id": 56,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.01786820726410402
+    },
+    {
+      "env_id": 60,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.005792087450583873
+    },
+    {
+      "env_id": 64,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.009659149706629622
+    },
+    {
+      "env_id": 68,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.017719968044277414
+    },
+    {
+      "env_id": 72,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.004839376323489667
+    },
+    {
+      "env_id": 76,
+      "gpu_held_lift": true,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": true,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.006032448526265648
+    },
+    {
+      "env_id": 80,
+      "gpu_held_lift": false,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.07815027628588915
+    },
+    {
+      "env_id": 84,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.01860509807989993
+    },
+    {
+      "env_id": 88,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.0062639029351563924
+    },
+    {
+      "env_id": 92,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.03685593415153159
+    },
+    {
+      "env_id": 96,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.002177795774349154
+    },
+    {
+      "env_id": 100,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.025054433731115554
+    },
+    {
+      "env_id": 104,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.012497753425935246
+    },
+    {
+      "env_id": 108,
+      "gpu_held_lift": false,
+      "cpu_held_lift": true,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": true,
+      "terminal_position_difference_m": 0.07746655614014494
+    },
+    {
+      "env_id": 112,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.011350201399302613
+    },
+    {
+      "env_id": 116,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.017393810371905568
+    },
+    {
+      "env_id": 120,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.012320255411742614
+    },
+    {
+      "env_id": 124,
+      "gpu_held_lift": false,
+      "cpu_held_lift": false,
+      "gpu_ever_opposed": false,
+      "cpu_ever_opposed": false,
+      "terminal_position_difference_m": 0.0173551674778297
+    }
+  ]
+}

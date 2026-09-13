@@ -20,10 +20,13 @@ def main():
   p.add_argument('--approach-opening',type=float,help='Diagnostic finger target during approach, in metres per finger')
   p.add_argument('--pinch-offset',type=float,default=.065,help='Diagnostic near-side target distance from plate center')
   p.add_argument('--ideal-wrist',action='store_true',help='Rotate during arrival to the nearest canonical side-pinch wrist')
+  p.add_argument('--export-controls',type=Path,help='Export staged_close_lift physical controls for matched backend diagnosis')
   args=p.parse_args()
   if args.approach_opening is not None and not 0<=args.approach_opening<=.04:p.error('Opening must be within approved0–40mm per finger')
   if not 0<args.pinch_offset<=.1:p.error('Pinch offset must be in(0,0.1]m')
-  if args.output.exists():p.error('Output exists')
+  archive=Path(__file__).resolve().parent/'runs'/f'{args.output.stem}-samples.npz'
+  if args.output.exists() or archive.exists():p.error('Output or sample archive exists')
+  if args.export_controls and args.export_controls.exists():p.error('Control archive exists')
   ev=json.loads(args.evaluation.read_text());audit=json.loads(args.approach_audit.read_text())
   assert ev['task']=='Mjlab-Edge-Grasp-Franka' and ev['checkpoint_sha256']==audit['checkpoint_sha256']
   with np.load(Path(ev['trace_dir'])/'trace.npz') as a:t={k:a[k] for k in a.files}
@@ -40,7 +43,7 @@ def main():
   objects={i for i in range(template.ngeom) if template.geom(i).name.startswith('plate/')}
   robots={i for i in range(template.ngeom) if template.geom(i).name.startswith('robot/')}
   obstacles={i for i in range(template.ngeom) if template.geom(i).name.startswith('ledge/') or template.geom_type[i]==mujoco.mjtGeom.mjGEOM_PLANE}
-  rows=[]
+  rows=[];exported=[]
   for record in audit['rows'][::4]:
     lane=record['env_id'];step=record['closest_exposed_pinch']['step']
     m=copy.copy(template);m.geom_friction[:]=t['initial_model_geom_friction'][lane];d=mujoco.MjData(m)
@@ -80,7 +83,7 @@ def main():
           assert np.all(kp>0) and np.allclose(m.actuator_biasprm[:7,1],-kp)
           raw=seed+(d.qfrc_bias[dof]-d.qfrc_passive[dof])/kp
           bounded=np.clip(raw,np.asarray(LOWER[:7]),np.asarray(UPPER[:7]));clipped+=int(np.count_nonzero(raw!=bounded));controls.append(bounded)
-      restore();samples=[];snapshots=[];minimum=0.;finite=True
+      restore();samples=[];snapshots=[];minimum=0.;finite=True;applied=[]
       for tick in range(round(3.5/m.opt.timestep)):
         time=(tick+1)*m.opt.timestep
         phase=min(int(np.searchsorted(times,time,side='right')-1),len(times)-2)
@@ -89,6 +92,9 @@ def main():
           d.ctrl[:7]=(1-fraction)*controls[phase]+fraction*controls[phase+1]
           closure=np.clip((time-1.5)/.5,0,1) if mode!='staged_open_lift' else 0.
           d.ctrl[7]=(1-closure)*opening+closure*.003
+        if args.export_controls and mode=='staged_close_lift':
+          d.ctrl[:]=d.ctrl.astype(np.float32)
+          applied.append(d.ctrl.copy())
         mujoco.mj_step(m,d);finite&=bool(np.isfinite(d.qpos).all() and np.isfinite(d.qvel).all())
         if not finite:break
         if tick%4==3:
@@ -119,7 +125,17 @@ def main():
         clipped_targets=clipped,min_robot_obstacle_distance_m=minimum,
         ever_opposed=any(x['opposed_contact'] for x in samples),held_lift_above2cm=any(x['opposed_contact'] and x['plate_lift_m']>.02 for x in samples),
         terminal=samples[-1],contact_snapshots=snapshots,samples=samples))
+      if args.export_controls and mode=='staged_close_lift':
+        assert len(applied)==round(3.5/m.opt.timestep) and finite
+        control_array=np.asarray(applied,dtype=np.float32)
+        assert np.all(control_array>=np.r_[LOWER[:7],0.]-1e-6) and np.all(control_array<=np.r_[UPPER[:7],.04]+1e-6)
+        exported.append(dict(lane=lane,source_step=step,controls=control_array,geom_friction=m.geom_friction.copy(),**initial))
     rows.append(dict(env_id=lane,source_step=step,opening_m=opening,target_m=target.tolist(),cases=cases))
+  if args.export_controls:
+    args.export_controls.parent.mkdir(parents=True,exist_ok=True)
+    np.savez_compressed(args.export_controls,task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],timestep=template.opt.timestep,
+      lanes=np.asarray([x['lane'] for x in exported]),source_steps=np.asarray([x['source_step'] for x in exported]),
+      **{key:np.stack([x[key] for x in exported]) for key in ['qpos','qvel','mocap_pos','mocap_quat','ctrl','controls','geom_friction']})
   summary={}
   for mode in ['frozen_recorded','direct_close_lift','staged_close_lift','staged_open_lift']:
     c=[next(c for c in r['cases'] if c['mode']==mode) for r in rows]
@@ -127,7 +143,6 @@ def main():
       median_terminal_hand_error_m=float(np.median([x['terminal']['hand_error_m'] for x in c])),
       max_waypoint_ik_error_m=max(x['max_waypoint_ik_error_m'] for x in c),clipped_cases=sum(x['clipped_targets']>0 for x in c),
       obstacle_penetrations_over3mm=sum(x['min_robot_obstacle_distance_m']<-.003 for x in c),all_finite=all(x['finite'] for x in c),warnings=sum(x['warnings'] for x in c))
-  archive=Path(__file__).resolve().parent/'runs'/f'{args.output.stem}-samples.npz'
   columns=['time_s','hand_error_m','plate_lift_m','opposed_contact','robot_plate_contact','hand_x','hand_y','hand_z','plate_x','plate_y','plate_z']
   arrays={}
   for row in rows:
@@ -138,6 +153,8 @@ def main():
   archive.parent.mkdir(parents=True,exist_ok=True);np.savez_compressed(archive,**arrays)
   report=dict(task=ev['task'],checkpoint_sha256=ev['checkpoint_sha256'],ideal_wrist=args.ideal_wrist,pinch_offset_m=args.pinch_offset,approach_opening_override_m=args.approach_opening,sample_archive=str(archive),sample_columns=columns,
     method='32 every-fourth closest exposed recorded states, all retained; native CPU, original velocities/friction; the reported ideal-wrist variant rotates from actual wrist during the first segment. Frozen actual controls versus1.5s direct or three0.5s outward/lower/approach segments,0.5s close3mm/finger,1s50mm lift,0.5s hold. Approach opening is original recorded position unless an explicit override is reported; staged open keeps that approach target throughout. Initial finger states are never reset. Bounded gravity-compensated IK controls, no IK initialization, policy supervision or certification. Frozen case hand error is relative to the direct nominal path, not a tracking instruction.',summary=summary,rows=rows)
+  report['exported_control_archive']=str(args.export_controls.resolve()) if args.export_controls else None
+  report['staged_controls_quantized_float32']=bool(args.export_controls)
   args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary,indent=2))
 
 
