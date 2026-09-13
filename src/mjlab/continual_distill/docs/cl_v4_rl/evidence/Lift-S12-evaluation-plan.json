@@ -34,5 +34,18 @@
   "reason": "Pure reward bracket100 versus1000 on a new physical arm target-tracking cost, alongside S11 no-target-cost control. All three use ORIGINALS7/model24488, goal100, survival500/s, old10xmotioncosts, separate actor/critic clipping at.5, LR5e-6ceiling/KL.03 and1000updates/final25487. New soft cost=sum7(max(abs(joint_pos_target-joint_pos)-.05,0)^2), evaluated poststep; no command/velocity limit or filter. S7 trace audit: median first-step excess squared error21.652rad\u00b2 but full-episode mean.113rad\u00b2; current speed remainshigh. Prior native force probes show small target changes can yield identical force-limited motion, so direct target cost supplies command-dependent reward there. Hypothesis only; may trade away success or increase early failure, all128durations and failures remain in evaluation. Preflight100updates must pass finite/KL checks, thenrestart ORIGINALS7, neverpreflightparent. 60D/8D/nativepredicate/physics/resets/duration preserved; fixed0/1/2 real-time pairs. Other23 paused.",
   "separate_gradient_clipping": true,
   "arm_target_error_weight": -100.0,
-  "arm_target_error_deadband_rad": 0.05
+  "arm_target_error_deadband_rad": 0.05,
+  "preflight_outcome": {
+    "run_id": "PREFLIGHT-LIFT-TARGET100-092",
+    "updates": 100,
+    "finite_tensors": 76,
+    "max_accepted_kl": 0.02942323498427868,
+    "backtracks": 11,
+    "learning_rate_ceiling": 5e-06,
+    "saved_learning_rate": 5e-06,
+    "checkpoint_sha256": "b6507f070a5adf0635f25aed6f6ae9531dd7c0af46d64e8d2a50c826397b6f89",
+    "separate_gradient_clipping": true,
+    "per_update_rate_rule_verified": true,
+    "verdict": "finite_preflight_pass_not_success_or_motion_certification"
+  }
 }
