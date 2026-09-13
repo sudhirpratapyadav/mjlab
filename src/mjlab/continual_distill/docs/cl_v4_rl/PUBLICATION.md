@@ -41,3 +41,5 @@ Wave24 final gallery refresh published via untu_vps: latest reviewed Edge6997, P
 Wave25 gallery includes latest reviewed Lift13994 and Peg7096 actual failure videos. Still14 certified/10 in progress. Newest homepage card/navigation,24 video playback, filters/search/mobile layout and50 verified-TLS HTTP200 SHA256 matches passed. Native success counts are unchanged by contact/control diagnostics.
 
 Wave26 gallery published via untu_vps:15 certified/9 in progress, newly certified Place7500 success video and latest Reorient10597/Strike10995/Cage17093 reviewed actual clips. Cage shows117/128 validation and115/128 failed confirmation. Newest homepage card/navigation,24 video playback,15/9 filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed.
+
+Wave27 public gallery refreshed via untu_vps with reviewed Stack8197, pre-collapse Peg6200 and Edge8996 actual failure clips. Still15 certified/9 in progress. Newest homepage card/navigation,24 video playback,15/9 filters/search/mobile layout and50/50 verified-TLS HTTP200 SHA256 matches passed. Seven full trainers verified with corrected CPU affinity; GPU0 remains unused.

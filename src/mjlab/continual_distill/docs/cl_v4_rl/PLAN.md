@@ -10,10 +10,10 @@ Native first uninterrupted episode, deterministic means,60D observations and nor
 
 ## Active work
 
-- GPU1 ReorientR11 final12596, GPU3 StrikeR6 final12994, GPU4 LiftR12 final15993, GPU6 EdgeR4 final8996 and GPU7 CageR11 final19092: existing full runs.
-- GPU2 Throw cone2048x100 stability gate. Only after finite11199 and actual exit, fullR6 from original11100 for2000 updates, final13099.
-- GPU5 StackR7 completed8197; strict128 evaluation now reports0 and actual render/review is pending. Audit capture/clearance before the next training choice.
-- PegR7 capture improves until~6200 then collapses with large joint-limit penalties and PPO surrogate loss. Diagnose the last checkpoint before collapse; retainR6/5097. Pivot remains under contact/dynamics diagnosis.
+- GPU1 ReorientR11-cpu final12596; GPU2 ThrowR6 final13099; GPU3 StrikeR6-cpu final12994; GPU4 LiftR12-cpu final15993; GPU5 StackR8 final10196; GPU6 PegR8 final8199; GPU7 CageR11-cpu final19092. All full runs are live; evaluate after their frozen budgets.
+- Four CPU migrations preserve the original final labels; see cpu_affinity_migration_audit.json. Every new step requests8 CPUs and keeps numerical library threads at1.
+- Cage/Throw confirmation16 is reserved; do not reuse retired15 or evaluate earlier checkpoints against a new confirmation.
+- Edge8996 plateaued39.53mm from side pinch, mainly vertical; Pivot still lacks tipping. Continue physical/contact diagnosis while full trainers run.
 
 Keep native success/physical models and the approved interface fixed. Record every reward/optimizer/backend change and validate it before full training. No shared environment edits, invalid-lane exclusion, state clipping, or scripted policy actions. Publish concise reviewed actual policy media; detailed records remain scoped to the project W&B. LeaveGPU0 unused and verify CPU as well as GPU placement within holder20277. Holder expires2026-09-28T08:58:54 scheduler time.
 
@@ -124,3 +124,5 @@ All four CPU continuations verified matching preregistered checkpoint hashes and
 StackR7 strict0/128; actual selected clip lifts and carries cube above/near the base but keeps gripping. Sampled CPU audit:121/128 ever opposed,117 above stack height versus4 before,88 terminal opposed and24 object/base contacts; median XYerror37.49mm versus86.73mm before. Actual control audit finds widening each finger2mm from its loaded position is median16.51 standard deviations above the deterministic target. Preregister PREFLIGHT-STACK-RELEASE-047: original8197, unchangedcompletion_v6,64x3, only gripper exploration std reset0.4 with its Adam noise moments reset; preserve all policy means, arm noise, remaining Adam state and normalizers,LR1e-4,legacy backend. If finite, RL-018-R8-stack-release original8197,2048x2000 onGPU5, final10196. No mean reset or action override. Finish full budget before strict validation/conditional confirmation.
 
 PegR7 pre-collapse6200 strict0/128, actual low capture reviewed, final opposed grasp74.22% versus50.4% at5097 and0% at7096; tip height1.79mm. Training subsequently collapses with joint-limit and PPO loss spikes. Preregister peg_v2 reward: parentpeg_v1, double held lift coefficient2→4; all other shaping/native gates unchanged. Maximum noncompleted score12.5 remains below the weakest strict15 bonus. PREFLIGHT-PEG-LIFT-048 original6200,64x3,Adam5e-5 override with moments retained, unchanged means/std/normalizers,gyroON/coneOFF/primitiveOFF. If finite, RL-020-R8-peg-lift original6200,2048x2000 onGPU6, final8199. LowerLR addresses observed policy collapse; lift shaping targets the measured low-hold plateau. No gripper reset, new initialization or observation/action change.
+
+Stack release64x3 and Peg lift64x3 preflights completed normally, all model/optimizer tensors finite. Stackstd remains~0.4 atAdam1e-4; Pegusespeg_v2 andAdam5e-5 withgyroON.71 focused reward/interface/gripper-reset checks pass. Start original-checkpoint fullR8 runs after preflight steps exit: Stack8197x2000 final10196 GPU5; Peg6200x2000 final8199 GPU6. Sourcepreflight checkpoints are not training parents.

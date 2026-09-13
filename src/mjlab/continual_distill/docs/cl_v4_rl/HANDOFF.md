@@ -34,3 +34,7 @@ The commit includes source, changed task assets, tests, plans and compact JSON r
 They were not deleted. `LOCAL_ARTIFACTS.json` inventories non-ignored, excluded evidence files; ignored videos and other outputs also remain at their original paths. Historical reports may link to these local-only artifacts. Resolve those links against the original checkout when reviewing evidence, or copy an artifact explicitly when needed. Do not share/symlink writable run directories between worktrees: write all new experiments into your own worktree or uniquely named external run directories.
 
 Unrelated untracked portal/sweep/config-backup files remain in the original checkout and are outside this checkpoint. The original worktree is preserved; continue development in your own branch/worktree.
+
+## Current CPU allocation correction (wave27)
+
+Inside holder20277, use `srun --jobid=20277 --overlap --ntasks=1 --cpus-per-task=8` for every training/evaluation step. Keep `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1` and export the GPU UUID and worktree PYTHONPATH inside the step. Requesting one CPU restricted recent overlapping steps to the same core (`0,128`); the holder allows `0-3,128-131`. Do not modify cgroups or the holder. Four affected runs were explicitly migrated from verified checkpoints to `-cpu` continuations with the original final iteration labels preserved. `evidence/cpu_affinity_migration_audit.json` records the lineage. Future manifests include actual CPU affinity; verify it alongside GPU placement.

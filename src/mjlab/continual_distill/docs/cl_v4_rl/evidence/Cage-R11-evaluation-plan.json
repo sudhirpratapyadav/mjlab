@@ -12,5 +12,7 @@
   "episodes_per_batch": 128,
   "minimum_successes_per_batch": 116,
   "schedule": "Complete full2000-update budget before strict validation; only if116+ evaluate frozen new candidate once on confirmation20260916. Do not retest17093 on a fresh seed.",
-  "reason": "Validation improves108 to117 but confirmation115 fails. Continue unchanged cage_v4 at savedAdam5e-5 with all learned state and original backend to improve validation margin; no tuning on individual confirmation outcomes."
+  "reason": "Validation improves108 to117 but confirmation115 fails. Continue unchanged cage_v4 at savedAdam5e-5 with all learned state and original backend to improve validation margin; no tuning on individual confirmation outcomes.",
+  "cpu_allocation_continuation": "RL-013-R11-cage-refine-cpu",
+  "cpu_allocation_note": "Verified checkpoint17300 resumes for1793 updates after correcting one-core binding; final19092 and confirmation20260916 stay frozen. See cpu_affinity_migration_audit.json."
 }
