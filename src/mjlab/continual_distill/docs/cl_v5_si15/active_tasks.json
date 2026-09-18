@@ -1,0 +1,35 @@
+{
+  "num_active_tasks": 15,
+  "goal_success_rate": ">0.95 standalone teacher (CL-V4 validation), no per-task CL retention bar set yet",
+  "selection_rule": "CL-V4 docs/cl_v4_rl/evidence/scoreboard.json rows with best_measured_validation_rate > 0.95",
+  "source_scoreboard": "docs/cl_v4_rl/evidence/scoreboard.json",
+  "active_tasks": [
+    {"env_id": "Mjlab-Axial-Extract-Franka", "val_sr": 1.000, "teacher_run": "RL-017-axial-mechanism", "wandb_run": "oiodyhcr"},
+    {"env_id": "Mjlab-Flip-Switch-Franka", "val_sr": 1.000, "teacher_run": "RL-009-flip-mechanism", "wandb_run": "wkxzjnio"},
+    {"env_id": "Mjlab-Open-Door-Franka", "val_sr": 1.000, "teacher_run": "RL-010-door-mechanism", "wandb_run": "62gbghsn"},
+    {"env_id": "Mjlab-Open-Drawer-Franka", "val_sr": 1.000, "teacher_run": "RL-008-drawer-mechanism", "wandb_run": "jign6qtf"},
+    {"env_id": "Mjlab-Open-Lid-Franka", "val_sr": 1.000, "teacher_run": "RL-015-V3-lid-bounded", "wandb_run": "p5lo2knx"},
+    {"env_id": "Mjlab-Push-Button-Franka", "val_sr": 1.000, "teacher_run": "RL-007-button-mechanism", "wandb_run": "fbisve4f"},
+    {"env_id": "Mjlab-Push-Flap-Franka", "val_sr": 1.000, "teacher_run": "RL-011-flap-mechanism", "wandb_run": "d2w7ioh9"},
+    {"env_id": "Mjlab-Reach-Target-Franka", "val_sr": 1.000, "teacher_run": "RL-001-reach-s20260912", "wandb_run": "2ftq5r7u"},
+    {"env_id": "Mjlab-Slide-Window-Franka", "val_sr": 1.000, "teacher_run": "RL-014-window-mechanism", "wandb_run": "glqpsq9a"},
+    {"env_id": "Mjlab-Turn-Lever-Franka", "val_sr": 1.000, "teacher_run": "RL-012-lever-mechanism", "wandb_run": "8036vom0"},
+    {"env_id": "Mjlab-Rotate-Valve-Franka", "val_sr": 0.992, "teacher_run": "RL-016-valve-mechanism", "wandb_run": "hiq79ssh"},
+    {"env_id": "Mjlab-Push-Cuboid-Franka", "val_sr": 0.984, "teacher_run": "RL-003-R3-push-extend", "wandb_run": "c8lxgl0s"},
+    {"env_id": "Mjlab-Throw-To-Bin-Franka", "val_sr": 0.977, "teacher_run": "RL-024-R7-throw-box", "wandb_run": "1dibcaqx"},
+    {"env_id": "Mjlab-Topple-Block-Franka", "val_sr": 0.961, "teacher_run": "RL-006-topple-resume-wandb", "wandb_run": "vuzzhy2s"},
+    {"env_id": "Mjlab-Drag-Pull-Franka", "val_sr": 0.953, "teacher_run": "RL-004-R2-drag-extend", "wandb_run": "mqedqzcb"}
+  ],
+  "excluded": {
+    "Mjlab-Lift-Cube-Franka": "0.922 validation, below the 0.95 bar; also has unresolved motion-quality work in CL-V4",
+    "Mjlab-Cage-Drag-Franka": "0.930 validation, below the 0.95 bar",
+    "Mjlab-Place-In-Container-Franka": "0.914 validation, below the 0.95 bar",
+    "Mjlab-Reorient-Object-Franka": "0.852 best, not certified in CL-V4",
+    "Mjlab-Stack-Cube-Franka": "0.789 best, not certified in CL-V4",
+    "Mjlab-Strike-Slide-Franka": "0.445 best, not certified in CL-V4",
+    "Mjlab-Edge-Grasp-Franka": "0/128, not certified in CL-V4",
+    "Mjlab-Peg-Insertion-Franka": "0/128, not certified in CL-V4",
+    "Mjlab-Pivot-Lift-Franka": "0/128, not certified in CL-V4",
+    "Mjlab-Tool-Pull-Franka": "deferred (CL-V4 active_tasks.json)"
+  }
+}
