@@ -101,7 +101,26 @@ main runs, which hit ~93-98% / ~98-100% on these two tasks at equivalent points)
 | width8192 (lr unchanged, 3e-5) | 0.969-0.984 | 0.984 | on par with baseline, no clear win |
 | width16384 (lr unchanged, 3e-5) | **0.000** | 0.672-0.734 | **collapsed** — same LR-width coupling problem as the original P0/P1 finding (8192 needed a lower LR than 3e-5); 16384 needs an even lower LR to be usable at all |
 
-Reading so far: going wider than 4096 buys nothing at the current LR and risks
-outright failure without also lowering LR — consistent with prior N=4/N=6
-findings. No reason yet to move off width 4096 for the main runs. Still
-waiting on lr1e-4/lr1e-5/si0.3/si3.0/batch256/batch1024.
+**All 8 points complete (2026-09-18T13:04 UTC), no tracebacks.** Full table
+(final DragPull / ToppleBlock student_success):
+
+| point | DragPull | ToppleBlock | vs. baseline |
+|---|---|---|---|
+| baseline (4096/3e-5/1.0/512) | 0.93-0.98 | 0.98-1.00 | — |
+| width8192 | 0.97-0.98 | 0.98 | on par |
+| width16384 | **0.00** | 0.67-0.73 | **collapsed** |
+| lr1e-4 | 0.95-0.98 | 0.98 | on par |
+| lr1e-5 | 0.97-0.98 | 0.98 | on par |
+| si0.3 | 0.95-0.98 | 0.98 | on par |
+| si3.0 | 0.94-1.00 | 0.98 | on par |
+| batch256 | 0.97-0.97 | 0.98 | on par |
+| batch1024 | 0.97-1.00 | 0.97-0.98 | on par |
+
+**Conclusion: the baseline (width 4096, lr 3e-5, si-coeff 1.0, batch 512) is
+confirmed as a solid, robust choice.** Every point tested within a sane range
+lands in the same ~95-100% band on this short 2-task/100-epoch signal — nothing
+tested clearly beats it. The only real finding is negative: width 16384 fails
+outright at this LR (needs its own, lower LR to even train, same coupling
+pattern as the original 8192-needs-1e-5 finding). No hyperparameter change is
+being made to the 6 in-flight main runs on the strength of this bracket; it
+serves as confirmation, not a reason to relaunch.

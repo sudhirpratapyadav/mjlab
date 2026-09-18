@@ -1,0 +1,1283 @@
+[2026-09-18T13:00:34Z] START bracket-batch1024 (--batch-size 1024)
+-------------- Setting up environment variables -----------
+Built global observation normalizer across 2 tasks
+
+Extracting dimensions from environment...
+Setting seed: 0
+Warp 1.15.0 initialized:
+   CUDA Toolkit 12.9, Driver 12.4
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA A100-SXM4-80GB" (79 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /ihub/homedirs/svs_ald/.cache/warp/1.15.0
+Module mujoco_warp._src.smooth c4020f1 load on device 'cuda:0' took 0.99 ms  (cached)
+Module _nxn_broadphase__locals__kernel_cd21dc9b cd21dc9 load on device 'cuda:0' took 0.56 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_985a08c3 985a08c load on device 'cuda:0' took 0.60 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_985a08c3 315afeb load on device 'cuda:0' took 0.68 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_c5700abb c5700ab load on device 'cuda:0' took 0.61 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_c5700abb 514f16f load on device 'cuda:0' took 0.69 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_465e14e8 465e14e load on device 'cuda:0' took 0.60 ms  (cached)
+Module mujoco_warp._src.constraint 36c8060 load on device 'cuda:0' took 0.49 ms  (cached)
+Module _equality_joint__locals__kernel_0bce3899 0bce389 load on device 'cuda:0' took 0.63 ms  (cached)
+Module _friction_dof__locals__kernel_0cd98302 0cd9830 load on device 'cuda:0' took 0.57 ms  (cached)
+Module _limit_slide_hinge__locals__kernel_7e77232e 7e77232 load on device 'cuda:0' took 0.61 ms  (cached)
+Module _efc_contact_init__locals__kernel_db957632 db95763 load on device 'cuda:0' took 0.60 ms  (cached)
+Module _efc_contact_jac_dense__locals__kernel_15133f64 884864c load on device 'cuda:0' took 0.64 ms  (cached)
+Module _efc_contact_update__locals__kernel_e1a06f21 e1a06f2 load on device 'cuda:0' took 0.56 ms  (cached)
+Module mujoco_warp._src.forward bfd9fb5 load on device 'cuda:0' took 0.75 ms  (cached)
+Module mujoco_warp._src.passive d8c18c6 load on device 'cuda:0' took 0.78 ms  (cached)
+Module mujoco_warp._src.forward b068ad6 load on device 'cuda:0' took 0.78 ms  (cached)
+Module _qfrc_smooth__locals__kernel_3ac7164a 3ac7164 load on device 'cuda:0' took 0.53 ms  (cached)
+Module mujoco_warp._src.support ca784c5 load on device 'cuda:0' took 0.49 ms  (cached)
+Module _small_cholesky_factorize_solve_block__locals__kernel_2e80fc98 00039f8 load on device 'cuda:0' took 0.61 ms  (cached)
+Module _tile_cholesky_factorize_solve_block__locals__kernel_69cebde2 70dd80d load on device 'cuda:0' took 47.29 ms  (cached)
+Module _solve_init_dof__locals__kernel_03c5735a 03c5735 load on device 'cuda:0' took 0.59 ms  (cached)
+Module mujoco_warp._src.solver 3a105a0 load on device 'cuda:0' took 0.93 ms  (cached)
+Module _solve_init_jaref_kernel__locals__kernel_663b22bf 663b22b load on device 'cuda:0' took 1.00 ms  (cached)
+Module mul_m_kernel__locals___mul_m_4f80c25f 4f80c25 load on device 'cuda:0' took 0.59 ms  (cached)
+Module _update_constraint_efc__locals__kernel_7b921a6e 7b921a6 load on device 'cuda:0' took 0.49 ms  (cached)
+Module _update_constraint_init_qfrc_constraint_dense__locals__kernel_87c13c1d 87c13c1 load on device 'cuda:0' took 0.59 ms  (cached)
+Module _update_gradient_zero_grad_dot__locals__kernel_ca4acd13 ca4acd1 load on device 'cuda:0' took 0.50 ms  (cached)
+Module _update_gradient_grad__locals__kernel_9e296ebd 9e296eb load on device 'cuda:0' took 0.55 ms  (cached)
+Module _update_gradient_JTDAJ_dense_tiled__locals__kernel_cdf098f5 cef67ec load on device 'cuda:0' took 1.18 ms  (cached)
+Module _update_gradient_cholesky__locals__kernel_9b0db1e1 2cc8803 load on device 'cuda:0' took 48.18 ms  (cached)
+Module _linesearch_iterative_kernel__locals__kernel_d431e7de 4c12f05 load on device 'cuda:0' took 0.78 ms  (cached)
+Module mujoco_warp._src.sensor de892d8 load on device 'cuda:0' took 0.91 ms  (cached)
+Module _contact_sort__locals__contact_sort_8d950af1 a76bf05 load on device 'cuda:0' took 0.66 ms  (cached)
+Module mujoco_warp._src.derivative 833f5d0 load on device 'cuda:0' took 0.73 ms  (cached)
+Module _next_time_builder__locals___next_time_8c8bbcbc 8c8bbcb load on device 'cuda:0' took 0.69 ms  (cached)
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 1      |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+[INFO] <CommandManager> contains 1 active terms.
++------------------------------------+
+|        Active Command Terms        |
++-------+-----------+----------------+
+| Index | Name      |      Type      |
++-------+-----------+----------------+
+|   0   | drag_pull | PushingCommand |
++-------+-----------+----------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 3 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | ee_ground_collision  |  False   |
+|   2   | object_out_of_bounds |  False   |
++-------+----------------------+----------+
+
+[INFO] <RewardManager> contains 5 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | action_rate_l2      |  -0.01 |
+|   3   | joint_pos_limits    |  -10.0 |
+|   4   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+  Observation dimension: 60
+  Action dimension: 8
+Validating dimensions across all tasks...
+Setting seed: 0
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 1      |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+[INFO] <CommandManager> contains 1 active terms.
++------------------------------------+
+|        Active Command Terms        |
++-------+-----------+----------------+
+| Index | Name      |      Type      |
++-------+-----------+----------------+
+|   0   | drag_pull | PushingCommand |
++-------+-----------+----------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 3 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | ee_ground_collision  |  False   |
+|   2   | object_out_of_bounds |  False   |
++-------+----------------------+----------+
+
+[INFO] <RewardManager> contains 5 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | action_rate_l2      |  -0.01 |
+|   3   | joint_pos_limits    |  -10.0 |
+|   4   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+Setting seed: 0
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 1      |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+[INFO] <CommandManager> contains 1 active terms.
++----------------------------------------------+
+|             Active Command Terms             |
++-------+--------------+-----------------------+
+| Index | Name         |          Type         |
++-------+--------------+-----------------------+
+|   0   | topple_block | ReorientObjectCommand |
++-------+--------------+-----------------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 3 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | ee_ground_collision  |  False   |
+|   2   | object_out_of_bounds |  False   |
++-------+----------------------+----------+
+
+[INFO] <RewardManager> contains 5 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | action_rate_l2      |  -0.01 |
+|   3   | joint_pos_limits    |  -10.0 |
+|   4   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+✓ All tasks validated with obs_dim=60, action_dim=8
+Setting seed: 0
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 64     |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+Module repeat_array_kernel_e7961499 9f08b69 load on device 'cuda:0' took 0.68 ms  (cached)
+[INFO] <CommandManager> contains 1 active terms.
++------------------------------------+
+|        Active Command Terms        |
++-------+-----------+----------------+
+| Index | Name      |      Type      |
++-------+-----------+----------------+
+|   0   | drag_pull | PushingCommand |
++-------+-----------+----------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 3 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | ee_ground_collision  |  False   |
+|   2   | object_out_of_bounds |  False   |
++-------+----------------------+----------+
+
+[INFO] <RewardManager> contains 5 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | action_rate_l2      |  -0.01 |
+|   3   | joint_pos_limits    |  -10.0 |
+|   4   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+[INFO] Task 0 (DragPull): Using environment episode length: 150 steps
+[Task 0] Loading teacher from: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Drag_Pull_Franka_model_1300_20260918_154414/teacher.pkl
+Setting seed: 0
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 64     |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+[INFO] <CommandManager> contains 1 active terms.
++----------------------------------------------+
+|             Active Command Terms             |
++-------+--------------+-----------------------+
+| Index | Name         |          Type         |
++-------+--------------+-----------------------+
+|   0   | topple_block | ReorientObjectCommand |
++-------+--------------+-----------------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 3 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | ee_ground_collision  |  False   |
+|   2   | object_out_of_bounds |  False   |
++-------+----------------------+----------+
+wandb: Currently logged in as: sudhirpratapyadav (sudhirpratapyadav-indian-institute-of-technology-jodhpur) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run cc7sx9f3
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/wandb/run-20260918_183102-cc7sx9f3
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run bracket-batch1024
+wandb: ⭐️ View project at https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918
+wandb: 🚀 View run at https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918/runs/cc7sx9f3
+
+[INFO] <RewardManager> contains 5 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | action_rate_l2      |  -0.01 |
+|   3   | joint_pos_limits    |  -10.0 |
+|   4   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+[INFO] Task 1 (ToppleBlock): Using environment episode length: 200 steps
+[Task 1] Loading teacher from: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414/teacher.pkl
+================================================================================
+Continual Policy Distillation with Synaptic Intelligence (SI) - mjlab
+================================================================================
+Tasks: 2 | Obs dim: 60 | Action dim: 8
+Learning rate: 3e-05 | Batch size: 1024
+Regulariser: si | coef: 1.0 | SI epsilon: 0.001
+Checkpoint directory: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/bracket_results/bracket-batch1024
+
+--------------------------------------------------------------------------------
+[Task 0] DragPull
+Dataset folder: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Drag_Pull_Franka_model_1300_20260918_154414
+Train samples: 122850 | Test samples: 30750
+
+[Task 0] Initial Evaluation (Step 0 - Before Training)
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 0
+### Global step: 0, Epoch: 0
+### Will evaluate tasks 0 to 0 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (DragPull) | Step 0 | Epoch 0
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 0
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9375
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 0
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5597715 -5.07826    0.015    ]
+  drag_pull.object_pos[0]: [ 5.6728644 -5.472154   0.015    ]
+  drag_pull.initial_goal_error[0]: 0.4098m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=34
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=108
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [108   0   0 137   0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False  True  True False  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (DragPull):
+  env_loss: 14.301156
+  teacher_return: 6.5741
+  student_return: -14.2218
+  teacher_success: 0.9375
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 0):
+  EnvEval/task_0_DragPull/ts_loss/total: 14.3012
+  Rewards/task_0_DragPull: -14.2218
+  Accuracy/task_0_DragPull: 0.0000
+  Training/epoch: 0.0000
+
+  >>> Task 0 (DragPull) evaluation complete!
+      Student success: 0.0000
+
+  >>> Task 1 (ToppleBlock): SKIPPED (future task)
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-0 at step 0
+
+[Task 0] Starting Training
+    Epoch 0020 | Task 0 | KL(train) = 0.107115 | KL(test) = 0.073865
+    Epoch 0040 | Task 0 | KL(train) = 0.058923 | KL(test) = 0.048882
+    Epoch 0060 | Task 0 | KL(train) = 0.043736 | KL(test) = 0.037930
+    Epoch 0080 | Task 0 | KL(train) = 0.032352 | KL(test) = 0.032554
+    Epoch 0100 | Task 0 | KL(train) = 0.023973 | KL(test) = 0.024887
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 0
+### Global step: 11900, Epoch: 100
+### Will evaluate tasks 0 to 0 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (DragPull) | Step 11900 | Epoch 100
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [108   0   0 137   0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 99
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 99
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5668592 -5.330901   0.015    ]
+  drag_pull.object_pos[0]: [ 5.6641073 -5.1796336  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.1798m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 1. 0. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 7 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True False  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (DragPull):
+  env_loss: 0.055428
+  teacher_return: 6.6055
+  student_return: 6.6078
+  teacher_success: 1.0000
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 11900):
+  EnvEval/task_0_DragPull/ts_loss/total: 0.0554
+  Rewards/task_0_DragPull: 6.6078
+  Accuracy/task_0_DragPull: 0.9688
+  Training/epoch: 100.0000
+
+  >>> Task 0 (DragPull) evaluation complete!
+      Student success: 0.9688
+
+  >>> Task 1 (ToppleBlock): SKIPPED (future task)
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-0
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/bracket_results/bracket-batch1024/checkpoint_task0_epoch100_step11900.pkl
+Completed Task 0. SI buffers consolidated.
+
+--------------------------------------------------------------------------------
+[Task 1] ToppleBlock
+Dataset folder: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414
+Train samples: 163800 | Test samples: 41000
+
+[Task 1] Initial Evaluation (Step 0 - Before Training)
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 1
+### Global step: 11900, Epoch: 0
+### Will evaluate tasks 0 to 1 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (DragPull) | Step 11900 | Epoch 0
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 7 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 0
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 0
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5597715 -5.07826    0.015    ]
+  drag_pull.object_pos[0]: [ 5.6728644 -5.472154   0.015    ]
+  drag_pull.initial_goal_error[0]: 0.4098m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 199: episode_length_buf=50
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [50 50 50 50 50] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 1. 0. 1. 1. 1. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 1. 0. 1. 1. 1. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9844
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (DragPull):
+  env_loss: 0.088930
+  teacher_return: 7.9199
+  student_return: 8.1138
+  teacher_success: 1.0000
+  student_success: 0.9844
+================================================================================
+
+LOGGING TO WANDB (step 11900):
+  EnvEval/task_0_DragPull/ts_loss/total: 0.0889
+  Rewards/task_0_DragPull: 8.1138
+  Accuracy/task_0_DragPull: 0.9844
+  Training/epoch: 0.0000
+
+  >>> Task 0 (DragPull) evaluation complete!
+      Student success: 0.9844
+
+
+  >>> Evaluating Task 1 (ToppleBlock) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 1 (ToppleBlock) | Step 11900 | Epoch 0
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'topple_block':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1000
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1000
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.6696506 -5.261334   0.105    ]
+  topple_block.object_pos[0]: [ 5.6696506 -5.261334   0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    topple_block.episode_success[:5]: [0. 1. 1. 0. 0.]
+  Step 199: episode_length_buf=78
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [78  0  0  0  0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False  True  True  True  True] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0] (first 10)
+  Mean: 0.4219
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (ToppleBlock):
+  env_loss: 23.899325
+  teacher_return: 10.9104
+  student_return: -18.3504
+  teacher_success: 0.9844
+  student_success: 0.4219
+================================================================================
+
+LOGGING TO WANDB (step 11900):
+  EnvEval/task_1_ToppleBlock/ts_loss/total: 23.8993
+  Rewards/task_1_ToppleBlock: -18.3504
+  Accuracy/task_1_ToppleBlock: 0.4219
+  Training/epoch: 0.0000
+
+  >>> Task 1 (ToppleBlock) evaluation complete!
+      Student success: 0.4219
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-1 at step 0
+
+[Task 1] Starting Training
+    Epoch 0020 | Task 1 | KL(train) = 0.042439 | KL(test) = 0.023794
+    Epoch 0040 | Task 1 | KL(train) = 0.058403 | KL(test) = 0.046717
+    Epoch 0060 | Task 1 | KL(train) = 0.045380 | KL(test) = 0.033257
+    Epoch 0080 | Task 1 | KL(train) = 0.029318 | KL(test) = 0.018763
+    Epoch 0100 | Task 1 | KL(train) = 0.042338 | KL(test) = 0.031025
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 1
+### Global step: 27800, Epoch: 100
+### Will evaluate tasks 0 to 1 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (DragPull) | Step 27800 | Epoch 100
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [50 50 50 50 50] (first 5)
+  Command 'drag_pull':
+    episode_success: [1. 1. 1. 1. 0.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 1. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 99
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 99
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5668592 -5.330901   0.015    ]
+  drag_pull.object_pos[0]: [ 5.6641073 -5.1796336  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.1798m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 199: episode_length_buf=50
+    drag_pull.episode_success[:5]: [1. 1. 0. 1. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [50 50 10 50 50] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [1. 1. 0. 1. 0. 1. 1. 0. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 0. 1. 0. 1. 1. 0. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 1.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (DragPull):
+  env_loss: 1.034325
+  teacher_return: 8.1164
+  student_return: 7.6559
+  teacher_success: 1.0000
+  student_success: 1.0000
+================================================================================
+
+LOGGING TO WANDB (step 27800):
+  EnvEval/task_0_DragPull/ts_loss/total: 1.0343
+  Rewards/task_0_DragPull: 7.6559
+  Accuracy/task_0_DragPull: 1.0000
+  Training/epoch: 100.0000
+
+  >>> Task 0 (DragPull) evaluation complete!
+      Student success: 1.0000
+
+
+  >>> Evaluating Task 1 (ToppleBlock) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 1 (ToppleBlock) | Step 27800 | Epoch 100
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [78  0  0  0  0] (first 5)
+  Command 'topple_block':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1099
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1099
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.645233  -5.3382187  0.105    ]
+  topple_block.object_pos[0]: [ 5.645233  -5.3382187  0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    topple_block.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 199: episode_length_buf=0
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (ToppleBlock):
+  env_loss: 0.046960
+  teacher_return: 10.6415
+  student_return: 10.7855
+  teacher_success: 0.9531
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 27800):
+  EnvEval/task_1_ToppleBlock/ts_loss/total: 0.0470
+  Rewards/task_1_ToppleBlock: 10.7855
+  Accuracy/task_1_ToppleBlock: 0.9688
+  Training/epoch: 100.0000
+
+  >>> Task 1 (ToppleBlock) evaluation complete!
+      Student success: 0.9688
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-1
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/bracket_results/bracket-batch1024/checkpoint_task1_epoch100_step27800.pkl
+Completed Task 1. SI buffers consolidated.
+
+================================================================================
+Training complete in 3.00 minutes.
+================================================================================
+
+Final offline evaluation across all tasks:
+  - DragPull: KL(test) = 0.717979
+  - ToppleBlock: KL(test) = 0.031025
+
+Final environment evaluation:
+
+================================================================================
+DEBUG EVAL START: Task 0 (DragPull) | Step 27800 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [50 50 10 50 50] (first 5)
+  Command 'drag_pull':
+    episode_success: [1. 1. 0. 1. 0.] (first 5)
+    metrics['episode_success']: [1. 1. 0. 1. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 99
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 99
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5668592 -5.330901   0.015    ]
+  drag_pull.object_pos[0]: [ 5.6641073 -5.1796336  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.1798m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (DragPull):
+  env_loss: 0.940881
+  teacher_return: 6.6534
+  student_return: 6.4905
+  teacher_success: 0.9844
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 27800):
+  EnvEval/task_0_DragPull/ts_loss/total: 0.9409
+  Rewards/task_0_DragPull: 6.4905
+  Accuracy/task_0_DragPull: 0.9688
+
+  - DragPull: KL=0.940881 | TeacherR=6.653 | StudentR=6.490 | StudentSucc=0.969
+
+================================================================================
+DEBUG EVAL START: Task 1 (ToppleBlock) | Step 27800 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'topple_block':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1099
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1099
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.645233  -5.3382187  0.105    ]
+  topple_block.object_pos[0]: [ 5.645233  -5.3382187  0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    topple_block.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 199: episode_length_buf=0
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  topple_block state BEFORE extraction:
+wandb: updating run metadata
+wandb: updating run metadata; uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading history steps 200-200, summary, console lines 588-633
+wandb: 
+wandb: Run history:
+wandb:                 Accuracy/task_0_DragPull ▁██
+wandb:              Accuracy/task_1_ToppleBlock ▁▄█
+wandb:    EnvEval/task_0_DragPull/ts_loss/total █▁▁
+wandb: EnvEval/task_1_ToppleBlock/ts_loss/total ▁█▁
+wandb:                  Rewards/task_0_DragPull ▁█▇
+wandb:               Rewards/task_1_ToppleBlock ▅▁█
+wandb:      TestData_Loss/task_0_DragPull/total █▁▁▁▁▁▁▁▁▁▁
+wandb:   TestData_Loss/task_1_ToppleBlock/total ▁▁▁▁▁█▁▁▁▁▁
+wandb:     TotalData_Loss/task_0_DragPull/total █▁▁▁▁▁▁▁▁▁▁
+wandb:  TotalData_Loss/task_1_ToppleBlock/total ▁▁▁▁▁█▁▁▁▁▁
+wandb:                                      +10 ...
+wandb: 
+wandb: Run summary:
+wandb:                 Accuracy/task_0_DragPull 0.96875
+wandb:              Accuracy/task_1_ToppleBlock 0.96875
+wandb:    EnvEval/task_0_DragPull/ts_loss/total 0.94088
+wandb: EnvEval/task_1_ToppleBlock/ts_loss/total 0.04733
+wandb:                  Rewards/task_0_DragPull 6.49047
+wandb:               Rewards/task_1_ToppleBlock 10.78696
+wandb:      TestData_Loss/task_0_DragPull/total 0.71798
+wandb:   TestData_Loss/task_1_ToppleBlock/total 0.03102
+wandb:     TotalData_Loss/task_0_DragPull/total 0.95473
+wandb:  TotalData_Loss/task_1_ToppleBlock/total 0.04234
+wandb:                                      +10 ...
+wandb: 
+wandb: 🚀 View run bracket-batch1024 at: https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918/runs/cc7sx9f3
+wandb: ⭐️ View project at: https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260918_183102-cc7sx9f3/logs
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (ToppleBlock):
+  env_loss: 0.047328
+  teacher_return: 10.6483
+  student_return: 10.7870
+  teacher_success: 0.9531
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 27800):
+  EnvEval/task_1_ToppleBlock/ts_loss/total: 0.0473
+  Rewards/task_1_ToppleBlock: 10.7870
+  Accuracy/task_1_ToppleBlock: 0.9688
+
+  - ToppleBlock: KL=0.047328 | TeacherR=10.648 | StudentR=10.787 | StudentSucc=0.969
+[2026-09-18T13:04:29Z] DONE bracket-batch1024 exit=0
