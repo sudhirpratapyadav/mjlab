@@ -91,3 +91,17 @@ wandb run names `bracket-<name>` in the same project.
 This is a cheap short-horizon signal (100 epochs, 2 tasks), not a replacement
 for validating a chosen setting on the full 15-task sequence — any change this
 suggests still needs a full confirmation run before being called final.
+
+**Results so far** (final DragPull / ToppleBlock student_success at 100 epochs,
+2-task sequence; baseline = width 4096, lr 3e-5, si-coeff 1.0, batch 512 — see
+main runs, which hit ~93-98% / ~98-100% on these two tasks at equivalent points):
+
+| point | DragPull | ToppleBlock | verdict |
+|---|---|---|---|
+| width8192 (lr unchanged, 3e-5) | 0.969-0.984 | 0.984 | on par with baseline, no clear win |
+| width16384 (lr unchanged, 3e-5) | **0.000** | 0.672-0.734 | **collapsed** — same LR-width coupling problem as the original P0/P1 finding (8192 needed a lower LR than 3e-5); 16384 needs an even lower LR to be usable at all |
+
+Reading so far: going wider than 4096 buys nothing at the current LR and risks
+outright failure without also lowering LR — consistent with prior N=4/N=6
+findings. No reason yet to move off width 4096 for the main runs. Still
+waiting on lr1e-4/lr1e-5/si0.3/si3.0/batch256/batch1024.
