@@ -1,0 +1,13 @@
+# Tiny smoke config: same two datasets as the real run, 5 epochs each, to
+# validate the pipeline (config parsing, SI regularizer, wandb logging) before
+# committing to the full 15-task x 500-epoch x 6-run launch.
+tasks:
+  ReachTarget:
+    env_id: "Mjlab-Reach-Target-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Reach_Target_Franka_model_499_20260918_154243"
+    num_epochs: 5
+
+  AxialExtract:
+    env_id: "Mjlab-Axial-Extract-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Axial_Extract_Franka_model_200_20260918_154221"
+    num_epochs: 5

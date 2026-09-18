@@ -1,0 +1,256 @@
+[2026-09-18T10:13:05Z] START FlipSwitch (Mjlab-Flip-Switch-Franka) on GPU-2496e2db-e138-0dec-41fc-27d2535b6e86
+================================================================================
+mjlab Teacher Dataset Extraction
+================================================================================
+Task: Mjlab-Flip-Switch-Franka
+Num envs: 512
+Target samples: 150000
+Checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-009-flip-mechanism/model_800.pt
+Output directory: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets
+
+================================================================================
+Loading mjlab Environment
+================================================================================
+Setting seed: 0
+Warp 1.15.0 initialized:
+   CUDA Toolkit 12.9, Driver 12.4
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA A100-SXM4-80GB" (79 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /ihub/homedirs/svs_ald/.cache/warp/1.15.0
+Module mujoco_warp._src.smooth c4020f1 load on device 'cuda:0' took 1.05 ms  (cached)
+Module _nxn_broadphase__locals__kernel_cd21dc9b cd21dc9 load on device 'cuda:0' took 0.54 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_985a08c3 985a08c load on device 'cuda:0' took 0.63 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_985a08c3 315afeb load on device 'cuda:0' took 0.75 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_c5700abb c5700ab load on device 'cuda:0' took 0.78 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_c5700abb 514f16f load on device 'cuda:0' took 0.77 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_465e14e8 465e14e load on device 'cuda:0' took 0.53 ms  (cached)
+Module mujoco_warp._src.constraint 36c8060 load on device 'cuda:0' took 0.52 ms  (cached)
+Module _equality_joint__locals__kernel_0bce3899 0bce389 load on device 'cuda:0' took 0.58 ms  (cached)
+Module _friction_dof__locals__kernel_0cd98302 0cd9830 load on device 'cuda:0' took 0.57 ms  (cached)
+Module _limit_slide_hinge__locals__kernel_7e77232e 7e77232 load on device 'cuda:0' took 0.63 ms  (cached)
+Module _efc_contact_init__locals__kernel_db957632 db95763 load on device 'cuda:0' took 0.58 ms  (cached)
+Module _efc_contact_jac_dense__locals__kernel_15133f64 884864c load on device 'cuda:0' took 0.70 ms  (cached)
+Module _efc_contact_update__locals__kernel_e1a06f21 e1a06f2 load on device 'cuda:0' took 0.59 ms  (cached)
+Module mujoco_warp._src.forward bfd9fb5 load on device 'cuda:0' took 0.68 ms  (cached)
+Module mujoco_warp._src.passive d8c18c6 load on device 'cuda:0' took 0.68 ms  (cached)
+Module mujoco_warp._src.forward b068ad6 load on device 'cuda:0' took 0.74 ms  (cached)
+Module _qfrc_smooth__locals__kernel_3ac7164a 3ac7164 load on device 'cuda:0' took 0.48 ms  (cached)
+Module mujoco_warp._src.support ca784c5 load on device 'cuda:0' took 0.44 ms  (cached)
+Module _small_cholesky_factorize_solve_block__locals__kernel_ef37aa07 2a4f920 load on device 'cuda:0' took 0.56 ms  (cached)
+Module _tile_cholesky_factorize_solve_block__locals__kernel_69cebde2 70dd80d load on device 'cuda:0' took 40.48 ms  (cached)
+Module _solve_init_dof__locals__kernel_03c5735a 03c5735 load on device 'cuda:0' took 0.52 ms  (cached)
+Module mujoco_warp._src.solver 3a105a0 load on device 'cuda:0' took 1.34 ms  (cached)
+Module _solve_init_jaref_kernel__locals__kernel_cd89a7f8 cd89a7f load on device 'cuda:0' took 0.54 ms  (cached)
+Module mul_m_kernel__locals___mul_m_4f80c25f 4f80c25 load on device 'cuda:0' took 0.47 ms  (cached)
+Module _update_constraint_efc__locals__kernel_7b921a6e 7b921a6 load on device 'cuda:0' took 0.57 ms  (cached)
+Module _update_constraint_init_qfrc_constraint_dense__locals__kernel_87c13c1d 87c13c1 load on device 'cuda:0' took 0.47 ms  (cached)
+Module _update_gradient_zero_grad_dot__locals__kernel_ca4acd13 ca4acd1 load on device 'cuda:0' took 0.42 ms  (cached)
+Module _update_gradient_grad__locals__kernel_9e296ebd 9e296eb load on device 'cuda:0' took 0.39 ms  (cached)
+Module _update_gradient_JTDAJ_dense_tiled__locals__kernel_a15f889a 364ebbf load on device 'cuda:0' took 1.17 ms  (cached)
+Module _update_gradient_cholesky__locals__kernel_69623f22 5f8ed08 load on device 'cuda:0' took 46.36 ms  (cached)
+Module _linesearch_iterative_kernel__locals__kernel_d431e7de 4c12f05 load on device 'cuda:0' took 0.73 ms  (cached)
+Module mujoco_warp._src.sensor de892d8 load on device 'cuda:0' took 0.85 ms  (cached)
+Module _contact_sort__locals__contact_sort_8d950af1 a76bf05 load on device 'cuda:0' took 0.64 ms  (cached)
+Module mujoco_warp._src.derivative 833f5d0 load on device 'cuda:0' took 0.72 ms  (cached)
+Module _next_time_builder__locals___next_time_8c8bbcbc 8c8bbcb load on device 'cuda:0' took 0.60 ms  (cached)
+
++---------------------------------+
+|         Base Environment        |
++------------------------+--------+
+| Property               | Value  |
++------------------------+--------+
+| Number of environments | 512    |
+| Environment device     | cuda:0 |
+| Environment seed       | 0      |
+| Physics step-size      | 0.005  |
+| Environment step-size  | 0.02   |
++------------------------+--------+
+
+[INFO] <EventManager> contains 2 active terms.
++---------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++-------+-------------------------------+
+| Index | Name                          |
++-------+-------------------------------+
+|   0   | reset_base                    |
+|   1   | fingertip_friction_slide      |
+|   2   | fingertip_friction_spin       |
+|   3   | fingertip_friction_roll       |
++-------+-------------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'reset' |
++--------+----------------------------+
+| Index  | Name                       |
++--------+----------------------------+
+|   0    | reset_robot_joints         |
+|   1    | reset_switch_position      |
+|   2    | reset_robot_fingers        |
++--------+----------------------------+
++-----------------------------+
+| Domain Randomization Fields |
++--------+--------------------+
+| Index  | Field Name         |
++--------+--------------------+
+|   0    | geom_friction      |
++--------+--------------------+
+
+Module repeat_array_kernel_e7961499 9f08b69 load on device 'cuda:0' took 0.61 ms  (cached)
+[INFO] <CommandManager> contains 1 active terms.
++-----------------------------------------+
+|           Active Command Terms          |
++-------+-------------+-------------------+
+| Index | Name        |        Type       |
++-------+-------------+-------------------+
+|   0   | flip_switch | FlipSwitchCommand |
++-------+-------------+-------------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++-------------------------------------+
+|    Active Action Terms (shape: 8)   |
++-------+-----------------+-----------+
+| Index | Name            | Dimension |
++-------+-----------------+-----------+
+|   0   | robot_joint_pos |         8 |
++-------+-----------------+-----------+
+
+[INFO] <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (60,)) |
++----------+------------------------------------+------------+
+|  Index   | Name                               |   Shape    |
++----------+------------------------------------+------------+
+|    0     | franka_shared_60_v2                |   (60,)    |
++----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 2 active terms.
++----------------------------------------+
+|        Active Termination Terms        |
++-------+---------------------+----------+
+| Index | Name                | Time Out |
++-------+---------------------+----------+
+|   0   | time_out            |   True   |
+|   1   | ee_ground_collision |  False   |
++-------+---------------------+----------+
+
+[INFO] <RewardManager> contains 6 active terms.
++--------------------------------------+
+|         Active Reward Terms          |
++-------+---------------------+--------+
+| Index | Name                | Weight |
++-------+---------------------+--------+
+|   0   | reach_object        |    1.0 |
+|   1   | move_object_to_goal |    1.0 |
+|   2   | no_object_collision |   0.25 |
+|   3   | action_rate_l2      |  -0.01 |
+|   4   | joint_pos_limits    |  -10.0 |
+|   5   | joint_vel_penalty   |  -0.01 |
++-------+---------------------+--------+
+
+[INFO] <CurriculumManager> contains 1 active terms.
++----------------------------------+
+|     Active Curriculum Terms      |
++-------+--------------------------+
+| Index | Name                     |
++-------+--------------------------+
+|   0   | joint_vel_penalty_weight |
++-------+--------------------------+
+
+✓ Environment loaded
+  Device: cuda:0
+  Observation space: Dict(shape=(512,), dtype='float32', spaces={'policy': Box(shape=(512, 60), dtype='float32', low=-inf, high=inf), 'critic': Box(shape=(512, 60), dtype='float32', low=-inf, high=inf)})
+  Action space: Box(shape=(512, 8), dtype='float32', low=-inf, high=inf)
+  Episode length: 150 steps
+  Observation size: 60
+  Action size: 8
+
+================================================================================
+Loading Teacher Policy
+================================================================================
+✓ Teacher policy loaded
+  Hidden dims: (512, 256, 128)
+  Action std shape: (8,)
+  Action std values: [0.08788026 0.05589685 0.06846586 0.06585342 0.09829362 0.07104002
+ 0.15085709 0.22186272]
+
+================================================================================
+Collecting ~150000 samples from 512 parallel envs
+================================================================================
+  Samples per episode: 76800
+  Number of episodes: 2
+  Episode length: 150
+Collecting data:   0%|          | 0/300 [00:00<?, ?it/s]Collecting data:   0%|          | 1/300 [00:05<25:20,  5.09s/it]Collecting data:   2%|▏         | 7/300 [00:05<02:40,  1.82it/s]Collecting data:   4%|▍         | 13/300 [00:05<01:11,  4.00it/s]Collecting data:   6%|▋         | 19/300 [00:05<00:41,  6.80it/s]Collecting data:   8%|▊         | 24/300 [00:05<00:28,  9.68it/s]Collecting data:  10%|▉         | 29/300 [00:05<00:20, 12.91it/s]Collecting data:  11%|█▏        | 34/300 [00:05<00:15, 16.71it/s]Collecting data:  13%|█▎        | 39/300 [00:05<00:12, 20.92it/s]Collecting data:  15%|█▍        | 44/300 [00:05<00:10, 24.65it/s]Collecting data:  16%|█▋        | 49/300 [00:06<00:08, 28.42it/s]Collecting data:  18%|█▊        | 54/300 [00:06<00:07, 32.44it/s]Collecting data:  20%|█▉        | 59/300 [00:06<00:06, 35.92it/s]Collecting data:  21%|██▏       | 64/300 [00:06<00:06, 38.95it/s]Collecting data:  23%|██▎       | 69/300 [00:06<00:05, 41.08it/s]Collecting data:  25%|██▍       | 74/300 [00:06<00:05, 43.36it/s]Collecting data:  27%|██▋       | 80/300 [00:06<00:04, 47.51it/s]Collecting data:  29%|██▊       | 86/300 [00:06<00:04, 47.84it/s]Collecting data:  31%|███       | 92/300 [00:06<00:04, 48.13it/s]Collecting data:  32%|███▏      | 97/300 [00:07<00:04, 47.76it/s]Collecting data:  34%|███▍      | 102/300 [00:07<00:04, 47.17it/s]Collecting data:  36%|███▌      | 107/300 [00:07<00:04, 47.57it/s]Collecting data:  37%|███▋      | 112/300 [00:07<00:03, 48.09it/s]Collecting data:  39%|███▉      | 117/300 [00:07<00:03, 48.48it/s]Collecting data:  41%|████      | 123/300 [00:07<00:03, 49.02it/s]Collecting data:  43%|████▎     | 128/300 [00:07<00:03, 48.57it/s]Collecting data:  44%|████▍     | 133/300 [00:07<00:03, 48.36it/s]Collecting data:  46%|████▌     | 138/300 [00:07<00:03, 48.08it/s]Collecting data:  48%|████▊     | 143/300 [00:08<00:03, 47.95it/s]Collecting data:  49%|████▉     | 148/300 [00:08<00:03, 47.77it/s]Collecting data:  51%|█████     | 153/300 [00:08<00:03, 47.45it/s]Collecting data:  54%|█████▎    | 161/300 [00:08<00:02, 55.90it/s]Collecting data:  56%|█████▋    | 169/300 [00:08<00:02, 60.64it/s]Collecting data:  59%|█████▊    | 176/300 [00:08<00:02, 56.52it/s]Collecting data:  61%|██████    | 182/300 [00:08<00:02, 53.31it/s]Collecting data:  63%|██████▎   | 188/300 [00:08<00:02, 51.41it/s]Collecting data:  65%|██████▍   | 194/300 [00:08<00:02, 50.28it/s]Collecting data:  67%|██████▋   | 200/300 [00:09<00:02, 49.44it/s]Collecting data:  68%|██████▊   | 205/300 [00:09<00:01, 49.13it/s]Collecting data:  70%|███████   | 210/300 [00:09<00:01, 48.81it/s]Collecting data:  72%|███████▏  | 215/300 [00:09<00:01, 48.91it/s]Collecting data:  74%|███████▎  | 221/300 [00:09<00:01, 49.71it/s]Collecting data:  76%|███████▌  | 227/300 [00:09<00:01, 50.56it/s]Collecting data:  78%|███████▊  | 233/300 [00:09<00:01, 51.20it/s]Collecting data:  80%|███████▉  | 239/300 [00:09<00:01, 51.70it/s]Collecting data:  82%|████████▏ | 245/300 [00:09<00:01, 52.26it/s]Collecting data:  84%|████████▎ | 251/300 [00:10<00:00, 52.75it/s]Collecting data:  86%|████████▌ | 257/300 [00:10<00:00, 53.36it/s]Collecting data:  88%|████████▊ | 263/300 [00:10<00:00, 53.59it/s]Collecting data:  90%|████████▉ | 269/300 [00:10<00:00, 52.16it/s]Collecting data:  92%|█████████▏| 275/300 [00:10<00:00, 52.02it/s]Collecting data:  94%|█████████▎| 281/300 [00:10<00:00, 53.19it/s]Collecting data:  96%|█████████▌| 287/300 [00:10<00:00, 52.90it/s]Collecting data:  98%|█████████▊| 293/300 [00:10<00:00, 54.65it/s]Collecting data: 100%|█████████▉| 299/300 [00:10<00:00, 55.01it/s]Collecting data: 100%|██████████| 300/300 [00:11<00:00, 27.23it/s]
+
+================================================================================
+Collection Statistics
+================================================================================
+Total samples collected: 153600
+Observation shape: (153600, 60)
+Action targets shape: (153600, 16)
+  Action means range: [-3.360, 2.328]
+  Action stds range: [0.056, 0.222]
+  TEACHER SUCCESS RATE: 0.7764 (over 2 episodes x 512 envs)
+
+================================================================================
+Saving Dataset & Teacher
+================================================================================
+Output folder: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343
+  ├─ data.pkl     (153600 samples)
+  └─ teacher.pkl  (JAX weights + normalizer)
+
+✓ Dataset saved successfully!
+
+================================================================================
+Dataset Summary
+================================================================================
+  Task: Mjlab-Flip-Switch-Franka
+  Observations shape: (153600, 60)
+  Action targets shape: (153600, 16)
+  Total samples: 153600
+  Checkpoint: model_800
+  Original checkpoint path: /ihub/homedirs/svs_ald/sudhir/mjlab/src/mjlab/continual_distill/docs/cl_v4_rl/runs/RL-009-flip-mechanism/model_800.pt
+  Teacher network: JAX format, (512, 256, 128)
+  Output folder: Mjlab_Flip_Switch_Franka_model_800_20260918_154343
+  Full path: /ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343
+
+================================================================================
+Usage Example
+================================================================================
+In YAML config, use:
+
+task_info:
+  - task_name: "Switch"
+    env_id: "Mjlab-Flip-Switch-Franka"
+    dataset_folder: "Mjlab_Flip_Switch_Franka_model_800_20260918_154343"
+    num_epochs: 500
+
+To load in Python:
+
+import pickle
+from pathlib import Path
+
+folder = Path('/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343')
+
+# Load dataset
+with open(folder / 'data.pkl', 'rb') as f:
+    data = pickle.load(f)
+observations = data['observations']  # Shape: (153600, 60)
+action_targets = data['action_targets']  # Shape: (153600, 16)
+
+# Load teacher (JAX format, no conversion needed!)
+with open(folder / 'teacher.pkl', 'rb') as f:
+    teacher = pickle.load(f)
+teacher_params = teacher['jax_params']
+teacher_std = teacher['action_std']
+obs_mean = teacher['obs_normalizer_mean']
+obs_std = teacher['obs_normalizer_std']
+hidden_dims = teacher['hidden_dims']
+[2026-09-18T10:13:37Z] DONE FlipSwitch exit=0

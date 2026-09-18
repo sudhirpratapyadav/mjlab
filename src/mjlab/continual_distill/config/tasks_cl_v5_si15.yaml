@@ -1,0 +1,78 @@
+# CL-V5 SI-15: fresh teacher datasets extracted 2026-09-18 from the certified
+# CL-V4 checkpoints (docs/cl_v4_rl/evidence/scoreboard.json), all >95% validation
+# success rate. See docs/cl_v5_si15/GOAL.md.
+tasks:
+  AxialExtract:
+    env_id: "Mjlab-Axial-Extract-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Axial_Extract_Franka_model_200_20260918_154221"
+    num_epochs: 500
+
+  FlipSwitch:
+    env_id: "Mjlab-Flip-Switch-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343"
+    num_epochs: 500
+
+  OpenDoor:
+    env_id: "Mjlab-Open-Door-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Open_Door_Franka_model_900_20260918_154342"
+    num_epochs: 500
+
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1000_20260918_154342"
+    num_epochs: 500
+
+  OpenLid:
+    env_id: "Mjlab-Open-Lid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Open_Lid_Franka_model_700_20260918_154343"
+    num_epochs: 500
+
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Push_Button_Franka_model_700_20260918_154344"
+    num_epochs: 500
+
+  PushFlap:
+    env_id: "Mjlab-Push-Flap-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Push_Flap_Franka_model_900_20260918_154342"
+    num_epochs: 500
+
+  ReachTarget:
+    env_id: "Mjlab-Reach-Target-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Reach_Target_Franka_model_499_20260918_154243"
+    num_epochs: 500
+
+  SlideWindow:
+    env_id: "Mjlab-Slide-Window-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Slide_Window_Franka_model_300_20260918_154341"
+    num_epochs: 500
+
+  TurnLever:
+    env_id: "Mjlab-Turn-Lever-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Turn_Lever_Franka_model_1000_20260918_154415"
+    num_epochs: 500
+
+  RotateValve:
+    env_id: "Mjlab-Rotate-Valve-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Rotate_Valve_Franka_model_1999_20260918_154414"
+    num_epochs: 500
+
+  PushCuboid:
+    env_id: "Mjlab-Push-Cuboid-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Push_Cuboid_Franka_model_1998_20260918_154413"
+    num_epochs: 500
+
+  ThrowToBin:
+    env_id: "Mjlab-Throw-To-Bin-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Throw_To_Bin_Franka_model_14098_20260918_154427"
+    num_epochs: 500
+
+  ToppleBlock:
+    env_id: "Mjlab-Topple-Block-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414"
+    num_epochs: 500
+
+  DragPull:
+    env_id: "Mjlab-Drag-Pull-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Drag_Pull_Franka_model_1300_20260918_154414"
+    num_epochs: 500
