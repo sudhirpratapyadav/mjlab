@@ -1,0 +1,13 @@
+# Quick hyperparameter bracket: 2 hardest tasks (lowest CL-V4 val SR), short
+# epoch budget, used only to compare LR/SI-coeff/batch-size/width points while
+# the main 6 full runs are in progress on GPUs 1-6. Not a full 15-task run.
+tasks:
+  DragPull:
+    env_id: "Mjlab-Drag-Pull-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Drag_Pull_Franka_model_1300_20260918_154414"
+    num_epochs: 100
+
+  ToppleBlock:
+    env_id: "Mjlab-Topple-Block-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414"
+    num_epochs: 100

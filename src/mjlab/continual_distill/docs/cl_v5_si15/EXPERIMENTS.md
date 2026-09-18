@@ -74,3 +74,20 @@ OpenDoor → OpenLid → DragPull
 | Block 6 — video rendering | render the final retained student on each of the 15 tasks (reuse/adapt CL-V4's `render_evaluation.py`/`render_rollout.py` pattern for the JAX student policy format) |
 | Block 7 — publish | build gallery, rsync to `cl.sudhirpratapyadav.com/v5-cl-si/`, same authorization pattern as CL-V4's `PUBLICATION.md` |
 | (conditional) re-bracket | only if Block 3's results look anomalous (e.g. much worse than N=6 extrapolation, or a width/LR instability) — capacity/LR/SI-coeff sweep at N=15 per PLAN.md P1, not run pre-emptively |
+
+## Block 3.5 — quick hyperparameter bracket (RUNNING, started 2026-09-18T12:10 UTC)
+
+User authorized (2026-09-18) tuning LR, SI coefficient, batch size, and student
+width up to 16384 — architecture changes are out of scope for this phase.
+Running on the otherwise-idle GPU7, in parallel with Block 3's 6 main runs, so
+there's signal ready for a possible follow-up launch once those finish.
+
+2 tasks (DragPull, ToppleBlock — the two hardest by CL-V4 val SR), 100
+epochs/task each, sequential, 8 points against the width-4096/lr-3e-5/coeff-1.0
+default: `width8192`, `width16384`, `lr1e-4`, `lr1e-5`, `si0.3`, `si3.0`,
+`batch256`, `batch1024`. Script: `bracket_gpu7.sh`, logs in `bracket_logs/`,
+wandb run names `bracket-<name>` in the same project.
+
+This is a cheap short-horizon signal (100 epochs, 2 tasks), not a replacement
+for validating a chosen setting on the full 15-task sequence — any change this
+suggests still needs a full confirmation run before being called final.

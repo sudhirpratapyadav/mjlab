@@ -25,6 +25,12 @@ Prior findings (N=4/N=6 only, not validated at N=15):
 Run this bracket short (small epoch budget) on 2-3 tasks before committing to
 full 15-task sequences.
 
+**User-authorized search space (2026-09-18):** LR, SI coefficient, batch size,
+and student width up to **16384** max (keep the ratio pattern, e.g.
+`[16384,8192,4096]`) are all fair game to tune. New NN architectures (anything
+other than the MLP trunk) are explicitly out of scope for this phase — that's
+next-phase work. Still SI only, no EWC/L2.
+
 ## P2: orderings
 
 Don't brute-force all 15! orderings. Run:
