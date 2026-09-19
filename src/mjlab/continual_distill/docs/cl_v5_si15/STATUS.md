@@ -15,7 +15,7 @@ finalized yet.
 | Capacity/LR/SI-coefficient bracket at N=15 | SKIPPED for this launch | reused N=4/N=6 optimum (width 4096, lr 3e-5, si-coeff 1.0) directly; validated the *pipeline* with a 2-task/5-epoch smoke run instead (`results_smoke/`, wandb run `smoke-si-2task-5ep`) rather than a full new parameter sweep — a re-bracket can still be run later if the full results look off |
 | Orderings chosen | DONE | fragile-first (hardest CL-V4 teacher first) and one fixed random shuffle (seed 20260918); see EXPERIMENTS.md |
 | Full runs launched | RUNNING | 6 runs = 2 orderings x 3 seeds (0,1,2), GPUs 1-6, `launch_full_runs.sh`, logs in `run_logs/` |
-| Website page | NOT CREATED | planned at `https://cl.sudhirpratapyadav.com/v5-cl-si/`, to be built once these runs finish |
+| Website page | LIVE | https://cl.sudhirpratapyadav.com/v5-cl-si/ — Wave 1 published, all 15 tasks, see PUBLICATION.md |
 
 ## Current runs
 
