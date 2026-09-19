@@ -47,6 +47,25 @@ was decided/found — why`.
   still at 95-100% student success after 4 more tasks were trained on top of
   it in ff-s0 — SI appears to be working as intended so far. No intervention
   needed; continuing to monitor rather than changing epochs/coefficients.
+- 2026-09-18 ~15:11 UTC — Block 3 (all 6 full runs) complete, no tracebacks.
+  Fragile-first mean 0.738+/-0.049, random mean 0.795+/-0.041. N=15 point
+  (~0.74-0.80) roughly flat vs N=6 (0.792). PushCuboid/ThrowToBin/OpenDrawer
+  consistently fragile regardless of ordering/position. AxialExtract's two
+  worst failures both occurred at a mid-sequence position in fragile-first,
+  suggesting mid-sequence placement may be worse than either extreme at
+  N=15 (unlike the simple "earlier is safer" story that held at N=6). Full
+  breakdown in EXPERIMENTS.md.
+- Launched a fragile-last ordering (3 seeds, GPUs 1-3) to test that
+  mid-sequence hypothesis directly, and rendered+published all 15 task
+  videos from the best run (rnd-s2, avg 0.837) to
+  https://cl.sudhirpratapyadav.com/v5-cl-si/ as Wave 1 (homepage updated,
+  previous version backed up on the remote first). render_student.py written
+  and verified against an in-flight checkpoint before real finals existed.
+- 2026-09-19T09:54 UTC — Noted the fragile-last run only actually started at
+  this time, notably later than expected from when it was dispatched;
+  possible Slurm/holder contention delay on the shared account. Not acted on
+  further since the runs are healthy now (epoch 200/500 on task 0 at the
+  10:02 UTC check) — flagging for awareness, not a bug in our own code.
 - 2026-09-18T11:40 UTC — Progress check: ff runs 6-7/15 tasks done (~10
   min/task), rnd runs 5-6/15 (~12 min/task, slightly slower ordering). Revised
   ETA ~13:00-13:40 UTC. Retention still strong on both orderings' first task
