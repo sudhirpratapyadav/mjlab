@@ -71,7 +71,7 @@ OpenDoor → OpenLid → DragPull
 |---|---|
 | Block 4 — final offline+env eval per run | already built into `continual_distill.py`'s end-of-sequence pass; read off final per-task retention + average from each of the 6 wandb runs once done |
 | Block 5 — scalability point | add N=15 final-average point to the existing N=4 (0.960) -> N=6 (0.792) curve |
-| Block 6 — video rendering | render the final retained student on each of the 15 tasks (reuse/adapt CL-V4's `render_evaluation.py`/`render_rollout.py` pattern for the JAX student policy format) |
+| Block 6 — video rendering | **script ready** (`render_student.py`): loads a student checkpoint, deterministic rollout, headless EGL render, picks a success clip if any env succeeded. Test-rendered against an in-flight ff-s2 checkpoint (task 9/PushButton at epoch 100/500) — worked first try, 100% success over 4 envs, valid 646KB mp4. Ready to run once final per-run checkpoints exist. |
 | Block 7 — publish | build gallery, rsync to `cl.sudhirpratapyadav.com/v5-cl-si/`, same authorization pattern as CL-V4's `PUBLICATION.md` |
 | (conditional) re-bracket | only if Block 3's results look anomalous (e.g. much worse than N=6 extrapolation, or a width/LR instability) — capacity/LR/SI-coeff sweep at N=15 per PLAN.md P1, not run pre-emptively |
 
