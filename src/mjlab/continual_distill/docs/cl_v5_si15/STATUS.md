@@ -1,7 +1,9 @@
 # Status — CL-V5 SI-15
 
-**6 full training runs in progress** (started 2026-09-18T10:33 UTC). No results
-finalized yet.
+**9 full training runs complete** (3 orderings x 3 seeds). Best ordering:
+random (mean 0.795), ahead of fragile-first (0.738) and fragile-last (0.691,
+worst). Best single run: rnd-s2 (0.837), published. Wave 2 live with all 3
+orderings' stats.
 
 ## Readiness
 

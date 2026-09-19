@@ -107,6 +107,48 @@ either extreme, unlike the simple "earlier is safer" story that held at N=6.
 Worth testing directly with a **fragile-last** ordering (the reverse of
 fragile-first) — see Block 4 below.
 
+## Block 4 results — fragile-last follow-up (COMPLETE, 2026-09-19 ~12:53 UTC)
+
+Ordering: ReachTarget → PushFlap → TurnLever → SlideWindow → OpenLid →
+PushButton → OpenDoor → AxialExtract → FlipSwitch → OpenDrawer → RotateValve →
+PushCuboid → ThrowToBin → ToppleBlock → DragPull (exact reverse of
+fragile-first). 3 seeds, no tracebacks, ~175 min/run.
+
+| run | final avg | weakest task (rate) |
+|---|---|---|
+| fl-s0 | 0.652 | PushButton (0.062) |
+| fl-s1 | 0.718 | PushCuboid (0.109) |
+| fl-s2 | 0.702 | PushCuboid (0.078) |
+
+**fragile-last: mean 0.691 ± 0.028** — the *worst* of the three orderings,
+not the best.
+
+| ordering | mean | std |
+|---|---|---|
+| random | **0.795** | 0.041 |
+| fragile-first | 0.738 | 0.049 |
+| fragile-last | 0.691 | 0.028 |
+
+**The mid-sequence hypothesis from Block 3 is not confirmed — it's
+contradicted.** Putting the 5 fragile tasks last didn't help; it hurt overall,
+because it pushed the 10 *easy* tasks (100% standalone teacher SR) to the
+front of the sequence, where they now absorb the most forgetting pressure
+instead. And several of those "easy" tasks turned out not to be easy to
+*retain*: PushButton collapsed to 0.062-0.219 and FlipSwitch to 0.219-0.766
+across the fl seeds, despite both having a perfect standalone teacher.
+**Standalone teacher difficulty and retention difficulty are different
+properties** — a task can be trivial to learn but fragile to retain against
+future interference, and vice versa (DragPull, the single hardest teacher,
+retained fine as either the first or the last task trained, in both ff and
+rnd). Fragile-last's lowest std (0.028) also suggests it's a more
+*consistent* ordering, just consistently worse.
+
+**Best single run remains rnd-s2 (0.837)** — no change to the published
+gallery's videos. Random ordering (mean 0.795, tightest spread among the two
+better orderings) is the best default ordering strategy found so far at
+N=15, ahead of the naive "train hard tasks first" intuition that held at
+N=4/N=6.
+
 ## Planned next
 
 | block | purpose |

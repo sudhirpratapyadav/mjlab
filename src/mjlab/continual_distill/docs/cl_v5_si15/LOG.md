@@ -66,6 +66,23 @@ was decided/found — why`.
   possible Slurm/holder contention delay on the shared account. Not acted on
   further since the runs are healthy now (epoch 200/500 on task 0 at the
   10:02 UTC check) — flagging for awareness, not a bug in our own code.
+- 2026-09-19 ~12:53 UTC — Fragile-last complete, all 3 seeds, no tracebacks.
+  **Mean 0.691 ± 0.028 — the worst of the three orderings**, contradicting
+  the Block 3 hypothesis that mid-sequence placement was specifically bad.
+  Real finding: fragile-last pushed 10 easy-teacher tasks to the front, and
+  several (PushButton, FlipSwitch) turned out hard for the *student* to
+  retain despite perfect teachers — standalone difficulty and retention
+  difficulty are different properties. Random ordering (0.795) stands as the
+  best found so far at N=15. rnd-s2 (0.837) remains the best single run;
+  republished the live page's stats/text to report all 3 orderings, kept the
+  same videos (Wave 2, no video swap needed).
+- Considering this phase substantially delivered: real results (9 full runs,
+  3 orderings x 3 seeds, hyperparameter bracket) and videos are live at
+  https://cl.sudhirpratapyadav.com/v5-cl-si/. Open threads for a future
+  session: PushCuboid/ThrowToBin/OpenDrawer's consistent fragility (worth its
+  own targeted investigation, not just an ordering fix), the 9 CL-V4 tasks
+  not in this 15-task set (6 below 95% val SR, Tool-Pull deferred), and
+  whether more seeds would tighten the ordering comparison further.
 - 2026-09-18T11:40 UTC — Progress check: ff runs 6-7/15 tasks done (~10
   min/task), rnd runs 5-6/15 (~12 min/task, slightly slower ordering). Revised
   ETA ~13:00-13:40 UTC. Retention still strong on both orderings' first task

@@ -18,3 +18,14 @@ EXPERIMENTS.md for the full breakdown and the task-fragility/mid-sequence
 findings. This is the current best single run, not a guaranteed final result;
 the page will be refreshed if the running fragile-last follow-up does better,
 following the same iterative "wave" convention CL-V4 used.
+
+## Wave 2 (2026-09-19, fragile-last results added)
+
+Fragile-last (3 seeds) finished: mean 0.691 ± 0.028, the *worst* of the three
+orderings tried — contradicts the mid-sequence-is-worst hypothesis from
+Block 3. rnd-s2 (0.837) remains the best single run overall (out of 9), so
+videos are unchanged; updated the stats/explanation text to report all three
+orderings and the finding that standalone teacher difficulty and retention
+difficulty are different properties (PushButton/FlipSwitch, both 100%
+standalone teachers, collapsed badly when trained early in fragile-last).
+Verified: page 200, updated stats text (0.691) present in the live HTML.
