@@ -40,3 +40,15 @@ was decided/found — why`.
 - 2026-09-18T10:33 UTC — Launched 6 full runs (fragile-first x3 seeds, random
   x3 seeds), SI only, GPUs 1-6 of holder 20277. All 6 healthy at first check
   (no tracebacks, epoch counters advancing). See EXPERIMENTS.md Block 3.
+- 2026-09-18T11:09 UTC — Progress check: 4/15 tasks done on all 6 runs, ~9
+  min/task observed so far -> revised ETA ~2-2.5h total (~12:45-13:00 UTC
+  finish), faster than the original 3-5h guess. Early retention signal is
+  strong: DragPull (task 0, trained first in the fragile-first ordering) is
+  still at 95-100% student success after 4 more tasks were trained on top of
+  it in ff-s0 — SI appears to be working as intended so far. No intervention
+  needed; continuing to monitor rather than changing epochs/coefficients.
+- 2026-09-18T11:40 UTC — Progress check: ff runs 6-7/15 tasks done (~10
+  min/task), rnd runs 5-6/15 (~12 min/task, slightly slower ordering). Revised
+  ETA ~13:00-13:40 UTC. Retention still strong on both orderings' first task
+  (DragPull 93-98%, ToppleBlock 100%) after 6 more tasks trained on top. No
+  intervention needed.

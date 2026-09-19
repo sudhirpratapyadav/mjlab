@@ -65,6 +65,48 @@ OpenDoor → OpenLid → DragPull
 | cl15-si-rnd-s1 | 1 | 5 | zsj0maz9 |
 | cl15-si-rnd-s2 | 2 | 6 | y9h9lrd8 |
 
+## Block 3 results (ALL 6 RUNS COMPLETE, 2026-09-18 ~15:11 UTC)
+
+No tracebacks; wall time 232-274 min/run. Final average success (15-task mean),
+and per-run minimum (weakest task):
+
+| run | final avg | weakest task (rate) |
+|---|---|---|
+| ff-s0 | 0.686 | AxialExtract (0.000) |
+| ff-s1 | 0.725 | AxialExtract (0.047) |
+| ff-s2 | 0.803 | PushCuboid (0.438) |
+| rnd-s0 | 0.810 | PushCuboid (0.156) |
+| rnd-s1 | 0.740 | AxialExtract (0.047) |
+| rnd-s2 | 0.837 | PushCuboid (0.266) |
+
+**fragile-first: mean 0.738 ± 0.049. random: mean 0.795 ± 0.041.**
+
+**N=15 scalability point: ~0.74-0.80**, essentially flat vs. the N=6 point
+(0.792) rather than continuing the steep N=4→N=6 drop (0.960→0.792). Better
+retention at scale than a naive extrapolation would predict.
+
+**Task-specific fragility, not just an ordering effect:** PushCuboid is the
+single most consistently forgotten task — low in every one of the 6 runs
+(0.156-0.547) regardless of its position in the sequence (4th in fragile-first,
+10th in random). ThrowToBin and RotateValve are also consistently weak
+(0.266-0.641 and 0.438-0.719 respectively). This echoes the P1-6 finding that
+grasp/contact-heavy tasks (there, LiftCube) are intrinsically harder for the
+student to retain, independent of when they're trained.
+
+**Ordering signal that contradicts the N=4/N=6 "fragile-first wins" pattern:**
+DragPull — the single hardest CL-V4 teacher (0.953 val SR) — was trained FIRST
+in the fragile-first ordering and LAST in the random ordering. It actually
+retained fine either way (0.906-0.953 first vs 0.828-0.938 last), so it's not
+itself the deciding factor. But the *overall average* is higher for random
+(0.795) than fragile-first (0.738), and AxialExtract's catastrophic failures
+(0.000, 0.047) both happened in fragile-first runs, where it sits mid-sequence
+(position 8 of 15) — i.e. trained neither first (protected the least by
+recency) nor last (never protected by SI's recency bias). This suggests that
+at N=15, being trained in the *middle* of a long sequence may be worse than
+either extreme, unlike the simple "earlier is safer" story that held at N=6.
+Worth testing directly with a **fragile-last** ordering (the reverse of
+fragile-first) — see Block 4 below.
+
 ## Planned next
 
 | block | purpose |
