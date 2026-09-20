@@ -26,7 +26,7 @@ import numpy as np
 import torch
 from PIL import Image
 
-from mjlab.continual_distill.utils import StudentPolicy
+from mjlab.continual_distill.utils import SharedStudentPolicy, StudentPolicy
 from mjlab.envs import ManagerBasedRlEnv
 from mjlab.tasks.registry import load_env_cfg
 
@@ -50,7 +50,7 @@ def load_checkpoint(checkpoint_path: Path) -> dict:
   return checkpoint
 
 
-def build_action_fn(student_policy, params, normalizer_params, task_idx, action_dim):
+def build_action_fn(student_policy, params, normalizer_params, task_idx, action_dim, architecture):
   task_idx_jax = jnp.asarray(task_idx, dtype=jnp.int32)
 
   @jax.jit
@@ -59,10 +59,13 @@ def build_action_fn(student_policy, params, normalizer_params, task_idx, action_
       normalized_obs = (obs_jax - normalizer_params["mean"]) / (normalizer_params["std"] + 1e-8)
     else:
       normalized_obs = normalizer_params.normalize(obs_jax)
-    logits = student_policy.network.apply(params, normalized_obs)
-    head_dim = 2 * action_dim
-    start = task_idx_jax * head_dim
-    head_logits = jax.lax.dynamic_slice_in_dim(logits, start_index=start, slice_size=head_dim, axis=-1)
+    if architecture == "shared_resnet":
+      head_logits = student_policy.network.apply(params, normalized_obs, task_idx_jax)
+    else:
+      logits = student_policy.network.apply(params, normalized_obs)
+      head_dim = 2 * action_dim
+      start = task_idx_jax * head_dim
+      head_logits = jax.lax.dynamic_slice_in_dim(logits, start_index=start, slice_size=head_dim, axis=-1)
     loc, _scale = jnp.split(head_logits, 2, axis=-1)
     return loc
 
@@ -96,15 +99,29 @@ def main():
   cfg.seed = args.seed
   env = ManagerBasedRlEnv(cfg, device="cuda:0")
 
-  student_policy = StudentPolicy(
-    obs_size=int(ckpt["obs_dim"]),
-    action_size=int(ckpt["action_dim"]),
-    num_tasks=int(ckpt["num_tasks"]),
-    hidden_dims=tuple(int(h) for h in ckpt["hidden_dims"]),
-    min_std=float(ckpt["student_min_std"]),
-  )
+  architecture = ckpt.get("architecture", "heads")
+  if architecture == "shared_resnet":
+    arch_kwargs = ckpt.get("architecture_kwargs", {})
+    student_policy = SharedStudentPolicy(
+      obs_size=int(ckpt["obs_dim"]),
+      action_size=int(ckpt["action_dim"]),
+      num_tasks=int(ckpt["num_tasks"]),
+      width=int(arch_kwargs.get("width", 2048)),
+      num_blocks=int(arch_kwargs.get("num_blocks", 6)),
+      embed_dim=int(arch_kwargs.get("embed_dim", 32)),
+      min_std=float(ckpt["student_min_std"]),
+    )
+  else:
+    student_policy = StudentPolicy(
+      obs_size=int(ckpt["obs_dim"]),
+      action_size=int(ckpt["action_dim"]),
+      num_tasks=int(ckpt["num_tasks"]),
+      hidden_dims=tuple(int(h) for h in ckpt["hidden_dims"]),
+      min_std=float(ckpt["student_min_std"]),
+    )
+  print(f"Architecture: {architecture}")
   get_action = build_action_fn(
-    student_policy, ckpt["params"], ckpt["normalizer_params"], task_idx, int(ckpt["action_dim"])
+    student_policy, ckpt["params"], ckpt["normalizer_params"], task_idx, int(ckpt["action_dim"]), architecture
   )
 
   episode_length = env.max_episode_length

@@ -330,6 +330,131 @@ class StudentPolicy:
 
 
 # ============================================================================
+# Shared Residual Student Network (max parameter sharing, task-embedding
+# conditioned, no per-task heads)
+# ============================================================================
+
+class ResidualMLPBlock(nn.Module):
+    """Pre-norm residual block: LayerNorm -> Dense -> GELU -> Dense, + skip.
+
+    Tried Fixup/SkipInit-style zero-init on the second Dense (research pass
+    P1 recommendation) and DROPPED it after a smoke-test A/B: it collapsed
+    a 2-task/5-epoch run's retention (ReachTarget success 0.55 -> 0.02, KL
+    40 -> 2600) by giving the trunk a slow cold-start that ate a large
+    fraction of the (short) budget. Reverting to standard lecun_uniform
+    fully recovered it (back to 0.52 success, KL 55). Matches the research
+    report's own least-confident framing of this technique for MLPs (we are
+    already pre-norm, which it says provides most of the intended benefit
+    anyway). See docs/cl_v6_arch/EXPERIMENTS.md Block 1.
+    """
+    width: int
+
+    @nn.compact
+    def __call__(self, x: jnp.ndarray) -> jnp.ndarray:
+        residual = x
+        y = nn.LayerNorm()(x)
+        y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
+        y = nn.gelu(y)
+        y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
+        return residual + y
+
+
+class SharedResidualStudentMLP(nn.Module):
+    """Single shared network for all tasks.
+
+    A learned task embedding is concatenated to the observation; a deep
+    residual MLP trunk then produces ONE task-agnostic action head. There
+    are no per-task weights except the (tiny) task embedding table -- this
+    maximizes parameter sharing across tasks, in contrast to
+    StudentActorMLP's per-task output heads (only the last layer differs
+    there; everything before it is already shared).
+    """
+    action_size: int
+    num_tasks: int
+    width: int = 2048
+    num_blocks: int = 6
+    embed_dim: int = 32
+
+    @nn.compact
+    def __call__(self, obs: jnp.ndarray, task_idx: jnp.ndarray) -> jnp.ndarray:
+        """Forward pass.
+
+        Args:
+            obs: Normalized observations [batch_size, obs_dim]
+            task_idx: Scalar task index (same task for the whole batch)
+
+        Returns:
+            logits: [batch_size, 2*action_size] (mean + scale_params), already
+                    task-specific -- no external slicing required.
+        """
+        task_idx = jnp.asarray(task_idx, dtype=jnp.int32)
+        embed = nn.Embed(self.num_tasks, self.embed_dim, name="task_embed")(task_idx)
+        if obs.ndim == 2 and embed.ndim == 1:
+            embed = jnp.broadcast_to(embed, (obs.shape[0], self.embed_dim))
+
+        x = jnp.concatenate([obs, embed], axis=-1)
+        x = nn.Dense(self.width, name="in_proj", kernel_init=nn.initializers.lecun_uniform())(x)
+        x = nn.gelu(x)
+
+        for i in range(self.num_blocks):
+            x = ResidualMLPBlock(self.width, name=f"block_{i}")(x)
+
+        x = nn.LayerNorm(name="out_norm")(x)
+        logits = nn.Dense(
+            2 * self.action_size, name="out_head",
+            kernel_init=nn.initializers.lecun_uniform(),
+        )(x)
+        return logits
+
+
+class SharedStudentPolicy:
+    """Wrapper around SharedResidualStudentMLP, matching StudentPolicy's
+    interface (init/flatten_tree) used by continual_distill.py. Unlike
+    StudentPolicy, network.apply takes (obs, task_idx) and already returns
+    task-specific logits -- no external head-slicing needed.
+    """
+
+    def __init__(
+        self,
+        obs_size: int,
+        action_size: int,
+        num_tasks: int,
+        width: int = 2048,
+        num_blocks: int = 6,
+        embed_dim: int = 32,
+        min_std: float = 1e-3,
+    ):
+        self.obs_size = obs_size
+        self.action_size = action_size
+        self.num_tasks = num_tasks
+        self.width = width
+        self.num_blocks = num_blocks
+        self.embed_dim = embed_dim
+        self.min_std = min_std
+
+        self.network = SharedResidualStudentMLP(
+            action_size=action_size,
+            num_tasks=num_tasks,
+            width=width,
+            num_blocks=num_blocks,
+            embed_dim=embed_dim,
+        )
+
+    def init(self, key: jax.random.PRNGKey) -> dict:
+        """Initialize network parameters."""
+        dummy_obs = jnp.zeros((1, self.obs_size))
+        dummy_task_idx = jnp.zeros((), dtype=jnp.int32)
+        return self.network.init(key, dummy_obs, dummy_task_idx)
+
+    @staticmethod
+    def flatten_tree(tree: dict) -> jnp.ndarray:
+        """Flatten an arbitrary parameter/gradient PyTree into a 1-D buffer."""
+        from jax.flatten_util import ravel_pytree
+        flat, _ = ravel_pytree(tree)
+        return flat
+
+
+# ============================================================================
 # PyTorch Checkpoint Loading & Conversion
 # ============================================================================
 

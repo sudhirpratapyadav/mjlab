@@ -57,6 +57,7 @@ from mjlab.envs import ManagerBasedRlEnv
 from mjlab.tasks.registry import load_env_cfg
 from mjlab.continual_distill.utils import (
     ObservationNormalizer,
+    SharedStudentPolicy,
     StudentPolicy,
     TeacherPolicy,
 )
@@ -100,6 +101,22 @@ def gaussian_kl(
     return jnp.sum(kl, axis=-1)
 
 
+def clip_grads_global_norm(grads, max_norm: float):
+    """Scale a gradient pytree so its global L2 norm is at most max_norm.
+
+    Applied explicitly (not via an optax chain inside `tx`) so the SAME
+    clipped gradient feeds both the optimizer update and SI's importance
+    accumulation -- an inconsistency the research pass flagged: clipping
+    only the optimizer's view of the gradient would still let a spiking
+    batch pollute SI's per-parameter importance sum. See
+    docs/cl_v6_arch/RESEARCH.md.
+    """
+    leaves = jax.tree_util.tree_leaves(grads)
+    global_norm = jnp.sqrt(sum(jnp.sum(jnp.square(g)) for g in leaves) + 1e-12)
+    scale = jnp.minimum(1.0, max_norm / (global_norm + 1e-6))
+    return jax.tree_util.tree_map(lambda g: g * scale, grads)
+
+
 def init_wandb(args, config: Dict[str, Any]):
     """Initialize Weights & Biases tracking."""
     if not args.track:
@@ -129,12 +146,17 @@ def compute_student_distribution(
     """Get student distribution parameters for specific task.
 
     Args:
-        apply_fn: Network apply function
+        apply_fn: (params, normalized_obs, task_idx) -> task-specific logits
+            [batch, 2*action_dim]. Architecture-specific head selection (a
+            head-index slice for StudentActorMLP, or a task-embedding forward
+            pass for SharedResidualStudentMLP) happens inside apply_fn itself,
+            so this function is architecture-agnostic.
         params: Network parameters
         normalizer_params: Observation normalizer dict with 'mean' and 'std'
         obs: Observations
         student_min_std: Minimum std for student policy
-        action_dim: Action dimension
+        action_dim: Action dimension (unused directly here; kept for the
+            call-site signature used throughout this file)
         task_idx: Task index
 
     Returns:
@@ -146,13 +168,8 @@ def compute_student_distribution(
     else:
         normalized_obs = normalizer_params.normalize(obs)
 
-    # Forward pass through network
-    logits = apply_fn(params, normalized_obs)
-
-    # Extract head for this task
-    head_dim = 2 * action_dim
-    start = task_idx * head_dim
-    head_logits = jax.lax.dynamic_slice_in_dim(logits, start_index=start, slice_size=head_dim, axis=-1)
+    # Forward pass through network -- already task-specific.
+    head_logits = apply_fn(params, normalized_obs, task_idx)
 
     # Split into mean and scale parameters
     loc, scale_params = jnp.split(head_logits, 2, axis=-1)
@@ -171,6 +188,7 @@ def train_step_si(
     batch_weights: jnp.ndarray,
     task_idx: jnp.ndarray,
     si_coeff: float,
+    grad_clip_norm: float,
 ) -> Tuple[StudentTrainStateSI, jnp.ndarray]:
     """Single training step with SI regularization.
 
@@ -181,6 +199,9 @@ def train_step_si(
         batch_teacher_logstd: Teacher logstds
         task_idx: Current task index
         si_coeff: SI regularization coefficient
+        grad_clip_norm: Global-norm gradient clip, applied before BOTH the
+            optimizer step and SI's importance update (see
+            clip_grads_global_norm). Large (e.g. 1e9) effectively disables it.
 
     Returns:
         Tuple of (updated state, metrics)
@@ -216,6 +237,7 @@ def train_step_si(
         return total_loss, (dist_loss, surrogate)
 
     (total_loss, (dist_loss, surrogate)), grads = jax.value_and_grad(loss_fn, has_aux=True)(state.params)
+    grads = clip_grads_global_norm(grads, grad_clip_norm)
     new_state = state.apply_gradients(grads=grads)
     params_flat_after = state.ravel_fn(new_state.params)
     grads_flat = state.ravel_fn(grads)
@@ -242,6 +264,7 @@ def train_epoch_si(
     batch_size: int,
     si_coeff: float,
     task_idx: jnp.ndarray,
+    grad_clip_norm: float,
 ) -> Tuple[StudentTrainStateSI, jax.random.PRNGKey, jnp.ndarray, jnp.ndarray]:
     """Train for one epoch with SI regularization.
 
@@ -254,6 +277,7 @@ def train_epoch_si(
         batch_size: Mini-batch size (static)
         si_coeff: SI coefficient
         task_idx: Current task index
+        grad_clip_norm: Global-norm gradient clip (see clip_grads_global_norm)
 
     Returns:
         Tuple of (updated state, updated rng, mean metrics, last batch metrics)
@@ -292,6 +316,7 @@ def train_epoch_si(
             batch_w,
             task_idx,
             si_coeff,
+            grad_clip_norm,
         )
         loss_sums = loss_sums + metrics
         return (train_state, loss_sums), metrics
@@ -1214,6 +1239,8 @@ def save_checkpoint(
     obs_dim: int,
     action_dim: int,
     hidden_dims: Tuple[int, ...],
+    architecture: str = "heads",
+    architecture_kwargs: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Save student checkpoint.
 
@@ -1227,7 +1254,12 @@ def save_checkpoint(
         env_ids: List of environment IDs in order
         obs_dim: Observation dimension
         action_dim: Action dimension
-        hidden_dims: Hidden layer dimensions
+        hidden_dims: Hidden layer dimensions (architecture="heads" only;
+            kept for backward-compatible checkpoint loading)
+        architecture: "heads" (StudentActorMLP) or "shared_resnet"
+            (SharedResidualStudentMLP). Older checkpoints have no
+            "architecture" key and should be read as "heads".
+        architecture_kwargs: shared_resnet's width/num_blocks/embed_dim.
     """
     checkpoint = {
         # Network weights
@@ -1243,6 +1275,8 @@ def save_checkpoint(
         "num_tasks": state.num_tasks,
         "hidden_dims": hidden_dims,
         "student_min_std": state.student_min_std,
+        "architecture": architecture,
+        "architecture_kwargs": architecture_kwargs or {},
         # Training info
         "task_idx": task_idx,
         "epoch": epoch,
@@ -1277,7 +1311,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=512, help="Mini-batch size for SGD/Adam updates.")
     parser.add_argument("--train-fraction", type=float, default=0.8, help="Fraction of each dataset used for training.")
     parser.add_argument("--student-min-std", type=float, default=1e-3, help="Minimum std for student policy outputs.")
-    parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP.")
+    parser.add_argument("--student-hidden-dims", type=int, nargs="+", default=[4096, 2048, 1024], help="Hidden layer sizes of the student MLP (architecture=heads only).")
+    parser.add_argument("--architecture", type=str, default="heads", choices=["heads", "shared_resnet"], help="heads: StudentActorMLP, shared MLP trunk with a separate output slice per task. shared_resnet: SharedResidualStudentMLP, ONE task-embedding-conditioned residual MLP with no per-task weights except the embedding table (max parameter sharing).")
+    parser.add_argument("--residual-width", type=int, default=2048, help="shared_resnet only: hidden width of the residual trunk.")
+    parser.add_argument("--num-residual-blocks", type=int, default=6, help="shared_resnet only: number of residual blocks in the trunk.")
+    parser.add_argument("--task-embed-dim", type=int, default=32, help="shared_resnet only: dimension of the learned per-task embedding concatenated to the observation.")
+    parser.add_argument("--grad-clip-norm", type=float, default=10.0, help="Global-norm gradient clip, applied before both the optimizer step and SI's importance update (research pass P1, docs/cl_v6_arch/RESEARCH.md). Default raised from an initial 1.0 after a smoke-test A/B showed 1.0 was far too tight for this network's actual gradient scale and visibly slowed learning; 10.0 is meant as a spike-protector, not a routine constraint. Pass a large value (e.g. 1e9) to effectively disable.")
+    parser.add_argument("--adam-beta2", type=float, default=0.97, help="Adam beta2. Lowered from optax's 0.999 default -- our per-task step counts are short enough that the default's ~1000-step averaging window barely warms up (research pass P1).")
+    parser.add_argument("--lr-warmup-steps", type=int, default=200, help="Linear-to-cosine LR warmup steps at the START OF EACH TASK (capped at 10%% of that task's total steps). Same schedule shape every task, so SI's accumulated importance stays comparable across tasks (research pass P1).")
     parser.add_argument("--distill-weight-mode", type=str, default="uniform", choices=["uniform", "delta_action", "delta_value", "perdim"], help="Per-sample distillation-loss weighting (uniform=plain KL; delta_action=up-weight high action-change/grasp steps).")
     parser.add_argument("--distill-weight-floor", type=float, default=0.3, help="delta_action: min weight for low-action-change (hold) samples.")
     parser.add_argument("--distill-weight-clip", type=float, default=8.0, help="delta_action: max weight multiple (in median-scaled units) before floor.")
@@ -1364,21 +1405,48 @@ def main() -> None:
 
     num_tasks = len(task_configs)
 
-    # Create student policy
-    student = StudentPolicy(
-        obs_size=obs_dim,
-        action_size=action_dim,
-        num_tasks=num_tasks,
-        hidden_dims=tuple(args.student_hidden_dims),
-    )
+    # Create student policy. Both branches expose the same interface used
+    # below (network, init, flatten_tree); only how apply_fn resolves a
+    # task's logits differs, and that difference is fully contained here --
+    # compute_student_distribution() and every other call site are
+    # architecture-agnostic (see its docstring).
+    if args.architecture == "shared_resnet":
+        student = SharedStudentPolicy(
+            obs_size=obs_dim,
+            action_size=action_dim,
+            num_tasks=num_tasks,
+            width=args.residual_width,
+            num_blocks=args.num_residual_blocks,
+            embed_dim=args.task_embed_dim,
+            min_std=args.student_min_std,
+        )
+        _network_apply = student.network.apply
+
+        def apply_fn(params, obs, task_idx):
+            return _network_apply(params, obs, task_idx)
+    else:
+        student = StudentPolicy(
+            obs_size=obs_dim,
+            action_size=action_dim,
+            num_tasks=num_tasks,
+            hidden_dims=tuple(args.student_hidden_dims),
+        )
+        _network_apply = student.network.apply
+        _head_dim = 2 * action_dim
+
+        def apply_fn(params, obs, task_idx):
+            logits = _network_apply(params, obs)
+            start = task_idx * _head_dim
+            return jax.lax.dynamic_slice_in_dim(logits, start_index=start, slice_size=_head_dim, axis=-1)
+
     init_key = jax.random.PRNGKey(args.seed)
     params = student.init(init_key)
     flat_params = student.flatten_tree(params)
-    optimizer = optax.adam(args.learning_rate)
+    optimizer = optax.adam(args.learning_rate, b2=args.adam_beta2)  # replaced per-task below with a warmup+decay schedule; this initial one is never actually trained on
 
     # Initialize state with global normalizer (shared across all tasks)
     state = StudentTrainStateSI.create(
-        apply_fn=student.network.apply,
+        apply_fn=apply_fn,
         params=params,
         tx=optimizer,
         normalizer_params=global_normalizer,
@@ -1566,6 +1634,13 @@ def main() -> None:
         "batch_size": args.batch_size,
         "student_min_std": args.student_min_std,
         "student_hidden_dims": list(args.student_hidden_dims),
+        "architecture": args.architecture,
+        "residual_width": args.residual_width,
+        "num_residual_blocks": args.num_residual_blocks,
+        "task_embed_dim": args.task_embed_dim,
+        "grad_clip_norm": args.grad_clip_norm,
+        "adam_beta2": args.adam_beta2,
+        "lr_warmup_steps": args.lr_warmup_steps,
         "distill_weight_mode": args.distill_weight_mode,
         "train_fraction": args.train_fraction,
         "si_coeff": args.si_coeff,
@@ -1675,15 +1750,27 @@ def main() -> None:
         train_steps_per_epoch = task_data["train_steps_per_epoch"]
         print(f"Train samples: {train_size} | Test samples: {test_size}")
 
-        # Reset optimizer for new task
-        optimizer = optax.adam(args.learning_rate)
+        # Reset optimizer for new task, with a warmup+cosine-decay schedule
+        # sized to THIS task's step budget so every task gets the same
+        # schedule shape (same fraction warmup, decay-to-floor by the last
+        # step) -- SI's accumulated importance stays comparable across tasks
+        # this way (see docs/cl_v6_arch/RESEARCH.md).
+        task_num_epochs = task_data["num_epochs"]
+        total_task_steps = max(1, task_num_epochs * train_steps_per_epoch)
+        warmup_steps = int(min(args.lr_warmup_steps, max(1, total_task_steps // 10)))
+        lr_schedule = optax.warmup_cosine_decay_schedule(
+            init_value=args.learning_rate * 0.1,
+            peak_value=args.learning_rate,
+            warmup_steps=warmup_steps,
+            decay_steps=total_task_steps,
+            end_value=args.learning_rate * 0.1,
+        )
+        optimizer = optax.adam(learning_rate=lr_schedule, b2=args.adam_beta2)
         state = state.replace(
             tx=optimizer,
             opt_state=optimizer.init(state.params),
             prev_step_params_flat=student.flatten_tree(state.params),
         )
-
-        task_num_epochs = task_data["num_epochs"]
 
         # Initial evaluation at step 0 for this task (before training)
         print(f"\n[Task {task_idx}] Initial Evaluation (Step 0 - Before Training)")
@@ -1734,6 +1821,7 @@ def main() -> None:
                 args.batch_size,
                 args.si_coeff,
                 task_idx_arr,
+                args.grad_clip_norm,
             )
 
             mean_metrics_np = np.asarray(mean_metrics)
@@ -1829,6 +1917,12 @@ def main() -> None:
                     obs_dim=obs_dim,
                     action_dim=action_dim,
                     hidden_dims=tuple(args.student_hidden_dims),
+                    architecture=args.architecture,
+                    architecture_kwargs={
+                        "width": args.residual_width,
+                        "num_blocks": args.num_residual_blocks,
+                        "embed_dim": args.task_embed_dim,
+                    } if args.architecture == "shared_resnet" else {},
                 )
 
         if args.regularizer == "ewc":
