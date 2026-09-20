@@ -14,6 +14,6 @@ both done and validated. No full runs launched yet.**
 | Modern-training-technique research | DONE | RESEARCH.md — curated shortlist, adopted/queued/skipped items with rationale |
 | P1 training-technique adoption | DONE, validated | grad clipping (default 10.0, applied consistently to optimizer + SI), per-task LR warmup+decay, beta2=0.97. Zero-init residual branches tried and DROPPED after a smoke-test A/B showed it collapsed retention — see EXPERIMENTS.md Block 1 |
 | Smoke test (final config) | PASS | 2 tasks, 5 epochs, width 1024/4 blocks: ReachTarget 0.375/KL 50.6, AxialExtract 0.969, no errors |
-| Capacity/depth probes (P2) | NOT STARTED | curated (width, depth) points + Muon A/B, on the smoke harness |
-| Full 15-task validation (P3) | NOT STARTED | random ordering (established best), 3 seeds, vs. CL-V5 baseline (0.795±0.041 mean, 0.837 best) |
-| Website update (P4) | NOT STARTED | |
+| Capacity/depth probes (P2) | SKIPPED, folded into P3 | user directive: start full runs now instead of a separate probe stage |
+| Full 15-task validation (P3) | RUNNING | Wave 1: 3 seeds width2048/6blocks (primary) + width4096/6blocks and width2048/10blocks (capacity/depth probes), all random ordering, GPUs 1-5. Started 2026-09-20T16:23 UTC. Goal (user, 2026-09-20): keep iterating until >95% avg (vs CL-V5's 0.795±0.041 mean / 0.837 best) |
+| Website update (P4) | NOT STARTED | will publish once a wave beats CL-V5's published result |
