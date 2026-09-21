@@ -112,6 +112,13 @@ but not waiting for them or trusting their results as informative about
 capacity -- they're confounded by the conditioning-mechanism flaw. Moving
 straight to validating FiLM instead.
 
+**Final results (completed 2026-09-21, ~9.9h and ~13.5h respectively)**:
+w4096b6-s0 avg **0.250**, w2048b10-s0 avg **0.345** -- both show the same
+catastrophic middle-task collapse as the width2048/6block seeds (many exact
+0.000s), confirming neither more width nor more depth fixes a broken
+conditioning mechanism on its own. Consistent with everything learned since
+(Blocks 3-7): this was never a capacity problem.
+
 ## Block 3 — FiLM stress-test validation (2026-09-21)
 
 4-task/100-epoch stress harness (`tasks_cl_v6_stress4.yaml`), width
