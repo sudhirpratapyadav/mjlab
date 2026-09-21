@@ -177,6 +177,34 @@ conditioning at the output head too (same pattern: zero-init generator from
 the task embedding, applied to the pre-`out_head` features). Testing on the
 original stress4 ordering (si-coeff 1.0) now.
 
+Result: output-head FiLM alone (si-coeff 1.0) -> RotateValve still 0.000.
+Combined with si-coeff 5.0 -> still 0.000. Six configurations in a row have
+now failed on this one task (Wave 1 x2, stress4 si 1/5/10, position-swap,
+output-head FiLM, output-head FiLM+si5) while other tasks improved or held
+steady. Stopped iterating on architecture/coefficient tweaks blind and
+looked at the actual data.
+
+## Block 5 — root cause: RotateValve's action scale is ~5x every other task
+
+Checked the teacher datasets directly (`data.pkl`, `action_targets[:, :8]`
+= teacher mean columns): RotateValve's teacher action means span
+**[-14.05, 13.43]**. FlipSwitch/ToppleBlock/OpenDrawer (from the same
+extraction pipeline, directly comparable) all sit in **[-3.4, 2.4]** --
+RotateValve is roughly **5x wider**. This is a real, measured anomaly, not
+noise. All other tasks so far tested have been small-range; the shared
+`out_head` Dense necessarily gets shaped mostly by the many small-range
+tasks it also has to serve, and feature-space FiLM (which shifts/scales the
+*input* to `out_head`, not its output) apparently can't cheaply grant one
+task an order-of-magnitude larger effective gain through those same shared
+weights.
+
+**Fix**: added FiLM directly on the produced action LOGITS (post-`out_head`,
+16-dim = 2*action_size), zero-init generator from the embedding. This gives
+each task direct, unconstrained per-dimension control over its own output
+scale, independent of what `out_head`'s shared weights are shaped for.
+Testing on stress4 (si-coeff 5.0, since that already helped the other three
+tasks) now.
+
 ## Planned next
 
 | block | purpose |

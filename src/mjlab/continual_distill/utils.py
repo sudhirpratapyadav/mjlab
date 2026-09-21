@@ -435,6 +435,18 @@ class SharedResidualStudentMLP(nn.Module):
             2 * self.action_size, name="out_head",
             kernel_init=nn.initializers.lecun_uniform(),
         )(x)
+        # FiLM directly on the output logits too. Root-caused (EXPERIMENTS.md
+        # Block 5): RotateValve's teacher action-mean range is [-14, 13] vs.
+        # [-3, 2.4] for other tasks in this stress set -- roughly 5x wider.
+        # Feature-space FiLM (out_film above) still routes through the SAME
+        # out_head weights for every task, which is shaped mostly by the many
+        # small-range tasks; it can shift/scale the pre-Dense features but
+        # can't cheaply give one task an order-of-magnitude larger effective
+        # gain on specific output dimensions. A direct per-task affine
+        # transform on the produced logits can.
+        logit_film = nn.Dense(4 * self.action_size, kernel_init=nn.initializers.zeros, name="logit_film")(embed)
+        logit_scale, logit_shift = jnp.split(logit_film, 2, axis=-1)
+        logits = logits * (1.0 + logit_scale) + logit_shift
         return logits
 
 
