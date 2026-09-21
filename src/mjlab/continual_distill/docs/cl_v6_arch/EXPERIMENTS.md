@@ -229,6 +229,27 @@ trivially always 0) to separate "does this architecture's supervised
 distillation loss converge on this teacher's data at all" from any CL
 confound entirely.
 
+**Result: RotateValve learns fine (0.766-0.828) throughout its own 500-epoch
+training when trained as task_idx==0** (si_scale==0 the whole time) -- so
+the architecture CAN represent and learn this task. The moment task 1
+(OpenDrawer) begins -- optimizer reset only, `state.params` unchanged, a
+pure re-evaluation -- RotateValve's measured success collapses to exactly
+0.000 with the SAME weights that scored 0.83 one line earlier.
+
+**Reframing the si-coeff finding**: in every OTHER test run, RotateValve was
+task_idx>=1, meaning SI was active DURING its own training (not just
+afterward). Raising si-coeff (5.0, 10.0) never moved it off 0.000 -- which
+makes sense if SI is preventing it from ever LEARNING in the first place
+(more penalty, more prevention), not failing to protect something already
+learned. RotateValve's teacher action range is ~5x wider than other tasks
+(Block 5); reaching a good solution likely requires unusually large
+parameter displacement in the output-conditioning weights (`logit_film`,
+`out_film`), and SI's quadratic anchor penalty -- calibrated for the small
+displacements every other task needs -- disproportionately blocks that one
+outlier task from ever getting there once ANY prior-task anchor exists.
+Testing si-coeff=0.1 (much lower) on the original 4-task ordering to check
+this reversed hypothesis.
+
 A true 1-task sequence crashed on an unrelated bug: `SharedResidualStudentMLP`
 with `num_tasks=1` hits a flax `nn.Embed` broadcast error
 (`Cannot broadcast to shape with fewer dimensions: arr_shape=(1, 32)
