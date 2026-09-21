@@ -140,6 +140,23 @@ may now be underpowered. Testing si-coeff 5.0 and 10.0 on the same stress4
 harness before committing to another ~9h full run (each stress4 iteration
 is ~22 min -- cheap enough to bracket properly first).
 
+**si-coeff 5.0 / 10.0 results**: si-coeff 1.0 / 5.0 / 10.0 ->
+ToppleBlock 0.859/0.922/0.922, FlipSwitch (just-trained) 0.344/1.000/0.953 --
+both improved with higher si-coeff, as hypothesized. **But RotateValve
+stayed at EXACTLY 0.000 at all three coefficients**, and OpenDrawer stayed
+low (0.016/0.062/0.000) -- raising si-coeff did NOT fix the middle-task
+collapse. Since RotateValve has been task index 1 (second task trained) in
+every test run so far (including both failed Wave-1 seeds, where it was
+also exactly 0.000), this isn't obviously an SI-strength problem --
+something about *being the first task exposed to a nonzero SI penalty*
+(si_scale is 0 for task_idx==0, first turns on at task_idx==1) may be
+uniquely hard: the model has to learn a brand-new task while the trunk is
+already anchored against task 0, using only ONE prior task's importance
+estimate to build that anchor from. Launched a position-swap diagnostic
+(RotateValve moved to position 0, ToppleBlock to position 1) to tell
+task-specific from position-specific -- if the zero follows ToppleBlock
+this time, it's position 1 that's uniquely hard, not RotateValve itself.
+
 ## Planned next
 
 | block | purpose |
