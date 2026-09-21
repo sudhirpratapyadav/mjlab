@@ -1,8 +1,16 @@
 # Status — CL-V6 architecture
 
-**Thoroughly characterized, concluded below CL-V5's baseline. Awaiting user
-decision on whether to pursue a per-task-adapter redesign (see EXPERIMENTS.md
-Block 9 "Conclusion") or treat CL-V5 (0.795 mean) as the validated best.**
+**INVESTIGATION CONCLUDED. Six independent fix mechanisms tried and
+exhausted (FiLM x3 levels, SI coefficient 0.1-10.0, capacity, block LoRA,
+out_head LoRA); none closes the gap to CL-V5. Best result: Wave 2,
+0.342±0.078, vs. CL-V5's 0.795±0.041. Root cause understood and
+documented (EXPERIMENTS.md Block 12): SI's monotonic penalty accumulation
+under 100% weight sharing causes the shared backbone to drift across a long
+task sequence, and no per-task correction mechanism tried (conditioning or
+additive) can compensate for a moving target. CL-V5's per-task-head result
+stands as the best validated approach. Further progress would require a new
+research direction (non-accumulating regularizer, or substantial dedicated
+per-task capacity), not incremental tweaks.**
 
 ## Readiness
 

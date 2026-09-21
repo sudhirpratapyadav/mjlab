@@ -455,6 +455,58 @@ gain for one outlier task). Added a second per-task LoRA correction directly
 on `out_head`'s output (same embedding-table mechanism, zero-init `up`
 projection). Testing on stress4 (rank 8, si-coeff 5.0) now.
 
+**Result: still no improvement on the fragile tasks.** ToppleBlock 0.938,
+**RotateValve 0.000** (unmoved, the 6th independent mechanism in a row to
+leave it at exactly zero), OpenDrawer 0.000, FlipSwitch 0.938 (recovered
+from block-LoRA's regression, back near baseline). Average 0.469, essentially
+flat vs. the 0.473 no-LoRA baseline. out_head LoRA at least didn't hurt
+(unlike block-only LoRA), but it categorically did not fix RotateValve or
+OpenDrawer.
+
+## Block 12 — why LoRA doesn't work either, and the final conclusion
+
+LoRA's per-task weights are, by construction, immune to SI's penalty (zero
+gradient from other tasks -> zero importance accumulated on them). That part
+of the reasoning was correct. But a LoRA correction is a *static, additive
+patch* on top of whatever the shared backbone (trunk + `out_head`'s shared
+kernel) produces. RotateValve's correction is fit once, at the end of its
+own training, against the backbone's state AT THAT MOMENT. Every subsequent
+task then updates the shared backbone (SI's penalty limits how much it can
+move, but Blocks 8-9 already established it still moves enough to break
+things). The LoRA correction itself survives unchanged, but the thing it was
+calibrated to correct has drifted out from under it -- so the sum (drifted
+backbone + stale correction) is no better than the drifted backbone alone.
+A static per-task adapter cannot compensate for a moving target, regardless
+of rank or how many layers it's attached to.
+
+**This closes off the "give each task a small protected parameter subset"
+family of fixes as cheaply as they can be tested.** Six independent
+mechanisms have now been tried and validated (each on the stress4/stress8
+harness, several also confirmed or refuted at full 15-task scale): FiLM at
+3 levels, SI coefficient (0.1-10.0), capacity (width 4096, depth 10 blocks),
+block-level LoRA, output-head LoRA. None fixes the core pattern. Two
+structural facts, established with actual evidence, explain why: (1)
+`omega_total` accumulates monotonically and never resets (direct code
+read), so a 100%-shared network's capacity to keep learning shrinks as more
+tasks train; (2) the backbone genuinely drifts across tasks even under that
+penalty (Blocks 8-9's task-count-scaling data), which is why static
+corrections don't help -- the problem isn't "the network can't express task
+T's solution," it's "whatever expresses it keeps moving."
+
+**Final conclusion for CL-V6**: this architecture family (single shared
+network + any combination of task-embedding conditioning and/or per-task
+LoRA corrections, trained with SI) has been exhausted within reasonable
+effort. Best validated result: Wave 2, 0.342 ± 0.078, well below CL-V5's
+per-task-head baseline of 0.795 ± 0.041. A genuine fix would need to address
+the moving-target problem directly -- e.g. a regularizer that doesn't
+monotonically accumulate (contradicts "SI only"), or enough dedicated
+per-task capacity that the backbone barely needs to move for any one task
+(at the limit, this is what per-task heads already do, and is a much larger
+departure from "maximum sharing" than anything tried here). Neither is a
+small next experiment; both are new research directions. Recommending this
+investigation conclude here, with CL-V5's result standing as the validated
+best.
+
 ## Planned next
 
 | block | purpose |
