@@ -464,6 +464,23 @@ class SharedResidualStudentMLP(nn.Module):
             2 * self.action_size, name="out_head",
             kernel_init=nn.initializers.lecun_uniform(),
         )(x)
+        if self.lora_rank > 0:
+            # Per-task LoRA correction on out_head itself (Block 10 follow-up,
+            # EXPERIMENTS.md Block 11): the rank-8 block-only LoRA didn't move
+            # RotateValve/OpenDrawer at all and slightly hurt FlipSwitch. The
+            # root-caused bottleneck (Block 5) is specifically the shared
+            # out_head weights, which block-level LoRA never touches -- this
+            # gives out_head a genuine per-task weight correction too, not
+            # just activation-space FiLM.
+            out_lora_down = nn.Embed(
+                self.num_tasks, self.width * self.lora_rank,
+                embedding_init=nn.initializers.lecun_uniform(), name="out_lora_down",
+            )(task_idx).reshape(self.width, self.lora_rank)
+            out_lora_up = nn.Embed(
+                self.num_tasks, self.lora_rank * 2 * self.action_size,
+                embedding_init=nn.initializers.zeros, name="out_lora_up",
+            )(task_idx).reshape(self.lora_rank, 2 * self.action_size)
+            logits = logits + (x @ out_lora_down) @ out_lora_up
         # FiLM directly on the output logits too. Root-caused (EXPERIMENTS.md
         # Block 5): RotateValve's teacher action-mean range is [-14, 13] vs.
         # [-3, 2.4] for other tasks in this stress set -- roughly 5x wider.

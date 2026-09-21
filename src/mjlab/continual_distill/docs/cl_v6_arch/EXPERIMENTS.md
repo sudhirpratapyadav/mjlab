@@ -440,6 +440,21 @@ no-op. `--lora-rank` CLI flag (0 = disabled, matches Waves 1-2).
 Smoke-testing on the stress4 harness (rank 8, si-coeff 5.0, same recipe as
 Wave 2) before considering another full 15-task run.
 
+**Result: LoRA on the residual blocks alone did NOT help, and slightly
+hurt.** ToppleBlock 0.938 (vs 0.906 baseline), RotateValve **0.000** (same
+as baseline, unmoved), OpenDrawer **0.000** (vs 0.031, worse), FlipSwitch
+**0.766** (vs 0.953, notably worse). Average 0.426 vs baseline 0.473 --
+slightly worse overall.
+
+## Block 11 — LoRA on out_head too
+
+Block-only LoRA never touches `out_head`, which Block 5 root-caused as the
+actual bottleneck for RotateValve (a fully-shared final layer, shaped mostly
+by small-action-range tasks, needing an order-of-magnitude larger effective
+gain for one outlier task). Added a second per-task LoRA correction directly
+on `out_head`'s output (same embedding-table mechanism, zero-init `up`
+projection). Testing on stress4 (rank 8, si-coeff 5.0) now.
+
 ## Planned next
 
 | block | purpose |
