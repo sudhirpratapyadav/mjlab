@@ -1,0 +1,39 @@
+# 8-task stress harness, extending tasks_cl_v6_stress4.yaml with 4 more
+# tasks, same 100-epoch budget per task. Used to test whether the
+# middle-task forgetting pattern WORSENS as task count grows (which would
+# confirm the SI-accumulation-rigidity hypothesis: omega_total only grows,
+# never resets, so a fully-shared network gets progressively harder to
+# update as more tasks stack their importance onto the same weights).
+tasks:
+  ToppleBlock:
+    env_id: "Mjlab-Topple-Block-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414"
+    num_epochs: 100
+  RotateValve:
+    env_id: "Mjlab-Rotate-Valve-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Rotate_Valve_Franka_model_1999_20260918_154414"
+    num_epochs: 100
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1000_20260918_154342"
+    num_epochs: 100
+  FlipSwitch:
+    env_id: "Mjlab-Flip-Switch-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343"
+    num_epochs: 100
+  ThrowToBin:
+    env_id: "Mjlab-Throw-To-Bin-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Throw_To_Bin_Franka_model_14098_20260918_154427"
+    num_epochs: 100
+  ReachTarget:
+    env_id: "Mjlab-Reach-Target-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Reach_Target_Franka_model_499_20260918_154243"
+    num_epochs: 100
+  PushButton:
+    env_id: "Mjlab-Push-Button-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Push_Button_Franka_model_700_20260918_154344"
+    num_epochs: 100
+  PushFlap:
+    env_id: "Mjlab-Push-Flap-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Push_Flap_Franka_model_900_20260918_154342"
+    num_epochs: 100

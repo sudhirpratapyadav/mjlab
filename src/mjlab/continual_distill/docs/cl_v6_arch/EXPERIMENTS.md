@@ -362,6 +362,69 @@ conditioning-of-shared-weights. This is a real design choice to bring to the
 user rather than a self-authorized deviation from "maximum sharing," since
 it moves further from the original all-conditioning design.
 
+## Block 9 — 8-task stress test: nuanced support for the rigidity hypothesis
+
+Extended the stress harness to 8 tasks (ToppleBlock/RotateValve/OpenDrawer/
+FlipSwitch/ThrowToBin/ReachTarget/PushButton/PushFlap), same recipe as Wave 2
+(si-coeff 5.0, all FiLM layers), 100 epochs/task, 70 min:
+
+| task (position) | 4-task result | 8-task result |
+|---|---|---|
+| ToppleBlock (1st) | 0.906 | 0.844 |
+| RotateValve (2nd) | 0.000 | 0.016 |
+| OpenDrawer (3rd) | 0.031 | 0.000 |
+| FlipSwitch (4th, was LAST at 4-task) | 0.953 | 0.766 |
+| ThrowToBin (5th) | -- | 0.000 |
+| ReachTarget (6th) | -- | **1.000** |
+| PushButton (7th) | -- | **0.875** |
+| PushFlap (8th, LAST) | -- | **1.000** |
+
+Average: 4-task 0.473 -> 8-task **0.563** (higher, not lower -- adding 4 more
+tasks did not uniformly hurt). But the *mechanism* still shows through:
+FlipSwitch degraded specifically because it moved from "last task, no one
+trains on top of it" to "4th of 8, with 4 more tasks piled on afterward"
+(0.953 -> 0.766). RotateValve/OpenDrawer/ThrowToBin stay near-zero
+regardless of scale -- these are intrinsically fragile tasks (matching
+CL-V5's own fragile trio finding), not purely a scale effect. Meanwhile
+ReachTarget/PushButton/PushFlap, positioned mid-to-late in the 8-task chain,
+retain excellently.
+
+**The real tell is cross-referencing against Wave 2 (15 tasks, same recipe)**:
+PushButton scored 0.875 here at position 7-of-8, but collapsed to
+**0.000 / 0.297** in 2 of Wave 2's 3 seeds at N=15. That is the rigidity
+signature -- not smooth degradation from 4 to 8 tasks, but a cliff between
+~8 and ~15: capacity/robustness that holds up through a moderate sequence
+length starts failing broadly once enough prior tasks have accumulated SI
+pressure on the fully-shared weights. This is consistent with (not
+definitively proven by, but strongly suggested by) the structural
+`omega_total` monotonic-accumulation mechanism identified in Block 8.
+
+## Conclusion
+
+CL-V6's architecture family (single shared network, task-embedding + 3-level
+FiLM conditioning, SI-only) has now been extensively characterized:
+- Capacity (width 4096, depth 10 blocks): doesn't fix it (Wave 1 probes,
+  0.25/0.34).
+- Conditioning strength (block/out_head/out_logit FiLM): fixes some failure
+  modes (Wave 1 -> Wave 2 improvement, 0.22-0.30 -> 0.342) but not enough.
+- SI coefficient (0.1 to 10.0): doesn't fix the core pattern.
+- Task count (4 -> 8 -> 15): degradation is real and appears to worsen
+  sharply past ~8 tasks, consistent with the structural SI-accumulation
+  mechanism under 100% weight sharing.
+
+**Wave 2's 0.342 ± 0.078 average is the best validated result for this
+architecture family, and it remains well below CL-V5's per-task-head
+baseline of 0.795 ± 0.041.** Neither Wave 1 nor Wave 2 is published. The
+practical, structural reason is that SI's importance penalty accumulates
+monotonically and is shared across literally every parameter when the
+network has zero task-specific weight subsets -- a fundamental tension with
+the "maximum sharing" design constraint at this task count, not a tuning
+failure. The remaining lever (giving each task a small amount of protected,
+non-fully-shared capacity -- e.g. lightweight per-task adapters, still >95%
+shared) would directly address this but revisits the "maximum sharing"
+constraint the user set, and is being surfaced as a decision point rather
+than self-authorized.
+
 ## Planned next
 
 | block | purpose |

@@ -1,7 +1,8 @@
 # Status — CL-V6 architecture
 
-**P0 (shared-network implementation) and P1 (training-technique adoption)
-both done and validated. No full runs launched yet.**
+**Thoroughly characterized, concluded below CL-V5's baseline. Awaiting user
+decision on whether to pursue a per-task-adapter redesign (see EXPERIMENTS.md
+Block 9 "Conclusion") or treat CL-V5 (0.795 mean) as the validated best.**
 
 ## Readiness
 
