@@ -157,6 +157,26 @@ estimate to build that anchor from. Launched a position-swap diagnostic
 task-specific from position-specific -- if the zero follows ToppleBlock
 this time, it's position 1 that's uniquely hard, not RotateValve itself.
 
+## Block 4 — position-swap result: task-specific, not position-specific
+
+RotateValve at position 0 (the previously "safe" slot): **still 0.000**.
+ToppleBlock moved to position 1 (the previously "hard" slot): **0.875**, not
+zero. Conclusion: **the failure follows RotateValve specifically**, not the
+task-1 position. This lines up with the fact that RotateValve was NOT
+flagged as fragile in CL-V5's per-task-head architecture (0.969-1.0 success
+across multiple runs there) -- something about the shared architecture
+specifically breaks this one task.
+
+**New hypothesis**: `out_head` (the final Dense from trunk features to
+action logits) had NO task conditioning at all -- FiLM was only applied
+inside the residual blocks, before `out_norm`. RotateValve's teacher return
+scale (~18-21) is 2-3x most other tasks here (~6-11); if its action
+distribution is different enough from the rest, a fully task-agnostic final
+layer may not be able to represent it alongside everything else. Added FiLM
+conditioning at the output head too (same pattern: zero-init generator from
+the task embedding, applied to the pre-`out_head` features). Testing on the
+original stress4 ordering (si-coeff 1.0) now.
+
 ## Planned next
 
 | block | purpose |

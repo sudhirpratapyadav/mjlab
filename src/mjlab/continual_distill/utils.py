@@ -420,6 +420,17 @@ class SharedResidualStudentMLP(nn.Module):
             x = ResidualMLPBlock(self.width, name=f"block_{i}")(x, embed)
 
         x = nn.LayerNorm(name="out_norm")(x)
+        # FiLM the pre-output-head features too, not just the trunk blocks.
+        # Diagnostic (EXPERIMENTS.md Block 4): RotateValve scored exactly
+        # 0.000 regardless of position or si-coeff -- a task-specific, not
+        # position-specific, failure. The out_head Dense below is the only
+        # layer with NO task conditioning at all; if a task's action
+        # distribution differs enough from the others (RotateValve's teacher
+        # return scale is ~2-3x most other tasks here), a fully task-agnostic
+        # final layer may simply be unable to represent it well.
+        out_film = nn.Dense(2 * self.width, kernel_init=nn.initializers.zeros, name="out_film")(embed)
+        out_scale, out_shift = jnp.split(out_film, 2, axis=-1)
+        x = x * (1.0 + out_scale) + out_shift
         logits = nn.Dense(
             2 * self.action_size, name="out_head",
             kernel_init=nn.initializers.lecun_uniform(),
