@@ -50662,3 +50662,4169 @@ Environment info:
     episode_success: [0. 0. 0. 0. 0.] (first 5)
     metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
 
+--- TEACHER ROLLOUT START ---
+Setting seed: 13199
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8438
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 13199
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_lid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_lid.target_pos[0]: [ 7.5080023  -7.008267    0.33617938]
+  Step 0: episode_length_buf=1
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  open_lid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 13 (OpenLid):
+  env_loss: 61.692528
+  teacher_return: 6.3999
+  student_return: 3.1709
+  teacher_success: 0.8438
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2280300):
+  EnvEval/task_13_OpenLid/ts_loss/total: 61.6925
+  Rewards/task_13_OpenLid: 3.1709
+  Accuracy/task_13_OpenLid: 0.0000
+  Training/epoch: 200.0000
+
+  >>> Task 13 (OpenLid) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 14 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 14 (DragPull) | Step 2280300 | Epoch 200
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 14199
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9375
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 14199
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5515537 -5.4259744  0.015    ]
+  drag_pull.object_pos[0]: [ 5.652295  -5.2728295  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.1833m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 0. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9531
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 14 (DragPull):
+  env_loss: 0.864082
+  teacher_return: 6.3476
+  student_return: 6.3543
+  teacher_success: 0.9375
+  student_success: 0.9531
+================================================================================
+
+LOGGING TO WANDB (step 2280300):
+  EnvEval/task_14_DragPull/ts_loss/total: 0.8641
+  Rewards/task_14_DragPull: 6.3543
+  Accuracy/task_14_DragPull: 0.9531
+  Training/epoch: 200.0000
+
+  >>> Task 14 (DragPull) evaluation complete!
+      Student success: 0.9531
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-14
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl-arch-20260920/src/mjlab/continual_distill/docs/cl_v6_arch/results/cl-v6-w2048b10-s0/checkpoint_task14_epoch200_step2280300.pkl
+    Epoch 0220 | Task 14 | KL(train) = 0.675587 | KL(test) = 0.423887
+    Epoch 0240 | Task 14 | KL(train) = 0.664085 | KL(test) = 0.412554
+    Epoch 0260 | Task 14 | KL(train) = 0.659302 | KL(test) = 0.421038
+    Epoch 0280 | Task 14 | KL(train) = 0.578237 | KL(test) = 0.347639
+    Epoch 0300 | Task 14 | KL(train) = 0.591602 | KL(test) = 0.374781
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 14
+### Global step: 2304200, Epoch: 300
+### Will evaluate tasks 0 to 14 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (ToppleBlock) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (ToppleBlock) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'topple_block':
+    episode_success: [1. 1. 1. 0. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 0. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.643847  -5.3556843  0.105    ]
+  topple_block.object_pos[0]: [ 5.643847  -5.3556843  0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    topple_block.episode_success[:5]: [1. 0. 1. 0. 0.]
+  Step 149: episode_length_buf=150
+    topple_block.episode_success[:5]: [1. 1. 1. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 0. 0. 0. 1. 1. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 0. 0. 0. 1. 1. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.8281
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (ToppleBlock):
+  env_loss: 185.633271
+  teacher_return: -5.5829
+  student_return: -33.9837
+  teacher_success: 0.9844
+  student_success: 0.8281
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_0_ToppleBlock/ts_loss/total: 185.6333
+  Rewards/task_0_ToppleBlock: -33.9837
+  Accuracy/task_0_ToppleBlock: 0.8281
+  Training/epoch: 300.0000
+
+  >>> Task 0 (ToppleBlock) evaluation complete!
+      Student success: 0.8281
+
+
+  >>> Evaluating Task 1 (RotateValve) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 1 (RotateValve) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 400
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'rotate_valve':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7344
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  rotate_valve.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  rotate_valve.target_pos[0]: [ 7.46077    -7.1267743   0.11543953]
+  Step 0: episode_length_buf=1
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  rotate_valve state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (RotateValve):
+  env_loss: 63.246284
+  teacher_return: -42.9466
+  student_return: -45.2462
+  teacher_success: 0.7344
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_1_RotateValve/ts_loss/total: 63.2463
+  Rewards/task_1_RotateValve: -45.2462
+  Accuracy/task_1_RotateValve: 0.0000
+  Training/epoch: 300.0000
+
+  >>> Task 1 (RotateValve) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 2 (OpenDrawer) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 2 (OpenDrawer) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_drawer':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 2299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.6875
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 2299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_drawer.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_drawer.target_pos[0]: [ 7.2014976 -6.9017305  0.3689065]
+  Step 0: episode_length_buf=1
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_drawer state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0156
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 2 (OpenDrawer):
+  env_loss: 73.726798
+  teacher_return: 3.6126
+  student_return: -3.4027
+  teacher_success: 0.6875
+  student_success: 0.0156
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_2_OpenDrawer/ts_loss/total: 73.7268
+  Rewards/task_2_OpenDrawer: -3.4027
+  Accuracy/task_2_OpenDrawer: 0.0156
+  Training/epoch: 300.0000
+
+  >>> Task 2 (OpenDrawer) evaluation complete!
+      Student success: 0.0156
+
+
+  >>> Evaluating Task 3 (FlipSwitch) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 3 (FlipSwitch) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'flip_switch':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 3299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7344
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 3299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  flip_switch.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  flip_switch.target_pos[0]: [ 7.52422    -6.92639     0.15000197]
+  Step 0: episode_length_buf=1
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 1.]
+  Step 149: episode_length_buf=0
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  flip_switch state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.6562
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 3 (FlipSwitch):
+  env_loss: 76.737586
+  teacher_return: 3.7203
+  student_return: 0.1631
+  teacher_success: 0.7344
+  student_success: 0.6562
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_3_FlipSwitch/ts_loss/total: 76.7376
+  Rewards/task_3_FlipSwitch: 0.1631
+  Accuracy/task_3_FlipSwitch: 0.6562
+  Training/epoch: 300.0000
+
+  >>> Task 3 (FlipSwitch) evaluation complete!
+      Student success: 0.6562
+
+
+  >>> Evaluating Task 4 (ThrowToBin) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 4 (ThrowToBin) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'place_in_container':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 4299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.5312
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 4299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  place_in_container.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  place_in_container.target_pos[0]: [ 9.534534 -8.736707  0.0266  ]
+  place_in_container.object_pos[0]: [ 9.1802845 -8.510291   0.03     ]
+  place_in_container.initial_goal_error[0]: 0.4204m
+  Step 0: episode_length_buf=1
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 127   2 150 130] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  place_in_container state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 4 (ThrowToBin):
+  env_loss: 135.901441
+  teacher_return: -9.1015
+  student_return: -5.9129
+  teacher_success: 0.5312
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_4_ThrowToBin/ts_loss/total: 135.9014
+  Rewards/task_4_ThrowToBin: -5.9129
+  Accuracy/task_4_ThrowToBin: 0.0000
+  Training/epoch: 300.0000
+
+  >>> Task 4 (ThrowToBin) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 5 (ReachTarget) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 5 (ReachTarget) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 1000
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'reach_target':
+    episode_success: [1. 1. 1. 0. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 0. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 5299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 5299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  reach_target.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  reach_target.target_pos[0]: [ 5.786718   -5.460146    0.28453323]
+  Step 0: episode_length_buf=1
+    reach_target.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    reach_target.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 149: episode_length_buf=150
+    reach_target.episode_success[:5]: [1. 1. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  reach_target state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 1. 1. 1. 1. 1. 0. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 1. 1. 1. 1. 1. 0. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 5 (ReachTarget):
+  env_loss: 63.436807
+  teacher_return: 2.8067
+  student_return: 0.8888
+  teacher_success: 1.0000
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_5_ReachTarget/ts_loss/total: 63.4368
+  Rewards/task_5_ReachTarget: 0.8888
+  Accuracy/task_5_ReachTarget: 0.9688
+  Training/epoch: 300.0000
+
+  >>> Task 5 (ReachTarget) evaluation complete!
+      Student success: 0.9688
+
+
+  >>> Evaluating Task 6 (SlideWindow) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 6 (SlideWindow) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'slide_window':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 6299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9375
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 6299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  slide_window.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  slide_window.target_pos[0]: [ 7.482985   -6.7846904   0.27522728]
+  Step 0: episode_length_buf=1
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  slide_window state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.1875
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 6 (SlideWindow):
+  env_loss: 67.606537
+  teacher_return: 7.0452
+  student_return: 0.6341
+  teacher_success: 0.9375
+  student_success: 0.1875
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_6_SlideWindow/ts_loss/total: 67.6065
+  Rewards/task_6_SlideWindow: 0.6341
+  Accuracy/task_6_SlideWindow: 0.1875
+  Training/epoch: 300.0000
+
+  >>> Task 6 (SlideWindow) evaluation complete!
+      Student success: 0.1875
+
+
+  >>> Evaluating Task 7 (PushButton) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 7 (PushButton) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_button':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 7299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8750
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 7299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_button.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_button.target_pos[0]: [ 7.473785   -7.081695    0.12279087]
+  Step 0: episode_length_buf=1
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_button state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 7 (PushButton):
+  env_loss: 116.144456
+  teacher_return: 6.3131
+  student_return: 2.8180
+  teacher_success: 0.8750
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_7_PushButton/ts_loss/total: 116.1445
+  Rewards/task_7_PushButton: 2.8180
+  Accuracy/task_7_PushButton: 0.0000
+  Training/epoch: 300.0000
+
+  >>> Task 7 (PushButton) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 8 (PushFlap) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 8 (PushFlap) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_flap':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 8299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 8299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_flap.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_flap.target_pos[0]: [ 7.6318316  -7.057061    0.19620924]
+  Step 0: episode_length_buf=1
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_flap.episode_success[:5]: [1. 1. 0. 1. 1.]
+  Step 149: episode_length_buf=0
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_flap state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9375
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 8 (PushFlap):
+  env_loss: 135.916692
+  teacher_return: 7.8091
+  student_return: 5.3808
+  teacher_success: 0.9531
+  student_success: 0.9375
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_8_PushFlap/ts_loss/total: 135.9167
+  Rewards/task_8_PushFlap: 5.3808
+  Accuracy/task_8_PushFlap: 0.9375
+  Training/epoch: 300.0000
+
+  >>> Task 8 (PushFlap) evaluation complete!
+      Student success: 0.9375
+
+
+  >>> Evaluating Task 9 (PushCuboid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 9 (PushCuboid) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [  0   0 136   0   0] (first 5)
+  Command 'push_cuboid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 9299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 9299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_cuboid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_cuboid.target_pos[0]: [ 5.7239594 -5.20884    0.015    ]
+  push_cuboid.object_pos[0]: [ 5.625478  -5.3446274  0.015    ]
+  push_cuboid.initial_goal_error[0]: 0.1677m
+  Step 0: episode_length_buf=1
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_cuboid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0312
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 9 (PushCuboid):
+  env_loss: 931.225894
+  teacher_return: 1.3461
+  student_return: 3.8164
+  teacher_success: 1.0000
+  student_success: 0.0312
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_9_PushCuboid/ts_loss/total: 931.2259
+  Rewards/task_9_PushCuboid: 3.8164
+  Accuracy/task_9_PushCuboid: 0.0312
+  Training/epoch: 300.0000
+
+  >>> Task 9 (PushCuboid) evaluation complete!
+      Student success: 0.0312
+
+
+  >>> Evaluating Task 10 (AxialExtract) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 10 (AxialExtract) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'axial_extract':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 10299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7656
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 10299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  axial_extract.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  axial_extract.target_pos[0]: [ 7.4132204  -7.066405    0.26749545]
+  Step 0: episode_length_buf=1
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    axial_extract.episode_success[:5]: [0. 0. 0. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  axial_extract state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 1. 1. 0. 1. 0. 0. 1.]
+    metrics['episode_success'][:10]: [0. 0. 0. 1. 1. 0. 1. 0. 0. 1.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0] (first 10)
+  Mean: 0.3906
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 10 (AxialExtract):
+  env_loss: 87.750753
+  teacher_return: 6.6886
+  student_return: 2.3110
+  teacher_success: 0.7656
+  student_success: 0.3906
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_10_AxialExtract/ts_loss/total: 87.7508
+  Rewards/task_10_AxialExtract: 2.3110
+  Accuracy/task_10_AxialExtract: 0.3906
+  Training/epoch: 300.0000
+
+  >>> Task 10 (AxialExtract) evaluation complete!
+      Student success: 0.3906
+
+
+  >>> Evaluating Task 11 (TurnLever) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 11 (TurnLever) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'turn_lever':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 11299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 11299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  turn_lever.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  turn_lever.target_pos[0]: [ 7.5077724  -7.137979    0.06484867]
+  Step 0: episode_length_buf=1
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  turn_lever state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 11 (TurnLever):
+  env_loss: 17.194526
+  teacher_return: 6.6880
+  student_return: 1.8592
+  teacher_success: 0.9531
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_11_TurnLever/ts_loss/total: 17.1945
+  Rewards/task_11_TurnLever: 1.8592
+  Accuracy/task_11_TurnLever: 0.0000
+  Training/epoch: 300.0000
+
+  >>> Task 11 (TurnLever) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 12 (OpenDoor) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 12 (OpenDoor) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_door':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 12299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7969
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 12299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_door.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_door.target_pos[0]: [ 7.2828164  -7.383724    0.37559637]
+  Step 0: episode_length_buf=1
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_door state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0312
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 12 (OpenDoor):
+  env_loss: 17.559523
+  teacher_return: 6.6194
+  student_return: 0.4499
+  teacher_success: 0.7969
+  student_success: 0.0312
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_12_OpenDoor/ts_loss/total: 17.5595
+  Rewards/task_12_OpenDoor: 0.4499
+  Accuracy/task_12_OpenDoor: 0.0312
+  Training/epoch: 300.0000
+
+  >>> Task 12 (OpenDoor) evaluation complete!
+      Student success: 0.0312
+
+
+  >>> Evaluating Task 13 (OpenLid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 13 (OpenLid) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'open_lid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 13299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8438
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 13299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_lid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_lid.target_pos[0]: [ 7.470979   -7.075657    0.35536918]
+  Step 0: episode_length_buf=1
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  open_lid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 13 (OpenLid):
+  env_loss: 58.893194
+  teacher_return: 6.4515
+  student_return: 3.0798
+  teacher_success: 0.8438
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_13_OpenLid/ts_loss/total: 58.8932
+  Rewards/task_13_OpenLid: 3.0798
+  Accuracy/task_13_OpenLid: 0.0000
+  Training/epoch: 300.0000
+
+  >>> Task 13 (OpenLid) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 14 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 14 (DragPull) | Step 2304200 | Epoch 300
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 14299
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 14299
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.555688  -5.0106378  0.015    ]
+  drag_pull.object_pos[0]: [ 5.6252475 -5.1874156  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.1900m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9844
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 14 (DragPull):
+  env_loss: 0.504889
+  teacher_return: 6.8495
+  student_return: 6.6375
+  teacher_success: 0.9844
+  student_success: 0.9844
+================================================================================
+
+LOGGING TO WANDB (step 2304200):
+  EnvEval/task_14_DragPull/ts_loss/total: 0.5049
+  Rewards/task_14_DragPull: 6.6375
+  Accuracy/task_14_DragPull: 0.9844
+  Training/epoch: 300.0000
+
+  >>> Task 14 (DragPull) evaluation complete!
+      Student success: 0.9844
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-14
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl-arch-20260920/src/mjlab/continual_distill/docs/cl_v6_arch/results/cl-v6-w2048b10-s0/checkpoint_task14_epoch300_step2304200.pkl
+    Epoch 0320 | Task 14 | KL(train) = 0.578748 | KL(test) = 0.350156
+    Epoch 0340 | Task 14 | KL(train) = 0.603353 | KL(test) = 0.403697
+    Epoch 0360 | Task 14 | KL(train) = 0.567304 | KL(test) = 0.346611
+    Epoch 0380 | Task 14 | KL(train) = 0.528169 | KL(test) = 0.323630
+    Epoch 0400 | Task 14 | KL(train) = 0.521530 | KL(test) = 0.322676
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 14
+### Global step: 2328100, Epoch: 400
+### Will evaluate tasks 0 to 14 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (ToppleBlock) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (ToppleBlock) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'topple_block':
+    episode_success: [1. 1. 1. 0. 0.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.640808 -5.391571  0.105   ]
+  topple_block.object_pos[0]: [ 5.640808 -5.391571  0.105   ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    topple_block.episode_success[:5]: [0. 1. 1. 1. 1.]
+  Step 149: episode_length_buf=16
+    topple_block.episode_success[:5]: [0. 0. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [ 16  12 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [0. 0. 1. 1. 1. 0. 1. 1. 1. 0.]
+    metrics['episode_success'][:10]: [0. 0. 1. 1. 1. 0. 1. 1. 1. 0.]
+  Final student_successes (latched): [0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0] (first 10)
+  Mean: 0.8125
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (ToppleBlock):
+  env_loss: 183.760429
+  teacher_return: -6.8011
+  student_return: -40.5608
+  teacher_success: 0.9844
+  student_success: 0.8125
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_0_ToppleBlock/ts_loss/total: 183.7604
+  Rewards/task_0_ToppleBlock: -40.5608
+  Accuracy/task_0_ToppleBlock: 0.8125
+  Training/epoch: 400.0000
+
+  >>> Task 0 (ToppleBlock) evaluation complete!
+      Student success: 0.8125
+
+
+  >>> Evaluating Task 1 (RotateValve) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 1 (RotateValve) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 400
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'rotate_valve':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7031
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  rotate_valve.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  rotate_valve.target_pos[0]: [ 7.46965    -7.12102     0.09587578]
+  Step 0: episode_length_buf=1
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  rotate_valve state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (RotateValve):
+  env_loss: 79.469982
+  teacher_return: -44.9176
+  student_return: -44.9495
+  teacher_success: 0.7031
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_1_RotateValve/ts_loss/total: 79.4700
+  Rewards/task_1_RotateValve: -44.9495
+  Accuracy/task_1_RotateValve: 0.0000
+  Training/epoch: 400.0000
+
+  >>> Task 1 (RotateValve) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 2 (OpenDrawer) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 2 (OpenDrawer) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_drawer':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 2399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7969
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 2399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_drawer.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_drawer.target_pos[0]: [ 7.2427425  -7.0109687   0.34774652]
+  Step 0: episode_length_buf=1
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_drawer state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0469
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 2 (OpenDrawer):
+  env_loss: 87.575395
+  teacher_return: 3.7495
+  student_return: -56.5790
+  teacher_success: 0.7969
+  student_success: 0.0469
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_2_OpenDrawer/ts_loss/total: 87.5754
+  Rewards/task_2_OpenDrawer: -56.5790
+  Accuracy/task_2_OpenDrawer: 0.0469
+  Training/epoch: 400.0000
+
+  >>> Task 2 (OpenDrawer) evaluation complete!
+      Student success: 0.0469
+
+
+  >>> Evaluating Task 3 (FlipSwitch) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 3 (FlipSwitch) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'flip_switch':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 3399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.6562
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 3399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  flip_switch.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  flip_switch.target_pos[0]: [ 7.510557   -6.9545784   0.17009619]
+  Step 0: episode_length_buf=1
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    flip_switch.episode_success[:5]: [1. 0. 0. 1. 0.]
+  Step 149: episode_length_buf=0
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  flip_switch state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.3125
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 3 (FlipSwitch):
+  env_loss: 69.883424
+  teacher_return: 3.2474
+  student_return: -0.7372
+  teacher_success: 0.6562
+  student_success: 0.3125
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_3_FlipSwitch/ts_loss/total: 69.8834
+  Rewards/task_3_FlipSwitch: -0.7372
+  Accuracy/task_3_FlipSwitch: 0.3125
+  Training/epoch: 400.0000
+
+  >>> Task 3 (FlipSwitch) evaluation complete!
+      Student success: 0.3125
+
+
+  >>> Evaluating Task 4 (ThrowToBin) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 4 (ThrowToBin) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 127   2 150 130] (first 5)
+  Command 'place_in_container':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 4399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.6250
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 4399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  place_in_container.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  place_in_container.target_pos[0]: [ 9.61546  -8.855254  0.0266  ]
+  place_in_container.object_pos[0]: [ 9.1295    -8.9212885  0.03     ]
+  place_in_container.initial_goal_error[0]: 0.4904m
+  Step 0: episode_length_buf=1
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=57
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=131
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [131 132 135 150  33] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  place_in_container state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 4 (ThrowToBin):
+  env_loss: 159.995427
+  teacher_return: -9.3170
+  student_return: -4.9806
+  teacher_success: 0.6250
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_4_ThrowToBin/ts_loss/total: 159.9954
+  Rewards/task_4_ThrowToBin: -4.9806
+  Accuracy/task_4_ThrowToBin: 0.0000
+  Training/epoch: 400.0000
+
+  >>> Task 4 (ThrowToBin) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 5 (ReachTarget) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 5 (ReachTarget) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 1000
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'reach_target':
+    episode_success: [1. 1. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 5399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 5399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  reach_target.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  reach_target.target_pos[0]: [ 5.70164    -5.3199263   0.27123582]
+  Step 0: episode_length_buf=1
+    reach_target.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    reach_target.episode_success[:5]: [1. 1. 1. 0. 1.]
+  Step 149: episode_length_buf=150
+    reach_target.episode_success[:5]: [1. 1. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  reach_target state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 5 (ReachTarget):
+  env_loss: 57.363395
+  teacher_return: 2.8055
+  student_return: 0.6924
+  teacher_success: 1.0000
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_5_ReachTarget/ts_loss/total: 57.3634
+  Rewards/task_5_ReachTarget: 0.6924
+  Accuracy/task_5_ReachTarget: 0.9688
+  Training/epoch: 400.0000
+
+  >>> Task 5 (ReachTarget) evaluation complete!
+      Student success: 0.9688
+
+
+  >>> Evaluating Task 6 (SlideWindow) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 6 (SlideWindow) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'slide_window':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 6399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8594
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 6399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  slide_window.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  slide_window.target_pos[0]: [ 7.5185404  -6.8107824   0.25771537]
+  Step 0: episode_length_buf=1
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    slide_window.episode_success[:5]: [0. 0. 1. 0. 0.]
+  Step 149: episode_length_buf=0
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  slide_window state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] (first 10)
+  Mean: 0.3125
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 6 (SlideWindow):
+  env_loss: 59.989179
+  teacher_return: 6.9616
+  student_return: 2.2299
+  teacher_success: 0.8594
+  student_success: 0.3125
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_6_SlideWindow/ts_loss/total: 59.9892
+  Rewards/task_6_SlideWindow: 2.2299
+  Accuracy/task_6_SlideWindow: 0.3125
+  Training/epoch: 400.0000
+
+  >>> Task 6 (SlideWindow) evaluation complete!
+      Student success: 0.3125
+
+
+  >>> Evaluating Task 7 (PushButton) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 7 (PushButton) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_button':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 7399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8906
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 7399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_button.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_button.target_pos[0]: [ 7.454238   -6.9754953   0.13897689]
+  Step 0: episode_length_buf=1
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_button state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 7 (PushButton):
+  env_loss: 108.422905
+  teacher_return: 6.1530
+  student_return: 2.7301
+  teacher_success: 0.8906
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_7_PushButton/ts_loss/total: 108.4229
+  Rewards/task_7_PushButton: 2.7301
+  Accuracy/task_7_PushButton: 0.0000
+  Training/epoch: 400.0000
+
+  >>> Task 7 (PushButton) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 8 (PushFlap) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 8 (PushFlap) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_flap':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 8399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9688
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 8399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_flap.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_flap.target_pos[0]: [ 7.5967345  -7.081472    0.21819022]
+  Step 0: episode_length_buf=1
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_flap.episode_success[:5]: [0. 0. 1. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_flap state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.8594
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 8 (PushFlap):
+  env_loss: 116.593830
+  teacher_return: 8.1046
+  student_return: 4.9858
+  teacher_success: 0.9688
+  student_success: 0.8594
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_8_PushFlap/ts_loss/total: 116.5938
+  Rewards/task_8_PushFlap: 4.9858
+  Accuracy/task_8_PushFlap: 0.8594
+  Training/epoch: 400.0000
+
+  >>> Task 8 (PushFlap) evaluation complete!
+      Student success: 0.8594
+
+
+  >>> Evaluating Task 9 (PushCuboid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 9 (PushCuboid) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_cuboid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 9399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 9399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_cuboid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_cuboid.target_pos[0]: [ 5.7482185 -5.3207946  0.015    ]
+  push_cuboid.object_pos[0]: [ 5.657541 -5.229105  0.015   ]
+  push_cuboid.initial_goal_error[0]: 0.1290m
+  Step 0: episode_length_buf=1
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_cuboid.episode_success[:5]: [0. 0. 1. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_cuboid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0938
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 9 (PushCuboid):
+  env_loss: 1001.655598
+  teacher_return: 1.3230
+  student_return: 4.0032
+  teacher_success: 1.0000
+  student_success: 0.0938
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_9_PushCuboid/ts_loss/total: 1001.6556
+  Rewards/task_9_PushCuboid: 4.0032
+  Accuracy/task_9_PushCuboid: 0.0938
+  Training/epoch: 400.0000
+
+  >>> Task 9 (PushCuboid) evaluation complete!
+      Student success: 0.0938
+
+
+  >>> Evaluating Task 10 (AxialExtract) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 10 (AxialExtract) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'axial_extract':
+    episode_success: [0. 0. 0. 1. 1.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 10399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7969
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 10399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  axial_extract.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  axial_extract.target_pos[0]: [ 7.4186077  -7.0813017   0.26483303]
+  Step 0: episode_length_buf=1
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    axial_extract.episode_success[:5]: [0. 0. 0. 1. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  axial_extract state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 1. 0. 0. 0. 1. 1. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 1. 0. 0. 0. 1. 1. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0] (first 10)
+  Mean: 0.3594
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 10 (AxialExtract):
+  env_loss: 83.634705
+  teacher_return: 6.9573
+  student_return: 1.9106
+  teacher_success: 0.7969
+  student_success: 0.3594
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_10_AxialExtract/ts_loss/total: 83.6347
+  Rewards/task_10_AxialExtract: 1.9106
+  Accuracy/task_10_AxialExtract: 0.3594
+  Training/epoch: 400.0000
+
+  >>> Task 10 (AxialExtract) evaluation complete!
+      Student success: 0.3594
+
+
+  >>> Evaluating Task 11 (TurnLever) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 11 (TurnLever) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'turn_lever':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 11399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 11399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  turn_lever.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  turn_lever.target_pos[0]: [ 7.4866414  -7.143269    0.07055393]
+  Step 0: episode_length_buf=1
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  turn_lever state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 11 (TurnLever):
+  env_loss: 17.641351
+  teacher_return: 6.9324
+  student_return: 2.1999
+  teacher_success: 0.9531
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_11_TurnLever/ts_loss/total: 17.6414
+  Rewards/task_11_TurnLever: 2.1999
+  Accuracy/task_11_TurnLever: 0.0000
+  Training/epoch: 400.0000
+
+  >>> Task 11 (TurnLever) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 12 (OpenDoor) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 12 (OpenDoor) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_door':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 12399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8281
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 12399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_door.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_door.target_pos[0]: [ 7.2725043 -7.274405   0.3483102]
+  Step 0: episode_length_buf=1
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_door state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0] (first 10)
+  Mean: 0.0781
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 12 (OpenDoor):
+  env_loss: 19.595273
+  teacher_return: 6.8270
+  student_return: 0.6481
+  teacher_success: 0.8281
+  student_success: 0.0781
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_12_OpenDoor/ts_loss/total: 19.5953
+  Rewards/task_12_OpenDoor: 0.6481
+  Accuracy/task_12_OpenDoor: 0.0781
+  Training/epoch: 400.0000
+
+  >>> Task 12 (OpenDoor) evaluation complete!
+      Student success: 0.0781
+
+
+  >>> Evaluating Task 13 (OpenLid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 13 (OpenLid) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'open_lid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 13399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8281
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 13399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_lid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_lid.target_pos[0]: [ 7.5140567  -7.045793    0.35833594]
+  Step 0: episode_length_buf=1
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  open_lid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 13 (OpenLid):
+  env_loss: 61.926534
+  teacher_return: 6.3392
+  student_return: 3.1767
+  teacher_success: 0.8281
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_13_OpenLid/ts_loss/total: 61.9265
+  Rewards/task_13_OpenLid: 3.1767
+  Accuracy/task_13_OpenLid: 0.0000
+  Training/epoch: 400.0000
+
+  >>> Task 13 (OpenLid) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 14 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 14 (DragPull) | Step 2328100 | Epoch 400
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 14399
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 14399
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.5635986 -5.3059697  0.015    ]
+  drag_pull.object_pos[0]: [ 5.682406 -5.100852  0.015   ]
+  drag_pull.initial_goal_error[0]: 0.2370m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 14 (DragPull):
+  env_loss: 0.469022
+  teacher_return: 6.7895
+  student_return: 6.5344
+  teacher_success: 1.0000
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 2328100):
+  EnvEval/task_14_DragPull/ts_loss/total: 0.4690
+  Rewards/task_14_DragPull: 6.5344
+  Accuracy/task_14_DragPull: 0.9688
+  Training/epoch: 400.0000
+
+  >>> Task 14 (DragPull) evaluation complete!
+      Student success: 0.9688
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-14
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl-arch-20260920/src/mjlab/continual_distill/docs/cl_v6_arch/results/cl-v6-w2048b10-s0/checkpoint_task14_epoch400_step2328100.pkl
+    Epoch 0420 | Task 14 | KL(train) = 0.508874 | KL(test) = 0.314288
+    Epoch 0440 | Task 14 | KL(train) = 0.493548 | KL(test) = 0.296404
+    Epoch 0460 | Task 14 | KL(train) = 0.490692 | KL(test) = 0.302051
+    Epoch 0480 | Task 14 | KL(train) = 0.489750 | KL(test) = 0.302882
+    Epoch 0500 | Task 14 | KL(train) = 0.486927 | KL(test) = 0.299388
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV CALLED ###
+### Current training task: 14
+### Global step: 2352000, Epoch: 500
+### Will evaluate tasks 0 to 14 (inclusive)
+####################################################################################################
+
+
+  >>> Evaluating Task 0 (ToppleBlock) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 0 (ToppleBlock) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [ 16  12 150 150 150] (first 5)
+  Command 'topple_block':
+    episode_success: [0. 0. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [0. 0. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9688
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.687533  -5.2526207  0.105    ]
+  topple_block.object_pos[0]: [ 5.687533  -5.2526207  0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    topple_block.episode_success[:5]: [0. 1. 0. 0. 1.]
+  Step 149: episode_length_buf=150
+    topple_block.episode_success[:5]: [1. 1. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150  91 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 1. 1. 1. 1. 0. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 1. 1. 1. 1. 0. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0] (first 10)
+  Mean: 0.8906
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (ToppleBlock):
+  env_loss: 182.056104
+  teacher_return: -5.9318
+  student_return: -39.5169
+  teacher_success: 0.9688
+  student_success: 0.8906
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_0_ToppleBlock/ts_loss/total: 182.0561
+  Rewards/task_0_ToppleBlock: -39.5169
+  Accuracy/task_0_ToppleBlock: 0.8906
+  Training/epoch: 500.0000
+
+  >>> Task 0 (ToppleBlock) evaluation complete!
+      Student success: 0.8906
+
+
+  >>> Evaluating Task 1 (RotateValve) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 1 (RotateValve) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 400
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'rotate_valve':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7812
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  rotate_valve.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  rotate_valve.target_pos[0]: [ 7.5076547  -7.0611005   0.10721429]
+  Step 0: episode_length_buf=1
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  rotate_valve state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (RotateValve):
+  env_loss: 91.732601
+  teacher_return: -44.8039
+  student_return: -46.4908
+  teacher_success: 0.7812
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_1_RotateValve/ts_loss/total: 91.7326
+  Rewards/task_1_RotateValve: -46.4908
+  Accuracy/task_1_RotateValve: 0.0000
+  Training/epoch: 500.0000
+
+  >>> Task 1 (RotateValve) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 2 (OpenDrawer) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 2 (OpenDrawer) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_drawer':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 2499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7812
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 2499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_drawer.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_drawer.target_pos[0]: [ 7.2049675  -6.887101    0.34795678]
+  Step 0: episode_length_buf=1
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_drawer state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0] (first 10)
+  Mean: 0.0312
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 2 (OpenDrawer):
+  env_loss: 94.792813
+  teacher_return: -22.9487
+  student_return: -59.2078
+  teacher_success: 0.7812
+  student_success: 0.0312
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_2_OpenDrawer/ts_loss/total: 94.7928
+  Rewards/task_2_OpenDrawer: -59.2078
+  Accuracy/task_2_OpenDrawer: 0.0312
+  Training/epoch: 500.0000
+
+  >>> Task 2 (OpenDrawer) evaluation complete!
+      Student success: 0.0312
+
+
+  >>> Evaluating Task 3 (FlipSwitch) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 3 (FlipSwitch) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'flip_switch':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 3499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8438
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 3499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  flip_switch.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  flip_switch.target_pos[0]: [ 7.513858  -6.9406404  0.1492637]
+  Step 0: episode_length_buf=1
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  flip_switch state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.2812
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 3 (FlipSwitch):
+  env_loss: 55.903795
+  teacher_return: 4.2367
+  student_return: -0.5559
+  teacher_success: 0.8438
+  student_success: 0.2812
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_3_FlipSwitch/ts_loss/total: 55.9038
+  Rewards/task_3_FlipSwitch: -0.5559
+  Accuracy/task_3_FlipSwitch: 0.2812
+  Training/epoch: 500.0000
+
+  >>> Task 3 (FlipSwitch) evaluation complete!
+      Student success: 0.2812
+
+
+  >>> Evaluating Task 4 (ThrowToBin) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 4 (ThrowToBin) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [131 132 135 150  33] (first 5)
+  Command 'place_in_container':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 4499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.6562
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 4499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  place_in_container.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  place_in_container.target_pos[0]: [ 9.531195 -8.866835  0.0266  ]
+  place_in_container.object_pos[0]: [ 9.125853 -8.934669  0.03    ]
+  place_in_container.initial_goal_error[0]: 0.4110m
+  Step 0: episode_length_buf=1
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=29
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=103
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [103  13 150 115 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  place_in_container state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0156
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 4 (ThrowToBin):
+  env_loss: 181.923884
+  teacher_return: -9.0575
+  student_return: -6.7790
+  teacher_success: 0.6562
+  student_success: 0.0156
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_4_ThrowToBin/ts_loss/total: 181.9239
+  Rewards/task_4_ThrowToBin: -6.7790
+  Accuracy/task_4_ThrowToBin: 0.0156
+  Training/epoch: 500.0000
+
+  >>> Task 4 (ThrowToBin) evaluation complete!
+      Student success: 0.0156
+
+
+  >>> Evaluating Task 5 (ReachTarget) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 5 (ReachTarget) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 1000
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'reach_target':
+    episode_success: [1. 1. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 5499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 5499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  reach_target.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  reach_target.target_pos[0]: [ 5.762394   -5.003723    0.21708706]
+  Step 0: episode_length_buf=1
+    reach_target.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    reach_target.episode_success[:5]: [1. 0. 1. 1. 1.]
+  Step 149: episode_length_buf=150
+    reach_target.episode_success[:5]: [1. 1. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  reach_target state BEFORE extraction:
+    episode_success[:10]: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+    metrics['episode_success'][:10]: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9531
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 5 (ReachTarget):
+  env_loss: 48.978172
+  teacher_return: 2.8155
+  student_return: 0.6964
+  teacher_success: 1.0000
+  student_success: 0.9531
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_5_ReachTarget/ts_loss/total: 48.9782
+  Rewards/task_5_ReachTarget: 0.6964
+  Accuracy/task_5_ReachTarget: 0.9531
+  Training/epoch: 500.0000
+
+  >>> Task 5 (ReachTarget) evaluation complete!
+      Student success: 0.9531
+
+
+  >>> Evaluating Task 6 (SlideWindow) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 6 (SlideWindow) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'slide_window':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 6499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 6499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  slide_window.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  slide_window.target_pos[0]: [ 7.530654  -6.8103113  0.257029 ]
+  Step 0: episode_length_buf=1
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  slide_window state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0] (first 10)
+  Mean: 0.3438
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 6 (SlideWindow):
+  env_loss: 59.417085
+  teacher_return: 7.3048
+  student_return: 2.5082
+  teacher_success: 0.9531
+  student_success: 0.3438
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_6_SlideWindow/ts_loss/total: 59.4171
+  Rewards/task_6_SlideWindow: 2.5082
+  Accuracy/task_6_SlideWindow: 0.3438
+  Training/epoch: 500.0000
+
+  >>> Task 6 (SlideWindow) evaluation complete!
+      Student success: 0.3438
+
+
+  >>> Evaluating Task 7 (PushButton) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 7 (PushButton) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_button':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 7499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 7499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_button.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_button.target_pos[0]: [ 7.463119  -7.0199213  0.1144468]
+  Step 0: episode_length_buf=1
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_button state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 7 (PushButton):
+  env_loss: 101.090908
+  teacher_return: 6.6202
+  student_return: 2.7842
+  teacher_success: 0.9531
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_7_PushButton/ts_loss/total: 101.0909
+  Rewards/task_7_PushButton: 2.7842
+  Accuracy/task_7_PushButton: 0.0000
+  Training/epoch: 500.0000
+
+  >>> Task 7 (PushButton) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 8 (PushFlap) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 8 (PushFlap) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_flap':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 8499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 8499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_flap.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_flap.target_pos[0]: [ 7.650755   -7.0939226   0.20998044]
+  Step 0: episode_length_buf=1
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_flap.episode_success[:5]: [1. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_flap state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.8750
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 8 (PushFlap):
+  env_loss: 100.772832
+  teacher_return: 7.9559
+  student_return: 4.5535
+  teacher_success: 0.9844
+  student_success: 0.8750
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_8_PushFlap/ts_loss/total: 100.7728
+  Rewards/task_8_PushFlap: 4.5535
+  Accuracy/task_8_PushFlap: 0.8750
+  Training/epoch: 500.0000
+
+  >>> Task 8 (PushFlap) evaluation complete!
+      Student success: 0.8750
+
+
+  >>> Evaluating Task 9 (PushCuboid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 9 (PushCuboid) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_cuboid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 9499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 9499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_cuboid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_cuboid.target_pos[0]: [ 5.7646112 -5.056495   0.015    ]
+  push_cuboid.object_pos[0]: [ 5.5947065 -5.3287473  0.015    ]
+  push_cuboid.initial_goal_error[0]: 0.3209m
+  Step 0: episode_length_buf=1
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=47
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=4
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [4 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False  True  True  True  True] (first 5)
+  push_cuboid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0469
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 9 (PushCuboid):
+  env_loss: 982.314705
+  teacher_return: 1.2543
+  student_return: 3.7746
+  teacher_success: 0.9844
+  student_success: 0.0469
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_9_PushCuboid/ts_loss/total: 982.3147
+  Rewards/task_9_PushCuboid: 3.7746
+  Accuracy/task_9_PushCuboid: 0.0469
+  Training/epoch: 500.0000
+
+  >>> Task 9 (PushCuboid) evaluation complete!
+      Student success: 0.0469
+
+
+  >>> Evaluating Task 10 (AxialExtract) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 10 (AxialExtract) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'axial_extract':
+    episode_success: [0. 0. 0. 1. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 1. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 10499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8906
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 10499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  axial_extract.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  axial_extract.target_pos[0]: [ 7.4693837  -7.092848    0.26648283]
+  Step 0: episode_length_buf=1
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    axial_extract.episode_success[:5]: [1. 0. 1. 1. 1.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  axial_extract state BEFORE extraction:
+    episode_success[:10]: [1. 0. 1. 1. 1. 1. 0. 1. 0. 1.]
+    metrics['episode_success'][:10]: [1. 0. 1. 1. 1. 1. 0. 1. 0. 1.]
+  Final student_successes (latched): [1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0] (first 10)
+  Mean: 0.6406
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 10 (AxialExtract):
+  env_loss: 79.388473
+  teacher_return: 7.2445
+  student_return: 2.0053
+  teacher_success: 0.8906
+  student_success: 0.6406
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_10_AxialExtract/ts_loss/total: 79.3885
+  Rewards/task_10_AxialExtract: 2.0053
+  Accuracy/task_10_AxialExtract: 0.6406
+  Training/epoch: 500.0000
+
+  >>> Task 10 (AxialExtract) evaluation complete!
+      Student success: 0.6406
+
+
+  >>> Evaluating Task 11 (TurnLever) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 11 (TurnLever) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'turn_lever':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 11499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 11499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  turn_lever.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  turn_lever.target_pos[0]: [ 7.461592  -7.103887   0.0756786]
+  Step 0: episode_length_buf=1
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  turn_lever state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 11 (TurnLever):
+  env_loss: 18.649380
+  teacher_return: 6.9902
+  student_return: 2.0330
+  teacher_success: 0.9844
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_11_TurnLever/ts_loss/total: 18.6494
+  Rewards/task_11_TurnLever: 2.0330
+  Accuracy/task_11_TurnLever: 0.0000
+  Training/epoch: 500.0000
+
+  >>> Task 11 (TurnLever) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 12 (OpenDoor) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 12 (OpenDoor) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_door':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 12499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8125
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 12499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_door.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_door.target_pos[0]: [ 7.2822146  -7.3075233   0.36987758]
+  Step 0: episode_length_buf=1
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_door.episode_success[:5]: [0. 0. 0. 1. 0.]
+  Step 149: episode_length_buf=0
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_door state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0] (first 10)
+  Mean: 0.0781
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 12 (OpenDoor):
+  env_loss: 21.090568
+  teacher_return: 6.5226
+  student_return: 0.8444
+  teacher_success: 0.8125
+  student_success: 0.0781
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_12_OpenDoor/ts_loss/total: 21.0906
+  Rewards/task_12_OpenDoor: 0.8444
+  Accuracy/task_12_OpenDoor: 0.0781
+  Training/epoch: 500.0000
+
+  >>> Task 12 (OpenDoor) evaluation complete!
+      Student success: 0.0781
+
+
+  >>> Evaluating Task 13 (OpenLid) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 13 (OpenLid) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'open_lid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 13499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8594
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 13499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_lid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_lid.target_pos[0]: [ 7.4845533 -6.9968114  0.3503819]
+  Step 0: episode_length_buf=1
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=150
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False False False False] (first 5)
+  open_lid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 13 (OpenLid):
+  env_loss: 56.047475
+  teacher_return: 6.4974
+  student_return: 2.7473
+  teacher_success: 0.8594
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_13_OpenLid/ts_loss/total: 56.0475
+  Rewards/task_13_OpenLid: 2.7473
+  Accuracy/task_13_OpenLid: 0.0000
+  Training/epoch: 500.0000
+
+  >>> Task 13 (OpenLid) evaluation complete!
+      Student success: 0.0000
+
+
+  >>> Evaluating Task 14 (DragPull) in environment...
+
+================================================================================
+DEBUG EVAL START: Task 14 (DragPull) | Step 2352000 | Epoch 500
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 14499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 14499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.557684 -5.104415  0.015   ]
+  drag_pull.object_pos[0]: [ 5.6457734 -5.3258634  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.2383m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 0. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.9688
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 14 (DragPull):
+  env_loss: 0.671386
+  teacher_return: 6.3603
+  student_return: 6.5402
+  teacher_success: 0.9531
+  student_success: 0.9688
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_14_DragPull/ts_loss/total: 0.6714
+  Rewards/task_14_DragPull: 6.5402
+  Accuracy/task_14_DragPull: 0.9688
+  Training/epoch: 500.0000
+
+  >>> Task 14 (DragPull) evaluation complete!
+      Student success: 0.9688
+
+
+####################################################################################################
+### EVALUATE_ALL_TASKS_ENV COMPLETE ###
+####################################################################################################
+
+      EnvEval | Evaluated all tasks 0-14
+    Saved checkpoint: /ihub/homedirs/svs_ald/sudhir/mjlab-cl-arch-20260920/src/mjlab/continual_distill/docs/cl_v6_arch/results/cl-v6-w2048b10-s0/checkpoint_task14_epoch500_step2352000.pkl
+Completed Task 14. SI buffers consolidated.
+
+================================================================================
+Training complete in 808.52 minutes.
+================================================================================
+
+Final offline evaluation across all tasks:
+  - ToppleBlock: KL(test) = 179.598557
+  - RotateValve: KL(test) = 45.813869
+  - OpenDrawer: KL(test) = 105.800194
+  - FlipSwitch: KL(test) = 49.758087
+  - ThrowToBin: KL(test) = 168.504166
+  - ReachTarget: KL(test) = 52.768932
+  - SlideWindow: KL(test) = 48.870567
+  - PushButton: KL(test) = 98.383743
+  - PushFlap: KL(test) = 118.639320
+  - PushCuboid: KL(test) = 1218.975708
+  - AxialExtract: KL(test) = 51.927856
+  - TurnLever: KL(test) = 15.414688
+  - OpenDoor: KL(test) = 20.231167
+  - OpenLid: KL(test) = 47.012012
+  - DragPull: KL(test) = 0.299388
+
+Final environment evaluation:
+
+================================================================================
+DEBUG EVAL START: Task 0 (ToppleBlock) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150  91 150] (first 5)
+  Command 'topple_block':
+    episode_success: [1. 1. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 0.9688
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  topple_block.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  topple_block.target_pos[0]: [ 5.687533  -5.2526207  0.105    ]
+  topple_block.object_pos[0]: [ 5.687533  -5.2526207  0.105    ]
+  topple_block.initial_goal_error[0]: 0.0000m
+  Step 0: episode_length_buf=1
+    topple_block.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    topple_block.episode_success[:5]: [1. 1. 0. 0. 1.]
+  Step 199: episode_length_buf=0
+    topple_block.episode_success[:5]: [0. 0. 1. 0. 1.]
+
+After episode complete (step 200):
+  episode_length_buf: [  0   0 125  83  96] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True False False False] (first 5)
+  topple_block state BEFORE extraction:
+    episode_success[:10]: [0. 0. 1. 0. 1. 0. 0. 1. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 1. 0. 1. 0. 0. 1. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.8750
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 0 (ToppleBlock):
+  env_loss: 180.019637
+  teacher_return: -4.9323
+  student_return: -43.3781
+  teacher_success: 0.9688
+  student_success: 0.8750
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_0_ToppleBlock/ts_loss/total: 180.0196
+  Rewards/task_0_ToppleBlock: -43.3781
+  Accuracy/task_0_ToppleBlock: 0.8750
+
+  - ToppleBlock: KL=180.019637 | TeacherR=-4.932 | StudentR=-43.378 | StudentSucc=0.875
+
+================================================================================
+DEBUG EVAL START: Task 1 (RotateValve) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 400
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'rotate_valve':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 1499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 400
+  Teacher successes mean: 0.8594
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 1499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  rotate_valve.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  rotate_valve.target_pos[0]: [ 7.5076547  -7.0611005   0.10721429]
+  Step 0: episode_length_buf=1
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 200: episode_length_buf=201
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 399: episode_length_buf=0
+    rotate_valve.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 400):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  rotate_valve state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 1 (RotateValve):
+  env_loss: 65.850318
+  teacher_return: -61.7562
+  student_return: -92.3929
+  teacher_success: 0.8594
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_1_RotateValve/ts_loss/total: 65.8503
+  Rewards/task_1_RotateValve: -92.3929
+  Accuracy/task_1_RotateValve: 0.0000
+
+  - RotateValve: KL=65.850318 | TeacherR=-61.756 | StudentR=-92.393 | StudentSucc=0.000
+
+================================================================================
+DEBUG EVAL START: Task 2 (OpenDrawer) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_drawer':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 2499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.7656
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 2499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_drawer.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_drawer.target_pos[0]: [ 7.2049675  -6.887101    0.34795678]
+  Step 0: episode_length_buf=1
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    open_drawer.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_drawer state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0469
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 2 (OpenDrawer):
+  env_loss: 94.989251
+  teacher_return: -22.2491
+  student_return: -60.4093
+  teacher_success: 0.7656
+  student_success: 0.0469
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_2_OpenDrawer/ts_loss/total: 94.9893
+  Rewards/task_2_OpenDrawer: -60.4093
+  Accuracy/task_2_OpenDrawer: 0.0469
+
+  - OpenDrawer: KL=94.989251 | TeacherR=-22.249 | StudentR=-60.409 | StudentSucc=0.047
+
+================================================================================
+DEBUG EVAL START: Task 3 (FlipSwitch) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'flip_switch':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 3499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8438
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 3499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  flip_switch.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  flip_switch.target_pos[0]: [ 7.513858  -6.9406404  0.1492637]
+  Step 0: episode_length_buf=1
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    flip_switch.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  flip_switch state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.2812
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 3 (FlipSwitch):
+  env_loss: 56.337884
+  teacher_return: 4.2116
+  student_return: -0.5411
+  teacher_success: 0.8438
+  student_success: 0.2812
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_3_FlipSwitch/ts_loss/total: 56.3379
+  Rewards/task_3_FlipSwitch: -0.5411
+  Accuracy/task_3_FlipSwitch: 0.2812
+
+  - FlipSwitch: KL=56.337884 | TeacherR=4.212 | StudentR=-0.541 | StudentSucc=0.281
+
+================================================================================
+DEBUG EVAL START: Task 4 (ThrowToBin) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [103  13 150 115 150] (first 5)
+  Command 'place_in_container':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 4499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 250
+  Teacher successes mean: 0.7188
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 4499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  place_in_container.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  place_in_container.target_pos[0]: [ 9.531195 -8.866835  0.0266  ]
+  place_in_container.object_pos[0]: [ 9.125853 -8.934669  0.03    ]
+  place_in_container.initial_goal_error[0]: 0.4110m
+  Step 0: episode_length_buf=1
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 125: episode_length_buf=108
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 249: episode_length_buf=232
+    place_in_container.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 250):
+  episode_length_buf: [232 198   0 196   0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False False  True False  True] (first 5)
+  place_in_container state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0156
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 4 (ThrowToBin):
+  env_loss: 180.768091
+  teacher_return: -15.9679
+  student_return: -10.5033
+  teacher_success: 0.7188
+  student_success: 0.0156
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_4_ThrowToBin/ts_loss/total: 180.7681
+  Rewards/task_4_ThrowToBin: -10.5033
+  Accuracy/task_4_ThrowToBin: 0.0156
+
+  - ThrowToBin: KL=180.768091 | TeacherR=-15.968 | StudentR=-10.503 | StudentSucc=0.016
+
+================================================================================
+DEBUG EVAL START: Task 5 (ReachTarget) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 1000
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'reach_target':
+    episode_success: [1. 1. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [1. 1. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 5499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 1000
+  Teacher successes mean: 1.0000
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 5499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  reach_target.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  reach_target.target_pos[0]: [ 5.762394   -5.003723    0.21708706]
+  Step 0: episode_length_buf=1
+    reach_target.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 500: episode_length_buf=501
+    reach_target.episode_success[:5]: [1. 1. 1. 1. 1.]
+  Step 999: episode_length_buf=0
+    reach_target.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 1000):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  reach_target state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 1.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 5 (ReachTarget):
+  env_loss: 47.596788
+  teacher_return: 19.5648
+  student_return: 5.6188
+  teacher_success: 1.0000
+  student_success: 1.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_5_ReachTarget/ts_loss/total: 47.5968
+  Rewards/task_5_ReachTarget: 5.6188
+  Accuracy/task_5_ReachTarget: 1.0000
+
+  - ReachTarget: KL=47.596788 | TeacherR=19.565 | StudentR=5.619 | StudentSucc=1.000
+
+================================================================================
+DEBUG EVAL START: Task 6 (SlideWindow) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'slide_window':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 6499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9688
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 6499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  slide_window.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  slide_window.target_pos[0]: [ 7.530654  -6.8103113  0.257029 ]
+  Step 0: episode_length_buf=1
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    slide_window.episode_success[:5]: [0. 0. 0. 1. 0.]
+  Step 149: episode_length_buf=0
+    slide_window.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  slide_window state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0] (first 10)
+  Mean: 0.3906
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 6 (SlideWindow):
+  env_loss: 58.840692
+  teacher_return: 7.4024
+  student_return: 2.4863
+  teacher_success: 0.9688
+  student_success: 0.3906
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_6_SlideWindow/ts_loss/total: 58.8407
+  Rewards/task_6_SlideWindow: 2.4863
+  Accuracy/task_6_SlideWindow: 0.3906
+
+  - SlideWindow: KL=58.840692 | TeacherR=7.402 | StudentR=2.486 | StudentSucc=0.391
+
+================================================================================
+DEBUG EVAL START: Task 7 (PushButton) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_button':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 7499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 7499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_button.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_button.target_pos[0]: [ 7.463119  -7.0199213  0.1144468]
+  Step 0: episode_length_buf=1
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_button.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_button state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 7 (PushButton):
+  env_loss: 100.645353
+  teacher_return: 6.5905
+  student_return: 2.7840
+  teacher_success: 0.9531
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_7_PushButton/ts_loss/total: 100.6454
+  Rewards/task_7_PushButton: 2.7840
+  Accuracy/task_7_PushButton: 0.0000
+
+  - PushButton: KL=100.645353 | TeacherR=6.591 | StudentR=2.784 | StudentSucc=0.000
+
+================================================================================
+DEBUG EVAL START: Task 8 (PushFlap) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'push_flap':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 8499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 8499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_flap.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_flap.target_pos[0]: [ 7.650755   -7.0939226   0.20998044]
+  Step 0: episode_length_buf=1
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    push_flap.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  push_flap state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 0.7812
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 8 (PushFlap):
+  env_loss: 101.348767
+  teacher_return: 7.9665
+  student_return: 4.3391
+  teacher_success: 0.9844
+  student_success: 0.7812
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_8_PushFlap/ts_loss/total: 101.3488
+  Rewards/task_8_PushFlap: 4.3391
+  Accuracy/task_8_PushFlap: 0.7812
+
+  - PushFlap: KL=101.348767 | TeacherR=7.966 | StudentR=4.339 | StudentSucc=0.781
+
+================================================================================
+DEBUG EVAL START: Task 9 (PushCuboid) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [4 0 0 0 0] (first 5)
+  Command 'push_cuboid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 9499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 9499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  push_cuboid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  push_cuboid.target_pos[0]: [ 5.7646112 -5.056495   0.015    ]
+  push_cuboid.object_pos[0]: [ 5.5947065 -5.3287473  0.015    ]
+  push_cuboid.initial_goal_error[0]: 0.3209m
+  Step 0: episode_length_buf=1
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=47
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=121
+    push_cuboid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [121   0  56   0   0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [False  True False  True  True] (first 5)
+  push_cuboid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0625
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 9 (PushCuboid):
+  env_loss: 981.768894
+  teacher_return: 1.3071
+  student_return: 3.8783
+  teacher_success: 0.9844
+  student_success: 0.0625
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_9_PushCuboid/ts_loss/total: 981.7689
+  Rewards/task_9_PushCuboid: 3.8783
+  Accuracy/task_9_PushCuboid: 0.0625
+
+  - PushCuboid: KL=981.768894 | TeacherR=1.307 | StudentR=3.878 | StudentSucc=0.062
+
+================================================================================
+DEBUG EVAL START: Task 10 (AxialExtract) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 200
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'axial_extract':
+    episode_success: [1. 0. 1. 1. 1.] (first 5)
+    metrics['episode_success']: [1. 0. 1. 1. 1.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 10499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 200
+  Teacher successes mean: 0.8906
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 10499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  axial_extract.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  axial_extract.target_pos[0]: [ 7.4693837  -7.092848    0.26648283]
+  Step 0: episode_length_buf=1
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 100: episode_length_buf=101
+    axial_extract.episode_success[:5]: [1. 0. 0. 0. 0.]
+  Step 199: episode_length_buf=0
+    axial_extract.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 200):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  axial_extract state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0] (first 10)
+  Mean: 0.5938
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 10 (AxialExtract):
+  env_loss: 70.245365
+  teacher_return: 10.1812
+  student_return: 3.3400
+  teacher_success: 0.8906
+  student_success: 0.5938
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_10_AxialExtract/ts_loss/total: 70.2454
+  Rewards/task_10_AxialExtract: 3.3400
+  Accuracy/task_10_AxialExtract: 0.5938
+
+  - AxialExtract: KL=70.245365 | TeacherR=10.181 | StudentR=3.340 | StudentSucc=0.594
+
+================================================================================
+DEBUG EVAL START: Task 11 (TurnLever) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'turn_lever':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 11499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9844
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 11499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  turn_lever.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  turn_lever.target_pos[0]: [ 7.461592  -7.103887   0.0756786]
+  Step 0: episode_length_buf=1
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 149: episode_length_buf=0
+    turn_lever.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  turn_lever state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 11 (TurnLever):
+  env_loss: 18.639762
+  teacher_return: 6.9742
+  student_return: 2.0340
+  teacher_success: 0.9844
+  student_success: 0.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_11_TurnLever/ts_loss/total: 18.6398
+  Rewards/task_11_TurnLever: 2.0340
+  Accuracy/task_11_TurnLever: 0.0000
+
+  - TurnLever: KL=18.639762 | TeacherR=6.974 | StudentR=2.034 | StudentSucc=0.000
+
+================================================================================
+DEBUG EVAL START: Task 12 (OpenDoor) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'open_door':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 12499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.8281
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 12499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_door.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_door.target_pos[0]: [ 7.2822146  -7.3075233   0.36987758]
+  Step 0: episode_length_buf=1
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    open_door.episode_success[:5]: [0. 0. 0. 1. 0.]
+  Step 149: episode_length_buf=0
+    open_door.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_door state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0] (first 10)
+  Mean: 0.1094
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 12 (OpenDoor):
+  env_loss: 21.028874
+  teacher_return: 6.5720
+  student_return: 0.8800
+  teacher_success: 0.8281
+  student_success: 0.1094
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_12_OpenDoor/ts_loss/total: 21.0289
+  Rewards/task_12_OpenDoor: 0.8800
+  Accuracy/task_12_OpenDoor: 0.1094
+
+  - OpenDoor: KL=21.028874 | TeacherR=6.572 | StudentR=0.880 | StudentSucc=0.109
+
+================================================================================
+DEBUG EVAL START: Task 13 (OpenLid) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 250
+  episode_length_buf: [150 150 150 150 150] (first 5)
+  Command 'open_lid':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 13499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 250
+  Teacher successes mean: 0.8750
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 13499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  open_lid.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  open_lid.target_pos[0]: [ 7.4845533 -6.9968114  0.3503819]
+  Step 0: episode_length_buf=1
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 125: episode_length_buf=126
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 249: episode_length_buf=0
+    open_lid.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 250):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  open_lid state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] (first 10)
+  Mean: 0.0156
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 13 (OpenLid):
+  env_loss: 53.095783
+  teacher_return: 11.8101
+  student_return: 4.5066
+  teacher_success: 0.8750
+  student_success: 0.0156
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_13_OpenLid/ts_loss/total: 53.0958
+  Rewards/task_13_OpenLid: 4.5066
+  Accuracy/task_13_OpenLid: 0.0156
+
+  - OpenLid: KL=53.095783 | TeacherR=11.810 | StudentR=4.507 | StudentSucc=0.016
+
+================================================================================
+DEBUG EVAL START: Task 14 (DragPull) | Step 2352000 | Epoch None
+================================================================================
+Environment info:
+  num_envs: 64
+  max_episode_length: 150
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  Command 'drag_pull':
+    episode_success: [0. 0. 0. 0. 0.] (first 5)
+    metrics['episode_success']: [0. 0. 0. 0. 0.] (first 5)
+
+--- TEACHER ROLLOUT START ---
+Setting seed: 14499
+After env.reset() (Teacher):
+  num_envs: 64
+  episode_length to run: 150
+  Teacher successes mean: 0.9531
+--- TEACHER ROLLOUT END ---
+
+
+--- STUDENT ROLLOUT START ---
+Setting seed: 14499
+After env.reset():
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  drag_pull.episode_success: [0. 0. 0. 0. 0.] (first 5)
+  drag_pull.target_pos[0]: [ 5.557684 -5.104415  0.015   ]
+  drag_pull.object_pos[0]: [ 5.6457734 -5.3258634  0.015    ]
+  drag_pull.initial_goal_error[0]: 0.2383m
+  Step 0: episode_length_buf=1
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+  Step 75: episode_length_buf=76
+    drag_pull.episode_success[:5]: [1. 0. 1. 1. 1.]
+  Step 149: episode_length_buf=0
+    drag_pull.episode_success[:5]: [0. 0. 0. 0. 0.]
+
+After episode complete (step 150):
+  episode_length_buf: [0 0 0 0 0] (first 5)
+  terminated: [False False False False False] (first 5)
+  truncated: [ True  True  True  True  True] (first 5)
+  drag_pull state BEFORE extraction:
+    episode_success[:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    metrics['episode_success'][:10]: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+  Final student_successes (latched): [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (first 10)
+  Mean: 1.0000
+--- STUDENT ROLLOUT END ---
+
+
+================================================================================
+COMPUTED METRICS FOR TASK 14 (DragPull):
+  env_loss: 0.682791
+  teacher_return: 6.3357
+  student_return: 6.6222
+  teacher_success: 0.9531
+  student_success: 1.0000
+================================================================================
+
+LOGGING TO WANDB (step 2352000):
+  EnvEval/task_14_DragPull/ts_loss/total: 0.6828
+  Rewards/task_14_DragPull: 6.6222
+wandb: updating run metadata
+wandb: updating run metadata; uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log; uploading wandb-summary.json
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading output.log
+wandb: uploading history steps 7500-7500, summary, console lines 51306-51351
+wandb: 
+wandb: Run history:
+wandb:   Accuracy/task_0_ToppleBlock ▁████▇█▇▇▇███▇▆▇▆█▇▇▆▆▆▆▅▆▇▆▆▆▇▆▆▅▅▇▇▇▅▆
+wandb: Accuracy/task_10_AxialExtract ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁████▁▁▂▃▃▁▁▁▁▄
+wandb:    Accuracy/task_11_TurnLever ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█▇██▁▁▁▁▆▁▁▁▁
+wandb:     Accuracy/task_12_OpenDoor ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▇██▂▂▁
+wandb:      Accuracy/task_13_OpenLid ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁███▁▁
+wandb:     Accuracy/task_14_DragPull ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁███
+wandb:   Accuracy/task_1_RotateValve ▁▁▁▁█▂▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁
+wandb:    Accuracy/task_2_OpenDrawer ▁▁▁▁▁▁▁█▂▂▁▂▁▁▁▁▁▁▁▁▁▁▃▃▁▁▁▁▁▂▁▂▂▁▁▁▁▁▁▂
+wandb:    Accuracy/task_3_FlipSwitch ▁▁▁▁▁▁▁▁▁▁▁██▇▅▆█▁▁▁▁▁▁▁▁▁▃▆▄▃▅▅▂▅▂▅██▇▆
+wandb:    Accuracy/task_4_ThrowToBin ▁▁▁▁▁▁▁▁▁▁▁█▆▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           +75 ...
+wandb: 
+wandb: Run summary:
+wandb:   Accuracy/task_0_ToppleBlock 0.875
+wandb: Accuracy/task_10_AxialExtract 0.59375
+wandb:    Accuracy/task_11_TurnLever 0
+wandb:     Accuracy/task_12_OpenDoor 0.10938
+wandb:      Accuracy/task_13_OpenLid 0.01562
+wandb:     Accuracy/task_14_DragPull 1
+wandb:   Accuracy/task_1_RotateValve 0
+wandb:    Accuracy/task_2_OpenDrawer 0.04688
+wandb:    Accuracy/task_3_FlipSwitch 0.28125
+wandb:    Accuracy/task_4_ThrowToBin 0.01562
+wandb:                           +75 ...
+wandb: 
+wandb: 🚀 View run cl-v6-w2048b10-s0 at: https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918/runs/d3792qbl
+wandb: ⭐️ View project at: https://wandb.ai/sudhirpratapyadav-indian-institute-of-technology-jodhpur/mjlab-cl15-si-20260918
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260920_215416-d3792qbl/logs
+  Accuracy/task_14_DragPull: 1.0000
+
+  - DragPull: KL=0.682791 | TeacherR=6.336 | StudentR=6.622 | StudentSucc=1.000
+[2026-09-21T06:01:39Z] DONE w2048b10-s0 exit=0

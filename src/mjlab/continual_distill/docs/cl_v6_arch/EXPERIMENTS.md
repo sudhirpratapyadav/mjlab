@@ -316,6 +316,52 @@ OpenDrawer training has touched the shared weights. `si_scale` was 0
 throughout RotateValve's training either way (task_idx==0), so this
 preserves the "zero forgetting pressure" property that matters.
 
+## Block 8 — Wave 2 full-scale result: still far below CL-V5's baseline
+
+3-seed full 15-task run (random ordering, width2048/6blocks, si-coeff 5.0,
+all fixes applied: block/out_head/out_logit FiLM, corrected eval episode
+length), ~660-663 min/run:
+
+| run | final avg | weakest task |
+|---|---|---|
+| v2-s0 | 0.422 | RotateValve (0.000) |
+| v2-s1 | 0.237 | RotateValve, FlipSwitch, PushButton, TurnLever, OpenLid (0.000 each) |
+| v2-s2 | 0.369 | OpenDrawer (0.000) |
+
+**Wave 2: mean 0.342 ± 0.078.** CL-V5 baseline: mean 0.795 ± 0.041, best
+single run 0.837. **Still a severe regression**, not a modest gap -- despite
+fixing the conditioning mechanism and the eval bug, full 15-task scale
+produces heavy catastrophic forgetting for most middle-sequence tasks
+(RotateValve, OpenDrawer, ThrowToBin near-zero in every seed; FlipSwitch,
+TurnLever, PushButton, OpenDoor near-zero in at least one seed each). Only
+the first-trained task (ToppleBlock, 0.94-0.98) and the last-trained task
+(DragPull, 0.75-0.88) consistently retain well -- the same "only the edges
+survive" pattern from Wave 1, just less extreme now.
+
+**Honest conclusion**: the stress4 harness's encouraging signal (4 tasks,
+100 epochs -- FiLM fixed the *first* task's retention, and si-coeff tuning
+helped edge tasks) did not transfer to the real 15-task/500-epoch scale.
+More tasks means more accumulated SI anchor pressure on the same fully-shared
+weights, and the FiLM-conditioning fixes -- while real, measurable
+improvements over Wave 1 -- are not sufficient to prevent severe
+interference once a dozen-plus tasks have trained on top of an earlier one.
+This is not a bug; it is a genuine limitation of the "single network, only a
+task-embedding-derived conditioning signal" design at this task count. NOT
+publishing this result -- it is a clear regression from CL-V5, not an
+improvement.
+
+**What this rules out**: capacity alone doesn't fix it (Wave 1's width4096
+and 10-block probes both failed similarly, 0.25/0.34). Conditioning strength
+alone doesn't fix it (3 levels of FiLM, extensively validated on the smaller
+stress harness, still collapses at full scale). SI coefficient doesn't fix
+it (0.1 through 10.0 all tested). The remaining lever within "keep it a
+single shared network" that hasn't been tried: a small amount of genuine
+per-task capacity (e.g. lightweight per-task adapter weights, much smaller
+than the old architecture's full separate output heads) rather than pure
+conditioning-of-shared-weights. This is a real design choice to bring to the
+user rather than a self-authorized deviation from "maximum sharing," since
+it moves further from the original all-conditioning design.
+
 ## Planned next
 
 | block | purpose |
