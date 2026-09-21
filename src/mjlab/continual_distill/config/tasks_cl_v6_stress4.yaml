@@ -1,0 +1,25 @@
+# Stress validation: 4 tasks (first 4 of the random ordering), 100 epochs
+# each, moderate budget. The 2-task/5-epoch smoke test completely missed
+# Wave 1's catastrophic forgetting (looked healthy at that tiny scale) --
+# this config exists specifically to catch that failure mode before
+# committing to another ~9h full 15-task run.
+tasks:
+  ToppleBlock:
+    env_id: "Mjlab-Topple-Block-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Topple_Block_Franka_model_499_20260918_154414"
+    num_epochs: 100
+
+  RotateValve:
+    env_id: "Mjlab-Rotate-Valve-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Rotate_Valve_Franka_model_1999_20260918_154414"
+    num_epochs: 100
+
+  OpenDrawer:
+    env_id: "Mjlab-Open-Drawer-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Open_Drawer_Franka_model_1000_20260918_154342"
+    num_epochs: 100
+
+  FlipSwitch:
+    env_id: "Mjlab-Flip-Switch-Franka"
+    dataset_folder: "/ihub/homedirs/svs_ald/sudhir/mjlab-cl15-si-20260918/src/mjlab/continual_distill/docs/cl_v5_si15/teacher_datasets/Mjlab_Flip_Switch_Franka_model_800_20260918_154343"
+    num_epochs: 100

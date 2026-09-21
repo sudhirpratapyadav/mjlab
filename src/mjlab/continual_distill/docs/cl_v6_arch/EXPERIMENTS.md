@@ -52,6 +52,66 @@ routine constraint), warmup + beta2=0.97 kept (neither hurt once zero-init
 was removed). Re-validated: ReachTarget 0.375/KL 50.6, AxialExtract 0.969 —
 healthy, comparable to baseline. This is what P2/P3 will use.
 
+## Block 2 — Wave 1 full-scale results: SEVERE REGRESSION (2026-09-21)
+
+3-seed primary (shared_resnet, width 2048, 6 blocks, task embedding
+concatenated once at the input, single shared output head), random
+ordering, full 15 tasks, ~549-551 min/run:
+
+| run | final avg | notes |
+|---|---|---|
+| w2048b6-s1 | **0.296** | 8 of 15 tasks at exactly 0.000 success |
+| w2048b6-s2 | **0.216** | 7 of 15 tasks at exactly 0.000 success |
+| w2048b6-s0 | (pending) | |
+
+Compare to CL-V5 baseline: random-ordering mean **0.795±0.041**, worst
+individual CL-V5 run **0.686**. This is not a modest gap -- it's catastrophic
+forgetting far beyond anything seen with the per-task-head architecture.
+
+**Pattern**: in both seeds, only DragPull (the LAST task trained, no
+subsequent forgetting pressure) retained well (0.922 both). Every earlier
+task, including ones that were 100% standalone teachers (PushButton,
+TurnLever, OpenLid -- all >=0.99 CL-V4 val SR), collapsed to 0.000. KL values
+are enormous (30-1000+, vs CL-V5's typical 0.5-2) -- the student's output
+distribution for old tasks has drifted completely away from the teacher's,
+not just gotten noisier.
+
+**Diagnosis**: concatenating the task embedding once at the input and then
+routing through 6 fully-shared residual blocks to a single fully-shared
+output head asks the network to *propagate* task identity through the whole
+trunk unaided. Under SI's pressure (which nudges every shared weight toward
+its value at the end of the previous task), that weak, single-injection
+signal is apparently not enough to keep 15 tasks' input->action mappings
+separated -- the shared final layer converges toward whatever satisfies the
+*most recent* task, overwriting everything else. This is a materially
+different (and harder) problem than the per-task-head architecture, where at
+least the final layer's weights for each task were never touched by any
+other task's gradient at all.
+
+**Fix (implemented, not yet validated at full scale)**: FiLM
+(feature-wise linear modulation) conditioning applied at EVERY residual
+block, not just concatenation once at the input. Each block generates its
+own (scale, shift) from the task embedding via a small per-block Dense
+(zero-init, so it's an identity transform at init) and applies it to the
+block's hidden activation before the nonlinearity. This gives every layer a
+fresh, block-local task signal instead of relying on one that has to survive
+propagation through the whole trunk. Still a single shared network, still a
+single shared output head, still just concatenation-adjacent -- FiLM is a
+well-established, simple technique (Perez et al. 2017), not a departure from
+the "keep it simple" constraint. Task-specific parameter count added: ~131K
+per block (a small Dense from the 32-dim embedding) x 6 blocks =~ 786K,
+still tiny relative to the ~50M-parameter shared trunk -- "maximum sharing"
+is preserved in spirit.
+
+The w4096b6-s0 and w2048b10-s0 capacity/depth probes (still running,
+GPUs 4-5) use the OLD flawed conditioning and are very likely to show the
+same pattern regardless of width/depth -- a wider or deeper network still
+routes everything through the same single shared output head with the same
+weak embedding signal. Not killing them (sunk cost, not blocking anything),
+but not waiting for them or trusting their results as informative about
+capacity -- they're confounded by the conditioning-mechanism flaw. Moving
+straight to validating FiLM instead.
+
 ## Planned next
 
 | block | purpose |

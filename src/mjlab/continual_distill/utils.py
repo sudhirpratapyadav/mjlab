@@ -335,25 +335,42 @@ class StudentPolicy:
 # ============================================================================
 
 class ResidualMLPBlock(nn.Module):
-    """Pre-norm residual block: LayerNorm -> Dense -> GELU -> Dense, + skip.
+    """Pre-norm residual block, FiLM-conditioned on the task embedding at
+    EVERY block: LayerNorm -> Dense -> FiLM(task_embed) -> GELU -> Dense, +
+    skip.
 
-    Tried Fixup/SkipInit-style zero-init on the second Dense (research pass
-    P1 recommendation) and DROPPED it after a smoke-test A/B: it collapsed
-    a 2-task/5-epoch run's retention (ReachTarget success 0.55 -> 0.02, KL
-    40 -> 2600) by giving the trunk a slow cold-start that ate a large
-    fraction of the (short) budget. Reverting to standard lecun_uniform
-    fully recovered it (back to 0.52 success, KL 55). Matches the research
-    report's own least-confident framing of this technique for MLPs (we are
-    already pre-norm, which it says provides most of the intended benefit
-    anyway). See docs/cl_v6_arch/EXPERIMENTS.md Block 1.
+    Wave 1 (see docs/cl_v6_arch/EXPERIMENTS.md Block 2) used a task embedding
+    concatenated ONCE at the input, then routed it through 6 fully-shared
+    blocks to a single fully-shared output head -- and collapsed
+    catastrophically (many tasks -> 0% retention) because that one-shot
+    signal apparently gets washed out before reaching the output. FiLM
+    (Perez et al. 2017) re-injects a fresh, block-local task signal at every
+    layer instead of asking the trunk to propagate it unaided. The FiLM
+    generator is zero-initialized, so each block starts as an exact
+    identity-conditioning no-op (scale=0, shift=0 -> y unchanged), matching
+    the same "stable at init" reasoning as the (separately tried and
+    reverted) residual zero-init, but applied to the much smaller
+    conditioning pathway rather than the main trunk -- so it doesn't have
+    that attempt's slow-cold-start problem.
+
+    Tried Fixup/SkipInit-style zero-init on the block's own second Dense
+    (research pass P1 recommendation) and DROPPED it after a smoke-test A/B:
+    it collapsed a 2-task/5-epoch run's retention (ReachTarget success
+    0.55 -> 0.02, KL 40 -> 2600) by giving the trunk a slow cold-start that
+    ate a large fraction of the (short) budget. Reverting to standard
+    lecun_uniform fully recovered it (back to 0.52 success, KL 55). See
+    EXPERIMENTS.md Block 1.
     """
     width: int
 
     @nn.compact
-    def __call__(self, x: jnp.ndarray) -> jnp.ndarray:
+    def __call__(self, x: jnp.ndarray, task_embed: jnp.ndarray) -> jnp.ndarray:
         residual = x
         y = nn.LayerNorm()(x)
         y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
+        film = nn.Dense(2 * self.width, kernel_init=nn.initializers.zeros, name="film")(task_embed)
+        scale, shift = jnp.split(film, 2, axis=-1)
+        y = y * (1.0 + scale) + shift
         y = nn.gelu(y)
         y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
         return residual + y
@@ -362,12 +379,15 @@ class ResidualMLPBlock(nn.Module):
 class SharedResidualStudentMLP(nn.Module):
     """Single shared network for all tasks.
 
-    A learned task embedding is concatenated to the observation; a deep
-    residual MLP trunk then produces ONE task-agnostic action head. There
-    are no per-task weights except the (tiny) task embedding table -- this
-    maximizes parameter sharing across tasks, in contrast to
-    StudentActorMLP's per-task output heads (only the last layer differs
-    there; everything before it is already shared).
+    A learned task embedding is concatenated to the observation AND
+    re-injected via FiLM at every residual block (see ResidualMLPBlock);
+    the trunk then produces ONE task-agnostic action head. The only
+    per-task weights are the (tiny) task embedding table plus each block's
+    small FiLM generator (~131K params/block at width=2048, embed_dim=32) --
+    together still a small fraction of the multi-million-parameter shared
+    trunk, so this still maximizes parameter sharing across tasks, in
+    contrast to StudentActorMLP's per-task output heads (only the last
+    layer differs there; everything before it is already shared).
     """
     action_size: int
     num_tasks: int
@@ -397,7 +417,7 @@ class SharedResidualStudentMLP(nn.Module):
         x = nn.gelu(x)
 
         for i in range(self.num_blocks):
-            x = ResidualMLPBlock(self.width, name=f"block_{i}")(x)
+            x = ResidualMLPBlock(self.width, name=f"block_{i}")(x, embed)
 
         x = nn.LayerNorm(name="out_norm")(x)
         logits = nn.Dense(
