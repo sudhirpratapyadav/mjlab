@@ -112,6 +112,34 @@ but not waiting for them or trusting their results as informative about
 capacity -- they're confounded by the conditioning-mechanism flaw. Moving
 straight to validating FiLM instead.
 
+## Block 3 — FiLM stress-test validation (2026-09-21)
+
+4-task/100-epoch stress harness (`tasks_cl_v6_stress4.yaml`), width
+2048/6 blocks, si-coeff 1.0 (unchanged), 22 min wall time:
+
+| task (position) | StudentSucc |
+|---|---|
+| ToppleBlock (1st, most forgetting pressure) | **0.859** |
+| RotateValve (2nd) | **0.000** |
+| OpenDrawer (3rd) | 0.016 |
+| FlipSwitch (4th, just-trained) | 0.344 |
+
+**Partial fix, not a full fix.** FiLM clearly helped the FIRST task (0.859
+vs Wave 1's old architecture, which also happened to retain early/late tasks
+reasonably at full scale) -- so FiLM is doing *something* right. But the
+*middle* tasks (RotateValve, OpenDrawer) are still collapsing toward zero --
+the same "only the edges survive" pattern as Wave 1, just less extreme.
+Stronger per-layer conditioning alone did not fix the core problem.
+
+**New hypothesis**: si-coeff=1.0 was tuned for the OLD per-task-head
+architecture, where SI only needed to protect the shared *trunk* (~90% of
+weights) -- the final per-task head was naturally immune to other tasks'
+gradients by construction. In `shared_resnet`, literally every weight
+(output head included) is contested by every task, so the same SI strength
+may now be underpowered. Testing si-coeff 5.0 and 10.0 on the same stress4
+harness before committing to another ~9h full run (each stress4 iteration
+is ~22 min -- cheap enough to bracket properly first).
+
 ## Planned next
 
 | block | purpose |
