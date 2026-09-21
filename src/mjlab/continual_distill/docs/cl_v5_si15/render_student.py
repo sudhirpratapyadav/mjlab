@@ -109,6 +109,7 @@ def main():
       width=int(arch_kwargs.get("width", 2048)),
       num_blocks=int(arch_kwargs.get("num_blocks", 6)),
       embed_dim=int(arch_kwargs.get("embed_dim", 32)),
+      lora_rank=int(arch_kwargs.get("lora_rank", 0)),
       min_std=float(ckpt["student_min_std"]),
     )
   else:

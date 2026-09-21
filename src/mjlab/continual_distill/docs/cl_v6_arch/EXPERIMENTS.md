@@ -419,11 +419,26 @@ practical, structural reason is that SI's importance penalty accumulates
 monotonically and is shared across literally every parameter when the
 network has zero task-specific weight subsets -- a fundamental tension with
 the "maximum sharing" design constraint at this task count, not a tuning
-failure. The remaining lever (giving each task a small amount of protected,
-non-fully-shared capacity -- e.g. lightweight per-task adapters, still >95%
-shared) would directly address this but revisits the "maximum sharing"
-constraint the user set, and is being surfaced as a decision point rather
-than self-authorized.
+failure.
+
+## Block 10 — per-task LoRA adapters (user directed to keep pushing)
+
+Implemented a per-task low-rank correction on each residual block's second
+Dense, looked up from a per-task `nn.Embed` table (not a conditioning
+generator like FiLM). This is the key structural difference from every
+previous fix: FiLM modulates the *activations* flowing through shared
+weights, so SI's penalty on those shared weights still accumulates across
+every task regardless of how good the conditioning signal is. A LoRA
+adapter is a genuinely separate parameter subset per task -- gradient only
+flows to task T's own `lora_down`/`lora_up` slice when task T is training,
+so it is structurally immune to any other task's SI term, the same property
+that let the old per-task-head architecture's output layer avoid
+interference entirely, just far smaller (rank 8: ~33K params/block/task vs.
+a full output head). Zero-init on `lora_up` so every task starts as an exact
+no-op. `--lora-rank` CLI flag (0 = disabled, matches Waves 1-2).
+
+Smoke-testing on the stress4 harness (rank 8, si-coeff 5.0, same recipe as
+Wave 2) before considering another full 15-task run.
 
 ## Planned next
 

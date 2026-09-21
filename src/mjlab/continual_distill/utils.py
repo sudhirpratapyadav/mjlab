@@ -360,11 +360,26 @@ class ResidualMLPBlock(nn.Module):
     ate a large fraction of the (short) budget. Reverting to standard
     lecun_uniform fully recovered it (back to 0.52 success, KL 55). See
     EXPERIMENTS.md Block 1.
+
+    Also carries an optional per-task LoRA-style low-rank correction on the
+    second Dense (`lora_rank > 0`), added after FiLM was shown (Wave 2,
+    EXPERIMENTS.md Block 8) to be insufficient at N=15: FiLM only modulates
+    shared weights' *activations*, so SI's importance penalty on those
+    shared weights still accumulates across every task. The LoRA correction
+    is looked up from a per-task embedding table (`nn.Embed`, not a
+    task-conditioned generator) -- a genuinely task-specific parameter
+    subset that only ever receives gradient when THAT task is training, so
+    it is naturally immune to other tasks' SI terms (mirroring, at small
+    scale, why per-task output heads worked well in the original
+    architecture). Zero-init on the "up" projection so each task starts as
+    an exact no-op correction.
     """
     width: int
+    num_tasks: int = 1
+    lora_rank: int = 0
 
     @nn.compact
-    def __call__(self, x: jnp.ndarray, task_embed: jnp.ndarray) -> jnp.ndarray:
+    def __call__(self, x: jnp.ndarray, task_embed: jnp.ndarray, task_idx: jnp.ndarray) -> jnp.ndarray:
         residual = x
         y = nn.LayerNorm()(x)
         y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
@@ -372,8 +387,18 @@ class ResidualMLPBlock(nn.Module):
         scale, shift = jnp.split(film, 2, axis=-1)
         y = y * (1.0 + scale) + shift
         y = nn.gelu(y)
-        y = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
-        return residual + y
+        y2 = nn.Dense(self.width, kernel_init=nn.initializers.lecun_uniform())(y)
+        if self.lora_rank > 0:
+            lora_down = nn.Embed(
+                self.num_tasks, self.width * self.lora_rank,
+                embedding_init=nn.initializers.lecun_uniform(), name="lora_down",
+            )(task_idx).reshape(self.width, self.lora_rank)
+            lora_up = nn.Embed(
+                self.num_tasks, self.lora_rank * self.width,
+                embedding_init=nn.initializers.zeros, name="lora_up",
+            )(task_idx).reshape(self.lora_rank, self.width)
+            y2 = y2 + (y @ lora_down) @ lora_up
+        return residual + y2
 
 
 class SharedResidualStudentMLP(nn.Module):
@@ -394,6 +419,7 @@ class SharedResidualStudentMLP(nn.Module):
     width: int = 2048
     num_blocks: int = 6
     embed_dim: int = 32
+    lora_rank: int = 0
 
     @nn.compact
     def __call__(self, obs: jnp.ndarray, task_idx: jnp.ndarray) -> jnp.ndarray:
@@ -417,7 +443,10 @@ class SharedResidualStudentMLP(nn.Module):
         x = nn.gelu(x)
 
         for i in range(self.num_blocks):
-            x = ResidualMLPBlock(self.width, name=f"block_{i}")(x, embed)
+            x = ResidualMLPBlock(
+                self.width, num_tasks=self.num_tasks, lora_rank=self.lora_rank,
+                name=f"block_{i}",
+            )(x, embed, task_idx)
 
         x = nn.LayerNorm(name="out_norm")(x)
         # FiLM the pre-output-head features too, not just the trunk blocks.
@@ -465,6 +494,7 @@ class SharedStudentPolicy:
         width: int = 2048,
         num_blocks: int = 6,
         embed_dim: int = 32,
+        lora_rank: int = 0,
         min_std: float = 1e-3,
     ):
         self.obs_size = obs_size
@@ -473,6 +503,7 @@ class SharedStudentPolicy:
         self.width = width
         self.num_blocks = num_blocks
         self.embed_dim = embed_dim
+        self.lora_rank = lora_rank
         self.min_std = min_std
 
         self.network = SharedResidualStudentMLP(
@@ -481,6 +512,7 @@ class SharedStudentPolicy:
             width=width,
             num_blocks=num_blocks,
             embed_dim=embed_dim,
+            lora_rank=lora_rank,
         )
 
     def init(self, key: jax.random.PRNGKey) -> dict:

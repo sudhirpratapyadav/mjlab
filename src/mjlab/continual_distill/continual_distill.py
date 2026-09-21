@@ -1325,6 +1325,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--residual-width", type=int, default=2048, help="shared_resnet only: hidden width of the residual trunk.")
     parser.add_argument("--num-residual-blocks", type=int, default=6, help="shared_resnet only: number of residual blocks in the trunk.")
     parser.add_argument("--task-embed-dim", type=int, default=32, help="shared_resnet only: dimension of the learned per-task embedding concatenated to the observation.")
+    parser.add_argument("--lora-rank", type=int, default=0, help="shared_resnet only: rank of a per-task LoRA-style correction on each residual block's second Dense, looked up from a per-task embedding table (nn.Embed, not a conditioning generator) so it never receives gradient from any other task -- structurally immune to cross-task SI interference, unlike FiLM. 0 disables (default, matches earlier CL-V6 waves).")
     parser.add_argument("--grad-clip-norm", type=float, default=10.0, help="Global-norm gradient clip, applied before both the optimizer step and SI's importance update (research pass P1, docs/cl_v6_arch/RESEARCH.md). Default raised from an initial 1.0 after a smoke-test A/B showed 1.0 was far too tight for this network's actual gradient scale and visibly slowed learning; 10.0 is meant as a spike-protector, not a routine constraint. Pass a large value (e.g. 1e9) to effectively disable.")
     parser.add_argument("--adam-beta2", type=float, default=0.97, help="Adam beta2. Lowered from optax's 0.999 default -- our per-task step counts are short enough that the default's ~1000-step averaging window barely warms up (research pass P1).")
     parser.add_argument("--lr-warmup-steps", type=int, default=200, help="Linear-to-cosine LR warmup steps at the START OF EACH TASK (capped at 10%% of that task's total steps). Same schedule shape every task, so SI's accumulated importance stays comparable across tasks (research pass P1).")
@@ -1427,6 +1428,7 @@ def main() -> None:
             width=args.residual_width,
             num_blocks=args.num_residual_blocks,
             embed_dim=args.task_embed_dim,
+            lora_rank=args.lora_rank,
             min_std=args.student_min_std,
         )
         _network_apply = student.network.apply
@@ -1647,6 +1649,7 @@ def main() -> None:
         "residual_width": args.residual_width,
         "num_residual_blocks": args.num_residual_blocks,
         "task_embed_dim": args.task_embed_dim,
+        "lora_rank": args.lora_rank,
         "grad_clip_norm": args.grad_clip_norm,
         "adam_beta2": args.adam_beta2,
         "lr_warmup_steps": args.lr_warmup_steps,
@@ -1928,6 +1931,7 @@ def main() -> None:
                         "width": args.residual_width,
                         "num_blocks": args.num_residual_blocks,
                         "embed_dim": args.task_embed_dim,
+                        "lora_rank": args.lora_rank,
                     } if args.architecture == "shared_resnet" else {},
                 )
 
