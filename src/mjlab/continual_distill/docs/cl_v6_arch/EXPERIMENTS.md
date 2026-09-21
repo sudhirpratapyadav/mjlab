@@ -250,6 +250,53 @@ outlier task from ever getting there once ANY prior-task anchor exists.
 Testing si-coeff=0.1 (much lower) on the original 4-task ordering to check
 this reversed hypothesis.
 
+Result: si-coeff=0.1 -> RotateValve still exactly 0.000. The SI-strength
+theory is wrong: dropping the coefficient 10x had zero effect. This
+near-perfect insensitivity to a 100x range of si-coeff (0.1 to 10.0, all
+giving exactly 0.000) was itself the tell that this wasn't really an SI
+problem at all.
+
+## Block 7 — the real bug: a mid-sequence eval used the WRONG episode length
+
+Inspected the isolated-training log's raw debug prints around the task-1
+boundary check line-by-line rather than trusting only the headline number.
+At the exact point where RotateValve's success collapsed from 0.83 to 0.00
+with UNCHANGED weights, the debug print showed **"episode length to run:
+150"** for BOTH the teacher and student rollout -- not RotateValve's actual
+400-step episode. Even the TEACHER's success dropped correspondingly
+(0.95 -> 0.70) at that same call, which is impossible if the bug were in the
+student/architecture: the teacher's weights and behavior never change.
+
+Root cause: `evaluate_all_tasks_env`'s "Initial Evaluation (Step 0 - Before
+Training)" call sites passed a single `episode_length` argument sourced from
+whichever task was CURRENTLY STARTING (e.g. OpenDrawer's 150 steps), and
+reused it for every task 0..current_task_idx in that evaluation sweep --
+including RotateValve, silently truncating its 400-step episode to 150 and
+making completion of the valve rotation structurally impossible regardless
+of the actual policy. Fixed: each task in the loop now uses its own
+`task_buffers[eval_task_idx]["episode_length"]`; the redundant external
+parameter was removed from all 3 call sites (continual_distill.py).
+
+**This bug did NOT corrupt the headline "Final environment evaluation"
+numbers already reported** (a separate, correctly-length code path,
+confirmed by cross-checking the debug prints immediately preceding those
+blocks in prior logs -- they already showed the correct 400-step length).
+It only corrupted the INTERMEDIATE mid-training diagnostic view I was using
+to understand *why* RotateValve failed, which is exactly what sent this
+investigation down several wrong paths (si-coeff, block FiLM, output-head
+FiLM, output-logit FiLM, position). With the bug understood, the isolated
+test's true, correctly-measured trajectory is: RotateValve trained alone
+(task 0) -> 0.83 success -> one subsequent task (OpenDrawer) trained on top
+-> drops to a real, bug-free **0.141**. That's a much less catastrophic,
+much more ordinary-looking forgetting curve than the mysterious exact-0.000
+pattern suggested -- consistent with RotateValve simply being a severely
+fragile task (matching its 5x-outlier action scale from Block 5), not a
+categorical architecture failure. It still gets to exactly 0.000 by the time
+3+ subsequent tasks have trained on top (the 4-task stress4 tests), which is
+a real, steep forgetting curve worth addressing, but the SI-coefficient
+sweep (0.1-10) genuinely doesn't move it -- so the fix, if there is a cheap
+one, isn't a simple coefficient tweak.
+
 A true 1-task sequence crashed on an unrelated bug: `SharedResidualStudentMLP`
 with `num_tasks=1` hits a flax `nn.Embed` broadcast error
 (`Cannot broadcast to shape with fewer dimensions: arr_shape=(1, 32)

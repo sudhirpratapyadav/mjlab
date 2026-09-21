@@ -784,13 +784,22 @@ def evaluate_all_tasks_env(
     task_buffers: List[Dict[str, Any]],
     current_task_idx: int,
     num_episodes: int,
-    episode_length: int,
     seed: int,
     wandb_run,
     global_step: int,
     epoch: Optional[int] = None,
 ) -> None:
-    """Evaluate all tasks from 0 to current_task_idx in the environment."""
+    """Evaluate all tasks from 0 to current_task_idx in the environment.
+
+    Each task is rolled out for ITS OWN episode_length (from task_buffers),
+    not a single shared value -- a prior bug passed one episode_length for
+    every evaluated task (borrowed from whichever task's own training loop
+    or newly-starting task triggered the call), truncating longer-horizon
+    tasks (e.g. RotateValve's 400 steps) to a shorter task's length (e.g.
+    150) whenever evaluated as part of a DIFFERENT task's boundary check.
+    That silently zeroed out tasks that hadn't actually failed -- see
+    docs/cl_v6_arch/EXPERIMENTS.md Block 7.
+    """
     print(f"\n{'#'*100}")
     print(f"### EVALUATE_ALL_TASKS_ENV CALLED ###")
     print(f"### Current training task: {current_task_idx}")
@@ -828,7 +837,7 @@ def evaluate_all_tasks_env(
             task_idx=eval_task_idx,
             task_name=eval_task_name,
             num_episodes=num_episodes,
-            episode_length=episode_length,
+            episode_length=task_data["episode_length"],
             seed=seed + eval_task_idx * 1000,
             wandb_run=wandb_run,
             log_to_wandb=wandb_run is not None,
@@ -1721,7 +1730,6 @@ def main() -> None:
                     task_buffers=task_buffers,
                     current_task_idx=len(task_buffers) - 1,
                     num_episodes=args.env_eval_episodes,
-                    episode_length=task_buffers[0]["episode_length"],
                     seed=args.seed,
                     wandb_run=wandb_run,
                     global_step=global_step,
@@ -1792,7 +1800,6 @@ def main() -> None:
                 task_buffers=task_buffers,
                 current_task_idx=task_idx,
                 num_episodes=args.env_eval_episodes,
-                episode_length=task_data["episode_length"],
                 seed=args.seed,
                 wandb_run=wandb_run,
                 global_step=global_step,
@@ -1893,7 +1900,6 @@ def main() -> None:
                     task_buffers=task_buffers,
                     current_task_idx=task_idx,
                     num_episodes=args.env_eval_episodes,
-                    episode_length=task_data["episode_length"],
                     seed=args.seed + epoch,
                     wandb_run=wandb_run,
                     global_step=global_step,
