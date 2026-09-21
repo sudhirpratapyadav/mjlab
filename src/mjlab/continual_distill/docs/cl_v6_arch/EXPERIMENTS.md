@@ -205,6 +205,42 @@ scale, independent of what `out_head`'s shared weights are shaped for.
 Testing on stress4 (si-coeff 5.0, since that already helped the other three
 tasks) now.
 
+Result: still 0.000. **Seven configurations in a row have now failed on
+RotateValve specifically**, with no run ever producing a single nonzero
+success.
+
+## Block 6 — reframing: this was never a forgetting problem
+
+Re-examined the position-swap result (Block 4) more carefully: RotateValve
+AT POSITION 0 -- the very first task trained, where `si_scale` is
+`jnp.where(task_idx>0, si_coeff, 0.0)` and is therefore **exactly zero** --
+still scored 0.000, with the HIGHEST KL (472) of any RotateValve run.
+**SI cannot be causing a failure that already happens with SI completely
+inactive.** Every fix attempted so far (si-coeff, block FiLM, output-head
+FiLM, output-logit FiLM) targeted anti-forgetting or task-conditioning
+mechanisms -- the wrong category of fix, since there is no forgetting to
+prevent when task_idx==0. This is a plain supervised-learning-capacity
+problem for this one task under this architecture, not a continual-learning
+problem at all.
+
+Testing RotateValve in complete isolation (single-task sequence, no other
+tasks, full 500-epoch budget matching the real full-run config, `si_scale`
+trivially always 0) to separate "does this architecture's supervised
+distillation loss converge on this teacher's data at all" from any CL
+confound entirely.
+
+A true 1-task sequence crashed on an unrelated bug: `SharedResidualStudentMLP`
+with `num_tasks=1` hits a flax `nn.Embed` broadcast error
+(`Cannot broadcast to shape with fewer dimensions: arr_shape=(1, 32)
+shape=(32,)`) during init. Real bug, worth fixing later, not informative
+about RotateValve -- worked around it by training `RotateValve OpenDrawer`
+(2 tasks) and reading RotateValve's result at the moment task 1's "Initial
+Evaluation (Step 0 - Before Training)" fires, i.e. immediately after
+RotateValve's own full 500-epoch training completes and before any
+OpenDrawer training has touched the shared weights. `si_scale` was 0
+throughout RotateValve's training either way (task_idx==0), so this
+preserves the "zero forgetting pressure" property that matters.
+
 ## Planned next
 
 | block | purpose |
